@@ -9,10 +9,10 @@ import { DownloadStatus, EpisodeDownloadType } from "@type/vodDownloadTypes";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import MoreArrow from '@static/images/more_arrow.svg'
-import DownloadYellowMiniIcon from '@static/images/download_yellow_mini.svg'
-import DownloadPauseYellowMiniIcon from '@static/images/download_pause_yellow_mini.svg'
+import DownloadYellowMiniIcon from '@static/images/download_mini.svg'
+import DownloadPauseYellowMiniIcon from '@static/images/download_pause_mini.svg'
 import { VodType } from "@type/ajaxTypes";
-import CheckBoxSelected from "@static/images/checkbox_selected.svg";
+import CheckBoxSelected from "@static/images/ticked.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";
 import { Button } from "@rneui/themed";
@@ -45,28 +45,28 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
     };
   }, []);
 
-  const download = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
-  const state = useAppSelector(({downloadVideoReducer}: RootState) => downloadVideoReducer)
+  const download = useAppSelector(({ downloadVideoReducer }: RootState) => downloadVideoReducer.downloads.find(dl => dl.vod.vod_id === vodId))
+  const state = useAppSelector(({ downloadVideoReducer }: RootState) => downloadVideoReducer)
 
   if (!download) return <></>
 
   const allEpisodes = download.episodes
 
   const getEpisodeName = useCallback((sourceId: number, urlNid: number) => {
-    if (download.vodIsAdult){
+    if (download.vodIsAdult) {
       return download.vod.vod_play_list.urls
         .find(url => url.nid === urlNid)
         ?.name
     } else {
       return download.vod.vod_sources
-      .find(source => source.source_id === sourceId)?.vod_play_list.urls
-      .find(url => url.nid === urlNid)
-      ?.name
+        .find(source => source.source_id === sourceId)?.vod_play_list.urls
+        .find(url => url.nid === urlNid)
+        ?.name
     }
-  }, [download] )
+  }, [download])
 
   const getSourceName = useCallback((sourceId: number, vodIsAdult: boolean) => {
-    if (vodIsAdult){
+    if (vodIsAdult) {
       return '夜来香'
     } else {
       return download.vod.vod_sources.find(source => source.source_id === sourceId)?.source_name
@@ -90,9 +90,9 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
 
-  let resumeTimeout:any; 
+  let resumeTimeout: any;
 
-  const handleDownloadCardPress = (item: EpisodeDownloadType) => 
+  const handleDownloadCardPress = (item: EpisodeDownloadType) =>
     debounce(() => {
       clearTimeout(resumeTimeout)
       if (isEditing) {
@@ -135,22 +135,22 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       }
     }, 200)
 
-  const renderItem = useCallback(({item, index}: {item: EpisodeDownloadType, index: number}) => {
+  const renderItem = useCallback(({ item, index }: { item: EpisodeDownloadType, index: number }) => {
     return <View style={styles.downloadItem}>
       {isEditing && (
         <TouchableOpacity
-        style={styles.checkbox}
-        onPress={() => toggleHistory(item)}
+          style={styles.checkbox}
+          onPress={() => toggleHistory(item)}
         >
-        {removeHistory.some(x => (x.vodUrlNid === item.vodUrlNid && x.vodSourceId === item.vodSourceId) ) ? (
-          <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} />
-        ) : (
-          <CheckBoxUnselected
-            height={icons.sizes.m}
-            width={icons.sizes.m}
-          />
-        )}
-      </TouchableOpacity>
+          {removeHistory.some(x => (x.vodUrlNid === item.vodUrlNid && x.vodSourceId === item.vodSourceId)) ? (
+            <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={colors.primary} />
+          ) : (
+            <CheckBoxUnselected
+              height={icons.sizes.m}
+              width={icons.sizes.m}
+            />
+          )}
+        </TouchableOpacity>
       )
       }
       <DownloadEpisodeDetailCard
@@ -160,26 +160,26 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         activeOpacity={isEditing ? 1 : 0.2}
         onPress={handleDownloadCardPress(item)}
       />
-    </View> 
+    </View>
 
-  }, [removeHistory, isEditing]) 
+  }, [removeHistory, isEditing])
 
 
-  const totalDownloadSize = download.episodes.reduce((prev, curr) => {return prev + curr.sizeInBytes}, 0) / 1024 / 1024 
-  
+  const totalDownloadSize = download.episodes.reduce((prev, curr) => { return prev + curr.sizeInBytes }, 0) / 1024 / 1024
+
   let allButtonText = ''
   let isButtonVisible = false
-  let buttonIcon = <DownloadPauseYellowMiniIcon/>
-  if (download.episodes.every(x => x.status === DownloadStatus.COMPLETED)){
+  let buttonIcon = <DownloadPauseYellowMiniIcon />
+  if (download.episodes.every(x => x.status === DownloadStatus.COMPLETED)) {
     isButtonVisible = false
-  } else if (download.episodes.some(x => x.status === DownloadStatus.DOWNLOADING)){
+  } else if (download.episodes.some(x => x.status === DownloadStatus.DOWNLOADING)) {
     isButtonVisible = true
     allButtonText = "全部暂停"
-    buttonIcon = <DownloadPauseYellowMiniIcon/>
-  } else if (download.episodes.every(x => [DownloadStatus.PAUSED, DownloadStatus.ERROR, DownloadStatus.COMPLETED].includes(x.status))){
+    buttonIcon = <DownloadPauseYellowMiniIcon color={colors.muted} />
+  } else if (download.episodes.every(x => [DownloadStatus.PAUSED, DownloadStatus.ERROR, DownloadStatus.COMPLETED].includes(x.status))) {
     isButtonVisible = true
     allButtonText = "全部下载"
-    buttonIcon = <DownloadYellowMiniIcon/>
+    buttonIcon = <DownloadYellowMiniIcon color={colors.muted} />
   }
 
 
@@ -201,7 +201,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
         download.episodes
           .filter(x => x.status === DownloadStatus.PAUSED || x.status === DownloadStatus.ERROR)
           .forEach((episodeDownload) => {
-            if (episodeDownload.status === DownloadStatus.PAUSED){
+            if (episodeDownload.status === DownloadStatus.PAUSED) {
               dispatch(
                 resumeVideoToDownloadThunk(
                   download.vod,
@@ -211,7 +211,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
                 ),
               );
             }
-            if (episodeDownload.status === DownloadStatus.ERROR){
+            if (episodeDownload.status === DownloadStatus.ERROR) {
               dispatch(
                 restartVideoDownloadThunk(
                   download.vod,
@@ -230,15 +230,15 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
 
   useEffect(() => {
-    if (!isConnected){ // when become offline, 
-      if (!state.currentDownloading) return 
+    if (!isConnected) { // when become offline, 
+      if (!state.currentDownloading) return
       const targetCurrentDownloading = state.currentDownloading.shift()
-      if (!targetCurrentDownloading) return 
+      if (!targetCurrentDownloading) return
 
       dispatch(manualKillVideoDownloadThunk( // manually kill the current downloading one.. 
-        download?.vod, 
-        targetCurrentDownloading.vodSourceId, 
-        targetCurrentDownloading.vodUrlNid, 
+        download?.vod,
+        targetCurrentDownloading.vodSourceId,
+        targetCurrentDownloading.vodUrlNid,
       ))
     }
   }, [isConnected])
@@ -266,14 +266,14 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
       <View style={styles.contentContainer}>
         <View style={styles.moreControlsContainer}>
           <View style={styles.moreControlsLeftContainer}>
-            <TouchableOpacity 
-            style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden} 
-            onPress={() => {
-              setIsLoading(true)
-              handleButtonPress()
-            }} 
+            <TouchableOpacity
+              style={isButtonVisible ? styles.downloadControlButton : styles.downloadControlButtonHidden}
+              onPress={() => {
+                setIsLoading(true)
+                handleButtonPress()
+              }}
             >
-              <Text style={{color: colors.muted, fontSize: 13, }}>
+              <Text style={{ color: colors.muted, fontSize: 13, }}>
                 {allButtonText}
               </Text>
               {buttonIcon}
@@ -281,8 +281,8 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <Text
               style={{
                 color: colors.muted,
-                fontWeight: '400', 
-                fontFamily: 'PingFang SC', 
+                fontWeight: '400',
+                fontFamily: 'PingFang SC',
               }}>
               已用{totalDownloadSize.toFixed(0)}MB
             </Text>
@@ -291,15 +291,15 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <Text
               style={{
                 color: colors.muted,
-                fontWeight: '400', 
-                fontFamily: 'PingFang SC', 
+                fontWeight: '400',
+                fontFamily: 'PingFang SC',
                 lineHeight: icons.sizes.m
               }}
             >下载更多</Text>
-            <MoreArrow style={{height: icons.sizes.m, width: icons.sizes.m}} color={colors.muted} />
+            <MoreArrow style={{ height: icons.sizes.m, width: icons.sizes.m }} color={colors.muted} />
           </Pressable>
         </View>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <FlatList
             data={download.episodes.sort(
               (a, b) =>
@@ -315,8 +315,8 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             <FastImage
               source={LoadingGif}
               style={{
-                width: 150, 
-                height: 150, 
+                width: 150,
+                height: 150,
               }}
             />
           </View>}
@@ -389,35 +389,35 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
 }
 
-export default DownloadDetails; 
+export default DownloadDetails;
 
 const styles = StyleSheet.create({
   downloadMoreButton: {
-    flexDirection: "row", 
-    alignItems: 'center', 
+    flexDirection: "row",
+    alignItems: 'center',
     display: 'none'
-  }, 
+  },
   moreControlsContainer: {
-    flexDirection: "row", 
-    justifyContent: "space-between", 
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingVertical: 6
-  }, 
+  },
   moreControlsLeftContainer: {
-    flexDirection: 'row', 
-    gap: 12, 
+    flexDirection: 'row',
+    gap: 12,
     alignItems: 'center'
-  }, 
+  },
   downloadControlButton: {
-    borderRadius: 22, 
-    borderColor: '#9C9C9C', 
-    borderWidth: 1, 
-    borderStyle: 'solid', 
-    gap: 5, 
-    paddingHorizontal: 12, 
-    paddingVertical: 3, 
-    flexDirection: 'row', 
-    alignContent: 'center', 
-  }, 
+    borderRadius: 22,
+    borderColor: '#9C9C9C',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    gap: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 3,
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
   downloadControlButtonHidden: {
     display: "none"
   },
@@ -425,8 +425,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   downloadItem: {
-    flexDirection: "row", 
-    alignItems: 'center', 
+    flexDirection: "row",
+    alignItems: 'center',
     gap: 14
   },
   confirmationBtn: {
@@ -441,16 +441,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 8,
-  }, 
+  },
   contentContainer: {
     flex: 1
-  }, 
+  },
   loadingOverlayContainer: {
-    flex: 1, 
-    backgroundColor: '#161616A0', 
+    flex: 1,
+    backgroundColor: '#161616A0',
     width: '100%',
     height: '100%',
-    position: 'absolute', 
+    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center'
   }

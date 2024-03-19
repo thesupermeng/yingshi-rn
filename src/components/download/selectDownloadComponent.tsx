@@ -335,6 +335,7 @@ function SelectDownloadComponent({
                       <FinishIcon
                         width={10}
                         height={10}
+                        color={colors.primary}
                       />
                     </View>
                   )}
@@ -342,6 +343,7 @@ function SelectDownloadComponent({
                   {!isVip && !ep.isDownloaded && (
                     <View style={{ ...styles.legend }}>
                       <VipIcon
+                        color={colors.yellow}
                         width={14}
                         height={14}
                       />
