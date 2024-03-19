@@ -4,7 +4,7 @@ import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
 import { CLang } from "@utility/langService";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { NavOptionsType, VodCarousellType, XVodData } from "@type/ajaxTypes";
+import { NavOptionsType, VodCarousellType, XVodData, VodType } from "@type/ajaxTypes";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {
@@ -143,6 +143,12 @@ export class AppsApi {
             if (result.success === false) {
                 throw result.message;
             }
+
+            result.data.categories.forEach((cat: XVodData) => {
+                cat.vod_list.forEach((vod: VodType) => {
+                    vod.vod_source_name = cat.vod_source_name;
+                })
+            })
 
             return result.data.categories as Array<XVodData>;
 

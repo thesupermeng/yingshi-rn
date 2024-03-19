@@ -96,8 +96,6 @@ export default function XVodTab({
         <ShowMoreVodButton
           text={item.type_name.trim()}
           onPress={() => {
-            console.log('ITEMM');
-            console.log(item);
             navigation.navigate("午夜场剧情", {
               class: item.type_name,
               vod_source_name: item.vod_source_name

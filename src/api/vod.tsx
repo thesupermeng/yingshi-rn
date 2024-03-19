@@ -36,7 +36,7 @@ export class VodApi {
                     vod_source_name: vodSourceName
                 }
             });
-
+            
             if (result.success === false) {
                 throw result.message;
             }
@@ -44,7 +44,6 @@ export class VodApi {
             if (result.data === undefined || result.data === null || result.data.length <= 0) {
                 throw CLang.get(CLangKey.apiEmptyResponse);
             }
-
             return result.data[0] as VodType;
 
         } catch (e: any) {

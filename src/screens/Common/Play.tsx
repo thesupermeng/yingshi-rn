@@ -763,7 +763,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchSVod = () =>
     VodApi.getList({
-      category: vod?.vod_class,
+
+      vod_source_name: vod?.vod_source_name,
+      category: vod?.vod_class ? vod?.vod_class : vod?.type_name,
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
       rand: 1,
@@ -1003,7 +1005,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     checkConnection();
-
+    
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
       if (
