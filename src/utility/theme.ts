@@ -252,7 +252,7 @@ export const YingshiLightTheme: ExtendedTheme = {
   dark: false,
   colors: {
     sliderDot: palette.light_grey,
-    muted: palette.grey2,
+    muted: palette.dark,
     title: palette.white,
     primary: palette.primary,
     yellow: palette.yellow,

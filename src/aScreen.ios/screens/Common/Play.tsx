@@ -1092,7 +1092,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   descriptionContainer2Text: {
-    color: "#9C9C9C",
+    color: '#000000',
     fontSize: 14,
   },
   share: {

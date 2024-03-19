@@ -65,7 +65,7 @@ export default function ScreenContainer({
           stickyHeaderIndices={[0]}
           contentContainerStyle={{ paddingBottom: 30 }}
         >
-          <StatusBar backgroundColor="black" barStyle="light-content" />
+          <StatusBar backgroundColor="black" barStyle="dark-content" />
           {header}
           <View
             style={{
@@ -92,7 +92,7 @@ export default function ScreenContainer({
             // height: displayHeight,
           }}
         >
-          <StatusBar backgroundColor="black" barStyle="light-content" />
+          <StatusBar backgroundColor="black" barStyle="dark-content" />
           <View
             style={{
               ...styles.innerContainer,
