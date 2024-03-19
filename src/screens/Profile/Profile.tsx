@@ -478,7 +478,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 >
                   <View style={styles.left}>
                     <View style={styles.icon}>
-                      <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                     </View>
                     <View style={{ gap: 5 }}>
                       <Text
@@ -562,7 +562,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text
@@ -594,7 +594,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text
