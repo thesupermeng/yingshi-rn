@@ -42,6 +42,7 @@ import { User } from "@models/user";
 import { UserStateType } from "@redux/reducers/userReducer";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import TickedIcon from '@static/images/ticked.svg';
+import { IS_OTHER_SKIN } from "@utility/constants";
 
 
 export type SigninupRef = {
@@ -515,7 +516,7 @@ const LoginCard = ({
             style={styles.iconStyle}
             width={18}
             height={18}
-            color={colors.primary}
+            color={IS_OTHER_SKIN ? colors.success : colors.primary}
           />
         )}
 

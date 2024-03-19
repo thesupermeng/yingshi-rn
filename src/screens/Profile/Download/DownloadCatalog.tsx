@@ -15,6 +15,7 @@ import { VodType } from "@type/ajaxTypes"
 import ConfirmationModal from "../../../components/modal/confirmationModal"
 import { Button } from "@rneui/themed"
 import { removeVodFromDownloadThunk } from "@redux/actions/videoDownloadAction"
+import { IS_OTHER_SKIN } from "@utility/constants"
 
 const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -46,7 +47,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
             style={styles.checkbox}
             onPress={() => toggleHistory(item.vod)}>
             {removeHistory.some(x => x.vod_id === item.vod.vod_id) ? (
-              <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={colors.primary} />
+              <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={IS_OTHER_SKIN ? colors.success : colors.primary} />
             ) : (
               <CheckBoxUnselected
                 height={icons.sizes.m}
@@ -154,7 +155,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
                       }
                     }}
                     containerStyle={styles.confirmationBtn}
-                    color={removeHistory.length === 0 ? colors.card2 : colors.primary}
+                    color={removeHistory.length === 0 ? colors.card2 : (IS_OTHER_SKIN ? colors.error : colors.primary)}
                     titleStyle={{
                       ...textVariants.body,
                       color:
@@ -171,7 +172,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
               <EmptyList
                 description="暂无下载视频"
                 additionalElement={
-                  <Pressable style={styles.seeMoreBtn} onPress={handleSeeMore}>
+                  <Pressable style={{ ...styles.seeMoreBtn, backgroundColor: IS_OTHER_SKIN ? 'white' : colors.primary }} onPress={handleSeeMore}>
                     <Text style={styles.seeMoreBtnText}>查看精彩视频</Text>
                   </Pressable>
                 } />

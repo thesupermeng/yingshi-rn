@@ -1,12 +1,16 @@
-import React, { memo } from 'react';
-import {View, StyleSheet} from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import React, { memo, useMemo } from 'react';
+import { View, StyleSheet } from 'react-native';
 
 interface Props {
   data?: any;
   activeIndex?: any;
 }
 
-const CarouselPagination = ({data, activeIndex}: Props) => {
+const CarouselPagination = ({ data, activeIndex }: Props) => {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles({ colors }), [colors]);
+
   return (
     <View style={styles.paginationContainer}>
       {data.map((item: any, index: number) => (
@@ -22,7 +26,7 @@ const CarouselPagination = ({data, activeIndex}: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = ({ colors }: any) => StyleSheet.create({
   paginationContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   paginationDotActive: {
-    backgroundColor: '#FAC33D',
+    backgroundColor: colors.primary,
   },
 });
 
