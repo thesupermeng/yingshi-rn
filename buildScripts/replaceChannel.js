@@ -14,7 +14,7 @@ let umengKey = '';
 // yingshi Staging Key
 // codePushDeploymentKey = "TJMfhAG-GnqKD6ygv0iOCXPvwwraf7MT-89Tm"
 // yingshi Production Key
-codePushDeploymentKey = '55mUjn3__mpCpwLOGdLTBXgQ4NeDWQf_VAwZv';
+codePushDeploymentKey = '3BFrRsSDliI4x7th8OwB0eVyxc43OPqS9YPk5';
 umengKey = '650938dcb2f6fa00ba556645';
 
 // fs.readFile(constantsFilePath, 'utf8', (err, data) => {
