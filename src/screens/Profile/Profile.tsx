@@ -127,7 +127,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       part.toLowerCase() === keyword.toLowerCase() ? (
         <Text
           key={index}
-          style={{ ...textVariants.body, color: colors.primary, fontSize: 15 }}
+          style={{ ...textVariants.body, color: colors.yellow, fontSize: 15 }}
         >
           {part}
         </Text>
@@ -361,7 +361,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     )} */}
                       {User.isVip(userState.user) &&
                         (
-                          <Text style={{ color: colors.primary, fontSize: 14 }}>
+                          <Text style={{ color: colors.yellow, fontSize: 14 }}>
                             VIP会员有效日期至{displayedDate}
                           </Text>
                         )}
@@ -396,7 +396,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
                     <View
                       style={{
-                        backgroundColor: "#FAC33D",
+                        backgroundColor: colors.primary,
                         paddingHorizontal: 16,
                         paddingVertical: 5,
                         borderRadius: 10,
@@ -420,13 +420,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       alignItems: "center",
                     }}
                   >
-                    <Text style={{ color: colors.primary }}>
+                    <Text style={{ color: colors.yellow }}>
                       VIP会员有效日期至{displayedDate}
                     </Text>
 
                     <View
                       style={{
-                        backgroundColor: "#FAC33D",
+                        backgroundColor: colors.primary,
                         paddingHorizontal: 16,
                         paddingVertical: 5,
                         borderRadius: 10,
@@ -478,7 +478,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 >
                   <View style={styles.left}>
                     <View style={styles.icon}>
-                      <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                      <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                     </View>
                     <View style={{ gap: 5 }}>
                       <Text
@@ -562,7 +562,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text
@@ -594,7 +594,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text

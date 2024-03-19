@@ -26,7 +26,7 @@ import { removeUserAuthState } from '@redux/actions/userAction';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
 
-import { APP_NAME_CONST, APP_VERSION } from '@utility/constants';
+import { APP_NAME_CONST, APP_VERSION, IS_OTHER_SKIN } from '@utility/constants';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -120,6 +120,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             title="空间清理"
             subtitle="清除所有的缓存"
             confirmationText="清除"
+            confirmationColor={IS_OTHER_SKIN ? colors.error : undefined}
           />
 
           {User.isLogin(userState.user) &&
