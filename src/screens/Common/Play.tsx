@@ -750,7 +750,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     );
     setCurrentSourceId(vod?.vodSourceId);
   }, [vod]);
-
+  
   const {
     data: suggestedVods,
     isFetching: isFetchingSuggestedVod,
@@ -763,7 +763,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchSVod = () =>
     VodApi.getList({
-      category: vod?.vod_class,
+
+      vod_source_name: vod?.vod_source_name,
+      category: vod?.vod_class ? vod?.vod_class : vod?.type_name,
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
       rand: 1,
@@ -1003,7 +1005,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     checkConnection();
-
+    
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
       if (
@@ -1722,6 +1724,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                       navigation.navigate("午夜场剧情", {
                                         // class: item.vod_list[0].vod_class
                                         class: vod?.vod_class,
+                                        vod_source_name: "",
                                       });
                                     }, 150);
                                   }}

@@ -372,7 +372,7 @@ const createStyles = ({ colors }: any = {}) => StyleSheet.create({
     marginBottom: 8,
   },
   inputFocused: {
-    borderColor: '#FAC33D',
+    borderColor: colors.primary,
     borderWidth: 1,
   },
   iconStyle: {

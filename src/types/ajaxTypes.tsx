@@ -256,6 +256,14 @@ export type VodData = {
     type_id: number
 }
 
+export type XVodData = {
+    vod_list: Array<VodType>
+    type_name: string
+    type_id: number
+    vod_source_name: string
+}
+
+
 type CarouselData = {
     carousel_id: number
     carousel_name: string

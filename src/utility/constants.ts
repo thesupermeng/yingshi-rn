@@ -116,6 +116,8 @@ export const APP_NAME_CONST = '影视TV';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
 
+export const IS_OTHER_SKIN = APP_NAME_CONST !== '爱美剧';
+
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
 export const PLAY_HTTP_SERVER_PORT = 8085;
