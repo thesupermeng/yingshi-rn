@@ -12,21 +12,21 @@ import {AppRegistry} from 'react-native';
 import 'react-native-gesture-handler';
 import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import {name as appName} from './app.json';
-import messaging from '@react-native-firebase/messaging';
+// import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 
 AppRegistry.registerRunnable(appName, async initialProps => {
   CodePush.notifyAppReady();
 
-  const config = {
-    projectId: 'yingshitv',
-    messagingSenderId: '699123886701',
-  };
+  // const config = {
+  //   projectId: 'yingshitv',
+  //   messagingSenderId: '699123886701',
+  // };
 
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-    notifee.displayNotification(remoteMessage.data);
-  });
+  // messaging().setBackgroundMessageHandler(async remoteMessage => {
+  //   console.log('Message handled in the background!', remoteMessage);
+  //   notifee.displayNotification(remoteMessage.data);
+  // });
 
   try {
     // ATRNSDK.initSDK('a5aa1f9deda26d', '4f7b9ac17decb9babec83aac078742c7');

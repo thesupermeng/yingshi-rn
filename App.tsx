@@ -46,8 +46,8 @@ import {CustomEventAnalytic} from './Umeng/EventAnalytic';
 import {logIgnore, warnIgnore} from '@utility/helper';
 import appsFlyer from 'react-native-appsflyer';
 import AppsFlyerAnalytics from './AppsFlyer/AppsFlyerAnalytic';
-import messaging from '@react-native-firebase/messaging';
-import {FirebaseNotification} from '@utility/firebaseNotification';
+// import messaging from '@react-native-firebase/messaging';
+// import {FirebaseNotification} from '@utility/firebaseNotification';
 
 const topon_channel = 'WEB';
 
@@ -118,15 +118,15 @@ let App = () => {
     }
   }, [isConnected]);
 
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      FirebaseNotification.setupLocalNotification(
-        // JSON.stringify(remoteMessage),
-        remoteMessage,
-      );
-    });
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
+  //     FirebaseNotification.setupLocalNotification(
+  //       // JSON.stringify(remoteMessage),
+  //       remoteMessage,
+  //     );
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const downloadWatchAnytimeSequence = async () => {
     await deleteCachedVideos();

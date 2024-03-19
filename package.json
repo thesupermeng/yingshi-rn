@@ -57,8 +57,6 @@
     "@react-native-community/netinfo": "^9.4.1",
     "@react-native-community/segmented-control": "^2.2.2",
     "@react-native-community/slider": "^4.4.2",
-    "@react-native-firebase/app": "^19.0.0",
-    "@react-native-firebase/messaging": "^19.0.0",
     "@react-native-google-signin/google-signin": "^10.1.1",
     "@react-native-picker/picker": "^2.5.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
