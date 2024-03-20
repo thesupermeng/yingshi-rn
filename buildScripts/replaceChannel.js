@@ -15,7 +15,7 @@ let umengKey = '';
 // codePushDeploymentKey = "TJMfhAG-GnqKD6ygv0iOCXPvwwraf7MT-89Tm"
 // yingshi Production Key
 codePushDeploymentKey = '3BFrRsSDliI4x7th8OwB0eVyxc43OPqS9YPk5';
-umengKey = '650938dcb2f6fa00ba556645';
+umengKey = '65f957978d21b86a1842eb15';
 
 // fs.readFile(constantsFilePath, 'utf8', (err, data) => {
 //     if (err) {
@@ -76,7 +76,7 @@ const replaceToChannelAndroid = {
 const replaceToUmengAppKey = {
   files: ['../android/app/build.gradle'],
   from: /resValue "string", "UMENG_APPKEY", "([^"]+)"/g,
-  to: 'resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"',
+  to: 'resValue "string", "UMENG_APPKEY", "65f957978d21b86a1842eb15"',
 };
 
 const replaceAppToponConf = {

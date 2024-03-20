@@ -106,7 +106,7 @@ android {
         // ABB version 2 , 18 march // remember change appsflyer const
         versionCode 2
         versionName "1.7.8"
-        resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
+        resValue "string", "UMENG_APPKEY", "65f957978d21b86a1842eb15"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
