@@ -4,6 +4,7 @@ import React, {
   useRef,
   useCallback,
   useContext,
+  useLayoutEffect,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -114,6 +115,7 @@ import { UserApi } from "@api";
 import { CRouteInitializer } from "../../routes/router";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import { toggleLightTheme } from "@redux/actions/themeAction";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -125,7 +127,7 @@ export default () => {
   const themeReducer = useAppSelector(
     ({ themeReducer }: RootState) => themeReducer
   );
-  const theme = YingshiLightTheme;
+  const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
   let hasNotch = DeviceInfo.hasNotch();
 
@@ -135,6 +137,10 @@ export default () => {
   }
 
   const userState = useSelector<UserStateType>('userReducer');
+
+  useLayoutEffect(() => {
+    dispatch(toggleLightTheme());
+  }, []);
 
   const HomeTabScreen = useCallback(() => {
     return (
@@ -234,7 +240,7 @@ export default () => {
         )}
       </HomeTab.Navigator>
     );
-  }, []);
+  }, [theme]);
 
   const refreshUserState = async () => {
     const result = await UserApi.getUserDetails();

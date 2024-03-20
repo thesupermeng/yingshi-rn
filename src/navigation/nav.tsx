@@ -4,6 +4,7 @@ import React, {
   useRef,
   useCallback,
   useContext,
+  useLayoutEffect,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -137,6 +138,7 @@ import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSu
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import { toggleDarkTheme } from "@redux/actions/themeAction";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -160,6 +162,10 @@ export default () => {
   const userState = useSelector<UserStateType>('userReducer');
 
   const appState = useSelector<BackgroundType>('backgroundReducer');
+
+  useLayoutEffect(() => {
+    dispatch(toggleDarkTheme());
+  }, []);
 
   const HomeTabScreen = useCallback(() => {
     return (
@@ -270,7 +276,7 @@ export default () => {
         )}
       </HomeTab.Navigator>
     );
-  }, []);
+  }, [theme]);
 
   const refreshUserState = async () => {
     const result = await UserApi.getUserDetails();
@@ -577,8 +583,8 @@ export default () => {
         onStateChange={handleStateChange}
       >
 
-  {/* {!appState.isVipPromotionModalShown && showBecomeVIPOverlay && ( */}
-  {/* todo  remove isVipPromotionModalShown in app state  */}
+        {/* {!appState.isVipPromotionModalShown && showBecomeVIPOverlay && ( */}
+        {/* todo  remove isVipPromotionModalShown in app state  */}
         {showBecomeVIPOverlay && (
           <View
             style={{
@@ -902,7 +908,7 @@ export default () => {
           VIP会员
         </Text>
 
-         <Text
+        <Text
           style={{
             color: "#fff",
             fontFamily: "PingFang SC",
@@ -914,13 +920,13 @@ export default () => {
           }}
         >
           请耐心等待VIP生效，或尝试刷新个人中心/重启应用
-        </Text> 
+        </Text>
 
         <TouchableOpacity
           style={{ width: '100%' }}
           onPress={() => {
             setShowPurchasePendingOverlay(false)
-          //  dispatch(showLoginAction());
+            //  dispatch(showLoginAction());
           }}
         >
           <View

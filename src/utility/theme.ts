@@ -109,7 +109,8 @@ export type ExtendedTheme = {
 
 // Add color palettes here:
 const palette = {
-  primary: '#FAC33D',
+  primary: '#FFFFFF',
+  lighPrimary: '#111111',
   confirm: '#0A84FF',
   success: '#34C759',
   error: '#FF1010',
@@ -254,7 +255,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     sliderDot: palette.light_grey,
     muted: palette.dark,
     title: palette.white,
-    primary: palette.primary,
+    primary: palette.lighPrimary,
     yellow: palette.yellow,
     confirm: palette.confirm,
     success: palette.success,
@@ -342,7 +343,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     sideOffset: 16,
   },
   icons: {
-    activeNavIconColor: palette.primary,
+    activeNavIconColor: palette.lighPrimary,
     inactiveNavIconColor: palette.light_grey3,
     iconColor: palette.dark,
     sizes: {

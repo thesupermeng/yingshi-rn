@@ -2,12 +2,15 @@ import React, { memo } from 'react';
 import SearchBar from './searchbar';
 import { View, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 import Logo from '@static/images/logo.svg';
+import LogoLight from '@static/images/logoLight.svg';
 import History from '@static/images/history.svg';
 import { useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { API_DOMAIN } from '@utility/constants';
 import { useMemo } from 'react';
 import { VodApi } from '@api';
+import { useSelector } from '@hooks/hooks';
+import { ThemeActionType } from '@type/actionTypes';
 
 interface Props {
     logo?: React.ReactNode,
@@ -16,6 +19,9 @@ interface Props {
 }
 function MainHeader({ logo, navigator, headerStyle }: Props) {
     const { icons } = useTheme();
+
+    const themeState = useSelector<{ theme: boolean }>('themeReducer');
+    const isDark = themeState.theme === true;
 
     const { data: recommendations } = useQuery({
         queryKey: ["recommendationList"],
@@ -33,7 +39,10 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
             {
                 logo
                     ? logo
-                    : <Logo height={36} />
+                    : (isDark
+                        ? <Logo height={36} />
+                        : <LogoLight height={36} />
+                    )
             }
             {/* <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} /> */}
             {/* <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>

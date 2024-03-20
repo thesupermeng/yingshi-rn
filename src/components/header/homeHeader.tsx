@@ -8,6 +8,7 @@ import {
   Text,
 } from "react-native";
 import Logo from "@static/images/logo.svg";
+import LogoLight from "@static/images/logoLight.svg";
 import VipEntry from "@static/images/splash/VipEntry.svg";
 import History from "@static/images/history.svg";
 import { useTheme } from "@react-navigation/native";
@@ -16,6 +17,7 @@ import { SuggestVodListType } from "@type/ajaxTypes";
 import { useMemo } from "react";
 import { VodApi } from "@api";
 import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { useSelector } from "@hooks/hooks";
 
 interface Props {
   logo?: React.ReactNode;
@@ -24,6 +26,8 @@ interface Props {
 }
 function MainHeader({ logo, navigator, headerStyle }: Props) {
   const { icons } = useTheme();
+  const themeState = useSelector<{ theme: boolean }>('themeReducer');
+  const isDark = themeState.theme === true;
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
@@ -40,7 +44,10 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
 
   return (
     <View style={{ ...styles.container, ...headerStyle }}>
-      {logo ? logo : <Logo height={36} />}
+      {logo ? logo : (isDark
+        ? <Logo height={36} />
+        : <LogoLight height={36} />
+      )}
       <SearchBar
         onPress={() =>
           navigator.navigate("搜索", { initial: randomVod?.vod_name })
