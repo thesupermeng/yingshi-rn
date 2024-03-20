@@ -29,7 +29,7 @@ import { FeedbackApi } from "@api";
 import FastImage from "../../components/common/customFastImage";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {
-  const { colors, textVariants, icons } = useTheme();
+  const { colors, textVariants, icons, dark } = useTheme();
   const [text, setTextInput] = React.useState("");
   const [feedbackCategory, setFeedbackCategory] = React.useState(0);
   const [email, setEmail] = React.useState("");
@@ -149,7 +149,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
         backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         onBackdropPress={() => setIsDialogOpen(false)}
       >
-        {!isOffline && IS_OTHER_SKIN
+        {!isOffline && !dark
           ? <FastImage
             source={require("@static/images/feedback_success.gif")}
             style={{ width: 100, height: 100 }}

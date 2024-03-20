@@ -17,7 +17,7 @@ import { User } from "@models/user";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
   const { vod_id, vod_name, commentItems } = route.params;
-  const { colors, textVariants, } = useTheme();
+  const { colors, textVariants, dark } = useTheme();
   const [comment, setComment] = useState('');
   const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const userState = useSelector<UserStateType>('userReducer');
@@ -83,11 +83,17 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"�
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
       <ScreenContainer
         footer={
-          <View style={{ ...styles.commentContainer, backgroundColor: '#1D2023' }}>
+          <View style={{
+            ...styles.commentContainer,
+            backgroundColor: dark ? "#1d2023" : 'white',
+            shadowColor: '#000000',
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+          }}>
             <TextInput
               style={{
                 ...styles.input,
-                backgroundColor: '#FFFFFF1A',
+                backgroundColor: dark ? "#FFFFFF1A" : '#D9D9D9',
                 ...textVariants.body,
               }}
               onChangeText={setComment}

@@ -1,6 +1,7 @@
 import React, { useState, memo, useCallback } from 'react';
 import ShortVideoPlayer from '../../components/videoPlayer/shortVodPlayer';
 import CollectionBottomSheet from '../../../components/miniCollection/CollectionBottomSheet';
+import { IconGroup } from '../watchAnytime';
 
 interface Props {
     thumbnail?: string;
@@ -40,6 +41,11 @@ function ShortVod({
         setShowBottomSheet(true);
     }
 
+    const maxLength = 10;
+    const vodName = currentVod?.mini_video_original_video_name.length > maxLength
+        ? currentVod?.mini_video_original_video_name.substring(0, maxLength) + '...'
+        : currentVod?.mini_video_original_video_name;
+
     return (
         <>
             <ShortVideoPlayer
@@ -63,6 +69,12 @@ function ShortVod({
                 collectionName={currentVod.mini_video_collection_title}
                 inCollectionView={inCollectionView}
                 changeEpisode={changeEpisode}
+            />
+
+            <IconGroup
+                vodId={currentVod.mini_video_id}
+                vodName={vodName}
+                comments={currentVod?.comments}
             />
         </>
     )

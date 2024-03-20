@@ -21,7 +21,7 @@ export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist
             {
                 leftIcon ?
                     leftIcon
-                    : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : colors.muted, ...buttonStyle, }} />
+                    : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : 'white', ...buttonStyle, }} />
             }
             <Text
                 style={{ ...textVariants.small, color: isFavorited ? colors.background : 'white', ...styles.text, paddingBottom: 3 }}>

@@ -18,7 +18,7 @@ interface Props {
     headerStyle?: ViewStyle,
 }
 function MainHeader({ logo, navigator, headerStyle }: Props) {
-    const { icons } = useTheme();
+    const { icons, colors } = useTheme();
 
     const themeState = useSelector<{ theme: boolean }>('themeReducer');
     const isDark = themeState.theme === true;
@@ -39,10 +39,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
             {
                 logo
                     ? logo
-                    : (isDark
-                        ? <Logo height={36} />
-                        : <LogoLight height={36} />
-                    )
+                    : <Logo height={36} color={colors.primary} />
             }
             {/* <SearchBar onPress={() => navigator.navigate('搜索', { initial: randomVod?.vod_name })} defaultValue={randomVod !== undefined ? randomVod.vod_name : ''} /> */}
             {/* <TouchableOpacity onPress={() => navigator.navigate('播放历史')}>

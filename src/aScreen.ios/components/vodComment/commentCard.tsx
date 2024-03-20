@@ -1,37 +1,42 @@
 import { useTheme } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ActionSheetIOS } from "react-native";
 import FastImage from "react-native-fast-image";
 import { CommentsType } from "@type/ajaxTypes";
 import { CPopup } from "@utility/popup";
 // import DefaultProfileIcon from "@static/images/default_profile.svg";
 import { useAppDispatch } from "@hooks/hooks";
-import { showReportAction } from "@redux/actions/screenAction";
+import { ReportBottomSheet } from "../bottomSheet/reportBottomSheet";
 
 interface Props {
   commentItem: CommentsType;
+}
+
+enum ReportType {
+  色情低俗 = '色情低俗',
+  广告 = '广告',
+  令人恶心 = '令人恶心',
+  违纪违法 = '违纪违法',
+  政治敏感 = '政治敏感',
 }
 
 export const CommentCard = ({ commentItem }: Props) => {
   const { textVariants, colors } = useTheme();
   const dispatch = useAppDispatch();
 
-  const handlePress = async () => {
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        options: ['取消', '色情低俗', '广告', '令人恶心', '违纪违法', '政治敏感'],
-        cancelButtonIndex: 0,
-        userInterfaceStyle: 'dark',
-        tintColor: colors.primary,
-      },
-      buttonIndex => {
-        if (buttonIndex !== 0) {
-          CPopup.showToast("我们将在24小时内处理您的请求，并在确认存在违规行为后采取适当的措施来处理相关内容。")
-        }
-      },
-    );
+  const [showReportModel, setShowReportModel] = useState(false);
 
+  const handlePress = async () => {
+    setShowReportModel(true);
   };
+
+  const onReportSubmit = (type: ReportType) => {
+    setShowReportModel(false);
+    console.log('type: ', type)
+    setTimeout(() => {
+      CPopup.showToast('我们将在24小时内处理您的请求，并在确认存在违规行为后才去适当的措施来处理相关内容。');
+    }, 100);
+  }
 
   return (
     <View style={styles.container}>
@@ -67,6 +72,14 @@ export const CommentCard = ({ commentItem }: Props) => {
           {commentItem.user_review}
         </Text>
       </View>
+
+      <ReportBottomSheet
+        isVisible={showReportModel}
+        selections={Object.values(ReportType)}
+        onButtonPress={(type) => onReportSubmit(type as ReportType)}
+        onBackdropPress={() => setShowReportModel(false)}
+        onCancelPress={() => setShowReportModel(false)}
+      />
     </View>
   )
 }

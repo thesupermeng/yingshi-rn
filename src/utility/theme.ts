@@ -109,7 +109,7 @@ export type ExtendedTheme = {
 
 // Add color palettes here:
 const palette = {
-  primary: '#FFFFFF',
+  primary: '#FAC33D',
   lighPrimary: '#111111',
   confirm: '#0A84FF',
   success: '#34C759',
@@ -270,7 +270,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     notification: palette.yellow,
     search: palette.dark_grey_translucent,
     button: palette.black,
-    playlistFavorite: palette.dark,
+    playlistFavorite: palette.light_grey,
     loading: palette.grey,
     highlight: palette.yello_translucent,
     selected: palette.dark2,

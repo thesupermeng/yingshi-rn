@@ -8,7 +8,6 @@ import {
   Text,
 } from "react-native";
 import Logo from "@static/images/logo.svg";
-import LogoLight from "@static/images/logoLight.svg";
 import VipEntry from "@static/images/splash/VipEntry.svg";
 import History from "@static/images/history.svg";
 import { useTheme } from "@react-navigation/native";
@@ -25,7 +24,7 @@ interface Props {
   headerStyle?: ViewStyle;
 }
 function MainHeader({ logo, navigator, headerStyle }: Props) {
-  const { icons } = useTheme();
+  const { icons, colors } = useTheme();
   const themeState = useSelector<{ theme: boolean }>('themeReducer');
   const isDark = themeState.theme === true;
 
@@ -44,10 +43,7 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
 
   return (
     <View style={{ ...styles.container, ...headerStyle }}>
-      {logo ? logo : (isDark
-        ? <Logo height={36} />
-        : <LogoLight height={36} />
-      )}
+      {logo ? logo : <Logo height={36} color={colors.primary} />}
       <SearchBar
         onPress={() =>
           navigator.navigate("搜索", { initial: randomVod?.vod_name })

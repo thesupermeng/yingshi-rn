@@ -36,7 +36,7 @@ export const UploadResultOverlay = () => {
                         marginBottom: 20,
                     }}
                     resizeMode={"contain"}
-                    source={require("@static/images/profile/login-success.gif")}
+                    source={require("@static/images/profile/login-success.light.gif")}
                 />
 
                 <Text style={{

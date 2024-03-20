@@ -425,7 +425,7 @@ function ShortVideoPlayer({
                     </View>
                   </View>
                 )}
-              <View style={{ marginTop: 10, flexDirection: 'row' }}>
+              <View style={{ marginTop: 10, flexDirection: 'row', width: '70%' }}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                 <View
                   style={{
@@ -433,6 +433,12 @@ function ShortVideoPlayer({
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
                   }}>
+                  <TouchableOpacity>
+                    <Text style={{ ...textVariants.body, color: colors.text, paddingBottom: 8 }}>
+                      @{currentVod.mini_video_author}
+                    </Text>
+                  </TouchableOpacity>
+
                   <TouchableOpacity activeOpacity={0.85}>
                     <Text style={{ ...textVariants.small, color: colors.text, paddingBottom: 20 }}>
                       {currentVod.mini_video_title}
@@ -442,7 +448,7 @@ function ShortVideoPlayer({
               </View>
             </View>
 
-            {currentVod.is_collection?.toLowerCase() == "y" &&
+            {/* {currentVod.is_collection?.toLowerCase() == "y" &&
               <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
                 <TouchableOpacity activeOpacity={0.85} style={{ flex: 1 }} onPress={() => {
                   openBottomSheet();
@@ -458,7 +464,7 @@ function ShortVideoPlayer({
                   </View>
                 </TouchableOpacity>
               </View>
-            }
+            } */}
           </View>
           <Slider
             style={styles.slider}
