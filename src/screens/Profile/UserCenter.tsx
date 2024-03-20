@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ import { CPopup } from "@utility/popup";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
   const { colors } = useTheme();
+  const styles = useMemo(() => createStyles({ colors }), [colors]);
 
   const userState = useSelector<UserStateType>('userReducer');
 
@@ -89,7 +90,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
             style={styles.pressableTextContainer}
             onPress={onPressUsername}
           >
-            <Text style={{ fontSize: 16, color: 'white' }}>
+            <Text style={{ fontSize: 16, color: colors.text }}>
               {username}
             </Text>
           </TouchableOpacity>
@@ -193,12 +194,12 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = ({ dark }: any) => StyleSheet.create({
   pressableTextContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#1d2023',
+    backgroundColor: dark ? "#1d2023" : '#D9D9D9',
     marginTop: 20,
     paddingLeft: 18,
     paddingRight: 13,

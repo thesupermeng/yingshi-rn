@@ -294,7 +294,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               <View style={{ flexDirection: "row" }}>
                 {!User.isLogin(userState.user) || Platform.OS === "android" ? (
                   <ProfileIcon
-                    style={{ color: colors.button, width: 18, height: 18 }}
+                    style={{ color: colors.primary, width: 18, height: 18 }}
                   />
                 ) : (
                   <FastImage
@@ -338,7 +338,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       >
                         <Text
                           style={{
-                            color: "#ffffff",
+                            color: colors.text,
                             fontSize: 20,
                           }}
                           numberOfLines={1}

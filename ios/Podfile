@@ -62,7 +62,7 @@ target 'aimeiju' do
     # 'Microphone',
     # 'Motion',
     # 'Notifications',
-    # 'PhotoLibrary',
+     'PhotoLibrary',
     # 'PhotoLibraryAddOnly',
     # 'Reminders',
     # 'Siri',

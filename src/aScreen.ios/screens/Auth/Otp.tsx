@@ -67,7 +67,7 @@ const OtpInputs = ({
   referralCode,
   countryId,
 }: OtpInputsProps) => {
-  const { colors } = useTheme();
+  const { colors, dark } = useTheme();
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -83,7 +83,8 @@ const OtpInputs = ({
 
   const styles = useMemo(() => createStyles({
     colors,
-  }), []);
+    dark,
+  }), [colors, dark]);
 
   const handleFocus = (index: any) => {
     console.log(index);
@@ -272,7 +273,7 @@ const OtpInputs = ({
   );
 };
 
-const createStyles = ({ colors }: any = {}) => StyleSheet.create({
+const createStyles = ({ colors, dark }: any = {}) => StyleSheet.create({
   headerBarShadow: {
     width: '100%',
     marginTop: 12,
@@ -294,8 +295,8 @@ const createStyles = ({ colors }: any = {}) => StyleSheet.create({
   },
   inputStyle: {
     textAlign: 'center',
-    backgroundColor: '#1D2023',
-    color: '#ffffff',
+    backgroundColor: dark ? "#1d2023" : '#D9D9D9',
+    color: colors.text,
     width: 48,
     height: 48,
     borderRadius: 6,
@@ -303,7 +304,7 @@ const createStyles = ({ colors }: any = {}) => StyleSheet.create({
   },
   inputInvalidStyle: {
     textAlign: 'center',
-    backgroundColor: '#1D2023',
+    backgroundColor: dark ? "#1d2023" : '#D9D9D9',
     color: '#FF1010',
     width: 48,
     height: 48,
@@ -321,14 +322,14 @@ const createStyles = ({ colors }: any = {}) => StyleSheet.create({
     fontWeight: '400',
     fontSize: 15,
     textAlign: 'center',
-    color: '#fff',
+    color: colors.text,
   },
   title: {
     fontWeight: '600',
     fontSize: 26,
     textAlign: 'center',
     marginBottom: 20,
-    color: '#fff',
+    color: colors?.text,
   },
   hyperlink: {
     fontWeight: '600',

@@ -144,7 +144,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           onPress={() => toggleHistory(item)}
         >
           {removeHistory.some(x => (x.vodUrlNid === item.vodUrlNid && x.vodSourceId === item.vodSourceId)) ? (
-            <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={IS_OTHER_SKIN ? colors.success : colors.primary} />
+            <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={IS_OTHER_SKIN ? colors.success : colors.primary} fill={'white'} />
           ) : (
             <CheckBoxUnselected
               height={icons.sizes.m}

@@ -47,7 +47,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
             style={styles.checkbox}
             onPress={() => toggleHistory(item.vod)}>
             {removeHistory.some(x => x.vod_id === item.vod.vod_id) ? (
-              <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={IS_OTHER_SKIN ? colors.success : colors.primary} />
+              <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={IS_OTHER_SKIN ? colors.success : colors.primary} fill={'white'} />
             ) : (
               <CheckBoxUnselected
                 height={icons.sizes.m}

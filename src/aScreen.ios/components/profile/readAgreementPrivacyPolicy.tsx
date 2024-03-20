@@ -18,7 +18,7 @@ export const ReadAgreementPrivacyPolicy = ({
     onPressPrivacyPolicy,
 }: Props) => {
     const { colors } = useTheme();
-    const styles = useMemo(() => createStyle({ colors }), []);
+    const styles = useMemo(() => createStyle({ colors }), [colors]);
 
     return <View
         style={styles.container}
@@ -30,6 +30,7 @@ export const ReadAgreementPrivacyPolicy = ({
                     color={colors.primary}
                     width={16}
                     height={16}
+                    fill={"white"}
                 />
             )}
 

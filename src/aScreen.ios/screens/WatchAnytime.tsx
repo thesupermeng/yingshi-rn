@@ -11,14 +11,14 @@ import { MiniVideo } from '@type/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useTheme } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
-import { MiniVodApi } from '@api';
+import { MiniVodApi, useMinivodQuery } from '@api';
 
 type MiniVideoResponseType = {
     data: {
@@ -31,6 +31,8 @@ type MiniVodRef = {
 };
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
+    const { colors } = useTheme();
+
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
     const [isInBackground, setIsInBackground] = useState(false);
@@ -90,19 +92,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         limit: LIMIT,
     });
 
-    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
-        useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
-            getNextPageParam: (lastPage, allPages) => {
-                if (lastPage === null) {
-                    return undefined;
-                }
-                const nextPage =
-                    lastPage.length === LIMIT ? allPages.length + 1 : undefined;
-                return nextPage;
-            },
-            onSuccess: (data) => {
-            }
-        });
+    const {
+        data: videos,
+        isSuccess,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+        isFetching,
+        refetch,
+    } = useMinivodQuery('normal', true);
 
     useEffect(() => {
         if (videos != undefined) {
@@ -150,7 +148,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
+                <Text style={{ color: colors.text, fontSize: 20 }}>随心看</Text>
             </View>
             {!isOffline &&
                 <MiniVideoList

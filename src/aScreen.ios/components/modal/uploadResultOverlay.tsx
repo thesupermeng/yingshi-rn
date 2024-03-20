@@ -4,7 +4,7 @@ import FastImage from '../common/customFastImage';
 
 
 export const UploadResultOverlay = () => {
-    const { textVariants } = useTheme();
+    const { colors, textVariants } = useTheme();
 
     return (
         <View style={{
@@ -16,7 +16,7 @@ export const UploadResultOverlay = () => {
             alignItems: 'center',
         }}>
             <View style={{
-                backgroundColor: '#222222C8',
+                backgroundColor: colors.background + 'C8',
                 padding: 20,
                 borderRadius: 20,
                 width: '80%',

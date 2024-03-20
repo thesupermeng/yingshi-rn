@@ -1,3 +1,5 @@
+import { useTheme } from "@react-navigation/native";
+import { useMemo } from "react";
 import { StyleSheet, TextInput, TextStyle } from "react-native";
 
 
@@ -8,6 +10,7 @@ type CTextInputProps = {
     maxLength?: number,
     onChangeText?: (value: string) => void,
     showErrorStyle?: boolean,
+    multiline?: boolean,
     style?: TextStyle,
 }
 
@@ -18,8 +21,11 @@ export const CTextInput = ({
     maxLength,
     onChangeText,
     showErrorStyle = false,
+    multiline,
     style,
 }: CTextInputProps) => {
+    const { colors, dark } = useTheme();
+    const styles = useMemo(() => createStyles({ colors, dark }), [colors, dark]);
 
 
     return (
@@ -38,25 +44,26 @@ export const CTextInput = ({
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 maxLength={maxLength}
+                multiline={multiline}
             />
         </>
     );
 }
 
 
-const styles = StyleSheet.create({
+const createStyles = ({ colors, dark }: any) => StyleSheet.create({
     defaultTextInputStyle: {
         paddingLeft: 10,
         height: 42,
         borderRadius: 8,
         fontSize: 14,
         flex: 1,
-        backgroundColor: "#1d2023",
-        color: 'white'
+        backgroundColor: dark ? "#1d2023" : '#D9D9D9',
+        color: colors.text,
     },
     correctTextInputStyle: {
-        backgroundColor: "#1d2023",
-        color: "#fff"
+        backgroundColor: dark ? "#1d2023" : '#D9D9D9',
+        color: colors.text,
     },
     invalidTextInputStyle: {
         backgroundColor: "#311818",

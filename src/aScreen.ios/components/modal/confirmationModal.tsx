@@ -20,7 +20,7 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible, titl
     return (
         <Dialog
             isVisible={isVisible}
-            overlayStyle={{ backgroundColor: 'rgba(34, 34, 34, 1)', ...styles.overlay }}
+            overlayStyle={{ backgroundColor: colors.background, ...styles.overlay }}
             backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
             onBackdropPress={onCancel}
         >
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
     },
     text: {
-        color: 'white',
+        // color: 'white',
         textAlign: 'center'
     },
     btns: {

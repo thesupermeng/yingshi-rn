@@ -374,8 +374,8 @@ const LoginCard = ({
   onPressCountryDropdown,
   onSubmit,
 }: LoginCardProps) => {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles({ colors }), []);
+  const { colors, dark } = useTheme();
+  const styles = useMemo(() => createStyles({ colors, dark }), [colors, dark]);
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -498,7 +498,8 @@ const LoginCard = ({
             style={styles.iconStyle}
             width={18}
             height={18}
-            color={colors.primary}
+            color={colors.success}
+            fill={'white'}
           />
         )}
 
@@ -620,7 +621,7 @@ const LoginCard = ({
             fontWeight: "600",
             fontSize: 14,
             letterSpacing: 0.2,
-            color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
+            color: loginValue === "" || !isReadTermNCondition ? ("white") : 'white',
           }}
         >
           登入
@@ -671,7 +672,7 @@ const LoginCard = ({
   );
 };
 
-const createStyles = ({ colors }: any) => StyleSheet.create({
+const createStyles = ({ colors, dark }: any) => StyleSheet.create({
   textinputContainer: {
     marginTop: 15,
     marginBottom: 10,
@@ -687,7 +688,7 @@ const createStyles = ({ colors }: any) => StyleSheet.create({
     alignItems: 'center',
   },
   tabItemFocusText: {
-    color: 'white',
+    color: colors.text,
     paddingBottom: 10,
   },
   tabItemUnfocusText: {
@@ -722,10 +723,16 @@ const createStyles = ({ colors }: any) => StyleSheet.create({
     fontSize: 14,
     flex: 1,
   },
-  defaultTextInputStyle: { backgroundColor: "#1d2023", color: 'white' },
-  correctTextInputStyle: { backgroundColor: "#1d2023", color: "#fff" },
+  defaultTextInputStyle: {
+    color: colors.text,
+    backgroundColor: dark ? "#1d2023" : '#D9D9D9',
+  },
+  correctTextInputStyle: {
+    color: colors.text,
+    backgroundColor: dark ? "#1d2023" : '#D9D9D9',
+  },
   invalidTextInputStyle: {
-    backgroundColor: "#311818",
+    backgroundColor: dark ? "#1d2023" : '#D9D9D9',
     borderWidth: 1,
     borderColor: "#FF1010",
     color: "#FF1010",
@@ -756,12 +763,12 @@ const createStyles = ({ colors }: any) => StyleSheet.create({
     fontWeight: "400",
     fontSize: 16,
     textAlign: "center",
-    color: "#fff",
+    color: colors.text,
     paddingBottom: 20,
   },
   subtitle: {
     fontWeight: "400",
-    color: "#9c9c9c",
+    color: colors.text,
     textAlign: "center",
     paddingBottom: 25,
   },

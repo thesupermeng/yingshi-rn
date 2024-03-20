@@ -1,27 +1,29 @@
 import { useTheme } from "@react-navigation/native";
 import { Text, View } from "react-native";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
 
 
 export const UploadProgressOverlay = ({
     value,
     minValue = 0,
     maxValue = 100,
+    backgroundColor,
 }: {
     value: number,
     minValue?: number,
     maxValue?: number,
+    backgroundColor?: string,
 }) => {
-    const { textVariants, colors } = useTheme();
+    const { textVariants, colors, dark } = useTheme();
 
     return (
         <View style={{
             position: 'absolute',
             width: '100%',
-            height: '80%',
+            height: '100%',
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: backgroundColor,
         }}>
             <View style={{
                 backgroundColor: '#222222C8',
@@ -34,6 +36,7 @@ export const UploadProgressOverlay = ({
                 <Text style={{
                     marginBottom: 20,
                     ...textVariants.body,
+                    color: 'white',
                 }}>
                     正在上传视频...
                 </Text>
@@ -46,7 +49,7 @@ export const UploadProgressOverlay = ({
                     width: '100%',
                 }}>
                     <View style={{
-                        backgroundColor: colors.primary,
+                        backgroundColor: 'white',
                         borderRadius: 999,
                         height: 8,
                         width: `${value.toString()}%`,

@@ -36,14 +36,15 @@ export const CBottomSheet = ({
     disabledKeyboardAvoiding = false,
     isLoading = false,
 }: CProps) => {
-    const { colors } = useTheme();
+    const { colors, dark } = useTheme();
 
     const styles = useMemo(() => styleCBottomSheet({
+        dark: dark,
         backdropColor: backdropColor,
         bottomsheetColor: colors.bottomSheet,
         bottomsheetPaddingTop: showWhiteLine ? 0 : 40,
         contentContainerHeight: height,
-    }), [backdropColor, colors.bottomSheet, showWhiteLine, height]);
+    }), [dark, backdropColor, colors.bottomSheet, showWhiteLine, height]);
 
     const hook = useCBottomSheetHook();
 
@@ -86,7 +87,7 @@ export const CBottomSheet = ({
                         }
 
                         <ScrollView
-                        keyboardShouldPersistTaps={'handled'}
+                            keyboardShouldPersistTaps={'handled'}
                             showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}
                             style={{
@@ -105,11 +106,13 @@ export const CBottomSheet = ({
 }
 
 const styleCBottomSheet = ({
+    dark,
     backdropColor,
     bottomsheetColor,
     bottomsheetPaddingTop,
     contentContainerHeight,
 }: {
+    dark: boolean,
     backdropColor: string,
     bottomsheetColor: string,
     bottomsheetPaddingTop: number,
@@ -136,7 +139,7 @@ const styleCBottomSheet = ({
         alignItems: "center",
     },
     whiteLine: {
-        backgroundColor: "white",
+        backgroundColor: dark ? "white" : 'black',
         width: 40,
         height: 5,
         borderRadius: 10,

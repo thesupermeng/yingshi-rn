@@ -118,8 +118,9 @@ import { UserApi } from "@api";
 import { CRouteInitializer } from "../../routes/router";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
-import { toggleLightTheme } from "@redux/actions/themeAction";
+import { toggleDarkTheme, toggleLightTheme } from "@redux/actions/themeAction";
 import { UploadVideo } from "../screens/upload/uploadVideo";
+import { UploadVideoPreview } from "../screens/upload/uploadVideoPreview";
 import { UploadHistory } from "../screens/upload/uploadHistory";
 import { loginChecking } from "../../routes/middleware";
 
@@ -145,6 +146,7 @@ export default () => {
   const userState = useSelector<UserStateType>('userReducer');
 
   useLayoutEffect(() => {
+    // dispatch(toggleDarkTheme());
     dispatch(toggleLightTheme());
   }, []);
 
@@ -643,6 +645,12 @@ export default () => {
           />
 
           <Stack.Screen
+            name="uploadVideoPreview"
+            component={UploadVideoPreview}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
             name="uploadHistory"
             component={UploadHistory}
             options={{ orientation: "portrait" }}
@@ -667,6 +675,12 @@ export default () => {
         />
         <CRouteInitializer
           middlewares={{
+            'uploadVideoPreview': [
+              (page) => loginChecking(page, {
+                userState,
+                showLogin: () => dispatch(showLoginAction()),
+              }),
+            ],
             'uploadHistory': [
               (page) => loginChecking(page, {
                 userState,

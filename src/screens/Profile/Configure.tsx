@@ -43,7 +43,7 @@ import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from "@models/user";
 
 export default ({ navigation }: RootStackScreenProps<"设置">) => {
-  const { colors, textVariants, icons, spacing } = useTheme();
+  const { colors, textVariants, icons, spacing, dark } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
   const [isClearDialogOpen, setIsClearDialogOpen] = useState(false);
 
@@ -190,7 +190,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
           <TouchableOpacity onPress={toggleLogoutDialog}>
             <View
               style={{
-                backgroundColor: "#1d2023",
+                backgroundColor: dark ? "#1d2023" : '#D9D9D9',
                 width: "100%",
                 height: 50,
                 borderRadius: 8,

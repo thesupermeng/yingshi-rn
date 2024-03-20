@@ -192,7 +192,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             >
               {!User.isLogin(userState.user) ? (
                 <ProfileIcon
-                  style={{ color: colors.button, width: 18, height: 18 }}
+                  style={{ color: colors.primary, width: 18, height: 18 }}
                 />
               ) : (
                 <FastImage
@@ -216,10 +216,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 {!User.isLogin(userState.user) && (
                   <>
-                    <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                    <Text style={{ ...textVariants.subBody, fontSize: 20, }}>
                       游客您好！
                     </Text>
-                    <Text style={{ color: "#ffffff", fontSize: 14 }}>
+                    <Text style={{ ...textVariants.subBody, fontSize: 14 }}>
                       登录可享更多服务
                     </Text>
                   </>
@@ -236,7 +236,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     >
                       <Text
                         style={{
-                          color: "#ffffff",
+                          color: colors.text,
                           fontSize: 20,
                         }}
                         numberOfLines={1}
