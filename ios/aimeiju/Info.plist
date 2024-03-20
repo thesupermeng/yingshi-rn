@@ -5,7 +5,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>是否允许大萌影视跟踪您在其他公司的App和网站上的活动</string>
+	<string>我们需要得到您的允许，用于推送您感兴趣的广告内容</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -1039,6 +1039,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.4</string>
+	<string>1.8.5</string>
 </dict>
 </plist>
