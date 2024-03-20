@@ -53,13 +53,15 @@ export default function CollectionHeader({selectedTab, setSelectedTab}: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    position:'relative',
+    bottom:4,
     paddingTop: 0,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
     alignItems: 'baseline',
-    paddingBottom: 20,
+    paddingBottom: 10,
   },
   underline: {
     marginTop: 7,

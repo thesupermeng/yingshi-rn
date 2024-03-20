@@ -21,7 +21,6 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
       <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
         <MainHeader
           headerStyle={{
-            marginBottom: spacing.m,
             paddingLeft: spacing.sideOffset,
             paddingRight: spacing.sideOffset,
           }}
@@ -45,7 +44,8 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
         />
         {selectedTab == "专题" && <Topic />}
 
-        {selectedTab == "排行榜" && <Rank />}
+        {selectedTab == "排行榜" && 
+        <Rank />}
       </ScreenContainer>
     </>
   );

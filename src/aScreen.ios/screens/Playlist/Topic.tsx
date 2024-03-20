@@ -183,7 +183,7 @@ function Topic() {
   const [bottomTabHeight, setBottomTabHeight] = useState(60);
 
   return (
-    <>
+    <View style={{     flex: 1,  paddingTop:20}}>
 
         {isRefreshing && !isOffline && (
           <View
@@ -247,7 +247,7 @@ function Topic() {
         )}
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
-    </>
+    </View>
   );
 };
 

@@ -34,7 +34,7 @@ import { RootState } from "@redux/store";
 import { useAppSelector } from "@hooks/hooks";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { PlaylistApi } from "@api";
-import VodWithDescriptionList from "../../../components/vod/vodWithDescriptionList";
+import VodWithDescriptionListRank from "../../../components/vod/vodWithDescriptionListRank";
 
 type FlatListType = {
   item: any;
@@ -155,6 +155,8 @@ function Rank() {
 
           setTabList(data?.pages?.flat());
           setSelectedRankIndex(0);
+
+          setRankVodList(data?.pages[0][selectedRankIndex]?.list);
         }
 
         if (isSwipeRefreshing && data && !error) {
@@ -210,13 +212,13 @@ function Rank() {
     }, 2000); // Adjust the delay time according to your data fetching logic
   }, []);
 
-  useEffect(() => {
-    console.log("selectedRankIndex");
+  // useEffect(() => {
+  //   console.log("selectedRankIndex");
 
-    console.log("setRankVodList");
-    console.log(playlists?.pages[0][selectedRankIndex]?.list);
-    setRankVodList(playlists?.pages[0][selectedRankIndex]?.list);
-  }, [selectedRankIndex]);
+  //   console.log("setRankVodList");
+  //   console.log(playlists?.pages[0][selectedRankIndex]?.list);
+
+  // }, [selectedRankIndex]);
 
   return (
     <>
@@ -247,22 +249,25 @@ function Rank() {
                 key={i}
                 onPress={() => {
                   setSelectedRankIndex(i);
+                  console.log('click')
+                  setRankVodList(playlists?.pages[0][i]?.list);
                 }}
                 style={{
-                  backgroundColor: "#000000",
+                  backgroundColor: selectedRankIndex == i ? "#000000" : 'transparent',
                   paddingVertical: 8,
                   paddingHorizontal: 12,
                   borderRadius: 5,
+                  marginBottom:12
                 }}
               >
-                <Text style={{ color: "#9C9C9C" }}>{tab?.type}</Text>
+                <Text style={{ color: selectedRankIndex == i ? "#ffffff" : '#9c9c9c'}}>{tab?.type}</Text>
               </TouchableOpacity>
             ))}
           </View>
           {/* end  top tab */}
 
-          {rankVodList.length > 0 && (
-            <VodWithDescriptionList
+          {rankVodList?.length > 0 && (
+            <VodWithDescriptionListRank
               vodList={rankVodList}
               onClickCatalogVideo={() => {}}
             />
