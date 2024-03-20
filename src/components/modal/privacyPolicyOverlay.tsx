@@ -50,7 +50,7 @@ export default function PrivacyPolicyOverlay({
     navigation.navigate(view);
     setIsVisible(false);
   }, [])
-
+  console.log('textVariants.subBody: ', textVariants.subBody);
   return (
     <>
       {isVisible &&
@@ -58,7 +58,7 @@ export default function PrivacyPolicyOverlay({
           style={{
             height: '100%',
             width: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backgroundColor: colors.background + 'BB',
             position: 'absolute',
             justifyContent: 'center',
             alignItems: 'center'
@@ -67,7 +67,7 @@ export default function PrivacyPolicyOverlay({
             width: '75%',
             padding: 20,
             gap: spacing.l,
-            backgroundColor: 'rgba(34, 34, 34, 1)',
+            backgroundColor: colors.background,
             ...styles.overlay,
           }}>
             <Text style={{ ...textVariants.header, textAlign: 'center' }}>服务协议和隐私政策</Text>

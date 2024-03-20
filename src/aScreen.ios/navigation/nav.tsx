@@ -48,6 +48,8 @@ import ProfileTabIcon from "@static/images/profile_tab.svg";
 import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
 import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
 import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
+import UploadTabIcon from "@static/images/upload_tab.svg";
+import UploadActiveTabIcon from "@static/images/upload_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
@@ -81,6 +83,7 @@ import {
   removeScreenAction,
   resetBottomSheetAction,
   resetSportWatchTime,
+  showLoginAction,
 } from "@redux/actions/screenAction";
 import { Dialog } from "@rneui/themed";
 // import FastImage from "react-native-fast-image";
@@ -116,6 +119,9 @@ import { CRouteInitializer } from "../../routes/router";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
 import { toggleLightTheme } from "@redux/actions/themeAction";
+import { UploadVideo } from "../screens/upload/uploadVideo";
+import { UploadHistory } from "../screens/upload/uploadHistory";
+import { loginChecking } from "../../routes/middleware";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -154,6 +160,13 @@ export default () => {
           tabBarLabelStyle: {
             paddingBottom: 6,
           },
+          tabBarLabel: (props) => {
+            if (route.name === "上传") return undefined;
+
+            return <Text style={{ color: props.color }}>
+              {props.children}
+            </Text>
+          },
           tabBarIcon: ({ focused, color, size }) => {
             let icon: React.ReactNode;
 
@@ -169,7 +182,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "播单") {
+            } else if (route.name === "发现") {
               icon = focused ? (
                 <PlaylistActiveTabIcon
                   width={iconWidth}
@@ -193,7 +206,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "随心看") {
+            } else if (route.name === "解说") {
               icon = focused ? (
                 <WatchAnytimeActiveTabIcon
                   width={iconWidth}
@@ -217,6 +230,18 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
+            } else if (route.name === "上传") {
+              icon = focused ? (
+                <UploadActiveTabIcon
+                  width={iconWidth}
+                  color={theme.icons.activeNavIconColor}
+                />
+              ) : (
+                <UploadTabIcon
+                  width={iconWidth}
+                  color={theme.icons.inactiveNavIconColor}
+                />
+              );
             }
             return icon;
           },
@@ -225,16 +250,18 @@ export default () => {
         {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
+            <HomeTab.Screen name="解说" component={WatchAnytime} />
             {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="上传" component={UploadVideo} />
+            <HomeTab.Screen name="发现" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         ) : (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="解说" component={WatchAnytime} />
+            <HomeTab.Screen name="上传" component={UploadVideo} />
+            <HomeTab.Screen name="发现" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )}
@@ -614,6 +641,12 @@ export default () => {
             component={VipDetails}
             options={{ orientation: "portrait" }}
           />
+
+          <Stack.Screen
+            name="uploadHistory"
+            component={UploadHistory}
+            options={{ orientation: "portrait" }}
+          />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
           <>
@@ -632,7 +665,16 @@ export default () => {
           showVIPOverlay={showVIPOverlay}
           setShowVIPOverlay={setShowVIPOverlay}
         />
-        <CRouteInitializer />
+        <CRouteInitializer
+          middlewares={{
+            'uploadHistory': [
+              (page) => loginChecking(page, {
+                userState,
+                showLogin: () => dispatch(showLoginAction()),
+              }),
+            ],
+          }}
+        />
       </NavigationContainer>
       <Dialog
         isVisible={isDialogOpen}

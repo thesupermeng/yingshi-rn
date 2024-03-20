@@ -516,7 +516,7 @@ const LoginCard = ({
             style={styles.iconStyle}
             width={18}
             height={18}
-            color={IS_OTHER_SKIN ? colors.success : colors.primary}
+            color={colors.primary}
           />
         )}
 

@@ -27,7 +27,7 @@ export const ReadAgreementPrivacyPolicy = ({
             {isReadChecked && (
                 <TickedIcon
                     style={styles.checkImage}
-                    color={IS_OTHER_SKIN ? colors.success : colors.primary}
+                    color={colors.primary}
                     width={16}
                     height={16}
                 />
