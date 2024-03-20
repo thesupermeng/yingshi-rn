@@ -738,7 +738,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许蚂蚁影视跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -786,7 +786,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许蚂蚁影视跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1068,7 +1068,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许蚂蚁影视跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

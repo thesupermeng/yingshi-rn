@@ -7,8 +7,9 @@ import { User } from "@models/user";
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
   首页: undefined;
-  随心看: undefined;
-  播单: undefined;
+  解说: undefined;
+  发现: undefined;
+  上传: undefined;
   我的: undefined;
   体育: undefined;
   会员中心: undefined;
@@ -17,22 +18,25 @@ export type HomeTabParamList = {
 export type ProfileTabParamList = {
   我的: undefined;
   首页: undefined;
-  随心看: undefined;
-  播单: undefined;
+  上传: undefined;
+  解说: undefined;
+  发现: undefined;
 };
 
 export type PlaylistTabParamList = {
   我的: undefined;
   首页: undefined;
-  随心看: undefined;
-  播单: undefined;
+  上传: undefined;
+  解说: undefined;
+  发现: undefined;
 };
 
 export type WatchAnytimeTabParamList = {
   我的: undefined;
   首页: undefined;
-  随心看: undefined;
-  播单: undefined;
+  上传: undefined;
+  解说: undefined;
+  发现: undefined;
 };
 
 export type RootStackParamList = {
@@ -118,6 +122,8 @@ export type RootStackParamList = {
     vodId: number
   };
   续费服务: undefined,
+  uploadVideo: undefined,
+  uploadHistory: undefined,
 };
 
 export type RootStackScreenProps<

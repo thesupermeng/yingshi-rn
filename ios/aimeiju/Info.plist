@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>是否允许蚂蚁影视跟踪您在其他公司的App和网站上的活动</string>
+	<string>为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>

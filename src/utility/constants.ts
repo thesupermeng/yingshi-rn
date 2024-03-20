@@ -122,7 +122,7 @@ export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
 export const PLAY_HTTP_SERVER_PORT = 8085;
 
-export const SHOW_ZF_CONST = true;
+export const SHOW_ZF_CONST = false;
 
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 
@@ -162,3 +162,7 @@ export const DOWNLOAD_FEATURE_ENABLED = true;
 export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+export const VIDEO_UPLOAD_DEFAULT_SIZE = 1000000; // 1 mb
+export const VIDEO_UPLOAD_SPEED = 900000; // 900 kb
+

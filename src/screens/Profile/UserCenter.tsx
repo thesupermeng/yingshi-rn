@@ -19,6 +19,7 @@ import FastImage from "../../components/common/customFastImage";
 import { ChangeUsernameModal } from "../../components/modal/changeUsernameModal";
 import { ChangeReferrerModal } from "../../components/modal/changeReferrerModal";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { CPopup } from "@utility/popup";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
   const { colors } = useTheme();
@@ -66,8 +67,11 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
       >
         <View style={{ marginTop: 30 }}>
 
-          <View
+          <TouchableOpacity
             style={styles.pressableTextContainer}
+            onPress={() => {
+              CPopup.showToast('目前暂不支持更改头像，敬请期待');
+            }}
           >
             <Text style={{ fontSize: 16, color: '#9C9C9C' }}>头像</Text>
             <FastImage
@@ -77,7 +81,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
               }}
               source={require('@static/images/profilePic.png')}
             />
-          </View>
+          </TouchableOpacity>
 
 
           {/* username  */}
