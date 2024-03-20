@@ -53,7 +53,9 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVertical from "../../components/vod/vodListVertical";
-import VodPlayer from "../../components/videoPlayer/vodPlayer";
+
+
+import VodPlayerMin from "../../components/videoPlayer/vodPlayerMin";
 import { FlatList } from "react-native-gesture-handler";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import BingSearch from "../../components/container/bingSearchContainer";
@@ -240,6 +242,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const [showLoading, setShowLoading] = useState(true);
 
   const [isReadyPlay, setReadyPlay] = useState(false);
+  const videoRef = useRef<VideoRef>();
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -259,6 +262,38 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       ),
     [currentEpisode, showEpisodeRangeStart, vod]
   );
+
+
+
+  const [yuGaoUrl, setYuGaoUrl] = useState("");
+  useEffect(() => {
+    if (vod?.vod_id) {
+      switch (vod?.vod_id) {
+        case 60612:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/60612.mp4");
+          break;
+        case 72281:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/72281.mp4");
+          break;
+        case 68460:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/68460.mp4");
+          break;
+        case 72629:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/72629.mp4");
+          break;
+        case 74797:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/74797.mp4");
+          break;
+        case 73474:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/73474.mp4");
+          break;
+        default:
+          setYuGaoUrl("");
+      }
+    }
+  }, [vod]);
+
+
   const onShare = async () => {
     try {
       // ========== for analytics - start ==========
@@ -666,6 +701,19 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     }
   };
 
+
+  useFocusEffect(useCallback(() => {
+    if (videoRef !== undefined && videoRef.current?.isPaused) {
+      videoRef.current.setPause(false);
+    }
+    return () => {
+      if (videoRef !== undefined && !videoRef.current?.isPaused) {
+        videoRef.current?.setPause(true);
+      }
+    }
+  }, []));
+
+
   return (
     <>
       <KeyboardAvoidingView
@@ -832,7 +880,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                     paddingBottom: 3,
                                   }}
                                 >
-                                  收藏
+                                  收藏  
                                 </Text>
                               )}
                             </View>
@@ -955,6 +1003,25 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       </View>
                     </TouchableOpacity>
                   </View>
+
+                     {/* todo  */}
+                     <>
+                    {
+                      yuGaoUrl && (
+                        <VodPlayerMin
+                          ref={videoRef}
+                          //   onBack={onHandleBack}
+                          vod_url={yuGaoUrl}
+                          videoType="vod"
+                          //  vodTitle={ vod?.vod_name}
+                          appOrientation={settingsReducer.appOrientation}
+                          devicesOrientation={settingsReducer.devicesOrientation}
+                          lockOrientation={lockOrientation}
+                        // onReadyForDisplay={onReadyForDisplay}
+                        />
+                      )
+                    }
+                  </>
                   {/* show 选集播放 section when avaiable episode more thn 1 */}
                   <>
                     {isFetchingVodDetails ||

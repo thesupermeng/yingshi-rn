@@ -293,9 +293,7 @@ const RecommendationHome = ({
               )}
               <View>
                 <View style={{gap: spacing.m}}></View>
-
-
-   {/* 预告  */}
+                 {/* 预告  */}
                  {yuGaoList &&  (
                     <View
                       key={yuGaoList.type_name}
