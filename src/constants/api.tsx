@@ -25,6 +25,7 @@ export class CEndpoint {
     static vodGetAdsSlot = 'ads/v1/slot';
 
     static minivodGetList = 'miniVod/v2/miniVod';
+    static minivodGetListA = 'miniVod/v2/miniVodA';
     static minivodGetXList = 'miniSVod/v1/miniSVod';
     static minivodGetCollections = (id: number) => `miniVod/v2/collections/${id}`;
 

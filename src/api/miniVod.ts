@@ -84,6 +84,42 @@ export class MiniVodApi {
       throw e;
     }
   };
+
+  static getAListByPage = async ({
+    page,
+    limit = 100,
+    exclude,
+    xMode = false,
+    isVip = false,
+  }: {
+    page: number,
+    limit?: number,
+    exclude?: string,
+    xMode?: boolean,
+    isVip?: boolean
+  }) => {
+    console.debug('1231231')
+    try {
+      const result = await CApi.get(CEndpoint.minivodGetListA, {
+        query: {
+          page,
+          limit,
+          exclude,
+          isVip,
+        }
+      });
+
+      if (result.success === false) {
+        throw result.message;
+      }
+
+      return result.data as MiniVideoListType;
+
+    } catch (e: any) {
+      console.error(`[Error getListByPage}]: ${e.toString()}`);
+      throw e;
+    }
+  };
 }
 
 type MiniVideoResponseType = {
@@ -91,6 +127,24 @@ type MiniVideoResponseType = {
     List: Array<MiniVideo>;
   };
 };
+
+const fetchAMiniVods = async (page: number, { from = 'local', isVip = false }: { from?: 'api' | 'local', isVip?: boolean } = {}) => {
+  const apiCacheExists = await getIsApiCacheExist()
+  if (!apiCacheExists || from === 'api' || page > 1 || DOWNLOAD_WATCH_ANYTIME === false) {
+
+    const excluded = await getExcludedIds()
+    const result = await MiniVodApi.getAListByPage({
+      page,
+      limit: 300,
+      exclude: excluded.join(','),
+      isVip,
+    });
+    return result.List
+  } else {
+
+    return customShuffleWithAds(await getApiCache())
+  }
+}
 
 const fetchMiniVods = async (page: number, { from = 'local', isVip = false }: { from?: 'api' | 'local', isVip?: boolean } = {}) => {
   const apiCacheExists = await getIsApiCacheExist()
@@ -149,12 +203,14 @@ const prefetchAdultMiniVod = async (queryClient: QueryClient) => {
   // console.info('done prefetch adult minivod')
 };
 
-const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean) => useInfiniteQuery(
+const useMinivodQuery = (fetchMode: 'adult' | 'normal', isVip: boolean, { isAscreen = false }: {
+  isAscreen?: boolean,
+} = {}) => useInfiniteQuery(
   ['watchAnytime', fetchMode, isVip],
   ({ pageParam = 1 }) => {
     // console.log('fetchMode -', fetchMode);
     if (fetchMode == 'normal') {
-      return fetchMiniVods(pageParam, { isVip });
+      return isAscreen ? fetchAMiniVods(pageParam, { isVip }) : fetchMiniVods(pageParam, { isVip });
     } else {
       return fetchAdultVods(pageParam, isVip);
     }

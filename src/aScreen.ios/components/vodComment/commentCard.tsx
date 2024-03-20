@@ -22,7 +22,8 @@ export const CommentCard = ({ commentItem }: Props) => {
         options: ['取消', '色情低俗', '广告', '令人恶心', '违纪违法', '政治敏感'],
         cancelButtonIndex: 0,
         userInterfaceStyle: 'dark',
-        tintColor: colors.primary,
+        // tintColor: colors.primary,
+        tintColor: 'white',
       },
       buttonIndex => {
         if (buttonIndex !== 0) {

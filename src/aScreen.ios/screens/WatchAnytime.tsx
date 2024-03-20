@@ -100,7 +100,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         isFetchingNextPage,
         isFetching,
         refetch,
-    } = useMinivodQuery('normal', true);
+    } = useMinivodQuery('normal', true, { isAscreen: true });
 
     useEffect(() => {
         if (videos != undefined) {
