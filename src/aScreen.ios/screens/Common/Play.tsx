@@ -854,23 +854,24 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                 flexDirection: "row",
                                 alignItems: "center",
                                 gap: spacing.xxs,
+                               
                               }}
                             >
                               <FavoriteIcon
                                 width={18}
                                 height={18}
                                 style={{
-                                  color: isFavorite
-                                    ? colors.primary
-                                    : colors.muted,
+                                  color: isFavorite == true ?  "#FAC33D" : '#9C9C9C'
                                 }}
                               />
                               {isFavorite ? (
                                 <Text
                                   style={{
                                     ...textVariants.subBody,
-                                    color: colors.primary,
-                                    paddingBottom: 3,
+                                   // color: colors.primary,
+
+                                    color: isFavorite == true ?  "#FAC33D" : '#9C9C9C',
+                                    paddingBottom: 0,
                                   }}
                                 >
                                   已收藏
@@ -879,8 +880,9 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                 <Text
                                   style={{
                                     ...textVariants.subBody,
-                                    color: colors.muted,
-                                    paddingBottom: 3,
+                                    //color: colors.muted,
+                                    color: isFavorite == true ?  "#FAC33D" : '#9C9C9C',
+                                    paddingBottom: 0,
                                   }}
                                 >
                                   收藏

@@ -35,7 +35,10 @@ export default function FavoriteVodButton({
   const { colors, textVariants, spacing, icons } = useTheme();
   const dispatch = useAppDispatch();
   return (
-    <View style={styles.btn}>
+    <View style={{
+...styles.btn,
+
+    }}>
       <Text
         numberOfLines={1}
         style={{
@@ -53,7 +56,13 @@ export default function FavoriteVodButton({
             dispatch(addVodToFavorites(vod));
           }
         }}
-        style={{ marginLeft: spacing.xs }}>
+        style={{ marginLeft: spacing.xs , 
+          paddingVertical:5,
+          paddingHorizontal:8,
+          borderRadius:5,
+          backgroundColor: initialState == true
+          ? "#000000"
+          : '#F3F3F3',}}>
         {leftIcon ? (
           leftIcon
         ) : (
