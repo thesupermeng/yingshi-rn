@@ -33,7 +33,7 @@ export default function RecommendationList({recommendationList}: Props) {
             marginBottom: spacing.m,
             gap: spacing.s,
           }}>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             style={styles.suggestionName}
             onPress={() => {
               setTimeout(() => {

@@ -23,7 +23,7 @@ export const CountryPhoneList = ({
                 showsVerticalScrollIndicator={false}
                 data={data}
                 renderItem={({ item, index }) => {
-                    return <TouchableOpacity
+                    return <TouchableOpacity activeOpacity={0.85}
                         onPress={() => onSelectPhoneCode(item)}
                         style={dataSelected === item ? styles.selected : styles.unselected}
                     >

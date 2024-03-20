@@ -70,7 +70,7 @@ export default function VodLiveStationListVertical({
       const row = (
         <View key={i} style={{ ...styles.cardRow, gap: 10 }}>
           {rowItems.map(item => (
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.85}
               key={item.id}
               style={styles.cardItem}
               onPress={() => {

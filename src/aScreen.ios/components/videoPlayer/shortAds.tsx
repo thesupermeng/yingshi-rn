@@ -311,7 +311,7 @@ function ShortAds({
                             {currentVod.ads_desc1}
                         </Text>
 
-                        <TouchableOpacity
+                        <TouchableOpacity activeOpacity={0.85}
                             onPress={onAdsBtnPress}
                             style={{
                                 ...styles.adsBtn,

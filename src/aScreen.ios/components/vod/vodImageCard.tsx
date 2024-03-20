@@ -20,7 +20,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
     return (
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
             style={styles.vod}
             onPress={onPress}
             disabled={isDisabled}

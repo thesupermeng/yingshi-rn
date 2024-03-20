@@ -162,6 +162,7 @@ const RecommendationHome = ({
         : item.carousel_id;
       return (
         <TouchableOpacity
+        activeOpacity={0.85}
           key={`slider-${key}`}
           onPress={() => {
             dispatch(playVod(item.vod));

@@ -45,7 +45,7 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
     }
 
     const renderItem = useCallback(({ item, index }: { item: string, index: number }) => {
-        return <TouchableOpacity style={styles.btn} onPress={() => setCurrentIndex(index)}>
+        return <TouchableOpacity activeOpacity={0.85} style={styles.btn} onPress={() => setCurrentIndex(index)}>
             <Text
                 style={{
                     textAlign: 'center', ...textVariants.header,
@@ -72,7 +72,7 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
                     data={ranges}
                     renderItem={renderItem}
                 />
-                {/* <TouchableOpacity style={styles.sortBtn} onPress={sort}>
+                {/* <TouchableOpacity activeOpacity={0.85} style={styles.sortBtn} onPress={sort}>
                     <View style={{ paddingTop: 4 }}>
                         {
                             sortBy === 'asc'
@@ -93,7 +93,7 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
             <ScrollView contentContainerStyle={styles.episodeList}>
                 {
                     displayEpisodes?.map((ep, idx) =>
-                        <TouchableOpacity key={`expand-${idx}`} onPress={() => {
+                        <TouchableOpacity activeOpacity={0.85} key={`expand-${idx}`} onPress={() => {
                             onConfirm(ep.nid);
                             onCancel();
                         }} style={{ paddingRight: spacing.s }}>

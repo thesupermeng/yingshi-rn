@@ -104,7 +104,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
                 <Text style={{ ...textVariants.body, color: comment.length === 200 ? colors.primary : colors.muted }}>
                   {comment.length}/200
                 </Text>
-                <TouchableOpacity
+                <TouchableOpacity activeOpacity={0.85}
                   onPress={() => {
                     setComment('');
                     storeUserComments();
@@ -114,7 +114,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
                 </TouchableOpacity>
               </>
             ) : (
-              <TouchableOpacity
+              <TouchableOpacity activeOpacity={0.85}
                 onPress={() => dispatch(showLoginAction())}
               >
                 <Text style={{ ...textVariants.body, color: colors.primary }}>

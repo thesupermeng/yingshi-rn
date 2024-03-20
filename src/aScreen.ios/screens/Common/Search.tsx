@@ -190,7 +190,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           value={search}
           clearIcon={
             search ? (
-              <TouchableOpacity
+              <TouchableOpacity activeOpacity={0.85}
                 onPress={() => {
                   setSearchResults([]);
                   setSearch("");
@@ -230,7 +230,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
                   <View style={{ gap: spacing.m }}>
                     <View style={styles.rowApart}>
                       <Text style={{ ...textVariants.header }}>历史搜索</Text>
-                      <TouchableOpacity
+                      <TouchableOpacity activeOpacity={0.85}
                         style={styles.rowApart}
                         onPress={() => {
                           setIsDialogOpen(true);
@@ -257,7 +257,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
                           return null; // Skip rendering for empty strings
                         }
                         return (
-                          <TouchableOpacity
+                          <TouchableOpacity activeOpacity={0.85}
                             key={`search-${idx}`}
                             style={{
                               backgroundColor: colors.search,

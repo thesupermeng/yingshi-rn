@@ -351,6 +351,7 @@ const RecommendationHome = ({
         : item.carousel_id;
       return (
         <TouchableOpacity
+        activeOpacity={0}
           key={`slider-${key}`}
           onPress={() => {
             if (item.is_ads == true) {

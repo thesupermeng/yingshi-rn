@@ -28,10 +28,10 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible, titl
                 <Text style={{ ...textVariants.header, ...styles.text, }}>{title}</Text>
                 <Text style={{ ...textVariants.subBody, ...styles.text, }} >{subtitle}</Text>
                 <View style={styles.btns}>
-                    <TouchableOpacity style={styles.btn} onPress={onCancel}>
+                    <TouchableOpacity activeOpacity={0.85} style={styles.btn} onPress={onCancel}>
                         <Text style={{ ...textVariants.body, ...styles.text, }}>{cancelText}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn} onPress={onConfirm}>
+                    <TouchableOpacity activeOpacity={0.85} style={styles.btn} onPress={onConfirm}>
                         <Text style={{ ...textVariants.body, ...styles.text, color: confirmationColor ?? (IS_OTHER_SKIN ? colors.confirm : colors.primary) }}>{confirmationText}</Text>
                     </TouchableOpacity>
                 </View>

@@ -23,7 +23,7 @@ export const ReadAgreementPrivacyPolicy = ({
     return <View
         style={styles.container}
     >
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.85} onPress={onPress}>
             {isReadChecked && (
                 <TickedIcon
                     style={styles.checkImage}
@@ -44,13 +44,13 @@ export const ReadAgreementPrivacyPolicy = ({
 
         <Text style={styles.descriptionText}>我已阅读并同意</Text>
 
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
             onPress={onPressUserAgreement}
         >
             <Text style={styles.linkText}>用户协议</Text>
         </TouchableOpacity>
         <Text style={styles.descriptionText}>和</Text>
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
             onPress={onPressPrivacyPolicy}
         >
             <Text style={styles.linkText}>隐私协议</Text>

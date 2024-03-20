@@ -16,7 +16,7 @@ export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist
     const dispatch = useAppDispatch();
     const isFavorited = favoritePlaylistSelector.playlistFavorites.some(x => x.topic_id === playlist.topic_id);
     return (
-        <TouchableOpacity onPress={() => dispatch(togglePlaylistFavorites(playlist))}
+        <TouchableOpacity activeOpacity={0.85} onPress={() => dispatch(togglePlaylistFavorites(playlist))}
             style={{ ...styles.btn, backgroundColor: isFavorited ? colors.primary : colors.playlistFavorite, ...buttonStyle }}>
             {
                 leftIcon ?

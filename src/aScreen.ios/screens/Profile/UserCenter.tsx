@@ -65,7 +65,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
         }}
       >
         <View style={{ marginTop: 30 }}>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             style={styles.pressableTextContainer}
             onPress={() => {
               CPopup.showToast('目前暂不支持更改头像，敬请期待');
@@ -82,7 +82,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
           </TouchableOpacity>
 
           {/* username  */}
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             style={styles.pressableTextContainer}
             onPress={onPressUsername}
           >
@@ -101,7 +101,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
           {/* referral  */}
           {userState.user?.userReferrerName == '' &&
             userState.user.userAllowUpdateReferral == true &&
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.85}
               style={styles.pressableTextContainer}
               onPress={onPressReferrer}
             >
@@ -130,7 +130,7 @@ export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
           )}
 
           {/* copy referral */}
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             style={styles.pressableTextContainer}
             onPress={onCopyReferralCode}
           >

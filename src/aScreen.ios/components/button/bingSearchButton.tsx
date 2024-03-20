@@ -13,7 +13,7 @@ const handleBingSearch = (movieTitle: string) => {
 
 export default function BingSearchButton({vodTitle}: Props) {
   return (
-    <TouchableOpacity onPress={() => handleBingSearch(vodTitle)}>
+    <TouchableOpacity activeOpacity={0.85} onPress={() => handleBingSearch(vodTitle)}>
       <LinearGradient
         colors={['#54CCFB', '#1D52DF']}
         angle={180}

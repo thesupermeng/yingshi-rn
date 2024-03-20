@@ -314,7 +314,7 @@ function ShortVideoPlayer({
                             justifyContent: 'flex-end',
                           }}
                           onLayout={handleViewLayout}>
-                          <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
+                          <TouchableOpacity activeOpacity={0.85} style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
                             <FastImage
                               style={{ flex: 1, borderRadius: 6 }}
                               source={{
@@ -334,7 +334,7 @@ function ShortVideoPlayer({
                             marginRight: 6
                           }}
                           onLayout={handleViewLayout}>
-                          <TouchableOpacity style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
+                          <TouchableOpacity activeOpacity={0.85} style={{ flex: 1, position: 'relative' }} onPress={redirectVod}>
                             <FastImage
                               style={{ flex: 1, borderRadius: 6, position: 'absolute', width: '100%', height: '100%', zIndex: 3 }}
                               source={{
@@ -370,7 +370,7 @@ function ShortVideoPlayer({
                           marginLeft: 10,
                           marginRight: 5,
                         }}>
-                        <TouchableOpacity onPress={redirectVod}>
+                        <TouchableOpacity activeOpacity={0.85} onPress={redirectVod}>
                           <View
                             style={{
                               flexDirection: 'column',
@@ -433,7 +433,7 @@ function ShortVideoPlayer({
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
                   }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity activeOpacity={0.85}>
                     <Text style={{ ...textVariants.small, color: colors.text, paddingBottom: 20 }}>
                       {currentVod.mini_video_title}
                     </Text>
@@ -444,7 +444,7 @@ function ShortVideoPlayer({
 
             {currentVod.is_collection?.toLowerCase() == "y" &&
               <View style={{ backgroundColor: '#171717', paddingBottom: 18, paddingTop: 12, paddingLeft: 20, paddingRight: 20 }}>
-                <TouchableOpacity style={{ flex: 1 }} onPress={() => {
+                <TouchableOpacity activeOpacity={0.85} style={{ flex: 1 }} onPress={() => {
                   openBottomSheet();
                 }}>
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>

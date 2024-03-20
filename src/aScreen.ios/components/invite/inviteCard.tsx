@@ -388,7 +388,7 @@ export default function InviteCard({ userState = {} }: Props) {
           </View>
         </LinearGradient>
         {/* invite button  component  */}
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
           onPress={() => {
             if (User.isGuest(userState)) {
               console.log("toggle login");
@@ -419,20 +419,20 @@ export default function InviteCard({ userState = {} }: Props) {
         {/* social media share section  */}
 
         <View style={{ ...styles.share, gap: 10 }}>
-          <TouchableOpacity onPress={toggleShare}>
+          <TouchableOpacity activeOpacity={0.85} onPress={toggleShare}>
             <WeChatIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleShare}>
+          <TouchableOpacity activeOpacity={0.85} onPress={toggleShare}>
             <PYQIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleShare}>
+          <TouchableOpacity activeOpacity={0.85} onPress={toggleShare}>
             <SinaIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleShare}>
+          <TouchableOpacity activeOpacity={0.85} onPress={toggleShare}>
             <QQIcon />
           </TouchableOpacity>
 
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             onPress={() => {
               if (User.isGuest(userState)) {
                 dispatch(showLoginAction());
@@ -448,7 +448,7 @@ export default function InviteCard({ userState = {} }: Props) {
           </TouchableOpacity>
         </View>
         {/* stat section  */}
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
           onPress={() => {
             if (User.isGuest(userState)) {
               console.log("toggle login");

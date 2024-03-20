@@ -44,14 +44,14 @@ export const CommentCard = ({ commentItem }: Props) => {
           <Text style={{ ...textVariants.bodyBold, flex: 1 }}>
             {commentItem.user_name}
           </Text>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             onPress={handlePress}
             style={styles.btnContainer}>
             <Text style={{ ...textVariants.small, textAlign: 'center' }}>
               举报
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             onPress={() => CPopup.showToast("拉黑成功！已不能在接受对方的消息！")}
             style={styles.btnContainer}>
             <Text style={{ ...textVariants.small, textAlign: 'center' }}>

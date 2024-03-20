@@ -101,7 +101,7 @@ function VodEpisodeSelectionModal({
           }}>
           {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
         </Text>
-        <TouchableOpacity style={styles.sortBtn} onPress={sort}>
+        <TouchableOpacity activeOpacity={0.85} style={styles.sortBtn} onPress={sort}>
           <View style={{paddingTop: 4}}>
             {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
           </View>
@@ -123,7 +123,7 @@ function VodEpisodeSelectionModal({
           paddingBottom: insets.bottom,
         }}>
         {displayEpisodes?.map((ep, idx) => (
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             key={`expand-${idx}`}
             onPress={() => {
               onConfirm(ep.nid);

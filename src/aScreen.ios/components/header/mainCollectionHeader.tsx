@@ -32,21 +32,21 @@ export default function CollectionHeader({selectedTab, setSelectedTab}: Props) {
 
   return (
     <View style={{...styles.container, gap: spacing.l}}>
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         onPress={() => {
           setSelectedTab('视频收藏');
         }}>
         <Text style={btnStyle('视频收藏')}>视频</Text>
         <View style={underlineStyle('视频收藏')} />
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         onPress={() => {
           setSelectedTab('播单收藏');
         }}>
         <Text style={btnStyle('播单收藏')}>播单</Text>
         <View style={underlineStyle('播单收藏')} />
       </TouchableOpacity>
-      {/* <TouchableOpacity onPress={navigate('合集收藏')}>
+      {/* <TouchableOpacity activeOpacity={0.85} onPress={navigate('合集收藏')}>
                 <Text style={btnStyle('合集收藏')}>合集</Text>
                 <View style={underlineStyle('合集收藏')}></View>
             </TouchableOpacity> */}

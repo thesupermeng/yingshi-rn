@@ -86,7 +86,7 @@ export default function VipOverlay({ }: Props) {
                   领取30天VIP会员
                 </Text>
                 <View style={{ paddingTop: 22, alignItems: 'center' }}>
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     onPress={() => {
                       hideVipPrompt();
                       setTimeout(() => { // delay to ensure modal is hidden first 
@@ -108,7 +108,7 @@ export default function VipOverlay({ }: Props) {
                       立即领取
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     onPress={() => hideVipPrompt()}
                     style={{ paddingTop: 16 }}>
                     <Text style={{ color: '#9C9C9C', fontSize: 16 }}>取消</Text>

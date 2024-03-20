@@ -126,7 +126,7 @@ const CatagoryHome = ({
 
   const renderCarousel = useCallback(({ item, index }: { item: any, index: number }) => {
     return (
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         key={`slider-${index}`}
         onPress={() => {
           dispatch(playVod(item.vod));
@@ -169,7 +169,7 @@ const CatagoryHome = ({
     index: number;
   }) => {
     return (
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         style={{
           marginRight: spacing.m,
           justifyContent: 'center',

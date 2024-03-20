@@ -188,7 +188,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
           </View>
         </View>
         {User.isLogin(userState.user) && (
-          <TouchableOpacity onPress={toggleLogoutDialog}>
+          <TouchableOpacity activeOpacity={0.85} onPress={toggleLogoutDialog}>
             <View
               style={{
                 backgroundColor: '#1d2023',

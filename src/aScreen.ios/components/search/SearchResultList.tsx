@@ -50,7 +50,7 @@ export default function SearchResultList({
   return (
     <View style={styles.container}>
       {searchResultList.map((item, index) => (
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
           key={`result-${index}`}
           style={{...styles.suggestion, marginBottom: spacing.l}}
           onPress={() => {

@@ -231,6 +231,7 @@ export default forwardRef<MiniVodRef, Props>(
                             height: '100%',
                             justifyContent: "center",
                             alignItems: "center",
+                            backgroundColor: "#ffffff",
                         }}
                     >
                         <FastImage

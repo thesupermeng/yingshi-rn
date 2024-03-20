@@ -85,7 +85,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
       <TitleWithBackButtonHeader
         title="播放历史"
         right={
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             onPress={() => {
               setIsEditing(!isEditing);
               setRemoveHistory([]);
@@ -118,7 +118,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                   (item: VodRecordType, index: number) => (
                     <View style={styles.card} key={index}>
                       {isEditing && (
-                        <TouchableOpacity
+                        <TouchableOpacity activeOpacity={0.85}
                           style={styles.checkbox}
                           onPress={() => toggleHistory(item)}
                         >
@@ -138,7 +138,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                         </TouchableOpacity>
                       )}
                       <VodHistoryCard
-                        activeOpacity={isEditing ? 1 : 0.2}
+                        activeOpacity={isEditing ? 1 : 0.85}
                         vod={item}
                         onPress={() => {
                           if (isEditing) {
@@ -164,7 +164,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
               {customHistoryEarly.map((item: VodRecordType, index: number) => (
                 <View style={styles.card} key={index}>
                   {isEditing && (
-                    <TouchableOpacity
+                    <TouchableOpacity activeOpacity={0.85}
                       style={styles.checkbox}
                       onPress={() => toggleHistory(item)}
                     >
@@ -182,7 +182,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                     </TouchableOpacity>
                   )}
                   <VodHistoryCard
-                    activeOpacity={isEditing ? 1 : 0.2}
+                    activeOpacity={isEditing ? 1 : 0.85}
                     vod={item}
                     onPress={() => {
                       if (isEditing) {

@@ -65,7 +65,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
-        <TouchableOpacity onPress={spamToggleB}>
+        <TouchableOpacity activeOpacity={0.85} onPress={spamToggleB}>
           <Text style={{ textAlign: "center", ...textVariants.body }}>
             {APP_VERSION}
           </Text>

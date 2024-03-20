@@ -81,7 +81,7 @@ export default ({ navigation }: RootStackScreenProps<"邀请">) => {
           <InviteCard userState={userState.user!} />
           {/* event section  */}
 
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             onPress={() => {
               navigation.navigate("活动规则");
             }}

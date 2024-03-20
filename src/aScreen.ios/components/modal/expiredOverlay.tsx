@@ -81,7 +81,7 @@ export default function ExpiredOverlay({
                   即可获得额外天数的VIP服务时长
                 </Text>
                 <View style={{paddingTop: 22, alignItems: 'center'}}>
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     onPress={() => {
                       hideVipPrompt();
                       navigator.navigate('邀请');
@@ -101,7 +101,7 @@ export default function ExpiredOverlay({
                       立即邀请
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     onPress={() => hideVipPrompt()}
                     style={{paddingTop: 16}}>
                     <Text style={{color: '#9C9C9C', fontSize: 16}}>取消</Text>

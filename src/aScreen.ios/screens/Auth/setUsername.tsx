@@ -139,7 +139,7 @@ export default (props: any) => {
                   navigator.goBack();
                 }}
               />
-              <TouchableOpacity
+              <TouchableOpacity activeOpacity={0.85}
                 onPress={() => {
                   updateUsernameHandler(true);
                 }}>

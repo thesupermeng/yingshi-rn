@@ -52,7 +52,7 @@ export const VodCommentBox = ({
             ))}
 
             {comments.length > onlyShow && (
-                <TouchableOpacity
+                <TouchableOpacity activeOpacity={0.85}
                     onPress={onCommentTap}
                 >
                     <View style={{ paddingVertical: 18, alignItems: 'center' }}>

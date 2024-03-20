@@ -355,7 +355,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   const renderNavItems = useCallback(
     ({ item }: { item: NavType }) => {
       return (
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
           style={{ ...styles.btn }}
           onPress={() => {
             reset();
@@ -524,7 +524,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                       {year.text}
                     </Text>
                   </View>
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     onPress={() => {
                       // lastContentOffset.value = event.contentOffset.y;
                       isFilterCollapse.value = false;

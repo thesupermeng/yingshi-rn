@@ -14,7 +14,7 @@ interface Props {
 export default function ShowMoreButton({ text, onPress, leftIcon, textColor = '', buttonStyle, rightIcon, disabled = false, ...params }: Props) {
     const { colors, textVariants, icons } = useTheme();
     return (
-        <TouchableOpacity style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} disabled={disabled}>
+        <TouchableOpacity activeOpacity={0.85} style={{ ...styles.btn, backgroundColor: colors.card2, ...buttonStyle }} onPress={onPress} {...params} disabled={disabled}>
             <View style={styles.left}>
                 {
                     leftIcon && <View style={styles.icon}>{leftIcon}</View>

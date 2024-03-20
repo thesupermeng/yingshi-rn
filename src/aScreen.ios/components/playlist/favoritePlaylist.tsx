@@ -25,7 +25,7 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
   const dispatch = useAppDispatch();
   return (
     <View style={{...styles.playlist, gap: spacing.s}}>
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         onPress={() => {
           dispatch(viewPlaylistDetails(playlist));
           navigator.navigate('PlaylistDetail', {topic_id: playlist.topic_id});
@@ -39,7 +39,7 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
             }}>
             {playlist.topic_name}
           </Text>
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             onPress={() => dispatch(togglePlaylistFavorites(playlist))}
             style={{marginLeft: spacing.xs}}>
             <FavoriteIcon

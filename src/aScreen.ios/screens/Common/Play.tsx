@@ -461,7 +461,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
 
   const renderEpisodes = useCallback(
     ({ item }) => (
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         style={{
           backgroundColor:
             currentEpisode === item.nid ? colors.primary : colors.search,
@@ -713,7 +713,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       >
                         {comment.length}/200
                       </Text>
-                      <TouchableOpacity
+                      <TouchableOpacity activeOpacity={0.85}
                         onPress={() => {
                           setComment("");
                           storeUserComments();
@@ -725,7 +725,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       </TouchableOpacity>
                     </>
                   ) : (
-                    <TouchableOpacity
+                    <TouchableOpacity activeOpacity={0.85}
                       onPress={() => dispatch(showLoginAction())}
                     >
                       <Text
@@ -883,7 +883,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                           gap: 8,
                         }}
                       >
-                        {/* <TouchableOpacity
+                        {/* <TouchableOpacity activeOpacity={0.85}
                         onPress={handleSearchVideo}
                         style={{
                           backgroundColor: "#FAC33D",
@@ -912,7 +912,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
                         `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
                     </Text>
-                    <TouchableOpacity
+                    <TouchableOpacity activeOpacity={0.85}
                       onPress={() => {
                         setIsCollapsed(!isCollapsed);
                       }}

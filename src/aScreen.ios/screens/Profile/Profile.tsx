@@ -160,7 +160,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             >
               我的
             </Text>
-            {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
+            {/* <TouchableOpacity activeOpacity={0.85} onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
                       {
                           themeReducer.theme
                               ? <LightMode color={icons.iconColor} height={26} width={26} />
@@ -170,7 +170,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   </TouchableOpacity> */}
           </View>
           {/* 游客登录  component*/}
-          <TouchableOpacity
+          <TouchableOpacity activeOpacity={0.85}
             activeOpacity={1}
             onPress={() => {
               if (!User.isLogin(userState.user)) {
@@ -295,7 +295,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     gap: 10,
                   }}
                 >
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     style={{
                       ...styles.btn,
                       backgroundColor: "#2d2e30",
@@ -353,7 +353,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </View>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity
+                  <TouchableOpacity activeOpacity={0.85}
                     style={{
                       ...styles.btn,
                       backgroundColor: "#2d2e30",
@@ -390,7 +390,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               ))}
 
             {Platform.OS === "android" && !SHOW_ZF_CONST && (
-              <TouchableOpacity
+              <TouchableOpacity activeOpacity={0.85}
                 style={{
                   ...styles.btn,
                   backgroundColor: "#2d2e30",
@@ -451,7 +451,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<InfoIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("关于我们")}
             />
-            {/* <TouchableOpacity
+            {/* <TouchableOpacity activeOpacity={0.85}
               style={{
                 ...styles.btn,
                 backgroundColor: '#2b271e',

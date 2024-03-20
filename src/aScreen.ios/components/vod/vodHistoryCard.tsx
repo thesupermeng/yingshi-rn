@@ -13,7 +13,7 @@ interface Props {
 export default function VodHistoryCard({
   vod,
   onPress,
-  activeOpacity = 0.2,
+  activeOpacity = 0.85,
   isEditing = false,
   ...params
 }: Props) {

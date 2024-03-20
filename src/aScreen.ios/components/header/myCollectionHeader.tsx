@@ -32,15 +32,15 @@ export default function CollectionHeader({ route, navigator }: Props) {
 
     return (
         <View style={{...styles.container, gap: spacing.l}}>
-            <TouchableOpacity onPress={navigate('视频收藏')} >
+            <TouchableOpacity activeOpacity={0.85} onPress={navigate('视频收藏')} >
                 <Text style={btnStyle('视频收藏')}>视频</Text>
                 <View style={underlineStyle('视频收藏')}></View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigate('播单收藏')}>
+            <TouchableOpacity activeOpacity={0.85} onPress={navigate('播单收藏')}>
                 <Text style={btnStyle('播单收藏')}>播单</Text>
                 <View style={underlineStyle('播单收藏')}></View>
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={navigate('合集收藏')}>
+            {/* <TouchableOpacity activeOpacity={0.85} onPress={navigate('合集收藏')}>
                 <Text style={btnStyle('合集收藏')}>合集</Text>
                 <View style={underlineStyle('合集收藏')}></View>
             </TouchableOpacity> */}

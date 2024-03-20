@@ -45,7 +45,7 @@ export default function FavoriteVodButton({
         }}>
         {vod.vod_name}
       </Text>
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         onPress={() => {
           if (initialState) {
             dispatch(removeVodFromFavorites(vod));

@@ -53,7 +53,7 @@ export default function NotificationModal({
           )}
           {subtitle2 && <Text>{subtitle2}</Text>}
           {subtitle3 && (
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.85}
               style={{ justifyContent: 'center', alignItems: 'center' }}
               onPress={() => Linking.openURL(`mailto:${subtitle3}`)}>
               <Text
@@ -71,7 +71,7 @@ export default function NotificationModal({
           )}
         </Text>
         <View style={styles.btns}>
-          <TouchableOpacity style={styles.btn} onPress={onConfirm}>
+          <TouchableOpacity activeOpacity={0.85} style={styles.btn} onPress={onConfirm}>
             <Text
               style={{
                 ...textVariants.body,

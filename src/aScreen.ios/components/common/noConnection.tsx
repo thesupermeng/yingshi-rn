@@ -64,7 +64,7 @@ export default function NoConnection({
             }}>
             网络连接失败，请刷新重试
           </Text>
-          <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
+          <TouchableOpacity activeOpacity={0.85} onPress={onClickRetry}>
             <View
               style={{
                 ...styles.refreshBtn,
@@ -98,7 +98,7 @@ export default function NoConnection({
             }}>
             无网络或断网，请刷新视频
           </Text>
-          <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
+          <TouchableOpacity activeOpacity={0.85} onPress={onClickRetry}>
             <View
               style={{
                 ...styles.refreshBtn,

@@ -100,7 +100,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         <TitleWithBackButtonHeader
           title="付费VIP"
           right={
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.85}
               onPress={() => {
                 navigation.navigate("VIP明细", { userState: userState.user! });
               }}
@@ -140,7 +140,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "rgb(20,22,25)",
+              backgroundColor: "#ffffff",
             }}
           >
             <FastImage

@@ -386,7 +386,7 @@ const LoginCard = ({
       {/* <Text style={styles.subtitle}>登录后可管理您的账号，多端同步观看历史和收藏夹</Text> */}
       {/* ============================== tab control ============================== */}
       <View style={styles.tabContainer}>
-        <TouchableOpacity
+        <TouchableOpacity activeOpacity={0.85}
           style={styles.tabItemContainer}
           onPress={() => onChangeloginType('email')}
         >
@@ -403,7 +403,7 @@ const LoginCard = ({
           }
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
+        {/* <TouchableOpacity activeOpacity={0.85}
             style={styles.tabItemContainer}
             onPress={() => onChangeloginType('phone')}
           >
@@ -444,7 +444,7 @@ const LoginCard = ({
 
         {loginType === 'phone' &&
           <View style={styles.countryPhoneInputContainer}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={0.85}
               onPress={onPressCountryDropdown}
               style={styles.phoneCodeDropdown}
             >
@@ -645,7 +645,7 @@ const LoginCard = ({
       />
 
       {/* ============================== other login type ============================== */}
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         onPress={onPressGoogleLogin}
         style={{
           backgroundColor: '#1D2023',

@@ -17,7 +17,7 @@ export default function BackButton({
   const { colors } = useTheme();
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
+    <TouchableOpacity activeOpacity={0.85}
       onPress={onPress ? onPress : () => navigation.goBack()}
       style={{ ...styles.btn, ...btnStyle }}
     >

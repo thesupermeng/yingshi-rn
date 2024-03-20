@@ -209,7 +209,7 @@ function CollectionBottomSheet({
               <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
                 {collectionData?.map((item, index) => (
                   <View style={{ width: "100%", height: 130 }} key={index}>
-                    <TouchableOpacity
+                    <TouchableOpacity activeOpacity={0.85}
                       key={index}
                       onPress={() => goToCollection(item, index)}
                       style={[

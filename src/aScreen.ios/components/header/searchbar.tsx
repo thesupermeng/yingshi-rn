@@ -14,7 +14,7 @@ export default function HomeSearchBar({
 }: Props) {
   const {colors, icons, textVariants} = useTheme();
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.85} style={styles.container} onPress={onPress}>
       <SearchBar
         platform="default"
         containerStyle={styles.containerStyle}

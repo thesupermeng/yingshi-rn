@@ -281,7 +281,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "rgb(20,22,25)",
+                backgroundColor: "#ffffff",
               }}
             >
               <FastImage

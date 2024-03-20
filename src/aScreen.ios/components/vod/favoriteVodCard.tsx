@@ -33,7 +33,7 @@ export default function FavoriteVodCard({
         showInfo={vod.vod_remarks}
         index={index}
       />
-      <TouchableOpacity
+      <TouchableOpacity activeOpacity={0.85}
         activeOpacity={1}
         style={{...styles.description, gap: spacing.xs}}
         onPress={onPress}>

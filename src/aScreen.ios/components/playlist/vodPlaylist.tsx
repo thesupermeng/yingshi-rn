@@ -79,7 +79,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
 
   return (
     <View style={{ ...styles.playlist, gap: spacing.m }}>
-      <TouchableOpacity onPress={viewMore}>
+      <TouchableOpacity activeOpacity={0.85} onPress={viewMore}>
         <View
           style={{
             paddingLeft: spacing.sideOffset,

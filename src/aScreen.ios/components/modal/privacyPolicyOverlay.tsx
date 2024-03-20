@@ -92,7 +92,7 @@ export default function PrivacyPolicyOverlay({
               </Text>
             </Text>
             <View style={styles.btns}>
-              <TouchableOpacity style={styles.btn} onPress={handleReject}>
+              <TouchableOpacity activeOpacity={0.85} style={styles.btn} onPress={handleReject}>
                 <Text
                   style={{
                     ...textVariants.body,
@@ -101,7 +101,7 @@ export default function PrivacyPolicyOverlay({
                   暂不同意
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btn} onPress={handleAccept}>
+              <TouchableOpacity activeOpacity={0.85} style={styles.btn} onPress={handleAccept}>
                 <Text
                   style={{
                     ...textVariants.body,

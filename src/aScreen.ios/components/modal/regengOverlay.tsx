@@ -161,7 +161,7 @@ export default function RegengOverlay({}: Props) {
                       alignContent: "center",
                     }}
                   >
-                    <TouchableOpacity
+                    <TouchableOpacity activeOpacity={0.85}
                       onPress={() => {
                         Alert.alert(
                           "取消更新",
@@ -185,7 +185,7 @@ export default function RegengOverlay({}: Props) {
                         取消
                       </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    <TouchableOpacity activeOpacity={0.85}
                       onPress={() => acceptRegeng()}
                       style={{ paddingTop: 0, flex: 1 }}
                     >

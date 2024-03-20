@@ -96,7 +96,7 @@ export const ChangeReferrerModal = ({
             isLoading={isSubmitting}
         >
             <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={onClose}>
+                <TouchableOpacity activeOpacity={0.85} onPress={onClose}>
                     <Text style={textVariants.body}>
                         取消
                     </Text>
@@ -106,7 +106,7 @@ export const ChangeReferrerModal = ({
                     设置昵称
                 </Text>
 
-                <TouchableOpacity onPress={onSubmitForm}>
+                <TouchableOpacity activeOpacity={0.85} onPress={onSubmitForm}>
                     <Text style={textVariants.body}>
                         保存
                     </Text>
