@@ -7,6 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  Modal,
+  ActivityIndicator,
 } from 'react-native';
 import ScreenContainer from '../../components/container/screenContainer';
 import { RootStackScreenProps } from '@type/navigationTypes';
@@ -22,7 +24,7 @@ import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { clearStorageMemory } from '@redux/actions/settingsActions';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 
-import { removeUserAuthState } from '@redux/actions/userAction';
+import { addUserAuthState, removeUserAuthState } from '@redux/actions/userAction';
 import { changeScreenAction } from '@redux/actions/screenAction';
 import { RootState } from '@redux/store';
 
@@ -32,6 +34,8 @@ import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models/user';
+import { UserApi } from '../../../api/user';
+import { clearMinivodApiCache } from '../../../utils/minivodDownloader';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing, dark } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -41,6 +45,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
   const [subtitle1, setSubtitle1] = useState('当前已是最新版本' + APP_VERSION);
+  const [isBackdropVisible, setIsBackdropVisible] = useState(false);
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
@@ -87,6 +92,13 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   // useEffect(() => {
   //   dispatch(changeScreenAction('showSuccessLogin'));
   // }, []);
+
+  const guestLoginInit = async () => {
+    const user = await UserApi.guestLogin();
+
+    await dispatch(addUserAuthState(user));
+  };
+
   const userState = useSelector<UserStateType>('userReducer');
 
   return (
@@ -138,13 +150,17 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
 
           <ConfirmationModal
             onConfirm={async () => {
-              //    user logout
+              setIsBackdropVisible(true);
+              toggleLogoutDialog();
               await AsyncStorage.removeItem("showAds");
               await dispatch(removeUserAuthState());
-              navigator.navigate('Home', {
-                screen: 'Profile',
+              clearMinivodApiCache();
+
+              await guestLoginInit();
+              setIsBackdropVisible(false);
+              navigator.navigate("Home", {
+                screen: "Profile",
               });
-              toggleLogoutDialog();
 
               GoogleSignin.signOut();
             }}
@@ -204,6 +220,18 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
           </TouchableOpacity>
         )}
       </View>
+
+      {/* Loading spinner with backdrop */}
+      <Modal
+        transparent
+        animationType="slide"
+        visible={isBackdropVisible}
+        onRequestClose={() => setIsBackdropVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <ActivityIndicator size="large" color="#FAC33D" />
+        </View>
+      </Modal>
     </ScreenContainer>
   );
 };
@@ -239,5 +267,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
 });

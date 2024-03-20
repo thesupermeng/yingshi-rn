@@ -57,7 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* aimeijuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = aimeijuTests.xctest; path = aimeiju.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* aimeiju.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aimeiju.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* aimeijuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aimeijuTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* aimeiju.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aimeiju.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,7 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* aimeiju.app */,
-				00E356EE1AD99517003FC87E /* aimeijuTests.xctest */,
+				00E356EE1AD99517003FC87E /* aimeiju.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 			);
 			name = aimeijuTests;
 			productName = yingshiTests;
-			productReference = 00E356EE1AD99517003FC87E /* aimeijuTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* aimeiju.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		13B07F861A680F5B00A75B9A /* aimeiju */ = {
@@ -684,7 +684,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
 				PRODUCT_NAME = aimeiju;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
@@ -708,7 +708,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
 				PRODUCT_NAME = aimeiju;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
@@ -737,7 +737,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -753,7 +753,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
 				PRODUCT_NAME = aimeiju;
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
@@ -785,7 +785,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -801,7 +801,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
 				PRODUCT_NAME = aimeiju;
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
@@ -1067,7 +1067,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -1083,7 +1083,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
 				PRODUCT_NAME = aimeiju;
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
@@ -1110,7 +1110,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
 				PRODUCT_NAME = aimeiju;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
