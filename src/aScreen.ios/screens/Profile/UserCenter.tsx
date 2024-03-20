@@ -21,8 +21,8 @@ import { ChangeReferrerModal } from "../../components/modal/changeReferrerModal"
 import { UserStateType } from "@redux/reducers/userReducer";
 
 export default ({ navigation }: RootStackScreenProps<"个人中心">) => {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles({ colors }), [colors]);
+  const { colors, dark } = useTheme();
+  const styles = useMemo(() => createStyles({ colors, dark }), [colors, dark]);
 
   const userState = useSelector<UserStateType>('userReducer');
 

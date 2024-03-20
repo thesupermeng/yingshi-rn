@@ -712,7 +712,7 @@ export default () => {
             alignItems: "center",
           }}
           resizeMode={"contain"}
-          source={require("@static/images/profile/login-success.gif")}
+          source={require("@static/images/profile/login-success.light.gif")}
         />
 
         <Text

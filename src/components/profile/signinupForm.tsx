@@ -393,7 +393,7 @@ const LoginCard = ({
   onSubmit,
 }: LoginCardProps) => {
   const { colors, dark } = useTheme();
-  const styles = useMemo(() => createStyles({ colors }), [colors, dark]);
+  const styles = useMemo(() => createStyles({ colors, dark }), [colors, dark]);
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
