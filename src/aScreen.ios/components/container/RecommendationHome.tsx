@@ -88,14 +88,25 @@ const RecommendationHome = ({
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
 
-    console.log('data')
+    console.log('data 111')
     console.log(data)
+ 
+    if (data?.yugaopian_list?.length > 0) {
+      setYuGaoList(data.yugaopian_list)
+      dispatch(setYuGao(data.yugaopian_list))
+
+   }
+
     if (data?.carousel_topic_list?.length > 0) {
+
+    
+     
+
       console.log('data.carousel_topic_list.length')
       console.log(data.carousel_topic_list.length)
-      // Image.getSize(data.carousel_topic_list[0].topic_pic_thumb, (w, h) => {
-      //   setImgRatio(w / h);
-      // });
+      Image.getSize(data.carousel_topic_list[0].topic_pic_thumb, (w, h) => {
+        setImgRatio(w / h);
+      });
     }
   }, []);
   // Function to handle the pull-to-refresh action
@@ -109,7 +120,7 @@ const RecommendationHome = ({
         setIsRefreshing(false);
         carouselRef?.current?.scrollTo({index: 0, animated: false});
       }
-    }, 0);
+    }, 1000);
   };
 
   // const fetchPlaylist = (page: number) =>
@@ -155,11 +166,12 @@ const RecommendationHome = ({
   const fetchYingPing = () =>
     AppsApi.getHomePages(1001, isVip).then(data => {
       setResults(data.topic_list);
-      if(screenState.yuGaoState==null)
-      {
+
+      console.log('setYuGao')
+     
          setYuGaoList(data.yugaopian_list)
          dispatch(setYuGao(data.yugaopian_list))
-      }
+     
 
       return data;
     });

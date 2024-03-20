@@ -66,12 +66,13 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   const data = useQueries({
     queries: navOptions
-      ? navOptions?.map((x: any) => ({
-        queryKey: ["HomePage", x.id],
-        queryFn: () => fetchData(x.id),
-      }))
+      ? navOptions.map((x: any) => ({
+          queryKey: ["HomePage", x.id === 0 ? 1001 : x.id], // Adjust x.id to 1001 if it's 0
+          queryFn: () => fetchData(x.id),
+        }))
       : [],
   });
+  
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
