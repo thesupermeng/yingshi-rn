@@ -894,7 +894,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许大萌影视跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -942,7 +942,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许大萌影视跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1218,7 +1218,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "是否允许大萌影视跟踪您在其他公司的App和网站上的活动";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
