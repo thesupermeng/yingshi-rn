@@ -147,13 +147,14 @@ let App = () => {
     });
 
     queryClient.prefetchQuery({
-      queryKey: ['HomePage', 1000],
+      queryKey: ['HomePage', 1001],
       queryFn: () =>
-        AppsApi.getHomePages(1000).then(data => {
+        AppsApi.getHomePages(1001).then(data => {
           return data.yingping_list;
         }),
     });
 
+ 
     // queryClient.prefetchQuery({
     //   queryKey: ["filterOptions"],
     //   queryFn: () => VodApi.getTopicType(),

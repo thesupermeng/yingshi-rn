@@ -43,7 +43,7 @@ interface NavType {
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellType;
+  vodCarouselRes: any;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -88,10 +88,14 @@ const RecommendationHome = ({
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
 
-    if (data.carousel.length > 0) {
-      Image.getSize(data.carousel[0].carousel_pic_mobile, (w, h) => {
-        setImgRatio(w / h);
-      });
+    console.log('data')
+    console.log(data)
+    if (data?.carousel_topic_list?.length > 0) {
+      console.log('data.carousel_topic_list.length')
+      console.log(data.carousel_topic_list.length)
+      // Image.getSize(data.carousel_topic_list[0].topic_pic_thumb, (w, h) => {
+      //   setImgRatio(w / h);
+      // });
     }
   }, []);
   // Function to handle the pull-to-refresh action
@@ -149,7 +153,7 @@ const RecommendationHome = ({
   // );
 
   const fetchYingPing = () =>
-    AppsApi.getHomePages(1000, isVip).then(data => {
+    AppsApi.getHomePages(1001, isVip).then(data => {
       setResults(data.topic_list);
       if(screenState.yuGaoState==null)
       {
@@ -172,23 +176,24 @@ const RecommendationHome = ({
   const renderCarousel = useCallback(
     ({item, index}: {item: any; index: number}) => {
       const key = item.is_ads
-        ? item.carousel_id + item.carousel_pic_mobile
-        : item.carousel_id;
+        ? item.topic_id + item.topic_name
+        : item.topic_id;
       return (
         <TouchableOpacity
         activeOpacity={0.85}
           key={`slider-${key}`}
           onPress={() => {
-            dispatch(playVod(item.vod));
-            navigation.navigate('播放IOS', {
-              vod_id: item.carousel_content_id,
-            });
+            console.log('onclick carousel')
+            // dispatch(playVod(item.vod));
+            // navigation.navigate('播放IOS', {
+            //   vod_id: item.carousel_content_id,
+            // });
           }}>
           <FastImage
             key={`slider-${key}`}
             style={styles.image}
             source={{
-              uri: item.carousel_pic_mobile,
+              uri: item.topic_pic_thumb,
               priority: 'normal',
             }}
             resizeMode={'cover'}
@@ -207,7 +212,7 @@ const RecommendationHome = ({
               color: 'white',
             }}
             numberOfLines={1}>
-            {item.carousel_name}
+            {item.topic_name}
           </Text>
         </TouchableOpacity>
       );
@@ -256,7 +261,21 @@ const RecommendationHome = ({
           }
           ListHeaderComponent={
             <>
-              {yingPingList?.carousel[0] && !refreshProp && (
+              {yingPingList?.carousel_topic_list[0] && !refreshProp && (
+                <>
+                  <View
+                      key={yuGaoList.type_name}
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                        gap: spacing.xxs,
+                      }}
+                    >
+                <ShowMoreVodButton
+                        text={'精选专题'}
+                      />
+                      </View>
+            
                 <View
                   style={{
                     flex: 1,
@@ -265,6 +284,9 @@ const RecommendationHome = ({
                     borderRadius: 17,
                     zIndex: 9999,
                   }}>
+
+
+
                   <Carousel
                     ref={carouselRef}
                     loop
@@ -274,7 +296,7 @@ const RecommendationHome = ({
                       imgRatio
                     }
                     autoPlay={true}
-                    data={yingPingList.carousel}
+                    data={yingPingList.carousel_topic_list}
                     scrollAnimationDuration={220}
                     autoPlayInterval={2300}
                     onSnapToItem={index => {
@@ -286,10 +308,12 @@ const RecommendationHome = ({
                     renderItem={renderCarousel}
                   />
                   <CarouselPagination
-                    data={yingPingList.carousel}
+                    data={yingPingList.carousel_topic_list}
                     activeIndex={activeIndex}
                   />
                 </View>
+
+                </>
               )}
               <View>
                 <View style={{gap: spacing.m}}></View>

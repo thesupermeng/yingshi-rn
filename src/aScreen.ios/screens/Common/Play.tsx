@@ -269,23 +269,23 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   useEffect(() => {
     if (vod?.vod_id) {
       switch (vod?.vod_id) {
-        case 60612:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/60612.mp4");
+        case 201212:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/201212.mp4");
           break;
-        case 72281:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/72281.mp4");
+        case 201219:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/201219.mp4");
           break;
-        case 68460:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/68460.mp4");
+        case 201282:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/201282.mp4");
           break;
-        case 72629:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/72629.mp4");
+        case 201278:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/201278.mp4");
           break;
-        case 74797:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/74797.mp4");
+        case 201410:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/201410.mp4");
           break;
-        case 73474:
-          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/73474.mp4");
+        case 200984:
+          setYuGaoUrl("https://oss.yingshi.tv/videos/vod/vi/200984.mp4");
           break;
         default:
           setYuGaoUrl("");
