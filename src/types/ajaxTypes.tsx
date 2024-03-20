@@ -20,7 +20,11 @@ export type VodCarousellType = {
     class_list: Array<string>,
     yunying: Array<VodData>,
     categories: Array<VodData>,
-    live_station_list: Array<LiveTVStationItem>
+    live_station_list: Array<LiveTVStationItem>,
+    topic_list:  Array<any>,
+    yugaopian_list : Array<any>
+
+
 }
 
 export type VodPlayListType = PaggingResponseType<{

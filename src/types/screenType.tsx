@@ -29,8 +29,5 @@ export interface screenModel {
   isPlayGuideShown2 :  boolean;//4
   isSportGuideShown :  boolean;//5
   autoSelectSport:  boolean; //6 
-  
-
-
-
+  yuGaoState:  any
 }

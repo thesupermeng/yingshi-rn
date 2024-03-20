@@ -35,6 +35,8 @@ import {YingPingContainer} from '../container/yingPingContainer';
 import {AppsApi, PlaylistApi} from '@api';
 import {UserStateType} from '@redux/reducers/userReducer';
 import {User} from '@models/user';
+import { screenModel } from '@type/screenType';
+import { setYuGao } from '@redux/actions/screenAction';
 
 interface NavType {
   id: number;
@@ -62,6 +64,12 @@ const RecommendationHome = ({
   const vodReducer: VodReducerState = useAppSelector(
     ({vodReducer}: RootState) => vodReducer,
   );
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  );
+
+  const [yuGaoList, setYuGaoList] = useState(screenState.yuGaoState);
   const history = vodReducer.history;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -143,6 +151,12 @@ const RecommendationHome = ({
   const fetchYingPing = () =>
     AppsApi.getHomePages(1000, isVip).then(data => {
       setResults(data.topic_list);
+      if(screenState.yuGaoState==null)
+      {
+         setYuGaoList(data.yugaopian_list)
+         dispatch(setYuGao(data.yugaopian_list))
+      }
+
       return data;
     });
 
@@ -280,6 +294,28 @@ const RecommendationHome = ({
               <View>
                 <View style={{gap: spacing.m}}></View>
 
+
+   {/* 预告  */}
+                 {yuGaoList &&  (
+                    <View
+                      key={yuGaoList.type_name}
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                        gap: spacing.xxs,
+                      }}
+                    >
+                      <View>
+                        <ShowMoreVodButton
+                          text={yuGaoList.type_name}
+                          onPress={() => {
+                           console.log('onpress yugao')
+                          }}
+                        />
+                      </View>
+                      <VodListVertical vods={yuGaoList.vod_list} />
+                    </View>
+                  )} 
                 {yingPingList &&
                   yingPingList.yingping_list.vod_list.length > 0 && (
                     <View

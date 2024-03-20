@@ -200,3 +200,8 @@ export const setAutoSelectSport = (action: any) => ({
   type: "set_auto_select_sport",
   payload: action,
 });
+
+export const setYuGao = (action: any) => ({
+  type: "set_yu_gao",
+  payload: action,
+});
