@@ -194,7 +194,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
                 color: colors.text,
                 fontSize: 22,
               }}>
-              播单
+              发现
             </Text>
           }
           navigator={navigation}

@@ -86,7 +86,6 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
           <View style={{
             ...styles.commentContainer,
             backgroundColor: dark ? "#1d2023" : 'white',
-            // shadowColor: !dark ? '#1d2023' : undefined
             shadowColor: '#000000',
             shadowOpacity: 0.1,
             shadowRadius: 3,

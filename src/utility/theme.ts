@@ -270,7 +270,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     notification: palette.yellow,
     search: palette.dark_grey_translucent,
     button: palette.black,
-    playlistFavorite: palette.dark,
+    playlistFavorite: palette.light_grey,
     loading: palette.grey,
     highlight: palette.yello_translucent,
     selected: palette.dark2,

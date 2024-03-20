@@ -216,7 +216,7 @@ export const UploadVideo = ({ navigation }: BottomTabScreenProps<any>) => {
     return (
         <ScreenContainer>
             <View style={styles.titleTextContainer}>
-                <Text style={styles.titleText}>随心看</Text>
+                <Text style={{ ...textVariants.bigHeader, ...styles.titleText }}>上传视频</Text>
 
                 <TouchableOpacity onPress={onCheckHistoryPress}>
                     <Text style={{ color: colors.text }}>

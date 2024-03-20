@@ -31,7 +31,7 @@ type MiniVodRef = {
 };
 
 export default ({ navigation }: BottomTabScreenProps<any>) => {
-    const { colors } = useTheme();
+    const { colors, textVariants } = useTheme();
 
     const isFocused = useIsFocused();
     // New state to keep track of app's background/foreground status
@@ -148,7 +148,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: colors.text, fontSize: 20 }}>随心看</Text>
+                <Text style={{ ...textVariants.bigHeader, color: colors.text, fontSize: 20 }}>解说</Text>
             </View>
             {!isOffline &&
                 <MiniVideoList

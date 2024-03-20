@@ -192,7 +192,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     setAdsRoute(route.name);
   });
 
-  const { colors, spacing, textVariants, icons } = useTheme();
+  const { colors, spacing, textVariants, icons, dark } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer
   );
@@ -728,13 +728,16 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                 <View
                   style={{
                     ...styles.commentContainer,
-                    backgroundColor: "#1D2023",
+                    backgroundColor: dark ? "#1d2023" : 'white',
+                    shadowColor: '#000000',
+                    shadowOpacity: 0.1,
+                    shadowRadius: 3,
                   }}
                 >
                   <TextInput
                     style={{
                       ...styles.input,
-                      backgroundColor: "#FFFFFF1A",
+                      backgroundColor: dark ? "#FFFFFF1A" : '#D9D9D9',
                       ...textVariants.body,
                     }}
                     onChangeText={setComment}
@@ -880,7 +883,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                     paddingBottom: 3,
                                   }}
                                 >
-                                  收藏  
+                                  收藏
                                 </Text>
                               )}
                             </View>
@@ -1004,8 +1007,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                     </TouchableOpacity>
                   </View>
 
-                     {/* todo  */}
-                     <>
+                  {/* todo  */}
+                  <>
                     {
                       yuGaoUrl && (
                         <VodPlayerMin
