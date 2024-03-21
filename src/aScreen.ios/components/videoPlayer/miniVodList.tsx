@@ -54,7 +54,7 @@ export default forwardRef<MiniVodRef, Props>(
         }: Props,
         ref,
     ) => {
-        const { spacing } = useTheme();
+        const { spacing, colors } = useTheme();
 
         const [isInitFetching, setInitFetching] = useState(true);
         const [displayHeight, setDisplayHeight] = useState<number>(0);
@@ -231,7 +231,7 @@ export default forwardRef<MiniVodRef, Props>(
                             height: '100%',
                             justifyContent: "center",
                             alignItems: "center",
-                            backgroundColor: "#ffffff",
+                            backgroundColor: colors.background,
                         }}
                     >
                         <FastImage
