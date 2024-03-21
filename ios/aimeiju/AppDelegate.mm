@@ -40,7 +40,7 @@ bool isCurrentMainView = NO;
 {
  // [FIRApp configure];
   [UMConfigure setLogEnabled:NO];
-  [UMConfigure initWithAppkey:@"64a632e5bd4b621232c9e379" channel:@"App Store"];
+  [UMConfigure initWithAppkey:@"65fa91ac8d21b86a18436eb1" channel:@"App Store"];
 //  self.moduleName = @"yingshi";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.

@@ -293,11 +293,10 @@ function ShortVideoPlayer({
               justifyContent: 'flex-end'
             }}>
             <View style={{ paddingHorizontal: 20 }}>
-              {currentVod != undefined &&
+              {/* {currentVod != undefined &&
                 currentVod.mini_video_original_img_url != null &&
                 currentVod.mini_video_original_img_url != '' && (
                   <View style={{ flexWrap: 'wrap' }}>
-                    {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                     <View
                       style={{
                         padding: 8,
@@ -424,7 +423,7 @@ function ShortVideoPlayer({
                       </View>
                     </View>
                   </View>
-                )}
+                )} */}
               <View style={{ marginTop: 10, flexDirection: 'row', width: '70%' }}>
                 {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                 <View

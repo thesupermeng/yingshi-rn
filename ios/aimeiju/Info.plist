@@ -19,15 +19,15 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3</string>
+				<string>com.googleusercontent.apps.691853318480-lq655lmtbt8cv64dnbklrhu902n32054</string>
 			</array>
 		</dict>
-    <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>um.64a632e5bd4b621232c9e379</string>
-      </array>
-    </dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>um.65fa91ac8d21b86a18436eb1</string>
+			</array>
+		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
 	<string>bANlp7AwlK57caU3h80moPva099ffOii-VPk9</string>
@@ -1038,7 +1038,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleShortVersionString</key>
-	<string>1.7.0</string>
 </dict>
 </plist>

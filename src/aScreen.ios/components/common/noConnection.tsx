@@ -76,7 +76,7 @@ export default function NoConnection({
               <Text
                 style={{
                   ...styles.head,
-                  color: colors.background,
+                  color: IS_OTHER_SKIN ? colors.text : colors.background,
                 }}>
                 点击重试
               </Text>
@@ -110,7 +110,7 @@ export default function NoConnection({
               <Text
                 style={{
                   ...styles.head,
-                  color: colors.background,
+                  color: IS_OTHER_SKIN ? colors.text : colors.background,
                 }}>
                 刷新
               </Text>
