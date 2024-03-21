@@ -112,7 +112,7 @@ export const AMJ_PRODUCT_IOS = 6;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '爱韩剧';
+export const APP_NAME_CONST = '爱韩剧TV';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
@@ -127,7 +127,7 @@ export const SHOW_ZF_CONST = false;
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 
 // watch anytime download
-export const DOWNLOAD_WATCH_ANYTIME = Platform.OS === 'android' ? false : true; // 【爱韩剧】oneplus 9 手机里的随心看小视频出现卡顿的画面和声音
+export const DOWNLOAD_WATCH_ANYTIME = Platform.OS === 'android' ? false : true; // 【爱韩剧TV】oneplus 9 手机里的随心看小视频出现卡顿的画面和声音
 export const DOWNLOAD_BATCH_SIZE = 5;
 export const TOTAL_VIDEO_TO_DOWNLOAD = 300;
 // export const CACHE_DURATION = 3; //days

@@ -516,7 +516,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         }/sid/1/nid/${currentEpisode + 1
         }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
-      if (APP_NAME_CONST == "爱韩剧") {
+      if (APP_NAME_CONST == "爱韩剧TV") {
         msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://dasdui.store/share.html`;
       }
 
