@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传</string>
+	<string>是否允许“大萌影视”访问您的相册，以便您正常上传系统相册内的视频</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>我们需要得到您的允许，用于推送您感兴趣的广告内容</string>
 	<key>CFBundleSignature</key>
@@ -1039,6 +1039,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.5</string>
+	<string>1.8.6</string>
 </dict>
 </plist>

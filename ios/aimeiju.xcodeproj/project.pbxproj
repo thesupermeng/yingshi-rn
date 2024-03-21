@@ -880,7 +880,7 @@
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				ENABLE_BITCODE = NO;
@@ -893,7 +893,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "是否允许“大萌影视”访问您的相册，以便您正常上传系统相册内的视频";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -903,7 +903,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 1.8.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -929,7 +929,7 @@
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -941,7 +941,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "是否允许“大萌影视”访问您的相册，以便您正常上传系统相册内的视频";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -951,7 +951,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 1.8.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1205,7 +1205,7 @@
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1217,7 +1217,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "是否允许“大萌影视”访问您的相册，以便您正常上传系统相册内的视频";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -1227,7 +1227,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 1.8.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
