@@ -210,7 +210,7 @@ export default function XVodTab({
             }
           }}
           ListFooterComponent={
-            <View style={{...styles.loading, marginBottom: 60}}>
+            <View style={{...styles.loading}}>
               {hasNextPage && (
                 <FastImage
                   style={{
