@@ -41,12 +41,26 @@ export default function FavoritePlaylist({playlist, navigator}: Props) {
           </Text>
           <TouchableOpacity activeOpacity={0.85}
             onPress={() => dispatch(togglePlaylistFavorites(playlist))}
-            style={{marginLeft: spacing.xs}}>
-            <FavoriteIcon
-              width={icons.sizes.m}
-              height={icons.sizes.m}
-              style={{color: colors.primary, marginRight: spacing.m}}
-            />
+            style={{marginLeft: spacing.xs ,  backgroundColor:'#111111' , paddingVertical:4 , paddingHorizontal:8, borderRadius:8  , position:'relative' , bottom:3}}>
+             <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: spacing.xxs,
+                 
+                 
+                }}
+              >
+                <FavoriteIcon
+                  width={18}
+                  height={18}
+                  style={{
+                    color:"#FAC33D" 
+                  }}
+                />
+        
+              </View>
           </TouchableOpacity>
         </View>
         <Text

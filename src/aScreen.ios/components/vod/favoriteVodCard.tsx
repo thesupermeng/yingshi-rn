@@ -4,6 +4,8 @@ import {VodType} from '@type/ajaxTypes';
 import VodImageCard from './vodImageCard';
 import FavoriteButton from '../button/favoriteVodButton';
 import VodDescription from './vodDescription';
+import FavoriteIcon from '@static/images/favorite.svg';
+
 
 interface Props {
   vod: VodType;
@@ -57,7 +59,30 @@ export default function FavoriteVodCard({
               {vod.vod_name}
             </Text>
           ) : (
-            <FavoriteButton vod={vod} initialState={initialFavoriteState} />
+            <FavoriteButton vod={vod} initialState={initialFavoriteState} 
+            leftIcon={
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: spacing.xxs,
+                 
+                }}
+              >
+                <FavoriteIcon
+                  width={18}
+                  height={18}
+                  style={{
+                    color:"#FAC33D" 
+                  }}
+                />
+        
+              </View>
+            }
+            
+            
+            />
           )}
           <VodDescription vod={vod} />
         </View>

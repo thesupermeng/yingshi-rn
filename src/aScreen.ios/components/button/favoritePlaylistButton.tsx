@@ -21,10 +21,12 @@ export default function FavoritePlaylistButton({ leftIcon, buttonStyle, playlist
             {
                 leftIcon ?
                     leftIcon
-                    : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{ color: isFavorited ? colors.background : 'white', ...buttonStyle, }} />
+                    : <FavoriteIcon width={icons.sizes.m} height={icons.sizes.m} style={{    color: isFavorited == true ?  "#FAC33D" : '#9C9C9C' , ...buttonStyle, }} />
             }
             <Text
-                style={{ ...textVariants.small, color: isFavorited ? colors.background : 'white', ...styles.text, paddingBottom: 3 }}>
+                style={{ ...textVariants.small, ...styles.text , 
+                color: isFavorited == true ?  "#FAC33D" : '#9C9C9C',
+                }}>
                 {isFavorited ? '已收藏了' : '收藏播单'}
             </Text>
         </TouchableOpacity>
