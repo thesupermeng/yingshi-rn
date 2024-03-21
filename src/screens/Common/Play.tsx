@@ -1227,7 +1227,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {
           <>
-            {adultMode && <VipRegisterBar />}
+            {adultMode || true && <VipRegisterBar />}
 
             {bannerAd && (
               <View
