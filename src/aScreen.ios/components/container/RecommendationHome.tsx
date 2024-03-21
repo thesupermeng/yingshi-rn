@@ -1,4 +1,4 @@
-import React, {memo, useState, useRef, useEffect, useCallback} from 'react';
+import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,30 +11,30 @@ import {
   Linking,
 } from 'react-native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
-import {VodTopicType, VodType, VodCarousellType} from '@type/ajaxTypes';
+import { VodTopicType, VodType, VodCarousellType } from '@type/ajaxTypes';
 // import FastImage from "react-native-fast-image";
 import FastImage from '../common/customFastImage';
-import {VodReducerState} from '@redux/reducers/vodReducer';
-import {useAppDispatch, useAppSelector, useSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { VodReducerState } from '@redux/reducers/vodReducer';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
-import {API_DOMAIN, API_DOMAIN_TEST} from '@utility/constants';
+import { API_DOMAIN, API_DOMAIN_TEST } from '@utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import {playVod, viewPlaylistDetails} from '@redux/actions/vodActions';
-import {useQuery, useInfiniteQuery} from '@tanstack/react-query';
+import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselPagination from './CarouselPagination';
 import LoadingIcon from '@static/images/MutedVolume.svg';
-import {Image} from 'react-native';
-import {YingPingContainer} from '../container/yingPingContainer';
-import {AppsApi, PlaylistApi} from '@api';
-import {UserStateType} from '@redux/reducers/userReducer';
-import {User} from '@models/user';
+import { Image } from 'react-native';
+import { YingPingContainer } from '../container/yingPingContainer';
+import { AppsApi, PlaylistApi } from '@api';
+import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models/user';
 import { screenModel } from '@type/screenType';
 import { setYuGao } from '@redux/actions/screenAction';
 
@@ -58,11 +58,11 @@ const RecommendationHome = ({
   setScrollEnabled,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
 }: Props) => {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
-    ({vodReducer}: RootState) => vodReducer,
+    ({ vodReducer }: RootState) => vodReducer,
   );
 
   const screenState: screenModel = useAppSelector(
@@ -88,19 +88,16 @@ const RecommendationHome = ({
   useEffect(() => {
     setWidth(Number(Dimensions.get('window').width));
 
-    console.log('data 111')
-    console.log(data)
- 
     if (data?.yugaopian_list?.length > 0) {
       setYuGaoList(data.yugaopian_list)
       dispatch(setYuGao(data.yugaopian_list))
 
-   }
+    }
 
     if (data?.carousel_topic_list?.length > 0) {
 
-    
-     
+
+
 
       console.log('data.carousel_topic_list.length')
       console.log(data.carousel_topic_list.length)
@@ -118,7 +115,7 @@ const RecommendationHome = ({
       setActiveIndex(0);
       if (carouselRef) {
         setIsRefreshing(false);
-        carouselRef?.current?.scrollTo({index: 0, animated: false});
+        carouselRef?.current?.scrollTo({ index: 0, animated: false });
       }
     }, 1000);
   };
@@ -168,15 +165,15 @@ const RecommendationHome = ({
       setResults(data.topic_list);
 
       console.log('setYuGao')
-     
-         setYuGaoList(data.yugaopian_list)
-         dispatch(setYuGao(data.yugaopian_list))
-     
+
+      setYuGaoList(data.yugaopian_list)
+      dispatch(setYuGao(data.yugaopian_list))
+
 
       return data;
     });
 
-  const {data: yingPingList, isFetching: isFetchingYingPing} = useQuery({
+  const { data: yingPingList, isFetching: isFetchingYingPing } = useQuery({
     queryKey: ['yingPingList'],
     queryFn: () => fetchYingPing(),
   });
@@ -186,13 +183,13 @@ const RecommendationHome = ({
   }, []);
 
   const renderCarousel = useCallback(
-    ({item, index}: {item: any; index: number}) => {
+    ({ item, index }: { item: any; index: number }) => {
       const key = item.is_ads
         ? item.topic_id + item.topic_name
         : item.topic_id;
       return (
         <TouchableOpacity
-        activeOpacity={0.85}
+          activeOpacity={0.85}
           key={`slider-${key}`}
           onPress={() => {
             console.log('onclick carousel')
@@ -213,8 +210,8 @@ const RecommendationHome = ({
           />
           <LinearGradient
             colors={['transparent', 'black']}
-            start={{x: 0.8, y: 0}}
-            end={{x: 0.8, y: 0.9}}
+            start={{ x: 0.8, y: 0 }}
+            end={{ x: 0.8, y: 0.9 }}
             style={styles.bottomBlur}
           />
           <Text
@@ -233,15 +230,15 @@ const RecommendationHome = ({
   );
 
   const renderContent = useCallback(
-    ({item, index}: {item: VodTopicType; index: number}) => (
+    ({ item, index }: { item: VodTopicType; index: number }) => (
       <View
         style={{
           paddingLeft: spacing.sideOffset,
           paddingRight: spacing.sideOffset,
         }}>
         {/* previous style={{ gap: spacing.m }} */}
-        <View key={`${item.topic_name}-${index}`} style={{paddingTop: 10}}>
-          <View style={{paddingBottom: 5}}>
+        <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
+          <View style={{ paddingBottom: 5 }}>
             <ShowMoreVodButton
               text={item.topic_name}
               onPress={() => {
@@ -260,10 +257,10 @@ const RecommendationHome = ({
   );
 
   return (
-    <View style={{width: width}}>
+    <View style={{ width: width }}>
       {yingPingList ? (
         <FlatList
-          style={{paddingBottom: 10}}
+          style={{ paddingBottom: 10 }}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -276,80 +273,80 @@ const RecommendationHome = ({
               {yingPingList?.carousel_topic_list[0] && !refreshProp && (
                 <>
                   <View
-                      key={yuGaoList.type_name}
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        gap: spacing.xxs,
+                    key={yuGaoList.type_name}
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                      gap: spacing.xxs,
+                    }}
+                  >
+                    <ShowMoreVodButton
+                      text={'精选专题'}
+                    />
+                  </View>
+
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 17,
+                      zIndex: 9999,
+                    }}>
+
+
+
+                    <Carousel
+                      ref={carouselRef}
+                      loop
+                      width={width - spacing.sideOffset - spacing.sideOffset}
+                      height={
+                        (width - spacing.sideOffset - spacing.sideOffset) /
+                        imgRatio
+                      }
+                      autoPlay={true}
+                      data={yingPingList.carousel_topic_list}
+                      scrollAnimationDuration={220}
+                      autoPlayInterval={2300}
+                      onSnapToItem={index => {
+                        setActiveIndex(index);
                       }}
-                    >
-                <ShowMoreVodButton
-                        text={'精选专题'}
-                      />
-                      </View>
-            
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 17,
-                    zIndex: 9999,
-                  }}>
-
-
-
-                  <Carousel
-                    ref={carouselRef}
-                    loop
-                    width={width - spacing.sideOffset - spacing.sideOffset}
-                    height={
-                      (width - spacing.sideOffset - spacing.sideOffset) /
-                      imgRatio
-                    }
-                    autoPlay={true}
-                    data={yingPingList.carousel_topic_list}
-                    scrollAnimationDuration={220}
-                    autoPlayInterval={2300}
-                    onSnapToItem={index => {
-                      setActiveIndex(index);
-                    }}
-                    onScrollEnd={index => {
-                      setActiveIndex(index);
-                    }}
-                    renderItem={renderCarousel}
-                  />
-                  <CarouselPagination
-                    data={yingPingList.carousel_topic_list}
-                    activeIndex={activeIndex}
-                  />
-                </View>
+                      onScrollEnd={index => {
+                        setActiveIndex(index);
+                      }}
+                      renderItem={renderCarousel}
+                    />
+                    <CarouselPagination
+                      data={yingPingList.carousel_topic_list}
+                      activeIndex={activeIndex}
+                    />
+                  </View>
 
                 </>
               )}
               <View>
-                <View style={{gap: spacing.m}}></View>
-                 {/* 预告  */}
-                 {yuGaoList &&  (
-                    <View
-                      key={yuGaoList.type_name}
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        gap: spacing.xxs,
-                      }}
-                    >
-                      <View>
-                        <ShowMoreVodButton
-                          text={yuGaoList.type_name}
-                          onPress={() => {
-                           console.log('onpress yugao')
-                          }}
-                        />
-                      </View>
-                      <VodListVertical vods={yuGaoList.vod_list} />
+                <View style={{ gap: spacing.m }}></View>
+                {/* 预告  */}
+                {yuGaoList && (
+                  <View
+                    key={yuGaoList.type_name}
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                      gap: spacing.xxs,
+                    }}
+                  >
+                    <View>
+                      <ShowMoreVodButton
+                        text={yuGaoList.type_name}
+                        onPress={() => {
+                          console.log('onpress yugao')
+                        }}
+                      />
                     </View>
-                  )} 
+                    <VodListVertical vods={yuGaoList.vod_list} />
+                  </View>
+                )}
                 {yingPingList &&
                   yingPingList.yingping_list.vod_list.length > 0 && (
                     <View
@@ -438,35 +435,35 @@ const RecommendationHome = ({
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
           renderItem={renderContent}
-          // ListFooterComponent={
-          //   <View style={{ ...styles.loading, marginBottom: 60 }}>
-          //     {hasNextPage && (
-          //       <FastImage
-          //         style={{
-          //           height: 80,
-          //           width: 80,
+        // ListFooterComponent={
+        //   <View style={{ ...styles.loading, marginBottom: 60 }}>
+        //     {hasNextPage && (
+        //       <FastImage
+        //         style={{
+        //           height: 80,
+        //           width: 80,
 
-          //           flex: 1,
-          //           justifyContent: "center",
-          //           alignItems: "center",
-          //         }}
-          //         source={require("@static/images/loading-spinner.gif")}
-          //         resizeMode={"contain"}
-          //       />
-          //     )}
-          //     {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-          //       <Text
-          //         style={{
-          //           ...textVariants.subBody,
-          //           color: colors.muted,
-          //           paddingTop: 12,
-          //         }}
-          //       >
-          //         已经到底了
-          //       </Text>
-          //     )}
-          //   </View>
-          // }
+        //           flex: 1,
+        //           justifyContent: "center",
+        //           alignItems: "center",
+        //         }}
+        //         source={require("@static/images/loading-spinner.gif")}
+        //         resizeMode={"contain"}
+        //       />
+        //     )}
+        //     {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+        //       <Text
+        //         style={{
+        //           ...textVariants.subBody,
+        //           color: colors.muted,
+        //           paddingTop: 12,
+        //         }}
+        //       >
+        //         已经到底了
+        //       </Text>
+        //     )}
+        //   </View>
+        // }
         />
       ) : (
         <>
@@ -480,7 +477,7 @@ const RecommendationHome = ({
               alignSelf: 'center',
             }}>
             <FastImage
-              style={{height: 80, width: 80}}
+              style={{ height: 80, width: 80 }}
               source={require('@static/images/loading-spinner.gif')}
               resizeMode={'contain'}
             />

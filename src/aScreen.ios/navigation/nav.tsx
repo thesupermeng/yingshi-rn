@@ -410,6 +410,13 @@ export default () => {
       setAdsRoute(currentTabName);
     }
     // ============= end for banner ads
+
+    // home index 1 = 随心看
+    if (currentRoute.name === 'Home' && currentRoute.state?.index === 1 && !themeReducer.theme) {
+      dispatch(toggleDarkTheme());
+    } else if (!(currentRoute.name === 'Home' && currentRoute.state?.index === 1) && themeReducer.theme) {
+      dispatch(toggleLightTheme());
+    }
   };
 
   const initInterstitialAdListener = () => {
