@@ -29,7 +29,8 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: Props) => {
 
   return (
     <>
-      {isSlide ? (
+      {/* {isSlide ? ( */}
+      {true ? (
         <TouchableOpacity activeOpacity={0.85}
           style={styles.slideVideoDescription}
           onPress={handleOnPress}
