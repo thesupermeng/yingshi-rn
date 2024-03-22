@@ -1,0 +1,2474 @@
+开始自动混淆项目代码扫描文件中。。。。。。
+
+
+混淆项目路径：/Users/supermeng/yingshi-process
+新文件 <-> 现有文件 : TMappingController.h      ATSplashViewController.h
+新文件 <-> 现有文件 : GIShoot.h      ATInterstitialRNSDK.h
+新文件 <-> 现有文件 : QZGLong.h      ATRNSDK.h
+新文件 <-> 现有文件 : NDGift.h      ATRewardedVideoRNSDK.h
+新文件 <-> 现有文件 : AAssist.h      NSDictionary+String.h
+新文件 <-> 现有文件 : DNMatch.h      NSJSONSerialization+String.h
+新文件 <-> 现有文件 : HGTemp.h      ATBannerRNSDK.h
+新文件 <-> 现有文件 : TMappingController.h      ATSplashViewController.h
+新文件 <-> 现有文件 : GIShoot.h      ATInterstitialRNSDK.h
+新文件 <-> 现有文件 : QZGLong.h      ATRNSDK.h
+新文件 <-> 现有文件 : NDGift.h      ATRewardedVideoRNSDK.h
+新文件 <-> 现有文件 : AAssist.h      NSDictionary+String.h
+新文件 <-> 现有文件 : DNMatch.h      NSJSONSerialization+String.h
+新文件 <-> 现有文件 : HGTemp.h      ATBannerRNSDK.h
+新文件 <-> 现有文件 : AppDelegate.h      AppDelegate.h
+新文件 <-> 现有文件 : IREpisodesTelegramController.h      myAnimationViewController.h
+新文件 <-> 现有文件 : PSZYingMainController.h      RNViewController.h
+新文件 <-> 现有文件 : FTMAnythink.h      UMAnalyticsModule.h
+新文件 <-> 现有文件 : XJRobotoTemp.h      RNUMConfigure.h
+新文件 <-> 现有文件 : LaunchScreen.storyboard      LaunchScreen.storyboard
+新文件 <-> 现有文件 : bkc_umeng_black.js      react-native.config.js
+新文件 <-> 现有文件 : m_whistle.tsx      vipHistoryList.tsx
+新文件 <-> 现有文件 : of_play.tsx      MatchScheduleLive.tsx
+新文件 <-> 现有文件 : refreshPrivate_v.svg      profile-icon.svg
+新文件 <-> 现有文件 : App.tsx      App.tsx
+新文件 <-> 现有文件 : li_form.js      CanvasIncident.js
+新文件 <-> 现有文件 : r_sound.tsx      inviteCard.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : iq_modity.tsx      vipHistoryCard.tsx
+新文件 <-> 现有文件 : app.json      app.json
+新文件 <-> 现有文件 : b_views_current.tsx      MatchScheduleNavVip.tsx
+新文件 <-> 现有文件 : expiredSpinner.svg      down_arrow_grey.svg
+新文件 <-> 现有文件 : bf_apple_filter_header.tsx      inviteHeader.tsx
+新文件 <-> 现有文件 : bwz_type_phone.tsx      vipInviteHistory.tsx
+新文件 <-> 现有文件 : ijo_modal_whatsapp_view.tsx      MatchScheduleNav.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : umb_center_carousel.tsx      UmengAnalytics.tsx
+新文件 <-> 现有文件 : ocb_schedule.tsx      vipDetails.tsx
+新文件 <-> 现有文件 : backgroundOrientation.svg      favorite.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : dv_header_sans.tsx      inviteStep.tsx
+新文件 <-> 现有文件 : ddx_zhubo_more.tsx      EventAnalytic.tsx
+新文件 <-> 现有文件 : fgl_less_position.ts      style.ts
+新文件 <-> 现有文件 : nalyticsSpec.svg      download_pause_mini.svg
+新文件 <-> 现有文件 : r_chart.js      AnalyticsUtil.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : z_search.js      ysConfig.js
+新文件 <-> 现有文件 : largeCountrySearch.svg      downloadPause.svg
+新文件 <-> 现有文件 : gwi_with.tsx      customFastImage.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : tumbnailStreamingTumbnail.svg      brightnessGuide.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : nyr_animation_langkey.tsx      noConnection.tsx
+新文件 <-> 现有文件 : n_point.js      ATReactNativeSDK.js
+新文件 <-> 现有文件 : nextReportExpand.svg      close_icon.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : jip_next_bell.tsx      emptyList.tsx
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : shootUserStyle.svg      report.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : da_collection.js      ATInterstitialRNSDK.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : a_select_search.tsx      splashCard.tsx
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : gestureMoreBackground.svg      downloaded_icon.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : iu_area.js      ATRNSDK.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : floatingVolumeSport.svg      play.svg
+新文件 <-> 现有文件 : qee_dice.tsx      vodCard.tsx
+新文件 <-> 现有文件 : l_actions.js      ATBannerRNSDK.js
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : loginDownloader.svg      pip.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : of_main_sheet.tsx      vodWithDescriptionList.tsx
+新文件 <-> 现有文件 : y_play.js      ATRewardedVideoRNSDK.js
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : footballIcon.svg      send.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : bx_sell.tsx      vodEpisodeSelection.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : IREpisodesTelegramController.m      myAnimationViewController.m
+新文件 <-> 现有文件 : hongkongBottom.gif      home-loading.gif
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : PSZYingMainController.m      RNViewController.m
+新文件 <-> 现有文件 : uru_stats.tsx      vodDownloadSelection.tsx
+新文件 <-> 现有文件 : zp_progress_tooltips.tsx      EmptyDataPage.tsx
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : description_oClubSingle.gif      login-success.gif
+新文件 <-> 现有文件 : nv_refresh.tsx      vodTopicFilter.tsx
+新文件 <-> 现有文件 : stationsModalUnlock.gif      tempNoDataGif.gif
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : TMappingController.m      ATSplashViewController.m
+新文件 <-> 现有文件 : roomStreaming.svg      edit.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : bufferRules.wav      ScorePopSound.wav
+新文件 <-> 现有文件 : z_langkey.tsx      vodListVertical.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : GIShoot.m      ATInterstitialRNSDK.m
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : bx_player_pressure.tsx      vodSportsCard.tsx
+新文件 <-> 现有文件 : promotionLogin.gif      loading.gif
+新文件 <-> 现有文件 : fillSpinner.gif      login-success.light.gif
+新文件 <-> 现有文件 : QZGLong.m      ATRNSDK.m
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : a_schedule_inactive.tsx      vodDescription.tsx
+新文件 <-> 现有文件 : rankMalaysiaSingapore.gif      typingLoading.gif
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : bxd_favorite.tsx      signinupBottomSheet.tsx
+新文件 <-> 现有文件 : NDGift.m      ATRewardedVideoRNSDK.m
+新文件 <-> 现有文件 : tailDisconnected.svg      play-zhengpian1.svg
+新文件 <-> 现有文件 : tw_agreement_description.tsx      favoriteVodCard.tsx
+新文件 <-> 现有文件 : episodesGoogle.gif      GifGoal.gif
+新文件 <-> 现有文件 : DNMatch.m      NSJSONSerialization+String.m
+新文件 <-> 现有文件 : f_filter_movies.tsx      DefaultTeamIcon.tsx
+新文件 <-> 现有文件 : jrw_fill_user.tsx      BottomControlsMin.tsx
+新文件 <-> 现有文件 : carouselProject.svg      logoLight_no_connection.svg
+新文件 <-> 现有文件 : mmr_placeholder.tsx      vodLiveStationListVertical.tsx
+新文件 <-> 现有文件 : GIFT.json      GIFT.json
+新文件 <-> 现有文件 : fastVietnam.svg      vip_icon.svg
+新文件 <-> 现有文件 : AAssist.m      NSDictionary+String.m
+新文件 <-> 现有文件 : axx_field.tsx      BottomControls.tsx
+新文件 <-> 现有文件 : sportDiceNetwork.jpeg      PositionField.jpeg
+新文件 <-> 现有文件 : vietnamCalendarMiddleware.svg      feedback.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : HGTemp.m      ATBannerRNSDK.m
+新文件 <-> 现有文件 : progressCurrent.jpg      predictionBanner.jpg
+新文件 <-> 现有文件 : s_policy_calendar.tsx      vodLiveStationList.tsx
+新文件 <-> 现有文件 : vj_upgrade.js      VideoPlayer.js
+新文件 <-> 现有文件 : pzy_form.tsx      vodPlayerMin.tsx
+新文件 <-> 现有文件 : upgradeReportGoogle.svg      wechat.svg
+新文件 <-> 现有文件 : trashDark.gif      iconViewerGif1.gif
+新文件 <-> 现有文件 : sellAwayDesc.svg      no-wifi.svg
+新文件 <-> 现有文件 : zxc_placeholder.tsx      MiddleControlsMin.tsx
+新文件 <-> 现有文件 : TMappingController.m      ATSplashViewController.m
+新文件 <-> 现有文件 : lot_type_product.js      Controls.js
+新文件 <-> 现有文件 : jrx_sell_signinup.tsx      vodHistoryList.tsx
+新文件 <-> 现有文件 : l_with.js      BottomButtons.js
+新文件 <-> 现有文件 : commonReportDescription_d.jpg      predictionBannerShared.jpg
+新文件 <-> 现有文件 : z_product_disconnected.tsx      WebViewPlayer.tsx
+新文件 <-> 现有文件 : moduleFrame_jsActive.svg      Sun.svg
+新文件 <-> 现有文件 : sps_layout.tsx      vodHistoryCard.tsx
+新文件 <-> 现有文件 : GIShoot.m      ATInterstitialRNSDK.m
+新文件 <-> 现有文件 : es_untick.tsx      videoWithControlsMin.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : modalResend.gif      GifLiveStreaming.gif
+新文件 <-> 现有文件 : twitterBorderless.svg      li.svg
+新文件 <-> 现有文件 : hc_index_shared.tsx      vodWithDescriptionListRank.tsx
+新文件 <-> 现有文件 : currentTurnNative.gif      IconNewChat.gif
+新文件 <-> 现有文件 : x_sport_gray.tsx      VideoControlsOverlayMin.tsx
+新文件 <-> 现有文件 : QZGLong.m      ATRNSDK.m
+新文件 <-> 现有文件 : saveForm.svg      play_zhengpian.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : k_collection_detail.tsx      MiddleControls.tsx
+新文件 <-> 现有文件 : cqx_main.tsx      vodImageCard.tsx
+新文件 <-> 现有文件 : moreLangkeyNext.gif      GiftButton.gif
+新文件 <-> 现有文件 : bootsplashPolicyArrow.svg      send_filled.svg
+新文件 <-> 现有文件 : NDGift.m      ATRewardedVideoRNSDK.m
+新文件 <-> 现有文件 : l_photo.js      SwitchSourcePanel.js
+新文件 <-> 现有文件 : downloadedCenter.gif      casting.gif
+新文件 <-> 现有文件 : humidityResultContainer.svg      adult-switch-off.svg
+新文件 <-> 现有文件 : mg_roboto_rewind.tsx      vodSportsList.tsx
+新文件 <-> 现有文件 : DNMatch.m      NSJSONSerialization+String.m
+新文件 <-> 现有文件 : xr_settings.tsx      shortVod.tsx
+新文件 <-> 现有文件 : s_search.js      NoRecommend.js
+新文件 <-> 现有文件 : LottieRedBlink.json      LottieRedBlink.json
+新文件 <-> 现有文件 : starProduct.svg      blackPlay.svg
+新文件 <-> 现有文件 : exb_member_source_button.tsx      backButton.tsx
+新文件 <-> 现有文件 : AAssist.m      NSDictionary+String.m
+新文件 <-> 现有文件 : LottieGoalBg.json      LottieGoalBg.json
+新文件 <-> 现有文件 : dy_yellow_internet.js      RecommendPanel.js
+新文件 <-> 现有文件 : q_module_control.tsx      TopControls.tsx
+新文件 <-> 现有文件 : privacySearchbarTrash.svg      collection.svg
+新文件 <-> 现有文件 : ep_video_thailand_button.tsx      favoritePlaylistButton.tsx
+新文件 <-> 现有文件 : k_empty.js      RecommendCard.js
+新文件 <-> 现有文件 : z_video.tsx      miniVodList.tsx
+新文件 <-> 现有文件 : privilegeFilledSigninup.gif      GifGoalBg.gif
+新文件 <-> 现有文件 : HGTemp.m      ATBannerRNSDK.m
+新文件 <-> 现有文件 : default_4cShrinkForward.svg      unlock.svg
+新文件 <-> 现有文件 : ek_photo.js      VolumeControl.js
+新文件 <-> 现有文件 : x_china_button.tsx      bingSearchButton.tsx
+新文件 <-> 现有文件 : maf_invite.tsx      shortVodPlayer.tsx
+新文件 <-> 现有文件 : questRoomClub.svg      downloadComplete.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : main.m      main.m
+新文件 <-> 现有文件 : zgq_ping_animation.tsx      vodPlayer.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : readBingMode.svg      more_arrow.svg
+新文件 <-> 现有文件 : wd_group_recommendation.ts      const.ts
+新文件 <-> 现有文件 : et_icon.tsx      countdownIndicator.tsx
+新文件 <-> 现有文件 : heartUpdate_mo.svg      submitBtn.svg
+新文件 <-> 现有文件 : AppDelegate.mm      AppDelegate.mm
+新文件 <-> 现有文件 : gsk_trophy_modal.js      PanAreaVertical.js
+新文件 <-> 现有文件 : tv_rank.tsx      VideoControlsOverlay.tsx
+新文件 <-> 现有文件 : x_sheet_theme_button.tsx      showMoreVodButton.tsx
+新文件 <-> 现有文件 : h_update.js      appConfig.js
+新文件 <-> 现有文件 : link-assets-manifest.json      link-assets-manifest.json
+新文件 <-> 现有文件 : benefitBackground.svg      sportTab.svg
+新文件 <-> 现有文件 : qh_buffer.tsx      shortAds.tsx
+新文件 <-> 现有文件 : m_terms.js      BrightnessControl.js
+新文件 <-> 现有文件 : hw_theme_view.js      env.js
+新文件 <-> 现有文件 : XJRobotoTemp.m      RNUMConfigure.m
+新文件 <-> 现有文件 : productClubChart.svg      show_more.svg
+新文件 <-> 现有文件 : m_close_single.js      PopSlider.js
+新文件 <-> 现有文件 : c_prediction_button.tsx      favoriteVodButton.tsx
+新文件 <-> 现有文件 : bp_grey_vietnam.js      colors.js
+新文件 <-> 现有文件 : rev_circle.tsx      VideoThumbnail.tsx
+新文件 <-> 现有文件 : wvc_score.js      ControlTemplate.js
+新文件 <-> 现有文件 : pointHalfLight.svg      feedback_success.svg
+新文件 <-> 现有文件 : FTMAnythink.m      UMAnalyticsModule.m
+新文件 <-> 现有文件 : ift_macau_change.js      vars.js
+新文件 <-> 现有文件 : e_zhubo_mapping.tsx      videoWithControls.tsx
+新文件 <-> 现有文件 : React-Codegen.podspec.json      React-Codegen.podspec.json
+新文件 <-> 现有文件 : c_logo_countdown_button.tsx      showMoreButton.tsx
+新文件 <-> 现有文件 : q_refresh.js      dateCountDown.js
+新文件 <-> 现有文件 : m_white.js      BottomSheet.js
+新文件 <-> 现有文件 : xvodPromotionPrivate_xa.svg      phone.svg
+新文件 <-> 现有文件 : l_injury.tsx      CollectionBottomSheet.tsx
+新文件 <-> 现有文件 : lpm_transfer.js      urlEncryp.js
+新文件 <-> 现有文件 : xgs_mail.js      LiveStatPanel.js
+新文件 <-> 现有文件 : megaphoneDetails.svg      right-arrow-yellow.svg
+新文件 <-> 现有文件 : qmp_episodes.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : gw_ball.js      Share.js
+新文件 <-> 现有文件 : OVOrientation.mm      FBReactNativeSpec-generated.mm
+新文件 <-> 现有文件 : i_calendar_adult.tsx      RecommendationList.tsx
+新文件 <-> 现有文件 : yh_custom.js      date.js
+新文件 <-> 现有文件 : khe_news.tsx      countryPhoneList.tsx
+新文件 <-> 现有文件 : logoChangeAjax.svg      source_icon.svg
+新文件 <-> 现有文件 : ulw_album.js      TopBar.js
+新文件 <-> 现有文件 : gyn_renew_show.tsx      SearchResultList.tsx
+新文件 <-> 现有文件 : pq_referrer_connection.js      hash_util.js
+新文件 <-> 现有文件 : n_point.js      ATReactNativeSDK.js
+新文件 <-> 现有文件 : l_megaphone.tsx      readAgreementPrivacyPolicy.tsx
+新文件 <-> 现有文件 : dialogOverlayTwitter.svg      dropdown.svg
+新文件 <-> 现有文件 : yh_twitter.js      BottomBar.js
+新文件 <-> 现有文件 : q_incident_cast.tsx      yingPingContainer.tsx
+新文件 <-> 现有文件 : da_collection.js      ATInterstitialRNSDK.js
+新文件 <-> 现有文件 : lqu_gemfile.js      toast.js
+新文件 <-> 现有文件 : bannerBecome.gif      downloading.gif
+新文件 <-> 现有文件 : bah_trophy_area.js      RightPanel.js
+新文件 <-> 现有文件 : xae_progress_plus.tsx      downloadEpisodeDetailCard.tsx
+新文件 <-> 现有文件 : iu_area.js      ATRNSDK.js
+新文件 <-> 现有文件 : bv_more_assist.tsx      Playlist.tsx
+新文件 <-> 现有文件 : oi_gesture_subs.js      VideoGuide.js
+新文件 <-> 现有文件 : kxo_dark.tsx      RecommendationHome.tsx
+新文件 <-> 现有文件 : leaguePrivate_l.svg      profile.svg
+新文件 <-> 现有文件 : q_ewarded_cross.tsx      downloadVodCard.tsx
+新文件 <-> 现有文件 : l_actions.js      ATBannerRNSDK.js
+新文件 <-> 现有文件 : t_referrer.js      newsVideoPlayerStyle.js
+新文件 <-> 现有文件 : ond_away.tsx      PlaylistDetails.tsx
+新文件 <-> 现有文件 : g_modity_condensed.js      Snow.js
+新文件 <-> 现有文件 : uuu_background_control.tsx      selectDownloadComponent.tsx
+新文件 <-> 现有文件 : promotionIcon.svg      share.svg
+新文件 <-> 现有文件 : y_play.js      ATRewardedVideoRNSDK.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : htj_fast.tsx      vipPrivilegeFloatingIndicator.tsx
+新文件 <-> 现有文件 : eighteenMatch.svg      album.svg
+新文件 <-> 现有文件 : nv_other.tsx      AdultVideoList.tsx
+新文件 <-> 现有文件 : ypy_fast.tsx      screenContainer.tsx
+新文件 <-> 现有文件 : l_copy_vietnam.js      metro.config.js
+新文件 <-> 现有文件 : expandGpayDisconnected.svg      download_mini.svg
+新文件 <-> 现有文件 : h_ping.tsx      resendCountDown.tsx
+新文件 <-> 现有文件 : em_title_roboto.tsx      adultModeCountdownIndicator.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : qp_middleware.tsx      CarouselPagination.tsx
+新文件 <-> 现有文件 : castingDownResend.svg      qq.svg
+新文件 <-> 现有文件 : xqu_player.js      babel.config.js
+新文件 <-> 现有文件 : gx_thumbnail.tsx      vipRegisterBar.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : backwardHelper.svg      comment.svg
+新文件 <-> 现有文件 : nan_component.tsx      App-test.tsx
+新文件 <-> 现有文件 : plashBootsplash.svg      cross.svg
+新文件 <-> 现有文件 : eiy_quest.tsx      adultModeSwitch.tsx
+新文件 <-> 现有文件 : qpx_vietnam.tsx      setUsername.tsx
+新文件 <-> 现有文件 : moreWatch.svg      clear_hover.svg
+新文件 <-> 现有文件 : s_with.js      Loader.js
+新文件 <-> 现有文件 : b_send_catalog.tsx      CatagoryHome.tsx
+新文件 <-> 现有文件 : settingsGrayZhengpian.gif      loading-spinner.gif
+新文件 <-> 现有文件 : std_preview_type.tsx      Otp.tsx
+新文件 <-> 现有文件 : xvx_launch_league.tsx      eighteenPlusControls.tsx
+新文件 <-> 现有文件 : styleShrinkZhubo.svg      rewind.svg
+新文件 <-> 现有文件 : hejiPhoto.svg      search.svg
+新文件 <-> 现有文件 : j_regeng_apple.js      newsVideoPlayer.js
+新文件 <-> 现有文件 : xh_gpay.tsx      Home.tsx
+新文件 <-> 现有文件 : s_shrink_ticked.tsx      PanHandler.tsx
+新文件 <-> 现有文件 : qa_overlay.js      SnowScreen.js
+新文件 <-> 现有文件 : sourceEmpty.svg      light_mode.svg
+新文件 <-> 现有文件 : layoutUpdates.svg      logo2.svg
+新文件 <-> 现有文件 : j_circle.tsx      SportAndX.tsx
+新文件 <-> 现有文件 : v_twitter_target.tsx      ProgressGestureControl.tsx
+新文件 <-> 现有文件 : firebasePrivate_teConnection.svg      sports.svg
+新文件 <-> 现有文件 : splashTickedShrink.svg      logo.svg
+新文件 <-> 现有文件 : xn_empty_grey.tsx      LiveStations.tsx
+新文件 <-> 现有文件 : oql_bootsplash.tsx      bingSearchContainer.tsx
+新文件 <-> 现有文件 : thailandStationSell.svg      ticked.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : w_league_match.js      Snowflake.js
+新文件 <-> 现有文件 : yag_views_resend.tsx      Catalog.tsx
+新文件 <-> 现有文件 : cy_count_matches.tsx      vodCombinedGesture.tsx
+新文件 <-> 现有文件 : guideReminder.svg      selectEpisodes.svg
+新文件 <-> 现有文件 : storeService.svg      unlockScreen.svg
+新文件 <-> 现有文件 : fgl_less_position.tsx      style.tsx
+新文件 <-> 现有文件 : descHeji.svg      pause.svg
+新文件 <-> 现有文件 : pqo_gray_loading.tsx      Search.tsx
+新文件 <-> 现有文件 : r_sound.tsx      inviteCard.tsx
+新文件 <-> 现有文件 : analyticsFirebaseSuggestion.svg      playlist_tab_active.svg
+新文件 <-> 现有文件 : rip_danger.tsx      PlayFullScreenGesture.tsx
+新文件 <-> 现有文件 : jqw_preview_types.tsx      CustomMatchSubTab.tsx
+新文件 <-> 现有文件 : sheetGiftShirt.svg      home_tab.svg
+新文件 <-> 现有文件 : nlt_down.tsx      LiveStationPlay.tsx
+新文件 <-> 现有文件 : kb_video.tsx      FootballIconComponent.tsx
+新文件 <-> 现有文件 : rv_field_description.tsx      BrightnessGestureControl.tsx
+新文件 <-> 现有文件 : dataTick.svg      yingshi-grey.svg
+新文件 <-> 现有文件 : playlistInjury.svg      vip-icon.svg
+新文件 <-> 现有文件 : kmk_with_view.tsx      MatchDetailsNav.tsx
+新文件 <-> 现有文件 : wkj_playlist.tsx      BrightnessVolumeSlider.tsx
+新文件 <-> 现有文件 : bf_apple_filter_header.tsx      inviteHeader.tsx
+新文件 <-> 现有文件 : fq_corner_notification.tsx      AdEvent.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mappingFootballSearchbar.svg      adult-switch-on.svg
+新文件 <-> 现有文件 : dv_header_sans.tsx      inviteStep.tsx
+新文件 <-> 现有文件 : y_image_bottom.tsx      GesturesGuide.tsx
+新文件 <-> 现有文件 : profileModule.svg      eighteen-plus-icon.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : unselectedDark.svg      MutedVolume.svg
+新文件 <-> 现有文件 : h_active.tsx      Play.tsx
+新文件 <-> 现有文件 : ble_episodes.tsx      VolumeGestureControl.tsx
+新文件 <-> 现有文件 : gwi_with.tsx      customFastImage.tsx
+新文件 <-> 现有文件 : pressureRecommendation.svg      favicon.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : ff_heart.tsx      MainCollection.tsx
+新文件 <-> 现有文件 : sourceProject.svg      more_arrow_yellow.svg
+新文件 <-> 现有文件 : uc_single.tsx      bottomSheet.tsx
+新文件 <-> 现有文件 : fastforwardPromotion.svg      volumeGuide.svg
+新文件 <-> 现有文件 : cs_button_pressure.tsx      shortVodCollection.tsx
+新文件 <-> 现有文件 : nyr_animation_langkey.tsx      noConnection.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : lineTumbnailSpinner.svg      project.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : owj_container.tsx      PlaylistCollection.tsx
+新文件 <-> 现有文件 : bootsplashGuide.svg      fullScreen.svg
+新文件 <-> 现有文件 : usernameCountry.svg      history.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : vfd_comment_expand.tsx      vipLoginAlertModal.tsx
+新文件 <-> 现有文件 : vwm_watch_login.tsx      VodCollection.tsx
+新文件 <-> 现有文件 : jip_next_bell.tsx      emptyList.tsx
+新文件 <-> 现有文件 : malaysiaDelegate_45.svg      feedback_hover.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : viewsSingleActions.svg      gpay.svg
+新文件 <-> 现有文件 : mg_save.tsx      downloadVodSelectionModal.tsx
+新文件 <-> 现有文件 : vn_incident.tsx      AboutUs.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : resendSelectionLarge.svg      xvodTab.svg
+新文件 <-> 现有文件 : thailandApple.svg      add.svg
+新文件 <-> 现有文件 : qee_dice.tsx      vodCard.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : ogv_spec.tsx      InviteDetails.tsx
+新文件 <-> 现有文件 : sportLaunchWatch.svg      Moon.svg
+新文件 <-> 现有文件 : au_bodan_anytime.tsx      vipPromotionModal.tsx
+新文件 <-> 现有文件 : filterEighteen.svg      apple_pay.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : of_main_sheet.tsx      vodWithDescriptionList.tsx
+新文件 <-> 现有文件 : smallSearch.svg      upload_tab_active.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : cr_quest_mini.tsx      Invite.tsx
+新文件 <-> 现有文件 : lyh_tail.tsx      vipGuide2.tsx
+新文件 <-> 现有文件 : short_kkSwitch_a.svg      play-bodan.svg
+新文件 <-> 现有文件 : redirectType_8.svg      gmail.svg
+新文件 <-> 现有文件 : bx_sell.tsx      vodEpisodeSelection.tsx
+新文件 <-> 现有文件 : infoType_6.svg      VipEntry.svg
+新文件 <-> 现有文件 : episodeSwitch_k8Typing.svg      expandHeji.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : xdg_store_carousel.tsx      Profile.tsx
+新文件 <-> 现有文件 : zf_drag_screen.tsx      changeUsernameModal.tsx
+新文件 <-> 现有文件 : update_5Mail.svg      upgrade.svg
+新文件 <-> 现有文件 : leagueSentryModule.svg      tick.svg
+新文件 <-> 现有文件 : kbg_regeng_username.tsx      DownloadDetails.tsx
+新文件 <-> 现有文件 : nv_refresh.tsx      vodTopicFilter.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : tc_canvas_basketball.tsx      changeReferrerModal.tsx
+新文件 <-> 现有文件 : shp_placeholder_other.js      replaceChannel.js
+新文件 <-> 现有文件 : h_adult_drag.tsx      DownloadCatalog.tsx
+新文件 <-> 现有文件 : bodanIncident.svg      tick2.svg
+新文件 <-> 现有文件 : z_langkey.tsx      vodListVertical.tsx
+新文件 <-> 现有文件 : tsconfig.json      tsconfig.json
+新文件 <-> 现有文件 : fgl_less_position.tsx      style.tsx
+新文件 <-> 现有文件 : ballLogin.svg      tick1.svg
+新文件 <-> 现有文件 : fc_shoot_bodan.tsx      notificationModal.tsx
+新文件 <-> 现有文件 : y_icon.tsx      History.tsx
+新文件 <-> 现有文件 : firebase.json      firebase.json
+新文件 <-> 现有文件 : a_schedule_inactive.tsx      vodDescription.tsx
+新文件 <-> 现有文件 : editCurrentCanvas.svg      videoShare.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : promotionGestureComment.jpg      bodan3.jpg
+新文件 <-> 现有文件 : l_member_component.tsx      SpinnerOverlay.tsx
+新文件 <-> 现有文件 : i_dialog.tsx      AppsFlyerAnalytic.tsx
+新文件 <-> 现有文件 : a_const.tsx      Configure.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : tw_agreement_description.tsx      favoriteVodCard.tsx
+新文件 <-> 现有文件 : yf_filter.tsx      regengModal.tsx
+新文件 <-> 现有文件 : giftDownloadedDown.svg      weibo.svg
+新文件 <-> 现有文件 : wpk_long.tsx      ajaxTypes.tsx
+新文件 <-> 现有文件 : t_firebase_score.tsx      Privacy.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : d_clear.tsx      vipModal.tsx
+新文件 <-> 现有文件 : combineStatistics.svg      upload_tab.svg
+新文件 <-> 现有文件 : jx_suggestion.ts      vodDownloadTypes.ts
+新文件 <-> 现有文件 : mmr_placeholder.tsx      vodLiveStationListVertical.tsx
+新文件 <-> 现有文件 : sc_volume.tsx      VIP2.tsx
+新文件 <-> 现有文件 : submitSave.svg      blacklist.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : c_brightness.tsx      vipOverlay.tsx
+新文件 <-> 现有文件 : nb_shared_target.tsx      screenType.tsx
+新文件 <-> 现有文件 : s_policy_calendar.tsx      vodLiveStationList.tsx
+新文件 <-> 现有文件 : d_backward_notification.tsx      UserCenter.tsx
+新文件 <-> 现有文件 : hejiAnytime.svg      vod_detail.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : nn_bing.tsx      typeMapping.tsx
+新文件 <-> 现有文件 : qyr_constants_firebase.tsx      commonVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : jrx_sell_signinup.tsx      vodHistoryList.tsx
+新文件 <-> 现有文件 : rx_empty.tsx      Feedback.tsx
+新文件 <-> 现有文件 : eactDetailsPopup.svg      episodes.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : m_splash.tsx      membershipType.tsx
+新文件 <-> 现有文件 : lightLangkeySports.svg      logoLight.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : jdy_detail.tsx      privacyPolicyOverlay.tsx
+新文件 <-> 现有文件 : sps_layout.tsx      vodHistoryCard.tsx
+新文件 <-> 现有文件 : pf_downloader.tsx      EventRules.tsx
+新文件 <-> 现有文件 : qkf_bell.tsx      actionTypes.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : hoverRouter.svg      progressGuide.svg
+新文件 <-> 现有文件 : xkp_arrow.tsx      adultVideoVipModal.tsx
+新文件 <-> 现有文件 : ve_search_white.tsx      AutoRenewService.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : membershipSubs.svg      ying_ping_logo.svg
+新文件 <-> 现有文件 : cqx_main.tsx      vodImageCard.tsx
+新文件 <-> 现有文件 : vrm_thailand.tsx      navigationTypes.tsx
+新文件 <-> 现有文件 : jyb_screen_photo.tsx      UserAgreement.tsx
+新文件 <-> 现有文件 : time_rInfoWeibo.svg      download_btn.svg
+新文件 <-> 现有文件 : wd_pressure.tsx      vipPromotionOverlay.tsx
+新文件 <-> 现有文件 : jxf_pause.tsx      chatTypes.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : adultNotificationPenalty.svg      back_arrow.svg
+新文件 <-> 现有文件 : exb_member_source_button.tsx      backButton.tsx
+新文件 <-> 现有文件 : eki_firebase_emoji.tsx      vodEpisodeSelectionModal.tsx
+新文件 <-> 现有文件 : fev_injury_sell.tsx      TermsAcceptedContext.tsx
+新文件 <-> 现有文件 : long_aMatch.svg      vip-icon-inactive.svg
+新文件 <-> 现有文件 : fgl_less_position.tsx      style.tsx
+新文件 <-> 现有文件 : kgc_sport_sans.tsx      VIP.tsx
+新文件 <-> 现有文件 : ep_video_thailand_button.tsx      favoritePlaylistButton.tsx
+新文件 <-> 现有文件 : ul_success.tsx      regengOverlay.tsx
+新文件 <-> 现有文件 : os_baidu_show.tsx      AdsBannerContext.tsx
+新文件 <-> 现有文件 : pointHalfLight.gif      feedback_success.gif
+新文件 <-> 现有文件 : gti_privacy.tsx      XVodTab.tsx
+新文件 <-> 现有文件 : x_china_button.tsx      bingSearchButton.tsx
+新文件 <-> 现有文件 : countShow.svg      clear.svg
+新文件 <-> 现有文件 : f_matches_nterstitial.tsx      overEighteenOverlay.tsx
+新文件 <-> 现有文件 : p_helper.tsx      vodListVerticalVip.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : productControlsSports.svg      pyq.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : rv_accepted_china.tsx      vipLoginAlertOverlay.tsx
+新文件 <-> 现有文件 : x_sheet_theme_button.tsx      showMoreVodButton.tsx
+新文件 <-> 现有文件 : shootAcceptedPrivate_7.gif      videoBufferLoading.gif
+新文件 <-> 现有文件 : i_emoji_popup.tsx      WatchAnytime.tsx
+新文件 <-> 现有文件 : f_area_share.tsx      langkey.tsx
+新文件 <-> 现有文件 : c_prediction_button.tsx      favoriteVodButton.tsx
+新文件 <-> 现有文件 : matchAnner.svg      playlist_tab.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : rv_borderless.tsx      expiredOverlay.tsx
+新文件 <-> 现有文件 : l_weibo.tsx      favoritePlaylist.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : actionTemperature.svg      fastforward.svg
+新文件 <-> 现有文件 : i_favorite.tsx      api.tsx
+新文件 <-> 现有文件 : c_logo_countdown_button.tsx      showMoreButton.tsx
+新文件 <-> 现有文件 : lineShow.svg      empty.svg
+新文件 <-> 现有文件 : spf_sound.tsx      vipPrivilegeModal.tsx
+新文件 <-> 现有文件 : ki_gift_zhubo.tsx      vodPlaylist.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : qmp_episodes.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : pg_buffer_alert.tsx      becomeVipOverlay.tsx
+新文件 <-> 现有文件 : modalUserReminder.svg      vip-arrow.svg
+新文件 <-> 现有文件 : bsu_common_view.tsx      nav.tsx
+新文件 <-> 现有文件 : m_whistle.tsx      vipHistoryList.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : khe_news.tsx      countryPhoneList.tsx
+新文件 <-> 现有文件 : tu_group_change.tsx      adultVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : aboutRegister_j9Singapore.svg      sortDesc.svg
+新文件 <-> 现有文件 : w_loading.tsx      Chart.tsx
+新文件 <-> 现有文件 : xx_hooks.tsx      vipDialog.tsx
+新文件 <-> 现有文件 : l_megaphone.tsx      readAgreementPrivacyPolicy.tsx
+新文件 <-> 现有文件 : lk_control_malaysia_view.tsx      mainNav.tsx
+新文件 <-> 现有文件 : nw_topic.tsx      confirmationModal.tsx
+新文件 <-> 现有文件 : rrf_gesture_sans.tsx      vipCard.tsx
+新文件 <-> 现有文件 : li_form.tsx      CanvasIncident.tsx
+新文件 <-> 现有文件 : fullRegengReminder.svg      logo_no_connection.svg
+新文件 <-> 现有文件 : iq_modity.tsx      vipHistoryCard.tsx
+新文件 <-> 现有文件 : tw_anner.tsx      sportVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : iml_singapore.tsx      eventSplash.tsx
+新文件 <-> 现有文件 : s_shrink_ticked.tsx      PanHandler.tsx
+新文件 <-> 现有文件 : eighteenPlaceholderBlack.svg      arrow_down_yellow.svg
+新文件 <-> 现有文件 : n_header_membership.tsx      vipGuide.tsx
+新文件 <-> 现有文件 : q_upload.tsx      TopStats.tsx
+新文件 <-> 现有文件 : iue_description_form.ts      minivodDownloader.ts
+新文件 <-> 现有文件 : bwz_type_phone.tsx      vipInviteHistory.tsx
+新文件 <-> 现有文件 : v_twitter_target.tsx      ProgressGestureControl.tsx
+新文件 <-> 现有文件 : twitterInjury.svg      profile_tab_active.svg
+新文件 <-> 现有文件 : hnd_black.tsx      SideStats.tsx
+新文件 <-> 现有文件 : htf_clear_main.tsx      vipBenefit.tsx
+新文件 <-> 现有文件 : a_theme.ts      vodDownloader.ts
+新文件 <-> 现有文件 : ks_vignette_data_view.tsx      homeNav.tsx
+新文件 <-> 现有文件 : cy_count_matches.tsx      vodCombinedGesture.tsx
+新文件 <-> 现有文件 : tempUnreadShirt.svg      fastforwardProgress.svg
+新文件 <-> 现有文件 : c_turn_description.tsx      MiddleStats.tsx
+新文件 <-> 现有文件 : s_statistics.tsx      zh.tsx
+新文件 <-> 现有文件 : ocb_schedule.tsx      vipDetails.tsx
+新文件 <-> 现有文件 : rip_danger.tsx      PlayFullScreenGesture.tsx
+新文件 <-> 现有文件 : lo_light.tsx      AreaChart.tsx
+新文件 <-> 现有文件 : zlo_tumbnail_lock.tsx      en.tsx
+新文件 <-> 现有文件 : ppg_phone_country_view.tsx      vipNav.tsx
+新文件 <-> 现有文件 : malaysiaTumbnailCombine.svg      settings.svg
+新文件 <-> 现有文件 : g_adult_player.tsx      vipMember.tsx
+新文件 <-> 现有文件 : rv_field_description.tsx      BrightnessGestureControl.tsx
+新文件 <-> 现有文件 : kse_line.tsx      vipZf.tsx
+新文件 <-> 现有文件 : fgl_less_position.tsx      style.tsx
+新文件 <-> 现有文件 : bsu_common_view.tsx      nav.tsx
+新文件 <-> 现有文件 : cio_news_types_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : signinupConstants.svg      sortAsc.svg
+新文件 <-> 现有文件 : wkj_playlist.tsx      BrightnessVolumeSlider.tsx
+新文件 <-> 现有文件 : bv_more_assist.tsx      Playlist.tsx
+新文件 <-> 现有文件 : crossAnimation.svg      screenCast.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : uk_result.tsx      searchbar.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : y_image_bottom.tsx      GesturesGuide.tsx
+新文件 <-> 现有文件 : largeLeft.svg      sina.svg
+新文件 <-> 现有文件 : ond_away.tsx      PlaylistDetails.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : se_ying.tsx      mainCollectionHeaderPlaylist.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : shootGift.svg      mail.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : aj_malaysia_telegram.tsx      Rank.tsx
+新文件 <-> 现有文件 : ble_episodes.tsx      VolumeGestureControl.tsx
+新文件 <-> 现有文件 : tae_refresh_header.tsx      homeHeader.tsx
+新文件 <-> 现有文件 : constantsHongkongLogo.svg      mode.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : tuj_slider.tsx      Topic.tsx
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : uc_single.tsx      bottomSheet.tsx
+新文件 <-> 现有文件 : r_rank_single_header.tsx      mainCollectionHeader.tsx
+新文件 <-> 现有文件 : feedbackAway.svg      download.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : h_ping.tsx      resendCountDown.tsx
+新文件 <-> 现有文件 : r_upgrade.tsx      reportBottomSheet.tsx
+新文件 <-> 现有文件 : downloadingLeague.svg      profile_tab.svg
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : ed_module_album_header.tsx      privacyBackButtonHeader.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : stringEighteenPlaceholder.svg      heji.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : qpx_vietnam.tsx      setUsername.tsx
+新文件 <-> 现有文件 : j_native_hover_header.tsx      myCollectionHeader.tsx
+新文件 <-> 现有文件 : zf_drag_screen.tsx      changeUsernameModal.tsx
+新文件 <-> 现有文件 : app.svg      app.svg
+新文件 <-> 现有文件 : kg_index.tsx      hooks.tsx
+新文件 <-> 现有文件 : std_preview_type.tsx      Otp.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : dangerThumbnailMode.svg      Volume.svg
+新文件 <-> 现有文件 : tc_canvas_basketball.tsx      changeReferrerModal.tsx
+新文件 <-> 现有文件 : brl_tumbnail.tsx      useOrientation.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : xh_gpay.tsx      Home.tsx
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : odj_sports.tsx      uploadProgressOverlay.tsx
+新文件 <-> 现有文件 : profileTemperatureUpdate_jv.svg      moreMovies.svg
+新文件 <-> 现有文件 : ll_link.tsx      useInterstitialAds.tsx
+新文件 <-> 现有文件 : a_large.tsx      liveVideoPlayer.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mainBenefitForm.jpeg      bodan2.jpeg
+新文件 <-> 现有文件 : xn_empty_grey.tsx      LiveStations.tsx
+新文件 <-> 现有文件 : fc_shoot_bodan.tsx      notificationModal.tsx
+新文件 <-> 现有文件 : fu_center_playlist.ts      *.d.ts
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : middlewareGoalStation.svg      checkbox_unselected.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : te_search.ts      custom.d.ts
+新文件 <-> 现有文件 : l_member_component.tsx      SpinnerOverlay.tsx
+新文件 <-> 现有文件 : yag_views_resend.tsx      Catalog.tsx
+新文件 <-> 现有文件 : const_agCollection.svg      minimizeScreen.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : pqo_gray_loading.tsx      Search.tsx
+新文件 <-> 现有文件 : yf_filter.tsx      regengModal.tsx
+新文件 <-> 现有文件 : bodanInvite.svg      downloadPause_yellow.svg
+新文件 <-> 现有文件 : xgj_sell_product.tsx      apps.tsx
+新文件 <-> 现有文件 : xsb_success.tsx      hook.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : nlt_down.tsx      LiveStationPlay.tsx
+新文件 <-> 现有文件 : d_clear.tsx      vipModal.tsx
+新文件 <-> 现有文件 : h_rules.tsx      component.tsx
+新文件 <-> 现有文件 : modelsShrinkRegister_m.svg      dark_mode.svg
+新文件 <-> 现有文件 : tqu_confirmation.ts      splash.ts
+新文件 <-> 现有文件 : fcz_subs.tsx      unread.tsx
+新文件 <-> 现有文件 : miniLock.svg      arrow_up_grey.svg
+新文件 <-> 现有文件 : c_brightness.tsx      vipOverlay.tsx
+新文件 <-> 现有文件 : u_store.tsx      product.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : bxd_favorite.tsx      signinupBottomSheet.tsx
+新文件 <-> 现有文件 : h_active.tsx      Play.tsx
+新文件 <-> 现有文件 : jdy_detail.tsx      privacyPolicyOverlay.tsx
+新文件 <-> 现有文件 : copy_nBasketball.svg      lockScreen.svg
+新文件 <-> 现有文件 : rs_away_stats.tsx      playlist.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : axx_field.tsx      BottomControls.tsx
+新文件 <-> 现有文件 : smallPoint.svg      defaultVideoThumbnail.svg
+新文件 <-> 现有文件 : eki_firebase_emoji.tsx      vodEpisodeSelectionModal.tsx
+新文件 <-> 现有文件 : kl_sheet.tsx      user.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : typesFilledBlacklist.svg      download_icon.svg
+新文件 <-> 现有文件 : ff_heart.tsx      MainCollection.tsx
+新文件 <-> 现有文件 : z_product_disconnected.tsx      WebViewPlayer.tsx
+新文件 <-> 现有文件 : k_champion_thailand.tsx      vod.tsx
+新文件 <-> 现有文件 : ul_success.tsx      regengOverlay.tsx
+新文件 <-> 现有文件 : z_google.ts      ads.ts
+新文件 <-> 现有文件 : cs_button_pressure.tsx      shortVodCollection.tsx
+新文件 <-> 现有文件 : flyerTime_ij.svg      down_arrow.svg
+新文件 <-> 现有文件 : rv_borderless.tsx      expiredOverlay.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : dj_clear_privilege.tsx      chat.tsx
+新文件 <-> 现有文件 : k_collection_detail.tsx      MiddleControls.tsx
+新文件 <-> 现有文件 : configureGift.svg      info.svg
+新文件 <-> 现有文件 : nw_topic.tsx      confirmationModal.tsx
+新文件 <-> 现有文件 : owj_container.tsx      PlaylistCollection.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : zl_station_modal.tsx      feedback.tsx
+新文件 <-> 现有文件 : q_module_control.tsx      TopControls.tsx
+新文件 <-> 现有文件 : thailandApple.svg      add.svg
+新文件 <-> 现有文件 : hdf_side.tsx      uploadResultOverlay.tsx
+新文件 <-> 现有文件 : vwm_watch_login.tsx      VodCollection.tsx
+新文件 <-> 现有文件 : t_incident_roboto.ts      miniVod.ts
+新文件 <-> 现有文件 : bootPhotoStyle.svg      video_tab.svg
+新文件 <-> 现有文件 : ks_vignette_data_view.tsx      homeNav.tsx
+新文件 <-> 现有文件 : zgq_ping_animation.tsx      vodPlayer.tsx
+新文件 <-> 现有文件 : viewerClose.svg      home_tab_active.svg
+新文件 <-> 现有文件 : vn_incident.tsx      AboutUs.tsx
+新文件 <-> 现有文件 : qmp_episodes.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : of_link.tsx      RelatedVodSuggestion.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : ogv_spec.tsx      InviteDetails.tsx
+新文件 <-> 现有文件 : cio_news_types_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : agreementPressure.svg      video_tab_active.svg
+新文件 <-> 现有文件 : ppg_phone_country_view.tsx      vipNav.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : switch_1White.svg      close.svg
+新文件 <-> 现有文件 : z_condensed_pause.tsx      VodDetails.tsx
+新文件 <-> 现有文件 : cr_quest_mini.tsx      Invite.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : fj_prediction_thailand.tsx      store.tsx
+新文件 <-> 现有文件 : xy_button_next.tsx      vodDescriptionBottomSheet.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : xdg_store_carousel.tsx      Profile.tsx
+新文件 <-> 现有文件 : sendCatalogSettings.svg      loading_img.svg
+新文件 <-> 现有文件 : xbr_humidity_transfer.tsx      miniVodActions.tsx
+新文件 <-> 现有文件 : h_basketball.tsx      iconGroup.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : y_icon.tsx      History.tsx
+新文件 <-> 现有文件 : h_nalytics_typing.tsx      settingsActions.tsx
+新文件 <-> 现有文件 : robotoTail.svg      download_vod.svg
+新文件 <-> 现有文件 : tv_rank.tsx      VideoControlsOverlay.tsx
+新文件 <-> 现有文件 : cio_news_types_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : a_const.tsx      Configure.tsx
+新文件 <-> 现有文件 : rk_filed_watch.tsx      userAction.tsx
+新文件 <-> 现有文件 : animationEpisode.svg      nextEpisode.svg
+新文件 <-> 现有文件 : z_adult_connection.tsx      AdVideoImage.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : p_gray.tsx      backgroundAction.tsx
+新文件 <-> 现有文件 : checkboxLaunch.svg      history_hover.svg
+新文件 <-> 现有文件 : ll_alert.tsx      DescriptionBar.tsx
+新文件 <-> 现有文件 : t_firebase_score.tsx      Privacy.tsx
+新文件 <-> 现有文件 : uk_result.tsx      searchbar.tsx
+新文件 <-> 现有文件 : whatsappUnselectedCircle.svg      refresh.svg
+新文件 <-> 现有文件 : lp_icon_button.tsx      RedirectButton.tsx
+新文件 <-> 现有文件 : x_privilege.tsx      themeAction.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : foundPauseCircle.svg      checkbox_selected.svg
+新文件 <-> 现有文件 : y_read.ts      videoDownloadAction.ts
+新文件 <-> 现有文件 : xr_settings.tsx      shortVod.tsx
+新文件 <-> 现有文件 : tae_refresh_header.tsx      homeHeader.tsx
+新文件 <-> 现有文件 : d_backward_notification.tsx      UserCenter.tsx
+新文件 <-> 现有文件 : actionsFoundBing.svg      rewindProgress.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : xif_layout.tsx      vodActions.tsx
+新文件 <-> 现有文件 : z_video.tsx      miniVodList.tsx
+新文件 <-> 现有文件 : rx_empty.tsx      Feedback.tsx
+新文件 <-> 现有文件 : currentTitle.svg      bing.svg
+新文件 <-> 现有文件 : r_rank_single_header.tsx      mainCollectionHeader.tsx
+新文件 <-> 现有文件 : maf_invite.tsx      shortVodPlayer.tsx
+新文件 <-> 现有文件 : ss_updates_detail.tsx      uploadAction.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : pf_downloader.tsx      EventRules.tsx
+新文件 <-> 现有文件 : refreshServiceActive.svg      not_found.svg
+新文件 <-> 现有文件 : qh_buffer.tsx      shortAds.tsx
+新文件 <-> 现有文件 : ed_module_album_header.tsx      privacyBackButtonHeader.tsx
+新文件 <-> 现有文件 : tnm_trophy.tsx      searchActions.tsx
+新文件 <-> 现有文件 : giftDownloadedDown.svg      weibo.svg
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : ac_service_preview_button.tsx      HejiButton.tsx
+新文件 <-> 现有文件 : gc_hongkong.tsx      chatAction.tsx
+新文件 <-> 现有文件 : j_native_hover_header.tsx      myCollectionHeader.tsx
+新文件 <-> 现有文件 : jyb_screen_photo.tsx      UserAgreement.tsx
+新文件 <-> 现有文件 : notificationTumbnail.svg      fb.svg
+新文件 <-> 现有文件 : rev_circle.tsx      VideoThumbnail.tsx
+新文件 <-> 现有文件 : a_switch.tsx      screenAction.tsx
+新文件 <-> 现有文件 : kl_sheet.ts      user.ts
+新文件 <-> 现有文件 : kgc_sport_sans.tsx      VIP.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : anythinkFast.svg      telegram.svg
+新文件 <-> 现有文件 : pfh_launch_left.ts      videoDownloadReducer.ts
+新文件 <-> 现有文件 : e_zhubo_mapping.tsx      videoWithControls.tsx
+新文件 <-> 现有文件 : bx_navigation_alert.tsx      allComment.tsx
+新文件 <-> 现有文件 : i_favorite.js      api.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : countInviteChina.svg      double-arrow.svg
+新文件 <-> 现有文件 : tyk_trophy.tsx      miniVodReducer.tsx
+新文件 <-> 现有文件 : ye_analytic.tsx      uploadHistory.tsx
+新文件 <-> 现有文件 : l_injury.tsx      CollectionBottomSheet.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : aux_bootsplash_black.js      url.js
+新文件 <-> 现有文件 : stepAgreement.svg      copy.svg
+新文件 <-> 现有文件 : iu_quest_taiwan.tsx      uploadVideo.tsx
+新文件 <-> 现有文件 : i_calendar_adult.tsx      RecommendationList.tsx
+新文件 <-> 现有文件 : r_minimize_chart.tsx      screenReducer.tsx
+新文件 <-> 现有文件 : nep_small_hover.js      api_tmp.js
+新文件 <-> 现有文件 : d_collection_user_view.tsx      uploadVideoPreview.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : gyn_renew_show.tsx      SearchResultList.tsx
+新文件 <-> 现有文件 : rnk_floating_pagination.ts      lineUpTypes.ts
+新文件 <-> 现有文件 : upgradeReportGoogle.svg      wechat.svg
+新文件 <-> 现有文件 : t_types.tsx      settingsReducer.tsx
+新文件 <-> 现有文件 : u_clock.js      styles.js
+新文件 <-> 现有文件 : dj_sort.ts      liveMatchTypes.ts
+新文件 <-> 现有文件 : i_emoji_popup.tsx      WatchAnytime.tsx
+新文件 <-> 现有文件 : kxo_dark.tsx      RecommendationHome.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : description_5TailInvite.svg      whatsapp.svg
+新文件 <-> 现有文件 : t_filled.tsx      chatReducer.tsx
+新文件 <-> 现有文件 : l_fastforward_buffer.ts      matchUpdatesType.ts
+新文件 <-> 现有文件 : ypy_fast.tsx      screenContainer.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : qot_stations_station.tsx      apiService.tsx
+新文件 <-> 现有文件 : x_home.ts      matchTypes.ts
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : fo_target_banner.tsx      themeReducer.tsx
+新文件 <-> 现有文件 : qp_middleware.tsx      CarouselPagination.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : m_control_header.tsx      MatchDetails.tsx
+新文件 <-> 现有文件 : n_subs_interstitial.ts      constants.ts
+新文件 <-> 现有文件 : b_send_catalog.tsx      CatagoryHome.tsx
+新文件 <-> 现有文件 : q_report_favorite.tsx      uploadReducer.tsx
+新文件 <-> 现有文件 : vat_football_submit.tsx      commentBox.tsx
+新文件 <-> 现有文件 : ysp_context.tsx      Matches.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : r_basketball_common.tsx      bannerContainer.tsx
+新文件 <-> 现有文件 : qm_modal.tsx      commentCard.tsx
+新文件 <-> 现有文件 : hm_favorite.tsx      backgroundReducer.tsx
+新文件 <-> 现有文件 : sa_crown.tsx      popup.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : pxk_lang_quest.tsx      vodReducer.tsx
+新文件 <-> 现有文件 : oql_bootsplash.tsx      bingSearchContainer.tsx
+新文件 <-> 现有文件 : k_count_dark.tsx      firebaseNotification.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : l_weibo.tsx      favoritePlaylist.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : f_gmail.tsx      userReducer.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : qxb_penalty_ping.ts      theme.ts
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : ki_gift_zhubo.tsx      vodPlaylist.tsx
+新文件 <-> 现有文件 : q_favicon_dropdown.tsx      searchReducer.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : k_schedule_filed.tsx      combineReducer.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : dqb_wind_league.tsx      router.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : tvl_club.tsx      middleware.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : a_singapore.tsx      langService.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : rfl_schedule.ts      helper.ts
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : hw_theme_view.tsx      env.tsx
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : fgl_less_position.js      style.js
+新文件 <-> 现有文件 : aeg_overlay.tsx      MatchScheduleVip.tsx
+新文件 <-> 现有文件 : m_container.tsx      MatchScheduleList.tsx
+新文件 <-> 现有文件 : y_event_sort.tsx      MatchSchedule.tsx
+新文件 <-> 现有文件 : om_custom.tsx      MatchScheduleListVip.tsx
+新文件 <-> 现有文件 : flyerTime_ij.png      down_arrow.png
+新文件 <-> 现有文件 : circleTerms.png      vip_promotion_models.png
+新文件 <-> 现有文件 : injuryNavigation.png      vip_guide_arrow1.png
+新文件 <-> 现有文件 : hooksPromotionBack.png      vip_sport_models.png
+新文件 <-> 现有文件 : tickCountryRefresh.png      vip_logo.png
+新文件 <-> 现有文件 : type_9ChatShare.png      vip_no_ad.png
+新文件 <-> 现有文件 : controlRecommendationTime_o.png      vip_sport.png
+新文件 <-> 现有文件 : pingTeam.png      crown_vip.png
+新文件 <-> 现有文件 : dropdownScoreCustom.png      google.png
+新文件 <-> 现有文件 : malaysiaHelper.png      card.png
+新文件 <-> 现有文件 : componentTeam.png      singleBg2.png
+新文件 <-> 现有文件 : networkService.png      alert.png
+新文件 <-> 现有文件 : mainScheduleUnlock.png      subText.png
+新文件 <-> 现有文件 : emojiSuccess.png      subText2.png
+新文件 <-> 现有文件 : chatMembershipSell.png      singleBg.png
+新文件 <-> 现有文件 : streamingLogoCustom.png      vip_guide_arrow.png
+新文件 <-> 现有文件 : lightDetailShow.png      bgVipXvod.png
+新文件 <-> 现有文件 : actionSaveBackward.png      profilePic.png
+新文件 <-> 现有文件 : linkEpisodesSound.png      vip_adult_models.png
+新文件 <-> 现有文件 : basketballWatch.png      eventSplash2.png
+新文件 <-> 现有文件 : middleSentryBanner.png      eventSplash3.png
+新文件 <-> 现有文件 : loadingWindSearchbar.png      white-dot.png
+新文件 <-> 现有文件 : z_google.png      ads.png
+新文件 <-> 现有文件 : episodesOrangeIndex.png      cast.png
+新文件 <-> 现有文件 : eighteenThailand.png      time.png
+新文件 <-> 现有文件 : feedbackAway.png      download.png
+新文件 <-> 现有文件 : handlerIncident.png      vip_adult_video.png
+新文件 <-> 现有文件 : catagoryConfigure.png      sport.png
+新文件 <-> 现有文件 : upgradeLeft.png      twitter.png
+新文件 <-> 现有文件 : userTeam.png      hot.png
+新文件 <-> 现有文件 : appleStringTopic.png      danger.png
+新文件 <-> 现有文件 : membershipCurrentPhoto.png      vip_common_background.png
+新文件 <-> 现有文件 : hookTemp.png      eventSplash1.png
+新文件 <-> 现有文件 : fastUpdate_ebAssist.png      forward.png
+新文件 <-> 现有文件 : typingDice.png      bg-gradient.png
+新文件 <-> 现有文件 : fullScoreTime_5.png      rightArrow.png
+新文件 <-> 现有文件 : thailandStationSell.png      ticked.png
+新文件 <-> 现有文件 : plashBootsplash.png      cross.png
+新文件 <-> 现有文件 : configureSettingSina.png      vip.png
+新文件 <-> 现有文件 : saveAnalyticsGpay.png      vipSport.png
+新文件 <-> 现有文件 : teamSearchGmail.png      untick.png
+新文件 <-> 现有文件 : controlsCalendarMembership.png      ticked2.png
+新文件 <-> 现有文件 : stepAgreement.png      copy.png
+新文件 <-> 现有文件 : googleActionsZhengpian.png      vip_sport_background.png
+新文件 <-> 现有文件 : volumeUnread.png      vip_adult_background.png
+新文件 <-> 现有文件 : navigationTheme.png      up_arrow.png
+新文件 <-> 现有文件 : updatesCountdown.png      vip_common_models.png
+新文件 <-> 现有文件 : goalDetails.png      bgVipSport.png
+新文件 <-> 现有文件 : acceptedGiftDark.png      backward.png
+新文件 <-> 现有文件 : sportModuleVignette.png      crown.png
+新文件 <-> 现有文件 : sendMatchAccepted.png      vip_promotion_background.png
+新文件 <-> 现有文件 : anytimeEmpty.png      bootsplash_logo@1,5x.png
+新文件 <-> 现有文件 : interstitialViews.png      bootsplash_logo.png
+新文件 <-> 现有文件 : collectionResult.png      bootsplash_logo@4x.png
+新文件 <-> 现有文件 : loginTickedCorner.png      loader-icon.png
+新文件 <-> 现有文件 : leagueGpayExpired.png      volume.png
+新文件 <-> 现有文件 : policyDesc.png      expand.png
+新文件 <-> 现有文件 : circleUpdate_gsTaiwan.png      error-icon.png
+新文件 <-> 现有文件 : searchEntry.png      noDataIcon.png
+新文件 <-> 现有文件 : crossInjury.png      lock.png
+新文件 <-> 现有文件 : homeSpecLock.png      shrink.png
+新文件 <-> 现有文件 : windBrightness.png      bottom-vignette.png
+新文件 <-> 现有文件 : descHeji.png      pause.png
+新文件 <-> 现有文件 : policyBall.png      vignette.png
+新文件 <-> 现有文件 : default_4cShrinkForward.png      unlock.png
+新文件 <-> 现有文件 : reducerCondensedBasketball.png      top-vignette.png
+新文件 <-> 现有文件 : langFieldConfirmation.png      playerGuide.png
+新文件 <-> 现有文件 : floatingVolumeSport.png      play.png
+新文件 <-> 现有文件 : downloadingPhilippinesConfirmation.png      back.png
+新文件 <-> 现有文件 : downloadFormDialog.png      top_overlay.png
+新文件 <-> 现有文件 : backgroundNotificationSentry.png      8.png
+新文件 <-> 现有文件 : trashEventTwitter.png      9.png
+新文件 <-> 现有文件 : countryPenaltyMembership.png      12.png
+新文件 <-> 现有文件 : liveMalaysiaContext.png      13.png
+新文件 <-> 现有文件 : settingsTurnSplash.png      11.png
+新文件 <-> 现有文件 : dangerKickMatch.png      10.png
+新文件 <-> 现有文件 : backwardKick.png      4.png
+新文件 <-> 现有文件 : changeStore.png      5.png
+新文件 <-> 现有文件 : customSearch.png      7.png
+新文件 <-> 现有文件 : indexDescription_caAssist.png      6.png
+新文件 <-> 现有文件 : taiwanPlaceholderFeedback.png      2.png
+新文件 <-> 现有文件 : appleSpinner.png      3.png
+新文件 <-> 现有文件 : backgroundGoalSheet.png      1.png
+新文件 <-> 现有文件 : rightFoundMath.png      pressure.png
+新文件 <-> 现有文件 : emptyMinimize.png      temperature.png
+新文件 <-> 现有文件 : sendGestures.png      wind.png
+新文件 <-> 现有文件 : default_59PlayPing.png      humidity.png
+新文件 <-> 现有文件 : backgroundNotificationSentry.png      8.png
+新文件 <-> 现有文件 : trashEventTwitter.png      9.png
+新文件 <-> 现有文件 : countryPenaltyMembership.png      12.png
+新文件 <-> 现有文件 : liveMalaysiaContext.png      13.png
+新文件 <-> 现有文件 : settingsTurnSplash.png      11.png
+新文件 <-> 现有文件 : dangerKickMatch.png      10.png
+新文件 <-> 现有文件 : backwardKick.png      4.png
+新文件 <-> 现有文件 : changeStore.png      5.png
+新文件 <-> 现有文件 : customSearch.png      7.png
+新文件 <-> 现有文件 : indexDescription_caAssist.png      6.png
+新文件 <-> 现有文件 : taiwanPlaceholderFeedback.png      2.png
+新文件 <-> 现有文件 : appleSpinner.png      3.png
+新文件 <-> 现有文件 : backgroundGoalSheet.png      1.png
+新文件 <-> 现有文件 : paginationDice.png      videoVAR1.png
+新文件 <-> 现有文件 : currentCondensed.png      predictionArrow.png
+新文件 <-> 现有文件 : successCrownControl.png      liveShare.png
+新文件 <-> 现有文件 : firebaseAnythinkEpisodes.png      redDownArrow.png
+新文件 <-> 现有文件 : sportMacau.png      InOutTargetOrange.png
+新文件 <-> 现有文件 : modalSubs.png      IconTransferClub.png
+新文件 <-> 现有文件 : unreadSingaporeRecommendation.png      example-image.png
+新文件 <-> 现有文件 : whatsappWatch.png      basketballAwayTeam.png
+新文件 <-> 现有文件 : spinnerFirebase.png      footballFiledLayout.png
+新文件 <-> 现有文件 : eventSport.png      eye-close.png
+新文件 <-> 现有文件 : detailBecome.png      ArrowSelectDown.png
+新文件 <-> 现有文件 : formFilter.png      orangeDownArrow.png
+新文件 <-> 现有文件 : backwardConfirmationCountdown.png      imageAppUpdate.png
+新文件 <-> 现有文件 : termsEpisodes.png      defaultTumbnailBg.png
+新文件 <-> 现有文件 : refreshWhistle.png      LogoTopHeader.png
+新文件 <-> 现有文件 : scoreRedirect.png      logoNewsTop.png
+新文件 <-> 现有文件 : adultActiveEpisode.png      imageAoLong.png
+新文件 <-> 现有文件 : telegramType_4Overlay.png      logoNews.png
+新文件 <-> 现有文件 : modityTumbnail.png      shootYesGoal.png
+新文件 <-> 现有文件 : predictionGoal.png      subIn.png
+新文件 <-> 现有文件 : blacklistActionSubs.png      IconNotificationNew.png
+新文件 <-> 现有文件 : countSmallRules.png      shootYesGoal1.png
+新文件 <-> 现有文件 : macauEdit.png      penaltyShoot.png
+新文件 <-> 现有文件 : serviceLessPlayer.png      phoneShare.png
+新文件 <-> 现有文件 : shootCanvas.png      china.png
+新文件 <-> 现有文件 : privacyMore.png      taiwan.png
+新文件 <-> 现有文件 : eighteenActions.png      macau.png
+新文件 <-> 现有文件 : long_6ShrinkEwarded.png      malaysia.png
+新文件 <-> 现有文件 : circleTelegram.png      thailand.png
+新文件 <-> 现有文件 : moviesPositionHome.png      philippines.png
+新文件 <-> 现有文件 : indexCondensedEpisodes.png      singapore.png
+新文件 <-> 现有文件 : volumeTail.png      hongkong.png
+新文件 <-> 现有文件 : tickedBuffer.png      vietnam.png
+新文件 <-> 现有文件 : shrinkTailMiddleware.png      IconBackWhite.png
+新文件 <-> 现有文件 : leagueSentryModule.png      tick.png
+新文件 <-> 现有文件 : sentrySort.png      iconShare.png
+新文件 <-> 现有文件 : indexConfirmationBecome.png      update.png
+新文件 <-> 现有文件 : sourceCurrent.png      floater.png
+新文件 <-> 现有文件 : penaltyMinimizeVietnam.png      goal.png
+新文件 <-> 现有文件 : controlsBootsplash.png      otherMatchDetailBG.png
+新文件 <-> 现有文件 : typingConfigureContainer.png      predictionLoss.png
+新文件 <-> 现有文件 : emojiChart.png      greyTick.png
+新文件 <-> 现有文件 : robotoIncident.png      whiteTick.png
+新文件 <-> 现有文件 : subsTime_e.png      sub.png
+新文件 <-> 现有文件 : iconBuffer.png      arrowRightWithTail.png
+新文件 <-> 现有文件 : firebaseSport.png      whiteVideoLive.png
+新文件 <-> 现有文件 : modeForm.png      StatisticsInactive.png
+新文件 <-> 现有文件 : injuryRenewBasketball.png      predictionWin.png
+新文件 <-> 现有文件 : hoverRight.png      DefaultPlayerImg.png
+新文件 <-> 现有文件 : componentSingapore.png      ArrowRight.png
+新文件 <-> 现有文件 : episodeAdult.png      whistleOrange.png
+新文件 <-> 现有文件 : screenPopup.png      imageNetworkErr.png
+新文件 <-> 现有文件 : cornerVietnam.png      IconSchedule.png
+新文件 <-> 现有文件 : recommendationTurn.png      subOut.png
+新文件 <-> 现有文件 : fillShowMini.png      iconSaveImage.png
+新文件 <-> 现有文件 : historyBrightness.png      IconShareFriends.png
+新文件 <-> 现有文件 : lineLeagueSearch.png      whiteBell.png
+新文件 <-> 现有文件 : historyDanger.png      IconCalendar.png
+新文件 <-> 现有文件 : videoRegister_u1.png      iconArrowRight.png
+新文件 <-> 现有文件 : scheduleCommon.png      matchInactive.png
+新文件 <-> 现有文件 : analyticsPrivate_2.png      bellReminder.png
+新文件 <-> 现有文件 : progressCurrent.png      predictionBanner.png
+新文件 <-> 现有文件 : gestureClose.png      imageNoMoreData.png
+新文件 <-> 现有文件 : bannerMiddleReducer.png      iconBell.png
+新文件 <-> 现有文件 : sharedOver.png      fullScreenMin.png
+新文件 <-> 现有文件 : pauseHalfConstants.png      yellowRedCard.png
+新文件 <-> 现有文件 : membershipAuto_6y.png      defaultBasketballBg.png
+新文件 <-> 现有文件 : crossInjury.png      lock.png
+新文件 <-> 现有文件 : gpaySort.png      IconMegaphone.png
+新文件 <-> 现有文件 : regengSpinnerScore.png      notificationGray.png
+新文件 <-> 现有文件 : scheduleHome.png      basketballPlayerPlaceholder.png
+新文件 <-> 现有文件 : mainSettingOrange.png      defaultProfilePic.png
+新文件 <-> 现有文件 : ajaxSettingsNetwork.png      middleSound.png
+新文件 <-> 现有文件 : crossOrientation.png      defaultFootballBg.png
+新文件 <-> 现有文件 : whatsappThailand.png      assist.png
+新文件 <-> 现有文件 : untickAnythinkDownload.png      shareBlack.png
+新文件 <-> 现有文件 : readTooltips.png      ArrowDown.png
+新文件 <-> 现有文件 : scoreLong_pVertical.png      views.png
+新文件 <-> 现有文件 : orangePressure.png      notificationFilled.png
+新文件 <-> 现有文件 : moonSelected.png      yellow.png
+新文件 <-> 现有文件 : sportsEighteenCombine.png      iconUser.png
+新文件 <-> 现有文件 : plashHumidity.png      homeTeamField.png
+新文件 <-> 现有文件 : downloadHalf.png      TeamDetailsBg.png
+新文件 <-> 现有文件 : configureCast.png      prediction.png
+新文件 <-> 现有文件 : placeholderConfirmation.png      iconLogout.png
+新文件 <-> 现有文件 : footballFilterField.png      largeSound.png
+新文件 <-> 现有文件 : sportsPointBlack.png      yellow-animation-live.png
+新文件 <-> 现有文件 : carouselGesturesLive.png      backWhite.png
+新文件 <-> 现有文件 : mathEpisode.png      tempNoData.png
+新文件 <-> 现有文件 : dragHelper.png      tooltips.png
+新文件 <-> 现有文件 : turnCross.png      IconRightOrange.png
+新文件 <-> 现有文件 : screenLogout.png      penaltyGoal.png
+新文件 <-> 现有文件 : singaporeGuideBell.png      iconClose.png
+新文件 <-> 现有文件 : middlewareDropdownAnalytics.png      defaultLogo.png
+新文件 <-> 现有文件 : networkService.png      alert.png
+新文件 <-> 现有文件 : temperatureFloating.png      PredictionDefault.png
+新文件 <-> 现有文件 : weiboBenefit.png      cornerKick.png
+新文件 <-> 现有文件 : routerShare.png      IconChatSend.png
+新文件 <-> 现有文件 : detailsDangerAuto_c_.png      chatBotPhoto.png
+新文件 <-> 现有文件 : nextEmoji.png      iconFeedback.png
+新文件 <-> 现有文件 : gestureBannerShrink.png      largeBrightness.png
+新文件 <-> 现有文件 : promotionArrow.png      IconArrowRightOrange.png
+新文件 <-> 现有文件 : modelsRelatedList.png      middleBrightness.png
+新文件 <-> 现有文件 : networkPenaltyLeague.png      nbaTrophy.png
+新文件 <-> 现有文件 : trophyArrowBrightness.png      basketballIcon.png
+新文件 <-> 现有文件 : backHongkongLeague.png      AnimationLiveWhite.png
+新文件 <-> 现有文件 : actionIncident.png      zhubo.png
+新文件 <-> 现有文件 : floaterComment.png      iconCloseWhite.png
+新文件 <-> 现有文件 : bannerChampion.png      ImageActionLive.png
+新文件 <-> 现有文件 : vietnamFirebase.png      questIcon.png
+新文件 <-> 现有文件 : lockChartWeibo.png      basketballMatchDetailBG.png
+新文件 <-> 现有文件 : pointTheme.png      StatsNoMoreData.png
+新文件 <-> 现有文件 : mathSuggestion.png      eye-open.png
+新文件 <-> 现有文件 : selectCastEvent.png      ownGoal.png
+新文件 <-> 现有文件 : historyCast.png      InOutTargetGreen.png
+新文件 <-> 现有文件 : bodanViews.png      iconArrowRightWhite.png
+新文件 <-> 现有文件 : injuryTemp.png      smallOrangeMan.png
+新文件 <-> 现有文件 : thumbnailFirebase.png      wifi-router.png
+新文件 <-> 现有文件 : profileLoginBasketball.png      arrow-down.png
+新文件 <-> 现有文件 : detailSchedule.png      greenScoreBall.png
+新文件 <-> 现有文件 : orangeCarousel.png      yellowToRed.png
+新文件 <-> 现有文件 : hongkongRankList.png      whiteSmallTick.png
+新文件 <-> 现有文件 : taiwanControlsGroup.png      profileInactive.png
+新文件 <-> 现有文件 : dragTick.png      isSub.png
+新文件 <-> 现有文件 : specGift.png      yellowCircleBG1.png
+新文件 <-> 现有文件 : linkEditFlyer.png      matchActive.png
+新文件 <-> 现有文件 : progressActive.png      subBasketballPlayer.png
+新文件 <-> 现有文件 : floaterStarFastforward.png      iconBellActive.png
+新文件 <-> 现有文件 : customEighteenChina.png      yellowScoreBall.png
+新文件 <-> 现有文件 : detailsExpandMalaysia.png      redGoal.png
+新文件 <-> 现有文件 : interstitialMacau.png      IconCurrentMatch.png
+新文件 <-> 现有文件 : forwardStatsTemperature.png      greenArrowUp.png
+新文件 <-> 现有文件 : filledDownload.png      IconDefaultThumbnail.png
+新文件 <-> 现有文件 : smallAboutCanvas.png      iconEye.png
+新文件 <-> 现有文件 : layoutFavorite.png      TV3.png
+新文件 <-> 现有文件 : darkControl.png      baiduAds.png
+新文件 <-> 现有文件 : lockReducerTaiwan.png      TV1.png
+新文件 <-> 现有文件 : analyticsDownloaded.png      homeActive.png
+新文件 <-> 现有文件 : langkeyPolicy.png      refreshBorderless.png
+新文件 <-> 现有文件 : whistleViews.png      defaultRoomBg.png
+新文件 <-> 现有文件 : loginRegister_u.png      homePlayer.png
+新文件 <-> 现有文件 : backField.png      profileFrame.png
+新文件 <-> 现有文件 : sliderAuto_gCanvas.png      live-no-data-bg-img.png
+新文件 <-> 现有文件 : projectEpisodes.png      TV0.png
+新文件 <-> 现有文件 : reducerHome.png      whistleOrange2.png
+新文件 <-> 现有文件 : indicatorAlbum.png      IconAdsLink.png
+新文件 <-> 现有文件 : zhuboSearchbar.png      iconWatch.png
+新文件 <-> 现有文件 : whitePhone.png      ArrowUp.png
+新文件 <-> 现有文件 : launchQuestFriends.png      iconSetting.png
+新文件 <-> 现有文件 : taiwanNetwork.png      IconPipShrink.png
+新文件 <-> 现有文件 : scheduleHistoryBenefit.png      WatchNowBg.png
+新文件 <-> 现有文件 : analyticsResult.png      iconOrientation.png
+新文件 <-> 现有文件 : regengMore.png      orangeUpArrow.png
+新文件 <-> 现有文件 : inactiveDetails.png      redCircleBG.png
+新文件 <-> 现有文件 : notificationClock.png      liveEndModalLogo.png
+新文件 <-> 现有文件 : modeMalaysiaPing.png      IconDownImg.png
+新文件 <-> 现有文件 : plashPingVietnam.png      newsShare.png
+新文件 <-> 现有文件 : eactDownloaderGesture.png      emojiHeart.png
+新文件 <-> 现有文件 : hejiMatch.png      IconSubsSuccess.png
+新文件 <-> 现有文件 : sendThailandNative.png      defaultPredictionProfile.png
+新文件 <-> 现有文件 : refreshConfigure.png      gift.png
+新文件 <-> 现有文件 : overlaySelectedBecome.png      IconCloseWhiteWithBg.png
+新文件 <-> 现有文件 : selectHandlerTicked.png      penaltyShootNoGoal.png
+新文件 <-> 现有文件 : descContainerPlaceholder.png      champion.png
+新文件 <-> 现有文件 : selectHookSubmit.png      fullScreenMax.png
+新文件 <-> 现有文件 : shootConnection.png      privateChatBG.png
+新文件 <-> 现有文件 : linkPreview.png      showMore.png
+新文件 <-> 现有文件 : redirectCollection.png      goalLogo.png
+新文件 <-> 现有文件 : ajaxHome.png      logoUser.png
+新文件 <-> 现有文件 : streamingModePolicy.png      basketballDetailsBG.png
+新文件 <-> 现有文件 : bellUpgrade.png      IconRefresh.png
+新文件 <-> 现有文件 : pauseSave.png      PlayerShirt.png
+新文件 <-> 现有文件 : layoutInviteUmeng.png      imageWatchLive.png
+新文件 <-> 现有文件 : indicatorGpay.png      cornerShoot.png
+新文件 <-> 现有文件 : photoPointDownload.png      shareWhite.png
+新文件 <-> 现有文件 : formRelatedRead.png      chatRoomBackground.png
+新文件 <-> 现有文件 : logoSport.png      InOutTargetYellow.png
+新文件 <-> 现有文件 : homeCastingNative.png      profileActive.png
+新文件 <-> 现有文件 : moreGuideDetail.png      defaultTeam.png
+新文件 <-> 现有文件 : downRouter.png      iconPlay.png
+新文件 <-> 现有文件 : completeCollectionEwarded.png      shield-done.png
+新文件 <-> 现有文件 : starNalyticsRedirect.png      away-icon.png
+新文件 <-> 现有文件 : moviesWhatsappMini.png      StatisticsActive.png
+新文件 <-> 现有文件 : philippinesCombinedUpdates.png      showLess.png
+新文件 <-> 现有文件 : settingModalSearchbar.png      assistGoal.png
+新文件 <-> 现有文件 : flyerLight.png      IconWechat.png
+新文件 <-> 现有文件 : pointAcceptedEdit.png      InOutTargetRed.png
+新文件 <-> 现有文件 : sourceOverlay.png      disconnectedLogo.png
+新文件 <-> 现有文件 : sellBottomPrivate_gv.png      video-live.png
+新文件 <-> 现有文件 : checkboxTopic.png      volumeWithSound.png
+新文件 <-> 现有文件 : overThailandSlider.png      footballField.png
+新文件 <-> 现有文件 : floatingCanvas.png      IconWatchNow.png
+新文件 <-> 现有文件 : backwardWhiteModule.png      iconNoInternet.png
+新文件 <-> 现有文件 : const_2uContext.png      awayPlayer.png
+新文件 <-> 现有文件 : streamingClear.png      trash.png
+新文件 <-> 现有文件 : circleRedirect.png      turnDown.png
+新文件 <-> 现有文件 : stringFavoriteIncident.png      sellMathBackground.png
+新文件 <-> 现有文件 : description_osResendModal.png      HalfFieldImage.png
+新文件 <-> 现有文件 : tailDialog.png      shootNoGoal1.png
+新文件 <-> 现有文件 : chatApple.png      IconPipExpand.png
+新文件 <-> 现有文件 : zhengpianCast.png      shareModal.png
+新文件 <-> 现有文件 : crownCurrent.png      greenCircleBG.png
+新文件 <-> 现有文件 : eventFootballLogin.png      greyArrowUp.png
+新文件 <-> 现有文件 : untickDialogCarousel.png      arrow-down1.png
+新文件 <-> 现有文件 : firebaseInfoChampion.png      iconArrowLeft.png
+新文件 <-> 现有文件 : expiredPageLive.png      home-icon.png
+新文件 <-> 现有文件 : malaysiaLockTheme.png      awayTeamField.png
+新文件 <-> 现有文件 : firebaseHandlerTelegram.png      diceLogo.png
+新文件 <-> 现有文件 : overKickTooltips.png      iconEdit.png
+新文件 <-> 现有文件 : tumbnailFull.png      injury.png
+新文件 <-> 现有文件 : routerVideo.png      whiteAnimationLive.png
+新文件 <-> 现有文件 : megaphoneConfirmation.png      yellowVideoLive.png
+新文件 <-> 现有文件 : combinedQuestBottom.png      notification.png
+新文件 <-> 现有文件 : descSendPlus.png      footballTrophy.png
+新文件 <-> 现有文件 : analyticFormApps.png      animation-live.png
+新文件 <-> 现有文件 : thumbnailRecommendation.png      orangeClock2.png
+新文件 <-> 现有文件 : moduleBottomFloating.png      smallBrightness.png
+新文件 <-> 现有文件 : leagueFirebaseZhubo.png      orangeScoreBall.png
+新文件 <-> 现有文件 : dangerSans.png      IconNewsShare.png
+新文件 <-> 现有文件 : mappingLive.png      LeagueDetailsBg.png
+新文件 <-> 现有文件 : trashGoalStatistics.png      orangeClock.png
+新文件 <-> 现有文件 : switch_qFloating.png      notificationFillEmpty.png
+新文件 <-> 现有文件 : downloadLangkey.png      redScoreBall.png
+新文件 <-> 现有文件 : dragStats.png      dragClose.png
+新文件 <-> 现有文件 : helperPing.png      matchDetailBG.png
+新文件 <-> 现有文件 : downloadingPhilippinesConfirmation.png      back.png
+新文件 <-> 现有文件 : greyCenter.png      homeInactive.png
+新文件 <-> 现有文件 : descHookKick.png      predictionActive.png
+新文件 <-> 现有文件 : mainNalytics.png      shootNoGoal.png
+新文件 <-> 现有文件 : infoFieldXvod.png      iconCloseWhiteBg.png
+新文件 <-> 现有文件 : const_iListEpisodes.png      predictionButton.png
+新文件 <-> 现有文件 : successFilter.png      IconQQ.png
+新文件 <-> 现有文件 : tooltipsRewind.png      IconPointScore.png
+新文件 <-> 现有文件 : const_wBlacklistResend.png      penaltyMatchIcon.png
+新文件 <-> 现有文件 : appsSpinner.png      IconMore.png
+新文件 <-> 现有文件 : whatsappUnselectedCircle.png      refresh.png
+新文件 <-> 现有文件 : rightProduct.png      iconArrowRightBlack.png
+新文件 <-> 现有文件 : nalyticsLockProject.png      red.png
+新文件 <-> 现有文件 : renewSpinnerChart.png      orangeTick.png
+新文件 <-> 现有文件 : imageCombinedTarget.png      basketballTrophy.png
+新文件 <-> 现有文件 : saveClose.png      live.png
+新文件 <-> 现有文件 : mappingConst_3Orientation.png      smallSound.png
+新文件 <-> 现有文件 : blackZhuboPopup.png      iconStar.png
+新文件 <-> 现有文件 : previewSettings.png      iconViewer.png
+新文件 <-> 现有文件 : singaporeFastTeam.png      basketballHomeTeam.png
+新文件 <-> 现有文件 : switch_1White.png      close.png
+新文件 <-> 现有文件 : interstitialViews@2x.png      bootsplash_logo@2x.png
+新文件 <-> 现有文件 : interstitialViews@3x.png      bootsplash_logo@3x.png
+
+
+自动为您开启6个线程进行混淆。。。。。。。
+开始自动清理源代码中的注释。。。。。。
+
+正在自动获取分析过滤不能修改函数名称集合。。。。。
+
+
+开始提取所有源文件中的类名并生成新类名。。。。。。
+类名: CPopup <---替换为---> SMBing
+类名: AppDelegate <---替换为---> AppDelegate
+类名: AppsApi <---替换为---> BConfirmationGreen
+类名: AppsFlyerAnalytics <---替换为---> LRZTermsScreen
+类名: AppConfig <---替换为---> KTMain
+类名: CRouter <---替换为---> IRouterComponent
+类名: SplashApi <---替换为---> ECFForm
+类名: UmengAnalytics <---替换为---> umb_center_carousel
+类名: CLang <---替换为---> WAnalyticsArrow
+类名: CustomEventAnalytic <---替换为---> NCatalog
+类名: ProductApi <---替换为---> GESmallEvent
+类名: YSConfig <---替换为---> KLongNext
+类名: CEnv <---替换为---> KPDCanvasVietnamView
+类名: RNUMConfigure <---替换为---> XJRobotoTemp
+类名: UMAnalyticsModule <---替换为---> FTMAnythink
+类名: RNViewController <---替换为---> PSZYingMainController
+类名: ATSplashViewController <---替换为---> TMappingController
+类名: PlaylistApi <---替换为---> RLarge
+类名: ATInterstitialRNSDK <---替换为---> GIShoot
+类名: ATRNSDK <---替换为---> QZGLong
+类名: UserApi <---替换为---> THFirebase
+类名: ATRewardedVideoRNSDK <---替换为---> NDGift
+类名: VodApi <---替换为---> RCanvas
+类名: AdsApi <---替换为---> UQQuest
+类名: ATBannerRNSDK <---替换为---> HGTemp
+类名: ChatApi <---替换为---> NXSharedConstants
+类名: FeedbackApi <---替换为---> CBenefitCircle
+类名: MiniVodApi <---替换为---> GHongkong
+类名: ATSplashViewController <---替换为---> TMappingController
+类名: ATInterstitialRNSDK <---替换为---> GIShoot
+类名: ATRNSDK <---替换为---> QZGLong
+类名: ATRewardedVideoRNSDK <---替换为---> NDGift
+类名: LiveRoomAction <---替换为---> YKBTurn
+类名: ATBannerRNSDK <---替换为---> HGTemp
+类名: NewsVideoPlayer <---替换为---> NFull
+类名: CLangKey <---替换为---> IHUpdateBanner
+类名: CEndpoint <---替换为---> MVCountry
+类名: User <---替换为---> KWConstants
+类名: Api <---替换为---> LShrink
+类名: Api <---替换为---> OSendHalf
+类名: CApi <---替换为---> JTumbnailMatches
+类名: ResponseModel <---替换为---> SMChatPlash
+
+
+开始混淆所有源文件中的样式类名。。。。。。
+
+
+
+开始替换所有源文件中的类名。。。。。。
+
+宏名称: PlacementID <---替换为---> MiniCombine
+
+
+混淆类名耗时：43.66806697845459秒
+
+
+开始混淆开始混淆interface，type，use对象名称。。。。。。。
+Interface: Props <---替换为---> PYJShoot
+Interface: PYJShoot <---替换为---> PLWLine
+Type: MiniVideoResponseType <---替换为---> ZAjaxMain
+Interface: PLWLine <---替换为---> LPOLaunchEdit
+Interface: LPOLaunchEdit <---替换为---> PMinivod
+Interface: PMinivod <---替换为---> ZHome
+Interface: ZHome <---替换为---> JPrivacySide
+Interface: JPrivacySide <---替换为---> YXNAssistPagination
+Type: EventApiJsonType <---替换为---> XHSelection
+Interface: YXNAssistPagination <---替换为---> VRIHooksAnytime
+Type: MyImageProp <---替换为---> CActiveMain
+Type: Prop <---替换为---> PAIEpisode
+Interface: VRIHooksAnytime <---替换为---> BCJGoal
+Type: BarType <---替换为---> JGYReferrer
+Interface: BCJGoal <---替换为---> GMUFeedbackResult
+Interface: GMUFeedbackResult <---替换为---> IFWatchPrediction
+Type: CTextInputHookProps <---替换为---> PNFProjectGreen
+Interface: IFWatchPrediction <---替换为---> LMCrossBing
+Type: CTextInputProps <---替换为---> BUUMacauPosition
+Interface: LMCrossBing <---替换为---> GHOMinivod
+Type: CPanGestureHookProps <---替换为---> JDIPromotionWhistle
+Type: FlatListType <---替换为---> ZImage
+Interface: GHOMinivod <---替换为---> KSingleLang
+Type: PanContext <---替换为---> KUFlyerPlaylist
+Type: CPanGestureProps <---替换为---> WPhone
+Interface: KSingleLang <---替换为---> YAnythink
+Interface: YAnythink <---替换为---> XUploadStar
+Interface: XUploadStar <---替换为---> VQTBottomBall
+Interface: VQTBottomBall <---替换为---> PDHSpecCenter
+Interface: PDHSpecCenter <---替换为---> VDDUpdatesStore
+Type: CPressableHookProps <---替换为---> UCKStations
+Interface: VDDUpdatesStore <---替换为---> NAuto
+Interface: ZImage <---替换为---> FXDownloaded
+Interface: NAuto <---替换为---> KPLoginGrey
+Type: CPressableProps <---替换为---> NOKVietnamYing
+Interface: KPLoginGrey <---替换为---> UJUWhatsappSell
+Type: CBottomSheetHookProps <---替换为---> VBannerScore
+Interface: UJUWhatsappSell <---替换为---> MCKAnalyticPrivilege
+Type: CProps <---替换为---> ATRData
+Interface: MCKAnalyticPrivilege <---替换为---> QWNative
+Interface: QWNative <---替换为---> UUUserSheet
+Interface: UUUserSheet <---替换为---> PHoverMalaysia
+Interface: PHoverMalaysia <---替换为---> NSuccess
+Type: NSuccess <---替换为---> ZZUnselected
+Interface: ZZUnselected <---替换为---> BJCPingBackward
+Type: BJCPingBackward <---替换为---> BNAlert
+Type: LiveStationType <---替换为---> UARSource
+Interface: BNAlert <---替换为---> MWVideo
+Type: VideoControlsRef <---替换为---> DWeibo
+Type: VideoRef <---替换为---> XMDiceUsername
+Interface: MWVideo <---替换为---> YKViewerSans
+Type: YKViewerSans <---替换为---> PPCString
+Type: VodResponseType <---替换为---> NNMMacau
+Type: FXDownloaded <---替换为---> IUser
+Interface: PPCString <---替换为---> MHSGroup
+Interface: MHSGroup <---替换为---> KPopupCombined
+Interface: KPopupCombined <---替换为---> OEContextReminder
+Interface: OEContextReminder <---替换为---> QCHCondensed
+Type: IUser <---替换为---> EBLeftCombine
+Interface: QCHCondensed <---替换为---> CGRegengVertical
+Type: CGRegengVertical <---替换为---> EGesturesThailand
+Type: RefHandler <---替换为---> NRNterstitial
+Type: EGesturesThailand <---替换为---> BYellowDialog
+Interface: BYellowDialog <---替换为---> UZBallLeft
+Type: SportType <---替换为---> LROGray
+Interface: UZBallLeft <---替换为---> IRDownloaderArea
+Interface: IRDownloaderArea <---替换为---> DOHumidity
+Interface: DOHumidity <---替换为---> MAnalytic
+Type: MAnalytic <---替换为---> PFWith
+Interface: PFWith <---替换为---> NBuffer
+Type: MiniVodRef <---替换为---> VCSoundWind
+Interface: NBuffer <---替换为---> YREpisode
+Interface: YREpisode <---替换为---> YActionsMoon
+Interface: YActionsMoon <---替换为---> TViews
+Type: DWeibo <---替换为---> EHControlsDefault
+Type: XMDiceUsername <---替换为---> QMIEmojiBell
+Interface: TViews <---替换为---> KJNterstitial
+Interface: KJNterstitial <---替换为---> XYCombine
+Type: XYCombine <---替换为---> DSMGoogle
+Type: NRNterstitial <---替换为---> BPhoto
+Interface: DSMGoogle <---替换为---> BROrientation
+Interface: BROrientation <---替换为---> FXvod
+Interface: FXvod <---替换为---> GChange
+Type: GChange <---替换为---> JXWatch
+Interface: JXWatch <---替换为---> KZData
+Interface: KZData <---替换为---> IGuide
+Interface: IGuide <---替换为---> FGoalClock
+Type: SigninupRef <---替换为---> DFService
+Type: FGoalClock <---替换为---> VAMoreBackground
+Type: LoginCardProps <---替换为---> SCTypeDetails
+Type: SuggestedVodItemType <---替换为---> PDHCommentRoboto
+Interface: VAMoreBackground <---替换为---> UAlbum
+Type: CountryPhoneListProps <---替换为---> YESGestureHalf
+Interface: UAlbum <---替换为---> ANXTypeStep
+Type: ANXTypeStep <---替换为---> YEmpty
+Interface: YEmpty <---替换为---> DPOtherMath
+Interface: DPOtherMath <---替换为---> CBackwardBasketball
+Type: EBLeftCombine <---替换为---> MTJRead
+Interface: NavType <---替换为---> UCompleteLine
+Interface: CBackwardBasketball <---替换为---> WSTDetailStation
+Interface: WSTDetailStation <---替换为---> OGpayMode
+Interface: OGpayMode <---替换为---> CAKBackwardCast
+Interface: CAKBackwardCast <---替换为---> CShootWind
+Type: AdultVodReturnType <---替换为---> BContainer
+Interface: CShootWind <---替换为---> SORules
+Interface: SORules <---替换为---> XPagination
+Interface: XPagination <---替换为---> DPredictionControl
+Interface: DPredictionControl <---替换为---> MSSports
+Interface: UCompleteLine <---替换为---> JCQGestureDice
+Interface: MSSports <---替换为---> WPolicy
+Type: OtpInputsProps <---替换为---> JJRight
+Interface: WPolicy <---替换为---> JKViewerCount
+Type: JKViewerCount <---替换为---> WTSport
+Interface: JCQGestureDice <---替换为---> TMConstantsTail
+Type: WTSport <---替换为---> AOTimeType
+Type: MTJRead <---替换为---> RTDMegaphoneDetail
+Interface: AOTimeType <---替换为---> AQNImage
+Type: AQNImage <---替换为---> PKMNterstitial
+Type: PKMNterstitial <---替换为---> VDGestures
+Type: SettingsType <---替换为---> JHeart
+Interface: TMConstantsTail <---替换为---> IYTDropdown
+Type: VDGestures <---替换为---> LGoalApple
+Interface: LGoalApple <---替换为---> WEUpdateWhite
+Interface: WEUpdateWhite <---替换为---> IUYMain
+Interface: IUYMain <---替换为---> SMDownloaded
+Type: SMDownloaded <---替换为---> PMappingFloating
+Interface: PMappingFloating <---替换为---> TOEpisodes
+Type: TOEpisodes <---替换为---> SFWith
+Interface: SFWith <---替换为---> SOSCondensed
+Interface: SOSCondensed <---替换为---> KThailand
+Type: QMIEmojiBell <---替换为---> CXRewindUnread
+Type: KThailand <---替换为---> PViewerEmpty
+Type: CActiveMain <---替换为---> VJZRenew
+Type: PAIEpisode <---替换为---> HENewsShrink
+Type: RTDMegaphoneDetail <---替换为---> BXQDownLine
+Interface: PViewerEmpty <---替换为---> KQCatagory
+Interface: KQCatagory <---替换为---> OMWithLaunch
+Type: BXQDownLine <---替换为---> AAnythinkMore
+Interface: OMWithLaunch <---替换为---> LHNalytics
+Type: AAnythinkMore <---替换为---> LMiddleware
+Interface: LHNalytics <---替换为---> AWatchHeart
+Interface: AWatchHeart <---替换为---> LBZProfile
+Type: LMiddleware <---替换为---> VHLActionCatagory
+Interface: LBZProfile <---替换为---> FPlaceholder
+Interface: FPlaceholder <---替换为---> MMTypes
+Interface: MMTypes <---替换为---> PHejiDice
+Interface: PHejiDice <---替换为---> TSNBecome
+Type: VHLActionCatagory <---替换为---> HTNPageSort
+Interface: TSNBecome <---替换为---> SJDBackground
+Type: ATRData <---替换为---> XCCountdownUser
+Interface: SJDBackground <---替换为---> HBChampion
+Interface: HBChampion <---替换为---> SKSuggestion
+Interface: SKSuggestion <---替换为---> LFXCountGuide
+Interface: HTNPageSort <---替换为---> FSans
+Interface: LFXCountGuide <---替换为---> UEBrightnessLang
+Interface: UEBrightnessLang <---替换为---> NPBackGesture
+Interface: NPBackGesture <---替换为---> KKDPhotoKick
+Interface: KKDPhotoKick <---替换为---> VISwitch
+Type: FSans <---替换为---> DVideo
+Interface: VISwitch <---替换为---> OZAEvent
+Interface: OZAEvent <---替换为---> QTypingMinivod
+Interface: QTypingMinivod <---替换为---> WPGroup
+Interface: WPGroup <---替换为---> WGRDetails
+Interface: WGRDetails <---替换为---> YEMoon
+Type: NavOptionsType <---替换为---> WCatalog
+Type: VodCarousellType <---替换为---> JClubEdit
+Type: VodPlayListType <---替换为---> LDGray
+Type: SuggestVodListType <---替换为---> MDown
+Type: AdultVodListType <---替换为---> POPrivateOverlay
+Type: MiniVideoListType <---替换为---> GQNDisconnected
+Type: MiniVideoVodListType <---替换为---> DBSSearchbarCanvas
+Type: VodData <---替换为---> AXSheetPrivate
+Type: XVodData <---替换为---> ABPList
+Type: CarouselData <---替换为---> PXZTickSave
+Type: VodPlayerAdType <---替换为---> WButtonMovies
+Type: LiveChatRoomType <---替换为---> PYListNext
+Type: LiveChatMessageType <---替换为---> NETempEmoji
+Type: StreamerPinMsgType <---替换为---> UBFConstModule
+Type: SportTabType <---替换为---> JLessLaunch
+Type: UploadVideoPreviewParams <---替换为---> ITFOverBrightness
+Type: UploadVideoType <---替换为---> QRWModulePosition
+Interface: VodType <---替换为---> XVSScoreDark
+Interface: SuggestedVodType <---替换为---> AWXGoogle
+Interface: VodEpisodeListType <---替换为---> IDelegate
+Interface: VodSourceType <---替换为---> PGemfileVideo
+Interface: VodEpisodeType <---替换为---> USCastingControl
+Interface: VodEpisodeStatusType <---替换为---> VNConnectionWith
+Interface: ProgressType <---替换为---> HBUExpiredFavicon
+Interface: TypeExtendType <---替换为---> YWBBorderless
+Interface: TypeType <---替换为---> NSIndexBottom
+Interface: VodListType <---替换为---> ROverProject
+Interface: VodTopicType <---替换为---> RBEmojiEwarded
+Interface: YingPingList <---替换为---> JSApps
+Interface: MiniVideo <---替换为---> DSplash
+Interface: FilterOptionsType <---替换为---> GUploadPhilippines
+Interface: FilterOptionsTypeExtendObj <---替换为---> EDPPageStyle
+Interface: LiveTVStationItem <---替换为---> XPaginationWeiboItem
+Interface: DetailTab <---替换为---> BSearch
+Interface: SubmitFeedbackRequest <---替换为---> RECombinedPosition
+Interface: MiniVideoCollectionItem <---替换为---> KHelperEactItem
+Interface: CheckVersionResponseType <---替换为---> QUYScreenContext
+Interface: CheckVersionResponseDataType <---替换为---> JSProfile
+Interface: CheckVersionRequest <---替换为---> PXBDown
+Interface: AdultVodType <---替换为---> PKSave
+Interface: CommentsResponseDataType <---替换为---> KYDescriptionFast
+Interface: CommentsType <---替换为---> WQRReducer
+Interface: CountryPhoneCodeType <---替换为---> GBShort
+Interface: BannerAdType <---替换为---> MAboutEdit
+Interface: BannerAdTypeRes <---替换为---> MKAGift
+Interface: YEMoon <---替换为---> BDQMatches
+Interface: EpisodeDownloadType <---替换为---> VMReportConstants
+Interface: VodDownloadType <---替换为---> ALaunchShrink
+Interface: DownloadVideoReducerState <---替换为---> BUZTyping
+Interface: BDQMatches <---替换为---> ESLMini
+Interface: ESLMini <---替换为---> WETargetHandler
+Type: UARSource <---替换为---> LKOverlay
+Interface: WETargetHandler <---替换为---> DForm
+Interface: DForm <---替换为---> MZICheckbox
+Type: NNMMacau <---替换为---> XPUMapping
+Type: DVideo <---替换为---> MDownloadDanger
+Interface: MZICheckbox <---替换为---> XTaiwan
+Interface: Currency <---替换为---> RJNotification
+Interface: XTaiwan <---替换为---> JKLongPopup
+Interface: JKLongPopup <---替换为---> OResendTick
+Interface: ThemeActionType <---替换为---> MAgreement
+Interface: VodActionType <---替换为---> GCViews
+Interface: FavoriteVodActionType <---替换为---> MDSource
+Interface: VodPlaylistActionType <---替换为---> SZCInfoTurn
+Interface: SearchHistoryActionType <---替换为---> YJHMegaphone
+Interface: ClearStorageActionType <---替换为---> YMath
+Interface: SettingsActionType <---替换为---> LGRefreshRedirect
+Interface: MiniVodActionType <---替换为---> ETheme
+Interface: OneTimeActionActionType <---替换为---> QTHTyping
+Interface: OptionalUpdateFields <---替换为---> RCCalendarMatches
+Interface: DownloadVideoActionPayload <---替换为---> MCheckbox
+Interface: DownloadVideoActionType <---替换为---> USXGesture
+Type: HomeTabParamList <---替换为---> YIPHandler
+Type: ProfileTabParamList <---替换为---> KGiftMapping
+Type: PlaylistTabParamList <---替换为---> HQDownloader
+Type: WatchAnytimeTabParamList <---替换为---> TEighteenSingapore
+Type: RootStackParamList <---替换为---> NRank
+Interface: RootParamList <---替换为---> QMPrivilegeGpay
+Interface: OResendTick <---替换为---> GKModeAway
+Interface: GKModeAway <---替换为---> BMNPlus
+Type: LiveRoomType <---替换为---> DFEFieldRead
+Type: LiveRoomHistoryType <---替换为---> KCollection
+Type: PrivateRoomType <---替换为---> IMLRenewCarousel
+Type: PrivateRoomHistoryType <---替换为---> EHWPlashLight
+Interface: BMNPlus <---替换为---> ZClosePoint
+Interface: ZClosePoint <---替换为---> WTitleHover
+Type: WTitleHover <---替换为---> RYFProfile
+Interface: RYFProfile <---替换为---> AFDDropdown
+Interface: AFDDropdown <---替换为---> OYRMutedBing
+Interface: OYRMutedBing <---替换为---> HShoot
+Interface: HShoot <---替换为---> STHover
+Interface: STHover <---替换为---> CITSend
+Interface: CITSend <---替换为---> DBingApps
+Interface: DBingApps <---替换为---> WZMail
+Interface: WZMail <---替换为---> WRXReminder
+Type: Tab <---替换为---> YRUContextTransfer
+Interface: WRXReminder <---替换为---> WOver
+Interface: WOver <---替换为---> NLHeart
+Interface: NLHeart <---替换为---> IWMain
+Type: ZAjaxMain <---替换为---> IDOCastingCustom
+Type: VCSoundWind <---替换为---> SBWhite
+Interface: IWMain <---替换为---> YMBMiniSelected
+Interface: YMBMiniSelected <---替换为---> QKBanner
+Type: MDownloadDanger <---替换为---> EAssistScore
+Interface: QKBanner <---替换为---> SWeiboTail
+Interface: SWeiboTail <---替换为---> BNNDisconnectedContainer
+Interface: BNNDisconnectedContainer <---替换为---> OEPlaceholderPlaceholder
+Type: EAssistScore <---替换为---> ZZBlacklist
+Interface: OEPlaceholderPlaceholder <---替换为---> BKLXvod
+Type: DFService <---替换为---> DLVideoUser
+Type: BKLXvod <---替换为---> IFilled
+Type: SCTypeDetails <---替换为---> DQKEighteenFill
+Interface: IFilled <---替换为---> WYMFound
+Interface: WYMFound <---替换为---> SFaviconZhubo
+Type: YESGestureHalf <---替换为---> JClear
+Interface: SFaviconZhubo <---替换为---> UHFastforwardIndicator
+Interface: UHFastforwardIndicator <---替换为---> VDefaultContainer
+Type: VDefaultContainer <---替换为---> ORMoreStatistics
+Interface: ORMoreStatistics <---替换为---> IMath
+Interface: IMath <---替换为---> YPSubmit
+Interface: YPSubmit <---替换为---> DCountdown
+Interface: DCountdown <---替换为---> ZTooltipsTelegram
+Interface: ZTooltipsTelegram <---替换为---> LPAnalyticsWind
+Interface: LPAnalyticsWind <---替换为---> OFSearchLogin
+Type: OFSearchLogin <---替换为---> GPPVideo
+Type: XCCountdownUser <---替换为---> FSBOther
+Interface: GPPVideo <---替换为---> ABClock
+Interface: ABClock <---替换为---> FIHeartMiddleware
+Type: FIHeartMiddleware <---替换为---> OQTypesShrink
+Interface: OQTypesShrink <---替换为---> WKOAjaxMegaphone
+Interface: WKOAjaxMegaphone <---替换为---> JKNXvodForm
+Type: JKNXvodForm <---替换为---> LJCopy
+Type: JHeart <---替换为---> GHWNotification
+Interface: LJCopy <---替换为---> SGXRouter
+Type: SGXRouter <---替换为---> WTNOrange
+Interface: WTNOrange <---替换为---> JJDescription
+Interface: JJDescription <---替换为---> QHZhubo
+Interface: QHZhubo <---替换为---> CYCSheet
+Type: CYCSheet <---替换为---> QUSharedNavigation
+Interface: QUSharedNavigation <---替换为---> ZVGpay
+Interface: ZVGpay <---替换为---> GPage
+Type: GPage <---替换为---> BTOrangeFull
+Interface: BTOrangeFull <---替换为---> AZCountry
+Interface: AZCountry <---替换为---> TSheet
+Interface: TSheet <---替换为---> JWeiboDialog
+Type: ZZBlacklist <---替换为---> BCUActiveOrange
+Type: JWeiboDialog <---替换为---> IADesc
+Interface: IADesc <---替换为---> NFillSplash
+Type: BCUActiveOrange <---替换为---> ASVTick
+Type: PNFProjectGreen <---替换为---> UBall
+Interface: NFillSplash <---替换为---> TConnection
+Interface: TConnection <---替换为---> MPhoto
+Type: MPhoto <---替换为---> XEactPage
+Type: BUUMacauPosition <---替换为---> CMDActions
+Interface: XEactPage <---替换为---> YBlack
+Interface: YBlack <---替换为---> OFCanvas
+Interface: OFCanvas <---替换为---> IBSBasketballNative
+Type: JJRight <---替换为---> JAjax
+Type: JDIPromotionWhistle <---替换为---> KGreenPrivacy
+Interface: IBSBasketballNative <---替换为---> DMutedSelect
+Type: KUFlyerPlaylist <---替换为---> UWPScore
+Type: WPhone <---替换为---> YJProjectSend
+Type: PlacementId <---替换为---> LGGreenUpdates
+Interface: DMutedSelect <---替换为---> DDCTailCountdown
+Type: ASVTick <---替换为---> WFMatchesWhistle
+Interface: DDCTailCountdown <---替换为---> BUmengMegaphone
+Type: UCKStations <---替换为---> FRBlack
+Type: NOKVietnamYing <---替换为---> KMUHover
+Interface: IYTDropdown <---替换为---> ZRoom
+Interface: BUmengMegaphone <---替换为---> BVHTitle
+Type: VBannerScore <---替换为---> WRList
+Interface: BVHTitle <---替换为---> SGRInvite
+Type: FSBOther <---替换为---> QODownloadedScore
+Type: SGRInvite <---替换为---> PUCPlaceholderDropdown
+Interface: PUCPlaceholderDropdown <---替换为---> PAULongStation
+Interface: PAULongStation <---替换为---> ABVCrossRoboto
+Type: CXRewindUnread <---替换为---> XIIActionsFirebase
+Interface: ABVCrossRoboto <---替换为---> AAFCircleCountry
+Type: AAFCircleCountry <---替换为---> QCRShort
+Interface: QCRShort <---替换为---> NContext
+Type: WFMatchesWhistle <---替换为---> NZCenterExpand
+Interface: NContext <---替换为---> OSubmitReport
+Interface: OSubmitReport <---替换为---> ZAnalytic
+Interface: ZAnalytic <---替换为---> INVEighteen
+Type: NZCenterExpand <---替换为---> GDDSport
+Interface: INVEighteen <---替换为---> FLive
+Type: FLive <---替换为---> JWComponent
+Interface: JWComponent <---替换为---> LSendCircle
+Type: GDDSport <---替换为---> OIHLogout
+Type: LSendCircle <---替换为---> YWStations
+Type: OIHLogout <---替换为---> IFormEmoji
+Type: IDOCastingCustom <---替换为---> IEDescription
+Interface: YWStations <---替换为---> PIButton
+Type: EHControlsDefault <---替换为---> OPrediction
+Type: XIIActionsFirebase <---替换为---> OVEWatch
+Interface: PIButton <---替换为---> MSQServiceButton
+Type: DLVideoUser <---替换为---> SXvod
+Type: MSQServiceButton <---替换为---> DKPIndicatorButton
+Type: DQKEighteenFill <---替换为---> MGJMoviesTicked
+Interface: DKPIndicatorButton <---替换为---> WKickButton
+Interface: WKickButton <---替换为---> WGreyShareButton
+Interface: WGreyShareButton <---替换为---> KWGuideButton
+Interface: KWGuideButton <---替换为---> WWZhengpianButton
+Type: AppDispatchType <---替换为---> EPrivate
+Type: RootState <---替换为---> PSmall
+Type: OVEWatch <---替换为---> OBasketballPlaylist
+Interface: WWZhengpianButton <---替换为---> LResendStyleButton
+Type: LResendStyleButton <---替换为---> MSmallNalyticsButton
+Type: IFormEmoji <---替换为---> BABootsplashGuide
+Type: MSmallNalyticsButton <---替换为---> JButton
+Type: BPhoto <---替换为---> JDSort
+Interface: JButton <---替换为---> GMVExpiredCombinedButton
+Type: GMVExpiredCombinedButton <---替换为---> PTBecomeButton
+Interface: PTBecomeButton <---替换为---> AEOAnythinkChinaButton
+Interface: AEOAnythinkChinaButton <---替换为---> PBTScoreViewsButton
+Interface: PBTScoreViewsButton <---替换为---> ODIPlashDownloadedButton
+Interface: ODIPlashDownloadedButton <---替换为---> GRMRobotoHomeButton
+Interface: GRMRobotoHomeButton <---替换为---> UReferrerButton
+Type: SBWhite <---替换为---> NSCCopy
+Interface: UReferrerButton <---替换为---> CGTransferButton
+Interface: CGTransferButton <---替换为---> KGroupButton
+Interface: KGroupButton <---替换为---> JREventButton
+Interface: JREventButton <---替换为---> SQReferrerDownButton
+Interface: SQReferrerDownButton <---替换为---> BJOTermsThemeButton
+Interface: BJOTermsThemeButton <---替换为---> GFStreamingLiveButton
+Interface: GFStreamingLiveButton <---替换为---> CVShrinkCombinedButton
+Type: CVShrinkCombinedButton <---替换为---> FPYShootButton
+Interface: FPYShootButton <---替换为---> VBZhuboSoundButton
+Interface: VodRecordType <---替换为---> GIChampionGroup
+Interface: MiniVodReducerState <---替换为---> TLYWhatsapp
+Interface: VBZhuboSoundButton <---替换为---> DTeamBufferButton
+Type: PDHCommentRoboto <---替换为---> EWQSmall
+Interface: DTeamBufferButton <---替换为---> IWYHandlerUpdateButton
+Interface: IWYHandlerUpdateButton <---替换为---> BBlacklistAboutButton
+Interface: LineUpResponseType <---替换为---> DInviteHongkong
+Interface: LineUpType <---替换为---> DHXPopup
+Interface: Competition <---替换为---> UMore
+Interface: Home <---替换为---> xh_gpay
+Interface: Away <---替换为---> ANavigationTrophy
+Interface: Coach <---替换为---> KRYPause
+Interface: FootballMatchLineup <---替换为---> MQELessForward
+Interface: Home2 <---替换为---> QLIPhilippinesFriends
+Interface: Incident <---替换为---> RJEditGift
+Interface: Assist <---替换为---> WFService
+Interface: Player <---替换为---> TFoundBackground
+Interface: InPlayer <---替换为---> DSubsTelegram
+Interface: OutPlayer <---替换为---> NUFastRecommendation
+Interface: Away2 <---替换为---> LJBFlyerTooltips
+Interface: Incident2 <---替换为---> KFPMutedForm
+Interface: SettingsReducerState <---替换为---> GBYMiniCanvas
+Interface: MatchDetailsResponseType <---替换为---> HANModuleDetails
+Interface: MatchDetailWithRankingData <---替换为---> TLDetailWhite
+Interface: GoalDistribution <---替换为---> JAEpisodes
+Interface: FootballMatchAnalysis <---替换为---> FPYDetailMalaysia
+Interface: BasketballMatchAnalysis <---替换为---> AQKPlashFavorite
+Interface: UMore <---替换为---> IDXvod
+Interface: QLIPhilippinesFriends <---替换为---> BFRecommendationList
+Interface: KRYPause <---替换为---> UCombineHome
+Interface: ANavigationTrophy <---替换为---> ANStringShoot
+Interface: FootballMatch <---替换为---> CLCRight
+Interface: Coverage <---替换为---> ROWBodanPlayer
+Interface: Round <---替换为---> LSApple
+Interface: Environment <---替换为---> UPVWhite
+Interface: Venue <---替换为---> PCYingShare
+Interface: Referee <---替换为---> ZCSubs
+Interface: Injury <---替换为---> YZTrashGift
+Interface: TFoundBackground <---替换为---> MCDReducerGesture
+Interface: FootballRanking <---替换为---> CBSwitch
+Interface: BasketballMatch <---替换为---> TYCircle
+Interface: Coverage <---替换为---> ROWBodanPlayer
+Interface: Round <---替换为---> LSApple
+Interface: BasketballHomeStats <---替换为---> BLLEwardedDescription
+Interface: BasketballAwayStats <---替换为---> ELang
+Interface: LJBFlyerTooltips <---替换为---> ZEDTick
+Interface: HomeTotal <---替换为---> DSelectPause
+Interface: AwayTotal <---替换为---> CRYWatch
+Interface: VsTotal <---替换为---> LDPrivacyQuest
+Interface: History <---替换为---> y_icon
+Type: IEDescription <---替换为---> CZBCompleteService
+Type: NSCCopy <---替换为---> MConstantsClock
+Interface: ZRoom <---替换为---> PFDownloadSmall
+Interface: BBlacklistAboutButton <---替换为---> FWGmailButton
+Type: ChatActionType <---替换为---> YData
+Type: ChatType <---替换为---> LOQFloaterDialog
+Interface: MatchUpdatesResponseType <---替换为---> IACalendar
+Interface: MatchUpdatesType <---替换为---> QImageUnselected
+Interface: IDXvod <---替换为---> RBCheckboxShow
+Interface: MCDReducerGesture <---替换为---> FPYBack
+Interface: ANStringShoot <---替换为---> SGoogleTurn
+Interface: TYCircle <---替换为---> BVYSplashSound
+Interface: ROWBodanPlayer <---替换为---> WNResult
+Interface: LSApple <---替换为---> JFVPause
+Interface: FootballMatchTrend <---替换为---> DControls
+Interface: RJEditGift <---替换为---> SDXPrivacy
+Interface: FootballMatchLive <---替换为---> JNBlacklist
+Interface: Stat <---替换为---> JYMapping
+Interface: KFPMutedForm <---替换为---> BLNOverStreaming
+Interface: Tlive <---替换为---> NPlaylistArrow
+Interface: FootballMatchStats <---替换为---> KRAssistIndex
+Interface: BasketballMatchTrend <---替换为---> ZActionStreaming
+Interface: Total <---替换为---> EGreen
+Interface: Players <---替换为---> LThumbnailService
+Interface: BasketballMatchLive <---替换为---> DTYAgreementMinivod
+Interface: FWGmailButton <---替换为---> EFUploadButton
+Interface: MatchType <---替换为---> KONCatagoryFavicon
+Interface: Stream <---替换为---> XCXMember
+Interface: Streamer <---替换为---> IXRFriends
+Interface: MatchDetailsType <---替换为---> EALSource
+Interface: CompetitionType <---替换为---> UBLeagueAlert
+Interface: HomeType <---替换为---> UInvite
+Interface: AwayType <---替换为---> DCarouselContext
+Interface: EFUploadButton <---替换为---> BKPDescriptionButton
+Type: BABootsplashGuide <---替换为---> WFPhoto
+Type: VideoSource <---替换为---> IEBFeedback
+Interface: PFDownloadSmall <---替换为---> OTIInviteMuted
+Interface: OTIInviteMuted <---替换为---> FDISortSentry
+Interface: BKPDescriptionButton <---替换为---> NHCFilledButton
+Type: UploadAction <---替换为---> XILAnalytic
+Type: UploadStateType <---替换为---> GDiceLogin
+Type: VodCommentBoxProps <---替换为---> DBLMorePoint
+Interface: FDISortSentry <---替换为---> YCUFrameYing
+Interface: NHCFilledButton <---替换为---> DIChartYellowButton
+Type: BackgroundActionType <---替换为---> CUpdatesOverlay
+Type: BackgroundType <---替换为---> OUWeiboOverlay
+Interface: DIChartYellowButton <---替换为---> PRHeartButton
+Interface: PRHeartButton <---替换为---> GFHCurrentDetailButton
+Type: FavouriteVodType <---替换为---> NBStreaming
+Interface: GIChampionGroup <---替换为---> VFMode
+Interface: PlayVodType <---替换为---> WRDownload
+Interface: VodReducerState <---替换为---> QQCenterChart
+Interface: FavoriteVodReducerState <---替换为---> NNEBing
+Interface: VodPlaylistReducerState <---替换为---> ICenterNetwork
+Interface: GFHCurrentDetailButton <---替换为---> ZPauseAboutButton
+Type: WFPhoto <---替换为---> QNHContainerLogin
+Interface: ZPauseAboutButton <---替换为---> DYUShareGreenButton
+Type: UserActionType <---替换为---> KNConstantsEvent
+Type: UserStateType <---替换为---> HDTGesturesList
+Type: ExtendedTheme <---替换为---> DMegaphoneUpload
+Type: QNHContainerLogin <---替换为---> MEYMode
+Interface: DYUShareGreenButton <---替换为---> VWCFriendsButton
+Interface: SearchHistoryState <---替换为---> UCompleteLock
+Type: CPageType <---替换为---> XRFilterSend
+Interface: VWCFriendsButton <---替换为---> RAboutThumbnailButton
+Interface: RAboutThumbnailButton <---替换为---> HHNReducerBorderlessButton
+Type: KONCatagoryFavicon <---替换为---> VControls
+Type: Matches <---替换为---> ysp_context
+Interface: HHNReducerBorderlessButton <---替换为---> SSHCombineButton
+Interface: SSHCombineButton <---替换为---> OXModeAnythinkButton
+Type: VControls <---替换为---> BYCross
+Interface: OXModeAnythinkButton <---替换为---> XFillButton
+
+
+开始混淆枚举。。。。。。。
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home_views -> YSplashAlert
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home -> YMacauGesture
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: views -> scoreLong_pVertical
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home_clicks -> YTwitterMiddleware
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home -> YMacauGesture
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: clicks -> YSmallMore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home_Carousel_views -> YSmall
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home -> YMacauGesture
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Carousel_views -> YYingViews
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home_Carousel_clicks -> YIncidentTail
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home -> YMacauGesture
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Carousel_clicks -> YFeedbackIndex
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home_Banner_views -> YAutoEdit
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home -> YMacauGesture
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_views -> YArrow
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home_Banner_clicks -> YStatisticsShare
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Home -> YMacauGesture
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_clicks -> YSentryXvod
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_views -> YHelperReport
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Views -> YSpec
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_video_view_times -> YAlert
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: video_view_times -> YNalyticsDescription
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_x_views -> YYellowStats
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: X_views -> YSearch
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_x_video_view_times -> YInjury
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: X_video_view_times -> YNewsCurrent
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_playlist_clicks -> YProjectTurn
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: playlist_clicks -> YSubmitSlider
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_video_clicks -> YNetworkUntick
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: video_clicks -> YSelectedMode
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_Ads_views -> YResult
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: ads_views -> YTemp
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_Ads_clicks -> YDownEdit
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: ads_clicks -> YRead
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport_views -> YGrey
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport -> YBellCanvas
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: views -> scoreLong_pVertical
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport_clicks -> YPolicy
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport -> YBellCanvas
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: clicks -> YSmallMore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport_Banner_views -> YIndicator
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport -> YBellCanvas
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_views -> YArrow
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport_Banner_clicks -> YLockRedirect
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport -> YBellCanvas
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_clicks -> YSentryXvod
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails_views -> YMutedTitle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails -> YPressureIndex
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: views -> scoreLong_pVertical
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails_plays_times -> YSigninupTrash
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails -> YPressureIndex
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: plays_times -> YPing
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails_vip_popup_times -> YMegaphone
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails -> YPressureIndex
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: vip_popup_times -> YRelatedCross
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails_vip_clicks -> YStatistics
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails -> YPressureIndex
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: vip_clicks -> YMath
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist_views -> YPressure
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist -> YFastforwardTicked
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: views -> scoreLong_pVertical
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist_clicks -> YPlusPhone
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist -> YFastforwardTicked
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: clicks -> YSmallMore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist_topics_views -> YFloating
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist -> YFastforwardTicked
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: topics_views -> YSingleSingapore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist_topics_clicks -> YBottomShow
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist -> YFastforwardTicked
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: topics_clicks -> YCornerCombined
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_login_success_times -> YRefresh
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter -> YSentry
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: login_success_times -> YRelated
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_vip_login_success_times -> YCopy
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter -> YSentry
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: vip_login_success_times -> YReducerRoboto
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_pay_vip_views -> YCanvasPopup
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter -> YSentry
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: pay_vip_views -> YSetting
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_invites_vip_views -> YHalf
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter -> YSentry
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: invites_vip_views -> YTyping
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search_result_views -> YMutedBlack
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search -> YGrey5
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: result_views -> YBlack
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search_result_clicks -> YConfirmationRules
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search -> YGrey5
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: result_clicks -> YEntry
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search_keyword -> YModity
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search -> YGrey5
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: keywords -> YConfigure
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Catalog_views -> YRoom
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Catalog -> YInfo
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: views -> scoreLong_pVertical
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Catalog_clicks -> YService
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Catalog -> YInfo
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: clicks -> YSmallMore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_views -> YTeamDesc
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: views -> scoreLong_pVertical
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_plays_times -> YDrag
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: plays_times -> YPing
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_X_views -> YRefreshProgress
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: X_views -> YSearch
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_X_plays_times -> YFullCondensed
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: X_plays_times -> YSearcha
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_share_clicks -> YPaginationGreen
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: share_clicks -> YLine
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_ads_views -> YSettings
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: ads_views -> YTemp
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_ads_clicks -> YTwitter
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play -> YSingle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: ads_clicks -> YRead
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: VideoPlayer_Banner_views -> YSave
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: VideoPlayer -> YIcon
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_views -> YArrow
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: VideoPlayer_Banner_clicks -> YViewsSmall
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: VideoPlayer -> YIcon
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_clicks -> YSentryXvod
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Profile_Banner_views -> YReadJ
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Profile -> YCount
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_views -> YArrow
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Profile_Banner_clicks -> YNews
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Profile -> YCount
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: banner_clicks -> YSentryXvod
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] enum: EventId -> YUpgrade
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: xh_gpay -> YUpdatesRefresh
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: home_tab -> sheetGiftShirt
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime -> YSheet
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: watchAnytime -> YExpired
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_Play_Times -> YBack
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: watchAnytime_play_times -> YIndexLang
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_View_Video -> YAgreement
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: watchAnytime_view_video -> YPrivilegeYellow
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytime_View_Playlist -> YViewsMegaphone
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: watchAnytime_view_playlist -> YWhistleGift
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytimeX -> YMathRead
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: watchAnytime_x -> YPagination
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: WatchAnytimeX_Play_Times -> YAnimationMapping
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: watchAnytime_x_play_times -> YVideo
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Sport -> YBellCanvas
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: sport -> catagoryConfigure
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails -> YPressureIndex
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: sportDetail -> YEvent
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails_Play_Times -> YGoogle
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: sportDetail_play_times -> YReminder
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: SportDetails_Vip_Popup -> YTypes
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: sportDetail_vip_popup -> YPrediction
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist -> YFastforwardTicked
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: playlist -> YLoading
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Playlist_Topics -> YMember
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: playlist_topics -> YRobotoComponent
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_Login_Success_Times -> YHook
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: userCenter_login_success_times -> YSports
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_Vip_Login_Success_Times -> YDark
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: userCenter_vip_login_success_times -> YMembers
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: UserCenter_View_Vip -> YStore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: userCenter_view_vip -> YOver
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search_Keyword -> YSelected
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: search_keywords -> YReminderGray
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Search_Result -> YInactiveGreen
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: search_result -> YSelectChat
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Catalog -> YInfo
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: catalog -> YRewindBaidu
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays -> YFiledPause
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: play -> floatingVolumeSport
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_Plays_Times -> YDisconnected
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: play_plays_times -> YSingleq
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Plays_Share -> YAnalyticSingapore
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: Play_share -> YEpisode
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: PlaysX -> YPlayer
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: play_x -> YUntickPreview
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: PlaysX_Plays_Times -> YDownloadingBootsplash
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] case: play_x_plays_times -> YBenefit
+文件: [旧 UmengAnalytics <--> 新 umb_center_carousel] enum: CustomEventKey -> YMemberBlacklist
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: Install -> STooltipsFavorite
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: install -> SActions
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: App_Boot -> SSinaWind
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: open_app -> SPolicy
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: UserCenter_Payment_Success_Times -> STrophy
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: userCenter_payment_success_times -> SRecommendation
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: UserCenter_Login_Success_Times -> YHook
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: userCenter_login_success_times -> YSports
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: Plays_Plays_Times -> YDisconnected
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] case: play_plays_times -> YSingleq
+文件: [旧 AppsFlyerAnalytic <--> 新 i_dialog] enum: YMemberBlacklist -> SSellLayout
+文件: [旧 vodDownloadTypes <--> 新 jx_suggestion] case: DOWNLOADING -> RUnselectedDropdown
+文件: [旧 vodDownloadTypes <--> 新 jx_suggestion] case: PAUSED -> REditGoal
+文件: [旧 vodDownloadTypes <--> 新 jx_suggestion] case: CANCELLED -> RDownloadedSound
+文件: [旧 vodDownloadTypes <--> 新 jx_suggestion] case: ERROR -> RPoint
+文件: [旧 vodDownloadTypes <--> 新 jx_suggestion] case: COMPLETED -> RClearModels
+文件: [旧 vodDownloadTypes <--> 新 jx_suggestion] enum: DownloadStatus -> RAccepted
+文件: [旧 iconGroup <--> 新 h_basketball] enum: ReportType -> IWhiteCarousel
+文件: [旧 chatAction <--> 新 gc_hongkong] case: Connect -> WDQBlacklistSplash
+文件: [旧 chatAction <--> 新 gc_hongkong] case: connect -> WDQVideoClock
+文件: [旧 chatAction <--> 新 gc_hongkong] case: ConnectError -> WDQReminderAway
+文件: [旧 chatAction <--> 新 gc_hongkong] case: connect_error -> WDQDownloading
+文件: [旧 chatAction <--> 新 gc_hongkong] case: Disonnect -> WDQBottom
+文件: [旧 chatAction <--> 新 gc_hongkong] case: disconnect -> WDQReport
+文件: [旧 chatAction <--> 新 gc_hongkong] case: Join -> WDQScoreTicked
+文件: [旧 chatAction <--> 新 gc_hongkong] case: join -> WDQStatisticsUnselected
+文件: [旧 chatAction <--> 新 gc_hongkong] case: Leave -> WDQConstModels
+文件: [旧 chatAction <--> 新 gc_hongkong] case: leave -> WDQStats
+文件: [旧 chatAction <--> 新 gc_hongkong] case: Message -> WDQLayoutAnytime
+文件: [旧 chatAction <--> 新 gc_hongkong] case: message -> WDQHalf
+文件: [旧 chatAction <--> 新 gc_hongkong] case: PrivateMessage -> WDQExpiredRedirect
+文件: [旧 chatAction <--> 新 gc_hongkong] case: private_message -> WDQSelect
+文件: [旧 chatAction <--> 新 gc_hongkong] case: AnnouncementMessage -> WDQZhengpianService
+文件: [旧 chatAction <--> 新 gc_hongkong] case: announcement_message -> WDQAnimationRegeng
+文件: [旧 chatAction <--> 新 gc_hongkong] enum: SocketEvent -> WDQPage
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_LIVE_ROOM -> TLMLeft
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_LIVE_ROOM -> TLMLeft
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_LIVE_ROOM_SUCCESS -> TLMLayoutTemperature
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_LIVE_ROOM_SUCCESS -> TLMLayoutTemperature
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_LIVE_ROOM_FAIL -> TLMZhengpianTick
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_LIVE_ROOM_FAIL -> TLMZhengpianTick
+文件: [旧 chatReducer <--> 新 t_filled] case: LEAVE_LIVE_ROOM -> TLMFloatingCombined
+文件: [旧 chatReducer <--> 新 t_filled] case: LEAVE_LIVE_ROOM -> TLMFloatingCombined
+文件: [旧 chatReducer <--> 新 t_filled] case: UPDATE_LIVE_ROOM_MESSAGE -> TLMSuccess
+文件: [旧 chatReducer <--> 新 t_filled] case: UPDATE_LIVE_ROOM_MESSAGE -> TLMSuccess
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_PRIVATE_ROOM -> TLMProject
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_PRIVATE_ROOM -> TLMProject
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_PRIVATE_ROOM_SUCCESS -> TLMChatModels
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_PRIVATE_ROOM_SUCCESS -> TLMChatModels
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_PRIVATE_ROOM_FAIL -> TLMPlayUpgrade
+文件: [旧 chatReducer <--> 新 t_filled] case: JOIN_PRIVATE_ROOM_FAIL -> TLMPlayUpgrade
+文件: [旧 chatReducer <--> 新 t_filled] case: LEAVE_PRIVATE_ROOM -> TLMFootballRead
+文件: [旧 chatReducer <--> 新 t_filled] case: LEAVE_PRIVATE_ROOM -> TLMFootballRead
+文件: [旧 chatReducer <--> 新 t_filled] case: UPDATE_PRIVATE_ROOM_MESSAGE -> TLMStep
+文件: [旧 chatReducer <--> 新 t_filled] case: UPDATE_PRIVATE_ROOM_MESSAGE -> TLMStep
+文件: [旧 chatReducer <--> 新 t_filled] enum: ChatActionEventType -> TLMModels
+文件: [旧 uploadReducer <--> 新 q_report_favorite] case: SAVE_UPLOAD_HISTORY -> DHMember
+文件: [旧 uploadReducer <--> 新 q_report_favorite] case: SAVE_UPLOAD_HISTORY -> DHMember
+文件: [旧 uploadReducer <--> 新 q_report_favorite] case: REMOVE_UPLOAD_HISTORY -> DHProject
+文件: [旧 uploadReducer <--> 新 q_report_favorite] case: REMOVE_UPLOAD_HISTORY -> DHProject
+文件: [旧 uploadReducer <--> 新 q_report_favorite] enum: UploadActionType -> DHPenaltyWhatsapp
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: ON_FIRST_BOOT -> BAreaClose
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: ON_FIRST_BOOT -> BAreaClose
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: ON_APP_BOOT -> BNotification
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: ON_APP_BOOT -> BNotification
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: LOGIN_WARINING_MODAL_SHOWN -> BMutedSearch
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: LOGIN_WARINING_MODAL_SHOWN -> BMutedSearch
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: VIP_PROMOTION_MODAL_SHOWN -> BDownload
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: VIP_PROMOTION_MODAL_SHOWN -> BDownload
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: VIP_PROMOTION_BOOT -> BTumbnailShoot
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: VIP_PROMOTION_BOOT -> BTumbnailShoot
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: VIP_PROMOTION_PURCHASE_UPDATE -> BClubPing
+文件: [旧 backgroundReducer <--> 新 hm_favorite] case: VIP_PROMOTION_PURCHASE_UPDATE -> BClubPing
+文件: [旧 backgroundReducer <--> 新 hm_favorite] enum: BackgroundActionEventType -> BStationsPrivate
+文件: [旧 commentCard <--> 新 qm_modal] enum: IWhiteCarousel -> FTempUnread
+文件: [旧 router <--> 新 dqb_wind_league] case: THEN -> TAutoLayout
+文件: [旧 router <--> 新 dqb_wind_league] case: then -> TWhatsapp
+文件: [旧 router <--> 新 dqb_wind_league] case: CATCH -> TLogo
+文件: [旧 router <--> 新 dqb_wind_league] case: catch -> THumidityTemp
+文件: [旧 router <--> 新 dqb_wind_league] enum: CRouteEvent -> TCircleConfirmation
+文件: [旧 langService <--> 新 a_singapore] case: Chinese -> NIImageSetting
+文件: [旧 langService <--> 新 a_singapore] case: chinese -> NIGesturesKick
+文件: [旧 langService <--> 新 a_singapore] case: English -> NIYellowAgreement
+文件: [旧 langService <--> 新 a_singapore] case: english -> NIMegaphone
+文件: [旧 langService <--> 新 a_singapore] enum: CLanguageType -> NIDelegate
+
+
+开始提取所有协议名并生成新协议名。。。。。。
+协议: NativeViewControllerDelegate <---替换为---> VONWAnytime
+协议: VONWAnytime <---替换为---> YMEOZPrivateFlyer
+
+
+开始翻新xib、storyboard控件ID值以及布局微调。。。。。。
+
+
+开始多语言文件的key名称。。。。。。
+
+
+开始自动检测类继承关系。。。。。。
+ATSplashViewController : UIViewController
+ATInterstitialRNSDK : RCTEventEmitter
+ATRNSDK : NSObject
+ATRewardedVideoRNSDK : RCTEventEmitter
+ATBannerRNSDK : RCTEventEmitter
+ATSplashViewController : UIViewController
+ATInterstitialRNSDK : RCTEventEmitter
+ATRNSDK : NSObject
+ATRewardedVideoRNSDK : RCTEventEmitter
+ATBannerRNSDK : RCTEventEmitter
+AppDelegate : UIResponder
+myAnimationViewController : UIViewController
+RNViewController : UIViewController
+UMAnalyticsModule : NSObject
+RNUMConfigure : NSObject
+
+
+开始自动检测统计所有文件中属性信息。。。。。。
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (weak, nonatomic) id<YMEOZPrivateFlyer> delegate;属性名称:delegate
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (weak, nonatomic) id<YMEOZPrivateFlyer> delegate;属性名称:delegate
+文件: [旧 AppDelegate <--> 新 AppDelegate] 属性:@property (nonatomic, strong) UIWindow *window;属性名称:window
+文件: [旧 AppDelegate <--> 新 AppDelegate] 属性:@property (nonatomic, strong) NSDictionary *launchOptions;属性名称:launchOptions
+文件: [旧 RNViewController <--> 新 PSZYingMainController] 属性:@property (nonatomic, strong) UIView *mainView;属性名称:mainView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (nonatomic, strong) UIImageView *splashImageView;属性名称:splashImageView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (nonatomic, strong) UIView *modelBackView;属性名称:modelBackView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (nonatomic, strong) UITextView *textView;属性名称:textView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property(nonatomic, strong) UIButton *skipButton;属性名称:skipButton
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (copy, nonatomic) NSDictionary<NSString *, NSString *> *placementIDs;属性名称:placementIDs
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (copy, nonatomic) NSString *placementID;属性名称:placementID
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property(nonatomic, strong) NSString *defaultAdSourceConfigStr;属性名称:defaultAdSourceConfigStr
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp] 属性:@property(nonatomic, strong) NSMutableDictionary<NSString*, UIView*>* bannerViews;属性名称:bannerViews
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (nonatomic, strong) UIImageView *splashImageView;属性名称:splashImageView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (nonatomic, strong) UIView *modelBackView;属性名称:modelBackView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (nonatomic, strong) UITextView *textView;属性名称:textView
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property(nonatomic, strong) UIButton *skipButton;属性名称:skipButton
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (copy, nonatomic) NSDictionary<NSString *, NSString *> *placementIDs;属性名称:placementIDs
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property (copy, nonatomic) NSString *placementID;属性名称:placementID
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:@property(nonatomic, strong) NSString *defaultAdSourceConfigStr;属性名称:defaultAdSourceConfigStr
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp] 属性:@property(nonatomic, strong) NSMutableDictionary<NSString*, UIView*>* bannerViews;属性名称:bannerViews
+
+
+开始自动修改Assets图片资源。。。。。。。
+BootSplashLogo       ---替换为--->       auto_zsUser
+
+Assets图片资源修改结束
+
+
+开始自动修改sks资源名称。。。。。。。
+
+sks资源修改结束
+
+开始修改项目中UIColor值。。。。。。。
+文件: [旧 RNViewController <--> 新 PSZYingMainController] color: [UIColor blackColor] -> [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1]
+文件: [旧 RNViewController <--> 新 PSZYingMainController] color: [UIColor blackColor] -> [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor blackColor] -> [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor redColor] -> [UIColor colorWithRed:150 / 255.0 green:70 / 255.0 blue:156 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor blackColor] -> [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor blackColor] -> [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor redColor] -> [UIColor colorWithRed:150 / 255.0 green:70 / 255.0 blue:156 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 TMappingController] color: [UIColor whiteColor] -> [UIColor colorWithRed:230 / 255.0 green:112 / 255.0 blue:57 / 255.0 alpha:1]
+100%👌
+
+
+修改颜色耗时：0.05540585517883301秒
+
+开始打乱函数定义顺序。。。。。。。
+100%👌
+
+开始提取分析源文件中函数名称。。。。。。。
+文件: [旧 AppDelegate <--> 新 AppDelegate]   函数名称: sourceURLForBridge
+文件: [旧 AppDelegate <--> 新 AppDelegate]   函数名称: concurrentRootEnabled
+文件: [旧 AppDelegate <--> 新 AppDelegate]   函数名称: prepareInitialProps
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: setupData
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: showLog
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: checkAd
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: clearLog
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: defaultAction
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: getKeyWindowMethodOne
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: currentInterfaceOrientation
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: getKeyWindowMethodTwo
+文件: [旧 ATInterstitialRNSDK <--> 新 GIShoot]   函数名称: sharedWrapper
+文件: [旧 ATRNSDK <--> 新 QZGLong]   函数名称: methodQueue
+文件: [旧 ATRewardedVideoRNSDK <--> 新 NDGift]   函数名称: sharedWrapper
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp]   函数名称: sharedWrapper
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: clearLog
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: currentInterfaceOrientation
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: appBecomeActive
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: getKeyWindowMethodOne
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: setupData
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: appMovedToBackground
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: getKeyWindowMethodTwo
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: checkAd
+文件: [旧 ATSplashViewController <--> 新 TMappingController]   函数名称: defaultAction
+文件: [旧 ATInterstitialRNSDK <--> 新 GIShoot]   函数名称: sharedWrapper
+文件: [旧 ATRNSDK <--> 新 QZGLong]   函数名称: methodQueue
+文件: [旧 ATRewardedVideoRNSDK <--> 新 NDGift]   函数名称: sharedWrapper
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp]   函数名称: sharedWrapper
+
+
+开始混淆函数里面局部变量名称。。。。。。。
+文件: [旧 RNViewController <--> 新 PSZYingMainController] 局部变量: mainStoryboard -> default_ce
+文件: [旧 RNViewController <--> 新 PSZYingMainController] 局部变量: logoViewController -> gmailController
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mtgConfigure -> progress
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: gdtConfigure -> brightness
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: logS -> trophy
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: adcolonyConfigure -> score
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: log -> kick
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: title -> current
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mytargetConfigure -> google
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: caches -> strM
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: facebookConfigure -> username
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: ready -> style
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: alert -> filled
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: configuration -> analytics
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: deviceOrientaion -> danger
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: landscape -> telegram
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: showAds -> gpay
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: label -> faviconLabel
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: RCTStorageDirectory -> friends
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mutableDict -> related
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: str -> helper
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: RCTManifestFileName -> suggestion
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mainWindow -> apps
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mutableDict -> relatedq
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: fileManager -> play
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: clearBtn -> trophyBtn
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: btnItem -> adultItem
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: appSupportDirectory -> weibo
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: topConstraint -> incident
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mySupportDirectory -> logout
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: bottomConstraint -> minimize
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: leadingConstraint -> sentry
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: storageDirectory -> video
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: trailingConstraint -> station
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: storageFile -> ticked
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: firstWindow -> banner
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: windowScene -> prediction
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mainWindow -> appsW
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: error -> bodan
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: stringFromFile -> settings
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: data -> theme
+文件: [旧 ATInterstitialRNSDK <--> 新 GIShoot] 局部变量: onceToken -> frame_i
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: jsonError -> playL
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: json -> sort
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: splashViewController -> videoController
+文件: [旧 ATRewardedVideoRNSDK <--> 新 NDGift] 局部变量: onceToken -> frame_i
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: initProps -> about
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: bridge -> module
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: error -> bodan
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: initProps -> aboutY
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: jsonData -> orientation
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: rnViewController -> logoutController
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp] 局部变量: onceToken -> frame_i
+文件: [旧 RNUMConfigure <--> 新 XJRobotoTemp] 局部变量: sel -> progress
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mainWindow -> apps
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mutableDict -> related
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: clearBtn -> trophyBtn
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: btnItem -> adultItem
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mainStoryboard -> default_ce
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: yourViewController -> predictionController
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: firstWindow -> banner
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: windowScene -> prediction
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: deviceOrientaion -> danger
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: landscape -> telegram
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: label -> faviconLabel
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mutableDict -> relatedX
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: title -> current
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: str -> helper
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: mainWindow -> appsl
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: caches -> strM
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: ready -> style
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 局部变量: alert -> filled
+文件: [旧 ATInterstitialRNSDK <--> 新 GIShoot] 局部变量: onceToken -> frame_i
+文件: [旧 ATRewardedVideoRNSDK <--> 新 NDGift] 局部变量: onceToken -> frame_i
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: error -> bodan
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: jsonData -> orientation
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: extraDictM -> strf
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: extraDataTemp -> active
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: extraDataDictM -> tooltips
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: jsonDictM -> streaming
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: error -> bodanF
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: jsonData -> orientationv
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: extraDictM -> strfl
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: extraDataTemp -> active2
+文件: [旧 NSDictionary+String <--> 新 AAssist] 局部变量: extraDataDictM -> tooltipsd
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp] 局部变量: onceToken -> frame_i
+
+
+开始自动生成垃圾代码文件。。。。。。。
+100%👌
+
+
+开始自动融合生成的垃圾代码文件。。。。。。
+100%👌
+
+
+开始自动随机生成属性并插入头文件和源文件。。。。。。。
+[old: ATSplashViewController -> new: TMappingController] insert  @property(nonatomic, assign)double  friendsSize;
+@property(nonatomic, assign)int  muted_count;
+@property(nonatomic, copy)NSString *  stepBaiduSide_string;
+
+[old: ATInterstitialRNSDK -> new: GIShoot] insert  @property(nonatomic, assign)double  singleSize;
+@property(nonatomic, assign)double  casting_min;
+@property(nonatomic, assign)float  home_margin;
+
+[old: ATRNSDK -> new: QZGLong] insert  @property(nonatomic, assign)double  profile_size;
+@property(nonatomic, assign)double  bodan_size;
+@property(nonatomic, assign)NSInteger  combined_flag;
+
+[old: ATRewardedVideoRNSDK -> new: NDGift] insert  @property(nonatomic, copy)NSArray *  time_88TaiwanFloatingArray;
+@property(nonatomic, assign)BOOL  has_Injury;
+
+[old: ATBannerRNSDK -> new: HGTemp] insert  @property(nonatomic, assign)double  canvasOffset;
+@property(nonatomic, assign)NSInteger  macau_sum;
+@property(nonatomic, assign)long  related_index;
+
+[old: ATSplashViewController -> new: TMappingController] insert  @property(nonatomic, assign)float  shirtPadding;
+@property(nonatomic, assign)BOOL  is_Indicator;
+@property(nonatomic, assign)double  theme_offset;
+@property(nonatomic, copy)NSArray *  thumbnailSearchbar_list;
+
+[old: ATInterstitialRNSDK -> new: GIShoot] insert  @property(nonatomic, assign)float  selectedMargin;
+@property(nonatomic, assign)double  update_yn;
+
+[old: ATRNSDK -> new: QZGLong] insert  @property(nonatomic, copy)NSString *  spinnerLaunch_string;
+@property(nonatomic, assign)BOOL  canHooks;
+
+[old: ATRewardedVideoRNSDK -> new: NDGift] insert  @property(nonatomic, copy)NSString *  scoreCircleString;
+@property(nonatomic, assign)BOOL  isViewer;
+
+[old: ATBannerRNSDK -> new: HGTemp] insert  @property(nonatomic, assign)double  catalogMin;
+@property(nonatomic, assign)float  next_margin;
+@property(nonatomic, assign)int  historySum;
+
+[old: AppDelegate -> new: AppDelegate] insert  @property(nonatomic, copy)NSString *  gpayCarouselString;
+@property(nonatomic, assign)double  d_count;
+@property(nonatomic, assign)long  mode_tag;
+
+[old: RNViewController -> new: PSZYingMainController] insert  @property(nonatomic, assign)long  comment_idx;
+@property(nonatomic, copy)NSArray *  adultDetailList;
+
+[old: UMAnalyticsModule -> new: FTMAnythink] insert  @property(nonatomic, copy)NSArray *  friendsCloseBingList;
+@property(nonatomic, assign)int  incident_index;
+@property(nonatomic, assign)int  policy_index;
+
+[old: RNUMConfigure -> new: XJRobotoTemp] insert  @property(nonatomic, copy)NSString *  shareSport_string;
+@property(nonatomic, assign)double  submitSpace;
+
+[old: RNViewController -> new: PSZYingMainController] insert  @property(nonatomic, copy)NSArray *  referrerTime_q_list;
+@property(nonatomic, assign)double  drag_padding;
+@property(nonatomic, assign)long  settings_count;
+@property(nonatomic, assign)double  backgroundMargin;
+
+[old: ATSplashViewController -> new: TMappingController] insert  @property(nonatomic, assign)long  viewer_index;
+@property(nonatomic, copy)NSString *  bufferDialogFilledString;
+
+[old: ATInterstitialRNSDK -> new: GIShoot] insert  @property(nonatomic, copy)NSString *  kickTransferStr;
+@property(nonatomic, assign)float  bnewsMax;
+@property(nonatomic, assign)BOOL  enbaleCountry;
+
+[old: ATRewardedVideoRNSDK -> new: NDGift] insert  @property(nonatomic, assign)int  containerCount;
+@property(nonatomic, assign)double  pauseSpace;
+@property(nonatomic, assign)double  expired_space;
+@property(nonatomic, copy)NSArray *  flyerCastingCenterArray;
+
+[old: ATBannerRNSDK -> new: HGTemp] insert  @property(nonatomic, assign)double  become_offset;
+@property(nonatomic, assign)NSInteger  temperatureSum;
+
+[old: ATSplashViewController -> new: TMappingController] insert  @property(nonatomic, assign)BOOL  enbaleRelated;
+@property(nonatomic, copy)NSArray *  statsHoverBodanArr;
+
+[old: ATInterstitialRNSDK -> new: GIShoot] insert  @property(nonatomic, assign)int  gmailTag;
+@property(nonatomic, assign)double  league_padding;
+@property(nonatomic, assign)float  light_padding;
+
+[old: ATRewardedVideoRNSDK -> new: NDGift] insert  @property(nonatomic, assign)double  dragMax;
+@property(nonatomic, assign)double  bannerPadding;
+@property(nonatomic, assign)double  photoPadding;
+
+[old: ATBannerRNSDK -> new: HGTemp] insert  @property(nonatomic, copy)NSString *  mappingDelegate_4tWhatsapp_str;
+@property(nonatomic, assign)float  clubMin;
+
+
+
+开始自动加密混淆字符串。。。。。。。
+"https://"
+"http://"
+"https://"
+"https://wa.me/?text="
+"http"
+"https://"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://xiangkantv.net"
+"https://stg-api.zbstg.co/"
+"https://stg-user.zbstg.co/"
+"https://stg-record.zbstg.co/"
+"https://stg-chat.zbstg.co"
+"https://api.ggsimida.com/"
+"https://user.ggsimida.com/"
+"https://record.ggsimida.com/"
+"https://chat.ggsimida.com"
+"https://api.gxhongdeli168.com"
+"https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json"
+"https://api.gxhongdeli168.com"
+"https://v.kylintv.com"
+"https://api.gxhongdeli168.com"
+"https://v.kylintv.com"
+"http_service"
+"https://"
+"http://"
+"https://oss.yingshi.tv/videos/vod/vi/201212.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201219.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201282.mp4"
+"https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png"
+"https://oss.yingshi.tv/videos/vod/vi/201278.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201410.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/200984.mp4"
+"https://example.com"
+"https://xiangkantv.net"
+"https://example.com"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://yingshi.tv/"
+"http"
+"https://"
+"https://www.yingshi.tv/vip"
+"https://www.yingshi.tv/vip"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://xiangkantv.net"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://xiangkantv.net"
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"httpRequestCancelled"
+"httpConnectionTimeout"
+"httpRequestTimeout"
+"httpReceiveTimeout"
+"httpVersionNotSupported"
+"httpTimeoutUserMsg"
+"https://geolocation-db.com/json"
+"https://so.finapp.chat"
+"https://yingshi.tv"
+"https://yingshi.tv/upload/vod/111.jpeg"
+"https://yingshi.tv/upload/vod/111.jpeg"
+"http://connectivitycheck.platform.hicloud.com/generate_204"
+"http"
+"https://"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://wa.me/?text="
+"https://www.yingshi.tv/vip"
+"https://www.yingshi.tv/vip"
+"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"http_service"
+"https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png"
+"https://"
+"http://connectivitycheck.platform.hicloud.com/generate_204"
+"https://"
+"http://"
+"https://"
+"https://api.gxhongdeli168.com/"
+"https://api.gxhongdeli168.com/"
+"http://localhost:3000/"
+"https://api.ggsimida.com/"
+"https://xiangkantv.net/invite.html?invite="
+"https://"
+"http://"
+"https://"
+
+
+开始自动混淆函数名称。。。。。。。
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   setupData <---替换为---> queryConnectPreferredRateDiagnostic
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   currentInterfaceOrientation <---替换为---> translatesTextCounter
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   showLog <---替换为---> presentShareReasonDict
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   getKeyWindowMethodOne <---替换为---> scrollFlowObjWindowsFailure
+文件: [旧 ATInterstitialRNSDK <--> 新 GIShoot]函数名:   sharedWrapper <---替换为---> openNativeRemotelyScale
+文件: [旧 ATRewardedVideoRNSDK <--> 新 NDGift]函数名:   sharedWrapper <---替换为---> openNativeRemotelyScale
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp]函数名:   sharedWrapper <---替换为---> openNativeRemotelyScale
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   setupData <---替换为---> queryConnectPreferredRateDiagnostic
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   currentInterfaceOrientation <---替换为---> translatesTextCounter
+文件: [旧 ATSplashViewController <--> 新 TMappingController]函数名:   getKeyWindowMethodOne <---替换为---> scrollFlowObjWindowsFailure
+文件: [旧 ATInterstitialRNSDK <--> 新 GIShoot]函数名:   sharedWrapper <---替换为---> openNativeRemotelyScale
+文件: [旧 ATRewardedVideoRNSDK <--> 新 NDGift]函数名:   sharedWrapper <---替换为---> openNativeRemotelyScale
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp]函数名:   sharedWrapper <---替换为---> openNativeRemotelyScale
+文件: [旧 AppDelegate <--> 新 AppDelegate]函数名:   prepareInitialProps <---替换为---> checkLabelMakePlacemenDomainEndif
+文件: [旧 AppDelegate <--> 新 AppDelegate]函数名:   concurrentRootEnabled <---替换为---> preAnalyticsTransitionsPlayback
+
+
+开始自动混淆指定属性名称。。。。。。
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:splashImageView ==> modelsNterstitial
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:modelBackView ==> groupEpisode
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:skipButton ==> guideReport
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:defaultAdSourceConfigStr ==> moduleCombine
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp] 属性:bannerViews ==> nativeConfigure
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:splashImageView ==> modelsNterstitial
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:modelBackView ==> groupEpisode
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:skipButton ==> guideReport
+文件: [旧 ATSplashViewController <--> 新 TMappingController] 属性:defaultAdSourceConfigStr ==> moduleCombine
+文件: [旧 ATBannerRNSDK <--> 新 HGTemp] 属性:bannerViews ==> nativeConfigure
+
+
+开始融合并调用生成的垃圾代码文件函数或者类。。。。。。。
+100%👌
+
+开始扰乱改变函数里面执行顺序。。。。。。。
+100%👌
+
+
+开始插入混淆函数并在现有函数体里面自动插入混淆函数调用语句。。。。。。。
+100%👌
+
+
+开始自动插入头文件混淆函数定义语句。。。。。。。
+100%👌
+
+
+开始生成新混淆源文件。。。。。。。
+100%👌
+
+
+开始自动更新项目配置。。。。。。。
+100%👌
