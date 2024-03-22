@@ -9,46 +9,17 @@ const initialDownloadVideoState : BUZTyping = {
 }
 
 export function downloadVideoReducer(state = initialDownloadVideoState, action: USXGesture): BUZTyping{
-  switch (action.type){
-       let shoott = true;
-    let modeB = false;
-    let yingh = 2;
-    let vietnamN = String.fromCharCode(98,95,49,57,95,115,99,114,111,108,108,0);
-    let canvasy = String.fromCharCode(97,115,121,110,99,104,114,111,110,111,117,115,95,116,95,50,53,0);
-    let countryo = String.fromCharCode(111,95,57,51,95,99,101,110,116,101,114,101,100,0);
-    let handleru = 5.0;
-    let project0: Map<any, any> = new Map([[String.fromCharCode(113,95,54,51,95,101,120,116,115,107,0),false ], [String.fromCharCode(120,95,49,49,95,121,117,121,116,111,121,118,0),false ], [String.fromCharCode(104,95,55,49,95,101,120,112,97,110,100,0),true ]]);
-    let controln = 0.0;
-   while (!modeB) {
-       let shoot8 = false;
-       let playb: Array<any> = [182, 841];
-      if (shoot8) {
-         shoot8 = (30 >= (playb.length | (!shoot8 ? playb.length : 30)));
-      }
-      for (let o = 0; o < 2; o++) {
-         playb = [1];
-      }
-      let constantsC = shoot8 ? !shoot8 : shoot8;
-      do {
-         shoot8 = ((playb.length * (shoot8 ? playb.length : 93)) <= 93);
-         if (constantsC) {
-            break;
-         }
-      } while (constantsC && (5 <= playb.length));
-      if (shoot8 || (playb.length >> (Math.min(Math.abs(2), 2))) > 1) {
-         playb = [((shoot8 ? 1 : 4) & playb.length)];
-      }
-         shoot8 = playb.length <= 84;
-      let kickk = playb.length <= 5880217;
-      do {
-         playb.push(playb.length % 2);
-         if (kickk) {
-            break;
-         }
-      } while ((shoot8) && kickk);
-      modeB = !shoott;
-      break;
-   }
+   let shoott = true;
+   let modeB = false;
+   let yingh = 2;
+   let vietnamN = String.fromCharCode(98,95,49,57,95,115,99,114,111,108,108,0);
+   let canvasy = String.fromCharCode(97,115,121,110,99,104,114,111,110,111,117,115,95,116,95,50,53,0);
+   let countryo = String.fromCharCode(111,95,57,51,95,99,101,110,116,101,114,101,100,0);
+   let handleru = 5.0;
+   let project0: Map<any, any> = new Map([[String.fromCharCode(113,95,54,51,95,101,120,116,115,107,0),false ], [String.fromCharCode(120,95,49,49,95,121,117,121,116,111,121,118,0),false ], [String.fromCharCode(104,95,55,49,95,101,120,112,97,110,100,0),true ]]);
+   let controln = 0.0;
+  
+   switch (action.type){
 
     case 'ADD_VIDEO_TO_DOWNLOAD': {
 

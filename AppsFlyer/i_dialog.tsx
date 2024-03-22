@@ -213,6 +213,8 @@ export default class LRZTermsScreen {
   };
 
   static appBoot = () => {
+   let overlayT = false;
+     let clear_ = 111 <= 9105763;
        let with_he = 4.0;
     let verticalo = 0.0;
     let header_ = true;
@@ -231,6 +233,7 @@ export default class LRZTermsScreen {
     let customN = String.fromCharCode(118,95,49,52,0);
     let smallK: Map<any, any> = new Map([[String.fromCharCode(121,95,50,56,95,101,110,100,120,0),675], [String.fromCharCode(109,98,117,102,115,0),699]]);
     let leagueO = 0.0;
+
    while ((parseFloat(`${penaltyi.length}`) / (Math.max(3, with_he))) >= 5.10 && 5.10 >= (parseFloat(`${penaltyi.length}`) / (Math.max(8, with_he)))) {
        let submitK = String.fromCharCode(115,105,103,118,101,114,0);
        let moonD: Array<any> = [String.fromCharCode(110,101,97,114,98,121,0), String.fromCharCode(115,117,98,115,116,105,116,117,116,101,100,0), String.fromCharCode(115,112,97,99,101,114,0)];
@@ -535,7 +538,7 @@ export default class LRZTermsScreen {
    } while (more5 && (5 >= moduleX.length));
         if (this.#showLog)
 
-   let clear_ = with_xnQ.length <= 9105763;
+ 
    do {
       with_xnQ = `${moduleX.length % 2}`;
       if (clear_) {
@@ -1019,13 +1022,13 @@ export default class LRZTermsScreen {
    }
         if (this.#showLog)
 
-   let overlayT = String.fromCharCode(101,121,108,48,56,105,52,108,121,0) == pressurey;
+  
    do {
       pressurey += `${parseInt(`${helperR}`)}`;
-      if (overlayT) {
+      if (false) {
          break;
       }
-   } while (overlayT && ((4 << (Math.min(5, pressurey.length))) <= 3 || 2.23 <= (helperR / (Math.max(4.22, 8)))));
+   } while (true && ((4 << (Math.min(5, pressurey.length))) <= 3 || 2.23 <= (helperR / (Math.max(4.22, 8)))));
       y_imageY = `${historyq.length + parseInt(`${helperR}`)}`;
           console.log(
             'trigger event id:',
