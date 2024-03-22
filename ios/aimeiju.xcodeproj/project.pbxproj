@@ -143,6 +143,7 @@
 		BC7BF9602F2319F79850DD86 /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
 		BW61K6101TQ48048362EZV47 /* yys_SigmobCoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_SigmobCoreView.m; sourceTree = "<group>"; };
 		C80E302F2B21A8D20093541D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		C854A5E32BAC54F00069ED3C /* static */ = {isa = PBXFileReference; lastKnownFileType = folder; name = static; path = ../static; sourceTree = "<group>"; };
 		CABA2759F26C1ABC887F1D07 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CQV9X8I7092L5783U5A537U3 /* yys_CancelInfoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_CancelInfoObject.m; sourceTree = "<group>"; };
 		CV9DTM49Y83107A533T6P016 /* yys_ReferrerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_ReferrerController.h; sourceTree = "<group>"; };
@@ -344,6 +345,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C854A5E32BAC54F00069ED3C /* static */,
 				C80E302F2B21A8D20093541D /* assets */,
 				9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* aimeiju */,
