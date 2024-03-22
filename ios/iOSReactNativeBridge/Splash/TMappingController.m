@@ -1756,7 +1756,7 @@ self.favoriteView = [IETrophyView new];
       NSInteger moreG = sizeof(sentryg) / sizeof(sentryg[0]);
       favorite6 = (moreG | sentryg[1]) == 67;
    }
-    self.view.backgroundColor = [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor blackColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
         selector:@selector(appMovedToBackground:) 

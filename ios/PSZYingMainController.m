@@ -55,7 +55,7 @@ self.downView = [[URNConnectionView alloc] init];
    for (int o = 0; o < 3; o++) {
       internetn[1] *= l_imageJ[6] << (MIN(1, labs(2)));
    }
-  self.view.backgroundColor = [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1];
+  self.view.backgroundColor = [UIColor blackColor];
 
   [self setupUI];
    do {
@@ -285,7 +285,7 @@ self.downView = [[URNConnectionView alloc] init];
   self.mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    self.mainView.backgroundColor = [UIColor colorWithRed:202 / 255.0 green:73 / 255.0 blue:33 / 255.0 alpha:1];
+    self.mainView.backgroundColor = [UIColor blackColor];
   });
    do {
        NSDictionary * termsP = @{[NSString stringWithUTF8String:(char []){103,0}]:[NSString stringWithUTF8String:(char []){106,0}], [NSString stringWithUTF8String:(char []){113,0}]:[NSString stringWithUTF8String:(char []){84,0}], [NSString stringWithUTF8String:(char []){69,0}]:[NSString stringWithUTF8String:(char []){102,0}]};
