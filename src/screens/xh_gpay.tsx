@@ -2393,6 +2393,14 @@ function xh_gpay({ navigation }: BottomTabScreenProps<any>) {
       },
      1000
     );
+    setTimeout(
+      () => {
+        
+        setNavbarHeight(bottomTabHeight);
+        reloadBanner()
+      },
+     1500
+    );
   }, [bottomTabHeight, screenState.interstitialShow]);
 
   const [deviceName, setDeviceName] = useState("");
