@@ -18,7 +18,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
   const { textVariants, colors, spacing } = useTheme();
   return (
     <>
-      <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
+      <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 ,paddingBottom:120 }}>
         <MainHeader
           headerStyle={{
             paddingLeft: spacing.sideOffset,
