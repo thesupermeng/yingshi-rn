@@ -1184,8 +1184,14 @@ const RecommendationHome = ({
                key={`slider-${key}`}
                onPress={() => {
                   console.log("onclick carousel");
+                  console.log(item)
 
+                  dispatch(viewPlaylistDetails(item));
+                  navigation.navigate('PlaylistDetail', { topic_id: item.topic_id });
 
+                  // navigation.navigate('PlaylistDetail', {
+                  //    topic_id: item.topic_id,
+                  //  });
 
 
                }}
