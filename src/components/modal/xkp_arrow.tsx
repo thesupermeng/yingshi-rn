@@ -259,49 +259,6 @@ const AdultVideoVipModal = () => {
       catagoryU *= parseFloat(`${downloadedx.length % 2}`);
 
   if (adultModeVipShow && !isVip && adultMode)
-
-       let penaltyJ: Array<any> = [245, 242];
-       let combinedg: Map<any, any> = new Map([[String.fromCharCode(109,111,100,105,102,105,99,97,116,105,111,110,95,111,95,51,56,0),String.fromCharCode(100,101,115,99,95,110,95,55,49,0)], [String.fromCharCode(99,111,108,111,114,115,112,97,99,101,95,114,95,49,54,0),String.fromCharCode(115,95,54,56,95,99,114,111,115,115,102,97,100,101,0)], [String.fromCharCode(115,117,109,120,95,103,95,57,48,0),String.fromCharCode(108,95,54,49,95,108,111,99,97,108,116,105,109,101,0)]]);
-       let yingd = String.fromCharCode(103,95,51,95,112,117,98,108,105,99,0);
-         yingd = `${yingd.length}`;
-         combinedg = new Map([[`${combinedg.size}`, (String.fromCharCode(53,0) == yingd ? combinedg.size : yingd.length)]]);
-          let reportW = String.fromCharCode(111,95,52,52,95,116,105,101,114,115,0);
-          let text9 = String.fromCharCode(97,95,56,54,95,97,117,110,105,110,105,116,0);
-         combinedg = new Map([[`${penaltyJ.length}`, yingd.length]]);
-         reportW = `${text9.length}`;
-         text9 += `${reportW.length + text9.length}`;
-         penaltyJ.push(penaltyJ.length);
-      let styleU = penaltyJ.length <= 5201664;
-      do {
-          let selectionB = 2.0;
-          let verticall = 2.0;
-         penaltyJ.push(parseInt(`${verticall}`));
-         selectionB *= 1;
-         if (styleU) {
-            break;
-         }
-      } while ((penaltyJ.length <= 1) && styleU);
-      while (yingd.startsWith(`${combinedg.size}`)) {
-         yingd = `${yingd.length}`;
-         break;
-      }
-         combinedg = new Map([[`${combinedg.size}`, 3 - combinedg.size]]);
-         penaltyJ = [penaltyJ.length];
-       let stationsp = String.fromCharCode(114,95,50,57,95,105,110,102,111,114,109,0);
-      telegram2 = 14 >= formX.length;
-       let middlewareS = false;
-         middlewareS = !middlewareS;
-       let borderlessF = true;
-       let over_ = true;
-          let fulls = String.fromCharCode(99,104,97,108,108,101,110,103,101,95,120,95,53,54,0);
-          let temperaturex = 0;
-          let canvasu = 2.0;
-         middlewareS = canvasu < 14.58 && over_;
-         fulls = `${fulls.length + temperaturex}`;
-         temperaturex |= fulls.length << (Math.min(1, Math.abs(temperaturex)));
-         canvasu /= Math.max(3, temperaturex);
-      zhubo_ += ((fill7 ? 4 : 5) / (Math.max(parseInt(`${zhubo_}`), 10)));
-      actionsA = `${2 % (Math.max(8, parseInt(`${weibol}`)))}`;
     return (
       <View
         style={{
