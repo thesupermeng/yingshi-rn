@@ -265,9 +265,9 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 }, 500)
             }
         };
-        const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+      //  const unsubscribe = navigation.addListener('tabPress', handleTabPress);
         
-        return () => unsubscribe();
+        return () => {};
     }, [navigation, isFocused, isRefreshing]);
 
 
