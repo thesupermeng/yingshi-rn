@@ -262,7 +262,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
           : <FeedbackSuccessIcon />
         }
 
-        <Text style={{ ...textVariants.bigHeader, textAlign: 'center' }}>{dialogText}</Text>
+        <Text style={{ ...textVariants.bigHeader, textAlign: 'center' , color:'#ffffff' }}>{dialogText}</Text>
       </Dialog>
     </ScreenContainer>
   );
