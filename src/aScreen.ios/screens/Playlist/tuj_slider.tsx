@@ -1088,7 +1088,7 @@ function Topic() {
   const [bottomTabHeight, setBottomTabHeight] = useState(60);
 
   return (
-    <View style={{     flex: 1,  paddingTop:20}}>
+    <View style={{     flex: 1,  paddingTop:10 }}>
 
         {isRefreshing && !isOffline && (
           <View
@@ -1097,6 +1097,7 @@ function Topic() {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
+            paddingBottom:120
             }}>
             {
               <FastImage
