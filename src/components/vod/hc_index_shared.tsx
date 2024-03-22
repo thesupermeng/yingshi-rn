@@ -31,7 +31,7 @@ function vodWithDescriptionListRank({
   const renderItem = useCallback(
     ({ item, index }: MEYMode) => (
       <View style={{ flexDirection: "row", justifyContent: "center", paddingLeft: 20 }}>
-        <View style={{ width: 40, justifyContent: 'center' }}>
+        <View style={{ width: 50, justifyContent: 'center' }}>
           <Text style={{
             paddingLeft: 10,
             fontSize: 26,

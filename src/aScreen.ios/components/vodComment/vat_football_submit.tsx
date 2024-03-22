@@ -2,7 +2,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { Text, TouchableOpacity, View } from "react-native";
 import FastImage from "../common/gwi_with";
 import { WQRReducer } from "@type/wpk_long";
-import CommentIcon from '@static/images/backwardHelper.svg';
+import CommentIcon from '@static/images/comment.svg';
 import { CommentCard } from "./qm_modal";
 
 type DBLMorePoint = {
@@ -33,7 +33,7 @@ export const VodCommentBox = ({
                         paddingVertical: 16,
                     }}
                 >
-                    <CommentIcon />
+                     <CommentIcon  width={100} height={100}/>
                     <Text style={{
                         ...textVariants.subBody,
                         color: colors.muted,
@@ -57,7 +57,7 @@ export const VodCommentBox = ({
                 >
                     <View style={{ paddingVertical: 18, alignItems: 'center' }}>
                         <Text
-                            style={{ ...textVariants.small, color: colors.primary }}
+                            style={{ ...textVariants.small, color: colors.primary , fontWeight:'bold' }}
                         >
                             查看全部
                         </Text>
