@@ -2354,17 +2354,44 @@ function xh_gpay({ navigation }: BottomTabScreenProps<any>) {
     [navOptions, navId, screenState.lastSeenNavName]
   );
 
-  const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext);
+
+
+
+
+ const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext); 
+//   useEffect(() => {
+    
+//    setTimeout(
+//      () => {
+       
+     
+//      },
+//    1000
+//    );
+//  }, []);
 
   const isSamsungDevice = DeviceInfo.getBrand() === "samsung";
   useEffect(() => {
     
+
+   setTimeout(
+      () => {
+        
+        setNavbarHeight(bottomTabHeight);
+        reloadBanner()
+      },
+     100
+    );
+
+
+
     setTimeout(
       () => {
         
         setNavbarHeight(bottomTabHeight);
+        reloadBanner()
       },
-      isSamsungDevice ? 1000 : 500
+     1000
     );
   }, [bottomTabHeight, screenState.interstitialShow]);
 

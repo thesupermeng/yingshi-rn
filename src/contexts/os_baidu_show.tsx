@@ -67,6 +67,12 @@ export const AdsBannerContextProvider = ({ children }: XFillButton) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: PSmall) => screenReducer
   );
+
+
+  useEffect(() => {
+   reloadBanner()
+ }, [screenState.interstitialShow]);
+
   
 
   const reloadBanner = () => {
@@ -1433,11 +1439,20 @@ export const AdsBannerContextProvider = ({ children }: XFillButton) => {
       formS = speci.length < 52;
    }
 
-      ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
+     
 
-      formS = casting7 == referrer_;
+      setTimeout(() => {
+         ATBannerRNSDK.loadAd(IOS_HOME_PAGE_BANNER_ADS, settings);
+
+  
+         ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
+       }, 5000);
+
+
+
+
+          formS = casting7 == referrer_;
       time_mh5 = "3";
-      ATBannerRNSDK.loadAd(IOS_PLAY_DETAILS_BANNER_ADS, settings);
 
    for (let g = 0; g < 1; g++) {
        let activeI = false;
