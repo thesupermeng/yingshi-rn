@@ -2,15 +2,15 @@ import { ScrollView, SafeAreaView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import FootballDataPage from './footballDataPage';
 import BasketballDataPage from './basketballDataPage';
-import ScreenContainer from '../../../../components/container/mayi_save';
-import { mayi_Cast } from '../../../types/mayi_search';
+import ScreenContainer from '../../../../components/container/ypy_fast';
+import { TLDetailWhite } from '../../../types/dj_sort';
 import { useIsFocused } from '@react-navigation/native';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails?: mayi_Cast
+interface XFillButton {
+  liveRoomMatchDetails?: TLDetailWhite
 }
 
-const TeamDataPage = ({ liveRoomMatchDetails }: mayi_GoogleViews) => {
+const TeamDataPage = ({ liveRoomMatchDetails }: XFillButton) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
   

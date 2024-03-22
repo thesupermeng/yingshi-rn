@@ -1,17 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import mayi_LogouserManager from '../../../goalDistribution';
+import JAEpisodes from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
-import styles from './mayi_iconarrowrightwhite';
-import EmptyDataPage from '../../../mayi_mbbanner';
-import { mayi_Cast } from '../../../../types/mayi_search';
+import styles from './fgl_less_position';
+import EmptyDataPage from '../../../zp_progress_tooltips';
+import { TLDetailWhite } from '../../../../types/dj_sort';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails?: mayi_Cast,
+interface XFillButton {
+  liveRoomMatchDetails?: TLDetailWhite,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : mayi_GoogleViews) => {
+const FootballDataPage = ({liveRoomMatchDetails} : XFillButton) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : mayi_GoogleViews) => {
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <mayi_LogouserManager
+              <JAEpisodes
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

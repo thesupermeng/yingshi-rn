@@ -2,17 +2,17 @@ import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
 import InjuryComponent from './injuryComponent';
-import styles from './mayi_iconarrowrightwhite';
-import { mayi_awayteamfield, mayi_ProjectLibjsijniprofiler, mayi_LessMore } from '../../types/mayi_search';
+import styles from './fgl_less_position';
+import { xh_gpay, SGoogleTurn, YZTrashGift } from '../../types/dj_sort';
 
-interface mayi_GoogleViews {
-  homeTeam?: mayi_awayteamfield
-  awayTeam?: mayi_ProjectLibjsijniprofiler
-  homePlayerList?: mayi_LessMore[]
-  awayPlayerList?: mayi_LessMore[]
+interface XFillButton {
+  homeTeam?: xh_gpay
+  awayTeam?: SGoogleTurn
+  homePlayerList?: YZTrashGift[]
+  awayPlayerList?: YZTrashGift[]
 }
 
-const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: mayi_GoogleViews) => {
+const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: XFillButton) => {
   return (
     <View>
       <View style={styles.titleView}>
@@ -61,7 +61,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"penaltyshootModal" + index} data={item} isHome={true}></InjuryComponent>
+                <InjuryComponent key={"loginRegister_u" + index} data={item} isHome={true}></InjuryComponent>
               )
             })
           }
@@ -70,7 +70,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"rankModalBrightness" + index} data={item} isHome={false}></InjuryComponent>
+                <InjuryComponent key={"const_2uContext" + index} data={item} isHome={false}></InjuryComponent>
               )
             })
           }

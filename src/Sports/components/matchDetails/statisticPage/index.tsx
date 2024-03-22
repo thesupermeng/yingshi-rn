@@ -1,17 +1,17 @@
 import {View, ScrollView} from 'react-native';
 import BasketballStatisticPage from './basketballStatisticPage';
 import {useSelector} from 'react-redux';
-import { mayi_Cast } from '../../../types/mayi_search';
-import { mayi_Humidity } from '../../../types/mayi_predictionarrow_langkey';
+import { TLDetailWhite } from '../../../types/dj_sort';
+import { QImageUnselected } from '../../../types/l_fastforward_buffer';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails?: mayi_Cast,
-  liveRoomUpdate?: mayi_Humidity
+interface XFillButton {
+  liveRoomMatchDetails?: TLDetailWhite,
+  liveRoomUpdate?: QImageUnselected
 }
 
 
 
-const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : mayi_GoogleViews) => {
+const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : XFillButton) => {
   
   return (
     <View>

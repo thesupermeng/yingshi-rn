@@ -1,20 +1,20 @@
 import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import SubPlayerComponent from './subPlayerComponent';
-import { mayi_ProjectLibjsijniprofiler, mayi_Thumbnail, mayi_awayteamfield, mayi_HolderGift, mayi_LessMore } from '../../types/mayi_search';
+import { SGoogleTurn, ZEDTick, xh_gpay, BFRecommendationList, YZTrashGift } from '../../types/dj_sort';
 
-interface mayi_GoogleViews {
+interface XFillButton {
   showTeamIcon?: boolean,
   isInjuryList?: boolean,
-  homeTeam?: mayi_awayteamfield,
-  awayTeam?: mayi_ProjectLibjsijniprofiler,
+  homeTeam?: xh_gpay,
+  awayTeam?: SGoogleTurn,
   homePlayerList?: Array<any>
   awayPlayerList?: Array<any>
 }
 
-const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: mayi_GoogleViews) => {
+const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: XFillButton) => {
   return (
     <View style={{backgroundColor: '#14161A'}}>
       <View style={styles.titleView}>
@@ -65,7 +65,7 @@ const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, aw
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <SubPlayerComponent key={"penaltyshootModal" + index} isInjury={isInjuryList} data={item} isHome={true}></SubPlayerComponent>
+                <SubPlayerComponent key={"loginRegister_u" + index} isInjury={isInjuryList} data={item} isHome={true}></SubPlayerComponent>
               )
             })
           }
@@ -74,7 +74,7 @@ const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, aw
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <SubPlayerComponent key={"rankModalBrightness" + index} isInjury={isInjuryList} data={item} isHome={false}></SubPlayerComponent>
+                <SubPlayerComponent key={"const_2uContext" + index} isInjury={isInjuryList} data={item} isHome={false}></SubPlayerComponent>
               )
             })
           }

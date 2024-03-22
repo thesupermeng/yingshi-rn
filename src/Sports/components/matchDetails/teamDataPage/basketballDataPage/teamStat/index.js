@@ -1,5 +1,5 @@
 import {View, Text, Image, ImageBackground} from 'react-native';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import { HomeIcon, AwayIcon } from '../../../../../assets';
 
 const TeamStat = ({data}) => {

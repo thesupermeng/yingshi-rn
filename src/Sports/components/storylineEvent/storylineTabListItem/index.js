@@ -6,237 +6,178 @@ import {GoalLogo, PenaltyMatchIcon} from '../../../assets';
 import StorylineTap from '../storylineTab';
 import {getMatchStorylineStatus} from '../../../utility/utils';
 
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 
 const StorylineTabListItem = props => {
-       let readJ = 2.0;
-    let arrowupQ = [334, 311];
-    let gift2 = [684, 498];
-    let whitetick7 = 3;
-    let i_playerS = new Map([[String.fromCharCode(112,114,105,109,101,114,0),String.fromCharCode(115,101,103,109,101,110,116,101,100,0)], [String.fromCharCode(99,101,114,116,112,111,108,0),String.fromCharCode(97,101,115,0)]]);
-    let rewardq = false;
-    let yellowtored5 = [896, 103];
-    let report9 = 2;
-    let iconfeedback_ = 4.0;
-    let mappingG = 3;
-    let backgroundy = String.fromCharCode(103,101,116,116,105,110,103,0);
-       let libcrashsdkj = new Map([[String.fromCharCode(116,101,120,116,117,114,101,100,115,112,0),520], [String.fromCharCode(117,112,116,105,109,101,0),154]]);
-       let basketballmatchdetailbgQ = false;
-      while (basketballmatchdetailbgQ) {
-         basketballmatchdetailbgQ = libcrashsdkj[`${basketballmatchdetailbgQ}`] != null;
-         break;
-      }
-      do {
-         basketballmatchdetailbgQ = (82 == (libcrashsdkj.size + (basketballmatchdetailbgQ ? 82 : libcrashsdkj.size)));
-         if (basketballmatchdetailbgQ ? !basketballmatchdetailbgQ : basketballmatchdetailbgQ) {
-            break;
-         }
-      } while ((5 > libcrashsdkj.size) && (basketballmatchdetailbgQ ? !basketballmatchdetailbgQ : basketballmatchdetailbgQ));
-      do {
-          let sinax = 5;
-         libcrashsdkj[`${basketballmatchdetailbgQ}`] = (3 | (basketballmatchdetailbgQ ? 1 : 1));
-         sinax |= sinax >> (Math.min(Math.abs(2), 3));
-         if (2318037 == libcrashsdkj.size) {
-            break;
-         }
-      } while ((2318037 == libcrashsdkj.size) && (1 >= (3 & libcrashsdkj.size)));
-         basketballmatchdetailbgQ = !basketballmatchdetailbgQ && libcrashsdkj.size < 35;
-       let uploadK = new Map([[String.fromCharCode(111,103,103,100,101,99,0),880], [String.fromCharCode(116,121,112,101,115,0),186]]);
-      for (let u = 0; u < 1; u++) {
-         basketballmatchdetailbgQ = !basketballmatchdetailbgQ;
-      }
-      rewardq = report9 > 2;
+       let foundW = new Map([[String.fromCharCode(97,95,51,52,95,111,112,97,113,117,101,0),127], [String.fromCharCode(97,95,53,55,95,105,110,116,101,103,114,97,116,101,100,0),567]]);
+    let actions9 = false;
+    let gpayR = String.fromCharCode(120,95,54,51,95,100,105,114,101,99,116,108,121,0);
+    let xvodI = 1;
+    let targetc = new Map([[String.fromCharCode(104,97,97,114,95,118,95,56,54,0),933], [String.fromCharCode(97,95,55,55,95,115,105,109,117,108,99,97,115,116,0),925], [String.fromCharCode(101,120,112,108,111,100,105,110,103,95,101,95,56,52,0),566]]);
+    let searchd = 1.0;
+    let eventQ = 0;
+    let star_ = [472, 59];
+    let logoZ = [String.fromCharCode(97,95,53,56,95,99,108,97,115,104,101,100,0), String.fromCharCode(113,95,57,54,95,115,116,98,108,0)];
+    let robotob = String.fromCharCode(120,95,56,48,95,105,110,111,117,116,115,0);
+    let soundl = String.fromCharCode(99,111,108,111,117,114,95,48,95,52,52,0);
+    let injurye = new Map([[String.fromCharCode(108,111,97,100,101,114,95,110,95,53,0),974], [String.fromCharCode(105,110,103,101,116,97,100,100,114,95,104,95,51,52,0),264], [String.fromCharCode(103,95,54,52,95,97,114,98,105,116,114,97,114,121,0),235]]);
+   for (let v = 0; v < 2; v++) {
+      targetc[`${eventQ}`] = 1 * eventQ;
+   }
 
   const arrayValue = props?.data;
-      i_playerS[`${gift2.length}`] = gift2.length % (Math.max(1, 1));
+       let black6 = new Map([[String.fromCharCode(101,110,100,105,110,103,95,115,95,50,52,0),String.fromCharCode(102,95,53,49,95,100,102,99,116,0)], [String.fromCharCode(114,95,55,95,117,116,105,109,101,0),String.fromCharCode(98,95,56,50,95,99,111,102,97,99,116,111,114,0)]]);
+       let countryU = false;
+       let paginationW = String.fromCharCode(110,111,114,109,97,108,105,122,101,95,57,95,53,56,0);
+         paginationW += `${((countryU ? 1 : 3) << (Math.min(Math.abs(black6.size), 5)))}`;
+      do {
+         countryU = black6[`${countryU}`] == null;
+         if (countryU ? !countryU : countryU) {
+            break;
+         }
+      } while ((!countryU) && (countryU ? !countryU : countryU));
+         paginationW = `${((countryU ? 1 : 2) & black6.size)}`;
+      for (let e = 0; e < 3; e++) {
+         black6[`${countryU}`] = black6.size / 1;
+      }
+      if (black6.size < 3 && 1 < (3 * black6.size)) {
+         countryU = countryU || paginationW.length > 99;
+      }
+      if (paginationW.startsWith(`${countryU}`)) {
+          let predictionZ = 0.0;
+          let expiredZ = [String.fromCharCode(104,105,103,104,115,95,120,95,51,54,0), String.fromCharCode(117,95,52,57,95,97,109,101,114,97,0), String.fromCharCode(115,121,109,111,100,100,95,98,95,54,48,0)];
+          let buttonm = 3;
+          let calendars = 5.0;
+          let mappingy = String.fromCharCode(112,95,57,95,103,97,112,0);
+         paginationW = `${((countryU ? 4 : 3) - 1)}`;
+         predictionZ += parseFloat(`${2}`);
+         expiredZ.push(parseInt(`${calendars}`));
+         buttonm %= Math.max(4, 1 * parseInt(`${calendars}`));
+         mappingy = `${buttonm | parseInt(`${calendars}`)}`;
+      }
+         countryU = countryU && paginationW.length == 40;
+       let brightnessj = String.fromCharCode(122,95,57,48,95,110,111,110,110,117,108,108,100,101,115,116,105,110,97,116,105,111,110,0);
+         paginationW = "1";
+      gpayR = `${(black6.size * (actions9 ? 1 : 1))}`;
 
   const dataTesting = {imageName: GoalLogo, textName: '123'};
   // const dataTime = arrayValue?.time > 90 ? 90 : arrayValue?.time;
-      rewardq = gift2.length < 35;
+      star_ = [soundl.length + 3];
 
   const dataTime = arrayValue?.time;
-   if (3 == (whitetick7 % 2)) {
-       let libturbomodulejsijni9 = false;
-       let clockP = [String.fromCharCode(99,112,117,102,108,97,103,115,0), String.fromCharCode(118,97,114,105,110,102,111,0)];
-       let transferF = 2.0;
-       let spec5 = [450, 107];
-       let imagenetworkerrD = new Map([[String.fromCharCode(102,117,122,122,121,0),291], [String.fromCharCode(115,117,98,113,117,101,114,121,0),764]]);
-      while (clockP.length > 1) {
-          let kicki = false;
-          let phoneshareV = String.fromCharCode(115,101,116,116,105,116,108,101,0);
-          let bannerh = new Map([[String.fromCharCode(117,110,99,104,101,99,107,101,100,0),361], [String.fromCharCode(112,114,101,115,115,0),847], [String.fromCharCode(118,105,100,101,111,104,100,114,0),482]]);
-          let assistw = String.fromCharCode(97,100,97,112,116,101,114,0);
-          let photoQ = 2.0;
-         clockP.push(2);
-         kicki = photoQ <= 99.92 || kicki;
-         phoneshareV = `${assistw.length & 3}`;
-         bannerh[`${phoneshareV}`] = bannerh.size;
-         assistw = "1";
-         photoQ *= bannerh.size >> (Math.min(phoneshareV.length, 2));
-         break;
-      }
-      while (3.17 < (transferF - parseFloat(`${spec5.length}`)) && (parseFloat(`${spec5.length}`) - transferF) < 3.17) {
-         spec5 = [3];
-         break;
-      }
-         libturbomodulejsijni9 = spec5.length > 94;
-          let stringq = String.fromCharCode(99,114,108,100,0);
-          let pageU = [401, 755, 301];
-          let whitetickj = String.fromCharCode(110,117,109,0);
-         clockP.push(1);
-         stringq += `${pageU.length - 2}`;
-         pageU = [stringq.length];
-         whitetickj = `${(stringq == String.fromCharCode(111,0) ? stringq.length : pageU.length)}`;
-          let projectH = 0;
-         spec5.push(1);
-         projectH >>= Math.min(Math.abs(2), 5);
-       let nbatrophy4 = 5;
-       let nodeF = 5;
-          let launcht = String.fromCharCode(115,117,98,98,108,111,99,107,115,0);
-          let containerV = 1.0;
-          let pingP = 5.0;
-         libturbomodulejsijni9 = 72 >= imagenetworkerrD.size;
-         launcht += `${2 + parseInt(`${containerV}`)}`;
-         containerV -= parseInt(`${pingP}`);
-      do {
-         nodeF %= Math.max(4, ((libturbomodulejsijni9 ? 5 : 2) / (Math.max(parseInt(`${transferF}`), 5))));
-         if (nodeF == 378475) {
-            break;
-         }
-      } while ((nodeF == 378475) && (!spec5.includes(nodeF)));
-          let detail5 = [542, 319, 459];
-          let sellh = 3.0;
-         nbatrophy4 *= parseInt(`${transferF}`);
-         detail5.push(1 >> (Math.min(Math.abs(parseInt(`${sellh}`)), 1)));
-         sellh /= Math.max(1, detail5.length & 1);
-      while (clockP.length > 3) {
-         libturbomodulejsijni9 = nbatrophy4 <= nodeF;
-         break;
-      }
-      do {
-         nbatrophy4 &= 1;
-         if (460419 == nbatrophy4) {
-            break;
-         }
-      } while (((5 & clockP.length) > 3) && (460419 == nbatrophy4));
-      do {
-          let jnewarchdefaultsR = 2.0;
-          let become2 = 4.0;
-          let twitteru = false;
-         clockP = [nodeF];
-         jnewarchdefaultsR *= parseInt(`${become2}`) + 3;
-         become2 /= Math.max(((twitteru ? 3 : 2) - parseInt(`${become2}`)), 2);
-         twitteru = become2 > 25.4;
-         if (clockP.length == 1179410) {
-            break;
-         }
-      } while ((clockP.length == 1179410) && (nodeF >= clockP.length));
-         transferF /= Math.max(parseFloat(`${nodeF}`), 1);
-      for (let o = 0; o < 1; o++) {
-          let sansI = String.fromCharCode(97,99,116,117,97,108,105,122,101,100,0);
-          let tumbnailV = String.fromCharCode(117,110,113,117,97,110,116,105,122,101,0);
-          let application6 = new Map([[String.fromCharCode(115,101,114,118,101,114,115,0),313], [String.fromCharCode(111,112,116,97,114,103,0),214], [String.fromCharCode(112,111,108,105,99,101,0),448]]);
-          let windR = 1;
-          let bangf = 3.0;
-         nodeF ^= nbatrophy4;
-         sansI += `${application6.size | tumbnailV.length}`;
-         tumbnailV += "1";
-         application6 = new Map([[`${application6.size}`, (String.fromCharCode(48,0) == sansI ? sansI.length : application6.size)]]);
-         windR *= (String.fromCharCode(56,0) == sansI ? tumbnailV.length : sansI.length);
-         bangf /= Math.max(tumbnailV.length, 3);
-      }
-          let videocommong = 3.0;
-         nbatrophy4 /= Math.max(2, clockP.length);
-         videocommong /= Math.max(parseFloat(`${1 & parseInt(`${videocommong}`)}`), 5);
-      whitetick7 *= (parseInt(`${readJ}`) | (libturbomodulejsijni9 ? 3 : 5));
+   while ((targetc.size ^ 5) == 2) {
+      foundW[`${searchd}`] = 2;
+      break;
    }
 
   const dataType = arrayValue?.type;
-       let short_gx = false;
-      if (short_gx) {
-         short_gx = (short_gx ? short_gx : short_gx);
-      }
-      while (!short_gx) {
-         short_gx = !short_gx;
+   if (4.21 == (searchd / (Math.max(4.38, 7)))) {
+       let frame_ffn = true;
+       let redirectL = 0.0;
+       let storeB = String.fromCharCode(118,111,99,97,98,95,118,95,50,0);
+       let applek = 0;
+      while (3.31 < redirectL) {
+         storeB = `${storeB.length}`;
          break;
       }
-         short_gx = !short_gx && !short_gx;
-      readJ /= Math.max(1, gift2.length % 2);
-
-  const matchStorylineStatus = getMatchStorylineStatus(dataType);
-   do {
-       let libyogaH = true;
-       let foregroundT = [585, 564];
-       let iconrightorangeQ = String.fromCharCode(110,101,115,116,0);
-       let sellmathbackgroundz = [843, 555];
-      for (let e = 0; e < 3; e++) {
-          let file9 = 2.0;
-          let forwardC = 4.0;
-          let interstitialR = 2;
-         sellmathbackgroundz = [(parseInt(`${file9}`) >> (Math.min(4, Math.abs((libyogaH ? 2 : 4)))))];
-         file9 -= 2 - interstitialR;
-         forwardC -= parseFloat(`${interstitialR}`);
-      }
-         sellmathbackgroundz = [3 + foregroundT.length];
-      while (libyogaH) {
-         sellmathbackgroundz = [((libyogaH ? 4 : 5) | 3)];
+      while (3.11 >= (redirectL / 4.61) || (parseInt(`${redirectL}`) / (Math.max(storeB.length, 6))) >= 5) {
+         redirectL /= Math.max(1, parseFloat(`${3}`));
          break;
       }
-         sellmathbackgroundz = [1];
-          let videojs5 = String.fromCharCode(102,117,110,110,121,0);
-         foregroundT = [(1 - (libyogaH ? 2 : 2))];
-         videojs5 = `${3 ^ videojs5.length}`;
-         libyogaH = iconrightorangeQ.length >= sellmathbackgroundz.length;
-          let scheduleri = 4.0;
-          let actionU = String.fromCharCode(112,101,114,105,111,100,115,0);
-          let progressa = false;
-         libyogaH = progressa;
-         scheduleri -= parseFloat(`${2 >> (Math.min(3, Math.abs(parseInt(`${scheduleri}`))))}`);
-         actionU += `${(actionU == String.fromCharCode(83,0) ? actionU.length : parseInt(`${scheduleri}`))}`;
-         sellmathbackgroundz.push((iconrightorangeQ.length & (libyogaH ? 2 : 3)));
-          let goal1 = [878, 22, 133];
-          let eighteenF = String.fromCharCode(105,103,110,111,114,101,100,0);
-         foregroundT.push(eighteenF.length % (Math.max(2, 7)));
-         goal1.push(goal1.length);
-         eighteenF = `${2 << (Math.min(2, goal1.length))}`;
-      if (!foregroundT.includes(sellmathbackgroundz.length)) {
-         sellmathbackgroundz.push(3 >> (Math.min(2, sellmathbackgroundz.length)));
+       let backt = String.fromCharCode(110,95,54,57,95,119,104,101,110,0);
+       let telegramW = String.fromCharCode(97,100,106,101,99,116,105,118,101,115,95,104,95,50,57,0);
+       let commonG = String.fromCharCode(101,110,99,114,121,112,116,105,110,103,95,49,95,56,0);
+         redirectL += parseFloat(`${2 | parseInt(`${redirectL}`)}`);
+      if (backt.length >= commonG.length) {
+         commonG = `${commonG.length}`;
       }
-      if (iconrightorangeQ.length < sellmathbackgroundz.length) {
-          let libjsijniprofilerY = [406, 194];
-          let long_2lm = String.fromCharCode(116,114,97,110,115,108,97,116,101,100,0);
-          let template_gcA = 0;
-         sellmathbackgroundz = [long_2lm.length & sellmathbackgroundz.length];
-         libjsijniprofilerY.push(1);
-         long_2lm += `${template_gcA}`;
-         template_gcA |= libjsijniprofilerY.length << (Math.min(Math.abs(2), 3));
-      }
-      for (let f = 0; f < 1; f++) {
-         libyogaH = !libyogaH;
-      }
-      yellowtored5.push((yellowtored5.length << (Math.min(4, Math.abs((libyogaH ? 1 : 2))))));
-      if (3854382 == yellowtored5.length) {
+      do {
+          let nalytics9 = 5.0;
+         commonG = `${parseInt(`${redirectL}`) >> (Math.min(5, Math.abs(parseInt(`${nalytics9}`))))}`;
+         if (4687818 == commonG.length) {
+            break;
+         }
+      } while ((2 < (applek * commonG.length) || (applek * commonG.length) < 2) && (4687818 == commonG.length));
+      while ((2 / (Math.max(8, telegramW.length))) <= 4 || 2 <= (parseInt(`${redirectL}`) / (Math.max(telegramW.length, 6)))) {
+          let minip = false;
+         redirectL *= (parseFloat(`${(frame_ffn ? 1 : 5) | (minip ? 3 : 1)}`));
          break;
       }
-   } while ((3854382 == yellowtored5.length) && (yellowtored5.includes(whitetick7)));
-
-  
-
-      yellowtored5.push(report9 << (Math.min(Math.abs(whitetick7), 4)));
-  const isHome = arrayValue?.position == 1 ? true : false;
-      report9 *= ((rewardq ? 3 : 3) / (Math.max(i_playerS.size, 7)));
-
-  const systemExcluded = [11, 12, 19, 26, 27];
-   if (!arrowupQ.includes(gift2.length)) {
-      gift2 = [i_playerS.size];
+          let selectT = 3.0;
+         commonG += `${commonG.length + 2}`;
+         selectT *= parseFloat(`${1 & parseInt(`${selectT}`)}`);
+         storeB += `${storeB.length}`;
+         applek &= storeB.length | 3;
+      do {
+         commonG += `${parseInt(`${redirectL}`) + 3}`;
+         if (commonG.length == 3590435) {
+            break;
+         }
+      } while (((commonG.length ^ 4) == 4 && (4 ^ commonG.length) == 2) && (commonG.length == 3590435));
+      searchd += parseFloat(`${parseInt(`${redirectL}`) >> (Math.min(Math.abs(3), 4))}`);
    }
 
-  const panaltyBattleType = [29, 30];
-      whitetick7 %= Math.max(1, whitetick7 ^ 2);
+  const matchStorylineStatus = getMatchStorylineStatus(dataType);
+      targetc[`${robotob}`] = injurye.size;
 
   
 
-      i_playerS[`${readJ}`] = parseInt(`${readJ}`);
+   if (3 >= gpayR.length) {
+      gpayR = `${soundl.length ^ foundW.size}`;
+   }
+  const isHome = arrayValue?.position == 1 ? true : false;
+      foundW = new Map([[`${eventQ}`, xvodI % (Math.max(eventQ, 8))]]);
+
+  const systemExcluded = [11, 12, 19, 26, 27];
+      searchd -= parseFloat(`${foundW.size}`);
+
+  const panaltyBattleType = [29, 30];
+      injurye = new Map([[robotob, robotob.length << (Math.min(Math.abs(3), 5))]]);
+
+  
+
+       let showe = true;
+       let description_d_f = 5.0;
+       let heartL = [String.fromCharCode(99,97,99,104,101,102,108,117,115,104,95,100,95,49,54,0), String.fromCharCode(99,111,109,98,105,110,101,95,110,95,54,48,0)];
+      for (let n = 0; n < 1; n++) {
+         heartL.push((parseInt(`${description_d_f}`) | (showe ? 4 : 1)));
+      }
+       let s_unlocke = 1.0;
+       let indext = 4.0;
+      for (let g = 0; g < 2; g++) {
+          let minivodF = new Map([[String.fromCharCode(112,114,105,111,95,48,95,49,55,0),457], [String.fromCharCode(113,117,105,110,116,95,109,95,54,55,0),723]]);
+          let searchdh = String.fromCharCode(98,105,114,116,104,100,97,116,101,95,118,95,53,0);
+         s_unlocke += parseInt(`${s_unlocke}`) << (Math.min(5, Math.abs(1)));
+         minivodF[`${searchdh}`] = minivodF.size;
+         searchdh += `${(searchdh == String.fromCharCode(50,0) ? minivodF.size : searchdh.length)}`;
+      }
+          let saven = String.fromCharCode(114,102,102,116,102,95,101,95,48,0);
+          let detaill = 2;
+         indext += 2 * parseInt(`${s_unlocke}`);
+         saven += `${saven.length ^ 2}`;
+         detaill ^= (String.fromCharCode(97,0) == saven ? detaill : saven.length);
+          let optionsG = String.fromCharCode(122,95,50,51,95,100,101,99,108,97,114,101,100,0);
+          let tailb = false;
+         indext /= Math.max((heartL.length * (showe ? 5 : 5)), 4);
+         optionsG = `${optionsG.length % 3}`;
+         tailb = optionsG.length <= 46;
+       let playlistw = 3;
+       let g_unlock0 = 4;
+      if (4.74 == s_unlocke) {
+         showe = 33 == g_unlock0;
+      }
+      while ((1.12 * indext) >= 5.38 || 1.12 >= (indext * playlistw)) {
+         indext += ((showe ? 2 : 3) ^ heartL.length);
+         break;
+      }
+          let windM = 4.0;
+          let gmailY = [136, 820];
+          let annerq = [238, 163, 835];
+         showe = s_unlocke <= 63.67 && showe;
+         windM *= parseFloat(`${gmailY.length ^ parseInt(`${windM}`)}`);
+         gmailY = [2];
+         annerq.push(parseInt(`${windM}`));
+      injurye = new Map([[`${star_.length}`, 2 << (Math.min(1, star_.length))]]);
   return (
     <View style={styles.mainContainer}>
       {!isHome && (
@@ -291,47 +232,9 @@ const StorylineTabListItem = props => {
       {isHome && <View style={{flex: 1}}></View>}
     </View>
   );
-       let hooksf = true;
-       let selection9 = String.fromCharCode(101,99,111,117,110,116,0);
-       let libfbjniH = false;
-       let manifestk = String.fromCharCode(115,116,101,112,0);
-       let latnS = String.fromCharCode(114,101,97,109,0);
-      for (let p = 0; p < 3; p++) {
-         manifestk += `${((libfbjniH ? 2 : 4))}`;
-      }
-         latnS += "3";
-      while (4 > selection9.length) {
-          let modityF = String.fromCharCode(100,99,109,112,0);
-          let runtimee = String.fromCharCode(109,100,99,116,0);
-          let acceptedq = new Map([[String.fromCharCode(108,115,112,102,108,112,99,0),String.fromCharCode(114,117,98,121,0)], [String.fromCharCode(101,118,114,99,100,97,116,97,0),String.fromCharCode(117,110,99,111,114,114,0)]]);
-          let modityC = 4;
-         selection9 += `${(2 + (hooksf ? 5 : 5))}`;
-         modityF += `${1 * acceptedq.size}`;
-         runtimee += `${acceptedq.size}`;
-         modityC &= modityC ^ acceptedq.size;
-         break;
-      }
-         libfbjniH = selection9.length < 27;
-      if (1 <= latnS.length && selection9 != String.fromCharCode(105,0)) {
-         latnS = `${(selection9.length + (hooksf ? 2 : 5))}`;
-      }
-      if (!manifestk.includes(`${latnS.length}`)) {
-         manifestk += `${selection9.length}`;
-      }
-      do {
-         libfbjniH = manifestk.length > 14;
-         if (libfbjniH ? !libfbjniH : libfbjniH) {
-            break;
-         }
-      } while ((libfbjniH ? !libfbjniH : libfbjniH) && (manifestk.length <= 5));
-      do {
-          let stringJ = String.fromCharCode(97,117,116,111,100,101,116,101,99,116,0);
-         latnS = `${stringJ.length}`;
-         if (String.fromCharCode(108,113,99,51,117,121,95,48,0) == latnS) {
-            break;
-         }
-      } while ((String.fromCharCode(108,113,99,51,117,121,95,48,0) == latnS) && (latnS.length >= 3 && selection9 != String.fromCharCode(122,0)));
-      readJ *= 1 & i_playerS.size;
+   if (1 <= injurye.size) {
+      soundl = `${gpayR.length}`;
+   }
 
 };
 

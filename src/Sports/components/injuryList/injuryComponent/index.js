@@ -1,11 +1,11 @@
 import {View, Image, Text, ImageBackground} from 'react-native';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import {
   BasketballHomeTeam,
   BasketballAwayTeam,
   InjuryIcon
 } from '../../../assets';
-import vars from '../../../utility/mayi_mbjscommon_register';
+import vars from '../../../utility/ift_macau_change';
 
 const InjuryComponent = ({data, isHome = true}) => {
   return (

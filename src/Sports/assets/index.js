@@ -1,515 +1,413 @@
-import HomeActive from './images/indicatorLibjsi.png';
-import HomeInactive from './images/abidetectNbatrophyDetails.png';
-import MatchInactive from './images/stationsLibffmpegkit.png';
-import MatchActive from './images/networkShort_afMiddle.png';
-import ProfileInactive from './images/penaltyshootLibreactnativejni.png';
-import ProfileActive from './images/commentTickFootball.png';
-import ExampleImage from './images/fullPromotionWhitetick.png';
-import iconEdit from './images/friendsIcondefaultthumbnailImagemanager.png';
-import iconStar from './images/libreactnativeblobHelperStatic_ad.png';
-import iconFeedback from './images/cricketSmallbrightness.png';
-import iconSetting from './images/defaultteamVideojsLibrrc.png';
-import iconShare from './images/rewindMatchinactiveSmallorangeman.png';
-import iconUser from './images/libfbTicked.png';
-import iconArrowRight from './images/zoomOrientationDefault_hr.png';
-import iconArrowLeft from './images/plashRelease_1Arrowup.png';
-import iconLogout from './images/sansLibfbjniHash.png';
-import IconViewer from './images/basketballiconFloater.png';
-import IconViewerGif from './images/membershipOverlay.gif';
-import IconBell from './images/countMatchinactivePrivilege.png';
-import IconBellActive from './images/playlistDrag.png';
-import Sub from './images/foregroundGray.png';
-import IsSub from './images/icontransferclubZoomAnytime.png';
-import Views from './images/routerWind.png';
-import IconWatch from './images/playChange.png';
-import IconPlay from './images/readLibreact.png';
-import ImageWatchLive from './images/backiconSell.png';
-import logoUser from './images/private_0Arrow.png';
-import ImageNetworkErr from './images/headerNewinterstitial.png';
-import ArrowDown from './images/kickChampion.png';
-import ArrowDown1 from './images/defaultroombgMegaphone.png';
-import ShieldDone from './images/searchStylesService.png';
-import Lock from './images/moviesCombined.png';
-import Tick from './images/entryBackward.png';
-import Back from './images/huaweiHolder.png';
-import IconSaveImage from './images/sinaModules.png';
-import IconClose from './images/applicationIconfeedbackDownloaded.png';
-import IconCloseBorderLess from './images/friendsFieldZoom.png';
-import IconCloseWhiteBg from './images/iconpointscoreYellowtoredLeakchecker.png';
-import Zhubo from './images/libffmpegkitTime_4.png';
-import SmallOrangeMan from './images/serviceFaviconOver.png';
-import GreyArrowUp from './images/ajaxDefaultteam.png';
-import TempNoData from './images/reactnavigationPenaltymatchicon.png';
-import TempNoDataGif from './images/sinaKickContainer.gif';
-import DefaultRoomBg from './images/playerBodan.png';
-import IconEye from './images/iconarrowrightInjuryPredictiondefault.png';
-import OrangeDownArrow from './images/dragResendEmpty.png';
-import OrangeUpArrow from './images/dependencyImagenomoredata.png';
-import HomeIcon from './images/gmailProfileactiveLibavutil.png';
-import AwayIcon from './images/philippinesLight.png';
-import NoDataIcon from './images/expandIconviewergifLangkey.png';
-import ImageNoMoreData from './images/mimeNewinterstitialBorderless.png';
-import Notification from './images/inouttargetredHash.png';
-import Refresh from './images/modelsIndex.png';
-import WhiteTick from './images/nendHalf.png';
-import BackWhite from './images/sellSigninupTail.png';
-import IconOrientation from './images/iconwatchClear.png';
-import IconCloseWhite from './images/downarrowSina.png';
-import DisconnectedLogo from './images/grayMinimizeIconclosewhite.png';
-import DefaultFootballBg from './images/mbridgeImages.png';
-import DefaultBasketballBg from './images/typesTickArea.png';
-import LiveEndModalLogo from './images/gpayTumbnailModule.png';
-import GoalLogo from './images/zhuboArrow.png';
-import WhistleOrange from './images/popupDefaultfootballbgRouter.png';
-import OrangeClock from './images/whitetickMaterial.png';
-import FootBallField from './images/contextAreaYellowtored.png';
-import FootBallFieldLayout from './images/logoutCommentPrivatechatbg.png';
-import HomeTeamField from './images/becomeAnalytic.png';
-import AwayTeamField from './images/bridgeFrame_i3.png';
-import VideoLive from './images/modeTemplate_u4.png';
-import AnimationLive from './images/foregroundWind.png';
-import VideoLiveWhite from './images/reactnavigationTemplateprocessor.png';
-import AnimationLiveWhite from './images/playAcceptedPhoto.png';
-import SubIn from './images/signinupToponVideojs.png';
-import SubOut from './images/largeSide.png';
-import Goal from './images/bootsplashLightTheme.png';
-import OwnGoal from './images/moviesMinimizeLibsentry.png';
-import PenaltyGoal from './images/logoCrown.png';
-import Assist from './images/mathUserIconnewsshare.png';
-import YellowCard from './images/carouselLibreactnativejniLibsentry.png';
-import YellowToRedCard from './images/logoutPredictionHandler.png';
-import RedCard from './images/megaphoneVideovarColors.png';
-import InjuryIcon from './images/incidentWhiteanimationlive.png';
-import HomePlayer from './images/penaltyshootModal.png';
-import AwayPlayer from './images/rankModalBrightness.png';
-import GreenArrowUp from './images/zhuboWhiteanimationlive.png';
-import RedDownArrow from './images/calendarLibavfilter.png';
-import RedGoal from './images/codegenCrown.png';
-import AssistGoal from './images/mathUserIconnewsshare.png';
-import ShootNoGoal from './images/singaporeViews.png';
-import ShootYesGoal from './images/runtimeHongkongArmva.png';
-import PenaltyShoot from './images/floatingMini.png';
-import PenaltyShootNoGoal from './images/runtimeMaterial.png';
-import YellowRedCard from './images/emojiFullscreenmax.png';
-import VideoVAR from './images/libapminsightaIconarrowleft.png';
-import CornerShoot from './images/materialWhitetick.png';
-import CornerKick from './images/reddownarrowDetailGoogle.png';
-import InOutTargetRed from './images/mbridgeSigninupMiddle.png';
-import InOutTargetYellow from './images/fullscreenminPageModal.png';
-import MatchDetailBG from './images/greyDownloaded.png';
-import NotificationFilled from './images/nendComponentregistry.png';
-import BasketballMatchDetailBG from './images/whiteanimationliveSelected.png';
-import IconDownImg from './images/positionUploadChart.png';
-import StatisticsActive from './images/rulesHome.png';
-import StatisticsInactive from './images/whiteEmbed.png';
-import IconCalendar from './images/productImagemanager.png';
-import IconArrowRightOrange from './images/megaphoneRocket.png';
-import IconSchedule from './images/rncoreArmva.png';
-import OtherMatchDetailBG from './images/topicIconuserSecurity.png';
-import BasketballDetailsBG from './images/activeInit_5Prediction.png';
-import IconArrowSelectDown from './images/firebaseLibavdevice.png';
-import IconArrowUp from './images/cancelWeather.png';
-import IconArrowDown from './images/description_1Bgvipsport.png';
-import IconArrowRight from './images/submitLibfabricjni.png';
-import PenaltyMatchIcon from './images/customKuaishou.png';
-import RedCircleBG from './images/acceptedNterstitialGoogle.png';
-import YellowCircleBG from './images/yellowcirclebgIconrightorange.png';
-import YellowScoreBall from './images/helperMiddlewareEntry.png';
-import RedScoreBall from './images/gestureSearchbarHuawei.png';
-import BasketballHomeTeam from './images/specSheet.png';
-import BasketballAwayTeam from './images/groupLibflipperHeader.png';
-import SubBasketballPlayer from './images/expiredVipsportAgreement.png';
-import ShowMore from './images/downloadedSingaporeLibavutil.png';
-import ShowLess from './images/injuryResultFound.png';
-import BasketballIcon from './images/time_vBgvipsportEpisode.png';
-import BasketballPlayerPlaceholder from './images/footballtrophySliderCancel.png';
-import WatchNowBg from './images/resendPredictionbuttonLoading.png';
-import IconWatchNow from './images/update_f9UnselectedHistory.png';
-import IconSubsSuccess from './images/refreshborderlessDefaultteam.png';
-import BellReminder from './images/videoPause.png';
-import ToolTips from './images/skipSmallIconschedule.png';
-import BasketballTrophy from './images/ewardedEvent.png';
-import FootballTrophy from './images/stationApplication.png';
-import TurnDown from './images/countRecommendationBaseline.png';
-import NbaTrophy from './images/iconsharefriendsOther.png';
-import DefaultLogo from './images/gifgoalWindBoot.png';
-import ImageActionLive from './images/bgvipsportSettingsHeart.png';
-import IconPointScore from './images/contextIconcalendarLibreactperfloggerjni.png';
-import Champion from './images/bodanCount.png';
-import DefaultTeam from './images/friendsTerms.png';
-import IconMegaphone from './images/mbbannerNotificationfillempty.png';
-import GifGoal from './images/floatingStatsnomoredata.gif';
-import GifGoalBg from './images/floatingForward.gif';
+import HomeActive from './images/analyticsDownloaded.png';
+import HomeInactive from './images/greyCenter.png';
+import MatchInactive from './images/scheduleCommon.png';
+import MatchActive from './images/linkEditFlyer.png';
+import ProfileInactive from './images/taiwanControlsGroup.png';
+import ProfileActive from './images/homeCastingNative.png';
+import ExampleImage from './images/unreadSingaporeRecommendation.png';
+import iconEdit from './images/overKickTooltips.png';
+import iconStar from './images/blackZhuboPopup.png';
+import iconFeedback from './images/nextEmoji.png';
+import iconSetting from './images/launchQuestFriends.png';
+import iconShare from './images/sentrySort.png';
+import iconUser from './images/sportsEighteenCombine.png';
+import iconArrowRight from './images/videoRegister_u1.png';
+import iconArrowLeft from './images/firebaseInfoChampion.png';
+import iconLogout from './images/placeholderConfirmation.png';
+import IconViewer from './images/previewSettings.png';
+import IconViewerGif from './images/trashDark.gif';
+import IconBell from './images/bannerMiddleReducer.png';
+import IconBellActive from './images/floaterStarFastforward.png';
+import Sub from './images/subsTime_e.png';
+import IsSub from './images/dragTick.png';
+import Views from './images/scoreLong_pVertical.png';
+import IconWatch from './images/zhuboSearchbar.png';
+import IconPlay from './images/downRouter.png';
+import ImageWatchLive from './images/layoutInviteUmeng.png';
+import logoUser from './images/ajaxHome.png';
+import ImageNetworkErr from './images/screenPopup.png';
+import ArrowDown from './images/profileLoginBasketball.png';
+import ArrowDown1 from './images/untickDialogCarousel.png';
+import ShieldDone from './images/completeCollectionEwarded.png';
+import Lock from './images/crossInjury.png';
+import Tick from './images/leagueSentryModule.png';
+import Back from './images/downloadingPhilippinesConfirmation.png';
+import IconSaveImage from './images/fillShowMini.png';
+import IconClose from './images/singaporeGuideBell.png';
+import IconCloseBorderLess from './images/switch_1White.png';
+import IconCloseWhiteBg from './images/infoFieldXvod.png';
+import Zhubo from './images/actionIncident.png';
+import SmallOrangeMan from './images/injuryTemp.png';
+import GreyArrowUp from './images/eventFootballLogin.png';
+import TempNoData from './images/mathEpisode.png';
+import TempNoDataGif from './images/stationsModalUnlock.gif';
+import DefaultRoomBg from './images/whistleViews.png';
+import IconEye from './images/smallAboutCanvas.png';
+import OrangeDownArrow from './images/formFilter.png';
+import OrangeUpArrow from './images/regengMore.png';
+import HomeIcon from './images/expiredPageLive.png';
+import AwayIcon from './images/starNalyticsRedirect.png';
+import NoDataIcon from './images/sliderAuto_gCanvas.png';
+import ImageNoMoreData from './images/gestureClose.png';
+import Notification from './images/combinedQuestBottom.png';
+import Refresh from './images/whatsappUnselectedCircle.png';
+import WhiteTick from './images/robotoIncident.png';
+import BackWhite from './images/carouselGesturesLive.png';
+import IconOrientation from './images/analyticsResult.png';
+import IconCloseWhite from './images/floaterComment.png';
+import DisconnectedLogo from './images/sourceOverlay.png';
+import DefaultFootballBg from './images/crossOrientation.png';
+import DefaultBasketballBg from './images/membershipAuto_6y.png';
+import LiveEndModalLogo from './images/notificationClock.png';
+import GoalLogo from './images/redirectCollection.png';
+import WhistleOrange from './images/reducerHome.png';
+import OrangeClock from './images/thumbnailRecommendation.png';
+import FootBallField from './images/overThailandSlider.png';
+import FootBallFieldLayout from './images/spinnerFirebase.png';
+import HomeTeamField from './images/plashHumidity.png';
+import AwayTeamField from './images/malaysiaLockTheme.png';
+import VideoLive from './images/megaphoneConfirmation.png';
+import AnimationLive from './images/sportsPointBlack.png';
+import VideoLiveWhite from './images/firebaseSport.png';
+import AnimationLiveWhite from './images/routerVideo.png';
+import SubIn from './images/predictionGoal.png';
+import SubOut from './images/recommendationTurn.png';
+import Goal from './images/penaltyMinimizeVietnam.png';
+import OwnGoal from './images/selectCastEvent.png';
+import PenaltyGoal from './images/screenLogout.png';
+import Assist from './images/whatsappThailand.png';
+import YellowCard from './images/moonSelected.png';
+import YellowToRedCard from './images/orangeCarousel.png';
+import RedCard from './images/nalyticsLockProject.png';
+import InjuryIcon from './images/tumbnailFull.png';
+import HomePlayer from './images/loginRegister_u.png';
+import AwayPlayer from './images/const_2uContext.png';
+import GreenArrowUp from './images/forwardStatsTemperature.png';
+import RedDownArrow from './images/firebaseAnythinkEpisodes.png';
+import RedGoal from './images/detailsExpandMalaysia.png';
+import AssistGoal from './images/whatsappThailand.png';
+import ShootNoGoal from './images/tailDialog.png';
+import ShootYesGoal from './images/countSmallRules.png';
+import PenaltyShoot from './images/macauEdit.png';
+import PenaltyShootNoGoal from './images/selectHandlerTicked.png';
+import YellowRedCard from './images/pauseHalfConstants.png';
+import VideoVAR from './images/paginationDice.png';
+import CornerShoot from './images/indicatorGpay.png';
+import CornerKick from './images/weiboBenefit.png';
+import InOutTargetRed from './images/pointAcceptedEdit.png';
+import InOutTargetYellow from './images/logoSport.png';
+import MatchDetailBG from './images/helperPing.png';
+import NotificationFilled from './images/orangePressure.png';
+import BasketballMatchDetailBG from './images/lockChartWeibo.png';
+import IconDownImg from './images/modeMalaysiaPing.png';
+import StatisticsActive from './images/moviesWhatsappMini.png';
+import StatisticsInactive from './images/modeForm.png';
+import IconCalendar from './images/historyDanger.png';
+import IconArrowRightOrange from './images/promotionArrow.png';
+import IconSchedule from './images/cornerVietnam.png';
+import OtherMatchDetailBG from './images/controlsBootsplash.png';
+import BasketballDetailsBG from './images/streamingModePolicy.png';
+import IconArrowSelectDown from './images/detailBecome.png';
+import IconArrowUp from './images/whitePhone.png';
+import IconArrowDown from './images/readTooltips.png';
+import IconArrowRight from './images/componentSingapore.png';
+import PenaltyMatchIcon from './images/const_wBlacklistResend.png';
+import RedCircleBG from './images/inactiveDetails.png';
+import YellowCircleBG from './images/specGift.png';
+import YellowScoreBall from './images/customEighteenChina.png';
+import RedScoreBall from './images/downloadLangkey.png';
+import BasketballHomeTeam from './images/singaporeFastTeam.png';
+import BasketballAwayTeam from './images/whatsappWatch.png';
+import SubBasketballPlayer from './images/progressActive.png';
+import ShowMore from './images/linkPreview.png';
+import ShowLess from './images/philippinesCombinedUpdates.png';
+import BasketballIcon from './images/trophyArrowBrightness.png';
+import BasketballPlayerPlaceholder from './images/scheduleHome.png';
+import WatchNowBg from './images/scheduleHistoryBenefit.png';
+import IconWatchNow from './images/floatingCanvas.png';
+import IconSubsSuccess from './images/hejiMatch.png';
+import BellReminder from './images/analyticsPrivate_2.png';
+import ToolTips from './images/dragHelper.png';
+import BasketballTrophy from './images/imageCombinedTarget.png';
+import FootballTrophy from './images/descSendPlus.png';
+import TurnDown from './images/circleRedirect.png';
+import NbaTrophy from './images/networkPenaltyLeague.png';
+import DefaultLogo from './images/middlewareDropdownAnalytics.png';
+import ImageActionLive from './images/bannerChampion.png';
+import IconPointScore from './images/tooltipsRewind.png';
+import Champion from './images/descContainerPlaceholder.png';
+import DefaultTeam from './images/moreGuideDetail.png';
+import IconMegaphone from './images/gpaySort.png';
+import GifGoal from './images/episodesGoogle.gif';
+import GifGoalBg from './images/privilegeFilledSigninup.gif';
 import LottieGoalBg from './images/LottieGoalBg.json';
-import ScorePopSound from './images/typingGifgoal.wav';
-import IconCurrentMatch from './images/moviesLaunchOrangedownarrow.png';
-import GifLiveStreaming from './images/feedbackNotificationfillemptyContext.gif';
-import IconNotificationNew from './images/greenRuntimeschedulerApps.png';
-import IconNoInternet from './images/tumbnailSelection.png';
-import IconBackWhite from './images/homeinactiveLibreanimatedStations.png';
-import LeagueDetailsBg from './images/sellSinaReactnativeratings.png';
-import IconRightOrange from './images/verticalResult.png';
-import IconChatSend from './images/awayIssub.png';
-import IconCloseWhiteWithBg from './images/penaltymatchiconConfirmation.png';
-import IconAdsLink from './images/sportsIcondefaultthumbnail.png';
-import IconMore from './images/spinnerRulesLibcxxcomponents.png';
-import IconWifiRouter from './images/sigmobChatroombackgroundWeather.png';
-import IconTV0 from './images/lightUnreadProfile.png';
-import IconTV1 from './images/catalogGradlewTime_6.png';
-import IconTV3 from './images/armvaIconrightorange.png';
-import IconRefresh from './images/catagoryIconwatchnow.png';
-import IconDefaultThumbnail from './images/refreshborderlessSideLoading.png';
-import IconFullScreenMin from './images/sheetCodegen.png';
-import IconFullScreenMax from './images/membershipButtonMiddle.png';
-import GifCasting from './images/interstitialInouttargetredHomeinactive.gif';
-import LargeSound from './images/downloadedAnimationHuawei.png';
-import MiddleSound from './images/matchinactiveIndicatorPrivate_n.png';
-import SmallSound from './images/rulesSentryAnytime.png';
-import LargeBrightness from './images/componentregistryBottom.png';
-import MiddleBrightness from './images/shootyesgoalShootyesgoal.png';
-import SmallBrightness from './images/coreLiveshareGraphics.png';
-import RefreshBorderless from './images/componentregistryTitleSkip.png';
-import IconNewsShare from './images/adultTooltipsAnimations.png';
-import IconWechat from './images/xvodPenaltymatchiconMatchdetailbg.png';
-import IconQQ from './images/whitevideoliveIconfeedbackHolder.png';
-import IconShareFriends from './images/rncoreYellowtoredLibffmpegkit.png';
-import ShareWhite from './images/agreementLeague.png';
-import HongKong from './images/flag/hashBlacklist.png';
-import Vietnam from './images/flag/vietnamIconwechat.png';
-import Thailand from './images/flag/homeloadingIconsubssuccessReducer.png';
-import Taiwan from './images/flag/baselineLargeFile.png';
-import Singapore from './images/flag/imagemanagerCornershoot.png';
-import Malaysia from './images/flag/yellowanimationliveLibtob.png';
-import China from './images/flag/membershipList.png';
-import Macau from './images/flag/awayPing.png';
-import Philippines from './images/flag/searchbarLaunchUnread.png';
-import EyeClose from './images/footballAnythink.png';
-import EyeOpen from './images/reactnativeratingsAlbum.png';
-import Alert from './images/tickSentryInouttargetred.png';
-import Update from './images/iconscheduleFilled.png';
-import Trash from './images/imagesTyping.png';
-import OrangeTick from './images/subtextCore.png';
-import GreyTick from './images/clockInit_1Helper.png';
-import ProfileFrame from './images/mbbidResendHeart.png';
-import WhiteBell from './images/plashPlash.png';
-import DefaultProfilePic from './images/textinputResultLink.png';
-import IconArrowRightBlack from './images/targetCommonPath.png';
-import IconArrowRightWhite from './images/activityRead.png';
-import TeamDetailsBg from './images/reactBasketballiconPolicy.png';
-import IconTransferClub from './images/watchIconshareLibcxxcomponents.png';
-import IconPipExpand from './images/ewardedGuideBecome.png';
-import IconPipShrink from './images/leaguedetailsbgTemperature.png';
-import SellMathBackground from './images/iconpointscoreContainerExpand.png';
-import IconNewChat from './images/recommendationExampleimageLangkey.gif';
-import QuestIcon from './images/leakcheckerProgress.png';
-import Prediction from './images/telegramLangkeyChampion.png';
-import PredictionActive from './images/malaysiaDependency.png';
-import ArrowRightWithTail from './images/sansGestures.png';
-import DefaultPredictionProfile from './images/plashList.png';
-import PredictionBanner from './images/mutedLiveshareRefreshborderless.jpg';
-import PredictionButton from './images/cedbadcebfbfbfbcfecbcUnimplementedview.png';
-import PredictionArrow from './images/sendMapbufferMath.png';
-import ShareBlack from './images/orangedownarrowIndicatorRefresh.png';
-import NewsShare from './images/iconarrowleftPage.png';
-import LiveShare from './images/zhengpianCountModule.png';
-import PhoneShare from './images/shareMintegral.png';
-import ShareModal from './images/owngoalPrivatechatbg.png';
-import DragClose from './images/bootBasketballmatchdetailbg.png';
-import DiceLogo from './images/libglogStationFilter.png';
-import BaiduAds from './images/libtobLibruntimeexecutor.png';
-import HalfFieldImage from './images/leakcheckerVignette.png';
-import IconTVFloater from './images/awayiconEpisodes.png';
-import PlayerShirt from './images/listModuleSharewhite.png';
-import PositionField from './images/libreactCoreLibfb.jpeg';
-import NotificationGray from './images/backwhiteShow.png';
-import NotificationFillEmpty from './images/stylePenaltyshootnogoal.png';
-import PredictionDefault from './images/sellScrollviewRegeng.png';
-import PredictionBannerShared from './images/saveMapping.jpg';
-import DefaultPlayerImg from './images/soundIconuserSentry.png';
-import StatsNoMoreData from './images/savePredictionarrowSingapore.png';
-import ChatRoomBackground from './images/favoriteTypes.png';
-import EmojiHeart from './images/contextDplusPause.png';
-import GiftButton from './images/lightTurn.gif';
-import PredictionWin from './images/annerMatch.png';
-import PredictionLoss from './images/controlOrangeLibreanimated.png';
-import WhiteSmallTick from './images/iconeditYellowanimationlive.png';
-import PrivateChatBG from './images/predictionbuttonPagination.png';
-import ChatBotPhoto from './images/iconmoreIconuserDown.png';
-import TypingLoading from './images/textLibglogAwayteamfield.gif';
+import ScorePopSound from './images/bufferRules.wav';
+import IconCurrentMatch from './images/interstitialMacau.png';
+import GifLiveStreaming from './images/modalResend.gif';
+import IconNotificationNew from './images/blacklistActionSubs.png';
+import IconNoInternet from './images/backwardWhiteModule.png';
+import IconBackWhite from './images/shrinkTailMiddleware.png';
+import LeagueDetailsBg from './images/mappingLive.png';
+import IconRightOrange from './images/turnCross.png';
+import IconChatSend from './images/routerShare.png';
+import IconCloseWhiteWithBg from './images/overlaySelectedBecome.png';
+import IconAdsLink from './images/indicatorAlbum.png';
+import IconMore from './images/appsSpinner.png';
+import IconWifiRouter from './images/thumbnailFirebase.png';
+import IconTV0 from './images/projectEpisodes.png';
+import IconTV1 from './images/lockReducerTaiwan.png';
+import IconTV3 from './images/layoutFavorite.png';
+import IconRefresh from './images/bellUpgrade.png';
+import IconDefaultThumbnail from './images/filledDownload.png';
+import IconFullScreenMin from './images/sharedOver.png';
+import IconFullScreenMax from './images/selectHookSubmit.png';
+import GifCasting from './images/downloadedCenter.gif';
+import LargeSound from './images/footballFilterField.png';
+import MiddleSound from './images/ajaxSettingsNetwork.png';
+import SmallSound from './images/mappingConst_3Orientation.png';
+import LargeBrightness from './images/gestureBannerShrink.png';
+import MiddleBrightness from './images/modelsRelatedList.png';
+import SmallBrightness from './images/moduleBottomFloating.png';
+import RefreshBorderless from './images/langkeyPolicy.png';
+import IconNewsShare from './images/dangerSans.png';
+import IconWechat from './images/flyerLight.png';
+import IconQQ from './images/successFilter.png';
+import IconShareFriends from './images/historyBrightness.png';
+import ShareWhite from './images/photoPointDownload.png';
+import HongKong from './images/flag/volumeTail.png';
+import Vietnam from './images/flag/tickedBuffer.png';
+import Thailand from './images/flag/circleTelegram.png';
+import Taiwan from './images/flag/privacyMore.png';
+import Singapore from './images/flag/indexCondensedEpisodes.png';
+import Malaysia from './images/flag/long_6ShrinkEwarded.png';
+import China from './images/flag/shootCanvas.png';
+import Macau from './images/flag/eighteenActions.png';
+import Philippines from './images/flag/moviesPositionHome.png';
+import EyeClose from './images/eventSport.png';
+import EyeOpen from './images/mathSuggestion.png';
+import Alert from './images/networkService.png';
+import Update from './images/indexConfirmationBecome.png';
+import Trash from './images/streamingClear.png';
+import OrangeTick from './images/renewSpinnerChart.png';
+import GreyTick from './images/emojiChart.png';
+import ProfileFrame from './images/backField.png';
+import WhiteBell from './images/lineLeagueSearch.png';
+import DefaultProfilePic from './images/mainSettingOrange.png';
+import IconArrowRightBlack from './images/rightProduct.png';
+import IconArrowRightWhite from './images/bodanViews.png';
+import TeamDetailsBg from './images/downloadHalf.png';
+import IconTransferClub from './images/modalSubs.png';
+import IconPipExpand from './images/chatApple.png';
+import IconPipShrink from './images/taiwanNetwork.png';
+import SellMathBackground from './images/stringFavoriteIncident.png';
+import IconNewChat from './images/currentTurnNative.gif';
+import QuestIcon from './images/vietnamFirebase.png';
+import Prediction from './images/configureCast.png';
+import PredictionActive from './images/descHookKick.png';
+import ArrowRightWithTail from './images/iconBuffer.png';
+import DefaultPredictionProfile from './images/sendThailandNative.png';
+import PredictionBanner from './images/progressCurrent.jpg';
+import PredictionButton from './images/const_iListEpisodes.png';
+import PredictionArrow from './images/currentCondensed.png';
+import ShareBlack from './images/untickAnythinkDownload.png';
+import NewsShare from './images/plashPingVietnam.png';
+import LiveShare from './images/successCrownControl.png';
+import PhoneShare from './images/serviceLessPlayer.png';
+import ShareModal from './images/zhengpianCast.png';
+import DragClose from './images/dragStats.png';
+import DiceLogo from './images/firebaseHandlerTelegram.png';
+import BaiduAds from './images/darkControl.png';
+import HalfFieldImage from './images/description_osResendModal.png';
+import IconTVFloater from './images/sourceCurrent.png';
+import PlayerShirt from './images/pauseSave.png';
+import PositionField from './images/sportDiceNetwork.jpeg';
+import NotificationGray from './images/regengSpinnerScore.png';
+import NotificationFillEmpty from './images/switch_qFloating.png';
+import PredictionDefault from './images/temperatureFloating.png';
+import PredictionBannerShared from './images/commonReportDescription_d.jpg';
+import DefaultPlayerImg from './images/hoverRight.png';
+import StatsNoMoreData from './images/pointTheme.png';
+import ChatRoomBackground from './images/formRelatedRead.png';
+import EmojiHeart from './images/eactDownloaderGesture.png';
+import GiftButton from './images/moreLangkeyNext.gif';
+import PredictionWin from './images/injuryRenewBasketball.png';
+import PredictionLoss from './images/typingConfigureContainer.png';
+import WhiteSmallTick from './images/hongkongRankList.png';
+import PrivateChatBG from './images/shootConnection.png';
+import ChatBotPhoto from './images/detailsDangerAuto_c_.png';
+import TypingLoading from './images/rankMalaysiaSingapore.gif';
 import GiftLottie from './images/GIFT.json';
 import LottieRedBlink from './images/LottieRedBlink.json';
 
-import Live from './images/iconwechatLibhermesImagemanager.png';
+import Live from './images/saveClose.png';
 import {Image} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 export const preloadAssets = () => {
-       let selectH = String.fromCharCode(98,95,54,52,95,99,97,116,101,103,111,114,105,101,115,0);
-    let neonn = false;
-    let combine8 = String.fromCharCode(108,95,55,52,95,115,112,114,105,116,101,115,0);
-    let arrow_ = [String.fromCharCode(103,95,52,54,95,97,99,99,101,115,115,101,100,0), String.fromCharCode(115,95,50,56,95,114,97,100,98,0)];
-    let sansD = String.fromCharCode(100,105,109,101,110,115,105,111,110,115,95,118,95,51,51,0);
-    let relatedM = String.fromCharCode(115,117,98,112,97,116,104,95,100,95,49,48,0);
-    let dangera = String.fromCharCode(97,99,99,101,112,116,95,121,95,55,52,0);
-    let refreshV = String.fromCharCode(115,112,97,99,101,114,115,95,108,95,53,57,0);
-    let dicet = [174, 957];
-    let mappingL = false;
-    let styleK = String.fromCharCode(105,109,109,101,100,105,97,116,101,115,105,103,110,97,108,95,118,95,52,56,0);
-    let libswscaleg = String.fromCharCode(102,95,53,57,95,114,117,110,116,101,115,116,115,0);
-    let orangeW = [814, 608];
-    let libswscalev = String.fromCharCode(116,101,115,116,114,101,115,117,108,116,95,113,95,52,50,0);
-    let emojiheartf = String.fromCharCode(108,111,103,115,116,101,114,101,111,95,101,95,54,53,0);
-    let spec8 = String.fromCharCode(115,95,50,56,95,116,119,111,108,97,109,101,0);
-      refreshV = `${3 | combine8.length}`;
-      combine8 = `${((mappingL ? 4 : 5) >> (Math.min(dicet.length, 4)))}`;
-   if (!combine8.includes(`${mappingL}`)) {
-       let awayF = String.fromCharCode(108,105,103,104,116,110,101,115,115,95,113,95,55,50,0);
-         awayF += `${awayF.length | awayF.length}`;
-         awayF += `${awayF.length}`;
-       let whitevideoliver = true;
-       let playlist_ = true;
-      combine8 = "3";
+       let redirectv = new Map([[String.fromCharCode(111,118,101,114,108,97,112,112,101,100,0),false ], [String.fromCharCode(99,111,112,121,120,110,0),true ]]);
+    let soundt = String.fromCharCode(100,100,118,97,0);
+    let o_imager = true;
+    let eventX = new Map([[String.fromCharCode(97,101,118,97,108,0),204], [String.fromCharCode(101,120,116,114,97,100,97,116,97,0),304], [String.fromCharCode(112,101,114,99,101,112,116,0),37]]);
+    let leaguet = 5.0;
+    let subsp = [707, 194];
+    let termsQ = true;
+    let filledu = String.fromCharCode(105,110,100,105,99,116,111,114,0);
+    let taiwan5 = 0;
+    let floatingN = 3.0;
+    let brightnesst = String.fromCharCode(117,110,105,0);
+    let macauE = [210, 482];
+    let time_siT = 1;
+    let brightnessT = 2.0;
+   for (let r = 0; r < 3; r++) {
+       let detailse = true;
+      do {
+         detailse = (detailse ? detailse : detailse);
+         if (detailse ? !detailse : detailse) {
+            break;
+         }
+      } while ((!detailse || detailse) && (detailse ? !detailse : detailse));
+          let more5 = [84, 322, 401];
+          let register_b9a = String.fromCharCode(99,109,97,112,0);
+         detailse = !detailse;
+         more5 = [more5.length];
+         register_b9a += `${register_b9a.length}`;
+         detailse = !detailse;
+      termsQ = detailse || taiwan5 < 89;
    }
-   do {
-      dicet.push(arrow_.length >> (Math.min(Math.abs(1), 2)));
-      if (dicet.length == 3644131) {
-         break;
+       let yingm = [String.fromCharCode(97,117,116,104,101,110,116,105,99,97,116,105,111,110,0), String.fromCharCode(115,117,109,102,0), String.fromCharCode(115,116,114,101,116,99,104,97,98,108,101,0)];
+         yingm.push(yingm.length);
+          let circleM = [778, 135, 843];
+          let incidentG = 2;
+          let hooksx = new Map([[String.fromCharCode(98,106,101,99,116,0),String.fromCharCode(99,111,112,121,97,100,100,0)], [String.fromCharCode(99,111,110,116,101,110,116,0),String.fromCharCode(109,111,122,106,112,101,103,0)], [String.fromCharCode(116,100,115,102,0),String.fromCharCode(97,115,115,101,116,115,0)]]);
+         yingm = [2];
+         circleM = [3 + circleM.length];
+         incidentG |= hooksx.size | incidentG;
+         hooksx[`${incidentG}`] = circleM.length * incidentG;
+      if (4 >= yingm.length) {
+         yingm.push(2);
       }
-   } while ((!mappingL) && (dicet.length == 3644131));
-   while (!sansD.startsWith(`${mappingL}`)) {
-       let t_unlockI = 4.0;
-       let defaultprofilepicb = 4;
-       let graphi = 3.0;
-       let vietnam4 = String.fromCharCode(101,121,101,100,114,111,112,112,101,114,95,109,95,51,51,0);
-      if (2.59 > (defaultprofilepicb / (Math.max(t_unlockI, 1)))) {
-         t_unlockI /= Math.max(5, defaultprofilepicb - 3);
-      }
-      do {
-         t_unlockI += parseInt(`${t_unlockI}`) ^ 3;
-         if (4114804.0 == t_unlockI) {
-            break;
-         }
-      } while (((defaultprofilepicb * 2) >= 4 && (2 + defaultprofilepicb) >= 3) && (4114804.0 == t_unlockI));
-      do {
-          let sort4 = String.fromCharCode(122,95,49,48,48,95,114,101,109,101,109,98,101,114,0);
-          let codeQ = String.fromCharCode(115,105,109,112,108,105,102,121,95,50,95,57,49,0);
-          let unselectedp = String.fromCharCode(115,95,54,49,95,115,121,110,99,104,114,111,110,105,122,101,100,0);
-          let libcxxcomponentso = String.fromCharCode(119,97,116,101,114,109,97,114,107,115,95,106,95,50,56,0);
-         vietnam4 += `${unselectedp.length ^ parseInt(`${graphi}`)}`;
-         sort4 = `${sort4.length * 2}`;
-         codeQ = `${2 % (Math.max(8, sort4.length))}`;
-         unselectedp = `${(String.fromCharCode(111,0) == libcxxcomponentso ? libcxxcomponentso.length : codeQ.length)}`;
-         if (vietnam4 == String.fromCharCode(118,56,100,98,98,48,103,117,97,104,0)) {
-            break;
-         }
-      } while ((defaultprofilepicb > vietnam4.length) && (vietnam4 == String.fromCharCode(118,56,100,98,98,48,103,117,97,104,0)));
-         graphi -= parseFloat(`${vietnam4.length}`);
-          let popupn = false;
-         graphi -= parseFloat(`${2}`);
-         popupn = !popupn;
-      for (let j = 0; j < 3; j++) {
-          let matchdetailbgL = 2.0;
-          let checkboxo = String.fromCharCode(112,95,54,53,95,110,105,115,116,0);
-          let thumbnailr = new Map([[String.fromCharCode(108,95,54,48,95,108,110,110,105,100,0),208], [String.fromCharCode(115,95,53,53,95,99,111,114,101,115,0),739], [String.fromCharCode(101,120,112,108,111,114,101,114,95,106,95,51,55,0),741]]);
-          let unimplementedview8 = 5.0;
-          let langC = 0.0;
-         defaultprofilepicb -= 1 & parseInt(`${langC}`);
-         matchdetailbgL /= Math.max(2, parseFloat(`${3}`));
-         checkboxo = `${thumbnailr.size + parseInt(`${unimplementedview8}`)}`;
-         thumbnailr[`${checkboxo}`] = checkboxo.length;
-         unimplementedview8 += checkboxo.length + 3;
-         langC -= checkboxo.length;
-      }
-         vietnam4 = "1";
-      while (3.72 == (3.94 * graphi)) {
-         graphi *= parseFloat(`${defaultprofilepicb}`);
-         break;
-      }
-      do {
-         defaultprofilepicb >>= Math.min(Math.abs(1), 5);
-         if (defaultprofilepicb == 4736515) {
-            break;
-         }
-      } while ((defaultprofilepicb < 4) && (defaultprofilepicb == 4736515));
-          let profileactiveV = String.fromCharCode(113,117,111,116,105,101,110,116,95,101,95,53,53,0);
-          let greyl = new Map([[String.fromCharCode(99,111,112,121,95,48,95,50,49,0),164], [String.fromCharCode(102,105,97,116,95,51,95,48,0),294]]);
-          let filedB = [186, 753];
-         vietnam4 += `${greyl.size}`;
-         profileactiveV += `${2 / (Math.max(2, profileactiveV.length))}`;
-         greyl = new Map([[`${filedB.length}`, filedB.length & profileactiveV.length]]);
-      if (t_unlockI > 3.33) {
-         defaultprofilepicb *= parseInt(`${graphi}`);
-      }
-          let combineb = false;
-          let emojiheartQ = 2;
-         graphi *= parseFloat(`${defaultprofilepicb}`);
-         combineb = emojiheartQ < 95 || combineb;
-         emojiheartQ += 3 ^ emojiheartQ;
-      mappingL = !mappingL;
+      floatingN *= 1 << (Math.min(1, Math.abs(eventX.size)));
+   while (filledu.length > 2) {
+      leaguet *= (parseFloat(`${(termsQ ? 1 : 1) - 3}`));
       break;
    }
-   if (!dangera.startsWith(refreshV)) {
-      refreshV += `${(String.fromCharCode(88,0) == sansD ? (neonn ? 2 : 4) : sansD.length)}`;
-   }
-   for (let c = 0; c < 2; c++) {
-       let resend2 = new Map([[String.fromCharCode(119,95,49,53,95,105,110,116,101,114,114,97,99,116,105,118,101,0),815], [String.fromCharCode(112,95,54,48,95,110,111,116,105,99,101,0),198], [String.fromCharCode(101,95,53,48,95,117,110,97,108,105,103,110,101,100,0),766]]);
-       let vnewarchdefaultsh = String.fromCharCode(121,95,56,57,95,108,105,110,101,98,114,101,97,107,0);
-       let iconclosewhitebgx = [String.fromCharCode(106,112,101,103,108,105,98,95,98,95,54,50,0), String.fromCharCode(104,95,51,57,95,115,97,108,116,0), String.fromCharCode(114,95,55,56,95,112,105,110,0)];
-       let orientationu = String.fromCharCode(121,95,49,50,95,115,116,117,100,105,111,118,105,115,117,97,108,111,98,106,101,99,116,0);
-       let dependenciesp = String.fromCharCode(104,95,49,51,95,115,112,114,105,116,101,0);
-      for (let y = 0; y < 3; y++) {
-         resend2[`${iconclosewhitebgx.length}`] = 2 | iconclosewhitebgx.length;
+   if (filledu == soundt) {
+       let short_xaq = new Map([[String.fromCharCode(119,111,114,107,97,114,111,117,110,100,0),String.fromCharCode(114,101,115,117,108,116,105,110,103,0)], [String.fromCharCode(114,101,115,116,97,114,116,0),String.fromCharCode(113,112,113,115,99,97,108,101,0)]]);
+       let langkey0 = 3;
+       let lang_ = 2.0;
+       let paginationg = new Map([[String.fromCharCode(119,114,111,110,103,0),785], [String.fromCharCode(100,112,116,114,115,0),582], [String.fromCharCode(115,119,114,101,115,97,109,112,108,101,0),586]]);
+       let point3 = String.fromCharCode(105,115,110,111,110,122,101,114,111,0);
+      for (let u = 0; u < 1; u++) {
+         lang_ *= langkey0 & 2;
       }
-         vnewarchdefaultsh = `${orientationu.length >> (Math.min(4, Math.abs(resend2.size)))}`;
-      if (vnewarchdefaultsh != orientationu) {
-         orientationu = `${vnewarchdefaultsh.length}`;
+         paginationg = new Map([[`${paginationg.size}`, paginationg.size * 2]]);
+      if (3 == (short_xaq.size & 3) || (3 & short_xaq.size) == 1) {
+         langkey0 += 3;
       }
+      while (5 >= (1 + point3.length) && 1 >= (point3.length + paginationg.size)) {
+         point3 += `${3 & point3.length}`;
+         break;
+      }
+      for (let q = 0; q < 2; q++) {
+         point3 = `${(String.fromCharCode(50,0) == point3 ? langkey0 : point3.length)}`;
+      }
+       let brightnessh = 3.0;
       do {
-         iconclosewhitebgx.push(vnewarchdefaultsh.length * resend2.size);
-         if (iconclosewhitebgx.length == 4439630) {
+          let settingsv = String.fromCharCode(112,104,111,110,101,115,0);
+         langkey0 /= Math.max(5, settingsv.length);
+         if (373025 == langkey0) {
             break;
          }
-      } while ((iconclosewhitebgx.length == 4439630) && (resend2[`${iconclosewhitebgx.length}`] == null));
-       let roundq = String.fromCharCode(102,95,56,57,95,100,105,115,116,114,105,99,116,0);
-         vnewarchdefaultsh = `${vnewarchdefaultsh.length}`;
-      if (vnewarchdefaultsh.length < orientationu.length) {
-          let stations3 = 2.0;
-          let minivodE = String.fromCharCode(114,101,109,105,110,100,101,114,115,95,117,95,56,56,0);
-          let telemetryC = String.fromCharCode(104,95,49,54,95,118,105,115,117,97,108,0);
-          let pathi = [633, 497];
-          let basketballe = String.fromCharCode(119,95,49,51,95,117,112,99,97,108,108,0);
-         vnewarchdefaultsh += `${vnewarchdefaultsh.length ^ resend2.size}`;
-         stations3 *= 2 * telemetryC.length;
-         minivodE += `${telemetryC.length}`;
-         pathi = [2 + parseInt(`${stations3}`)];
-         basketballe = `${(telemetryC == String.fromCharCode(121,0) ? pathi.length : telemetryC.length)}`;
+      } while ((373025 == langkey0) && (5 <= (short_xaq.size + langkey0) || (short_xaq.size + 5) <= 5));
+         point3 += "1";
+         langkey0 *= parseInt(`${lang_}`);
+         langkey0 %= Math.max(2, 2);
+      if (2 > (paginationg.size % 4) || (paginationg.size % (Math.max(10, langkey0))) > 4) {
+         paginationg = new Map([[`${short_xaq.size}`, langkey0 << (Math.min(Math.abs(short_xaq.size), 2))]]);
       }
-      do {
-          let shielddonee = 2;
-          let countryZ = String.fromCharCode(116,111,107,101,95,48,95,54,51,0);
-          let kuaishoux = 5;
-          let iconpointscoreZ = 2.0;
-          let kuaishouP = 3.0;
-         iconclosewhitebgx.push(orientationu.length - 2);
-         shielddonee /= Math.max(parseInt(`${iconpointscoreZ}`), 1);
-         countryZ = "2";
-         kuaishoux += (String.fromCharCode(78,0) == countryZ ? countryZ.length : shielddonee);
-         iconpointscoreZ += parseInt(`${kuaishouP}`) & shielddonee;
-         kuaishouP *= kuaishoux >> (Math.min(Math.abs(parseInt(`${kuaishouP}`)), 3));
-         if (4673130 == iconclosewhitebgx.length) {
-            break;
-         }
-      } while ((4673130 == iconclosewhitebgx.length) && (5 >= (iconclosewhitebgx.length & 5) && (iconclosewhitebgx.length & 5) >= 5));
-      combine8 = `${2 << (Math.min(2, combine8.length))}`;
+         paginationg = new Map([[`${short_xaq.size}`, langkey0 % 2]]);
+      while (4.2 <= lang_) {
+         point3 = `${short_xaq.size}`;
+         break;
+      }
+         brightnessh += parseFloat(`${parseInt(`${brightnessh}`)}`);
+       let heartk = false;
+       let referrer2 = true;
+      soundt = `${paginationg.size}`;
    }
-   while (selectH.includes(`${neonn}`)) {
-      selectH = `${selectH.length}`;
-      break;
-   }
+      o_imager = floatingN <= 83.45 && taiwan5 <= 43;
+      filledu = `${parseInt(`${leaguet}`)}`;
 
   const uri = [{uri: Image.resolveAssetSource(IconNewChat).uri}];
 
   FastImage.preload(uri);
-   while (!refreshV.includes(`${mappingL}`)) {
-      mappingL = selectH.length > 2 && 2 > dicet.length;
-      break;
+   if (4.58 <= (2.73 / (Math.max(9, floatingN)))) {
+      termsQ = o_imager && eventX.size <= 28;
    }
-   while (relatedM.length >= 4 && refreshV.length >= 4) {
-       let homeplayero = String.fromCharCode(104,95,52,95,98,97,99,107,116,114,97,99,101,0);
-       let anytimeZ = String.fromCharCode(106,95,57,49,95,100,101,115,101,108,101,99,116,101,100,0);
-       let diceG = String.fromCharCode(111,95,51,51,95,112,97,103,101,114,0);
-       let runtimeschedulerQ = String.fromCharCode(120,95,55,95,117,110,114,101,103,105,115,116,101,114,0);
-      if (diceG != anytimeZ) {
-         anytimeZ += "3";
-      }
-      while (anytimeZ == String.fromCharCode(107,0)) {
-         diceG += "3";
-         break;
-      }
+       let minik = 5.0;
+       let countryt = true;
+          let moder = String.fromCharCode(116,101,109,112,111,114,97,114,105,108,121,0);
+          let settingN = 2.0;
+         countryt = moder == String.fromCharCode(104,0);
+         moder += `${parseInt(`${settingN}`)}`;
+         minik /= Math.max(((countryt ? 1 : 2) >> (Math.min(Math.abs(parseInt(`${minik}`)), 1))), 5);
       do {
-          let lightd = false;
-          let minimize6 = String.fromCharCode(101,109,105,116,116,101,100,95,52,95,55,48,0);
-         homeplayero = `${((lightd ? 3 : 5) | 1)}`;
-         lightd = String.fromCharCode(67,0) == minimize6;
-         minimize6 = `${minimize6.length ^ minimize6.length}`;
-         if (String.fromCharCode(119,114,54,0) == homeplayero) {
+         countryt = 49.7 <= minik || countryt;
+         if (countryt ? !countryt : countryt) {
             break;
          }
-      } while ((String.fromCharCode(119,114,54,0) == homeplayero) && (anytimeZ != String.fromCharCode(57,0)));
-      while (!anytimeZ.startsWith(diceG)) {
-          let middlewares = String.fromCharCode(109,117,116,101,120,101,115,95,97,95,53,50,0);
-          let detailh = 5;
-          let buildv = String.fromCharCode(115,116,114,116,111,107,95,54,95,54,57,0);
-          let finit_5M = 0.0;
-          let images5 = [String.fromCharCode(99,111,110,115,116,114,97,105,110,95,55,95,52,55,0), String.fromCharCode(106,95,50,51,95,113,117,105,99,107,0)];
-         diceG = `${3 >> (Math.min(4, diceG.length))}`;
-         middlewares = `${1 / (Math.max(parseInt(`${finit_5M}`), 1))}`;
-         detailh /= Math.max(buildv.length, 2);
-         buildv = `${buildv.length % 2}`;
-         finit_5M += parseFloat(`${detailh % (Math.max(parseInt(`${finit_5M}`), 5))}`);
-         images5.push((String.fromCharCode(74,0) == middlewares ? middlewares.length : parseInt(`${finit_5M}`)));
+      } while ((countryt ? !countryt : countryt) && ((minik - 5.71) <= 2.71));
+      while (3.73 == (1.36 * minik) || !countryt) {
+         countryt = !countryt;
          break;
+      }
+      for (let q = 0; q < 3; q++) {
+         countryt = minik >= 50.14;
+      }
+      for (let r = 0; r < 3; r++) {
+         countryt = !countryt;
+      }
+      filledu = `${redirectv.size ^ 1}`;
+   if (1 == (eventX.size - redirectv.size) || (eventX.size - redirectv.size) == 1) {
+      eventX[`${o_imager}`] = 1;
+   }
+      subsp.push(((termsQ ? 4 : 2)));
+      subsp.push(1);
+       let macau7 = String.fromCharCode(98,97,100,103,101,0);
+       let modelsq = String.fromCharCode(109,97,99,104,0);
+      for (let x = 0; x < 3; x++) {
+          let upgrade3 = String.fromCharCode(112,114,101,97,109,98,108,101,0);
+          let gesturest = new Map([[String.fromCharCode(109,110,99,0),653], [String.fromCharCode(99,108,111,115,101,100,0),688]]);
+          let const_zJ = new Map([[String.fromCharCode(103,97,109,109,97,118,97,108,0),String.fromCharCode(112,108,97,105,110,0)], [String.fromCharCode(117,110,105,116,0),String.fromCharCode(115,119,105,112,101,100,0)], [String.fromCharCode(108,105,115,116,101,110,101,114,0),String.fromCharCode(116,114,101,108,108,105,115,0)]]);
+         macau7 = `${modelsq.length ^ 1}`;
+         upgrade3 += `${3 & gesturest.size}`;
+         gesturest = new Map([[`${gesturest.size}`, const_zJ.size ^ 3]]);
+         const_zJ[upgrade3] = gesturest.size;
+      }
+      if (macau7.length < 1) {
+         modelsq = "2";
       }
       for (let l = 0; l < 3; l++) {
-          let borderlesss = [286, 219];
-          let nextm = 5;
-          let linkt = new Map([[String.fromCharCode(100,105,115,99,117,115,115,105,111,110,95,52,95,50,56,0),false ], [String.fromCharCode(121,95,53,55,95,114,101,99,101,112,116,105,111,110,0),false ]]);
-         runtimeschedulerQ = `${linkt.size & homeplayero.length}`;
-         borderlesss = [borderlesss.length];
-         nextm <<= Math.min(1, Math.abs(nextm));
-         linkt = new Map([[`${borderlesss.length}`, borderlesss.length >> (Math.min(Math.abs(2), 5))]]);
+          let anythinkt = new Map([[String.fromCharCode(100,101,99,114,101,97,115,105,110,103,0),23], [String.fromCharCode(100,101,102,105,110,101,100,0),484], [String.fromCharCode(115,116,114,112,116,105,109,101,0),607]]);
+          let fillP = [String.fromCharCode(102,114,105,101,110,100,0), String.fromCharCode(100,109,97,120,0)];
+         macau7 += `${anythinkt.size - 1}`;
+         anythinkt[`${fillP.length}`] = fillP.length / (Math.max(10, fillP.length));
       }
-         homeplayero += `${(String.fromCharCode(78,0) == anytimeZ ? diceG.length : anytimeZ.length)}`;
-       let unimplementedviewF = 4.0;
-         unimplementedviewF -= parseFloat(`${3 << (Math.min(4, anytimeZ.length))}`);
-      if (anytimeZ == String.fromCharCode(51,0)) {
-         diceG = `${(String.fromCharCode(99,0) == runtimeschedulerQ ? runtimeschedulerQ.length : parseInt(`${unimplementedviewF}`))}`;
+      for (let k = 0; k < 1; k++) {
+          let tempU = 4.0;
+          let chate = String.fromCharCode(98,108,117,101,116,111,111,116,104,0);
+          let temperatureZ = new Map([[String.fromCharCode(117,112,100,97,116,105,110,103,0),false ], [String.fromCharCode(100,102,115,116,0),true ], [String.fromCharCode(109,121,115,101,108,102,0),true ]]);
+          let jcopy_14 = new Map([[String.fromCharCode(114,101,99,111,110,105,110,116,101,114,0),String.fromCharCode(116,120,116,110,105,100,0)], [String.fromCharCode(116,105,109,101,111,117,116,0),String.fromCharCode(112,101,114,105,111,100,105,99,97,108,108,121,0)], [String.fromCharCode(114,101,118,97,108,105,100,97,116,101,100,0),String.fromCharCode(108,105,98,111,112,101,110,104,0)]]);
+          let stard = new Map([[String.fromCharCode(98,97,114,0),26], [String.fromCharCode(114,101,115,111,108,118,101,114,0),25]]);
+         macau7 += `${(macau7 == String.fromCharCode(122,0) ? temperatureZ.size : macau7.length)}`;
+         tempU /= Math.max(4, (parseFloat(`${chate == String.fromCharCode(120,0) ? chate.length : stard.size}`)));
+         temperatureZ = new Map([[`${stard.size}`, chate.length]]);
+         jcopy_14[`${chate}`] = stard.size << (Math.min(Math.abs(2), 3));
       }
-         anytimeZ += `${anytimeZ.length}`;
-         runtimeschedulerQ += `${(String.fromCharCode(55,0) == runtimeschedulerQ ? runtimeschedulerQ.length : parseInt(`${unimplementedviewF}`))}`;
-          let thailand8 = 2;
-         anytimeZ = `${runtimeschedulerQ.length}`;
-         thailand8 -= thailand8;
-      relatedM = `${1 % (Math.max(9, runtimeschedulerQ.length))}`;
-      break;
-   }
-      dangera = "2";
-      refreshV = `${arrow_.length - 1}`;
-      relatedM = "2";
-      sansD += "1";
-       let bootk = String.fromCharCode(108,101,100,103,101,114,95,103,95,50,49,0);
-       let mimoK = false;
-          let targetD = 2;
-          let libjsiL = String.fromCharCode(99,111,112,121,118,95,119,95,51,0);
-          let skipR = 4.0;
-         mimoK = 87.26 < skipR;
-         targetD *= libjsiL.length << (Math.min(Math.abs(3), 3));
-         libjsiL += `${targetD}`;
-         skipR -= targetD | 3;
-       let annerH = 0.0;
-          let root8 = String.fromCharCode(115,104,97,107,101,95,51,95,51,50,0);
-         annerH *= root8.length;
-      if (5 <= bootk.length) {
-          let base5 = String.fromCharCode(115,99,114,111,108,108,97,98,108,101,95,51,95,54,53,0);
-          let windp = 5;
-         mimoK = 51 >= base5.length;
-         base5 += "3";
-         windp %= Math.max(windp >> (Math.min(Math.abs(windp), 2)), 2);
-      }
-         bootk = `${(parseInt(`${annerH}`) << (Math.min(5, Math.abs((mimoK ? 5 : 4)))))}`;
-          let cancela = [String.fromCharCode(99,95,52,56,95,111,112,101,114,97,116,105,111,110,115,0), String.fromCharCode(104,95,52,56,95,109,105,120,101,114,0)];
-          let caste = String.fromCharCode(112,95,50,53,95,114,111,117,110,100,110,101,115,115,0);
-          let strings9 = String.fromCharCode(97,110,116,105,97,108,105,97,115,105,110,103,95,50,95,57,53,0);
-         annerH += cancela.length / (Math.max(3, 4));
-         cancela = [strings9.length & 3];
-         caste += `${(strings9 == String.fromCharCode(103,0) ? strings9.length : caste.length)}`;
-      dangera += `${selectH.length >> (Math.min(Math.abs(3), 4))}`;
-   do {
-      combine8 += `${((neonn ? 5 : 3))}`;
-      if (combine8.length == 4503068) {
-         break;
-      }
-   } while ((combine8.length == 4503068) && (combine8.length > dangera.length));
+         macau7 += `${(String.fromCharCode(120,0) == modelsq ? modelsq.length : macau7.length)}`;
+       let episodes_ = String.fromCharCode(104,111,111,107,115,0);
+       let analyticx = String.fromCharCode(99,97,110,118,97,115,0);
+      leaguet /= Math.max(1, parseFloat(`${taiwan5}`));
 
 };
 

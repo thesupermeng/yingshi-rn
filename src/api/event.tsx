@@ -1,13 +1,13 @@
-import { mayi_Iconclosewhitewithbg } from "@constants";
-import { mayi_ReactBang } from "@utility/mayi_zhubo";
-import { mayi_Cornershoot } from "../../Umeng/mayi_init_predictionarrow";
+import { MVCountry } from "@constants";
+import { JTumbnailMatches } from "@utility/qot_stations_station";
+import { XHSelection } from "../../Umeng/ddx_zhubo_more";
 
 export class EventApi {
-    static postEvents = async (events: mayi_Cornershoot) => {
+    static postEvents = async (events: XHSelection) => {
         try {
             if (events.stats.length <= 0) return;
 
-            const result = await mayi_ReactBang.post(mayi_Iconclosewhitewithbg.eventPost, {
+            const result = await JTumbnailMatches.post(MVCountry.eventPost, {
                 body: events,
             });
 

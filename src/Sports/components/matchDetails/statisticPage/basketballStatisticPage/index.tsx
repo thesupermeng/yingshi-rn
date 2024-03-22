@@ -2,23 +2,23 @@ import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import PlayerStatistic from './playerStatistic';
 import TopPlayerStatistic from './topPlayerStatistic';
 import TeamStatistic from './teamStatistic';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import InjuryList from '../../../../components/injuryList';
-import { mayi_Cast } from '../../../../types/mayi_search';
-import { mayi_Humidity } from '../../../../types/mayi_predictionarrow_langkey';
+import { TLDetailWhite } from '../../../../types/dj_sort';
+import { QImageUnselected } from '../../../../types/l_fastforward_buffer';
 import React from 'react';
-import EmptyDataPage from '../../../mayi_mbbanner';
+import EmptyDataPage from '../../../zp_progress_tooltips';
 import { useIsFocused } from '@react-navigation/native';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails?: mayi_Cast,
-  liveRoomUpdate?: mayi_Humidity
+interface XFillButton {
+  liveRoomMatchDetails?: TLDetailWhite,
+  liveRoomUpdate?: QImageUnselected
 }
 
 const BasketballStatisticPage = ({
   liveRoomUpdate,
   liveRoomMatchDetails,
-}: mayi_GoogleViews) => {
+}: XFillButton) => {
   const isFocus = useIsFocused();
   
   return (

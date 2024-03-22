@@ -3,7 +3,7 @@ import { Text, View, ScrollView, Dimensions } from 'react-native';
 import AreaChart from '../../areaChart';
 import CustomMatchDetailsTabBar from '../../customMatchDetailsTabBar';
 import StatisticsChart from '../../statisticsChart';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import MatchStatisticTab from './matchStatisticTab';
 import FootballIconComponent from '../../footballIconComponent';
 import AreaChartBasketball from '../../areaChartBasketball';
@@ -11,29 +11,29 @@ import MatchStatistic from '../../matchStatistic';
 import StorylineEvent from '../../storylineEvent';
 import BasketballLiveDetails from '../../basketballLiveDetails';
 import LiveScoreBasketball from '../../liveScoreBasketball';
-import { mayi_Cast } from '../../../types/mayi_search';
-import { mayi_Humidity } from '../../../types/mayi_predictionarrow_langkey';
+import { TLDetailWhite } from '../../../types/dj_sort';
+import { QImageUnselected } from '../../../types/l_fastforward_buffer';
 import Weather from '../../weather';
-import EmptyDataPage from '../../mayi_mbbanner';
+import EmptyDataPage from '../../zp_progress_tooltips';
 import { useIsFocused } from '@react-navigation/native';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails?: mayi_Cast
-  liveRoomUpdate?: mayi_Humidity
+interface XFillButton {
+  liveRoomMatchDetails?: TLDetailWhite
+  liveRoomUpdate?: QImageUnselected
 }
 
-type mayi_DarkPlaceholder = {
+type YRUContextTransfer = {
   name: string
   children: React.ReactNode
 }
 
-const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: mayi_GoogleViews) => {
+const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: XFillButton) => {
   const isFocus = useIsFocused();
 
   // const adsList = useSelector(state => state.adsList);
   
 
-  const tabBar: mayi_DarkPlaceholder[] = [
+  const tabBar: YRUContextTransfer[] = [
     {
       name: '重要事件',
       children: <StorylineEvent liveRoomUpdate={liveRoomUpdate} />,

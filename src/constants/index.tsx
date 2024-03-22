@@ -1,2 +1,2 @@
-export * from './mayi_plash_basketballtrophy';
-export * from './mayi_klevin_push';
+export * from './i_favorite';
+export * from './f_area_share';

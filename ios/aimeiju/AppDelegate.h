@@ -1,22 +1,24 @@
 #import <RCTAppDelegate.h>
 #import <UIKit/UIKit.h>
-#import "mayi_LibapminsightbController.h"
+#import "TMappingController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, ZWmayi_Unread>
-
-
-@property(nonatomic, copy)NSString *  diceMiddle_str;
-@property(nonatomic, copy)NSArray *  predictionbuttonArmvaArray;
-@property(nonatomic, assign)float  orientation_space;
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, YMEOZPrivateFlyer>
 
 
+@property(nonatomic, copy)NSString *  gpayCarouselString;
+@property(nonatomic, assign)double  d_count;
+@property(nonatomic, assign)long  mode_tag;
 
 
--(long)bottomFragmentsAllowReady:(NSDictionary *)readProgress;
 
--(NSString *)rootMediaThink:(float)bootsplashLibsentry backPredictionbutton:(NSArray *)backPredictionbutton;
 
--(long)sharedBannerContainerDirectoryPosition:(NSString *)scheduleRegeng pingBrightness:(double)pingBrightness embedIconstar:(long)embedIconstar;
+-(NSArray *)redNonatomicRawSwapTimingCrashes:(NSArray *)appsLive gmailUpload:(NSString *)gmailUpload;
+
+-(double)bottomRateDismissalMintegralFinishedAppending:(long)tickSwitch_3 actionsStar:(NSString *)actionsStar;
+
+-(NSDictionary *)masksSessionContentStyleVibrationRecording:(int)downloaderTrophy;
+
+-(NSString *)makeListMapping;
 
 
 @property (nonatomic, strong) UIWindow *window;

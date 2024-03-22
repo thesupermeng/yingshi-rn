@@ -1,5 +1,5 @@
 import vars from './vars';
-import mayi_Analytics from '../middleware/api';
+import LShrink from '../middleware/api';
 import {Url} from '../middleware/url';
 import {Alert, Linking, Platform} from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
@@ -12,7 +12,7 @@ import {
 import RNFS from 'react-native-fs';
 import AppSettingsAction from '@redux/actions/appSettingsAction';
 import Config from '../global/env';
-import {mayi_VideojsInit} from '../global/appConfig';
+import {KTMain} from '../global/appConfig';
 import {getPredictionShareTimeStamp} from '../global/asyncStorage';
 import {createIconSetFromFontello} from 'react-native-vector-icons';
 import {showToast} from './toast';
@@ -340,7 +340,7 @@ export const deepCopyArray = array => {
 
 export const liveRoomName = async matchId => {
   const params = {id: matchId};
-  const res = await mayi_Analytics.call(Url.liveRoomDetail, params, 'GET');
+  const res = await LShrink.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
       return 'noMatchDetails';
@@ -538,10 +538,10 @@ export const createShareLink = async (path, id) => {
     default:
       break;
   }
-  const response = await mayi_Analytics.call(Url.createShare, params);
+  const response = await LShrink.call(Url.createShare, params);
   if (response.success) {
     const key = response.data;
-    const shareLink = `${mayi_VideojsInit.instance.config?.shortUrlDomain}/${key}`;
+    const shareLink = `${KTMain.instance.config?.shortUrlDomain}/${key}`;
     return shareLink;
   } else {
     return '';

@@ -1,1 +1,1 @@
-export * from './mayi_down_libturbomodulejsijni';
+export * from './h_rules';

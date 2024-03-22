@@ -3,14 +3,14 @@ import MatchHistory from '../../../matchHistory';
 import TeamStat from './teamStat';
 import MatchAverage from './matchAverage';
 import CustomMatchDetailsTabBar from '../../../customMatchDetailsTabBar';
-import styles from './mayi_iconarrowrightwhite';
-import { mayi_Cast } from '../../../../types/mayi_search';
+import styles from './fgl_less_position';
+import { TLDetailWhite } from '../../../../types/dj_sort';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails: mayi_Cast
+interface XFillButton {
+  liveRoomMatchDetails: TLDetailWhite
 }
 
-const BasketballDataPage = ({ liveRoomMatchDetails }: mayi_GoogleViews) => {
+const BasketballDataPage = ({ liveRoomMatchDetails }: XFillButton) => {
   const tabBar = [
     {
       name: '球队概况',

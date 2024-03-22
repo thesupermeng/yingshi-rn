@@ -6,7 +6,7 @@ import {
   BasketballIcon,
   SubBasketballPlayer
 } from '../../../../../assets';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import PlayerStats from '../../../../../components/playerStats';
 import {useState} from 'react';
 

@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Colors } from '../../global/mayi_borderless_rocket';
-import styles from './mayi_iconarrowrightwhite';
-import EmptyDataPage from '../mayi_mbbanner';
+import { Colors } from '../../global/bp_grey_vietnam';
+import styles from './fgl_less_position';
+import EmptyDataPage from '../zp_progress_tooltips';
 
-type mayi_Iconuser = {
+type JGYReferrer = {
   name: string
   children: React.ReactNode
 }
 
-interface mayi_GoogleViews {
-  tabBar: mayi_Iconuser[]
+interface XFillButton {
+  tabBar: JGYReferrer[]
 }
 
-const CustomMatchDetailsTabBar = ({ tabBar }: mayi_GoogleViews) => {
+const CustomMatchDetailsTabBar = ({ tabBar }: XFillButton) => {
   const [tab, setTab] = useState(0);
   const activeTabColor = '#FAC33D';
   const activeTextColor = '#000000';

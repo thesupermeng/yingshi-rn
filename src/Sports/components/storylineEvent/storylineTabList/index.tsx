@@ -6,15 +6,15 @@ import { GoalLogo } from '../../../assets';
 import StorylineTap from '../storylineTab';
 import StorylineTabListItem from '../storylineTabListItem';
 
-import styles from './mayi_iconarrowrightwhite';
-import { mayi_Humidity } from '../../../types/mayi_predictionarrow_langkey';
+import styles from './fgl_less_position';
+import { QImageUnselected } from '../../../types/l_fastforward_buffer';
 
-interface mayi_GoogleViews {
-  liveRoomUpdate?: mayi_Humidity
+interface XFillButton {
+  liveRoomUpdate?: QImageUnselected
   isEnabled?: boolean
 }
 
-const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: mayi_GoogleViews) => {
+const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: XFillButton) => {
   const arrayValue = liveRoomUpdate?.football_match_live?.incidents ?? [];
 
   const dataTesting = { imageName: GoalLogo, textName: '123' };

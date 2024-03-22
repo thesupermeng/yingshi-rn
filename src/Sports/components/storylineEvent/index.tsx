@@ -4,16 +4,16 @@ import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
 
-import styles from './mayi_iconarrowrightwhite';
-import { mayi_Humidity } from '../../types/mayi_predictionarrow_langkey';
-import FastImage from '../../../components/common/mayi_slider';
+import styles from './fgl_less_position';
+import { QImageUnselected } from '../../types/l_fastforward_buffer';
+import FastImage from '../../../components/common/gwi_with';
 
 
-interface mayi_GoogleViews {
-  liveRoomUpdate?: mayi_Humidity
+interface XFillButton {
+  liveRoomUpdate?: QImageUnselected
 }
 
-const StorylineEvent = ({ liveRoomUpdate }: mayi_GoogleViews) => {
+const StorylineEvent = ({ liveRoomUpdate }: XFillButton) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (

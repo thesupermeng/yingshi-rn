@@ -1,4 +1,4 @@
-import {VideoLiveType} from '../../global/mayi_green_build';
+import {VideoLiveType} from '../../global/wd_group_recommendation';
 
 export const AnimationDuration = 300;
 export const AnimationHeight = 400;

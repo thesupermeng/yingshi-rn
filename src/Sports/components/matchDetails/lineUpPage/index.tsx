@@ -1,20 +1,20 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../mayi_mbbanner';
-import { mayi_Cast } from '../../../types/mayi_search';
-import { mayi_Related } from '../../../types/mayi_basketballtrophy';
+import EmptyDataPage from '../../zp_progress_tooltips';
+import { TLDetailWhite } from '../../../types/dj_sort';
+import { DHXPopup } from '../../../types/rnk_floating_pagination';
 import { useIsFocused } from '@react-navigation/native';
 
-interface mayi_GoogleViews {
-  liveRoomMatchDetails?: mayi_Cast,
-  liveRoomLineup?: mayi_Related
+interface XFillButton {
+  liveRoomMatchDetails?: TLDetailWhite,
+  liveRoomLineup?: DHXPopup
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: mayi_GoogleViews) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: XFillButton) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
   

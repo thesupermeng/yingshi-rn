@@ -4,82 +4,59 @@ import AwayTeam from './awayTeam';
 import Bottom from './bottom';
 import Header from './header';
 import HomeTeam from './homeTeam';
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 
 const LineUpFootball = props => {
-       let sliderD = 5;
-    let encryptZ = 3.0;
-    let shirt0 = 1.0;
-    let shootB = true;
-    let container2 = 5;
-    let embedV = String.fromCharCode(102,95,55,49,95,109,115,98,115,0);
-    let watch6 = new Map([[String.fromCharCode(113,95,55,49,95,105,110,115,116,97,110,116,0),false ], [String.fromCharCode(114,101,113,117,105,114,101,95,118,95,51,54,0),false ], [String.fromCharCode(122,95,50,57,95,113,117,97,100,116,114,101,101,0),false ]]);
-    let tooltipsK = 4;
-    let armvaz = 4;
-    let j_positionc = 4;
-    let selectionV = 5;
-    let utilsJ = [String.fromCharCode(101,118,114,99,0), String.fromCharCode(115,97,110,101,0), String.fromCharCode(105,110,105,118,105,116,101,100,0)];
-    let materialZ = new Map([[String.fromCharCode(120,95,53,54,95,100,101,99,105,112,104,101,114,0),855], [String.fromCharCode(101,95,49,54,95,119,111,114,100,0),62], [String.fromCharCode(117,95,55,56,95,115,111,102,116,119,97,114,101,0),688]]);
-    let footballtrophyj = 4;
-    let heartE = 0.0;
-    let uploadn = 2;
-    let textlayoutmanagerz = [317, 901];
-   if (j_positionc > 5) {
-      j_positionc >>= Math.min(Math.abs(container2), 3);
+       let moviesd = String.fromCharCode(116,97,103,103,101,114,95,116,95,51,0);
+    let ucopy_a7K = 0.0;
+    let filll = 5.0;
+    let dragB = String.fromCharCode(109,117,108,116,105,112,108,101,114,115,95,116,95,56,53,0);
+    let target5 = 2;
+    let modalb = 4.0;
+    let refreshB = String.fromCharCode(109,95,51,55,95,100,101,115,99,101,110,100,101,114,0);
+    let aboutF = String.fromCharCode(98,95,54,52,95,119,105,108,108,0);
+    let tempD = String.fromCharCode(116,95,53,95,115,107,101,119,0);
+    let modityC = String.fromCharCode(97,101,115,116,97,98,95,116,95,50,54,0);
+    let moreX = String.fromCharCode(104,95,48,95,107,105,99,107,101,100,0);
+    let renewl = String.fromCharCode(116,114,105,103,103,101,114,95,120,95,49,56,0);
+    let searchbarQ = String.fromCharCode(104,105,103,104,108,105,103,104,116,95,111,95,57,56,0);
+    let othery = 0.0;
+      target5 /= Math.max(2, parseInt(`${modalb}`) % 1);
+   while (!moviesd.endsWith(aboutF)) {
+      moviesd += `${refreshB.length}`;
+      break;
    }
-      encryptZ *= 1 * armvaz;
 
   const {lineUp, detail} = props;
-   if (shootB && (shirt0 / 2.12) > 2.92) {
-       let mbnativeE = new Map([[String.fromCharCode(115,112,101,99,105,102,105,101,114,0),606], [String.fromCharCode(117,108,116,114,97,0),361], [String.fromCharCode(119,105,115,101,0),832]]);
-      while (4 > mbnativeE.size) {
-         mbnativeE[`${mbnativeE.size}`] = mbnativeE.size;
+   do {
+      moviesd += `${aboutF.length / 2}`;
+      if (1305116 == moviesd.length) {
          break;
       }
-          let q_positionU = String.fromCharCode(115,101,103,116,114,101,101,95,100,95,56,0);
-          let iconarrowrightwhite_ = String.fromCharCode(115,105,110,113,98,0);
-          let guideB = 3.0;
-         mbnativeE[q_positionU] = q_positionU.length >> (Math.min(1, Math.abs(mbnativeE.size)));
-         iconarrowrightwhite_ = `${parseInt(`${guideB}`)}`;
-         guideB += (parseFloat(`${iconarrowrightwhite_ == String.fromCharCode(76,0) ? iconarrowrightwhite_.length : parseInt(`${guideB}`)}`));
-      for (let k = 0; k < 2; k++) {
-         mbnativeE = new Map([[`${mbnativeE.size}`, 2]]);
-      }
-      shootB = embedV.length == 69;
-   }
-       let zhubox = [8, 944];
-       let dangerh = String.fromCharCode(97,112,112,114,111,120,95,109,95,49,50,0);
-       let modaly = new Map([[String.fromCharCode(99,95,49,54,95,116,111,107,101,110,116,120,0),272], [String.fromCharCode(107,95,56,52,95,108,111,103,103,105,110,103,0),825]]);
-       let footballfieldc = 2.0;
-         zhubox = [3 ^ dangerh.length];
-      for (let y = 0; y < 1; y++) {
-         modaly[`${footballfieldc}`] = modaly.size;
-      }
+   } while ((1305116 == moviesd.length) && ((5 ^ moviesd.length) <= 1));
+       let robotoC = 4.0;
+       let detailsJ = new Map([[String.fromCharCode(105,95,52,49,95,109,101,116,97,0),939], [String.fromCharCode(109,95,55,48,95,112,105,99,116,0),659]]);
+       let goal_ = 1.0;
       do {
-         modaly[`${footballfieldc}`] = modaly.size - parseInt(`${footballfieldc}`);
-         if (modaly.size == 3470140) {
+         detailsJ[`${robotoC}`] = 1;
+         if (357307 == detailsJ.size) {
             break;
          }
-      } while (((5 ^ modaly.size) < 3 || 5 < (dangerh.length ^ modaly.size)) && (modaly.size == 3470140));
-          let downarrowr = String.fromCharCode(102,95,49,52,95,110,101,108,108,121,109,111,115,101,114,0);
-          let about5 = String.fromCharCode(111,95,53,55,95,97,115,115,101,109,98,108,101,100,0);
-          let libimagepipelinef = 3.0;
-         modaly[about5] = about5.length;
-         downarrowr = `${downarrowr.length & parseInt(`${libimagepipelinef}`)}`;
-         libimagepipelinef /= Math.max(parseFloat(`${parseInt(`${libimagepipelinef}`)}`), 4);
-          let yellowk = String.fromCharCode(117,95,48,95,115,118,103,0);
-          let animations5 = 4.0;
-         modaly[yellowk] = (yellowk == String.fromCharCode(120,0) ? yellowk.length : parseInt(`${animations5}`));
-         modaly = new Map([[`${modaly.size}`, 1]]);
-         dangerh += `${parseInt(`${footballfieldc}`) & zhubox.length}`;
+      } while (((detailsJ.size / (Math.max(4, parseInt(`${robotoC}`)))) > 2 && 3.52 > (robotoC / (Math.max(parseFloat(`${detailsJ.size}`), 9)))) && (357307 == detailsJ.size));
       do {
-          let nende = String.fromCharCode(115,117,98,101,120,112,114,0);
-         dangerh += `${(nende == String.fromCharCode(89,0) ? parseInt(`${footballfieldc}`) : nende.length)}`;
-         if (String.fromCharCode(111,121,53,106,122,54,0) == dangerh) {
+         detailsJ = new Map([[`${robotoC}`, 1 | parseInt(`${goal_}`)]]);
+         if (detailsJ.size == 464929) {
             break;
          }
-      } while ((zhubox.length == dangerh.length) && (String.fromCharCode(111,121,53,106,122,54,0) == dangerh));
-      container2 |= parseInt(`${encryptZ}`);
+      } while ((detailsJ.size == 464929) && (!Array.from(detailsJ.keys()).includes(`${robotoC}`)));
+          let r_viewG = 4;
+          let uploadW = [String.fromCharCode(99,114,99,116,97,98,108,101,95,106,95,52,49,0), String.fromCharCode(102,95,53,52,95,115,116,97,116,105,111,110,97,114,105,116,121,0), String.fromCharCode(115,112,108,105,116,115,95,111,95,55,55,0)];
+         goal_ -= parseFloat(`${3}`);
+         r_viewG /= Math.max(uploadW.length - 3, 1);
+         uploadW = [r_viewG & uploadW.length];
+         goal_ -= parseFloat(`${parseInt(`${robotoC}`)}`);
+         detailsJ[`${robotoC}`] = detailsJ.size % (Math.max(1, 4));
+      aboutF += "2";
 
 
   return (
@@ -116,15 +93,39 @@ const LineUpFootball = props => {
       </ImageBackground>
     </View>
   );
+       let whatsapph = 2.0;
+       let turnx = String.fromCharCode(98,108,99,107,95,120,95,55,0);
+      for (let u = 0; u < 2; u++) {
+         whatsapph /= Math.max(5, parseFloat(`${turnx.length - 3}`));
+      }
+         turnx += `${turnx.length >> (Math.min(5, Math.abs(parseInt(`${whatsapph}`))))}`;
+      do {
+         whatsapph -= parseFloat(`${2 & turnx.length}`);
+         if (whatsapph == 2964440.0) {
+            break;
+         }
+      } while ((whatsapph >= parseFloat(`${turnx.length}`)) && (whatsapph == 2964440.0));
+         whatsapph *= parseFloat(`${parseInt(`${whatsapph}`) + turnx.length}`);
+         whatsapph /= Math.max(parseFloat(`${1 / (Math.max(5, parseInt(`${whatsapph}`)))}`), 2);
+      if (4.10 <= (parseFloat(`${turnx.length}`) + whatsapph) && (3 & turnx.length) <= 4) {
+          let checkboxw = [22, 444, 856];
+          let baidu6 = 2.0;
+          let combinen = 2.0;
+          let rightw = String.fromCharCode(101,95,56,48,95,98,101,108,108,0);
+          let launchm = new Map([[String.fromCharCode(97,95,54,55,95,116,97,115,107,115,0),true ], [String.fromCharCode(102,95,50,48,95,98,108,111,99,107,115,99,97,110,0),false ], [String.fromCharCode(99,101,108,112,95,111,95,55,53,0),false ]]);
+         turnx += "2";
+         checkboxw = [2 & rightw.length];
+         baidu6 /= Math.max(2, 2);
+         combinen += parseFloat(`${rightw.length >> (Math.min(Math.abs(3), 3))}`);
+         launchm[rightw] = (String.fromCharCode(105,0) == rightw ? rightw.length : launchm.size);
+      }
+      aboutF = "3";
    do {
-      shirt0 += parseInt(`${encryptZ}`) - 3;
-      if (shirt0 == 2076864.0) {
+      modalb -= parseFloat(`${aboutF.length / 1}`);
+      if (1584111.0 == modalb) {
          break;
       }
-   } while ((3.17 == (shirt0 - 3.10)) && (shirt0 == 2076864.0));
-   if (2.1 < (5.19 - encryptZ) && shootB) {
-      encryptZ += selectionV;
-   }
+   } while (((5 / (Math.max(5, parseInt(`${modalb}`)))) == 1 && 3 == (dragB.length ^ 5)) && (1584111.0 == modalb));
 
 };
 

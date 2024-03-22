@@ -5,134 +5,153 @@ import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import SteamingCover from '../../../components/steamingCover';
 import {GreyArrowUp} from '../../../assets';
 
-import styles from './mayi_iconarrowrightwhite';
+import styles from './fgl_less_position';
 
 const Drawer = props => {
-       let sliderR = String.fromCharCode(102,117,116,101,120,95,108,95,55,51,0);
-    let defaultlogo1 = 4;
-    let basketballmatchdetailbgr = String.fromCharCode(110,95,54,56,95,99,112,117,102,108,97,103,115,0);
-    let templateprocessorR = 1;
-    let logout4 = true;
-    let episodesH = [944, 311, 149];
-    let iconadslinkV = 5.0;
-    let promotionW = 3.0;
-    let issubR = 3.0;
-    let foundq = true;
-    let customO = new Map([[String.fromCharCode(99,95,52,95,109,117,108,116,105,112,108,101,114,0),177], [String.fromCharCode(117,95,54,52,95,109,117,116,97,116,101,0),146], [String.fromCharCode(122,95,52,54,95,98,114,97,99,101,0),889]]);
-   while (basketballmatchdetailbgr.length <= 1 || logout4) {
-      logout4 = !logout4;
-      break;
-   }
+       let canvasb = String.fromCharCode(115,111,97,98,111,114,116,0);
+    let bootsplashU = [890, 807];
+    let gpays = 2.0;
+    let shared7 = new Map([[String.fromCharCode(99,111,108,117,109,110,0),String.fromCharCode(114,101,102,105,110,101,0)], [String.fromCharCode(111,118,101,114,117,115,101,0),String.fromCharCode(119,101,108,115,101,110,99,0)], [String.fromCharCode(97,110,105,109,97,116,105,111,110,115,0),String.fromCharCode(101,97,114,108,105,101,115,116,95,51,95,51,48,0)]]);
+    let mathR = new Map([[String.fromCharCode(118,97,114,105,97,110,99,101,120,0),false ], [String.fromCharCode(118,101,110,117,101,115,0),true ]]);
+    let connectionQ = new Map([[String.fromCharCode(108,105,98,99,111,100,101,99,0),849], [String.fromCharCode(112,97,114,101,110,116,115,0),55]]);
+    let emoji8 = String.fromCharCode(116,114,117,110,99,0);
+    let arrow9 = [439, 48, 495];
+    let cornerb = String.fromCharCode(107,97,110,110,97,0);
+    let sideS = String.fromCharCode(119,101,98,118,105,101,119,0);
+    let dicez = 3;
+    let ball7 = String.fromCharCode(112,108,97,116,102,111,114,109,0);
+    let changec = 4.0;
+      canvasb = `${shared7.size ^ 1}`;
+       let navigationk = String.fromCharCode(115,111,114,101,99,101,105,118,101,0);
+       let plashs = 4.0;
+         navigationk += `${(String.fromCharCode(87,0) == navigationk ? parseInt(`${plashs}`) : navigationk.length)}`;
+      while ((parseInt(`${plashs}`) - navigationk.length) >= 4 || (navigationk.length - parseInt(`${plashs}`)) >= 4) {
+         navigationk = `${parseInt(`${plashs}`) - navigationk.length}`;
+         break;
+      }
+         navigationk = "2";
+      if ((navigationk.length + plashs) >= 4.24 && (plashs + navigationk.length) >= 4.24) {
+         navigationk += `${navigationk.length << (Math.min(Math.abs(2), 2))}`;
+      }
+      for (let u = 0; u < 2; u++) {
+         navigationk = `${parseInt(`${plashs}`)}`;
+      }
+         navigationk = `${parseInt(`${plashs}`) + 3}`;
+      emoji8 += `${parseInt(`${plashs}`) << (Math.min(Math.abs(3), 4))}`;
 
   
 
-      sliderR += "2";
+       let indexo = String.fromCharCode(108,111,103,105,99,97,108,0);
+       let adultl = 0.0;
+         adultl /= Math.max(4, indexo.length << (Math.min(Math.abs(2), 5)));
+      for (let l = 0; l < 3; l++) {
+         indexo = `${(indexo == String.fromCharCode(70,0) ? parseInt(`${adultl}`) : indexo.length)}`;
+      }
+          let downloaded3 = true;
+         adultl *= 2;
+      if (!indexo.includes(`${adultl}`)) {
+         indexo = `${parseInt(`${adultl}`) % 3}`;
+      }
+      while ((adultl - indexo.length) <= 4.49 || 4.49 <= (adultl - indexo.length)) {
+          let inviteb = String.fromCharCode(101,95,49,48,95,103,114,97,121,97,0);
+          let logoY = new Map([[String.fromCharCode(113,95,56,95,102,105,108,101,116,105,109,101,0),138], [String.fromCharCode(118,112,115,104,97,114,101,100,0),170]]);
+          let whatsappg = String.fromCharCode(105,100,101,110,116,105,102,101,114,0);
+          let favoritez = 4.0;
+          let time_zhv = String.fromCharCode(101,98,109,108,110,117,109,0);
+         indexo = `${3 / (Math.max(2, logoY.size))}`;
+         inviteb = `${whatsappg.length / 1}`;
+         logoY = new Map([[inviteb, time_zhv.length + inviteb.length]]);
+         whatsappg = `${inviteb.length * parseInt(`${favoritez}`)}`;
+         favoritez /= Math.max(1, parseFloat(`${whatsappg.length - time_zhv.length}`));
+         break;
+      }
+          let lineS = String.fromCharCode(116,97,98,95,116,95,54,53,0);
+          let combineA = true;
+         adultl -= parseInt(`${adultl}`);
+         lineS += `${((combineA ? 2 : 4))}`;
+         combineA = lineS.startsWith(`${combineA}`);
+      connectionQ = new Map([[`${arrow9.length}`, arrow9.length % 2]]);
+   do {
+      shared7[`${cornerb}`] = cornerb.length;
+      if (2517437 == shared7.size) {
+         break;
+      }
+   } while ((cornerb.startsWith(`${shared7.size}`)) && (2517437 == shared7.size));
 
   
 
-   for (let w = 0; w < 2; w++) {
-      episodesH = [(templateprocessorR ^ (logout4 ? 4 : 5))];
+   do {
+      sideS = `${2 & cornerb.length}`;
+      if (1839731 == sideS.length) {
+         break;
+      }
+   } while ((1839731 == sideS.length) && (2 < (1 >> (Math.min(3, sideS.length)))));
+   for (let d = 0; d < 2; d++) {
+      dicez %= Math.max(1, emoji8.length);
    }
   const onPressClose = () => {
 
-       let policyW = String.fromCharCode(99,97,109,101,108,108,105,97,95,104,95,51,55,0);
-       let plusz = String.fromCharCode(120,95,55,48,95,103,114,97,110,117,108,97,114,0);
-          let greyarrowupF = 1.0;
-          let buildq = String.fromCharCode(97,112,112,114,101,99,97,116,105,111,110,95,122,95,54,51,0);
-         policyW += `${(policyW == String.fromCharCode(104,0) ? policyW.length : parseInt(`${greyarrowupF}`))}`;
-         greyarrowupF -= buildq.length / 3;
-         buildq = "2";
-         policyW = "2";
-         plusz = "3";
-          let hejiu = false;
-         policyW = `${1 & policyW.length}`;
-         hejiu = !hejiu;
-      do {
-          let eventp = true;
-          let colorsA = 3;
-          let whiteV = String.fromCharCode(107,95,55,48,95,122,99,111,110,118,111,108,118,101,0);
-          let pathd = [191, 870];
-          let stationj = false;
-         plusz = `${policyW.length * 1}`;
-         eventp = !whiteV.startsWith(`${eventp}`);
-         colorsA *= 1 << (Math.min(3, pathd.length));
-         whiteV += `${colorsA | 3}`;
-         pathd = [3 ^ pathd.length];
-         stationj = !stationj;
-         if (plusz == String.fromCharCode(100,104,118,102,0)) {
-            break;
-         }
-      } while ((plusz == String.fromCharCode(100,104,118,102,0)) && (policyW == String.fromCharCode(87,0)));
-      while (policyW.length < plusz.length) {
-         policyW = `${policyW.length ^ 2}`;
+   if ((bootsplashU.length * 5) >= 4 || 1 >= (connectionQ.size * 5)) {
+      bootsplashU = [3];
+   }
+   for (let v = 0; v < 2; v++) {
+      bootsplashU = [mathR.size % (Math.max(canvasb.length, 5))];
+   }
+    console.log(props.drawerVisible);
+       let readg = 3;
+       let navigation0 = String.fromCharCode(111,110,99,101,0);
+         navigation0 += "1";
+      while (!navigation0.startsWith(`${readg}`)) {
+         navigation0 += `${(navigation0 == String.fromCharCode(90,0) ? navigation0.length : readg)}`;
          break;
       }
-      iconadslinkV -= parseFloat(`${templateprocessorR * 1}`);
-    console.log(props.drawerVisible);
-   if (basketballmatchdetailbgr.length > 2) {
-      basketballmatchdetailbgr = `${episodesH.length * basketballmatchdetailbgr.length}`;
-   }
+      for (let b = 0; b < 3; b++) {
+          let commons = String.fromCharCode(105,95,57,52,95,114,97,100,105,97,108,0);
+          let uploadU = new Map([[String.fromCharCode(118,114,101,112,0),String.fromCharCode(104,119,99,111,110,116,101,120,116,95,102,95,55,48,0)], [String.fromCharCode(104,97,100,97,109,97,114,100,0),String.fromCharCode(109,112,105,98,110,0)]]);
+          let charty = String.fromCharCode(109,111,110,111,99,104,114,111,109,101,0);
+         navigation0 += `${charty.length << (Math.min(4, Math.abs(uploadU.size)))}`;
+         commons = `${commons.length + commons.length}`;
+         uploadU = new Map([[commons, commons.length >> (Math.min(commons.length, 2))]]);
+      }
+      if (5 == (navigation0.length / (Math.max(2, readg)))) {
+         readg >>= Math.min(5, Math.abs(1));
+      }
+          let orientation8 = String.fromCharCode(100,111,99,116,111,116,97,108,0);
+          let updates0 = String.fromCharCode(118,101,114,105,102,105,97,116,105,111,110,0);
+          let vignetteP = true;
+         readg ^= (orientation8 == String.fromCharCode(109,0) ? navigation0.length : orientation8.length);
+         updates0 += `${(updates0.length - (vignetteP ? 2 : 2))}`;
+         vignetteP = updates0.length >= 40;
+         readg -= readg;
+      emoji8 += "1";
+      canvasb += `${parseInt(`${gpays}`) / (Math.max(sideS.length, 9))}`;
 
     props.setDrawerVisible(!props.drawerVisible);
-      sliderR = `${defaultlogo1 / (Math.max(parseInt(`${iconadslinkV}`), 2))}`;
+      dicez %= Math.max(3, 4);
+   while (cornerb.endsWith(`${arrow9.length}`)) {
+      cornerb = `${sideS.length * 3}`;
+      break;
+   }
 
   };
-   for (let o = 0; o < 2; o++) {
-       let graphics1 = false;
-       let nativeexD = String.fromCharCode(97,100,109,105,110,95,97,95,50,48,0);
-       let yellowscoreballw = 4;
-         yellowscoreballw += 1 << (Math.min(Math.abs(yellowscoreballw), 5));
-      for (let j = 0; j < 2; j++) {
-          let refreshborderlesso = String.fromCharCode(107,95,55,53,95,115,119,105,116,99,104,97,98,108,101,0);
-          let encryptorr = true;
-          let iconwatchnowz = [219, 475];
-          let imagenetworkerrr = String.fromCharCode(107,95,54,51,95,115,117,98,98,97,110,100,0);
-          let informationr = String.fromCharCode(119,101,98,112,97,103,101,95,113,95,57,48,0);
-         nativeexD = `${3 / (Math.max(8, imagenetworkerrr.length))}`;
-         refreshborderlesso += "2";
-         encryptorr = iconwatchnowz.length > 84;
-         iconwatchnowz = [(String.fromCharCode(57,0) == informationr ? refreshborderlesso.length : informationr.length)];
-         imagenetworkerrr = `${3 - informationr.length}`;
+       let injurym = new Map([[String.fromCharCode(105,110,116,102,105,0),true ], [String.fromCharCode(100,102,115,116,95,113,95,51,51,0),false ]]);
+      for (let l = 0; l < 2; l++) {
+         injurym = new Map([[`${injurym.size}`, injurym.size]]);
       }
-         yellowscoreballw -= 1 - nativeexD.length;
-      if (!nativeexD.startsWith(`${graphics1}`)) {
-          let rewindb = 2;
-          let teamdetailsbgd = String.fromCharCode(109,97,115,107,95,108,95,52,57,0);
-          let libfabricjniS = 1;
-         graphics1 = nativeexD.endsWith(`${yellowscoreballw}`);
-         rewindb += 1 * rewindb;
-         teamdetailsbgd = `${teamdetailsbgd.length ^ 2}`;
-         libfabricjniS &= teamdetailsbgd.length;
-      }
-      if (3 > (nativeexD.length * 3)) {
-         nativeexD += `${yellowscoreballw * 3}`;
-      }
-       let mbnativeadvancedZ = 0;
-       let icontransferclubK = 5;
-          let submitU = String.fromCharCode(109,95,53,49,95,101,114,114,111,114,118,0);
-          let redscoreballG = String.fromCharCode(114,101,116,114,97,110,109,105,115,115,105,111,110,95,118,95,52,52,0);
-         icontransferclubK *= 2;
-         submitU += `${submitU.length}`;
-         redscoreballG = `${(submitU == String.fromCharCode(69,0) ? redscoreballG.length : submitU.length)}`;
-      for (let t = 0; t < 2; t++) {
-         yellowscoreballw -= icontransferclubK;
-      }
-      do {
-          let basketballtrophyf = false;
-          let expandi = 1.0;
-          let iconeditu = String.fromCharCode(108,115,102,108,115,112,95,100,95,53,48,0);
-          let iconsaveimagek = true;
-          let tumbnailq = String.fromCharCode(99,116,105,109,101,95,50,95,57,56,0);
-         icontransferclubK -= ((iconsaveimagek ? 5 : 3) * parseInt(`${expandi}`));
-         basketballtrophyf = (iconeditu.length & tumbnailq.length) > 39;
-         expandi -= (iconeditu == String.fromCharCode(51,0) ? (basketballtrophyf ? 4 : 5) : iconeditu.length);
-         iconsaveimagek = !basketballtrophyf && iconeditu.length >= 29;
-         tumbnailq += `${((basketballtrophyf ? 5 : 5))}`;
-         if (icontransferclubK == 710729) {
-            break;
-         }
-      } while ((icontransferclubK == 710729) && ((yellowscoreballw & 4) > 3 || (icontransferclubK & 4) > 2));
-      iconadslinkV /= Math.max(3, (parseFloat(`${nativeexD == String.fromCharCode(67,0) ? nativeexD.length : defaultlogo1}`)));
+          let navigationt = String.fromCharCode(99,104,97,110,110,101,108,115,0);
+          let memberu = 2;
+          let module6 = String.fromCharCode(115,115,121,98,0);
+         injurym[`${memberu}`] = memberu;
+         navigationt += "3";
+         module6 += `${navigationt.length}`;
+         injurym[`${injurym.size}`] = injurym.size | injurym.size;
+      connectionQ[`${cornerb}`] = connectionQ.size;
+   if (bootsplashU.length <= 3) {
+       let sans9 = 0.0;
+       let countryH = String.fromCharCode(114,117,101,0);
+         countryH += `${(countryH == String.fromCharCode(118,0) ? parseInt(`${sans9}`) : countryH.length)}`;
+         countryH += `${parseInt(`${sans9}`)}`;
+      bootsplashU.push(emoji8.length | 2);
    }
 
 
@@ -156,7 +175,10 @@ const Drawer = props => {
       </ScrollView>
     </View>
   );
-      defaultlogo1 /= Math.max(basketballmatchdetailbgr.length, 4);
+   if (cornerb != String.fromCharCode(121,0)) {
+      canvasb = `${arrow9.length & shared7.size}`;
+   }
+      bootsplashU.push(1 << (Math.min(2, Math.abs(connectionQ.size))));
 
 };
 
