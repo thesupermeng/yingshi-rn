@@ -1,14 +1,14 @@
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import styles from './style';
+import styles from './mayi_iconarrowrightwhite';
 import { HomeIcon, AwayIcon } from '../../assets';
 import { calculateScore } from '../../utility/utils';
-import { Away, V } from '../../types/liveMatchTypes';
-import { MatchDetailsType } from '../../types/matchTypes';
+import { mayi_ProjectLibjsijniprofiler, V } from '../../types/mayi_search';
+import { mayi_Default } from '../../types/mayi_homeinactive';
 
-interface Props {
+interface mayi_GoogleViews {
   data?: V[]
   dataTotal?: any
-  teamDetails?: Away
+  teamDetails?: mayi_ProjectLibjsijniprofiler
   isHome?: boolean
   title?: string
   sportsType?: number
@@ -21,7 +21,7 @@ const MatchHistory = ({
   isHome = true,
   title = '',
   sportsType = 3,
-}: Props) => {
+}: mayi_GoogleViews) => {
 
   console.log("SPORTS TYPE", sportsType)
 

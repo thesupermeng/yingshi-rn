@@ -3,29 +3,27 @@ import { View, ScrollView, Image } from 'react-native';
 import { ColorSpace } from 'react-native-reanimated';
 import { GoalLogo } from '../../../assets';
 
-//components
 import StorylineTap from '../storylineTab';
 import StorylineTabListItem from '../storylineTabListItem';
 
-//style
-import styles from './style';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import styles from './mayi_iconarrowrightwhite';
+import { mayi_Humidity } from '../../../types/mayi_predictionarrow_langkey';
 
-interface Props {
-  liveRoomUpdate?: MatchUpdatesType
+interface mayi_GoogleViews {
+  liveRoomUpdate?: mayi_Humidity
   isEnabled?: boolean
 }
 
-const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: Props) => {
+const StorylineTapList = ({ liveRoomUpdate, isEnabled=true }: mayi_GoogleViews) => {
   const arrayValue = liveRoomUpdate?.football_match_live?.incidents ?? [];
 
   const dataTesting = { imageName: GoalLogo, textName: '123' };
 
-  // const isHome = true;
+  
   const arrayExcluded = [10, 2, 0];
   const arrayOnlyWatchGoal = [1, 8, 11, 12, 26, 27, 29, 30, 17];
 
-  // console.log('DATAAAA', arrayValue);
+  
   return (
     // <ScrollView>
     <View style={{ flex: 1, marginBottom: 50 }}>

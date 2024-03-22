@@ -1,6 +1,6 @@
-import vars from './vars';
-import Api from '../middleware/api';
-import {Url} from '../middleware/url';
+import vars from './mayi_mbjscommon_register';
+import mayi_Analytics from '../middleware/mayi_plash_basketballtrophy';
+import {Url} from '../middleware/mayi_countdown_videovar';
 // import { Alert, Linking, Platform } from 'react-native';
 // import ReactNativeBlobUtil from 'react-native-blob-util';
 // import {
@@ -11,11 +11,11 @@ import {Url} from '../middleware/url';
 // } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
 // import AppSettingsAction from '@redux/actions/appSettingsAction';
-// import Config from '../global/env';
-// import { AppConfig } from '../global/appConfig';
+// import Config from '../global/mayi_kuaishou_view';
+// import { mayi_VideojsInit } from '../global/mayi_sans_common';
 // import { getPredictionShareTimeStamp } from '../global/asyncStorage';
 // import { createIconSetFromFontello } from 'react-native-vector-icons';
-// import { showToast } from './toast';
+// import { showToast } from './mayi_manager_libflipper';
 
 /**
  ** Format and return date in Humanize format
@@ -336,7 +336,7 @@ export const deepCopyArray = array => {
 
 export const liveRoomName = async matchId => {
   const params = {id: matchId};
-  const res = await Api.call(Url.liveRoomDetail, params, 'GET');
+  const res = await mayi_Analytics.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
       return 'noMatchDetails';
@@ -540,10 +540,10 @@ export const createShareLink = async (path, id) => {
     default:
       break;
   }
-  const response = await Api.call(Url.createShare, params);
+  const response = await mayi_Analytics.call(Url.createShare, params);
   if (response.success) {
     const key = response.data;
-    const shareLink = `${AppConfig.instance.config?.shortUrlDomain}/${key}`;
+    const shareLink = `${mayi_VideojsInit.instance.config?.shortUrlDomain}/${key}`;
     return shareLink;
   } else {
     return '';

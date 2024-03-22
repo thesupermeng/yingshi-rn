@@ -2,17 +2,17 @@ import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
 import InjuryComponent from './injuryComponent';
-import styles from './style';
-import { Home, Away, Injury } from '../../types/liveMatchTypes';
+import styles from './mayi_iconarrowrightwhite';
+import { mayi_awayteamfield, mayi_ProjectLibjsijniprofiler, mayi_LessMore } from '../../types/mayi_search';
 
-interface Props {
-  homeTeam?: Home
-  awayTeam?: Away
-  homePlayerList?: Injury[]
-  awayPlayerList?: Injury[]
+interface mayi_GoogleViews {
+  homeTeam?: mayi_awayteamfield
+  awayTeam?: mayi_ProjectLibjsijniprofiler
+  homePlayerList?: mayi_LessMore[]
+  awayPlayerList?: mayi_LessMore[]
 }
 
-const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: Props) => {
+const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: mayi_GoogleViews) => {
   return (
     <View>
       <View style={styles.titleView}>
@@ -61,7 +61,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"homePlayer" + index} data={item} isHome={true}></InjuryComponent>
+                <InjuryComponent key={"penaltyshootModal" + index} data={item} isHome={true}></InjuryComponent>
               )
             })
           }
@@ -70,7 +70,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"awayPlayer" + index} data={item} isHome={false}></InjuryComponent>
+                <InjuryComponent key={"rankModalBrightness" + index} data={item} isHome={false}></InjuryComponent>
               )
             })
           }

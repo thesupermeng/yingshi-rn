@@ -1,1 +1,1 @@
-export * from './component';
+export * from './mayi_down_libturbomodulejsijni';

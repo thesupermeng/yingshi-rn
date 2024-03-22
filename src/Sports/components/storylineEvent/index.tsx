@@ -4,18 +4,16 @@ import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
 
-//style
-import styles from './style';
-import { MatchUpdatesType } from '../../types/matchUpdatesType';
-// import FastImage from 'react-native-fast-image';
-import FastImage from '../../../components/common/customFastImage';
+import styles from './mayi_iconarrowrightwhite';
+import { mayi_Humidity } from '../../types/mayi_predictionarrow_langkey';
+import FastImage from '../../../components/common/mayi_slider';
 
 
-interface Props {
-  liveRoomUpdate?: MatchUpdatesType
+interface mayi_GoogleViews {
+  liveRoomUpdate?: mayi_Humidity
 }
 
-const StorylineEvent = ({ liveRoomUpdate }: Props) => {
+const StorylineEvent = ({ liveRoomUpdate }: mayi_GoogleViews) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (

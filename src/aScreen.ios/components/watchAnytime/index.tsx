@@ -1,1 +1,1 @@
-export * from './iconGroup';
+export * from './mayi_component';

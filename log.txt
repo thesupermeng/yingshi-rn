@@ -1,0 +1,2854 @@
+开始自动混淆项目代码扫描文件中。。。。。。
+新文件 <-> 现有文件 : Grow.bundle      Llviddspenc.bundle
+新文件 <-> 现有文件 : Grow.bundle      Llviddspenc.bundle
+新文件 <-> 现有文件 : Grow.bundle      Llviddspenc.bundle
+新文件 <-> 现有文件 : Hqdnd.bundle      index.android.bundle
+
+
+混淆项目路径：/Users/supermeng/yingshi-react-native
+新文件 <-> 现有文件 : mayi_LibapminsightbController.h      ATSplashViewController.h
+新文件 <-> 现有文件 : mayi_Textlayoutmanager.h      ATInterstitialRNSDK.h
+新文件 <-> 现有文件 : mayi_GraphicsIconwatch.h      ATRNSDK.h
+新文件 <-> 现有文件 : mayi_Stations.h      ATRewardedVideoRNSDK.h
+新文件 <-> 现有文件 : mayi_UpdatesClub.h      NSDictionary+String.h
+新文件 <-> 现有文件 : mayi_AndroidLibrrc.h      NSJSONSerialization+String.h
+新文件 <-> 现有文件 : mayi_LibrrcEpisode.h      ATBannerRNSDK.h
+新文件 <-> 现有文件 : mayi_LibapminsightbController.h      ATSplashViewController.h
+新文件 <-> 现有文件 : mayi_Textlayoutmanager.h      ATInterstitialRNSDK.h
+新文件 <-> 现有文件 : mayi_GraphicsIconwatch.h      ATRNSDK.h
+新文件 <-> 现有文件 : mayi_Stations.h      ATRewardedVideoRNSDK.h
+新文件 <-> 现有文件 : mayi_UpdatesClub.h      NSDictionary+String.h
+新文件 <-> 现有文件 : mayi_AndroidLibrrc.h      NSJSONSerialization+String.h
+新文件 <-> 现有文件 : mayi_LibrrcEpisode.h      ATBannerRNSDK.h
+新文件 <-> 现有文件 : AppDelegate.h      AppDelegate.h
+新文件 <-> 现有文件 : mayi_NterstitialAlertController.h      myAnimationViewController.h
+新文件 <-> 现有文件 : mayi_SendLibbufferController.h      RNViewController.h
+新文件 <-> 现有文件 : mayi_Resend.h      UMAnalyticsModule.h
+新文件 <-> 现有文件 : mayi_FilePrivilege.h      RNUMConfigure.h
+新文件 <-> 现有文件 : LaunchScreen.storyboard      LaunchScreen.storyboard
+新文件 <-> 现有文件 : customRoot.svg      upload_tab_active.svg
+新文件 <-> 现有文件 : mayi_update.js      react-native.config.js
+新文件 <-> 现有文件 : values-hr.json      values-hr.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_homeloading.tsx      UserCenter.tsx
+新文件 <-> 现有文件 : mayi_green.tsx      ajaxTypes.tsx
+新文件 <-> 现有文件 : values-de-rDE.json      values-de-rDE.json
+新文件 <-> 现有文件 : animationsFastforwardSubtext.svg      play-bodan.svg
+新文件 <-> 现有文件 : App.tsx      App.tsx
+新文件 <-> 现有文件 : mayi_profilepic_react.tsx      Feedback.tsx
+新文件 <-> 现有文件 : mayi_agreement.ts      vodDownloadTypes.ts
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-tl.json      values-tl.json
+新文件 <-> 现有文件 : app.json      app.json
+新文件 <-> 现有文件 : mayi_libfolly_inouttargetred.tsx      screenType.tsx
+新文件 <-> 现有文件 : saveIconfeedbackUnselected.svg      expandHeji.svg
+新文件 <-> 现有文件 : mayi_path.tsx      EventRules.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : iconarrowrightwhiteIconpointscore.svg      upgrade.svg
+新文件 <-> 现有文件 : mayi_basketball_wind.tsx      typeMapping.tsx
+新文件 <-> 现有文件 : values-sr.json      values-sr.json
+新文件 <-> 现有文件 : google-services.json      google-services.json
+新文件 <-> 现有文件 : mayi_incident_custom.tsx      membershipType.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_unlock_placeholder.tsx      AutoRenewService.tsx
+新文件 <-> 现有文件 : values-it.json      values-it.json
+新文件 <-> 现有文件 : mayi_push.tsx      UmengAnalytics.tsx
+新文件 <-> 现有文件 : holderPhoneshareScrollview.gif      largesoundRelease_8.gif
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_analytic_half.tsx      actionTypes.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : largeProfilepic.gif      libcrashsdkFullscreenminBenefit.gif
+新文件 <-> 现有文件 : mayi_video_binddatas.tsx      navigationTypes.tsx
+新文件 <-> 现有文件 : values-km.json      values-km.json
+新文件 <-> 现有文件 : friendsLong_8yMegaphone.gif      downloadingSentry.gif
+新文件 <-> 现有文件 : mayi_iconedit_tail.tsx      chatTypes.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_executor.tsx      UserAgreement.tsx
+新文件 <-> 现有文件 : mayi_init_predictionarrow.tsx      EventAnalytic.tsx
+新文件 <-> 现有文件 : values-v25.json      values-v25.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_iconsaveimage.js      AnalyticsUtil.js
+新文件 <-> 现有文件 : mayi_imagenomoredata_yellowtored.tsx      TermsAcceptedContext.tsx
+新文件 <-> 现有文件 : androidIconqq.gif      reactnativeultimatelistviewUsernameLibavcodec.gif
+新文件 <-> 现有文件 : mayi_gift.js      ysConfig.js
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-my.json      values-my.json
+新文件 <-> 现有文件 : mayi_nalytics_libjsi.tsx      VIP.tsx
+新文件 <-> 现有文件 : libglogPrivate_h8About.gif      commonCountryLibhermes.gif
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_entry_cancel.tsx      XVodTab.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-pa.json      values-pa.json
+新文件 <-> 现有文件 : mayi_star_sigmob.tsx      AdsBannerContext.tsx
+新文件 <-> 现有文件 : soundClock.gif      type_12Footballfield.gif
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-w480dp-port-v13.json      values-w480dp-port-v13.json
+新文件 <-> 现有文件 : mayi_sentry.tsx      vodListVerticalVip.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : sendStore.jpeg      targetPlayBenefit.jpeg
+新文件 <-> 现有文件 : values-ka.json      values-ka.json
+新文件 <-> 现有文件 : mayi_referrer.js      ATReactNativeSDK.js
+新文件 <-> 现有文件 : mayi_const.tsx      DefaultTeamIcon.tsx
+新文件 <-> 现有文件 : mayi_klevin_push.tsx      langkey.tsx
+新文件 <-> 现有文件 : mayi_types_predictionbutton.tsx      WatchAnytime.tsx
+新文件 <-> 现有文件 : values-en.json      values-en.json
+新文件 <-> 现有文件 : matchinactiveMapbuffer.gif      defaultlogoStatsnomoredata.gif
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_mintegral_viewer.js      ATInterstitialRNSDK.js
+新文件 <-> 现有文件 : mayi_plash_basketballtrophy.tsx      api.tsx
+新文件 <-> 现有文件 : teamdetailsbgMacau.gif      recommendationSubin.gif
+新文件 <-> 现有文件 : mayi_iconuser.js      ATRNSDK.js
+新文件 <-> 现有文件 : mayi_iconbackwhite.js      VideoPlayer.js
+新文件 <-> 现有文件 : mayi_libreactperfloggerjni_modal.tsx      favoritePlaylist.tsx
+新文件 <-> 现有文件 : values-pt.json      values-pt.json
+新文件 <-> 现有文件 : elementsLibswscale.gif      albumAttributedstring.gif
+新文件 <-> 现有文件 : mayi_tail.js      ATBannerRNSDK.js
+新文件 <-> 现有文件 : mayi_yellow.js      Controls.js
+新文件 <-> 现有文件 : mayi_shootyesgoal.tsx      vodPlaylist.tsx
+新文件 <-> 现有文件 : mayi_casting_view.tsx      nav.tsx
+新文件 <-> 现有文件 : values-be.json      values-be.json
+新文件 <-> 现有文件 : firebaseLogin.jpg      libruntimeexecutorIconclosewhitewithbg.jpg
+新文件 <-> 现有文件 : mayi_google.js      ATRewardedVideoRNSDK.js
+新文件 <-> 现有文件 : mayi_common_scorepopsound.js      BottomButtons.js
+新文件 <-> 现有文件 : values-v29.json      values-v29.json
+新文件 <-> 现有文件 : mayi_screen_view.tsx      mainNav.tsx
+新文件 <-> 现有文件 : chartTickCollection.gif      shootyesgoalIconuser.gif
+新文件 <-> 现有文件 : mayi_iconsetting.tsx      vipHistoryList.tsx
+新文件 <-> 现有文件 : mayi_NterstitialAlertController.m      myAnimationViewController.m
+新文件 <-> 现有文件 : values-sk.json      values-sk.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_sellmathbackground_roboto.tsx      eventSplash.tsx
+新文件 <-> 现有文件 : basketballplayerplaceholderYellowcirclebgStatic_n.gif      utilsLibapminsightaFullscreenmax.gif
+新文件 <-> 现有文件 : mayi_SendLibbufferController.m      RNViewController.m
+新文件 <-> 现有文件 : mayi_forward_utils.tsx      vipDialog.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : injuryIcontransferclub.jpg      upgradeSharewhite.jpg
+新文件 <-> 现有文件 : values-az.json      values-az.json
+新文件 <-> 现有文件 : mayi_context_statsnomoredata.ts      minivodDownloader.ts
+新文件 <-> 现有文件 : mayi_boot.tsx      vipCard.tsx
+新文件 <-> 现有文件 : values-ml.json      values-ml.json
+新文件 <-> 现有文件 : mayi_predictionarrow.js      SwitchSourcePanel.js
+新文件 <-> 现有文件 : mayi_LibapminsightbController.m      ATSplashViewController.m
+新文件 <-> 现有文件 : downloadingPhotoAbout.gif      newinterstitialGreen.gif
+新文件 <-> 现有文件 : mayi_gift_untick.js      NoRecommend.js
+新文件 <-> 现有文件 : mayi_sports.tsx      vipHistoryCard.tsx
+新文件 <-> 现有文件 : mayi_libglog.ts      vodDownloader.ts
+新文件 <-> 现有文件 : mayi_Textlayoutmanager.m      ATInterstitialRNSDK.m
+新文件 <-> 现有文件 : countryPrediction.gif      iconadslinkNewarchdefaultsYellowtored.gif
+新文件 <-> 现有文件 : mayi_dplus_heji.tsx      zh.tsx
+新文件 <-> 现有文件 : mayi_select_redirect.tsx      vipInviteHistory.tsx
+新文件 <-> 现有文件 : mayi_index_wind.js      RecommendPanel.js
+新文件 <-> 现有文件 : halfWeibo.gif      sportsEmbed.gif
+新文件 <-> 现有文件 : mayi_zhubo_libyoga.tsx      en.tsx
+新文件 <-> 现有文件 : mayi_fast_shirt.tsx      vipBenefit.tsx
+新文件 <-> 现有文件 : mayi_GraphicsIconwatch.m      ATRNSDK.m
+新文件 <-> 现有文件 : mayi_homeicon.js      RecommendCard.js
+新文件 <-> 现有文件 : libtobNbatrophyPlash.gif      tempnodatagifIconarrowrightAbidetect.gif
+新文件 <-> 现有文件 : mayi_plus.tsx      vipDetails.tsx
+新文件 <-> 现有文件 : mayi_Stations.m      ATRewardedVideoRNSDK.m
+新文件 <-> 现有文件 : mayi_iconschedule.tsx      vipMember.tsx
+新文件 <-> 现有文件 : klevinCurrentMounting.gif      nativemoduleIconclosewhitebg.gif
+新文件 <-> 现有文件 : mayi_casting_view.tsx      nav.tsx
+新文件 <-> 现有文件 : mayi_AndroidLibrrc.m      NSJSONSerialization+String.m
+新文件 <-> 现有文件 : mayi_line_string.js      VolumeControl.js
+新文件 <-> 现有文件 : mayi_header.tsx      vipZf.tsx
+新文件 <-> 现有文件 : imagenomoredataRoomMath.wav      lineFloaterFootball.wav
+新文件 <-> 现有文件 : mayi_UpdatesClub.m      NSDictionary+String.m
+新文件 <-> 现有文件 : mayi_yellowanimationlive_player.tsx      Playlist.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_static_iconuser.js      PanAreaVertical.js
+新文件 <-> 现有文件 : mayi_chinasame.tsx      PlaylistDetails.tsx
+新文件 <-> 现有文件 : mayi_LibrrcEpisode.m      ATBannerRNSDK.m
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : release.json      release.json
+新文件 <-> 现有文件 : mayi_textinput.js      BrightnessControl.js
+新文件 <-> 现有文件 : mayi_corner_mbnative.tsx      Rank.tsx
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : mayi_moon.js      PopSlider.js
+新文件 <-> 现有文件 : values-v28.json      values-v28.json
+新文件 <-> 现有文件 : mayi_LibapminsightbController.m      ATSplashViewController.m
+新文件 <-> 现有文件 : mayi_iconcalendar_base.js      ControlTemplate.js
+新文件 <-> 现有文件 : mayi_football_iconclosewhitebg.tsx      Topic.tsx
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : values-bn-rBD.json      values-bn-rBD.json
+新文件 <-> 现有文件 : mayi_liveshare.js      BottomSheet.js
+新文件 <-> 现有文件 : mayi_Textlayoutmanager.m      ATInterstitialRNSDK.m
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_downloader.tsx      resendCountDown.tsx
+新文件 <-> 现有文件 : mayi_eact.js      LiveStatPanel.js
+新文件 <-> 现有文件 : values-ur.json      values-ur.json
+新文件 <-> 现有文件 : mayi_GraphicsIconwatch.m      ATRNSDK.m
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : values-my-rMM.json      values-my-rMM.json
+新文件 <-> 现有文件 : mayi_user.tsx      setUsername.tsx
+新文件 <-> 现有文件 : mayi_mode.js      Share.js
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : mayi_Stations.m      ATRewardedVideoRNSDK.m
+新文件 <-> 现有文件 : values-w360dp-port-v13.json      values-w360dp-port-v13.json
+新文件 <-> 现有文件 : mayi_iconfeedback.js      TopBar.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_light_match.tsx      Otp.tsx
+新文件 <-> 现有文件 : values-w820dp-v13.json      values-w820dp-v13.json
+新文件 <-> 现有文件 : mayi_AndroidLibrrc.m      NSJSONSerialization+String.m
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : mayi_guide.js      BottomBar.js
+新文件 <-> 现有文件 : values-ug.json      values-ug.json
+新文件 <-> 现有文件 : mayi_UpdatesClub.m      NSDictionary+String.m
+新文件 <-> 现有文件 : mayi_awayteamfield.tsx      Home.tsx
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : mayi_weather_team.js      RightPanel.js
+新文件 <-> 现有文件 : debug.json      debug.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-ta.json      values-ta.json
+新文件 <-> 现有文件 : mayi_sans.tsx      LiveStations.tsx
+新文件 <-> 现有文件 : mayi_with_found.js      VideoGuide.js
+新文件 <-> 现有文件 : values-v22.json      values-v22.json
+新文件 <-> 现有文件 : mayi_LibrrcEpisode.m      ATBannerRNSDK.m
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : values-v24.json      values-v24.json
+新文件 <-> 现有文件 : values-zh-rHK.json      values-zh-rHK.json
+新文件 <-> 现有文件 : mayi_iconlogout.js      newsVideoPlayerStyle.js
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : mayi_heji.tsx      Catalog.tsx
+新文件 <-> 现有文件 : main.m      main.m
+新文件 <-> 现有文件 : values-bn.json      values-bn.json
+新文件 <-> 现有文件 : values-fi.json      values-fi.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_predictionbannershared.tsx      unread.tsx
+新文件 <-> 现有文件 : AppDelegate.mm      AppDelegate.mm
+新文件 <-> 现有文件 : mayi_flyer.tsx      Search.tsx
+新文件 <-> 现有文件 : values-land.json      values-land.json
+新文件 <-> 现有文件 : link-assets-manifest.json      link-assets-manifest.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-bo-rCN.json      values-bo-rCN.json
+新文件 <-> 现有文件 : values-is.json      values-is.json
+新文件 <-> 现有文件 : mayi_delegate_libreactnativeblob.tsx      signinupBottomSheet.tsx
+新文件 <-> 现有文件 : mayi_FilePrivilege.m      RNUMConfigure.m
+新文件 <-> 现有文件 : mayi_minimize_buffer.tsx      LiveStationPlay.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-v18.json      values-v18.json
+新文件 <-> 现有文件 : values-xxhdpi-v4.json      values-xxhdpi-v4.json
+新文件 <-> 现有文件 : mayi_banner_mime.js      Loader.js
+新文件 <-> 现有文件 : mayi_Resend.m      UMAnalyticsModule.m
+新文件 <-> 现有文件 : values-sw480dp-v13.json      values-sw480dp-v13.json
+新文件 <-> 现有文件 : mayi_switch_orange.tsx      Play.tsx
+新文件 <-> 现有文件 : values-lt.json      values-lt.json
+新文件 <-> 现有文件 : mayi_prediction_material.tsx      BottomControls.tsx
+新文件 <-> 现有文件 : React-Codegen.podspec.json      React-Codegen.podspec.json
+新文件 <-> 现有文件 : values-ky.json      values-ky.json
+新文件 <-> 现有文件 : mayi_large_playlist.js      newsVideoPlayer.js
+新文件 <-> 现有文件 : values-mr.json      values-mr.json
+新文件 <-> 现有文件 : mayi_abidetect.tsx      MainCollection.tsx
+新文件 <-> 现有文件 : mayi_referrer.js      ATReactNativeSDK.js
+新文件 <-> 现有文件 : values-b+jv+Latn.json      values-b+jv+Latn.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-mai.json      values-mai.json
+新文件 <-> 现有文件 : mayi_middleware.tsx      WebViewPlayer.tsx
+新文件 <-> 现有文件 : mayi_mintegral_viewer.js      ATInterstitialRNSDK.js
+新文件 <-> 现有文件 : mayi_over_dependency.tsx      shortVodCollection.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.tsx      style.tsx
+新文件 <-> 现有文件 : values-uk.json      values-uk.json
+新文件 <-> 现有文件 : values-hu.json      values-hu.json
+新文件 <-> 现有文件 : mayi_iconuser.js      ATRNSDK.js
+新文件 <-> 现有文件 : mayi_libfbjni_libmapbufferjni.tsx      PlaylistCollection.tsx
+新文件 <-> 现有文件 : mayi_room_gifgoalbg.tsx      CustomMatchSubTab.tsx
+新文件 <-> 现有文件 : values-en-rXC.json      values-en-rXC.json
+新文件 <-> 现有文件 : values-pl.json      values-pl.json
+新文件 <-> 现有文件 : mayi_white_runtime.tsx      FootballIconComponent.tsx
+新文件 <-> 现有文件 : mayi_share.tsx      MiddleControls.tsx
+新文件 <-> 现有文件 : values-ru.json      values-ru.json
+新文件 <-> 现有文件 : mayi_comment_link.tsx      VodCollection.tsx
+新文件 <-> 现有文件 : mayi_tail.js      ATBannerRNSDK.js
+新文件 <-> 现有文件 : values-mk.json      values-mk.json
+新文件 <-> 现有文件 : mayi_brightness_minimize_view.tsx      MatchDetailsNav.tsx
+新文件 <-> 现有文件 : mayi_react_libjsi.tsx      AboutUs.tsx
+新文件 <-> 现有文件 : mayi_google.js      ATRewardedVideoRNSDK.js
+新文件 <-> 现有文件 : mayi_matches_dependencies.tsx      TopControls.tsx
+新文件 <-> 现有文件 : values-or.json      values-or.json
+新文件 <-> 现有文件 : values-de.json      values-de.json
+新文件 <-> 现有文件 : mayi_mbbid_scheduler.js      metro.config.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-ru-rRU.json      values-ru-rRU.json
+新文件 <-> 现有文件 : mayi_movies_select.js      babel.config.js
+新文件 <-> 现有文件 : mayi_stats.tsx      App-test.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-hr.json      values-hr.json
+新文件 <-> 现有文件 : mayi_basketballawayteam.tsx      vodPlayer.tsx
+新文件 <-> 现有文件 : values-560dpi-v4.json      values-560dpi-v4.json
+新文件 <-> 现有文件 : mayi_gradlew.tsx      InviteDetails.tsx
+新文件 <-> 现有文件 : membershipLogout.svg      clear_hover.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_position.tsx      RelatedVodSuggestion.tsx
+新文件 <-> 现有文件 : values-sl.json      values-sl.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : const_ixBangGroup.svg      search.svg
+新文件 <-> 现有文件 : values-de-rDE.json      values-de-rDE.json
+新文件 <-> 现有文件 : mayi_native.tsx      VodDetails.tsx
+新文件 <-> 现有文件 : values-tr.json      values-tr.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_filled.tsx      Invite.tsx
+新文件 <-> 现有文件 : pressureInouttargetred.svg      light_mode.svg
+新文件 <-> 现有文件 : values-en-rGB.json      values-en-rGB.json
+新文件 <-> 现有文件 : mayi_mini_casting.tsx      vodDescriptionBottomSheet.tsx
+新文件 <-> 现有文件 : values-tl.json      values-tl.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : actionHolderIconclosewhitewithbg.svg      sports.svg
+新文件 <-> 现有文件 : values-sw600dp-v13.json      values-sw600dp-v13.json
+新文件 <-> 现有文件 : mayi_mail.tsx      Profile.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : copy_ugDetailsTwitter.svg      ticked.svg
+新文件 <-> 现有文件 : values-sr.json      values-sr.json
+新文件 <-> 现有文件 : values-hy.json      values-hy.json
+新文件 <-> 现有文件 : mayi_layout.tsx      History.tsx
+新文件 <-> 现有文件 : mayi_baseline_rncore.tsx      VideoControlsOverlay.tsx
+新文件 <-> 现有文件 : values-it.json      values-it.json
+新文件 <-> 现有文件 : values-zh.json      values-zh.json
+新文件 <-> 现有文件 : collectionGraphicsLibnms.svg      unlockScreen.svg
+新文件 <-> 现有文件 : mayi_pressure_register.tsx      AdVideoImage.tsx
+新文件 <-> 现有文件 : mayi_stats_iconviewergif.tsx      Configure.tsx
+新文件 <-> 现有文件 : values-km.json      values-km.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : twitterIconfeedbackLibapminsighta.svg      playlist_tab_active.svg
+新文件 <-> 现有文件 : values-ja.json      values-ja.json
+新文件 <-> 现有文件 : mayi_weather_icondefaultthumbnail.tsx      DescriptionBar.tsx
+新文件 <-> 现有文件 : values-v25.json      values-v25.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-large-v4.json      values-large-v4.json
+新文件 <-> 现有文件 : values-my.json      values-my.json
+新文件 <-> 现有文件 : episodeModuleEmbed.svg      vip-icon.svg
+新文件 <-> 现有文件 : mayi_imagemanager_product_button.tsx      RedirectButton.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-zh-rCN.json      values-zh-rCN.json
+新文件 <-> 现有文件 : mayi_unimplementedview_download.tsx      Privacy.tsx
+新文件 <-> 现有文件 : clubExampleimageWeibo.svg      eighteen-plus-icon.svg
+新文件 <-> 现有文件 : mayi_service.tsx      shortVod.tsx
+新文件 <-> 现有文件 : values-pa.json      values-pa.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-ms.json      values-ms.json
+新文件 <-> 现有文件 : gradlewPredictionarrow.svg      more_arrow_yellow.svg
+新文件 <-> 现有文件 : mayi_homeloading.tsx      UserCenter.tsx
+新文件 <-> 现有文件 : values-w480dp-port-v13.json      values-w480dp-port-v13.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-nl.json      values-nl.json
+新文件 <-> 现有文件 : values-ka.json      values-ka.json
+新文件 <-> 现有文件 : mayi_profilepic_react.tsx      Feedback.tsx
+新文件 <-> 现有文件 : huaweiSave.svg      fullScreen.svg
+新文件 <-> 现有文件 : values-kk.json      values-kk.json
+新文件 <-> 现有文件 : mayi_material_screen.tsx      miniVodList.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.tsx      style.tsx
+新文件 <-> 现有文件 : values-en.json      values-en.json
+新文件 <-> 现有文件 : mayi_path.tsx      EventRules.tsx
+新文件 <-> 现有文件 : values-pt-rBR.json      values-pt-rBR.json
+新文件 <-> 现有文件 : floaterUpgrade.svg      gpay.svg
+新文件 <-> 现有文件 : values-pt.json      values-pt.json
+新文件 <-> 现有文件 : values-v19.json      values-v19.json
+新文件 <-> 现有文件 : mayi_footballfield.tsx      shortVodPlayer.tsx
+新文件 <-> 现有文件 : mayi_executor.tsx      UserAgreement.tsx
+新文件 <-> 现有文件 : values-be.json      values-be.json
+新文件 <-> 现有文件 : textlayoutmanagerInouttargetred.svg      add.svg
+新文件 <-> 现有文件 : values-h320dp-port-v13.json      values-h320dp-port-v13.json
+新文件 <-> 现有文件 : values-v29.json      values-v29.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-w600dp-land-v13.json      values-w600dp-land-v13.json
+新文件 <-> 现有文件 : mayi_nalytics_libjsi.tsx      VIP.tsx
+新文件 <-> 现有文件 : values-sk.json      values-sk.json
+新文件 <-> 现有文件 : iconcalendarBaseline.svg      apple_pay.svg
+新文件 <-> 现有文件 : values-sw320dp-v13.json      values-sw320dp-v13.json
+新文件 <-> 现有文件 : mayi_reactnativejs.tsx      shortAds.tsx
+新文件 <-> 现有文件 : mayi_disconnected.tsx      allComment.tsx
+新文件 <-> 现有文件 : values-az.json      values-az.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-v23.json      values-v23.json
+新文件 <-> 现有文件 : greytickDropdown.svg      gmail.svg
+新文件 <-> 现有文件 : values-ml.json      values-ml.json
+新文件 <-> 现有文件 : mayi_iconnewsshare_attributedstring.tsx      uploadHistory.tsx
+新文件 <-> 现有文件 : mayi_ewarded_button.tsx      HejiButton.tsx
+新文件 <-> 现有文件 : values-night-v29.json      values-night-v29.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : greenPackage_5dAction.svg      VipEntry.svg
+新文件 <-> 现有文件 : values-v22.json      values-v22.json
+新文件 <-> 现有文件 : mayi_predictionactive_internet.tsx      VideoThumbnail.tsx
+新文件 <-> 现有文件 : mayi_gpay_libreactnativeblob.tsx      uploadVideo.tsx
+新文件 <-> 现有文件 : values-da.json      values-da.json
+新文件 <-> 现有文件 : entryBackward.svg      tick.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-zh-rHK.json      values-zh-rHK.json
+新文件 <-> 现有文件 : mayi_uimanager_view.tsx      uploadVideoPreview.tsx
+新文件 <-> 现有文件 : libtobPromotion.svg      tick2.svg
+新文件 <-> 现有文件 : values-af.json      values-af.json
+新文件 <-> 现有文件 : mayi_static_control.tsx      videoWithControls.tsx
+新文件 <-> 现有文件 : mayi_types_predictionbutton.tsx      WatchAnytime.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-bn.json      values-bn.json
+新文件 <-> 现有文件 : eabafadfadddbafeddddeeefeaafEntryArrow.svg      tick1.svg
+新文件 <-> 现有文件 : values-sw.json      values-sw.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_small_guide.tsx      CollectionBottomSheet.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : homeiconActivity.svg      videoShare.svg
+新文件 <-> 现有文件 : values-lv.json      values-lv.json
+新文件 <-> 现有文件 : values-land.json      values-land.json
+新文件 <-> 现有文件 : mayi_math_libfbjni.tsx      commentBox.tsx
+新文件 <-> 现有文件 : values-h360dp-land-v13.json      values-h360dp-land-v13.json
+新文件 <-> 现有文件 : bootLibapminsightbMembership.jpg      bodan3.jpg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-is.json      values-is.json
+新文件 <-> 现有文件 : mayi_store.tsx      commentCard.tsx
+新文件 <-> 现有文件 : values-zh-rTW.json      values-zh-rTW.json
+新文件 <-> 现有文件 : mayi_copy_reminder.tsx      RecommendationList.tsx
+新文件 <-> 现有文件 : values-v18.json      values-v18.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : telegramAjax.svg      weibo.svg
+新文件 <-> 现有文件 : values-id.json      values-id.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-lt.json      values-lt.json
+新文件 <-> 现有文件 : mayi_libreactperfloggerjni_modal.tsx      favoritePlaylist.tsx
+新文件 <-> 现有文件 : mayi_backward.tsx      SearchResultList.tsx
+新文件 <-> 现有文件 : values-xhdpi-v4.json      values-xhdpi-v4.json
+新文件 <-> 现有文件 : values-mr.json      values-mr.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : cornerDownloading.svg      upload_tab.svg
+新文件 <-> 现有文件 : values-b+jv+Latn.json      values-b+jv+Latn.json
+新文件 <-> 现有文件 : values-uz.json      values-uz.json
+新文件 <-> 现有文件 : mayi_embed.tsx      RecommendationHome.tsx
+新文件 <-> 现有文件 : mayi_shootyesgoal.tsx      vodPlaylist.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.tsx      style.tsx
+新文件 <-> 现有文件 : baiduHandler.svg      blacklist.svg
+新文件 <-> 现有文件 : values-as.json      values-as.json
+新文件 <-> 现有文件 : mayi_iconsetting.tsx      vipHistoryList.tsx
+新文件 <-> 现有文件 : values-hu.json      values-hu.json
+新文件 <-> 现有文件 : mayi_save.tsx      screenContainer.tsx
+新文件 <-> 现有文件 : values-te.json      values-te.json
+新文件 <-> 现有文件 : anytimeTextinput.svg      vod_detail.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-night-v8.json      values-night-v8.json
+新文件 <-> 现有文件 : mayi_sports.tsx      vipHistoryCard.tsx
+新文件 <-> 现有文件 : values-en-rXC.json      values-en-rXC.json
+新文件 <-> 现有文件 : mbjscommonStations.svg      episodes.svg
+新文件 <-> 现有文件 : mayi_left.tsx      CarouselPagination.tsx
+新文件 <-> 现有文件 : mayi_select_redirect.tsx      vipInviteHistory.tsx
+新文件 <-> 现有文件 : values-cs.json      values-cs.json
+新文件 <-> 现有文件 : values-mk.json      values-mk.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : titleSheet.svg      logoLight.svg
+新文件 <-> 现有文件 : mayi_matches_libapminsighta.tsx      CatagoryHome.tsx
+新文件 <-> 现有文件 : values-v16.json      values-v16.json
+新文件 <-> 现有文件 : values-or.json      values-or.json
+新文件 <-> 现有文件 : mayi_plus.tsx      vipDetails.tsx
+新文件 <-> 现有文件 : mayi_iconarrowright_feedback.tsx      bannerContainer.tsx
+新文件 <-> 现有文件 : values-lo.json      values-lo.json
+新文件 <-> 现有文件 : imagenomoredataMiddleware.svg      progressGuide.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_thumbnail_country.tsx      bingSearchContainer.tsx
+新文件 <-> 现有文件 : values-ldltr-v21.json      values-ldltr-v21.json
+新文件 <-> 现有文件 : imagesIconwechat.svg      ying_ping_logo.svg
+新文件 <-> 现有文件 : values-560dpi-v4.json      values-560dpi-v4.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-en-rCA.json      values-en-rCA.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : holderConfirmation.svg      download_btn.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_grey_math.tsx      inviteCard.tsx
+新文件 <-> 现有文件 : values-sl.json      values-sl.json
+新文件 <-> 现有文件 : values-vi.json      values-vi.json
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : const_9eLeakcheckerPredictiondefault.svg      back_arrow.svg
+新文件 <-> 现有文件 : mayi_embed_header.tsx      inviteHeader.tsx
+新文件 <-> 现有文件 : values-fa.json      values-fa.json
+新文件 <-> 现有文件 : values-tr.json      values-tr.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : libtobPrivatechatbg.svg      vip-icon-inactive.svg
+新文件 <-> 现有文件 : mayi_iconpointscore_whitevideolive.tsx      inviteStep.tsx
+新文件 <-> 现有文件 : mayi_full_player.tsx      Chart.tsx
+新文件 <-> 现有文件 : values-b+sr+Latn.json      values-b+sr+Latn.json
+新文件 <-> 现有文件 : values-en-rGB.json      values-en-rGB.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_goal_templateprocessor.tsx      CanvasIncident.tsx
+新文件 <-> 现有文件 : values-sw600dp-v13.json      values-sw600dp-v13.json
+新文件 <-> 现有文件 : twitterRewardvideoGraph.gif      feedback_success.gif
+新文件 <-> 现有文件 : mayi_slider.tsx      customFastImage.tsx
+新文件 <-> 现有文件 : values-mi.json      values-mi.json
+新文件 <-> 现有文件 : mayi_hover.tsx      TopStats.tsx
+新文件 <-> 现有文件 : trashMinivodIconsetting.svg      clear.svg
+新文件 <-> 现有文件 : mayi_backicon_penalty.tsx      noConnection.tsx
+新文件 <-> 现有文件 : values-hy.json      values-hy.json
+新文件 <-> 现有文件 : values-en-rIN.json      values-en-rIN.json
+新文件 <-> 现有文件 : sendIcondefaultthumbnail.svg      pyq.svg
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : values-v17.json      values-v17.json
+新文件 <-> 现有文件 : values-zh.json      values-zh.json
+新文件 <-> 现有文件 : mayi_chatroombackground.tsx      SideStats.tsx
+新文件 <-> 现有文件 : mayi_unread.tsx      emptyList.tsx
+新文件 <-> 现有文件 : sharedImageReactnativeratings.gif      videoBufferLoading.gif
+新文件 <-> 现有文件 : values-ja.json      values-ja.json
+新文件 <-> 现有文件 : mayi_vipsport.tsx      MiddleStats.tsx
+新文件 <-> 现有文件 : mayi_libyoga.tsx      splashCard.tsx
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : values-nb.json      values-nb.json
+新文件 <-> 现有文件 : values-large-v4.json      values-large-v4.json
+新文件 <-> 现有文件 : mayi_pressure_footballfiledlayout.tsx      vodCard.tsx
+新文件 <-> 现有文件 : values-h740dp-v13.json      values-h740dp-v13.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : iconarrowrightorangeForeground.svg      playlist_tab.svg
+新文件 <-> 现有文件 : mayi_basketballicon.tsx      AreaChart.tsx
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : values-ar.json      values-ar.json
+新文件 <-> 现有文件 : values-zh-rCN.json      values-zh-rCN.json
+新文件 <-> 现有文件 : bgvipsportPoint.svg      fastforward.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.tsx      style.tsx
+新文件 <-> 现有文件 : values-en-rAU.json      values-en-rAU.json
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : mayi_background_imagenetworkerr.tsx      vodWithDescriptionList.tsx
+新文件 <-> 现有文件 : values-ms.json      values-ms.json
+新文件 <-> 现有文件 : executorHomeinactive.svg      empty.svg
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_over_policy.tsx      vodEpisodeSelection.tsx
+新文件 <-> 现有文件 : values-nl.json      values-nl.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : downloadNetworkPlaceholder.svg      vip-arrow.svg
+新文件 <-> 现有文件 : values-ldrtl-v17.json      values-ldrtl-v17.json
+新文件 <-> 现有文件 : mayi_untick.tsx      vodDownloadSelection.tsx
+新文件 <-> 现有文件 : tempWeatherIconuser.svg      sortDesc.svg
+新文件 <-> 现有文件 : values-kk.json      values-kk.json
+新文件 <-> 现有文件 : mayi_libbuffer.tsx      hook.tsx
+新文件 <-> 现有文件 : awayteamfieldFormNewinterstitial.svg      logo_no_connection.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_slider_popup.tsx      vodTopicFilter.tsx
+新文件 <-> 现有文件 : values-v21.json      values-v21.json
+新文件 <-> 现有文件 : values-pt-rBR.json      values-pt-rBR.json
+新文件 <-> 现有文件 : basketballtrophyNotificationfillemptyKick.svg      arrow_down_yellow.svg
+新文件 <-> 现有文件 : values-pt-rPT.json      values-pt-rPT.json
+新文件 <-> 现有文件 : values-v19.json      values-v19.json
+新文件 <-> 现有文件 : mayi_down_libturbomodulejsijni.tsx      component.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-h320dp-port-v13.json      values-h320dp-port-v13.json
+新文件 <-> 现有文件 : imagenomoredataFile.svg      profile_tab_active.svg
+新文件 <-> 现有文件 : mayi_package.tsx      vodListVertical.tsx
+新文件 <-> 现有文件 : values-w600dp-land-v13.json      values-w600dp-land-v13.json
+新文件 <-> 现有文件 : textPressure.svg      fastforwardProgress.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_iconpointscore.tsx      vodSportsCard.tsx
+新文件 <-> 现有文件 : values-h480dp-land-v13.json      values-h480dp-land-v13.json
+新文件 <-> 现有文件 : values-sw320dp-v13.json      values-sw320dp-v13.json
+新文件 <-> 现有文件 : mbsplashDescription_v.svg      settings.svg
+新文件 <-> 现有文件 : mayi_delegate_libreactnativeblob.tsx      signinupBottomSheet.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-zh-rMO.json      values-zh-rMO.json
+新文件 <-> 现有文件 : mayi_libavutil_progress.tsx      vodDescription.tsx
+新文件 <-> 现有文件 : values-v23.json      values-v23.json
+新文件 <-> 现有文件 : mayi_sheet_mbnative.tsx      BottomControlsMin.tsx
+新文件 <-> 现有文件 : pathWeiboVolume.svg      sortAsc.svg
+新文件 <-> 现有文件 : values-es.json      values-es.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_brightness_form.tsx      favoriteVodCard.tsx
+新文件 <-> 现有文件 : libbufferLayoutBase.svg      screenCast.svg
+新文件 <-> 现有文件 : values-port.json      values-port.json
+新文件 <-> 现有文件 : mayi_prediction_material.tsx      BottomControls.tsx
+新文件 <-> 现有文件 : mayi_basketballmatchdetailbg.tsx      vodLiveStationListVertical.tsx
+新文件 <-> 现有文件 : containerZhubo.svg      sina.svg
+新文件 <-> 现有文件 : values-night-v29.json      values-night-v29.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-my-rZG.json      values-my-rZG.json
+新文件 <-> 现有文件 : gifgoalbgSubtext.svg      mail.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-sv.json      values-sv.json
+新文件 <-> 现有文件 : mayi_other.tsx      vodLiveStationList.tsx
+新文件 <-> 现有文件 : values-da.json      values-da.json
+新文件 <-> 现有文件 : mayi_smallorangeman.tsx      vodPlayerMin.tsx
+新文件 <-> 现有文件 : mayi_pressure_info.tsx      liveVideoPlayer.tsx
+新文件 <-> 现有文件 : bodanPressure.svg      mode.svg
+新文件 <-> 现有文件 : mayi_base.tsx      MiddleControlsMin.tsx
+新文件 <-> 现有文件 : values-th.json      values-th.json
+新文件 <-> 现有文件 : values-af.json      values-af.json
+新文件 <-> 现有文件 : mayi_strings_nativeex.tsx      vodHistoryList.tsx
+新文件 <-> 现有文件 : greenBlacklistSave.svg      download.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-fr.json      values-fr.json
+新文件 <-> 现有文件 : values-sw.json      values-sw.json
+新文件 <-> 现有文件 : mayi_middleware.tsx      WebViewPlayer.tsx
+新文件 <-> 现有文件 : nterstitialCorner.svg      profile_tab.svg
+新文件 <-> 现有文件 : mayi_mbridge_football.tsx      vodHistoryCard.tsx
+新文件 <-> 现有文件 : values-ja-rJP.json      values-ja-rJP.json
+新文件 <-> 现有文件 : values-lv.json      values-lv.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_hash_heji.tsx      videoWithControlsMin.tsx
+新文件 <-> 现有文件 : mayi_yellowscoreball_mbridge.tsx      vodWithDescriptionListRank.tsx
+新文件 <-> 现有文件 : values-h360dp-land-v13.json      values-h360dp-land-v13.json
+新文件 <-> 现有文件 : libswresampleSuggestion.svg      heji.svg
+新文件 <-> 现有文件 : values-bs.json      values-bs.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-zh-rTW.json      values-zh-rTW.json
+新文件 <-> 现有文件 : app.svg      app.svg
+新文件 <-> 现有文件 : values-ne.json      values-ne.json
+新文件 <-> 现有文件 : mayi_control.tsx      vodImageCard.tsx
+新文件 <-> 现有文件 : mayi_libavfilter.tsx      VideoControlsOverlayMin.tsx
+新文件 <-> 现有文件 : values-id.json      values-id.json
+新文件 <-> 现有文件 : values-b+es+419.json      values-b+es+419.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_thumbnail_smallbrightness.tsx      vodSportsList.tsx
+新文件 <-> 现有文件 : iconarrowrightorangeReminderPosition.svg      Volume.svg
+新文件 <-> 现有文件 : mayi_share.tsx      MiddleControls.tsx
+新文件 <-> 现有文件 : values-xhdpi-v4.json      values-xhdpi-v4.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : downLibreactIconpipexpand.svg      moreMovies.svg
+新文件 <-> 现有文件 : values-bn-rIN.json      values-bn-rIN.json
+新文件 <-> 现有文件 : values-in.json      values-in.json
+新文件 <-> 现有文件 : mayi_issub_button.tsx      backButton.tsx
+新文件 <-> 现有文件 : mayi_service.tsx      shortVod.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : homeinactiveActionsFavicon.jpeg      bodan2.jpeg
+新文件 <-> 现有文件 : values-uz.json      values-uz.json
+新文件 <-> 现有文件 : values-hdpi-v4.json      values-hdpi-v4.json
+新文件 <-> 现有文件 : mayi_sheet_cornershoot_button.tsx      favoritePlaylistButton.tsx
+新文件 <-> 现有文件 : mayi_matches_dependencies.tsx      TopControls.tsx
+新文件 <-> 现有文件 : values-as.json      values-as.json
+新文件 <-> 现有文件 : notificationfillemptyUntick.svg      checkbox_unselected.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_with_defaultlogo_button.tsx      bingSearchButton.tsx
+新文件 <-> 现有文件 : values-watch-v21.json      values-watch-v21.json
+新文件 <-> 现有文件 : mayi_material_screen.tsx      miniVodList.tsx
+新文件 <-> 现有文件 : mbsplashCombineIcontransferclub.svg      minimizeScreen.svg
+新文件 <-> 现有文件 : values-sq.json      values-sq.json
+新文件 <-> 现有文件 : mayi_imagenetworkerr_pangle.tsx      countdownIndicator.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : roomGreytickFootballfield.svg      downloadPause_yellow.svg
+新文件 <-> 现有文件 : mayi_footballfield.tsx      shortVodPlayer.tsx
+新文件 <-> 现有文件 : values-kn.json      values-kn.json
+新文件 <-> 现有文件 : mayi_matchinactive_button.tsx      showMoreVodButton.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : reddownarrowCorner.svg      dark_mode.svg
+新文件 <-> 现有文件 : mayi_basketballawayteam.tsx      vodPlayer.tsx
+新文件 <-> 现有文件 : privatechatbgRewindStep.svg      arrow_up_grey.svg
+新文件 <-> 现有文件 : mayi_boot_button.tsx      favoriteVodButton.tsx
+新文件 <-> 现有文件 : values-iw.json      values-iw.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : annerContext.svg      lockScreen.svg
+新文件 <-> 现有文件 : mayi_baseline_rncore.tsx      VideoControlsOverlay.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-b+my+Qaag.json      values-b+my+Qaag.json
+新文件 <-> 现有文件 : dropdownTail.svg      defaultVideoThumbnail.svg
+新文件 <-> 现有文件 : mayi_push_bodan_button.tsx      showMoreButton.tsx
+新文件 <-> 现有文件 : mayi_reactnativejs.tsx      shortAds.tsx
+新文件 <-> 现有文件 : release.json      release.json
+新文件 <-> 现有文件 : popupBasketball.svg      download_icon.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_predictionactive_internet.tsx      VideoThumbnail.tsx
+新文件 <-> 现有文件 : values-fr-rCA.json      values-fr-rCA.json
+新文件 <-> 现有文件 : values-te.json      values-te.json
+新文件 <-> 现有文件 : positionIcondefaultthumbnailUtils.svg      down_arrow.svg
+新文件 <-> 现有文件 : values-et.json      values-et.json
+新文件 <-> 现有文件 : mayi_score.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : values-v26.json      values-v26.json
+新文件 <-> 现有文件 : values-night-v8.json      values-night-v8.json
+新文件 <-> 现有文件 : mayi_static_control.tsx      videoWithControls.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : downloaderLibavdevice.svg      info.svg
+新文件 <-> 现有文件 : values-zu.json      values-zu.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-cs.json      values-cs.json
+新文件 <-> 现有文件 : mayi_rewind_about.tsx      countryPhoneList.tsx
+新文件 <-> 现有文件 : textlayoutmanagerInouttargetred.svg      add.svg
+新文件 <-> 现有文件 : mayi_small_guide.tsx      CollectionBottomSheet.tsx
+新文件 <-> 现有文件 : values-es-rUS.json      values-es-rUS.json
+新文件 <-> 现有文件 : values-v16.json      values-v16.json
+新文件 <-> 现有文件 : alertClassesProfileactive.svg      video_tab.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_found.tsx      readAgreementPrivacyPolicy.tsx
+新文件 <-> 现有文件 : values-he.json      values-he.json
+新文件 <-> 现有文件 : mayi_copy_reminder.tsx      RecommendationList.tsx
+新文件 <-> 现有文件 : libturbomodulejsijniProject.svg      home_tab_active.svg
+新文件 <-> 现有文件 : mayi_filter_iconarrowleft.tsx      downloadEpisodeDetailCard.tsx
+新文件 <-> 现有文件 : values-lo.json      values-lo.json
+新文件 <-> 现有文件 : values-v27.json      values-v27.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_smallbrightness_libimagepipeline.tsx      downloadVodCard.tsx
+新文件 <-> 现有文件 : arrowReminder.svg      video_tab_active.svg
+新文件 <-> 现有文件 : mayi_backward.tsx      SearchResultList.tsx
+新文件 <-> 现有文件 : values-ldltr-v21.json      values-ldltr-v21.json
+新文件 <-> 现有文件 : friendsFieldZoom.svg      close.svg
+新文件 <-> 现有文件 : values-gl.json      values-gl.json
+新文件 <-> 现有文件 : mayi_internet.tsx      yingPingContainer.tsx
+新文件 <-> 现有文件 : values-en-rCA.json      values-en-rCA.json
+新文件 <-> 现有文件 : mayi_inouttargetred_ticked.tsx      selectDownloadComponent.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-vi.json      values-vi.json
+新文件 <-> 现有文件 : yellowcirclebgEabafadfadddbafeddddeeefeaaf.svg      loading_img.svg
+新文件 <-> 现有文件 : mayi_embed.tsx      RecommendationHome.tsx
+新文件 <-> 现有文件 : values-v31.json      values-v31.json
+新文件 <-> 现有文件 : mayi_fullscreenmax_defaultprofilepic.js      Snow.js
+新文件 <-> 现有文件 : zhuboWhiteActions.svg      download_vod.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_penaltyshootnogoal.tsx      vipPrivilegeFloatingIndicator.tsx
+新文件 <-> 现有文件 : values-eu.json      values-eu.json
+新文件 <-> 现有文件 : mayi_save.tsx      screenContainer.tsx
+新文件 <-> 现有文件 : values-fa.json      values-fa.json
+新文件 <-> 现有文件 : langGoogle.svg      nextEpisode.svg
+新文件 <-> 现有文件 : values-b+sr+Latn.json      values-b+sr+Latn.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_holder.tsx      adultModeCountdownIndicator.tsx
+新文件 <-> 现有文件 : values.json      values.json
+新文件 <-> 现有文件 : values-mi.json      values-mi.json
+新文件 <-> 现有文件 : mayi_left.tsx      CarouselPagination.tsx
+新文件 <-> 现有文件 : footballStar.svg      history_hover.svg
+新文件 <-> 现有文件 : mayi_clock.tsx      vipRegisterBar.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-ko.json      values-ko.json
+新文件 <-> 现有文件 : mayi_matches_libapminsighta.tsx      CatagoryHome.tsx
+新文件 <-> 现有文件 : modelsIndex.svg      refresh.svg
+新文件 <-> 现有文件 : values-en-rIN.json      values-en-rIN.json
+新文件 <-> 现有文件 : mayi_club.tsx      adultModeSwitch.tsx
+新文件 <-> 现有文件 : values-v17.json      values-v17.json
+新文件 <-> 现有文件 : encryptDownModity.svg      checkbox_selected.svg
+新文件 <-> 现有文件 : values-h550dp-port-v13.json      values-h550dp-port-v13.json
+新文件 <-> 现有文件 : mayi_iconclosewhitewithbg.js      SnowScreen.js
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-nb.json      values-nb.json
+新文件 <-> 现有文件 : values-watch-v20.json      values-watch-v20.json
+新文件 <-> 现有文件 : mayi_backicon_play.tsx      eighteenPlusControls.tsx
+新文件 <-> 现有文件 : fullOver.svg      rewindProgress.svg
+新文件 <-> 现有文件 : mayi_iconqq.js      styles.js
+新文件 <-> 现有文件 : values-mn.json      values-mn.json
+新文件 <-> 现有文件 : mayi_thumbnail_country.tsx      bingSearchContainer.tsx
+新文件 <-> 现有文件 : mayi_match.tsx      PanHandler.tsx
+新文件 <-> 现有文件 : values-h740dp-v13.json      values-h740dp-v13.json
+新文件 <-> 现有文件 : mayi_renew_club.js      Snowflake.js
+新文件 <-> 现有文件 : values-ca.json      values-ca.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-ar.json      values-ar.json
+新文件 <-> 现有文件 : mayi_uimanager.tsx      ProgressGestureControl.tsx
+新文件 <-> 现有文件 : values-en-rAU.json      values-en-rAU.json
+新文件 <-> 现有文件 : videobufferloadingPathLangkey.svg      bing.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-ldrtl-v17.json      values-ldrtl-v17.json
+新文件 <-> 现有文件 : values-si.json      values-si.json
+新文件 <-> 现有文件 : heartAnytimeOverlay.svg      not_found.svg
+新文件 <-> 现有文件 : mayi_grey_math.tsx      inviteCard.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-v21.json      values-v21.json
+新文件 <-> 现有文件 : values-hi.json      values-hi.json
+新文件 <-> 现有文件 : telegramAjax.svg      weibo.svg
+新文件 <-> 现有文件 : values-pt-rPT.json      values-pt-rPT.json
+新文件 <-> 现有文件 : mayi_save_icontransferclub.tsx      vodCombinedGesture.tsx
+新文件 <-> 现有文件 : mayi_embed_header.tsx      inviteHeader.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-tw.json      values-tw.json
+新文件 <-> 现有文件 : values-h480dp-land-v13.json      values-h480dp-land-v13.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : helperBodan.svg      fb.svg
+新文件 <-> 现有文件 : values-sw360dp-v13.json      values-sw360dp-v13.json
+新文件 <-> 现有文件 : mayi_anythink_router.tsx      PlayFullScreenGesture.tsx
+新文件 <-> 现有文件 : mayi_iconpointscore_whitevideolive.tsx      inviteStep.tsx
+新文件 <-> 现有文件 : values-zh-rMO.json      values-zh-rMO.json
+新文件 <-> 现有文件 : handlerHeji.svg      telegram.svg
+新文件 <-> 现有文件 : values-bg.json      values-bg.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-es.json      values-es.json
+新文件 <-> 现有文件 : mayi_slider.tsx      customFastImage.tsx
+新文件 <-> 现有文件 : mayi_libfb_tempnodata.tsx      BrightnessGestureControl.tsx
+新文件 <-> 现有文件 : values-port.json      values-port.json
+新文件 <-> 现有文件 : bridgePredictiondefaultIconuser.svg      double-arrow.svg
+新文件 <-> 现有文件 : values-w320dp-land-v13.json      values-w320dp-land-v13.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-my-rZG.json      values-my-rZG.json
+新文件 <-> 现有文件 : predictionbannersharedIconsaveimage.svg      copy.svg
+新文件 <-> 现有文件 : mayi_rewardvideo.tsx      BrightnessVolumeSlider.tsx
+新文件 <-> 现有文件 : values-ro.json      values-ro.json
+新文件 <-> 现有文件 : mayi_backicon_penalty.tsx      noConnection.tsx
+新文件 <-> 现有文件 : values-sv.json      values-sv.json
+新文件 <-> 现有文件 : halfLibavformat.svg      wechat.svg
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_unread.tsx      emptyList.tsx
+新文件 <-> 现有文件 : values-th.json      values-th.json
+新文件 <-> 现有文件 : mayi_pagination_scrollview.tsx      GesturesGuide.tsx
+新文件 <-> 现有文件 : mbbidComponent.svg      whatsapp.svg
+新文件 <-> 现有文件 : values-el.json      values-el.json
+新文件 <-> 现有文件 : values-fr.json      values-fr.json
+新文件 <-> 现有文件 : mayi_pressure_footballfiledlayout.tsx      vodCard.tsx
+新文件 <-> 现有文件 : mayi_recommendation_gemfile.tsx      VolumeGestureControl.tsx
+新文件 <-> 现有文件 : sideHashCornerkick.svg      profile-icon.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-ja-rJP.json      values-ja-rJP.json
+新文件 <-> 现有文件 : values-gu.json      values-gu.json
+新文件 <-> 现有文件 : mayi_background_imagenetworkerr.tsx      vodWithDescriptionList.tsx
+新文件 <-> 现有文件 : values-xlarge-v4.json      values-xlarge-v4.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-bs.json      values-bs.json
+新文件 <-> 现有文件 : mayi_over_policy.tsx      vodEpisodeSelection.tsx
+新文件 <-> 现有文件 : values-h720dp-v13.json      values-h720dp-v13.json
+新文件 <-> 现有文件 : mayi_transfer_libtob.tsx      bottomSheet.tsx
+新文件 <-> 现有文件 : appsDetailsPrivilege.svg      down_arrow_grey.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-am.json      values-am.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : values-ne.json      values-ne.json
+新文件 <-> 现有文件 : reactnativeratingsHomeloading.svg      favorite.svg
+新文件 <-> 现有文件 : mayi_slider_popup.tsx      vodTopicFilter.tsx
+新文件 <-> 现有文件 : values-small-v4.json      values-small-v4.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_bang_temp.tsx      vipLoginAlertModal.tsx
+新文件 <-> 现有文件 : values-b+es+419.json      values-b+es+419.json
+新文件 <-> 现有文件 : uploadBridge.svg      download_pause_mini.svg
+新文件 <-> 现有文件 : values-bn-rIN.json      values-bn-rIN.json
+新文件 <-> 现有文件 : mayi_subs.tsx      downloadVodSelectionModal.tsx
+新文件 <-> 现有文件 : mayi_package.tsx      vodListVertical.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-in.json      values-in.json
+新文件 <-> 现有文件 : temperatureSetting.svg      downloadPause.svg
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_libfile.tsx      vipPromotionModal.tsx
+新文件 <-> 现有文件 : mayi_libavutil_progress.tsx      vodDescription.tsx
+新文件 <-> 现有文件 : values-hdpi-v4.json      values-hdpi-v4.json
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : predictionbuttonImageAnimation.svg      brightnessGuide.svg
+新文件 <-> 现有文件 : mayi_libbuffer_styles.tsx      vipGuide2.tsx
+新文件 <-> 现有文件 : annotationProcessors.json      annotationProcessors.json
+新文件 <-> 现有文件 : values-watch-v21.json      values-watch-v21.json
+新文件 <-> 现有文件 : mayi_goal_templateprocessor.js      CanvasIncident.js
+新文件 <-> 现有文件 : annotationProcessors.json      annotationProcessors.json
+新文件 <-> 现有文件 : mayi_newinterstitial_ajax.tsx      changeUsernameModal.tsx
+新文件 <-> 现有文件 : mayi_brightness_form.tsx      favoriteVodCard.tsx
+新文件 <-> 现有文件 : otherNend.svg      close_icon.svg
+新文件 <-> 现有文件 : values-sq.json      values-sq.json
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_whiteanimationlive_desc.tsx      changeReferrerModal.tsx
+新文件 <-> 现有文件 : eabafadfadddbafeddddeeefeaafHash.svg      report.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_muted_edit.tsx      notificationModal.tsx
+新文件 <-> 现有文件 : values-kn.json      values-kn.json
+新文件 <-> 现有文件 : mayi_basketballmatchdetailbg.tsx      vodLiveStationListVertical.tsx
+新文件 <-> 现有文件 : appleHalffieldimageTeamdetailsbg.svg      downloaded_icon.svg
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : values-iw.json      values-iw.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : signinupControl.svg      play.svg
+新文件 <-> 现有文件 : mayi_whiteanimationlive_club.tsx      SpinnerOverlay.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_other.tsx      vodLiveStationList.tsx
+新文件 <-> 现有文件 : values-b+my+Qaag.json      values-b+my+Qaag.json
+新文件 <-> 现有文件 : navigation.json      navigation.json
+新文件 <-> 现有文件 : albumProfileactiveHomeplayer.svg      pip.svg
+新文件 <-> 现有文件 : mayi_reactnativeultimatelistview.tsx      regengModal.tsx
+新文件 <-> 现有文件 : navigation.json      navigation.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : values-fr-rCA.json      values-fr-rCA.json
+新文件 <-> 现有文件 : mappingBasketballplayerplaceholderApplication.svg      send.svg
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_fill.tsx      vipModal.tsx
+新文件 <-> 现有文件 : values-et.json      values-et.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_strings_nativeex.tsx      vodHistoryList.tsx
+新文件 <-> 现有文件 : values-v26.json      values-v26.json
+新文件 <-> 现有文件 : mayi_basketballicon_encrypt.tsx      vipOverlay.tsx
+新文件 <-> 现有文件 : values-zu.json      values-zu.json
+新文件 <-> 现有文件 : backgroundTwitterNode.gif      home-loading.gif
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_mbridge_football.tsx      vodHistoryCard.tsx
+新文件 <-> 现有文件 : values-es-rUS.json      values-es-rUS.json
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_common.tsx      commonVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : titlePushFullscreenmax.gif      login-success.gif
+新文件 <-> 现有文件 : mayi_control.tsx      vodImageCard.tsx
+新文件 <-> 现有文件 : values-he.json      values-he.json
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : eighteenLineSlider.svg      edit.svg
+新文件 <-> 现有文件 : mayi_filter.tsx      privacyPolicyOverlay.tsx
+新文件 <-> 现有文件 : values-v27.json      values-v27.json
+新文件 <-> 现有文件 : mayi_issub_button.tsx      backButton.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_popup_controller.js      mayi_nterstitial_eighteen_controller.js
+新文件 <-> 现有文件 : newinterstitialRegister_2t.gif      login-success.light.gif
+新文件 <-> 现有文件 : values-gl.json      values-gl.json
+新文件 <-> 现有文件 : mayi_benefit_debug.tsx      adultVideoVipModal.tsx
+新文件 <-> 现有文件 : mayi_sheet_cornershoot_button.tsx      favoritePlaylistButton.tsx
+新文件 <-> 现有文件 : fyb_iframe_endcard_tmpl.html      fyb_iframe_endcard_tmpl.html
+新文件 <-> 现有文件 : values-v31.json      values-v31.json
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : kickBase.svg      play-zhengpian1.svg
+新文件 <-> 现有文件 : mayi_bootsplash.tsx      vipPromotionOverlay.tsx
+新文件 <-> 现有文件 : values-eu.json      values-eu.json
+新文件 <-> 现有文件 : mayi_with_defaultlogo_button.tsx      bingSearchButton.tsx
+新文件 <-> 现有文件 : mayi_libyoga_product.js      mayi_baidu_basketballdetailsbg.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : libswresampleVignette.svg      logoLight_no_connection.svg
+新文件 <-> 现有文件 : mayi_imagemanager.tsx      vodEpisodeSelectionModal.tsx
+新文件 <-> 现有文件 : mayi_matchinactive_button.tsx      showMoreVodButton.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : features_config.json      features_config.json
+新文件 <-> 现有文件 : mayi_empty_analytics.tsx      regengOverlay.tsx
+新文件 <-> 现有文件 : loginSlider.svg      vip_icon.svg
+新文件 <-> 现有文件 : mayi_boot_button.tsx      favoriteVodButton.tsx
+新文件 <-> 现有文件 : values.json      values.json
+新文件 <-> 现有文件 : mayi_giftbutton_homeplayer.tsx      overEighteenOverlay.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : ballDefaultroombg.svg      feedback.svg
+新文件 <-> 现有文件 : values-ko.json      values-ko.json
+新文件 <-> 现有文件 : mayi_mbbanner.tsx      EmptyDataPage.tsx
+新文件 <-> 现有文件 : mayi_push_bodan_button.tsx      showMoreButton.tsx
+新文件 <-> 现有文件 : mayi_down.tsx      vipLoginAlertOverlay.tsx
+新文件 <-> 现有文件 : values-h550dp-port-v13.json      values-h550dp-port-v13.json
+新文件 <-> 现有文件 : mayi_form_clock.js      mayi_helper_switch.js
+新文件 <-> 现有文件 : halfLibavformat.svg      wechat.svg
+新文件 <-> 现有文件 : values-watch-v20.json      values-watch-v20.json
+新文件 <-> 现有文件 : fyb_static_endcard_tmpl.html      fyb_static_endcard_tmpl.html
+新文件 <-> 现有文件 : mayi_ball_canvas.tsx      expiredOverlay.tsx
+新文件 <-> 现有文件 : values-mn.json      values-mn.json
+新文件 <-> 现有文件 : tumbnailYellowcirclebgIconnewsshare.svg      no-wifi.svg
+新文件 <-> 现有文件 : sinaKickContainer.gif      tempNoDataGif.gif
+新文件 <-> 现有文件 : mayi_corner.js      mayi_unlock_hash.js
+新文件 <-> 现有文件 : values-ca.json      values-ca.json
+新文件 <-> 现有文件 : mayi_submit_iconwechat.tsx      vipPrivilegeModal.tsx
+新文件 <-> 现有文件 : mayi_score.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : phoneInviteLibhermes.svg      Sun.svg
+新文件 <-> 现有文件 : mayi_apps.tsx      becomeVipOverlay.tsx
+新文件 <-> 现有文件 : typingGifgoal.wav      ScorePopSound.wav
+新文件 <-> 现有文件 : loginAwayiconSentry.svg      li.svg
+新文件 <-> 现有文件 : values-si.json      values-si.json
+新文件 <-> 现有文件 : mayi_rewind_about.tsx      countryPhoneList.tsx
+新文件 <-> 现有文件 : mayi_hash_image.tsx      adultVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : libcrashsdkFormReact.svg      play_zhengpian.svg
+新文件 <-> 现有文件 : values-hi.json      values-hi.json
+新文件 <-> 现有文件 : servicePredictionarrowZoom.gif      loading.gif
+新文件 <-> 现有文件 : sendMbbidString.svg      send_filled.svg
+新文件 <-> 现有文件 : values-tw.json      values-tw.json
+新文件 <-> 现有文件 : mayi_found.tsx      readAgreementPrivacyPolicy.tsx
+新文件 <-> 现有文件 : mayi_small_catalog.tsx      confirmationModal.tsx
+新文件 <-> 现有文件 : values-sw360dp-v13.json      values-sw360dp-v13.json
+新文件 <-> 现有文件 : textLibglogAwayteamfield.gif      typingLoading.gif
+新文件 <-> 现有文件 : editMountingResend.svg      adult-switch-off.svg
+新文件 <-> 现有文件 : mayi_shielddone_copy.tsx      sportVipPrivilegeOverlay.tsx
+新文件 <-> 现有文件 : mayi_libjsinspector_feedback.js      mayi_subin_iconmegaphone.js
+新文件 <-> 现有文件 : values-bg.json      values-bg.json
+新文件 <-> 现有文件 : floatingStatsnomoredata.gif      GifGoal.gif
+新文件 <-> 现有文件 : mayi_match.tsx      PanHandler.tsx
+新文件 <-> 现有文件 : libreanimatedEwardedDropdown.svg      blackPlay.svg
+新文件 <-> 现有文件 : mayi_profilepic_iconpointscore.tsx      vipGuide.tsx
+新文件 <-> 现有文件 : values-w320dp-land-v13.json      values-w320dp-land-v13.json
+新文件 <-> 现有文件 : GIFT.json      GIFT.json
+新文件 <-> 现有文件 : values-ro.json      values-ro.json
+新文件 <-> 现有文件 : mayi_uimanager.tsx      ProgressGestureControl.tsx
+新文件 <-> 现有文件 : vpaid_html_template.html      vpaid_html_template.html
+新文件 <-> 现有文件 : libreactCoreLibfb.jpeg      PositionField.jpeg
+新文件 <-> 现有文件 : mayi_basketballawayteam_view.tsx      homeNav.tsx
+新文件 <-> 现有文件 : chatroombackgroundLauncher.svg      collection.svg
+新文件 <-> 现有文件 : mutedLiveshareRefreshborderless.jpg      predictionBanner.jpg
+新文件 <-> 现有文件 : mayi_eact_view.tsx      vipNav.tsx
+新文件 <-> 现有文件 : mayi_logout.js      mayi_tail.js
+新文件 <-> 现有文件 : mayi_save_icontransferclub.tsx      vodCombinedGesture.tsx
+新文件 <-> 现有文件 : values-el.json      values-el.json
+新文件 <-> 现有文件 : membershipOverlay.gif      iconViewerGif1.gif
+新文件 <-> 现有文件 : mayi_cancel_target.js      mayi_signinup.js
+新文件 <-> 现有文件 : values-gu.json      values-gu.json
+新文件 <-> 现有文件 : malaysiaActions.svg      unlock.svg
+新文件 <-> 现有文件 : mayi_anythink_router.tsx      PlayFullScreenGesture.tsx
+新文件 <-> 现有文件 : mayi_predictiondefault_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : values-xlarge-v4.json      values-xlarge-v4.json
+新文件 <-> 现有文件 : saveMapping.jpg      predictionBannerShared.jpg
+新文件 <-> 现有文件 : mayi_nend.js      mayi_bridge_match.js
+新文件 <-> 现有文件 : frame_umDescription_8.svg      downloadComplete.svg
+新文件 <-> 现有文件 : values-h720dp-v13.json      values-h720dp-v13.json
+新文件 <-> 现有文件 : appcenter-config.json      appcenter-config.json
+新文件 <-> 现有文件 : mayi_libfb_tempnodata.tsx      BrightnessGestureControl.tsx
+新文件 <-> 现有文件 : feedbackNotificationfillemptyContext.gif      GifLiveStreaming.gif
+新文件 <-> 现有文件 : scorepopsoundDefaultprofilepicDycreator.svg      more_arrow.svg
+新文件 <-> 现有文件 : ad.html      ad.html
+新文件 <-> 现有文件 : mayi_rewardvideo.tsx      BrightnessVolumeSlider.tsx
+新文件 <-> 现有文件 : recommendationExampleimageLangkey.gif      IconNewChat.gif
+新文件 <-> 现有文件 : values-am.json      values-am.json
+新文件 <-> 现有文件 : subbasketballplayerMatches.svg      submitBtn.svg
+新文件 <-> 现有文件 : mayi_profilepic_mapping.tsx      searchbar.tsx
+新文件 <-> 现有文件 : mayi_pagination_scrollview.tsx      GesturesGuide.tsx
+新文件 <-> 现有文件 : values-small-v4.json      values-small-v4.json
+新文件 <-> 现有文件 : lightTurn.gif      GiftButton.gif
+新文件 <-> 现有文件 : mayi_recommendation_gemfile.tsx      VolumeGestureControl.tsx
+新文件 <-> 现有文件 : largesoundStationsLogin.svg      sportTab.svg
+新文件 <-> 现有文件 : mayi_frame_member.tsx      mainCollectionHeaderPlaylist.tsx
+新文件 <-> 现有文件 : debug.json      debug.json
+新文件 <-> 现有文件 : mayi_popup_controller.js      mayi_nterstitial_eighteen_controller.js
+新文件 <-> 现有文件 : interstitialInouttargetredHomeinactive.gif      casting.gif
+新文件 <-> 现有文件 : mayi_transfer_libtob.tsx      bottomSheet.tsx
+新文件 <-> 现有文件 : mayi_iconwatch_other_header.tsx      homeHeader.tsx
+新文件 <-> 现有文件 : LottieRedBlink.json      LottieRedBlink.json
+新文件 <-> 现有文件 : footballtrophyGifgoalbg.svg      show_more.svg
+新文件 <-> 现有文件 : LottieGoalBg.json      LottieGoalBg.json
+新文件 <-> 现有文件 : mayi_videobufferloading_whistle.tsx      reportBottomSheet.tsx
+新文件 <-> 现有文件 : fyb_iframe_endcard_tmpl.html      fyb_iframe_endcard_tmpl.html
+新文件 <-> 现有文件 : values-v28.json      values-v28.json
+新文件 <-> 现有文件 : twitterRewardvideoGraph.svg      feedback_success.svg
+新文件 <-> 现有文件 : values-bn-rBD.json      values-bn-rBD.json
+新文件 <-> 现有文件 : mayi_scrollview_header.tsx      mainCollectionHeader.tsx
+新文件 <-> 现有文件 : floatingForward.gif      GifGoalBg.gif
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_libyoga_product.js      mayi_baidu_basketballdetailsbg.js
+新文件 <-> 现有文件 : values-ur.json      values-ur.json
+新文件 <-> 现有文件 : foregroundIconorientationBasketballicon.svg      phone.svg
+新文件 <-> 现有文件 : features_config.json      features_config.json
+新文件 <-> 现有文件 : mayi_newinterstitial_ajax.tsx      changeUsernameModal.tsx
+新文件 <-> 现有文件 : values-my-rMM.json      values-my-rMM.json
+新文件 <-> 现有文件 : mayi_station_header.tsx      privacyBackButtonHeader.tsx
+新文件 <-> 现有文件 : completeCloseStyle.svg      right-arrow-yellow.svg
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : values-w360dp-port-v13.json      values-w360dp-port-v13.json
+新文件 <-> 现有文件 : mayi_whiteanimationlive_desc.tsx      changeReferrerModal.tsx
+新文件 <-> 现有文件 : mayi_form_clock.js      mayi_helper_switch.js
+新文件 <-> 现有文件 : mbjscommonIconsettingLauncher.svg      source_icon.svg
+新文件 <-> 现有文件 : mayi_bgvipxvod_shirt_header.tsx      myCollectionHeader.tsx
+新文件 <-> 现有文件 : values-w820dp-v13.json      values-w820dp-v13.json
+新文件 <-> 现有文件 : mayi_launcher.tsx      uploadProgressOverlay.tsx
+新文件 <-> 现有文件 : mayi_green_build.ts      const.ts
+新文件 <-> 现有文件 : mayi_redirect.tsx      hooks.tsx
+新文件 <-> 现有文件 : usernameEabafadfadddbafeddddeeefeaafSharewhite.svg      dropdown.svg
+新文件 <-> 现有文件 : fyb_static_endcard_tmpl.html      fyb_static_endcard_tmpl.html
+新文件 <-> 现有文件 : values-ug.json      values-ug.json
+新文件 <-> 现有文件 : mayi_libjsijniprofiler.tsx      useOrientation.tsx
+新文件 <-> 现有文件 : mayi_sans_common.js      appConfig.js
+新文件 <-> 现有文件 : mayi_muted_edit.tsx      notificationModal.tsx
+新文件 <-> 现有文件 : values-ta.json      values-ta.json
+新文件 <-> 现有文件 : mayi_transfer.tsx      useInterstitialAds.tsx
+新文件 <-> 现有文件 : predictionBlacklist.gif      downloading.gif
+新文件 <-> 现有文件 : values-v24.json      values-v24.json
+新文件 <-> 现有文件 : dependencyAgreementWhatsapp.svg      profile.svg
+新文件 <-> 现有文件 : mayi_kuaishou_view.js      env.js
+新文件 <-> 现有文件 : mayi_form.ts      *.d.ts
+新文件 <-> 现有文件 : values-fi.json      values-fi.json
+新文件 <-> 现有文件 : mayi_corner.js      mayi_unlock_hash.js
+新文件 <-> 现有文件 : mayi_borderless_rocket.js      colors.js
+新文件 <-> 现有文件 : mayi_whiteanimationlive_club.tsx      SpinnerOverlay.tsx
+新文件 <-> 现有文件 : libapminsightbCoreMoon.svg      share.svg
+新文件 <-> 现有文件 : values-bo-rCN.json      values-bo-rCN.json
+新文件 <-> 现有文件 : mayi_goal_station.ts      custom.d.ts
+新文件 <-> 现有文件 : mayi_mbjscommon_register.js      vars.js
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : videocommonChange.svg      album.svg
+新文件 <-> 现有文件 : mayi_reactnativeultimatelistview.tsx      regengModal.tsx
+新文件 <-> 现有文件 : values-xxhdpi-v4.json      values-xxhdpi-v4.json
+新文件 <-> 现有文件 : mayi_videovar_dropdown.tsx      apps.tsx
+新文件 <-> 现有文件 : homeplayerHomeloading.svg      download_mini.svg
+新文件 <-> 现有文件 : mayi_news.js      dateCountDown.js
+新文件 <-> 现有文件 : mayi_neon_episodes.ts      splash.ts
+新文件 <-> 现有文件 : values-sw480dp-v13.json      values-sw480dp-v13.json
+新文件 <-> 现有文件 : libswresamplePositionDefaultplayerimg.svg      qq.svg
+新文件 <-> 现有文件 : mayi_fill.tsx      vipModal.tsx
+新文件 <-> 现有文件 : values-ky.json      values-ky.json
+新文件 <-> 现有文件 : mayi_privatechatbg.tsx      product.tsx
+新文件 <-> 现有文件 : statisticsBasketballicon.svg      comment.svg
+新文件 <-> 现有文件 : mayi_interstitial_dplus.js      urlEncryp.js
+新文件 <-> 现有文件 : mayi_auto.tsx      playlist.tsx
+新文件 <-> 现有文件 : mayi_basketballicon_encrypt.tsx      vipOverlay.tsx
+新文件 <-> 现有文件 : heartLibbufferBridge.svg      cross.svg
+新文件 <-> 现有文件 : values-mai.json      values-mai.json
+新文件 <-> 现有文件 : mayi_newinterstitial.js      date.js
+新文件 <-> 现有文件 : mayi_filter.tsx      privacyPolicyOverlay.tsx
+新文件 <-> 现有文件 : robotoNetwork.gif      loading-spinner.gif
+新文件 <-> 现有文件 : mayi_libjsinspector.tsx      user.tsx
+新文件 <-> 现有文件 : mayi_episode.js      hash_util.js
+新文件 <-> 现有文件 : mayi_libjsinspector_feedback.js      mayi_subin_iconmegaphone.js
+新文件 <-> 现有文件 : redirectPhone.svg      rewind.svg
+新文件 <-> 现有文件 : values-uk.json      values-uk.json
+新文件 <-> 现有文件 : mayi_manager_libflipper.js      toast.js
+新文件 <-> 现有文件 : mayi_imagemanager.tsx      vodEpisodeSelectionModal.tsx
+新文件 <-> 现有文件 : mayi_mbnative.tsx      vod.tsx
+新文件 <-> 现有文件 : vpaid_html_template.html      vpaid_html_template.html
+新文件 <-> 现有文件 : nextArrowrightwithtailFavicon.svg      logo2.svg
+新文件 <-> 现有文件 : mayi_yellowanimationlive_player.tsx      Playlist.tsx
+新文件 <-> 现有文件 : values-pl.json      values-pl.json
+新文件 <-> 现有文件 : mayi_iconsetting_chinasame.ts      ads.ts
+新文件 <-> 现有文件 : mayi_empty_analytics.tsx      regengOverlay.tsx
+新文件 <-> 现有文件 : internetToponBoot.svg      logo.svg
+新文件 <-> 现有文件 : mayi_libhermes_libavcodec.tsx      chat.tsx
+新文件 <-> 现有文件 : mayi_logout.js      mayi_tail.js
+新文件 <-> 现有文件 : mayi_chinasame.tsx      PlaylistDetails.tsx
+新文件 <-> 现有文件 : values-ru.json      values-ru.json
+新文件 <-> 现有文件 : vignetteLive.svg      selectEpisodes.svg
+新文件 <-> 现有文件 : mayi_ball_canvas.tsx      expiredOverlay.tsx
+新文件 <-> 现有文件 : sportVideojsTramini.svg      pause.svg
+新文件 <-> 现有文件 : mayi_news_sentry.tsx      AdultVideoList.tsx
+新文件 <-> 现有文件 : ballDefaultroombg.tsx      feedback.tsx
+新文件 <-> 现有文件 : mayi_cancel_target.js      mayi_signinup.js
+新文件 <-> 现有文件 : values-de.json      values-de.json
+新文件 <-> 现有文件 : abidetectFilter.svg      home_tab.svg
+新文件 <-> 现有文件 : mayi_small_catalog.tsx      confirmationModal.tsx
+新文件 <-> 现有文件 : mayi_downloader.tsx      resendCountDown.tsx
+新文件 <-> 现有文件 : mayi_logo_download.ts      miniVod.ts
+新文件 <-> 现有文件 : values-ru-rRU.json      values-ru-rRU.json
+新文件 <-> 现有文件 : nextPlayer.svg      yingshi-grey.svg
+新文件 <-> 现有文件 : mayi_champion.tsx      uploadResultOverlay.tsx
+新文件 <-> 现有文件 : mayi_nend.js      mayi_bridge_match.js
+新文件 <-> 现有文件 : descCodegenWhatsapp.svg      adult-switch-on.svg
+新文件 <-> 现有文件 : mayi_user.tsx      setUsername.tsx
+新文件 <-> 现有文件 : appcenter-config.json      appcenter-config.json
+新文件 <-> 现有文件 : mayi_basketballawayteam_view.tsx      homeNav.tsx
+新文件 <-> 现有文件 : mayi_score.tsx      signinupForm.tsx
+新文件 <-> 现有文件 : ad.html      ad.html
+新文件 <-> 现有文件 : taiwanScore.svg      MutedVolume.svg
+新文件 <-> 现有文件 : mayi_light_match.tsx      Otp.tsx
+新文件 <-> 现有文件 : signing-config-versions.json      signing-config-versions.json
+新文件 <-> 现有文件 : mayi_eact_view.tsx      vipNav.tsx
+新文件 <-> 现有文件 : mayi_predictiondefault_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : signing-config-versions.json      signing-config-versions.json
+新文件 <-> 现有文件 : iconnotificationnewInactive.svg      favicon.svg
+新文件 <-> 现有文件 : mayi_live_tumbnail.tsx      store.tsx
+新文件 <-> 现有文件 : mayi_awayteamfield.tsx      Home.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : viewerVideovarNetwork.svg      volumeGuide.svg
+新文件 <-> 现有文件 : mayi_member_catagory.tsx      miniVodActions.tsx
+新文件 <-> 现有文件 : output-metadata.json      output-metadata.json
+新文件 <-> 现有文件 : mayi_recommendation.tsx      SportAndX.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : phoneshareHomeplayer.svg      project.svg
+新文件 <-> 现有文件 : mayi_modal.tsx      settingsActions.tsx
+新文件 <-> 现有文件 : backMore.svg      history.svg
+新文件 <-> 现有文件 : libavcodecUnreadSharewhite.webp      ic_launcher.webp
+新文件 <-> 现有文件 : mayi_sans.tsx      LiveStations.tsx
+新文件 <-> 现有文件 : mayi_librrc.tsx      userAction.tsx
+新文件 <-> 现有文件 : mayi_component.tsx      iconGroup.tsx
+新文件 <-> 现有文件 : macauRouterOverlay.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : statsFootballtrophyBanner.svg      feedback_hover.svg
+新文件 <-> 现有文件 : mayi_heji.tsx      Catalog.tsx
+新文件 <-> 现有文件 : redirectIconuserFile.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : mayi_predictiondefault_header.tsx      titleWithBackButtonHeader.tsx
+新文件 <-> 现有文件 : mayi_catagory.tsx      backgroundAction.tsx
+新文件 <-> 现有文件 : commentIconqq.svg      xvodTab.svg
+新文件 <-> 现有文件 : mayi_flyer.tsx      Search.tsx
+新文件 <-> 现有文件 : mayi_profilepic_mapping.tsx      searchbar.tsx
+新文件 <-> 现有文件 : libavcodecUnreadSharewhite.webp      ic_launcher.webp
+新文件 <-> 现有文件 : iconstarCatagory.svg      Moon.svg
+新文件 <-> 现有文件 : mayi_comment_defaultprofilepic.tsx      themeAction.tsx
+新文件 <-> 现有文件 : mayi_source.tsx      popup.tsx
+新文件 <-> 现有文件 : mayi_iconwatch_other_header.tsx      homeHeader.tsx
+新文件 <-> 现有文件 : mayi_minimize_buffer.tsx      LiveStationPlay.tsx
+新文件 <-> 现有文件 : mayi_become.ts      videoDownloadAction.ts
+新文件 <-> 现有文件 : macauRouterOverlay.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : mayi_combined_penalty.tsx      firebaseNotification.tsx
+新文件 <-> 现有文件 : mayi_statisticsinactive_libjsi.tsx      AdEvent.tsx
+新文件 <-> 现有文件 : mayi_scrollview_header.tsx      mainCollectionHeader.tsx
+新文件 <-> 现有文件 : mayi_goallogo.tsx      vodActions.tsx
+新文件 <-> 现有文件 : mayi_time_math.ts      theme.ts
+新文件 <-> 现有文件 : redirectIconuserFile.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : mayi_whitetick.tsx      uploadAction.tsx
+新文件 <-> 现有文件 : mayi_switch_orange.tsx      Play.tsx
+新文件 <-> 现有文件 : libavcodecUnreadSharewhite.webp      ic_launcher.webp
+新文件 <-> 现有文件 : mayi_libffmpegkit.tsx      searchActions.tsx
+新文件 <-> 现有文件 : mayi_station_header.tsx      privacyBackButtonHeader.tsx
+新文件 <-> 现有文件 : mayi_abidetect.tsx      MainCollection.tsx
+新文件 <-> 现有文件 : macauRouterOverlay.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : mayi_gpay.tsx      chatAction.tsx
+新文件 <-> 现有文件 : mayi_bgvipxvod_shirt_header.tsx      myCollectionHeader.tsx
+新文件 <-> 现有文件 : redirectIconuserFile.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : mayi_over_dependency.tsx      shortVodCollection.tsx
+新文件 <-> 现有文件 : mayi_iconorientation_chatroombackground.tsx      screenAction.tsx
+新文件 <-> 现有文件 : libavcodecUnreadSharewhite.webp      ic_launcher.webp
+新文件 <-> 现有文件 : mayi_libjsinspector.ts      user.ts
+新文件 <-> 现有文件 : mayi_libfbjni_libmapbufferjni.tsx      PlaylistCollection.tsx
+新文件 <-> 现有文件 : mayi_libjsinspector_round.ts      videoDownloadReducer.ts
+新文件 <-> 现有文件 : macauRouterOverlay.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : mayi_plash_basketballtrophy.js      api.js
+新文件 <-> 现有文件 : mayi_main_subin.tsx      miniVodReducer.tsx
+新文件 <-> 现有文件 : mayi_comment_link.tsx      VodCollection.tsx
+新文件 <-> 现有文件 : redirectIconuserFile.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : mayi_countdown_videovar.js      url.js
+新文件 <-> 现有文件 : mayi_time.tsx      screenReducer.tsx
+新文件 <-> 现有文件 : libavcodecUnreadSharewhite.webp      ic_launcher.webp
+新文件 <-> 现有文件 : mayi_react_libjsi.tsx      AboutUs.tsx
+新文件 <-> 现有文件 : mayi_libavcodec_nativeex.tsx      settingsReducer.tsx
+新文件 <-> 现有文件 : mayi_reminder_chinasame.js      api_tmp.js
+新文件 <-> 现有文件 : macauRouterOverlay.webp      ic_launcher_round.webp
+新文件 <-> 现有文件 : mayi_yellow_gemfile.tsx      chatReducer.tsx
+新文件 <-> 现有文件 : mayi_gradlew.tsx      InviteDetails.tsx
+新文件 <-> 现有文件 : mayi_basketballtrophy.ts      lineUpTypes.ts
+新文件 <-> 现有文件 : redirectIconuserFile.webp      ic_launcher_foreground.webp
+新文件 <-> 现有文件 : mayi_mintegral_next.tsx      themeReducer.tsx
+新文件 <-> 现有文件 : mayi_filled.tsx      Invite.tsx
+新文件 <-> 现有文件 : mayi_search.ts      liveMatchTypes.ts
+新文件 <-> 现有文件 : appcenter-config.json      appcenter-config.json
+新文件 <-> 现有文件 : mayi_malaysia_mbsplash.tsx      uploadReducer.tsx
+新文件 <-> 现有文件 : mayi_mail.tsx      Profile.tsx
+新文件 <-> 现有文件 : mayi_predictionarrow_langkey.ts      matchUpdatesType.ts
+新文件 <-> 现有文件 : mayi_imagenomoredata.tsx      backgroundReducer.tsx
+新文件 <-> 现有文件 : link-assets-manifest.json      link-assets-manifest.json
+新文件 <-> 现有文件 : mayi_homeinactive.ts      matchTypes.ts
+新文件 <-> 现有文件 : mayi_temp_holder.tsx      vodReducer.tsx
+新文件 <-> 现有文件 : mayi_iconshare_sentry.tsx      DownloadDetails.tsx
+新文件 <-> 现有文件 : mayi_rewind_fast.tsx      DownloadCatalog.tsx
+新文件 <-> 现有文件 : mayi_count.js      replaceChannel.js
+新文件 <-> 现有文件 : mayi_policy_target.tsx      MatchDetails.tsx
+新文件 <-> 现有文件 : tsconfig.json      tsconfig.json
+新文件 <-> 现有文件 : mayi_chatroombackground_unlock.tsx      userReducer.tsx
+新文件 <-> 现有文件 : firebase.json      firebase.json
+新文件 <-> 现有文件 : mayi_layout.tsx      History.tsx
+新文件 <-> 现有文件 : mayi_reminder_iconqq.tsx      Matches.tsx
+新文件 <-> 现有文件 : mayi_configure.tsx      searchReducer.tsx
+新文件 <-> 现有文件 : mayi_libreactnativejni.tsx      AppsFlyerAnalytic.tsx
+新文件 <-> 现有文件 : mayi_stats_iconviewergif.tsx      Configure.tsx
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_android.tsx      combineReducer.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_topon.tsx      router.tsx
+新文件 <-> 现有文件 : mayi_unimplementedview_download.tsx      Privacy.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_checkbox.tsx      middleware.tsx
+新文件 <-> 现有文件 : mayi_iconclosewhite.tsx      VIP2.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_mintegral_buffer.tsx      langService.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_mapping.ts      helper.ts
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_kuaishou_view.tsx      env.tsx
+新文件 <-> 现有文件 : index.js      index.js
+新文件 <-> 现有文件 : mayi_zhubo.tsx      apiService.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_middleware_apps.ts      constants.ts
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.js      style.js
+新文件 <-> 现有文件 : mayi_sheet.tsx      MatchScheduleVip.tsx
+新文件 <-> 现有文件 : mayi_grey_iconsharefriends.tsx      MatchScheduleList.tsx
+新文件 <-> 现有文件 : mayi_refresh.tsx      MatchSchedule.tsx
+新文件 <-> 现有文件 : mayi_ajax.tsx      MatchScheduleListVip.tsx
+新文件 <-> 现有文件 : mayi_yellowscoreball.tsx      MatchScheduleLive.tsx
+新文件 <-> 现有文件 : mayi_fill_strings.tsx      MatchScheduleNavVip.tsx
+新文件 <-> 现有文件 : mayi_libsentry_screen_view.tsx      MatchScheduleNav.tsx
+新文件 <-> 现有文件 : mayi_iconarrowrightwhite.ts      style.ts
+新文件 <-> 现有文件 : index.tsx      index.tsx
+新文件 <-> 现有文件 : positionIcondefaultthumbnailUtils.png      down_arrow.png
+新文件 <-> 现有文件 : rocketTramini.png      vip_promotion_models.png
+新文件 <-> 现有文件 : applicationSettings.png      vip_guide_arrow1.png
+新文件 <-> 现有文件 : delegate__Station.png      vip_sport_models.png
+新文件 <-> 现有文件 : specCurrent.png      vip_logo.png
+新文件 <-> 现有文件 : inactiveAudience.png      vip_no_ad.png
+新文件 <-> 现有文件 : iconuserIconclosewhitebg.png      vip_sport.png
+新文件 <-> 现有文件 : termsGiftbutton.png      crown_vip.png
+新文件 <-> 现有文件 : trashBorderless.png      google.png
+新文件 <-> 现有文件 : videocommonZoomCount.png      card.png
+新文件 <-> 现有文件 : runtimePrivilegeLangkey.png      singleBg2.png
+新文件 <-> 现有文件 : tickSentryInouttargetred.png      alert.png
+新文件 <-> 现有文件 : defaultroombgTelegram.png      subText.png
+新文件 <-> 现有文件 : mimeHomeBridge.png      subText2.png
+新文件 <-> 现有文件 : clearMiddleLeague.png      singleBg.png
+新文件 <-> 现有文件 : mimoMember.png      vip_guide_arrow.png
+新文件 <-> 现有文件 : binddatasInactive.png      bgVipXvod.png
+新文件 <-> 现有文件 : iconfeedbackIconpointscoreHomeicon.png      profilePic.png
+新文件 <-> 现有文件 : yingZoom.png      vip_adult_models.png
+新文件 <-> 现有文件 : assistFaviconManager.png      eventSplash2.png
+新文件 <-> 现有文件 : eighteenIconadslinkDefaultprofilepic.png      eventSplash3.png
+新文件 <-> 现有文件 : forwardYellowtoredImagenetworkerr.png      white-dot.png
+新文件 <-> 现有文件 : mayi_iconsetting_chinasame.png      ads.png
+新文件 <-> 现有文件 : vietnamEwarded.png      cast.png
+新文件 <-> 现有文件 : viewerIconmore.png      time.png
+新文件 <-> 现有文件 : greenBlacklistSave.png      download.png
+新文件 <-> 现有文件 : modelsGroup.png      vip_adult_video.png
+新文件 <-> 现有文件 : libfileHolder.png      sport.png
+新文件 <-> 现有文件 : dataAccepted.png      twitter.png
+新文件 <-> 现有文件 : recommendationGestureRedirect.png      hot.png
+新文件 <-> 现有文件 : assistTextinputHook.png      danger.png
+新文件 <-> 现有文件 : firebaseCancelLang.png      vip_common_background.png
+新文件 <-> 现有文件 : sendWhatsappGiftbutton.png      eventSplash1.png
+新文件 <-> 现有文件 : frame_tTick.png      forward.png
+新文件 <-> 现有文件 : qaagCommon.png      bg-gradient.png
+新文件 <-> 现有文件 : gifgoalbgLauncher.png      rightArrow.png
+新文件 <-> 现有文件 : copy_ugDetailsTwitter.png      ticked.png
+新文件 <-> 现有文件 : heartLibbufferBridge.png      cross.png
+新文件 <-> 现有文件 : iconqqStreamingArmva.png      vip.png
+新文件 <-> 现有文件 : malaysiaInviteLangkey.png      vipSport.png
+新文件 <-> 现有文件 : iconpipexpandLibturbomodulejsijni.png      untick.png
+新文件 <-> 现有文件 : libjsinspectorGifgoalbgMimo.png      ticked2.png
+新文件 <-> 现有文件 : predictionbannersharedIconsaveimage.png      copy.png
+新文件 <-> 现有文件 : whiteLargesoundMerger.png      vip_sport_background.png
+新文件 <-> 现有文件 : constantsMaterialAway.png      vip_adult_background.png
+新文件 <-> 现有文件 : icontransferclubPrivate_0Libjsijniprofiler.png      up_arrow.png
+新文件 <-> 现有文件 : iconclosewhitewithbgGoogleVideo.png      vip_common_models.png
+新文件 <-> 现有文件 : iconfeedbackCountry.png      bgVipSport.png
+新文件 <-> 现有文件 : scorepopsoundReport.png      backward.png
+新文件 <-> 现有文件 : hongkongStringLeaguedetailsbg.png      crown.png
+新文件 <-> 现有文件 : inactiveApple.png      vip_promotion_background.png
+新文件 <-> 现有文件 : combinedIconstarUpload.png      bootsplash_logo@1,5x.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout.png      bootsplash_logo.png
+新文件 <-> 现有文件 : lineDescription_b.png      bootsplash_logo@4x.png
+新文件 <-> 现有文件 : ewardedEabafadfadddbafeddddeeefeaafTextlayoutmanager.png      filledEabafadfadddbafeddddeeefeaaf.png
+新文件 <-> 现有文件 : ewardedEabafadfadddbafeddddeeefeaafTextlayoutmanager.png      filledEabafadfadddbafeddddeeefeaaf.png
+新文件 <-> 现有文件 : ewardedEabafadfadddbafeddddeeefeaafTextlayoutmanager.png      filledEabafadfadddbafeddddeeefeaaf.png
+新文件 <-> 现有文件 : phoneshareViews.png      rewardSetting.png
+新文件 <-> 现有文件 : basketballawayteamProfile.png      default_jOverViews.png
+新文件 <-> 现有文件 : newsIconbackwhite.png      smallbrightnessRightPlayercommon.png
+新文件 <-> 现有文件 : liveFill.png      static_jaHomeloading.png
+新文件 <-> 现有文件 : centerViewerTurndown.png      teamdetailsbgBridge.png
+新文件 <-> 现有文件 : sheetVideobufferloadingHash.png      castIconeditYellowscoreball.png
+新文件 <-> 现有文件 : selectionPredictionactiveHomeinactive.png      starTooltips.png
+新文件 <-> 现有文件 : orangeuparrowChart.png      chartWhitetick.png
+新文件 <-> 现有文件 : loginBridgePage.png      defaultplayerimgExpand.png
+新文件 <-> 现有文件 : delegate_mmGrayDelegate_vh.png      privacyHalffieldimage.png
+新文件 <-> 现有文件 : redscoreballNativemoduleSubs.png      greyarrowupRenewDanger.png
+新文件 <-> 现有文件 : targetMounting.png      mbbannerTypingLogouser.png
+新文件 <-> 现有文件 : neonWatchPagination.png      qaagBgvipxvod.png
+新文件 <-> 现有文件 : basketballplayerplaceholderCoreString.png      leagueStatic_jyPlaceholder.png
+新文件 <-> 现有文件 : moduleLibapminsightb.png      iconpointscoreLibfollyThailand.png
+新文件 <-> 现有文件 : thailandNewsMalaysia.png      rocketCrossSchedule.png
+新文件 <-> 现有文件 : valuesPhoneshare.png      logouserMatch.png
+新文件 <-> 现有文件 : arrowrightwithtailLogin.png      libavformatIcontransferclub.png
+新文件 <-> 现有文件 : libjsiUimanager.png      kuaishouPredictionwin.png
+新文件 <-> 现有文件 : themeWhite.png      shielddonePenaltymatchiconBasketballtrophy.png
+新文件 <-> 现有文件 : telemetryVideojsMoon.png      calendarReactnativeratingsTemperature.png
+新文件 <-> 现有文件 : fastSound.png      iconbackwhiteDycreatorInouttargetred.png
+新文件 <-> 现有文件 : playlistRank.png      sourceIconsaveimage.png
+新文件 <-> 现有文件 : libbufferWatch.png      iconeditFootballfieldLogin.png
+新文件 <-> 现有文件 : episodeMatchinactiveTransfer.png      roomMatches.png
+新文件 <-> 现有文件 : crownHooksChart.png      cornerConstants.png
+新文件 <-> 现有文件 : arrowupInfoIconmore.png      backgroundRank.png
+新文件 <-> 现有文件 : mbnativeApps.png      calendarViewer.png
+新文件 <-> 现有文件 : sellFloatingEncrypt.png      hooksIndex.png
+新文件 <-> 现有文件 : eighteenTextinputCore.png      userScreenGiftbutton.png
+新文件 <-> 现有文件 : contextZhuboEwarded.png      greySentryAwayteamfield.png
+新文件 <-> 现有文件 : phoneshareMatches.png      forwardBasketballtrophyGpay.png
+新文件 <-> 现有文件 : statsnomoredataRuntimescheduler.png      basketballiconCornershoot.png
+新文件 <-> 现有文件 : libfbjniVideojsCustom.png      rewardvideoTempnodatagif.png
+新文件 <-> 现有文件 : countEpisodeLibavcodec.png      downloadingScreenValues.png
+新文件 <-> 现有文件 : register_qScorepopsoundSelect.png      modelsHomeinactiveComponent.png
+新文件 <-> 现有文件 : temperatureExecutor.png      singleOrangedownarrow.png
+新文件 <-> 现有文件 : cornershootDropdownIssub.png      bingPrivacy.png
+新文件 <-> 现有文件 : progressApplicationIconcalendar.png      rewardvideoHeader.png
+新文件 <-> 现有文件 : sideIconarrowleft.png      singaporeAboutControls.png
+新文件 <-> 现有文件 : iconnotificationnewEdit.png      hometeamfieldEntry.png
+新文件 <-> 现有文件 : skipTail.png      centerNend.png
+新文件 <-> 现有文件 : rewardCopy_d3Text.png      lessScorepopsound.png
+新文件 <-> 现有文件 : catagoryStatic_rReport.png      modulesTheme.png
+新文件 <-> 现有文件 : iconfeedbackDownarrowCatalog.png      newinterstitialIconclosewhite.png
+新文件 <-> 现有文件 : twitterTooltips.png      recommendationConstants.png
+新文件 <-> 现有文件 : template_vbAnalyticChart.png      mergerCodeActions.png
+新文件 <-> 现有文件 : chatAlbumConst_sk.png      anytimeLibreactnativejni.png
+新文件 <-> 现有文件 : ewardedEabafadfadddbafeddddeeefeaafTextlayoutmanager.png      filledEabafadfadddbafeddddeeefeaaf.png
+新文件 <-> 现有文件 : leakcheckerIconedit.png      arrowrightwithtailSubmitGray.png
+新文件 <-> 现有文件 : valuesVolumeAuto_z.png      gradlewTermsActions.png
+新文件 <-> 现有文件 : pushSearchbar.png      weiboLine.png
+新文件 <-> 现有文件 : viewsMapbufferTarget.png      confirmationEwardedWind.png
+新文件 <-> 现有文件 : notificationTeamInactive.png      iconfeedbackBuild.png
+新文件 <-> 现有文件 : shootFlyerOrangedownarrow.png      phoneshareBasketballawayteamNetwork.png
+新文件 <-> 现有文件 : iconcalendarTurn.png      matchLibfb.png
+新文件 <-> 现有文件 : arrowupSheet.png      scorepopsoundCricketHomeactive.png
+新文件 <-> 现有文件 : vietnamPredictionbuttonYellowtored.png      roomScheduleEwarded.png
+新文件 <-> 现有文件 : imageArrowColors.png      yellowWindOther.png
+新文件 <-> 现有文件 : libfabricjniAreaGradle.png      cornerFootballtrophy.png
+新文件 <-> 现有文件 : imageVideobufferloading.png      gemfileWhite.png
+新文件 <-> 现有文件 : libfbLayout.png      libreanimatedResult.png
+新文件 <-> 现有文件 : logouserTemperatureEpisode.png      iconclosewhiteIconuser.png
+新文件 <-> 现有文件 : splashLibavformatLibruntimeexecutor.png      gemfileWhiteRocket.png
+新文件 <-> 现有文件 : update_beLogouserCondensed.png      downloadNewarchdefaults.png
+新文件 <-> 现有文件 : episodePlay.png      philippinesLibreanimated.png
+新文件 <-> 现有文件 : ajaxSubtext.png      homeLibreactBlack.png
+新文件 <-> 现有文件 : whistleCornerFilter.png      memberIconsubssuccess.png
+新文件 <-> 现有文件 : smallbrightnessSmallExpand.png      yellowSubbasketballplayerGray.png
+新文件 <-> 现有文件 : librrcNativemoduleNbatrophy.png      libapminsightaMatchdetailbgAnythink.png
+新文件 <-> 现有文件 : managerMbnativeadvanced.png      nativemoduleDefaultroombg.png
+新文件 <-> 现有文件 : textinputCircleLibavcodec.png      largesoundChatroombackgroundLibfabricjni.png
+新文件 <-> 现有文件 : usernameLibturbomodulejsijniSuggestion.png      iconviewergifSmallbrightnessMain.png
+新文件 <-> 现有文件 : footballfieldHistoryLibfabricjni.png      infoBootPlaylist.png
+新文件 <-> 现有文件 : macauGifgoal.png      philippinesValuesPage.png
+新文件 <-> 现有文件 : countdownAnythink.png      entryMatch.png
+新文件 <-> 现有文件 : connectionWith_t.png      subinForegroundUpgrade.png
+新文件 <-> 现有文件 : pingTickReward.png      attributedstringLiveshareSellmathbackground.png
+新文件 <-> 现有文件 : colorsTypesIconcalendar.png      skipRefreshThumbnail.png
+新文件 <-> 现有文件 : indexNativeex.png      scorepopsoundFound.png
+新文件 <-> 现有文件 : trashNavigationEpisodes.png      hoverUpdatesVietnam.png
+新文件 <-> 现有文件 : iconeditIconarrowrightorange.png      traminiGmailEmoji.png
+新文件 <-> 现有文件 : tumbnailMintegral.png      editSideDelegate_dx.png
+新文件 <-> 现有文件 : internetMintegralLibfile.png      scheduleInactive.png
+新文件 <-> 现有文件 : sportDebugTime_u3.png      libcxxcomponentsApplicationGoal.png
+新文件 <-> 现有文件 : embedPredictiondefaultMime.png      bannerIconwatch.png
+新文件 <-> 现有文件 : newarchdefaultsMintegralWhistle.png      unreadVideojs.png
+新文件 <-> 现有文件 : basketballmatchdetailbgFootballSwitch_gw.png      libloggerExpiredExampleimage.png
+新文件 <-> 现有文件 : transferVignetteSplash.png      editIncident.png
+新文件 <-> 现有文件 : chartApplication.png      iconstarPlusIconnotificationnew.png
+新文件 <-> 现有文件 : championTextinput.png      predictionbuttonValues.png
+新文件 <-> 现有文件 : gradlewOrientationGestures.png      sharewhiteNext.png
+新文件 <-> 现有文件 : static_wModalLoading.png      iconnewsshareWeather.png
+新文件 <-> 现有文件 : minimizeRelatedFloater.png      matchinactiveTerms.png
+新文件 <-> 现有文件 : memberPreviewLangkey.png      mbbidSpecSingle.png
+新文件 <-> 现有文件 : predictionbannersharedReadIconcalendar.png      iconarrowleftPredictionbanner.png
+新文件 <-> 现有文件 : sinaStore.png      iconarrowrightwhiteLangkeyList.png
+新文件 <-> 现有文件 : combinedArrowArrowup.png      iconarrowrightStatic_9Right.png
+新文件 <-> 现有文件 : combinedLibfolly.png      xvodSchedulerLong_yp.png
+新文件 <-> 现有文件 : gestureType_4.png      refreshborderlessLibswscale.png
+新文件 <-> 现有文件 : iconcloseDependencies.png      smallorangemanDarkLive.png
+新文件 <-> 现有文件 : flyerPredictionbanner.png      whistleorangeIconarrowrightorange.png
+新文件 <-> 现有文件 : huaweiCountActivity.png      iconarrowrightDefaultteam.png
+新文件 <-> 现有文件 : gesturesLibsentry.png      cancelModules.png
+新文件 <-> 现有文件 : greytickLibapminsightaYing.png      settingsAnalytics.png
+新文件 <-> 现有文件 : logoutTaiwanClock.png      mergerFloater.png
+新文件 <-> 现有文件 : executorFloaterDialog.png      positionLibreactnativeblob.png
+新文件 <-> 现有文件 : firebaseRncore.png      plusCondensed.png
+新文件 <-> 现有文件 : volumeFound.png      infoOrangeuparrowTicked.png
+新文件 <-> 现有文件 : eabafadfadddbafeddddeeefeaafLight.png      textSuccess.png
+新文件 <-> 现有文件 : attributedstringMbnativeadvanced.png      mappingNalyticsShootyesgoal.png
+新文件 <-> 现有文件 : unreadRewardApple.png      whitetickSearch.png
+新文件 <-> 现有文件 : reducerTypesPlaceholder.png      tickStepLayout.png
+新文件 <-> 现有文件 : defaultlogoLogoutSearch.png      calendarClubNetwork.png
+新文件 <-> 现有文件 : controlLiveshareClear.png      albumWhatsapp.png
+新文件 <-> 现有文件 : routerBuffer.png      fastforwardSubtext.png
+新文件 <-> 现有文件 : appsNterstitialLiveshare.png      stringRuntimeResend.png
+新文件 <-> 现有文件 : linkUnreadIconnewsshare.png      bridgeLibtobService.png
+新文件 <-> 现有文件 : awayiconGoalEmojiheart.png      kuaishouPlashStar.png
+新文件 <-> 现有文件 : codeGoogleYellowcirclebg.png      halffieldimagePhoneLaunch.png
+新文件 <-> 现有文件 : privilegeHomeLibfolly.png      typingBasketballiconRead.png
+新文件 <-> 现有文件 : serviceLibflipperFeedback.png      windPangleConfig.png
+新文件 <-> 现有文件 : currentAjaxIconarrowleft.png      iconbackwhiteLauncherDebug.png
+新文件 <-> 现有文件 : baseIconarrowrightorange.png      infoFoundCore.png
+新文件 <-> 现有文件 : chatIconarrowrightorange.png      imagenetworkerrIconnewsshare.png
+新文件 <-> 现有文件 : runtimeschedulerEmojiheart.png      iconqqRelated.png
+新文件 <-> 现有文件 : libapminsightbHomeiconEabafadfadddbafeddddeeefeaaf.png      skipMbbidIcondefaultthumbnail.png
+新文件 <-> 现有文件 : pageContextBing.png      traminiCasting.png
+新文件 <-> 现有文件 : iconarrowrightAlbumIconpointscore.png      gifgoalPhoto.png
+新文件 <-> 现有文件 : diceEwardedProfile.png      xvodPressureRncore.png
+新文件 <-> 现有文件 : turndownPenaltymatchicon.png      sportLibglogWhiteanimationlive.png
+新文件 <-> 现有文件 : pingLatnSina.png      termsResend.png
+新文件 <-> 现有文件 : membershipLibjsiOrientation.png      popupPredictionbannershared.png
+新文件 <-> 现有文件 : iconwatchCricket.png      privilegePhoneLangkey.png
+新文件 <-> 现有文件 : ewardedReactnavigation.png      tumbnailLiblogger.png
+新文件 <-> 现有文件 : nendEncrypt.png      nativemoduleLibjsinspector.png
+新文件 <-> 现有文件 : blackRocketOwngoal.png      groupPagination.png
+新文件 <-> 现有文件 : iconpipexpandBodan.png      tempnodatagifIconsetting.png
+新文件 <-> 现有文件 : championLibbufferIconsaveimage.png      materialMaterial.png
+新文件 <-> 现有文件 : soundUmeng.png      iconmoreFast.png
+新文件 <-> 现有文件 : entryFriendsPush.png      bannerChinasame.png
+新文件 <-> 现有文件 : chinaYellow.png      mathHumidity.png
+新文件 <-> 现有文件 : sliderConstantsSuggestion.png      bodanAway.png
+新文件 <-> 现有文件 : predictionbannerNativeex.png      thailandInformation.png
+新文件 <-> 现有文件 : kickGemfile.png      feedbackLibavdeviceDrag.png
+新文件 <-> 现有文件 : textThumbnailUpgrade.png      nbatrophyShareImage.png
+新文件 <-> 现有文件 : mailVolumeAbout.png      unlockTickedLibcxxcomponents.png
+新文件 <-> 现有文件 : containerYingTopon.png      sliderLibapminsightb.png
+新文件 <-> 现有文件 : libfbOverReddownarrow.png      styleWhiteLibcxxcomponents.png
+新文件 <-> 现有文件 : watchDefaultprofilepic.png      gesturesUpload.png
+新文件 <-> 现有文件 : libswresampleSigmob.png      elementsLessLess.png
+新文件 <-> 现有文件 : tooltipsElementsShared.png      bangCollection.png
+新文件 <-> 现有文件 : neonLibrrc.png      stylesIconshareImagenetworkerr.png
+新文件 <-> 现有文件 : audienceQuestRenew.png      libimagepipelineShowlessReddownarrow.png
+新文件 <-> 现有文件 : redirectRead.png      usernameIconrightorangeCore.png
+新文件 <-> 现有文件 : awayUntick.png      yellowanimationliveAwayicon.png
+新文件 <-> 现有文件 : runtimeAnythink.png      homeinactiveHomeinactiveBackward.png
+新文件 <-> 现有文件 : teamdetailsbgRelated.png      iconstarMbnativeadvancedGradlew.png
+新文件 <-> 现有文件 : moonTemperatureLibffmpegkit.png      backiconPlusSearch.png
+新文件 <-> 现有文件 : stationHomeactiveBlack.png      bgvipsportFullscreenmin.png
+新文件 <-> 现有文件 : fillSearchbar.png      hooksKickOther.png
+新文件 <-> 现有文件 : nalyticsFlipper.png      issubUnselectedDefaultprofilepic.png
+新文件 <-> 现有文件 : playercommonPenaltyshootnogoalHeji.png      iconpipexpandIconmoreIconarrowrightwhite.png
+新文件 <-> 现有文件 : libavfilterInternet.png      aboutLibreactnativejniIconadslink.png
+新文件 <-> 现有文件 : securityDropdown.png      encryptorDefaultlogoFullscreenmax.png
+新文件 <-> 现有文件 : securityRoomTooltips.png      calendarInit_iCanvas.png
+新文件 <-> 现有文件 : ewardedLangSave.png      moviesIconorientationSpec.png
+新文件 <-> 现有文件 : unlockBinddatas.png      dragForeground.png
+新文件 <-> 现有文件 : runtimeImages.png      valuesIconschedule.png
+新文件 <-> 现有文件 : memberFastMegaphone.png      eactDefaultfootballbgProgress.png
+新文件 <-> 现有文件 : questBrightness.png      bangNotification.png
+新文件 <-> 现有文件 : castTurnEighteen.png      matchdetailbgApps.png
+新文件 <-> 现有文件 : iconwatchnowExecutorPhoneshare.png      leaguedetailsbgTemplateprocessorRecommendation.png
+新文件 <-> 现有文件 : statisticsinactiveUtilsBasketballicon.png      submitThailandDownloading.png
+新文件 <-> 现有文件 : embedEntry.png      mathGradle.png
+新文件 <-> 现有文件 : libavdeviceUntick.png      yingGpay.png
+新文件 <-> 现有文件 : groupBgvipxvodZhubo.png      codegenPlayercommonBecome.png
+新文件 <-> 现有文件 : gesturesIconfeedback.png      modeInfo.png
+新文件 <-> 现有文件 : heartGroupBasketball.png      libavdeviceIconpipexpand.png
+新文件 <-> 现有文件 : unreadForm.png      robotoLibjsinspectorLibyoga.png
+新文件 <-> 现有文件 : handlerDangerMember.png      expandHolder.png
+新文件 <-> 现有文件 : basketballawayteamDragEmpty.png      neonGreyDialog.png
+新文件 <-> 现有文件 : verticalIconarrowleft.png      iconclosewhiteTaiwanCornerkick.png
+新文件 <-> 现有文件 : iconwatchnowVignette.png      pushLeakchecker.png
+新文件 <-> 现有文件 : privilegeCenter.png      modityLargesoundFlyer.png
+新文件 <-> 现有文件 : selectPrivatechatbg.png      scrollviewAnytimeIconwatchnow.png
+新文件 <-> 现有文件 : largeIconmorePredictionactive.png      launcherGreytickTick.png
+新文件 <-> 现有文件 : middleLogo.png      libjsinspectorConfirmation.png
+新文件 <-> 现有文件 : bufferXvod.png      yingVideobufferloadingMiddleware.png
+新文件 <-> 现有文件 : condensedBing.png      homeactiveLibruntimeexecutorChinasame.png
+新文件 <-> 现有文件 : starTelemetryNeon.png      penaltyPrivatechatbg.png
+新文件 <-> 现有文件 : chatroombackgroundVideobufferloadingSecurity.png      androidOwngoal.png
+新文件 <-> 现有文件 : specTeam.png      sportArrowBasketball.png
+新文件 <-> 现有文件 : readActive.png      fullWith_7n.png
+新文件 <-> 现有文件 : tempnodatagifMerger.png      playAbidetectLibmapbufferjni.png
+新文件 <-> 现有文件 : libreactIconarrowrightwhite.png      emptyStyle.png
+新文件 <-> 现有文件 : pauseCommon.png      iconsettingPlashActivity.png
+新文件 <-> 现有文件 : latnStatic_k0.png      minivodCedbadcebfbfbfbcfecbc.png
+新文件 <-> 现有文件 : routerPrivate_kh.png      memberLibjsinspectorIconwechat.png
+新文件 <-> 现有文件 : iconarrowrightwhiteGroupLibhermes.png      arrowupIconsharefriends.png
+新文件 <-> 现有文件 : securityWhitetickWhistle.png      refreshborderlessMbbidEmojiheart.png
+新文件 <-> 现有文件 : floatingMintegral.png      untickLibapminsightb.png
+新文件 <-> 现有文件 : whitevideoliveReactnativeratings.png      libavutilAuto_aGoallogo.png
+新文件 <-> 现有文件 : bootsplashVideo.png      basketballplayerplaceholderIconlogoutReact.png
+新文件 <-> 现有文件 : goalIconwechat.png      predictiondefaultReact.png
+新文件 <-> 现有文件 : verticalRoomLibswresample.png      libreanimatedDescription_c.png
+新文件 <-> 现有文件 : pathFootballfiledlayoutEncrypt.png      weiboMbbid.png
+新文件 <-> 现有文件 : iconnotificationnewPredictionactiveDefaultlogo.png      init_4vTempnodatagifGestures.png
+新文件 <-> 现有文件 : audiencePositionIconarrowright.png      neonRefresh.png
+新文件 <-> 现有文件 : defaultplayerimgGifgoalIconrightorange.png      saveGifgoalbg.png
+新文件 <-> 现有文件 : popupCombine.png      iconarrowrightLibfileNode.png
+新文件 <-> 现有文件 : armvaPhilippinesLine.png      bottomSlider.png
+新文件 <-> 现有文件 : expiredCoreClose.png      profileactiveTelegram.png
+新文件 <-> 现有文件 : newsPrivilege.png      time_pPagination.png
+新文件 <-> 现有文件 : bridgeMatch.png      nodeIconclose.png
+新文件 <-> 现有文件 : shirtExpandAuto_n6.png      submitRelated.png
+新文件 <-> 现有文件 : mimoLibreact.png      switch_dmFootballBackward.png
+新文件 <-> 现有文件 : applicationMalaysiaAdult.png      bgvipxvodEabafadfadddbafeddddeeefeaafImagenetworkerr.png
+新文件 <-> 现有文件 : predictionwinPauseReactnavigation.png      firebasePenaltyshootnogoalCircle.png
+新文件 <-> 现有文件 : managerHomeloadingBang.png      mbnativeNbatrophyHeart.png
+新文件 <-> 现有文件 : pingCanvas.png      footballfiledlayoutRuntimeRelated.png
+新文件 <-> 现有文件 : tumbnailScrollviewMbbid.png      iconnotificationnewRocketLoading.png
+新文件 <-> 现有文件 : pushLibapminsightbMime.png      basketballmatchdetailbgIconcalendarSearchbar.png
+新文件 <-> 现有文件 : commentGuide.png      clockLibcrashsdk.png
+新文件 <-> 现有文件 : otherWeatherEmoji.png      cancelTempnodatagif.png
+新文件 <-> 现有文件 : rocketHandlerConstants.png      iconarrowleftBackgroundText.png
+新文件 <-> 现有文件 : sharewhiteManagerBlacklist.png      iconsaveimageEmojiheart.png
+新文件 <-> 现有文件 : singleValuesSlider.png      productIconarrowrightPrivacy.png
+新文件 <-> 现有文件 : huaweiCedbadcebfbfbfbcfecbc.png      vietnamIconstarWhitevideolive.png
+新文件 <-> 现有文件 : unreadLibavformat.png      leagueMbsplashRouter.png
+新文件 <-> 现有文件 : combinedLibavcodec.png      benefitAlertHomeplayer.png
+新文件 <-> 现有文件 : foundElementsIconadslink.png      penaltyshootSuggestionGifgoalbg.png
+新文件 <-> 现有文件 : centerGift.png      routerWhiteanimationlive.png
+新文件 <-> 现有文件 : libtobAttributedstringLight.png      becomeYingRuntimescheduler.png
+新文件 <-> 现有文件 : anytimeEventPhilippines.png      termsSmallbrightnessDrag.png
+新文件 <-> 现有文件 : changeBridgeVietnam.png      humidityAirbnbstarFrame_yz.png
+新文件 <-> 现有文件 : private_1CompleteFavicon.png      buildTypingLibsentry.png
+新文件 <-> 现有文件 : logoutRenderPenaltyshoot.png      iconadslinkCodegenTelegram.png
+新文件 <-> 现有文件 : roomAndroidPlaylist.png      dplusSubtext.png
+新文件 <-> 现有文件 : inactivePushFilled.png      combinedRuntime.png
+新文件 <-> 现有文件 : loadingLibavfilterBrightness.png      tempnodatagifGifgoal.png
+新文件 <-> 现有文件 : roomHash.png      actionHomeiconShoot.png
+新文件 <-> 现有文件 : upgradeBenefitSigmob.png      uploadLayoutYellowcirclebg.png
+新文件 <-> 现有文件 : detailsUsernameWhistle.png      downBackwhite.png
+新文件 <-> 现有文件 : logouserActionsIconuser.png      mainTrophy.png
+新文件 <-> 现有文件 : libruntimeexecutorAnimationRules.png      awayHomeplayer.png
+新文件 <-> 现有文件 : goallogoProfileactive.png      suggestionBackward.png
+新文件 <-> 现有文件 : orangeuparrowIconadslink.png      videovarProfileactive.png
+新文件 <-> 现有文件 : refreshborderlessRead.png      rewardLangkeyLibavdevice.png
+新文件 <-> 现有文件 : matchinactiveIconadslink.png      homeiconVideojs.png
+新文件 <-> 现有文件 : qaagProfilepic.png      debugManager.png
+新文件 <-> 现有文件 : pointStyleLive.png      debugLibtobIcontransferclub.png
+新文件 <-> 现有文件 : greyPlaylistSmallbrightness.png      iconcalendarProfilepicRewind.png
+新文件 <-> 现有文件 : smallCloseLogout.png      selectionCalendarCatalog.png
+新文件 <-> 现有文件 : dataMatchdetailbgYellowscoreball.png      basketballplayerplaceholderWith_z6.png
+新文件 <-> 现有文件 : temperatureOther.png      libswscaleProfileactive.png
+新文件 <-> 现有文件 : dialogStoreWhite.png      settingBall.png
+新文件 <-> 现有文件 : roundUmeng.png      networkDelegate_pSelect.png
+新文件 <-> 现有文件 : debugFullscreenmax.png      detailGreenDefaultprofilepic.png
+新文件 <-> 现有文件 : minivodLibtobIconclose.png      greyarrowupGraphics.png
+新文件 <-> 现有文件 : iconarrowrightorangeLibswresampleBasketballplayerplaceholder.png      mergerZhuboSelected.png
+新文件 <-> 现有文件 : episodeLibruntimeexecutorSmallorangeman.png      redscoreballIconlogoutTurn.png
+新文件 <-> 现有文件 : iconpipexpandRuntimeschedulerTurn.png      penaltyshootnogoalRefreshFavorite.png
+新文件 <-> 现有文件 : bootsplashOrangeuparrowLibreact.png      leagueSigninup.png
+新文件 <-> 现有文件 : vignetteYellowtored.png      sharewhiteImage.png
+新文件 <-> 现有文件 : middlewareProfileactive.png      selectionMbnative.png
+新文件 <-> 现有文件 : mbjscommonHumidity.png      soundBasketballawayteam.png
+新文件 <-> 现有文件 : binddatasCenter.png      combineWatch.png
+新文件 <-> 现有文件 : placeholderChatroombackgroundHomeloading.png      predictionbuttonBasketballawayteamMoon.png
+新文件 <-> 现有文件 : indexFlyerAbout.png      championMinimizePopup.png
+新文件 <-> 现有文件 : largeDialog.png      termsLayout.png
+新文件 <-> 现有文件 : memberIconsharefriends.png      smallbrightnessMappingFavorite.png
+新文件 <-> 现有文件 : incidentIconpointscoreTextlayoutmanager.png      giftbuttonComponentUnlock.png
+新文件 <-> 现有文件 : pressureChinasame.png      vignetteTeamdetailsbgTooltips.png
+新文件 <-> 现有文件 : middleHalfBenefit.png      detailsHeaderFill.png
+新文件 <-> 现有文件 : profileactiveScorepopsoundSubmit.png      groupImagenomoredata.png
+新文件 <-> 现有文件 : utilsStyles.png      trophyModulesSports.png
+新文件 <-> 现有文件 : scheduleViews.png      regengQuest.png
+新文件 <-> 现有文件 : carouselPopupRocket.png      androidDownarrow.png
+新文件 <-> 现有文件 : pangleInactive.png      inouttargetredUimanager.png
+新文件 <-> 现有文件 : fullscreenmaxIconarrowrightwhite.png      owngoalArrowPredictionactive.png
+新文件 <-> 现有文件 : spinnerNotificationfillemptyRoom.png      schedulerInactiveLibmapbufferjni.png
+新文件 <-> 现有文件 : tumbnailMegaphonePlash.png      imagenetworkerrRouterReactnavigation.png
+新文件 <-> 现有文件 : yellowanimationliveArrow.png      annerCount.png
+新文件 <-> 现有文件 : airbnbstarWeiboRefreshborderless.png      predictionarrowSentry.png
+新文件 <-> 现有文件 : fullStringsLeakchecker.png      dangerStatisticsinactive.png
+新文件 <-> 现有文件 : mutedIconsettingProfilepic.png      placeholderType_0.png
+新文件 <-> 现有文件 : acceptedTransferMalaysia.png      humidityIconbackwhiteVipsport.png
+新文件 <-> 现有文件 : showModal.png      sportStarTempnodata.png
+新文件 <-> 现有文件 : routerIconrightorangeHeji.png      iconnewsshareEpisodeHongkong.png
+新文件 <-> 现有文件 : countryLibavformat.png      modelsUimanagerArrowup.png
+新文件 <-> 现有文件 : commentIncident.png      eventSubbasketballplayer.png
+新文件 <-> 现有文件 : friendsSendSmallbrightness.png      chinasameTemplate_1Casting.png
+新文件 <-> 现有文件 : combineShow.png      humidityMbridge.png
+新文件 <-> 现有文件 : defaultteamTemplate_s.png      whiteScorepopsoundChange.png
+新文件 <-> 现有文件 : penaltyshootnogoalSports.png      paginationTurndownMbsplash.png
+新文件 <-> 现有文件 : androidTypingDependency.png      iconviewergifUpgrade.png
+新文件 <-> 现有文件 : fastLibjsinspector.png      disconnectedRedscoreball.png
+新文件 <-> 现有文件 : basketballtrophyWhitetick.png      checkboxIconqqBell.png
+新文件 <-> 现有文件 : fullHome.png      rootGradle.png
+新文件 <-> 现有文件 : manifestBasketballplayerplaceholderHook.png      clubMoreImages.png
+新文件 <-> 现有文件 : ewardedEabafadfadddbafeddddeeefeaafTextlayoutmanager.png      filledEabafadfadddbafeddddeeefeaaf.png
+新文件 <-> 现有文件 : logoText.png      nend_information_icon.png
+新文件 <-> 现有文件 : leagueTextlayoutmanager.png      nend_button_cancel.png
+新文件 <-> 现有文件 : logoText.png      nend_information_icon.png
+新文件 <-> 现有文件 : leagueTextlayoutmanager.png      nend_button_cancel.png
+新文件 <-> 现有文件 : specStoreLiblogger.png      notificationfillemptyHomeicon.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout.png      bootsplash_logo.png
+新文件 <-> 现有文件 : specStoreLiblogger.png      notificationfillemptyHomeicon.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout.png      bootsplash_logo.png
+新文件 <-> 现有文件 : specStoreLiblogger.png      notificationfillemptyHomeicon.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout.png      bootsplash_logo.png
+新文件 <-> 现有文件 : specStoreLiblogger.png      notificationfillemptyHomeicon.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout.png      bootsplash_logo.png
+新文件 <-> 现有文件 : specStoreLiblogger.png      notificationfillemptyHomeicon.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout.png      bootsplash_logo.png
+新文件 <-> 现有文件 : productBuildTarget.png      loader-icon.png
+新文件 <-> 现有文件 : selectLibavcodecGifgoalbg.png      volume.png
+新文件 <-> 现有文件 : gestureTick.png      expand.png
+新文件 <-> 现有文件 : basketballAccepted.png      error-icon.png
+新文件 <-> 现有文件 : predictionbannerBaselineModule.png      noDataIcon.png
+新文件 <-> 现有文件 : moviesCombined.png      lock.png
+新文件 <-> 现有文件 : iconadslinkClassesFlipper.png      shrink.png
+新文件 <-> 现有文件 : rightReddownarrowDownload.png      bottom-vignette.png
+新文件 <-> 现有文件 : sportVideojsTramini.png      pause.png
+新文件 <-> 现有文件 : valuesFull.png      vignette.png
+新文件 <-> 现有文件 : malaysiaActions.png      unlock.png
+新文件 <-> 现有文件 : filterSpinner.png      top-vignette.png
+新文件 <-> 现有文件 : libsentryLibloggerTeam.png      playerGuide.png
+新文件 <-> 现有文件 : signinupControl.png      play.png
+新文件 <-> 现有文件 : huaweiHolder.png      back.png
+新文件 <-> 现有文件 : orientationMain.png      top_overlay.png
+新文件 <-> 现有文件 : pointDown.png      8.png
+新文件 <-> 现有文件 : libflipperLibtobStrings.png      9.png
+新文件 <-> 现有文件 : friendsIconuser.png      12.png
+新文件 <-> 现有文件 : bodanPredictiondefaultSpec.png      13.png
+新文件 <-> 现有文件 : bellWhitevideolive.png      11.png
+新文件 <-> 现有文件 : long_nLineCollection.png      10.png
+新文件 <-> 现有文件 : iconclosewhiteIconwechat.png      4.png
+新文件 <-> 现有文件 : statsnomoredataNeonNetwork.png      5.png
+新文件 <-> 现有文件 : runtimeValuesPlay.png      7.png
+新文件 <-> 现有文件 : foregroundVertical.png      6.png
+新文件 <-> 现有文件 : otherLibfbjniLibavfilter.png      2.png
+新文件 <-> 现有文件 : sideWeiboGraph.png      3.png
+新文件 <-> 现有文件 : injuryTemperature.png      1.png
+新文件 <-> 现有文件 : routerLibffmpegkitIconwatchnow.png      pressure.png
+新文件 <-> 现有文件 : scorepopsoundCondensed.png      temperature.png
+新文件 <-> 现有文件 : injuryGemfileSave.png      wind.png
+新文件 <-> 现有文件 : phoneshareRewind.png      humidity.png
+新文件 <-> 现有文件 : pointDown.png      8.png
+新文件 <-> 现有文件 : libflipperLibtobStrings.png      9.png
+新文件 <-> 现有文件 : friendsIconuser.png      12.png
+新文件 <-> 现有文件 : bodanPredictiondefaultSpec.png      13.png
+新文件 <-> 现有文件 : bellWhitevideolive.png      11.png
+新文件 <-> 现有文件 : long_nLineCollection.png      10.png
+新文件 <-> 现有文件 : iconclosewhiteIconwechat.png      4.png
+新文件 <-> 现有文件 : statsnomoredataNeonNetwork.png      5.png
+新文件 <-> 现有文件 : runtimeValuesPlay.png      7.png
+新文件 <-> 现有文件 : foregroundVertical.png      6.png
+新文件 <-> 现有文件 : otherLibfbjniLibavfilter.png      2.png
+新文件 <-> 现有文件 : sideWeiboGraph.png      3.png
+新文件 <-> 现有文件 : injuryTemperature.png      1.png
+新文件 <-> 现有文件 : libapminsightaIconarrowleft.png      videoVAR1.png
+新文件 <-> 现有文件 : sendMapbufferMath.png      predictionArrow.png
+新文件 <-> 现有文件 : zhengpianCountModule.png      liveShare.png
+新文件 <-> 现有文件 : calendarLibavfilter.png      redDownArrow.png
+新文件 <-> 现有文件 : reddownarrowLine.png      InOutTargetOrange.png
+新文件 <-> 现有文件 : watchIconshareLibcxxcomponents.png      IconTransferClub.png
+新文件 <-> 现有文件 : fullPromotionWhitetick.png      example-image.png
+新文件 <-> 现有文件 : groupLibflipperHeader.png      basketballAwayTeam.png
+新文件 <-> 现有文件 : logoutCommentPrivatechatbg.png      footballFiledLayout.png
+新文件 <-> 现有文件 : footballAnythink.png      eye-close.png
+新文件 <-> 现有文件 : firebaseLibavdevice.png      ArrowSelectDown.png
+新文件 <-> 现有文件 : dragResendEmpty.png      orangeDownArrow.png
+新文件 <-> 现有文件 : baseLargeGift.png      imageAppUpdate.png
+新文件 <-> 现有文件 : iconbackwhiteChart.png      defaultTumbnailBg.png
+新文件 <-> 现有文件 : rightLibfabricjni.png      LogoTopHeader.png
+新文件 <-> 现有文件 : encryptUnimplementedview.png      logoNewsTop.png
+新文件 <-> 现有文件 : predictionPointPredictionbannershared.png      imageAoLong.png
+新文件 <-> 现有文件 : libimagepipelineWhiteanimationliveInformation.png      logoNews.png
+新文件 <-> 现有文件 : styleEvent.png      shootYesGoal.png
+新文件 <-> 现有文件 : signinupToponVideojs.png      subIn.png
+新文件 <-> 现有文件 : greenRuntimeschedulerApps.png      IconNotificationNew.png
+新文件 <-> 现有文件 : runtimeHongkongArmva.png      shootYesGoal1.png
+新文件 <-> 现有文件 : floatingMini.png      penaltyShoot.png
+新文件 <-> 现有文件 : shareMintegral.png      phoneShare.png
+新文件 <-> 现有文件 : membershipList.png      china.png
+新文件 <-> 现有文件 : baselineLargeFile.png      taiwan.png
+新文件 <-> 现有文件 : awayPing.png      macau.png
+新文件 <-> 现有文件 : yellowanimationliveLibtob.png      malaysia.png
+新文件 <-> 现有文件 : homeloadingIconsubssuccessReducer.png      thailand.png
+新文件 <-> 现有文件 : searchbarLaunchUnread.png      philippines.png
+新文件 <-> 现有文件 : imagemanagerCornershoot.png      singapore.png
+新文件 <-> 现有文件 : hashBlacklist.png      hongkong.png
+新文件 <-> 现有文件 : vietnamIconwechat.png      vietnam.png
+新文件 <-> 现有文件 : homeinactiveLibreanimatedStations.png      IconBackWhite.png
+新文件 <-> 现有文件 : entryBackward.png      tick.png
+新文件 <-> 现有文件 : rewindMatchinactiveSmallorangeman.png      iconShare.png
+新文件 <-> 现有文件 : iconscheduleFilled.png      update.png
+新文件 <-> 现有文件 : awayiconEpisodes.png      floater.png
+新文件 <-> 现有文件 : bootsplashLightTheme.png      goal.png
+新文件 <-> 现有文件 : topicIconuserSecurity.png      otherMatchDetailBG.png
+新文件 <-> 现有文件 : controlOrangeLibreanimated.png      predictionLoss.png
+新文件 <-> 现有文件 : clockInit_1Helper.png      greyTick.png
+新文件 <-> 现有文件 : nendHalf.png      whiteTick.png
+新文件 <-> 现有文件 : foregroundGray.png      sub.png
+新文件 <-> 现有文件 : sansGestures.png      arrowRightWithTail.png
+新文件 <-> 现有文件 : reactnavigationTemplateprocessor.png      whiteVideoLive.png
+新文件 <-> 现有文件 : whiteEmbed.png      StatisticsInactive.png
+新文件 <-> 现有文件 : annerMatch.png      predictionWin.png
+新文件 <-> 现有文件 : soundIconuserSentry.png      DefaultPlayerImg.png
+新文件 <-> 现有文件 : submitLibfabricjni.png      ArrowRight.png
+新文件 <-> 现有文件 : photoHomeplayer.png      whistleOrange.png
+新文件 <-> 现有文件 : headerNewinterstitial.png      imageNetworkErr.png
+新文件 <-> 现有文件 : rncoreArmva.png      IconSchedule.png
+新文件 <-> 现有文件 : largeSide.png      subOut.png
+新文件 <-> 现有文件 : sinaModules.png      iconSaveImage.png
+新文件 <-> 现有文件 : rncoreYellowtoredLibffmpegkit.png      IconShareFriends.png
+新文件 <-> 现有文件 : plashPlash.png      whiteBell.png
+新文件 <-> 现有文件 : productImagemanager.png      IconCalendar.png
+新文件 <-> 现有文件 : zoomOrientationDefault_hr.png      iconArrowRight.png
+新文件 <-> 现有文件 : stationsLibffmpegkit.png      matchInactive.png
+新文件 <-> 现有文件 : videoPause.png      bellReminder.png
+新文件 <-> 现有文件 : mutedLiveshareRefreshborderless.png      predictionBanner.png
+新文件 <-> 现有文件 : mimeNewinterstitialBorderless.png      imageNoMoreData.png
+新文件 <-> 现有文件 : countMatchinactivePrivilege.png      iconBell.png
+新文件 <-> 现有文件 : sheetCodegen.png      fullScreenMin.png
+新文件 <-> 现有文件 : emojiFullscreenmax.png      yellowRedCard.png
+新文件 <-> 现有文件 : typesTickArea.png      defaultBasketballBg.png
+新文件 <-> 现有文件 : moviesCombined.png      lock.png
+新文件 <-> 现有文件 : mbbannerNotificationfillempty.png      IconMegaphone.png
+新文件 <-> 现有文件 : backwhiteShow.png      notificationGray.png
+新文件 <-> 现有文件 : footballtrophySliderCancel.png      basketballPlayerPlaceholder.png
+新文件 <-> 现有文件 : textinputResultLink.png      defaultProfilePic.png
+新文件 <-> 现有文件 : matchinactiveIndicatorPrivate_n.png      middleSound.png
+新文件 <-> 现有文件 : mbridgeImages.png      defaultFootballBg.png
+新文件 <-> 现有文件 : mathUserIconnewsshare.png      assist.png
+新文件 <-> 现有文件 : orangedownarrowIndicatorRefresh.png      shareBlack.png
+新文件 <-> 现有文件 : description_1Bgvipsport.png      ArrowDown.png
+新文件 <-> 现有文件 : routerWind.png      views.png
+新文件 <-> 现有文件 : nendComponentregistry.png      notificationFilled.png
+新文件 <-> 现有文件 : carouselLibreactnativejniLibsentry.png      yellow.png
+新文件 <-> 现有文件 : libfbTicked.png      iconUser.png
+新文件 <-> 现有文件 : becomeAnalytic.png      homeTeamField.png
+新文件 <-> 现有文件 : reactBasketballiconPolicy.png      TeamDetailsBg.png
+新文件 <-> 现有文件 : telegramLangkeyChampion.png      prediction.png
+新文件 <-> 现有文件 : sansLibfbjniHash.png      iconLogout.png
+新文件 <-> 现有文件 : downloadedAnimationHuawei.png      largeSound.png
+新文件 <-> 现有文件 : foregroundWind.png      yellow-animation-live.png
+新文件 <-> 现有文件 : sellSigninupTail.png      backWhite.png
+新文件 <-> 现有文件 : reactnavigationPenaltymatchicon.png      tempNoData.png
+新文件 <-> 现有文件 : skipSmallIconschedule.png      tooltips.png
+新文件 <-> 现有文件 : verticalResult.png      IconRightOrange.png
+新文件 <-> 现有文件 : logoCrown.png      penaltyGoal.png
+新文件 <-> 现有文件 : applicationIconfeedbackDownloaded.png      iconClose.png
+新文件 <-> 现有文件 : gifgoalWindBoot.png      defaultLogo.png
+新文件 <-> 现有文件 : tickSentryInouttargetred.png      alert.png
+新文件 <-> 现有文件 : sellScrollviewRegeng.png      PredictionDefault.png
+新文件 <-> 现有文件 : reddownarrowDetailGoogle.png      cornerKick.png
+新文件 <-> 现有文件 : awayIssub.png      IconChatSend.png
+新文件 <-> 现有文件 : iconmoreIconuserDown.png      chatBotPhoto.png
+新文件 <-> 现有文件 : cricketSmallbrightness.png      iconFeedback.png
+新文件 <-> 现有文件 : componentregistryBottom.png      largeBrightness.png
+新文件 <-> 现有文件 : megaphoneRocket.png      IconArrowRightOrange.png
+新文件 <-> 现有文件 : shootyesgoalShootyesgoal.png      middleBrightness.png
+新文件 <-> 现有文件 : iconsharefriendsOther.png      nbaTrophy.png
+新文件 <-> 现有文件 : time_vBgvipsportEpisode.png      basketballIcon.png
+新文件 <-> 现有文件 : mimoWhiteanimationlive.png      AnimationLiveWhite.png
+新文件 <-> 现有文件 : libffmpegkitTime_4.png      zhubo.png
+新文件 <-> 现有文件 : downarrowSina.png      iconCloseWhite.png
+新文件 <-> 现有文件 : bgvipsportSettingsHeart.png      ImageActionLive.png
+新文件 <-> 现有文件 : leakcheckerProgress.png      questIcon.png
+新文件 <-> 现有文件 : whiteanimationliveSelected.png      basketballMatchDetailBG.png
+新文件 <-> 现有文件 : savePredictionarrowSingapore.png      StatsNoMoreData.png
+新文件 <-> 现有文件 : reactnativeratingsAlbum.png      eye-open.png
+新文件 <-> 现有文件 : moviesMinimizeLibsentry.png      ownGoal.png
+新文件 <-> 现有文件 : libffmpegkitSettingsGifgoal.png      InOutTargetGreen.png
+新文件 <-> 现有文件 : activityRead.png      iconArrowRightWhite.png
+新文件 <-> 现有文件 : serviceFaviconOver.png      smallOrangeMan.png
+新文件 <-> 现有文件 : sigmobChatroombackgroundWeather.png      wifi-router.png
+新文件 <-> 现有文件 : kickChampion.png      arrow-down.png
+新文件 <-> 现有文件 : connectionAttributedstring.png      greenScoreBall.png
+新文件 <-> 现有文件 : logoutPredictionHandler.png      yellowToRed.png
+新文件 <-> 现有文件 : iconeditYellowanimationlive.png      whiteSmallTick.png
+新文件 <-> 现有文件 : penaltyshootLibreactnativejni.png      profileInactive.png
+新文件 <-> 现有文件 : icontransferclubZoomAnytime.png      isSub.png
+新文件 <-> 现有文件 : yellowcirclebgIconrightorange.png      yellowCircleBG1.png
+新文件 <-> 现有文件 : networkShort_afMiddle.png      matchActive.png
+新文件 <-> 现有文件 : expiredVipsportAgreement.png      subBasketballPlayer.png
+新文件 <-> 现有文件 : playlistDrag.png      iconBellActive.png
+新文件 <-> 现有文件 : helperMiddlewareEntry.png      yellowScoreBall.png
+新文件 <-> 现有文件 : codegenCrown.png      redGoal.png
+新文件 <-> 现有文件 : moviesLaunchOrangedownarrow.png      IconCurrentMatch.png
+新文件 <-> 现有文件 : zhuboWhiteanimationlive.png      greenArrowUp.png
+新文件 <-> 现有文件 : refreshborderlessSideLoading.png      IconDefaultThumbnail.png
+新文件 <-> 现有文件 : iconarrowrightInjuryPredictiondefault.png      iconEye.png
+新文件 <-> 现有文件 : armvaIconrightorange.png      TV3.png
+新文件 <-> 现有文件 : libtobLibruntimeexecutor.png      baiduAds.png
+新文件 <-> 现有文件 : catalogGradlewTime_6.png      TV1.png
+新文件 <-> 现有文件 : indicatorLibjsi.png      homeActive.png
+新文件 <-> 现有文件 : componentregistryTitleSkip.png      refreshBorderless.png
+新文件 <-> 现有文件 : playerBodan.png      defaultRoomBg.png
+新文件 <-> 现有文件 : penaltyshootModal.png      homePlayer.png
+新文件 <-> 现有文件 : mbbidResendHeart.png      profileFrame.png
+新文件 <-> 现有文件 : expandIconviewergifLangkey.png      live-no-data-bg-img.png
+新文件 <-> 现有文件 : lightUnreadProfile.png      TV0.png
+新文件 <-> 现有文件 : popupDefaultfootballbgRouter.png      whistleOrange2.png
+新文件 <-> 现有文件 : sportsIcondefaultthumbnail.png      IconAdsLink.png
+新文件 <-> 现有文件 : playChange.png      iconWatch.png
+新文件 <-> 现有文件 : cancelWeather.png      ArrowUp.png
+新文件 <-> 现有文件 : defaultteamVideojsLibrrc.png      iconSetting.png
+新文件 <-> 现有文件 : leaguedetailsbgTemperature.png      IconPipShrink.png
+新文件 <-> 现有文件 : resendPredictionbuttonLoading.png      WatchNowBg.png
+新文件 <-> 现有文件 : iconwatchClear.png      iconOrientation.png
+新文件 <-> 现有文件 : dependencyImagenomoredata.png      orangeUpArrow.png
+新文件 <-> 现有文件 : acceptedNterstitialGoogle.png      redCircleBG.png
+新文件 <-> 现有文件 : gpayTumbnailModule.png      liveEndModalLogo.png
+新文件 <-> 现有文件 : positionUploadChart.png      IconDownImg.png
+新文件 <-> 现有文件 : iconarrowleftPage.png      newsShare.png
+新文件 <-> 现有文件 : contextDplusPause.png      emojiHeart.png
+新文件 <-> 现有文件 : refreshborderlessDefaultteam.png      IconSubsSuccess.png
+新文件 <-> 现有文件 : plashList.png      defaultPredictionProfile.png
+新文件 <-> 现有文件 : detailsReactnavigationEvent.png      gift.png
+新文件 <-> 现有文件 : penaltymatchiconConfirmation.png      IconCloseWhiteWithBg.png
+新文件 <-> 现有文件 : runtimeMaterial.png      penaltyShootNoGoal.png
+新文件 <-> 现有文件 : bodanCount.png      champion.png
+新文件 <-> 现有文件 : membershipButtonMiddle.png      fullScreenMax.png
+新文件 <-> 现有文件 : predictionbuttonPagination.png      privateChatBG.png
+新文件 <-> 现有文件 : downloadedSingaporeLibavutil.png      showMore.png
+新文件 <-> 现有文件 : zhuboArrow.png      goalLogo.png
+新文件 <-> 现有文件 : private_0Arrow.png      logoUser.png
+新文件 <-> 现有文件 : activeInit_5Prediction.png      basketballDetailsBG.png
+新文件 <-> 现有文件 : catagoryIconwatchnow.png      IconRefresh.png
+新文件 <-> 现有文件 : listModuleSharewhite.png      PlayerShirt.png
+新文件 <-> 现有文件 : backiconSell.png      imageWatchLive.png
+新文件 <-> 现有文件 : materialWhitetick.png      cornerShoot.png
+新文件 <-> 现有文件 : agreementLeague.png      shareWhite.png
+新文件 <-> 现有文件 : favoriteTypes.png      chatRoomBackground.png
+新文件 <-> 现有文件 : fullscreenminPageModal.png      InOutTargetYellow.png
+新文件 <-> 现有文件 : commentTickFootball.png      profileActive.png
+新文件 <-> 现有文件 : friendsTerms.png      defaultTeam.png
+新文件 <-> 现有文件 : readLibreact.png      iconPlay.png
+新文件 <-> 现有文件 : searchStylesService.png      shield-done.png
+新文件 <-> 现有文件 : philippinesLight.png      away-icon.png
+新文件 <-> 现有文件 : rulesHome.png      StatisticsActive.png
+新文件 <-> 现有文件 : injuryResultFound.png      showLess.png
+新文件 <-> 现有文件 : homeiconOrangeuparrow.png      assistGoal.png
+新文件 <-> 现有文件 : xvodPenaltymatchiconMatchdetailbg.png      IconWechat.png
+新文件 <-> 现有文件 : mbridgeSigninupMiddle.png      InOutTargetRed.png
+新文件 <-> 现有文件 : grayMinimizeIconclosewhite.png      disconnectedLogo.png
+新文件 <-> 现有文件 : reactnativejsRightPlus.png      video-live.png
+新文件 <-> 现有文件 : videocommonYellowcirclebg.png      volumeWithSound.png
+新文件 <-> 现有文件 : contextAreaYellowtored.png      footballField.png
+新文件 <-> 现有文件 : update_f9UnselectedHistory.png      IconWatchNow.png
+新文件 <-> 现有文件 : tumbnailSelection.png      iconNoInternet.png
+新文件 <-> 现有文件 : rankModalBrightness.png      awayPlayer.png
+新文件 <-> 现有文件 : imagesTyping.png      trash.png
+新文件 <-> 现有文件 : countRecommendationBaseline.png      turnDown.png
+新文件 <-> 现有文件 : iconpointscoreContainerExpand.png      sellMathBackground.png
+新文件 <-> 现有文件 : leakcheckerVignette.png      HalfFieldImage.png
+新文件 <-> 现有文件 : singaporeViews.png      shootNoGoal1.png
+新文件 <-> 现有文件 : ewardedGuideBecome.png      IconPipExpand.png
+新文件 <-> 现有文件 : owngoalPrivatechatbg.png      shareModal.png
+新文件 <-> 现有文件 : librrcStationsAlbum.png      greenCircleBG.png
+新文件 <-> 现有文件 : ajaxDefaultteam.png      greyArrowUp.png
+新文件 <-> 现有文件 : defaultroombgMegaphone.png      arrow-down1.png
+新文件 <-> 现有文件 : plashRelease_1Arrowup.png      iconArrowLeft.png
+新文件 <-> 现有文件 : gmailProfileactiveLibavutil.png      home-icon.png
+新文件 <-> 现有文件 : bridgeFrame_i3.png      awayTeamField.png
+新文件 <-> 现有文件 : libglogStationFilter.png      diceLogo.png
+新文件 <-> 现有文件 : friendsIcondefaultthumbnailImagemanager.png      iconEdit.png
+新文件 <-> 现有文件 : incidentWhiteanimationlive.png      injury.png
+新文件 <-> 现有文件 : playAcceptedPhoto.png      whiteAnimationLive.png
+新文件 <-> 现有文件 : modeTemplate_u4.png      yellowVideoLive.png
+新文件 <-> 现有文件 : inouttargetredHash.png      notification.png
+新文件 <-> 现有文件 : stationApplication.png      footballTrophy.png
+新文件 <-> 现有文件 : friendsMbnativeadvanced.png      animation-live.png
+新文件 <-> 现有文件 : whitetickMaterial.png      orangeClock2.png
+新文件 <-> 现有文件 : coreLiveshareGraphics.png      smallBrightness.png
+新文件 <-> 现有文件 : auto_8White.png      orangeScoreBall.png
+新文件 <-> 现有文件 : adultTooltipsAnimations.png      IconNewsShare.png
+新文件 <-> 现有文件 : sellSinaReactnativeratings.png      LeagueDetailsBg.png
+新文件 <-> 现有文件 : giftbuttonAboutLink.png      orangeClock.png
+新文件 <-> 现有文件 : stylePenaltyshootnogoal.png      notificationFillEmpty.png
+新文件 <-> 现有文件 : gestureSearchbarHuawei.png      redScoreBall.png
+新文件 <-> 现有文件 : bootBasketballmatchdetailbg.png      dragClose.png
+新文件 <-> 现有文件 : greyDownloaded.png      matchDetailBG.png
+新文件 <-> 现有文件 : huaweiHolder.png      back.png
+新文件 <-> 现有文件 : abidetectNbatrophyDetails.png      homeInactive.png
+新文件 <-> 现有文件 : malaysiaDependency.png      predictionActive.png
+新文件 <-> 现有文件 : searchIconuserLatn.png      shootNoGoal.png
+新文件 <-> 现有文件 : iconpointscoreYellowtoredLeakchecker.png      iconCloseWhiteBg.png
+新文件 <-> 现有文件 : cedbadcebfbfbfbcfecbcUnimplementedview.png      predictionButton.png
+新文件 <-> 现有文件 : whitevideoliveIconfeedbackHolder.png      IconQQ.png
+新文件 <-> 现有文件 : contextIconcalendarLibreactperfloggerjni.png      IconPointScore.png
+新文件 <-> 现有文件 : customKuaishou.png      penaltyMatchIcon.png
+新文件 <-> 现有文件 : spinnerRulesLibcxxcomponents.png      IconMore.png
+新文件 <-> 现有文件 : modelsIndex.png      refresh.png
+新文件 <-> 现有文件 : targetCommonPath.png      iconArrowRightBlack.png
+新文件 <-> 现有文件 : megaphoneVideovarColors.png      red.png
+新文件 <-> 现有文件 : subtextCore.png      orangeTick.png
+新文件 <-> 现有文件 : ewardedEvent.png      basketballTrophy.png
+新文件 <-> 现有文件 : iconwechatLibhermesImagemanager.png      live.png
+新文件 <-> 现有文件 : rulesSentryAnytime.png      smallSound.png
+新文件 <-> 现有文件 : libreactnativeblobHelperStatic_ad.png      iconStar.png
+新文件 <-> 现有文件 : basketballiconFloater.png      iconViewer.png
+新文件 <-> 现有文件 : specSheet.png      basketballHomeTeam.png
+新文件 <-> 现有文件 : friendsFieldZoom.png      close.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout@2x.png      bootsplash_logo@2x.png
+新文件 <-> 现有文件 : bottomSearchFootballfiledlayout@3x.png      bootsplash_logo@3x.png
+
+
+自动为您开启6个线程进行混淆。。。。。。。
+开始自动清理源代码中的注释。。。。。。
+
+正在自动获取分析过滤不能修改函数名称集合。。。。。
+
+
+开始提取所有源文件中的类名并生成新类名。。。。。。
+类名: UmengAnalytics <---替换为---> mayi_push
+类名: CustomEventAnalytic <---替换为---> mayi_Foreground
+类名: YSConfig <---替换为---> mayi_Librrc
+类名: AppConfig <---替换为---> mayi_VideojsInit
+类名: AppsApi <---替换为---> mayi_Iconclosewhite
+类名: SplashApi <---替换为---> mayi_NendLibglog
+类名: ProductApi <---替换为---> mayi_StyleShrink
+类名: PlaylistApi <---替换为---> mayi_ServiceFilter
+类名: UserApi <---替换为---> mayi_Injury
+类名: CLangKey <---替换为---> mayi_Turndown
+类名: CEndpoint <---替换为---> mayi_Iconclosewhitewithbg
+类名: RNViewController <---替换为---> mayi_SendLibbufferController
+类名: ATSplashViewController <---替换为---> mayi_LibapminsightbController
+类名: ATInterstitialRNSDK <---替换为---> mayi_Textlayoutmanager
+类名: ATRNSDK <---替换为---> mayi_GraphicsIconwatch
+类名: ATRewardedVideoRNSDK <---替换为---> mayi_Stations
+类名: LiveRoomAction <---替换为---> mayi_BingUnlock
+类名: ATBannerRNSDK <---替换为---> mayi_LibrrcEpisode
+类名: ATSplashViewController <---替换为---> mayi_LibapminsightbController
+类名: ATInterstitialRNSDK <---替换为---> mayi_Textlayoutmanager
+类名: ATRNSDK <---替换为---> mayi_GraphicsIconwatch
+类名: ATRewardedVideoRNSDK <---替换为---> mayi_Stations
+类名: ATBannerRNSDK <---替换为---> mayi_LibrrcEpisode
+类名: AppDelegate <---替换为---> AppDelegate
+类名: RNUMConfigure <---替换为---> mayi_FilePrivilege
+类名: UMAnalyticsModule <---替换为---> mayi_Resend
+类名: NewsVideoPlayer <---替换为---> mayi_Template
+类名: VodApi <---替换为---> mayi_CrossChat
+类名: AdsApi <---替换为---> mayi_ConstCheckbox
+类名: ChatApi <---替换为---> mayi_Iconarrowrightorange
+类名: FeedbackApi <---替换为---> mayi_CondensedAgreement
+类名: MiniVodApi <---替换为---> mayi_Predictionarrow
+类名: CPopup <---替换为---> mayi_Attributedstring
+类名: User <---替换为---> mayi_Gift
+类名: Api <---替换为---> mayi_Analytics
+类名: Api <---替换为---> mayi_FilledSharewhite
+类名: AppsFlyerAnalytics <---替换为---> mayi_ForegroundLibfabricjni
+类名: CRouter <---替换为---> mayi_TrashBootsplash
+类名: CLang <---替换为---> mayi_Flipper
+类名: CEnv <---替换为---> mayi_PredictionbannersharedAttributedstringView
+类名: CApi <---替换为---> mayi_ReactBang
+类名: ResponseModel <---替换为---> mayi_LibcxxcomponentsMounting
+
+
+开始混淆所有源文件中的样式类名。。。。。。
+
+
+
+开始替换所有源文件中的类名。。。。。。
+
+宏名称: PlacementID <---替换为---> LibimagepipelineHolderSearch
+
+
+开始混淆开始混淆interface，type，use对象名称。。。。。。。
+Type: NavOptionsType <---替换为---> mayi_VideoInfo
+Type: VodCarousellType <---替换为---> mayi_TraminiManifest
+Type: VodPlayListType <---替换为---> mayi_Predictionwin
+Type: SuggestVodListType <---替换为---> mayi_YingSmall
+Type: AdultVodListType <---替换为---> mayi_Iconarrowright
+Type: MiniVideoListType <---替换为---> mayi_Taiwan
+Type: MiniVideoVodListType <---替换为---> mayi_Eighteen
+Type: VodData <---替换为---> mayi_Code
+Type: XVodData <---替换为---> mayi_EmojiheartChinasame
+Type: CarouselData <---替换为---> mayi_Plash
+Type: VodPlayerAdType <---替换为---> mayi_Report
+Type: LiveChatRoomType <---替换为---> mayi_BaiduHalffieldimage
+Type: LiveChatMessageType <---替换为---> mayi_Background
+Type: StreamerPinMsgType <---替换为---> mayi_News
+Type: SportTabType <---替换为---> mayi_MatchinactivePlash
+Type: UploadVideoPreviewParams <---替换为---> mayi_Interstitial
+Type: UploadVideoType <---替换为---> mayi_Libswscale
+Interface: VodType <---替换为---> mayi_EmptyGradle
+Interface: SuggestedVodType <---替换为---> mayi_LibswresampleModal
+Interface: VodEpisodeListType <---替换为---> mayi_Const
+Interface: VodSourceType <---替换为---> mayi_PrivacyImage
+Interface: VodEpisodeType <---替换为---> mayi_DependenciesPause
+Interface: VodEpisodeStatusType <---替换为---> mayi_CastingArea
+Interface: ProgressType <---替换为---> mayi_UntickTeam
+Interface: TypeExtendType <---替换为---> mayi_Xvod
+Interface: TypeType <---替换为---> mayi_PlashLibreanimated
+Interface: VodListType <---替换为---> mayi_WhitevideoliveRocket
+Interface: VodTopicType <---替换为---> mayi_Runtime
+Interface: YingPingList <---替换为---> mayi_Matchinactive
+Interface: MiniVideo <---替换为---> mayi_Small
+Interface: FilterOptionsType <---替换为---> mayi_Signinup
+Interface: FilterOptionsTypeExtendObj <---替换为---> mayi_Giftbutton
+Interface: LiveTVStationItem <---替换为---> mayi_ReddownarrowItem
+Interface: DetailTab <---替换为---> mayi_DownloadingContainer
+Interface: SubmitFeedbackRequest <---替换为---> mayi_ActivityIconarrowleft
+Interface: MiniVideoCollectionItem <---替换为---> mayi_ReportEncryptItem
+Interface: CheckVersionResponseType <---替换为---> mayi_IconqqCrown
+Interface: CheckVersionResponseDataType <---替换为---> mayi_BecomeFull
+Interface: CheckVersionRequest <---替换为---> mayi_Feedback
+Interface: AdultVodType <---替换为---> mayi_SmallorangemanLibcxxcomponents
+Interface: CommentsResponseDataType <---替换为---> mayi_EntryGradlew
+Interface: CommentsType <---替换为---> mayi_StreamingSmall
+Interface: CountryPhoneCodeType <---替换为---> mayi_Core
+Interface: BannerAdType <---替换为---> mayi_Room
+Interface: BannerAdTypeRes <---替换为---> mayi_BaselineIconnotificationnew
+Type: MiniVideoResponseType <---替换为---> mayi_Math
+Interface: EpisodeDownloadType <---替换为---> mayi_EmptySmall
+Interface: VodDownloadType <---替换为---> mayi_CurrentFootball
+Interface: DownloadVideoReducerState <---替换为---> mayi_Prediction
+Interface: Currency <---替换为---> mayi_Push
+Interface: ThemeActionType <---替换为---> mayi_Langkey
+Interface: VodActionType <---替换为---> mayi_PromotionComponent
+Interface: FavoriteVodActionType <---替换为---> mayi_LibapminsightaPlayer
+Interface: VodPlaylistActionType <---替换为---> mayi_DownDefaultfootballbg
+Interface: SearchHistoryActionType <---替换为---> mayi_MbsplashStats
+Interface: ClearStorageActionType <---替换为---> mayi_IconscheduleRoot
+Interface: SettingsActionType <---替换为---> mayi_StylesList
+Interface: MiniVodActionType <---替换为---> mayi_Close
+Interface: OneTimeActionActionType <---替换为---> mayi_China
+Interface: OptionalUpdateFields <---替换为---> mayi_Mini
+Interface: DownloadVideoActionPayload <---替换为---> mayi_AdultIconsharefriends
+Interface: DownloadVideoActionType <---替换为---> mayi_Catagory
+Interface: Props <---替换为---> mayi_GoogleViews
+Type: HomeTabParamList <---替换为---> mayi_KuaishouMalaysia
+Type: ProfileTabParamList <---替换为---> mayi_FullscreenmaxCore
+Type: PlaylistTabParamList <---替换为---> mayi_Rules
+Type: WatchAnytimeTabParamList <---替换为---> mayi_Arrowup
+Type: RootStackParamList <---替换为---> mayi_Collection
+Interface: RootParamList <---替换为---> mayi_LibyogaBodan
+Type: LiveRoomType <---替换为---> mayi_Root
+Type: LiveRoomHistoryType <---替换为---> mayi_NavigationCasting
+Type: PrivateRoomType <---替换为---> mayi_TypeSheet
+Type: PrivateRoomHistoryType <---替换为---> mayi_Values
+Type: EventApiJsonType <---替换为---> mayi_Cornershoot
+Type: MiniVodRef <---替换为---> mayi_CountQuest
+Type: FlatListType <---替换为---> mayi_EventLibnms
+Type: CTextInputHookProps <---替换为---> mayi_DropdownCustom
+Type: CTextInputProps <---替换为---> mayi_Privilege
+Type: CPanGestureHookProps <---替换为---> mayi_RegisterTicked
+Type: PanContext <---替换为---> mayi_Libmapbufferjni
+Type: CPanGestureProps <---替换为---> mayi_MimoNetwork
+Type: OtpInputsProps <---替换为---> mayi_IconrightorangeTime
+Type: CPressableHookProps <---替换为---> mayi_Dplus
+Type: CPressableProps <---替换为---> mayi_Statsnomoredata
+Type: CBottomSheetHookProps <---替换为---> mayi_Boot
+Type: CProps <---替换为---> mayi_WhitetickLibyoga
+Interface: NavType <---替换为---> mayi_Libhermes
+Type: VideoRef <---替换为---> mayi_FootballtrophyGreytick
+Type: VideoControlsRef <---替换为---> mayi_Goallogo
+Type: RefHandler <---替换为---> mayi_Textinput
+Type: VodCommentBoxProps <---替换为---> mayi_Apple
+Type: SuggestedVodItemType <---替换为---> mayi_Rocket
+Type: Tab <---替换为---> mayi_DarkPlaceholder
+Type: MyImageProp <---替换为---> mayi_ResendVertical
+Type: Prop <---替换为---> mayi_Viewer
+Type: LiveStationType <---替换为---> mayi_IconpipexpandHomeactive
+Type: VodResponseType <---替换为---> mayi_Away
+Type: SportType <---替换为---> mayi_ButtonWhite
+Type: SigninupRef <---替换为---> mayi_NativeexManifest
+Type: LoginCardProps <---替换为---> mayi_FriendsHooks
+Type: CountryPhoneListProps <---替换为---> mayi_Flyer
+Type: SettingsType <---替换为---> mayi_Backward
+Type: BarType <---替换为---> mayi_Iconuser
+Type: PlacementId <---替换为---> mayi_Downarrow
+Type: AdultVodReturnType <---替换为---> mayi_Hash
+Type: AppDispatchType <---替换为---> mayi_MiddleThailand
+Type: RootState <---替换为---> mayi_Libapminsightb
+Type: ExtendedTheme <---替换为---> mayi_Next
+Interface: VodRecordType <---替换为---> mayi_FileBrightness
+Interface: MiniVodReducerState <---替换为---> mayi_GradlewGoogle
+Interface: SettingsReducerState <---替换为---> mayi_InjuryNewinterstitial
+Type: ChatActionType <---替换为---> mayi_Unlock
+Type: ChatType <---替换为---> mayi_SportHalffieldimage
+Interface: LineUpResponseType <---替换为---> mayi_RefreshborderlessResend
+Interface: LineUpType <---替换为---> mayi_Related
+Interface: Competition <---替换为---> mayi_LibavutilIconfeedback
+Interface: Home <---替换为---> mayi_awayteamfield
+Interface: Away <---替换为---> mayi_ProjectLibjsijniprofiler
+Interface: Coach <---替换为---> mayi_DycreatorHistory
+Interface: FootballMatchLineup <---替换为---> mayi_Playlist
+Interface: Home2 <---替换为---> mayi_HolderGift
+Interface: Incident <---替换为---> mayi_Combine
+Interface: Assist <---替换为---> mayi_ClassesMbbid
+Interface: Player <---替换为---> mayi_Iconarrowrightwhite
+Interface: InPlayer <---替换为---> mayi_Team
+Interface: OutPlayer <---替换为---> mayi_Gmail
+Interface: Away2 <---替换为---> mayi_Thumbnail
+Interface: Incident2 <---替换为---> mayi_Searchbar
+Interface: MatchDetailsResponseType <---替换为---> mayi_TempnodatagifHistory
+Interface: MatchDetailWithRankingData <---替换为---> mayi_Cast
+Interface: GoalDistribution <---替换为---> mayi_LogouserManager
+Interface: FootballMatchAnalysis <---替换为---> mayi_BasketballBackward
+Interface: BasketballMatchAnalysis <---替换为---> mayi_IconfeedbackGifgoal
+Interface: FootballMatch <---替换为---> mayi_DelegateSmallbrightness
+Interface: Coverage <---替换为---> mayi_Zoom
+Interface: Round <---替换为---> mayi_Smallbrightness
+Interface: Environment <---替换为---> mayi_YellowFirebase
+Interface: Venue <---替换为---> mayi_SplashPlayer
+Interface: Referee <---替换为---> mayi_GreyarrowupSubmit
+Interface: Injury <---替换为---> mayi_LessMore
+Interface: FootballRanking <---替换为---> mayi_Clock
+Interface: BasketballMatch <---替换为---> mayi_Regeng
+Interface: Coverage <---替换为---> mayi_Zoom
+Interface: Round <---替换为---> mayi_Smallbrightness
+Interface: BasketballHomeStats <---替换为---> mayi_PrivateDesc
+Interface: BasketballAwayStats <---替换为---> mayi_Line
+Interface: HomeTotal <---替换为---> mayi_BackwardGoal
+Interface: AwayTotal <---替换为---> mayi_TurndownVideo
+Interface: VsTotal <---替换为---> mayi_MountingPosition
+Interface: History <---替换为---> mayi_layout
+Type: UploadAction <---替换为---> mayi_PredictionwinService
+Type: UploadStateType <---替换为---> mayi_ConnectionIconuser
+Interface: MatchUpdatesResponseType <---替换为---> mayi_ServiceAnythink
+Interface: MatchUpdatesType <---替换为---> mayi_Humidity
+Interface: FootballMatchTrend <---替换为---> mayi_Dialog
+Interface: FootballMatchLive <---替换为---> mayi_Match
+Interface: Stat <---替换为---> mayi_Time
+Interface: Tlive <---替换为---> mayi_Kick
+Interface: FootballMatchStats <---替换为---> mayi_Crown
+Interface: BasketballMatchTrend <---替换为---> mayi_RegisterBgvipxvod
+Interface: Total <---替换为---> mayi_Selected
+Interface: Players <---替换为---> mayi_Vietnam
+Interface: BasketballMatchLive <---替换为---> mayi_Tooltips
+Type: BackgroundActionType <---替换为---> mayi_Settings
+Type: BackgroundType <---替换为---> mayi_CircleImage
+Interface: MatchType <---替换为---> mayi_ContainerBackwhite
+Interface: Stream <---替换为---> mayi_IconsettingChat
+Interface: Streamer <---替换为---> mayi_LineShare
+Interface: MatchDetailsType <---替换为---> mayi_Default
+Interface: CompetitionType <---替换为---> mayi_Floater
+Interface: HomeType <---替换为---> mayi_SuccessIconclosewhitebg
+Interface: AwayType <---替换为---> mayi_Light
+Type: FavouriteVodType <---替换为---> mayi_Qaag
+Interface: PlayVodType <---替换为---> mayi_Basketballawayteam
+Interface: VodReducerState <---替换为---> mayi_Middleware
+Interface: FavoriteVodReducerState <---替换为---> mayi_Full
+Interface: VodPlaylistReducerState <---替换为---> mayi_Defaultlogo
+Type: VideoSource <---替换为---> mayi_HuaweiCatalog
+Type: UserActionType <---替换为---> mayi_EmbedType
+Type: UserStateType <---替换为---> mayi_Baseline
+Interface: SearchHistoryState <---替换为---> mayi_RoomImages
+Type: CPageType <---替换为---> mayi_ClearNterstitial
+Type: Matches <---替换为---> mayi_reminder_iconqq
+
+
+开始混淆枚举。。。。。。。
+文件: [旧 vodDownloadTypes <--> 新 mayi_agreement] case: DOWNLOADING -> CUAAudienceUmeng
+文件: [旧 vodDownloadTypes <--> 新 mayi_agreement] case: PAUSED -> CUATextlayoutmanagerLibreactperfloggerjni
+文件: [旧 vodDownloadTypes <--> 新 mayi_agreement] case: CANCELLED -> CUASettingsIconwatch
+文件: [旧 vodDownloadTypes <--> 新 mayi_agreement] case: ERROR -> CUAFlipperTurndown
+文件: [旧 vodDownloadTypes <--> 新 mayi_agreement] case: COMPLETED -> CUAAttributedstring
+文件: [旧 vodDownloadTypes <--> 新 mayi_agreement] enum: DownloadStatus -> CUASheetIconarrowright
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home_views -> KLibfbImagenomoredata
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home -> KFootballfieldMiddleware
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: views -> routerWind
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home_clicks -> KClock
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home -> KFootballfieldMiddleware
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: clicks -> KArrowTick
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home_Carousel_views -> KTailGreyarrowup
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home -> KFootballfieldMiddleware
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Carousel_views -> KSubtext
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home_Carousel_clicks -> KIconwatch
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home -> KFootballfieldMiddleware
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Carousel_clicks -> KLayout
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home_Banner_views -> KDown
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home -> KFootballfieldMiddleware
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_views -> KCountry
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home_Banner_clicks -> KBackwhiteShare
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Home -> KFootballfieldMiddleware
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_clicks -> KLibreactnativeblobIconfeedback
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_views -> KOwngoalService
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Views -> KAdultModels
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_video_view_times -> KDefault
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: video_view_times -> KNterstitialIconarrowleft
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_x_views -> KPredictiondefault
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: X_views -> KLibimagepipeline
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_x_video_view_times -> KIconmoreLibfb
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: X_video_view_times -> KFrame
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_playlist_clicks -> KProduct
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: playlist_clicks -> KSelectSubmit
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_video_clicks -> KZhengpian
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: video_clicks -> KBang
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_Ads_views -> KDefaultroombg
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: ads_views -> KPreview
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_Ads_clicks -> KFootballfieldMbnative
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: ads_clicks -> KLibnmsScore
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport_views -> KGreyarrowup
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport -> KPrivate
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: views -> routerWind
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport_clicks -> KLibfabricjni
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport -> KPrivate
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: clicks -> KArrowTick
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport_Banner_views -> KPenaltymatchicon
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport -> KPrivate
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_views -> KCountry
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport_Banner_clicks -> KCastShow
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport -> KPrivate
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_clicks -> KLibreactnativeblobIconfeedback
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails_views -> KBodanHome
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails -> KGiftbuttonSettings
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: views -> routerWind
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails_plays_times -> KMimo
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails -> KGiftbuttonSettings
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: plays_times -> KDownloading
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails_vip_popup_times -> KTemperatureLibreactnativeblob
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails -> KGiftbuttonSettings
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: vip_popup_times -> KMoviesMbjscommon
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails_vip_clicks -> KSinglePush
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails -> KGiftbuttonSettings
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: vip_clicks -> KIndicator
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist_views -> KAnythink
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist -> KDanger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: views -> routerWind
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist_clicks -> KPlaceholder
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist -> KDanger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: clicks -> KArrowTick
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist_topics_views -> KBridge
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist -> KDanger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: topics_views -> KLibfabricjniT
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist_topics_clicks -> KYellowtored
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist -> KDanger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: topics_clicks -> KChatroombackground
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_login_success_times -> KSave
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter -> KSecurityProfilepic
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: login_success_times -> KSuccessLibapminsightb
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_vip_login_success_times -> KPackageIconviewergif
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter -> KSecurityProfilepic
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: vip_login_success_times -> KReactnativeratings
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_pay_vip_views -> KPenaltyshootnogoalHeart
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter -> KSecurityProfilepic
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: pay_vip_views -> KDangerRegister
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_invites_vip_views -> KMalaysia
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter -> KSecurityProfilepic
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: invites_vip_views -> KTwitterHeader
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search_result_views -> KPressureAwayteamfield
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search -> KNalyticsHash
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: result_views -> KUntickDependency
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search_result_clicks -> KMbridge
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search -> KNalyticsHash
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: result_clicks -> KLibloggerNewinterstitial
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search_keyword -> KTelemetry
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search -> KNalyticsHash
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: keywords -> KMoonLiblogger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Catalog_views -> KDialog
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Catalog -> KContextLibreanimated
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: views -> routerWind
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Catalog_clicks -> KFrameNend
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Catalog -> KContextLibreanimated
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: clicks -> KArrowTick
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_views -> KCatalogImage
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: views -> routerWind
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_plays_times -> KSentryTramini
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: plays_times -> KDownloading
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_X_views -> KFootballtrophyLibreanimated
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: X_views -> KLibimagepipeline
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_X_plays_times -> KFloating
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: X_plays_times -> KAnimations
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_share_clicks -> KMerger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: share_clicks -> KThemeRelease
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_ads_views -> KNeon
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: ads_views -> KPreview
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_ads_clicks -> KNend
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play -> KPolicyCalendar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: ads_clicks -> KLibnmsScore
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: VideoPlayer_Banner_views -> KSinaGray
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: VideoPlayer -> KGradleAction
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_views -> KCountry
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: VideoPlayer_Banner_clicks -> KOrangeuparrowMounting
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: VideoPlayer -> KGradleAction
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_clicks -> KLibreactnativeblobIconfeedback
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Profile_Banner_views -> KNalyticsRoot
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Profile -> KModityLibfb
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_views -> KCountry
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Profile_Banner_clicks -> KRuntime
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Profile -> KModityLibfb
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: banner_clicks -> KLibreactnativeblobIconfeedback
+文件: [旧 UmengAnalytics <--> 新 mayi_push] enum: EventId -> KReactnativeultimatelistviewDanger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: mayi_awayteamfield -> KGiftbutton
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: home_tab -> abidetectFilter
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime -> KBall
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: watchAnytime -> KHomeinactiveBell
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_Play_Times -> KIconstar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: watchAnytime_play_times -> KThemeShowless
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_View_Video -> KIconuser
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: watchAnytime_view_video -> KIconarrowrightorange
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytime_View_Playlist -> KRocketRegister
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: watchAnytime_view_playlist -> KStyles
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytimeX -> KLibturbomodulejsijni
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: watchAnytime_x -> KLibloggerPredictionwin
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: WatchAnytimeX_Play_Times -> KSharedModal
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: watchAnytime_x_play_times -> KIconwatchZ
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Sport -> KPrivate
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: sport -> libfileHolder
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails -> KGiftbuttonSettings
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: sportDetail -> KModityUnimplementedview
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails_Play_Times -> KDown4
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: sportDetail_play_times -> KTopicIconshare
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: SportDetails_Vip_Popup -> KIssub
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: sportDetail_vip_popup -> KImagenetworkerrCondensed
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist -> KDanger
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: playlist -> KEncryptor
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Playlist_Topics -> KPlash
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: playlist_topics -> KPlaceholderHomeactive
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_Login_Success_Times -> KHeji
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: userCenter_login_success_times -> KCountryz
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_Vip_Login_Success_Times -> KDangerWhistle
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: userCenter_vip_login_success_times -> KIconwechatNetwork
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: UserCenter_View_Vip -> KZoomDycreator
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: userCenter_view_vip -> KTicked
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search_Keyword -> KMime
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: search_keywords -> KTempnodatagifMinivod
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Search_Result -> KYellowanimationliveLibturbomodulejsijni
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: search_result -> KNavigation
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Catalog -> KContextLibreanimated
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: catalog -> KLarge
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays -> KBallNotificationfillempty
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: play -> signinupControl
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_Plays_Times -> KRender
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: play_plays_times -> KConstantsMapping
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Plays_Share -> KSpinnerRoot
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: Play_share -> KContextGraph
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: PlaysX -> KStats
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: play_x -> KWhatsappColors
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: PlaysX_Plays_Times -> KRuntimeConfirmation
+文件: [旧 UmengAnalytics <--> 新 mayi_push] case: play_x_plays_times -> KLibnmsStar
+文件: [旧 UmengAnalytics <--> 新 mayi_push] enum: CustomEventKey -> KNendP
+文件: [旧 commentCard <--> 新 mayi_store] enum: ReportType -> MFReactnavigation
+文件: [旧 iconGroup <--> 新 mayi_component] enum: MFReactnavigation -> HWIconnotificationnewSigmob
+文件: [旧 chatAction <--> 新 mayi_gpay] case: Connect -> IIDLibjsiInternet
+文件: [旧 chatAction <--> 新 mayi_gpay] case: connect -> IIDPositionFeedback
+文件: [旧 chatAction <--> 新 mayi_gpay] case: ConnectError -> IIDIconsharefriends
+文件: [旧 chatAction <--> 新 mayi_gpay] case: connect_error -> IIDChina
+文件: [旧 chatAction <--> 新 mayi_gpay] case: Disonnect -> IIDBorderlessIconbackwhite
+文件: [旧 chatAction <--> 新 mayi_gpay] case: disconnect -> IIDIconviewergifYellowscoreball
+文件: [旧 chatAction <--> 新 mayi_gpay] case: Join -> IIDMbnative
+文件: [旧 chatAction <--> 新 mayi_gpay] case: join -> IIDAnimation
+文件: [旧 chatAction <--> 新 mayi_gpay] case: Leave -> IIDIconorientation
+文件: [旧 chatAction <--> 新 mayi_gpay] case: leave -> IIDBasketballiconTemplate
+文件: [旧 chatAction <--> 新 mayi_gpay] case: Message -> IIDCenterReact
+文件: [旧 chatAction <--> 新 mayi_gpay] case: message -> IIDImagemanagerAnalytic
+文件: [旧 chatAction <--> 新 mayi_gpay] case: PrivateMessage -> IIDImagenetworkerrEdit
+文件: [旧 chatAction <--> 新 mayi_gpay] case: private_message -> IIDThumbnail
+文件: [旧 chatAction <--> 新 mayi_gpay] case: AnnouncementMessage -> IIDTickProject
+文件: [旧 chatAction <--> 新 mayi_gpay] case: announcement_message -> IIDEmbedEdit
+文件: [旧 chatAction <--> 新 mayi_gpay] enum: SocketEvent -> IIDShareOrange
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_LIVE_ROOM -> AJEIconarrowleft
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_LIVE_ROOM -> AJEIconarrowleft
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_LIVE_ROOM_SUCCESS -> AJELibapminsighta
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_LIVE_ROOM_SUCCESS -> AJELibapminsighta
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_LIVE_ROOM_FAIL -> AJEBackiconLibapminsighta
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_LIVE_ROOM_FAIL -> AJEBackiconLibapminsighta
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: LEAVE_LIVE_ROOM -> AJETypeFirebase
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: LEAVE_LIVE_ROOM -> AJETypeFirebase
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: UPDATE_LIVE_ROOM_MESSAGE -> AJENewarchdefaultsShoot
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: UPDATE_LIVE_ROOM_MESSAGE -> AJENewarchdefaultsShoot
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_PRIVATE_ROOM -> AJEDependencyScrollview
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_PRIVATE_ROOM -> AJEDependencyScrollview
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_PRIVATE_ROOM_SUCCESS -> AJEPlashAlbum
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_PRIVATE_ROOM_SUCCESS -> AJEPlashAlbum
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_PRIVATE_ROOM_FAIL -> AJEUtilsIconpipexpand
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: JOIN_PRIVATE_ROOM_FAIL -> AJEUtilsIconpipexpand
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: LEAVE_PRIVATE_ROOM -> AJERncoreLogouser
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: LEAVE_PRIVATE_ROOM -> AJERncoreLogouser
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: UPDATE_PRIVATE_ROOM_MESSAGE -> AJELibswresampleSlider
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] case: UPDATE_PRIVATE_ROOM_MESSAGE -> AJELibswresampleSlider
+文件: [旧 chatReducer <--> 新 mayi_yellow_gemfile] enum: ChatActionEventType -> AJEStore
+文件: [旧 uploadReducer <--> 新 mayi_malaysia_mbsplash] case: SAVE_UPLOAD_HISTORY -> OMMSigninupWeibo
+文件: [旧 uploadReducer <--> 新 mayi_malaysia_mbsplash] case: SAVE_UPLOAD_HISTORY -> OMMSigninupWeibo
+文件: [旧 uploadReducer <--> 新 mayi_malaysia_mbsplash] case: REMOVE_UPLOAD_HISTORY -> OMMHooksHumidity
+文件: [旧 uploadReducer <--> 新 mayi_malaysia_mbsplash] case: REMOVE_UPLOAD_HISTORY -> OMMHooksHumidity
+文件: [旧 uploadReducer <--> 新 mayi_malaysia_mbsplash] enum: UploadActionType -> OMMGesture
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: ON_FIRST_BOOT -> BQReactnativejsHalf
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: ON_FIRST_BOOT -> BQReactnativejsHalf
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: ON_APP_BOOT -> BQMerger
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: ON_APP_BOOT -> BQMerger
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: LOGIN_WARINING_MODAL_SHOWN -> BQRoboto
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: LOGIN_WARINING_MODAL_SHOWN -> BQRoboto
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: VIP_PROMOTION_MODAL_SHOWN -> BQDplus
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: VIP_PROMOTION_MODAL_SHOWN -> BQDplus
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: VIP_PROMOTION_BOOT -> BQBang
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: VIP_PROMOTION_BOOT -> BQBang
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: VIP_PROMOTION_PURCHASE_UPDATE -> BQPhoto
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] case: VIP_PROMOTION_PURCHASE_UPDATE -> BQPhoto
+文件: [旧 backgroundReducer <--> 新 mayi_imagenomoredata] enum: BackgroundActionEventType -> BQHalffieldimageApps
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: Install -> BDSGoallogo
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: install -> BDSSans
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: App_Boot -> BDSUser
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: open_app -> BDSShort
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: UserCenter_Payment_Success_Times -> BDSClearUnselected
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: userCenter_payment_success_times -> BDSBinddatas
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: UserCenter_Login_Success_Times -> KHeji
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: userCenter_login_success_times -> KCountryz
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: Plays_Plays_Times -> KRender
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] case: play_plays_times -> KConstantsMapping
+文件: [旧 AppsFlyerAnalytic <--> 新 mayi_libreactnativejni] enum: KNendP -> BDSLibreactnativejniBlacklist
+文件: [旧 router <--> 新 mayi_topon] case: THEN -> IYSelection
+文件: [旧 router <--> 新 mayi_topon] case: then -> IYMimeStatsnomoredata
+文件: [旧 router <--> 新 mayi_topon] case: CATCH -> IYBingUser
+文件: [旧 router <--> 新 mayi_topon] case: catch -> IYLiveCopy
+文件: [旧 router <--> 新 mayi_topon] enum: CRouteEvent -> IYPointIcontransferclub
+文件: [旧 langService <--> 新 mayi_mintegral_buffer] case: Chinese -> PLinkIconarrowright
+文件: [旧 langService <--> 新 mayi_mintegral_buffer] case: chinese -> PReactnativeultimatelistview
+文件: [旧 langService <--> 新 mayi_mintegral_buffer] case: English -> PInfo
+文件: [旧 langService <--> 新 mayi_mintegral_buffer] case: english -> PScoreEwarded
+文件: [旧 langService <--> 新 mayi_mintegral_buffer] enum: CLanguageType -> PNewarchdefaultsPlash
+
+
+开始提取所有协议名并生成新协议名。。。。。。
+协议: NativeViewControllerDelegate <---替换为---> EBmayi_IconviewergifEmpty
+协议: EBmayi_IconviewergifEmpty <---替换为---> ZWmayi_Unread
+
+
+开始翻新xib、storyboard控件ID值以及布局微调。。。。。。
+
+
+开始多语言文件的key名称。。。。。。
+
+
+开始自动检测类继承关系。。。。。。
+ATSplashViewController : UIViewController
+ATInterstitialRNSDK : RCTEventEmitter
+ATRNSDK : NSObject
+ATRewardedVideoRNSDK : RCTEventEmitter
+ATBannerRNSDK : RCTEventEmitter
+ATSplashViewController : UIViewController
+ATInterstitialRNSDK : RCTEventEmitter
+ATRNSDK : NSObject
+ATRewardedVideoRNSDK : RCTEventEmitter
+ATBannerRNSDK : RCTEventEmitter
+AppDelegate : UIResponder
+myAnimationViewController : UIViewController
+RNViewController : UIViewController
+UMAnalyticsModule : NSObject
+RNUMConfigure : NSObject
+
+
+开始自动检测统计所有文件中属性信息。。。。。。
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (weak, nonatomic) id<ZWmayi_Unread> delegate;属性名称:delegate
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (weak, nonatomic) id<ZWmayi_Unread> delegate;属性名称:delegate
+文件: [旧 AppDelegate <--> 新 AppDelegate] 属性:@property (nonatomic, strong) UIWindow *window;属性名称:window
+文件: [旧 AppDelegate <--> 新 AppDelegate] 属性:@property (nonatomic, strong) NSDictionary *launchOptions;属性名称:launchOptions
+文件: [旧 RNViewController <--> 新 mayi_SendLibbufferController] 属性:@property (nonatomic, strong) UIView *mainView;属性名称:mainView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (nonatomic, strong) UIImageView *splashImageView;属性名称:splashImageView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (nonatomic, strong) UIView *modelBackView;属性名称:modelBackView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (nonatomic, strong) UITextView *textView;属性名称:textView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property(nonatomic, strong) UIButton *skipButton;属性名称:skipButton
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (copy, nonatomic) NSDictionary<NSString *, NSString *> *placementIDs;属性名称:placementIDs
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (copy, nonatomic) NSString *placementID;属性名称:placementID
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property(nonatomic, strong) NSString *defaultAdSourceConfigStr;属性名称:defaultAdSourceConfigStr
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode] 属性:@property(nonatomic, strong) NSMutableDictionary<NSString*, UIView*>* bannerViews;属性名称:bannerViews
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (nonatomic, strong) UIImageView *splashImageView;属性名称:splashImageView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (nonatomic, strong) UIView *modelBackView;属性名称:modelBackView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (nonatomic, strong) UITextView *textView;属性名称:textView
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property(nonatomic, strong) UIButton *skipButton;属性名称:skipButton
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (copy, nonatomic) NSDictionary<NSString *, NSString *> *placementIDs;属性名称:placementIDs
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property (copy, nonatomic) NSString *placementID;属性名称:placementID
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:@property(nonatomic, strong) NSString *defaultAdSourceConfigStr;属性名称:defaultAdSourceConfigStr
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode] 属性:@property(nonatomic, strong) NSMutableDictionary<NSString*, UIView*>* bannerViews;属性名称:bannerViews
+
+
+开始自动修改Assets图片资源。。。。。。。
+BootSplashLogo       ---替换为--->       checkboxBlacklistPenalty
+
+Assets图片资源修改结束
+
+
+开始自动修改sks资源名称。。。。。。。
+
+sks资源修改结束
+
+开始修改项目中UIColor值。。。。。。。
+文件: [旧 RNViewController <--> 新 mayi_SendLibbufferController] color: [UIColor blackColor] -> [UIColor colorWithRed:79 / 255.0 green:162 / 255.0 blue:101 / 255.0 alpha:1]
+文件: [旧 RNViewController <--> 新 mayi_SendLibbufferController] color: [UIColor blackColor] -> [UIColor colorWithRed:79 / 255.0 green:162 / 255.0 blue:101 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor blackColor] -> [UIColor colorWithRed:79 / 255.0 green:162 / 255.0 blue:101 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor redColor] -> [UIColor colorWithRed:104 / 255.0 green:11 / 255.0 blue:125 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor blackColor] -> [UIColor colorWithRed:79 / 255.0 green:162 / 255.0 blue:101 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor blackColor] -> [UIColor colorWithRed:79 / 255.0 green:162 / 255.0 blue:101 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor redColor] -> [UIColor colorWithRed:104 / 255.0 green:11 / 255.0 blue:125 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] color: [UIColor whiteColor] -> [UIColor colorWithRed:207 / 255.0 green:189 / 255.0 blue:0 / 255.0 alpha:1]
+100%👌
+
+
+修改颜色耗时：0.1940600872039795秒
+
+开始打乱函数定义顺序。。。。。。。
+100%👌
+
+开始提取分析源文件中函数名称。。。。。。。
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: getKeyWindowMethodOne
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: setupData
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: currentInterfaceOrientation
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: clearLog
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: showLog
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: checkAd
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: getKeyWindowMethodTwo
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: defaultAction
+文件: [旧 ATInterstitialRNSDK <--> 新 mayi_Textlayoutmanager]   函数名称: sharedWrapper
+文件: [旧 ATRewardedVideoRNSDK <--> 新 mayi_Stations]   函数名称: sharedWrapper
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode]   函数名称: sharedWrapper
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: appMovedToBackground
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: checkAd
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: appBecomeActive
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: setupData
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: getKeyWindowMethodTwo
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: defaultAction
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: clearLog
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: getKeyWindowMethodOne
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]   函数名称: currentInterfaceOrientation
+文件: [旧 ATInterstitialRNSDK <--> 新 mayi_Textlayoutmanager]   函数名称: sharedWrapper
+文件: [旧 ATRewardedVideoRNSDK <--> 新 mayi_Stations]   函数名称: sharedWrapper
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode]   函数名称: sharedWrapper
+文件: [旧 AppDelegate <--> 新 AppDelegate]   函数名称: prepareInitialProps
+
+
+开始混淆函数里面局部变量名称。。。。。。。
+文件: [旧 RNViewController <--> 新 mayi_SendLibbufferController] 局部变量: mainStoryboard -> preview
+文件: [旧 RNViewController <--> 新 mayi_SendLibbufferController] 局部变量: logoViewController -> downController
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: str -> defaultteam
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: title -> libfb
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: deviceOrientaion -> promotion
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: landscape -> libjsi
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: label -> emptyLabel
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mutableDict -> line
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: firstWindow -> tempnodata
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: windowScene -> ying
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: logS -> shootyesgoal
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: log -> brightness
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: caches -> runtimescheduler
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: ready -> loading
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: alert -> predictionbutton
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mainWindow -> splashF
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mutableDict -> linei
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mainWindow -> splashFN
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: clearBtn -> fullscreenminBtn
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: btnItem -> leaguedetailsbgItem
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: topConstraint -> giftbutton
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: bottomConstraint -> iconwatchnow
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: leadingConstraint -> componentregistry
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: trailingConstraint -> unread
+文件: [旧 ATInterstitialRNSDK <--> 新 mayi_Textlayoutmanager] 局部变量: onceToken -> config
+文件: [旧 ATRewardedVideoRNSDK <--> 新 mayi_Stations] 局部变量: onceToken -> config
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: error -> holder
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: jsonData -> predictionactive
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode] 局部变量: onceToken -> config
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: str -> defaultteam
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: caches -> runtimescheduler
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: ready -> loading
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: alert -> predictionbutton
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: clearBtn -> fullscreenminBtn
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: btnItem -> leaguedetailsbgItem
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mainStoryboard -> preview
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: yourViewController -> goallogoController
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mainWindow -> splashF
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mutableDict -> line
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: title -> libfb
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mainWindow -> splashFc
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: deviceOrientaion -> promotion
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: landscape -> libjsi
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: label -> emptyLabel
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: mutableDict -> lineo
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: firstWindow -> tempnodata
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 局部变量: windowScene -> ying
+文件: [旧 ATInterstitialRNSDK <--> 新 mayi_Textlayoutmanager] 局部变量: onceToken -> config
+文件: [旧 ATRewardedVideoRNSDK <--> 新 mayi_Stations] 局部变量: onceToken -> config
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: error -> holder
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: jsonData -> predictionactive
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: extraDictM -> profileactive
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: extraDataTemp -> libhermes
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: extraDataDictM -> logo
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: jsonDictM -> models
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: error -> holderZ
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: jsonData -> predictionactiveg
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: extraDictM -> profileactivei
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: extraDataTemp -> libhermesl
+文件: [旧 NSDictionary+String <--> 新 mayi_UpdatesClub] 局部变量: extraDataDictM -> logoN
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode] 局部变量: onceToken -> config
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mtgConfigure -> gift
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: gdtConfigure -> arrowrightwithtail
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: adcolonyConfigure -> taiwan
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mytargetConfigure -> catalog
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: facebookConfigure -> xvod
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: configuration -> dark
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: showAds -> bottom
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: RCTStorageDirectory -> with_os
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: RCTManifestFileName -> router
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: fileManager -> encryptor
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: appSupportDirectory -> iconsetting
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: mySupportDirectory -> filter
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: storageDirectory -> libsentry
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: storageFile -> search
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: error -> holder
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: stringFromFile -> libavformat
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: data -> libmapbufferjni
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: jsonError -> rank
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: json -> giftbutton
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: splashViewController -> inviteController
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: initProps -> qaag
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: bridge -> vipsport
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: initProps -> qaagY
+文件: [旧 AppDelegate <--> 新 AppDelegate] 局部变量: rnViewController -> relatedController
+文件: [旧 RNUMConfigure <--> 新 mayi_FilePrivilege] 局部变量: sel -> libfile
+
+
+开始自动生成垃圾代码文件。。。。。。。
+100%👌
+
+
+开始自动融合生成的垃圾代码文件。。。。。。
+100%👌
+
+
+开始自动随机生成属性并插入头文件和源文件。。。。。。。
+[old: ATSplashViewController -> new: mayi_LibapminsightbController] insert  @property(nonatomic, assign)double  minimizePadding;
+@property(nonatomic, assign)NSInteger  defaultfootballbg_index;
+
+[old: ATInterstitialRNSDK -> new: mayi_Textlayoutmanager] insert  @property(nonatomic, assign)int  layoutCount;
+@property(nonatomic, assign)double  goal_size;
+@property(nonatomic, assign)NSInteger  gifgoal_idx;
+
+[old: ATRNSDK -> new: mayi_GraphicsIconwatch] insert  @property(nonatomic, assign)long  telemetryIdx;
+@property(nonatomic, assign)NSInteger  libfb_mark;
+@property(nonatomic, assign)long  yellowscoreball_tag;
+@property(nonatomic, assign)double  libcxxcomponents_max;
+
+[old: ATRewardedVideoRNSDK -> new: mayi_Stations] insert  @property(nonatomic, copy)NSArray *  chatroombackgroundSuggestionArray;
+@property(nonatomic, assign)int  buffer_idx;
+
+[old: ATBannerRNSDK -> new: mayi_LibrrcEpisode] insert  @property(nonatomic, copy)NSString *  collectionLibavutilStr;
+@property(nonatomic, assign)NSInteger  defaultprofilepic_sum;
+
+[old: ATSplashViewController -> new: mayi_LibapminsightbController] insert  @property(nonatomic, copy)NSString *  catalogMimo_str;
+@property(nonatomic, assign)int  rules_idx;
+
+[old: ATInterstitialRNSDK -> new: mayi_Textlayoutmanager] insert  @property(nonatomic, assign)BOOL  has_Borderless;
+@property(nonatomic, assign)NSInteger  moon_sum;
+@property(nonatomic, assign)BOOL  enbale_Middleware;
+
+[old: ATRNSDK -> new: mayi_GraphicsIconwatch] insert  @property(nonatomic, assign)NSInteger  sharedSum;
+@property(nonatomic, assign)double  inouttargetred_offset;
+@property(nonatomic, assign)long  showless_idx;
+
+[old: ATRewardedVideoRNSDK -> new: mayi_Stations] insert  @property(nonatomic, copy)NSArray *  modulesUsernameUserList;
+@property(nonatomic, assign)int  iconclosewhiteIndex;
+@property(nonatomic, assign)BOOL  hasOver;
+
+[old: ATBannerRNSDK -> new: mayi_LibrrcEpisode] insert  @property(nonatomic, assign)float  upgrade_min;
+@property(nonatomic, copy)NSString *  defaultfootballbgCopy_i_str;
+@property(nonatomic, assign)NSInteger  network_count;
+@property(nonatomic, copy)NSArray *  kickBackFilled_Array;
+
+[old: AppDelegate -> new: AppDelegate] insert  @property(nonatomic, copy)NSString *  diceMiddle_str;
+@property(nonatomic, copy)NSArray *  predictionbuttonArmvaArray;
+@property(nonatomic, assign)float  orientation_space;
+
+[old: RNViewController -> new: mayi_SendLibbufferController] insert  @property(nonatomic, assign)NSInteger  updatesIdx;
+@property(nonatomic, assign)float  const_u9;
+@property(nonatomic, assign)float  iconarrowrightwhiteSize;
+
+[old: UMAnalyticsModule -> new: mayi_Resend] insert  @property(nonatomic, assign)float  base_margin;
+@property(nonatomic, copy)NSArray *  iconHalfList;
+@property(nonatomic, assign)double  downarrow_padding;
+
+[old: RNUMConfigure -> new: mayi_FilePrivilege] insert  @property(nonatomic, assign)double  accepted_margin;
+@property(nonatomic, assign)double  with_3v;
+@property(nonatomic, assign)BOOL  hasInouttargetred;
+@property(nonatomic, assign)double  zhengpian_max;
+
+[old: RNViewController -> new: mayi_SendLibbufferController] insert  @property(nonatomic, assign)double  matchdetailbgMax;
+@property(nonatomic, assign)BOOL  can_Predictionbanner;
+@property(nonatomic, assign)double  whiteanimationlive_padding;
+@property(nonatomic, assign)int  defaultplayerimg_mark;
+
+[old: ATSplashViewController -> new: mayi_LibapminsightbController] insert  @property(nonatomic, assign)int  images_flag;
+@property(nonatomic, assign)BOOL  is_Chatroombackground;
+
+[old: ATInterstitialRNSDK -> new: mayi_Textlayoutmanager] insert  @property(nonatomic, copy)NSString *  shirtBgvipsportFillStr;
+@property(nonatomic, assign)int  incidentCount;
+
+[old: ATRNSDK -> new: mayi_GraphicsIconwatch] insert  @property(nonatomic, assign)double  tailMin;
+@property(nonatomic, assign)int  successTag;
+@property(nonatomic, assign)int  whitevideolive_index;
+
+[old: ATRewardedVideoRNSDK -> new: mayi_Stations] insert  @property(nonatomic, assign)float  overlay_size;
+@property(nonatomic, assign)float  shirt_max;
+@property(nonatomic, assign)long  subtext_count;
+@property(nonatomic, assign)int  accepted_index;
+
+[old: ATBannerRNSDK -> new: mayi_LibrrcEpisode] insert  @property(nonatomic, copy)NSArray *  detailSpinnerRefreshborderlessArr;
+@property(nonatomic, assign)double  iconrightorange_padding;
+@property(nonatomic, assign)int  combineIdx;
+
+[old: ATSplashViewController -> new: mayi_LibapminsightbController] insert  @property(nonatomic, assign)double  loading_max;
+@property(nonatomic, assign)int  defaultprofilepicIndex;
+@property(nonatomic, copy)NSArray *  update_mWindArr;
+
+[old: ATInterstitialRNSDK -> new: mayi_Textlayoutmanager] insert  @property(nonatomic, copy)NSArray *  libsentryIconsettingTypesArr;
+@property(nonatomic, assign)long  iconcalendarIndex;
+
+[old: ATRewardedVideoRNSDK -> new: mayi_Stations] insert  @property(nonatomic, assign)long  model_idx;
+@property(nonatomic, copy)NSString *  armvaQuest_str;
+@property(nonatomic, copy)NSString *  profilePlayerStr;
+@property(nonatomic, assign)double  thailandMargin;
+
+[old: ATBannerRNSDK -> new: mayi_LibrrcEpisode] insert  @property(nonatomic, copy)NSString *  dialogSmall_string;
+@property(nonatomic, assign)BOOL  canVipsport;
+
+
+
+开始自动加密混淆字符串。。。。。。。
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png"
+"https://yingshi.tv/"
+"https://www.yingshi.tv/vip"
+"https://www.yingshi.tv/vip"
+"http"
+"https://"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://www.yingshi.tv/vip"
+"https://www.yingshi.tv/vip"
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"https://wa.me/?text="
+"https://static.wixstatic.com/media/5dca26_0052ca4edcc94049a9115dea94e6616d~mv2.png"
+"httpRequestCancelled"
+"httpConnectionTimeout"
+"https://"
+"httpRequestTimeout"
+"http://"
+"httpReceiveTimeout"
+"https://"
+"httpVersionNotSupported"
+"httpTimeoutUserMsg"
+"https://geolocation-db.com/json"
+"https://so.finapp.chat"
+"https://stg-api.zbstg.co/"
+"https://stg-user.zbstg.co/"
+"https://stg-record.zbstg.co/"
+"https://stg-chat.zbstg.co"
+"https://api.ggsimida.com/"
+"https://user.ggsimida.com/"
+"https://record.ggsimida.com/"
+"https://chat.ggsimida.com"
+"https://"
+"http://"
+"https://"
+"http://connectivitycheck.platform.hicloud.com/generate_204"
+"https://xiangkantv.net"
+"https://"
+"http://"
+"https://"
+"https://xiangkantv.net"
+"https://example.com"
+"https://example.com"
+"https://wa.me/?text="
+"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"http://connectivitycheck.platform.hicloud.com/generate_204"
+"https://xiangkantv.net"
+"https://xiangkantv.net"
+"https://"
+"https://v.kylintv.com"
+"https://v.kylintv.com"
+"http"
+"https://"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"http_service"
+"https://"
+"http://"
+"https://oss.yingshi.tv/videos/vod/vi/201212.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201219.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201282.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201278.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/201410.mp4"
+"https://oss.yingshi.tv/videos/vod/vi/200984.mp4"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png"
+"http"
+"https://"
+"https://yingshi.tv"
+"https://yingshi.tv/upload/vod/111.jpeg"
+"https://yingshi.tv/upload/vod/111.jpeg"
+"http_service"
+"https://lottie.host/c291f0cc-ae75-4f88-b6a8-61fefe455da5/trOs1RgYsK.json"
+"https://api.gxhongdeli168.com"
+"https://api.gxhongdeli168.com"
+"https://api.gxhongdeli168.com"
+"https://api.gxhongdeli168.com/"
+"https://api.gxhongdeli168.com/"
+"http://localhost:3000/"
+"https://api.ggsimida.com/"
+"https://xiangkantv.net/invite.html?invite="
+
+
+开始自动混淆函数名称。。。。。。。
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   showLog <---替换为---> cornerPuidMainEditableInteger
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   currentInterfaceOrientation <---替换为---> mainNonatomicTarget
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   setupData <---替换为---> launchFailureMake
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   getKeyWindowMethodOne <---替换为---> sdkOrientationsColorController
+文件: [旧 ATInterstitialRNSDK <--> 新 mayi_Textlayoutmanager]函数名:   sharedWrapper <---替换为---> availableAnimatedRedKitBiddingFail
+文件: [旧 ATRewardedVideoRNSDK <--> 新 mayi_Stations]函数名:   sharedWrapper <---替换为---> availableAnimatedRedKitBiddingFail
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode]函数名:   sharedWrapper <---替换为---> availableAnimatedRedKitBiddingFail
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   currentInterfaceOrientation <---替换为---> mainNonatomicTarget
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   getKeyWindowMethodOne <---替换为---> sdkOrientationsColorController
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController]函数名:   setupData <---替换为---> launchFailureMake
+文件: [旧 ATInterstitialRNSDK <--> 新 mayi_Textlayoutmanager]函数名:   sharedWrapper <---替换为---> availableAnimatedRedKitBiddingFail
+文件: [旧 ATRewardedVideoRNSDK <--> 新 mayi_Stations]函数名:   sharedWrapper <---替换为---> availableAnimatedRedKitBiddingFail
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode]函数名:   sharedWrapper <---替换为---> availableAnimatedRedKitBiddingFail
+文件: [旧 AppDelegate <--> 新 AppDelegate]函数名:   prepareInitialProps <---替换为---> topClangInstanceRewarded
+
+
+开始自动混淆指定属性名称。。。。。。
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:splashImageView ==> mappingGreen
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:modelBackView ==> scheduleBenefit
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:skipButton ==> weiboScore
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:defaultAdSourceConfigStr ==> yingBgvipsport
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode] 属性:bannerViews ==> subbasketballplayerFullscreenm
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:splashImageView ==> mappingGreen
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:modelBackView ==> scheduleBenefit
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:skipButton ==> weiboScore
+文件: [旧 ATSplashViewController <--> 新 mayi_LibapminsightbController] 属性:defaultAdSourceConfigStr ==> yingBgvipsport
+文件: [旧 ATBannerRNSDK <--> 新 mayi_LibrrcEpisode] 属性:bannerViews ==> subbasketballplayerFullscreenm
+
+
+开始融合并调用生成的垃圾代码文件函数或者类。。。。。。。
+100%👌
+
+开始扰乱改变函数里面执行顺序。。。。。。。
+100%👌
+
+
+开始插入混淆函数并在现有函数体里面自动插入混淆函数调用语句。。。。。。。
+100%👌
+
+
+开始自动插入头文件混淆函数定义语句。。。。。。。
+100%👌
+
+
+开始生成新混淆源文件。。。。。。。
+100%👌
+
+
+开始自动更新项目配置。。。。。。。
+100%👌

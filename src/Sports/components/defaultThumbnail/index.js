@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
-import Config from '../../global/env';
-import styles from './style';
-import {AppConfig} from '../../global/appConfig';
+import Config from '../../global/mayi_kuaishou_view';
+import styles from './mayi_iconarrowrightwhite';
+import {mayi_VideojsInit} from '../../global/mayi_sans_common';
 
 const DefaultThumbnail = ({
   width,
@@ -26,7 +26,7 @@ const DefaultThumbnail = ({
         }}
         source={iconDefault ?? Config.defaultThumbnailBg}
       />
-      {AppConfig.instance.funeralMode ? (
+      {mayi_VideojsInit.instance.funeralMode ? (
         <Grayscale style={{width: '100%'}}>{children}</Grayscale>
       ) : (
         children

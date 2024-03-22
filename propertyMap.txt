@@ -1,0 +1,7 @@
+{
+  "defaultAdSourceConfigStr" : "yingBgvipsport",
+  "bannerViews" : "subbasketballplayerFullscreenm",
+  "modelBackView" : "scheduleBenefit",
+  "skipButton" : "weiboScore",
+  "splashImageView" : "mappingGreen"
+}

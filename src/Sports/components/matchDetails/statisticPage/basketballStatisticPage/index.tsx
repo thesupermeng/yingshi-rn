@@ -2,25 +2,25 @@ import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import PlayerStatistic from './playerStatistic';
 import TopPlayerStatistic from './topPlayerStatistic';
 import TeamStatistic from './teamStatistic';
-import styles from './style';
+import styles from './mayi_iconarrowrightwhite';
 import InjuryList from '../../../../components/injuryList';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../../types/matchUpdatesType';
+import { mayi_Cast } from '../../../../types/mayi_search';
+import { mayi_Humidity } from '../../../../types/mayi_predictionarrow_langkey';
 import React from 'react';
-import EmptyDataPage from '../../../EmptyDataPage';
+import EmptyDataPage from '../../../mayi_mbbanner';
 import { useIsFocused } from '@react-navigation/native';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface mayi_GoogleViews {
+  liveRoomMatchDetails?: mayi_Cast,
+  liveRoomUpdate?: mayi_Humidity
 }
 
 const BasketballStatisticPage = ({
   liveRoomUpdate,
   liveRoomMatchDetails,
-}: Props) => {
+}: mayi_GoogleViews) => {
   const isFocus = useIsFocused();
-  // console.log('Stats', liveRoomMatchDetails?.home)
+  
   return (
     <SafeAreaView style={{ height: '100%', backgroundColor: '#161616' }}>
       {isFocus && liveRoomUpdate?.basketball_match_live?.players == undefined &&

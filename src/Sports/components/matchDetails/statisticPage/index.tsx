@@ -1,18 +1,18 @@
 import {View, ScrollView} from 'react-native';
 import BasketballStatisticPage from './basketballStatisticPage';
 import {useSelector} from 'react-redux';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { mayi_Cast } from '../../../types/mayi_search';
+import { mayi_Humidity } from '../../../types/mayi_predictionarrow_langkey';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface mayi_GoogleViews {
+  liveRoomMatchDetails?: mayi_Cast,
+  liveRoomUpdate?: mayi_Humidity
 }
 
 
 
-const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
-  // const [ads] = useAds(adsList);
+const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : mayi_GoogleViews) => {
+  
   return (
     <View>
       <BasketballStatisticPage

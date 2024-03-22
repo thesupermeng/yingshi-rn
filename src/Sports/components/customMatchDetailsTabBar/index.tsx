@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Colors } from '../../global/colors';
-import styles from './style';
-import EmptyDataPage from '../EmptyDataPage';
+import { Colors } from '../../global/mayi_borderless_rocket';
+import styles from './mayi_iconarrowrightwhite';
+import EmptyDataPage from '../mayi_mbbanner';
 
-type BarType = {
+type mayi_Iconuser = {
   name: string
   children: React.ReactNode
 }
 
-interface Props {
-  tabBar: BarType[]
+interface mayi_GoogleViews {
+  tabBar: mayi_Iconuser[]
 }
 
-const CustomMatchDetailsTabBar = ({ tabBar }: Props) => {
+const CustomMatchDetailsTabBar = ({ tabBar }: mayi_GoogleViews) => {
   const [tab, setTab] = useState(0);
   const activeTabColor = '#FAC33D';
   const activeTextColor = '#000000';

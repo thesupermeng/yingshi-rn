@@ -1,25 +1,23 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './style';
+import styles from './mayi_iconarrowrightwhite';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { LineUpType } from '../../../types/lineUpTypes';
+import EmptyDataPage from '../../mayi_mbbanner';
+import { mayi_Cast } from '../../../types/mayi_search';
+import { mayi_Related } from '../../../types/mayi_basketballtrophy';
 import { useIsFocused } from '@react-navigation/native';
 
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomLineup?: LineUpType
+interface mayi_GoogleViews {
+  liveRoomMatchDetails?: mayi_Cast,
+  liveRoomLineup?: mayi_Related
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: mayi_GoogleViews) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
   return (
     <View>
