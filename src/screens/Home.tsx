@@ -320,8 +320,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       }
       splashListTemp = await SplashApi.getSplash();
 
-      // console.log("==================== splashList from main ======================")
-      // console.log(splashListTemp)
+
+
+      console.log("==================== splashList from main ======================")
+      console.log(splashListTemp)
       if (splashListTemp.length > 0) {
         splashListTemp = splashListTemp.map((item: any) => {
           const obj = Object.assign({}, item);
@@ -338,20 +340,22 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
     }
 
-    //   if (SHOW_ZF_CONST &&
-    //     screenState.showEventSplashData) {
-    //     console.log("==================== splashList from main ======================")
-    //     console.log(screenState.showEventSplash)
-    //     console.log(screenState.showEventSplashData)
-    //     // navigation.navigate("付费Google");
-    //     navigation.navigate("付费VIP");
+    navigation.navigate("付费VIP");
 
-    //     if (screenState.showEventSplash == false) {
-    //       dispatch(setEventSplashLastPageViewTime());
-    //     }
+      // if (SHOW_ZF_CONST &&
+      //   screenState.showEventSplashData) {
+      //   console.log("==================== splashList from main ======================")
+      //   console.log(screenState.showEventSplash)
+      //   console.log(screenState.showEventSplashData)
+      //   navigation.navigate("付费Google");
+      //   navigation.navigate("付费VIP");
 
-    //     // dispatch(clearEventSplashLastPageViewTime());
-    //   }
+      //   if (screenState.showEventSplash == false) {
+      //     dispatch(setEventSplashLastPageViewTime());
+      //   }
+
+      //   dispatch(clearEventSplashLastPageViewTime());
+      // }
   };
 
   // ========== for analytics - end ==========
