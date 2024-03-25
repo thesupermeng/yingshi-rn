@@ -1821,7 +1821,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                      // <Text>sport</Text>
                   )}
 
-               {selectedTab == "xvod" && (
+               {selectedTab == "xvod" && !isOffline && (
                   <View
                      style={{
                         flex: 1,
