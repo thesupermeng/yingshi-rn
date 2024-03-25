@@ -17,7 +17,7 @@ interface XFillButton {
     vod_pic_list?: string[]
 }
 
-function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list}: XFillButton) {
+function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list }: XFillButton) {
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = useMemo(() => 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`), [vodStyle])
     return (
@@ -48,14 +48,14 @@ function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon 
                     <PlayIcon height={iconSize} width={iconSize} />
                 </View>
             }
-            {
+            {/* {
                 showInfo !== '' && <View style={{ backgroundColor: shadowBottom ? 'transparent' : 'rgba(0, 0, 0, 0.6)', ...styles.tag }}>
                     <Text style={{
                         ...textVariants.small,
                         color: 'white'
                     }} numberOfLines={1}>{showInfo}</Text>
                 </View>
-            }
+            } */}
         </TouchableOpacity>
     );
 }
