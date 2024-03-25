@@ -30,16 +30,16 @@ interface Props {
   isMatchPage?: boolean;
   setShowBecomeVIPOverlay: any;
   bgDark?: boolean;
-  borderFlag?: string
+  borderFlag?: string;
 }
 
 const MatchSchedule = ({
   matchSche,
-  onPress = () => { },
+  onPress = () => {},
   isMatchPage = true,
   bgDark = false,
   setShowBecomeVIPOverlay,
-  borderFlag
+  borderFlag,
 }: Props) => {
   const navigation = useNavigation();
   const { colors, textVariants, spacing } = useTheme();
@@ -70,7 +70,6 @@ const MatchSchedule = ({
     // ========== for analytics - end ==========
   };
 
-
   return (
     <>
       <TouchableOpacity onPress={matchClicked}>
@@ -79,14 +78,16 @@ const MatchSchedule = ({
             ...styles.border,
             backgroundColor: bgDark ? "#0c0c0c" : "inherit",
             borderColor: "rgba(156, 156, 156 , 0.2)",
-            borderBottomLeftRadius: borderFlag == 'true' ? 15 : 0,
-            borderBottomRightRadius: borderFlag == 'true' ? 15 : 0,
+            borderBottomLeftRadius: borderFlag == "true" ? 15 : 0,
+            borderBottomRightRadius: borderFlag == "true" ? 15 : 0,
           }}
         >
           <View style={styles.matchScheduleHeader}>
             <View style={styles.matchInfo}>
               <Text style={{ ...styles.spaceBetween, color: colors.muted }}>
-                {matchSche?.competition?.name_short}
+                {matchSche?.competition?.name_short.length > 9
+                  ? `${matchSche?.competition?.name_short.substring(0, 9)}`
+                  : matchSche?.competition?.name_short}
               </Text>
               <Text
                 style={{
@@ -98,18 +99,19 @@ const MatchSchedule = ({
                 {/* {('0' + new Date(matchSche?.match_time).getHours()).slice(-2) +
                 ':' +
                 ('0' + new Date(matchSche?.match_time).getMinutes()).slice(-2)} */}
-                {new Date(
-                  matchSche?.match_time_ts * 1000
-                ).toLocaleTimeString("en-GB", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {new Date(matchSche?.match_time_ts * 1000).toLocaleTimeString(
+                  "en-GB",
+                  {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }
+                )}
               </Text>
             </View>
             <View style={styles.matchStatus}>
               {matchSche?.streams != undefined &&
-                matchSche?.streams?.length > 0 &&
-                matchSche?.streams?.some((streamer) => streamer.status == 3) ? (
+              matchSche?.streams?.length > 0 &&
+              matchSche?.streams?.some((streamer) => streamer.status == 3) ? (
                 <View style={{ flexDirection: "row" }}>
                   <View style={styles.liveIcon} />
                   <Text style={{ ...styles.liveStatus }}>直播中</Text>
@@ -162,7 +164,7 @@ const MatchSchedule = ({
                 {matchSche.home?.name}
               </Text>
               {matchSche?.home?.icon != undefined &&
-                matchSche?.home?.icon.length > 0 ? (
+              matchSche?.home?.icon.length > 0 ? (
                 <FastImage
                   style={styles.teamImage}
                   source={{ uri: matchSche?.home?.icon }}
@@ -193,10 +195,10 @@ const MatchSchedule = ({
                           matchSche?.home_score,
                           matchSche?.sports_type
                         ) >
-                          calculateScore(
-                            matchSche?.away_score,
-                            matchSche?.sports_type
-                          )
+                        calculateScore(
+                          matchSche?.away_score,
+                          matchSche?.sports_type
+                        )
                           ? { ...styles.highScoreFont, color: colors.primary }
                           : styles.scoreFont
                       }
@@ -213,10 +215,10 @@ const MatchSchedule = ({
                           matchSche?.away_score,
                           matchSche?.sports_type
                         ) >
-                          calculateScore(
-                            matchSche?.home_score,
-                            matchSche?.sports_type
-                          )
+                        calculateScore(
+                          matchSche?.home_score,
+                          matchSche?.sports_type
+                        )
                           ? { ...styles.highScoreFont, color: colors.primary }
                           : styles.scoreFont
                       }
@@ -269,7 +271,7 @@ const MatchSchedule = ({
             )}
             <View style={styles.teamContentB}>
               {matchSche?.away?.icon != undefined &&
-                matchSche?.away?.icon.length > 0 ? (
+              matchSche?.away?.icon.length > 0 ? (
                 <FastImage
                   style={styles.teamImage}
                   source={{ uri: matchSche?.away?.icon }}

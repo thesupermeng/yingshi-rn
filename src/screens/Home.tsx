@@ -51,11 +51,12 @@ import {
   clearEventSplashLastPageViewTime,
   hideAdultModeDisclaimer,
   setEventSplashLastPageViewTime,
+  setIsHomeGuideShown,
   setShowAdultTab,
   setShowEventSplashData,
 } from "@redux/actions/screenAction";
 import { screenModel } from "@type/screenType";
-import { AppsApi, SplashApi } from "@api";
+import { AdsApi, AppsApi, SplashApi } from "@api";
 import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/eventSplash";
@@ -310,7 +311,22 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   const checkSplash = async () => {
 
-
+    //if no banner ads thn show 挽留
+    let bannerRes;
+    try{
+      bannerRes = await AdsApi.getBannerAd(100);
+      let banner = bannerRes.ads;
+      let bannerList = bannerRes.ads_list;
+      
+      if (!banner) {
+        dispatch(setIsHomeGuideShown(true));
+      }
+    }
+    catch(err)
+    {
+      dispatch(setIsHomeGuideShown(true));
+    }
+    
     let splashListTemp = [];
     try {
       if (screenState.eventSplashLastPageViewTime !== undefined &&
@@ -338,17 +354,17 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
     }
 
-    //   if (SHOW_ZF_CONST &&
-    //     screenState.showEventSplashData) {
-    //     console.log("==================== splashList from main ======================")
-    //     console.log(screenState.showEventSplash)
-    //     console.log(screenState.showEventSplashData)
-    //     // navigation.navigate("付费Google");
-    //     navigation.navigate("付费VIP");
+      if (SHOW_ZF_CONST &&
+        screenState.showEventSplashData) {
+        console.log("==================== splashList from main ======================")
+        console.log(screenState.showEventSplash)
+        console.log(screenState.showEventSplashData)
+        // navigation.navigate("付费Google");
+        navigation.navigate("付费VIP");
 
-    //     if (screenState.showEventSplash == false) {
-    //       dispatch(setEventSplashLastPageViewTime());
-    //     }
+        if (screenState.showEventSplash == false) {
+          dispatch(setEventSplashLastPageViewTime());
+        }
 
     //     // dispatch(clearEventSplashLastPageViewTime());
     //   }
