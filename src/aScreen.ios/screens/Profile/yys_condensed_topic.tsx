@@ -1051,7 +1051,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
          part.toLowerCase() === keyword.toLowerCase() ? (
             <Text
                key={index}
-               style={{ ...textVariants.body, color: colors.primary, fontSize: 15 }}
+               style={{ ...textVariants.body, color: colors.yellow, fontSize: 15 }}
             >
                {part}
             </Text>
@@ -1197,7 +1197,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     )} */}
                               {/* {userState.userMemberExpired >=
                       userState.userCurrentTimestamp && (
-                        <Text style={{ color: colors.primary, fontSize: 14 }}>
+                        <Text style={{ color: colors.yellow, fontSize: 14 }}>
                           VIP会员有效日期至{displayedDate}
                         </Text>
                       )} */}

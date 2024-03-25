@@ -28,7 +28,7 @@ import { addUserAuthState, removeUserAuthState } from '@redux/actions/yys_gestur
 import { changeScreenAction } from '@redux/actions/yys_runtimescheduler';
 import { yys_MintegralLibavdevice } from '@redux/yys_sport_shrink';
 
-import { APP_NAME_CONST, APP_VERSION } from '@utility/yys_ajax_switch';
+import { APP_NAME_CONST, APP_VERSION, IS_OTHER_SKIN } from '@utility/yys_ajax_switch';
 import { yys_Videocommon } from '@redux/reducers/yys_libavdevice';
 import { yys_StatsForm } from '@utility/yys_context_muted';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -1266,6 +1266,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                   title="空间清理"
                   subtitle="清除所有的缓存"
                   confirmationText="清除"
+                  confirmationColor={IS_OTHER_SKIN ? colors.error : undefined}
                />
 
                {yys_RelatedTooltips.isLogin(userState.user) &&

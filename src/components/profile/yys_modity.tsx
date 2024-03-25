@@ -41,6 +41,8 @@ import { yys_GesturesConst } from "@api";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import yys_Filled from "../../../AppsFlyer/yys_analytic";
+import TickedIcon from '@static/images/ticked.svg';
+import { IS_OTHER_SKIN } from "@utility/yys_ajax_switch";
 
 
 export type yys_VideoLibreanimated = {
@@ -2516,9 +2518,11 @@ const LoginCard = ({
             }
 
             {((loginValue !== "" && loginValueErrMsg === null) || (loginValueErrMsg && loginValueErrMsg?.includes("稍后"))) && (
-               <Image
+               <TickedIcon
                   style={styles.iconStyle}
-                  source={require("@static/images/profile/minimizeClub.png")}
+                  width={18}
+                  height={18}
+                  color={IS_OTHER_SKIN ? colors.success : colors.primary}
                />
             )}
 

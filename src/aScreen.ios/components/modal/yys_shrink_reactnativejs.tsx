@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Dialog } from '@rneui/themed';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { IS_OTHER_SKIN } from '@utility/yys_ajax_switch';
 
 interface yys_ConfigureUimanager {
     onConfirm: any,
@@ -9,10 +10,11 @@ interface yys_ConfigureUimanager {
     isVisible: boolean,
     title?: string,
     subtitle?: string,
-    confirmationText?: string
-    cancelText?: string
+    confirmationText?: string,
+    cancelText?: string,
+    confirmationColor?: string,
 }
-export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = '确定', cancelText = '取消' }: yys_ConfigureUimanager) {
+export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = '确定', cancelText = '取消', confirmationColor }: yys_ConfigureUimanager) {
     const { colors, textVariants, spacing } = useTheme();
 
     return (
@@ -22,7 +24,7 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible, titl
             backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
             onBackdropPress={onCancel}
         >
-            <View style={{gap: spacing.m}}>
+            <View style={{ gap: spacing.m }}>
                 <Text style={{ ...textVariants.header, ...styles.text, }}>{title}</Text>
                 <Text style={{ ...textVariants.subBody, ...styles.text, }} >{subtitle}</Text>
                 <View style={styles.btns}>
@@ -30,7 +32,7 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible, titl
                         <Text style={{ ...textVariants.body, ...styles.text, }}>{cancelText}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn} onPress={onConfirm}>
-                        <Text style={{ ...textVariants.body, ...styles.text, color: colors.primary }}>{confirmationText}</Text>
+                        <Text style={{ ...textVariants.body, ...styles.text, color: confirmationColor ?? (IS_OTHER_SKIN ? colors.confirm : colors.primary) }}>{confirmationText}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
