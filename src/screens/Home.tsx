@@ -311,7 +311,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
   const checkSplash = async () => {
 
-    //if no banner ads thn show 挽留
+    //if no banner thn show
     let bannerRes;
     try{
       bannerRes = await AdsApi.getBannerAd(100);
@@ -367,7 +367,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
         }
 
     //     // dispatch(clearEventSplashLastPageViewTime());
-    //   }
+      }
   };
 
   // ========== for analytics - end ==========
