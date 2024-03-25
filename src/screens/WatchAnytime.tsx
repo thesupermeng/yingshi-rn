@@ -155,7 +155,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         filtered = filtered.filter(x => !x.is_ads)
       }
 
-      if (User.isGuest(userState.user) && !adultMode) {
+      if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
         filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
       }
 
