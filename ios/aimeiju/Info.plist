@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>“大萌影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。</string>
+	<string>“大鱼影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>我们需要得到您的允许，用于推送您感兴趣的广告内容</string>
 	<key>CFBundleSignature</key>

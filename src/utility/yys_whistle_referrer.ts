@@ -1,5 +1,5 @@
-import {DefaultTheme} from '@react-navigation/native';
-import {ColorValue, TextStyle} from 'react-native';
+import { DefaultTheme } from '@react-navigation/native';
+import { ColorValue, TextStyle } from 'react-native';
 export type yys_PaginationLibhermes = {
   dark: boolean;
   colors: {
@@ -7,6 +7,10 @@ export type yys_PaginationLibhermes = {
     sliderDot: string;
     title: string;
     primary: string;
+    yellow: string,
+    confirm: string,
+    success: string,
+    error: string,
     recommendation3: string;
     recommendation2: string;
     background: string;
@@ -104,6 +108,11 @@ export type yys_PaginationLibhermes = {
 };
 
 const palette = {
+  primary: '#FAC33D',
+  lighPrimary: '#FAC33D',
+  confirm: '#0A84FF',
+  success: '#34C759',
+  error: '#FF1010',
   dark: '#161616',
   black: '#000000',
   light_grey: '#D9D9D9',
@@ -137,7 +146,11 @@ export const YingshiDarkTheme: yys_PaginationLibhermes = {
     sliderDot: palette.grey_translucent_3,
     muted: palette.grey2,
     title: palette.yellow,
-    primary: palette.yellow,
+    primary: palette.primary,
+    yellow: palette.yellow,
+    confirm: palette.confirm,
+    success: palette.success,
+    error: palette.error,
     recommendation2: palette.orange,
     recommendation3: palette.dark_yellow,
     background: palette.dark,
@@ -241,7 +254,11 @@ export const YingshiLightTheme: yys_PaginationLibhermes = {
     sliderDot: palette.light_grey,
     muted: palette.grey2,
     title: palette.white,
-    primary: palette.yellow,
+    primary: palette.lighPrimary,
+    yellow: palette.yellow,
+    confirm: palette.confirm,
+    success: palette.success,
+    error: palette.error,
     recommendation2: palette.orange,
     recommendation3: palette.dark_yellow,
     background: palette.white,

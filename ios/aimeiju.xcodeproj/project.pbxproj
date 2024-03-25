@@ -891,11 +891,11 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "大萌影视";
+				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大鱼影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -939,11 +939,11 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "大萌影视";
+				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大鱼影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
@@ -1041,6 +1041,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1115,6 +1117,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1190,6 +1194,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1215,11 +1221,11 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "大萌影视";
+				INFOPLIST_KEY_CFBundleDisplayName = "大鱼影视";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大萌影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“大鱼影视”想访问您的相册，以便您上传相册内的视频并发布影视解说。";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们需要得到您的允许，用于推送您感兴趣的广告内容";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
