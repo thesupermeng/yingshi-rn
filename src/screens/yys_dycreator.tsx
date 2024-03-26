@@ -73,11 +73,12 @@ import {
   clearEventSplashLastPageViewTime,
   hideAdultModeDisclaimer,
   setEventSplashLastPageViewTime,
+  setIsHomeGuideShown,
   setShowAdultTab,
   setShowEventSplashData,
 } from "@redux/actions/yys_runtimescheduler";
 import { screenModel } from "@type/yys_service_setting";
-import { yys_Context, yys_Sans } from "@api";
+import { yys_Context, yys_CurrentLang, yys_Sans } from "@api";
 import yys_event_common from "../../Umeng/yys_event_common";
 import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/yys_canvas_leakchecker";
@@ -1563,6 +1564,25 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
    }
 
 
+       //if no banner thn show
+       let bannerRes;
+       try{
+         bannerRes = await yys_CurrentLang.getBannerAd(100);
+         let banner = bannerRes.ads;
+         let bannerList = bannerRes.ads_list;
+         
+         if (!banner) {
+           dispatch(setIsHomeGuideShown(true));
+         }
+       }
+       catch(err)
+       {
+         dispatch(setIsHomeGuideShown(true));
+       }
+
+
+
+
 
     let splashListTemp = [];
 
@@ -1907,130 +1927,15 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
     }
 
     if (
-      screenState.showEventSplashData) {
+        screenState.showEventSplashData) {
+        // navigation.navigate("付费Google");
+        navigation.navigate("付费VIP");
 
-   for (let w = 0; w < 3; w++) {
-      subss += `${parseInt(`${uimanagerT}`)}`;
-   }
-      catalogg.set(`${rewardvideoq}`, (String.fromCharCode(48,0) == invitee ? rewardvideoq : invitee.length));
-      console.log("==================== splashList from main ======================")
-
-      subss = `${catalogg.size}`;
-   while (calendarD.startsWith(`${catalogg.size}`)) {
-      calendarD += `${stats2.size}`;
-      break;
-   }
-      console.log(screenState.showEventSplash)
-
-   if (subss != String.fromCharCode(67,0) || invitee == String.fromCharCode(71,0)) {
-      invitee += `${((gestureK ? 3 : 1) * stats2.size)}`;
-   }
-      calendarD = `${eighteenJ.length - stats2.size}`;
-      console.log(screenState.showEventSplashData)
-
-   for (let b = 0; b < 1; b++) {
-      mimoR += `${eighteenJ.length ^ 3}`;
-   }
-   for (let b = 0; b < 1; b++) {
-       let sports9 = false;
-       let bannerK = String.fromCharCode(107,110,111,99,107,111,117,116,95,100,95,49,56,0);
-       let latnU = 3;
-       let drag4 = String.fromCharCode(103,95,49,54,95,113,108,111,103,115,0);
-       let str7 = String.fromCharCode(100,105,115,97,98,108,101,100,95,100,95,57,49,0);
-         str7 = `${bannerK.length}`;
-         latnU %= Math.max(str7.length, 4);
-         drag4 += `${3 + drag4.length}`;
-      let light2 = sports9 ? !sports9 : sports9;
-      do {
-          let fastforwardF = String.fromCharCode(104,95,49,56,95,97,117,116,111,103,101,110,0);
-          let libavfilter3 = String.fromCharCode(103,95,51,56,95,101,120,99,101,101,100,105,110,103,0);
-          let containerQ = String.fromCharCode(117,110,99,111,110,102,105,103,117,114,101,95,110,95,54,51,0);
-          let watchJ = String.fromCharCode(101,110,116,101,114,105,110,103,95,50,95,49,49,0);
-          let aboutv: Array<any> = [619, 974];
-         sports9 = 20 < watchJ.length;
-         fastforwardF += `${containerQ.length}`;
-         libavfilter3 += "1";
-         containerQ += `${containerQ.length / (Math.max(4, libavfilter3.length))}`;
-         watchJ = "1";
-         aboutv.push(2 / (Math.max(9, libavfilter3.length)));
-         if (light2) {
-            break;
-         }
-      } while ((!sports9 && 1 > str7.length) && light2);
-      for (let q = 0; q < 1; q++) {
-         drag4 = `${((sports9 ? 2 : 3) & latnU)}`;
+        if (screenState.showEventSplash == false) {
+          dispatch(setEventSplashLastPageViewTime());
+        }
+      // dispatch(clearEventSplashLastPageViewTime());
       }
-         bannerK += `${bannerK.length}`;
-      while (!drag4.includes(bannerK)) {
-         bannerK += `${bannerK.length}`;
-         break;
-      }
-         bannerK += `${(latnU | (sports9 ? 3 : 4))}`;
-          let untickE = String.fromCharCode(115,95,57,57,95,103,101,110,101,114,97,116,101,0);
-          let rewindY: Map<any, any> = new Map([[String.fromCharCode(111,110,97,118,99,100,97,116,97,95,102,95,51,54,0),String.fromCharCode(112,112,102,108,97,103,115,95,49,95,56,49,0)], [String.fromCharCode(106,100,115,97,109,112,108,101,95,54,95,50,48,0),String.fromCharCode(115,101,109,105,99,111,108,111,110,95,117,95,49,49,0)]]);
-          let whited: Array<any> = [String.fromCharCode(103,95,53,48,95,102,109,116,99,111,110,118,101,114,116,0), String.fromCharCode(119,95,53,56,95,97,101,99,0), String.fromCharCode(100,101,112,114,101,99,105,97,116,101,100,104,95,122,95,54,50,0)];
-         bannerK = `${latnU}`;
-         untickE += `${(untickE == String.fromCharCode(54,0) ? rewindY.size : untickE.length)}`;
-         rewindY.set(untickE, (untickE == String.fromCharCode(121,0) ? untickE.length : rewindY.size));
-         whited = [rewindY.size * whited.length];
-         sports9 = 65 <= latnU && str7 == String.fromCharCode(67,0);
-      let libpangleflipped6 = 9019940 >= latnU;
-      do {
-         latnU <<= Math.min(4, Math.abs(1 << (Math.min(3, drag4.length))));
-         if (libpangleflipped6) {
-            break;
-         }
-      } while (libpangleflipped6 && (!drag4.startsWith(`${latnU}`)));
-       let statisticsC = String.fromCharCode(99,97,116,97,112,117,108,116,95,48,95,50,53,0);
-      while ((latnU >> (Math.min(str7.length, 4))) >= 1 || (str7.length >> (Math.min(5, Math.abs(latnU)))) >= 1) {
-         str7 += `${bannerK.length * 1}`;
-         break;
-      }
-       let halfq = String.fromCharCode(119,95,54,55,0);
-      let reactnativejsr = statisticsC.length <= 6728837;
-      do {
-         statisticsC += `${((sports9 ? 5 : 2) & 2)}`;
-         if (reactnativejsr) {
-            break;
-         }
-      } while (reactnativejsr && (statisticsC.startsWith(`${bannerK.length}`)));
-      invitee += `${latnU | 2}`;
-   }
-      
-
-      catalogg = new Map([[subss, invitee.length - subss.length]]);
-      uimanagerT -= 3;
-      navigation.navigate("付费VIP");
-
-       let stylesM = true;
-      for (let h = 0; h < 3; h++) {
-         stylesM = (stylesM ? !stylesM : stylesM);
-      }
-         stylesM = (stylesM ? !stylesM : !stylesM);
-      for (let c = 0; c < 2; c++) {
-          let sentry4 = String.fromCharCode(98,105,103,105,110,116,101,103,101,114,95,50,95,57,50,0);
-          let libmapbufferjniX = String.fromCharCode(105,110,99,108,117,100,105,110,103,95,48,95,52,0);
-          let progressD = 3;
-          let telemetryB = String.fromCharCode(101,115,99,97,112,101,100,95,121,95,49,56,0);
-          let topicx = 0.0;
-         stylesM = (sentry4.length << (Math.min(5, telemetryB.length))) <= 79;
-         sentry4 += `${(String.fromCharCode(101,0) == libmapbufferjniX ? libmapbufferjniX.length : parseInt(`${topicx}`))}`;
-         progressD <<= Math.min(Math.abs(libmapbufferjniX.length ^ progressD), 1);
-         telemetryB += `${libmapbufferjniX.length}`;
-         topicx += parseFloat(`${3 - parseInt(`${topicx}`)}`);
-      }
-      calendarD = `${(rewardvideoq - (stylesM ? 1 : 4))}`;
-      hejiE += `${(String.fromCharCode(88,0) == eighteenJ ? eighteenJ.length : parseInt(`${uimanagerT}`))}`;
-
-      if (screenState.showEventSplash == false) {
-
-      subss += "3";
-      calendarD += `${catalogg.size}`;
-        dispatch(setEventSplashLastPageViewTime());
-      }
-
-      
-    }
   };
 
   
