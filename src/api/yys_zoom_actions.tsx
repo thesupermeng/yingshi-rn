@@ -268,6 +268,8 @@ export class yys_Downloader {
    }
 
    static getDetail = async (id: string, { xMode = false }: { xMode?: boolean } = {}) => {
+         console.log('here')
+
       try {
          const result = await yys_StringsVignette.get(xMode ? yys_FavoriteCustom.vodGetXDetail : yys_FavoriteCustom.vodGetDetail, {
             query: {

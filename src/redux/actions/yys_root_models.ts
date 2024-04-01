@@ -3498,8 +3498,17 @@ export function updateAllVodDetailsThunk(): ThunkAction<void, yys_MintegralLibav
   return async function (dispatch, getState) {
     const downloads = getState().downloadVideoReducer.downloads
     downloads.forEach(async (download) => {
-      const newVod = await yys_Downloader.getDetail(download.vod.vod_id.toString(), {xMode: download.vodIsAdult})
-      dispatch(updateVodDetails(newVod))
+      try
+      {
+         const newVod = await yys_Downloader.getDetail(download.vod.vod_id.toString(), {xMode: download.vodIsAdult})
+         dispatch(updateVodDetails(newVod))
+      }catch(e)
+      {
+         console.log('downloads.forEach')
+      }
+
+
+
     })
 
 

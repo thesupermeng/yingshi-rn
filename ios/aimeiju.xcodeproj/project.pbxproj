@@ -144,6 +144,7 @@
 		BW61K6101TQ48048362EZV47 /* yys_SigmobCoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_SigmobCoreView.m; sourceTree = "<group>"; };
 		C80E302F2B21A8D20093541D /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		C854A5E32BAC54F00069ED3C /* static */ = {isa = PBXFileReference; lastKnownFileType = folder; name = static; path = ../static; sourceTree = "<group>"; };
+		C8D93BB12BBA88B700D2FE52 /* aimeiju.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = aimeiju.entitlements; path = aimeiju/aimeiju.entitlements; sourceTree = "<group>"; };
 		CABA2759F26C1ABC887F1D07 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CQV9X8I7092L5783U5A537U3 /* yys_CancelInfoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_CancelInfoObject.m; sourceTree = "<group>"; };
 		CV9DTM49Y83107A533T6P016 /* yys_ReferrerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_ReferrerController.h; sourceTree = "<group>"; };
@@ -228,6 +229,7 @@
 		13B07FAE1A68108700A75B9A /* aimeiju */ = {
 			isa = PBXGroup;
 			children = (
+				C8D93BB12BBA88B700D2FE52 /* aimeiju.entitlements */,
 				3896D17F2B0C48F70082748B /* UMReactBridge */,
 				38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -880,9 +882,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
+				CODE_SIGN_ENTITLEMENTS = aimeiju/aimeiju.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				ENABLE_BITCODE = NO;
@@ -905,7 +908,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.8;
+				MARKETING_VERSION = 1.8.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -929,9 +932,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
+				CODE_SIGN_ENTITLEMENTS = aimeiju/aimeiju.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -953,7 +957,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.8;
+				MARKETING_VERSION = 1.8.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1041,8 +1045,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
-					"-Wl",
-					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1117,8 +1119,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
-					"-Wl",
-					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1194,8 +1194,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
-					"-Wl",
-					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1211,9 +1209,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "bANlp7AwlK57caU3h80moPva099ffOii-VPk9";
+				CODE_SIGN_ENTITLEMENTS = aimeiju/aimeiju.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1235,7 +1234,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.8;
+				MARKETING_VERSION = 1.8.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
