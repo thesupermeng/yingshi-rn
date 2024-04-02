@@ -1,6 +1,6 @@
 {
   "name": "yingshipin",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "private": true,
   "scripts": {
     "android": "source ~/.bash_profile && react-native run-android",
@@ -16,6 +16,7 @@
     "build-release": "cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "replace-constants-codepush": "export APK_CHANNEL=0&& npm run build-release",
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
+    "android-apk-pc6-release": "export APK_CHANNEL=PC6G&& npm run build-release",
     "android-apk-web-liebian-release": "export APK_CHANNEL=WEB_LIE_BIAN&& npm run build-release",
     "android-apk-fenxiang-release": "export APK_CHANNEL=FEN_XIANG&& npm run build-release",
     "android-apk-liulanqi-release": "export APK_CHANNEL=LIU_LAN_QI&& npm run build-release",
@@ -47,6 +48,7 @@
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
     "@gorhom/bottom-sheet": "^4.4.7",
+    "@notifee/react-native": "^7.8.2",
     "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-camera-roll/camera-roll": "^5.10.0",
     "@react-native-community/blur": "^4.3.2",
@@ -56,8 +58,6 @@
     "@react-native-community/netinfo": "^9.4.1",
     "@react-native-community/segmented-control": "^2.2.2",
     "@react-native-community/slider": "^4.4.2",
-    "@react-native-firebase/app": "^19.0.0",
-    "@react-native-firebase/messaging": "^19.0.0",
     "@react-native-google-signin/google-signin": "^10.1.1",
     "@react-native-picker/picker": "^2.5.1",
     "@react-navigation/bottom-tabs": "^6.5.7",

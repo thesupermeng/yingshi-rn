@@ -335,7 +335,7 @@ function SelectDownloadComponent({
                       <FinishIcon
                         width={10}
                         height={10}
-                        color={colors.primary}
+                        color={colors.success}
                       />
                     </View>
                   )}

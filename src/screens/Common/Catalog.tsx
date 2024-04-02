@@ -200,7 +200,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
   const fetchVods = useCallback(
     (page: number) => {
-      if(currentTopicId.toString() == "46" || currentTopicId.toString() == "44"){
+      if (currentTopicId.toString() == "46" || currentTopicId.toString() == "44") {
         return VodApi.getList({
           page,
           limit: LIMIT_PER_PAGE,
@@ -209,8 +209,8 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           year: year.value !== '全部时间' ? year.value : undefined,
           orderBy: 'desc',
         }).then((data) => data.List as SuggestedVodType[])
-      }else{
-      return VodApi.getList({
+      } else {
+        return VodApi.getList({
           page,
           limit: LIMIT_PER_PAGE,
           tid: currentTopicId.toString(),
@@ -352,10 +352,10 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     // console.log("route.params.class")
     // console.log(route.params.class)
 
-    if(route.params.class =='短剧' )
-   setCurrentTopicId(46);
+    if (route.params.class == '短剧')
+      setCurrentTopicId(46);
   }, [topicOptions]);
-  
+
 
   useEffect(() => {
     const eventName = 'catalog';
@@ -443,7 +443,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     },
     [topicOptions, currentTopicId],
   );
-  
+
   return (
     <>
       <ScreenContainer>

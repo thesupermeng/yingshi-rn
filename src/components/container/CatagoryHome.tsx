@@ -193,7 +193,8 @@ const CatagoryHome = ({
               });
             } else {
               navigation.navigate('午夜场剧情', {
-                class: item.vod_list[0].vod_class
+                class: item.vod_list[0].vod_class,
+                vod_source_name: "",
               });
             }
           }}
@@ -428,7 +429,8 @@ const CatagoryHome = ({
                               });
                             } else {
                               navigation.navigate('午夜场剧情', {
-                                class: item.vod_list[0].vod_class
+                                class: item.vod_list[0].vod_class,
+                                vod_source_name: "",
                               });
                             }
                           }}

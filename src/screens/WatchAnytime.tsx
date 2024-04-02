@@ -147,13 +147,18 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   useEffect(() => {
     if (videos != undefined) {
       let filtered = videos?.pages.flat().filter(x => x)
+
+      // vip -> filter ads
+      // guest -> filter first 10
+
       if (isVip) {
         filtered = filtered.filter(x => !x.is_ads)
-      } else {
-        if (!adultMode) {
-          filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
-        }
       }
+
+      if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
+        filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
+      }
+
       setFlattenedVideos(filtered); // remove null values
       if (filtered.length > 0) {
         miniVodListRef.current?.scrollToOffset({
@@ -162,7 +167,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         });
       }
     }
-  }, [videos]);
+  }, [videos, userState.user]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener(

@@ -9,7 +9,7 @@ import {
   Linking,
 } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { IS_YINGSHIPING } from '@utility/constants';
+import { IS_OTHER_SKIN } from '@utility/constants';
 
 interface Props {
   onConfirm: any;
@@ -76,7 +76,7 @@ export default function NotificationModal({
               style={{
                 ...textVariants.body,
                 ...styles.head,
-                color: IS_YINGSHIPING ? colors.confirm : colors.primary,
+                color: IS_OTHER_SKIN ? colors.confirm : colors.primary,
               }}>
               {confirmationText}
             </Text>

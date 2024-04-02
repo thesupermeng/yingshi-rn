@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Dialog } from '@rneui/themed';
-import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { IS_YINGSHIPING } from '@utility/constants';
+import { IS_OTHER_SKIN } from '@utility/constants';
 
 interface Props {
     onConfirm: any,
@@ -12,9 +12,9 @@ interface Props {
     subtitle?: string,
     confirmationText?: string,
     cancelText?: string,
-    confirmTextStyle?: TextStyle,
+    confirmationColor?: string,
 }
-export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = '确定', cancelText = '取消', confirmTextStyle }: Props) {
+export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = '确定', cancelText = '取消', confirmationColor }: Props) {
     const { colors, textVariants, spacing } = useTheme();
 
     return (
@@ -32,7 +32,7 @@ export default function ConfirmationModal({ onConfirm, onCancel, isVisible, titl
                         <Text style={{ ...textVariants.body, ...styles.text, }}>{cancelText}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn} onPress={onConfirm}>
-                        <Text style={{ ...textVariants.body, ...styles.text, color: IS_YINGSHIPING ? colors.confirm : colors.primary, ...confirmTextStyle }}>{confirmationText}</Text>
+                        <Text style={{ ...textVariants.body, ...styles.text, color: confirmationColor ?? (IS_OTHER_SKIN ? colors.confirm : colors.primary) }}>{confirmationText}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

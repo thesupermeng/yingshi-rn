@@ -29,6 +29,7 @@ const RelatedVodSuggestion = ({vod, suggestions, adultMode}: Props) => {
               navigation.navigate('午夜场剧情', {
                 // class: item.vod_list[0].vod_class
                 class: vod?.vod_class,
+                vod_source_name: "",
               });
             }, 150);
           }}

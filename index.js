@@ -12,7 +12,8 @@ import {AppRegistry} from 'react-native';
 import 'react-native-gesture-handler';
 import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import {name as appName} from './app.json';
-import messaging from '@react-native-firebase/messaging';
+// import messaging from '@react-native-firebase/messaging';
+// import notifee from '@notifee/react-native';
 
 AppRegistry.registerRunnable(appName, async initialProps => {
   CodePush.notifyAppReady();
@@ -22,19 +23,14 @@ AppRegistry.registerRunnable(appName, async initialProps => {
     messagingSenderId: '699123886701',
   };
 
-
-
-  try {
-    messaging().setBackgroundMessageHandler(async remoteMessage => {
-      console.log('Message handled in the background!', remoteMessage);
-    });
-  } catch (err) {
-    console.log('messaging initialize error');
-  }
+  // messaging().setBackgroundMessageHandler(async remoteMessage => {
+  //   console.log('Message handled in the background!', remoteMessage);
+  //   notifee.displayNotification(remoteMessage.data);
+  // });
 
   try {
     // ATRNSDK.initSDK('a5aa1f9deda26d', '4f7b9ac17decb9babec83aac078742c7');
-    // ATRNSDK.initSDK('a65e577384c125', '0b1cab850e5de6fdc1fe0e114a0256eb');
+    // ATRNSDK.initSDK('a65096b9d21e23', '0b1cab850e5de6fdc1fe0e114a0256eb');
   } catch (err) {
     console.log('Ads initialize error');
   }

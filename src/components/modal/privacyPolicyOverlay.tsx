@@ -6,7 +6,7 @@ import RNExitApp from "react-native-exit-app";
 import { useAppDispatch } from "@hooks/hooks";
 import { acceptPrivacyPolicy } from "@redux/actions/settingsActions";
 import { TermsAcceptContext } from "../../contexts/TermsAcceptedContext";
-import { IS_YINGSHIPING } from "@utility/constants";
+import { IS_OTHER_SKIN } from "@utility/constants";
 
 
 interface Props {
@@ -106,7 +106,7 @@ export default function PrivacyPolicyOverlay({
                   style={{
                     ...textVariants.body,
                     ...styles.head,
-                    color: IS_YINGSHIPING ? colors.confirm : colors.primary,
+                    color: IS_OTHER_SKIN ? colors.confirm : colors.primary,
                   }}>
                   同意并接受
                 </Text>

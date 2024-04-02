@@ -12,7 +12,7 @@ interface Props {
 
 const CarouselPagination = ({ data, dashStyle = false, activeIndex, onDotPress, onScrollIndexChanged, }: Props) => {
   const { colors } = useTheme();
-  const styles = useMemo(() => createStyles({ colors }), []);
+  const styles = useMemo(() => createStyles({ colors }), [colors]);
 
   const scrollOffsetRef = useRef<number>(0);
   const [debouncedActiveIndex, setDebouncedActiveIndex] = useState<number | null>(null);

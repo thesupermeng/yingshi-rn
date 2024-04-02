@@ -21,6 +21,7 @@ import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { debounce, throttle } from "lodash";
 import FastImage from '../../../components/common/customFastImage'
 import NetInfo from "@react-native-community/netinfo";
+import { IS_OTHER_SKIN } from "@utility/constants";
 
 const LoadingGif = require('@static/images/loading-spinner.gif')
 
@@ -143,7 +144,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           onPress={() => toggleHistory(item)}
         >
           {removeHistory.some(x => (x.vodUrlNid === item.vodUrlNid && x.vodSourceId === item.vodSourceId)) ? (
-            <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={colors.primary} />
+            <CheckBoxSelected height={icons.sizes.m} width={icons.sizes.m} color={IS_OTHER_SKIN ? colors.success : colors.primary} />
           ) : (
             <CheckBoxUnselected
               height={icons.sizes.m}
@@ -372,11 +373,11 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
                 }
               }}
               containerStyle={styles.confirmationBtn}
-              color={removeHistory.length === 0 ? colors.card2 : colors.error}
+              color={removeHistory.length === 0 ? colors.card2 : (IS_OTHER_SKIN ? colors.error : colors.primary)}
               titleStyle={{
                 ...textVariants.body,
                 color:
-                  removeHistory.length === 0 ? colors.muted : colors.background,
+                  removeHistory.length === 0 ? colors.muted : (IS_OTHER_SKIN ? 'white' : colors.primaryContrast),
               }}
             >
               删除

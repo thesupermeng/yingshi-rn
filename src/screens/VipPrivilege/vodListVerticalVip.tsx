@@ -56,7 +56,7 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
         setCardWidth(cardWidth - 10);
         setCardHeight(cardHeight);
     }, []);
-
+    
     const vodMapItem = (vod: any, idx: any) => (
         <VodCard
             key={`${vod.vod_id}`}

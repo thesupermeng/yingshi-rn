@@ -2,6 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TickedIcon from '@static/images/ticked.svg';
 import { useMemo } from "react";
+import { IS_OTHER_SKIN } from "@utility/constants";
 
 type Props = {
     isReadChecked: boolean,
@@ -26,7 +27,7 @@ export const ReadAgreementPrivacyPolicy = ({
             {isReadChecked && (
                 <TickedIcon
                     style={styles.checkImage}
-                    color={colors.primary}
+                    color={IS_OTHER_SKIN ? colors.success : colors.primary}
                     width={16}
                     height={16}
                 />
@@ -57,7 +58,7 @@ export const ReadAgreementPrivacyPolicy = ({
     </View>;
 }
 
-const createStyle = ({ colors }: any) => StyleSheet.create({
+const createStyle = ({ colors }: any = {}) => StyleSheet.create({
     container: {
         flexDirection: "row",
         justifyContent: "center",

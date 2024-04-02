@@ -32,7 +32,7 @@ import { removeUserAuthState } from "@redux/actions/userAction";
 import { changeScreenAction } from "@redux/actions/screenAction";
 import { RootState } from "@redux/store";
 
-import { APP_VERSION } from "@utility/constants";
+import { APP_VERSION, IS_OTHER_SKIN } from "@utility/constants";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { CApi } from "@utility/apiService";
@@ -129,9 +129,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
             title="空间清理"
             subtitle="清除所有的缓存"
             confirmationText="清除"
-            confirmTextStyle={{
-              color: colors.error,
-            }}
+            confirmationColor={IS_OTHER_SKIN ? colors.error : undefined}
           />
 
           <ConfirmationModal

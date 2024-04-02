@@ -46,6 +46,8 @@ import {CustomEventAnalytic} from './Umeng/EventAnalytic';
 import {logIgnore, warnIgnore} from '@utility/helper';
 import appsFlyer from 'react-native-appsflyer';
 import AppsFlyerAnalytics from './AppsFlyer/AppsFlyerAnalytic';
+// import messaging from '@react-native-firebase/messaging';
+// import {FirebaseNotification} from '@utility/firebaseNotification';
 
 const topon_channel = 'WEB';
 
@@ -70,6 +72,7 @@ warnIgnore([
   'ATBanner',
   'ATInterstitial',
   'source.uri should not be an empty string',
+  '[notifee]',
 ]);
 
 logIgnore([
@@ -114,6 +117,17 @@ let App = () => {
       }
     }
   }, [isConnected]);
+
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
+  //     FirebaseNotification.setupLocalNotification(
+  //       remoteMessage,
+  //     );
+  //   });
+  //   return unsubscribe;
+  // }, []);
+
+
 
   const downloadWatchAnytimeSequence = async () => {
     await deleteCachedVideos();

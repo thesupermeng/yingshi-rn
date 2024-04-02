@@ -127,7 +127,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       part.toLowerCase() === keyword.toLowerCase() ? (
         <Text
           key={index}
-          style={{ ...textVariants.body, color: colors.primary, fontSize: 15 }}
+          style={{ ...textVariants.body, color: colors.yellow, fontSize: 15 }}
         >
           {part}
         </Text>
@@ -402,7 +402,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         borderRadius: 10,
                       }}
                     >
-                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                      <Text style={{ color: colors.primaryContrast, fontWeight: "700" }}>
                         登录{" "}
                       </Text>
                     </View>
@@ -432,7 +432,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         borderRadius: 10,
                       }}
                     >
-                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                      <Text style={{ color: colors.primaryContrast, fontWeight: "700" }}>
                         登录{" "}
                       </Text>
                     </View>
@@ -594,7 +594,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text

@@ -102,11 +102,11 @@ android {
         applicationId "com.yingshipin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 2 ,  march 12 
-        versionCode 2
-        versionName "1.7.8"
+        // ABB version 5 ,  april 2 
+        versionCode 5
+        versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "65e675eda7208a5af1b4eebb"
-        resValue "string", "UMENG_CHANNEL", "GOOGLEPLAY_YINGSHIPIN"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
@@ -200,6 +200,7 @@ repositories{
 }
 
 dependencies {
+    implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation fileTree(include:['*.jar'], dir:'libs')

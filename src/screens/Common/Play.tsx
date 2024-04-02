@@ -459,6 +459,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             alignSelf: "center",
             marginRight: 3,
           }}
+          color={colors.primaryContrast}
         />
         <Text
           numberOfLines={1}
@@ -470,7 +471,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             fontWeight: "600",
             color:
               currentSourceId === item.source_id
-                ? colors.selected
+                ? colors.primaryContrast
                 : colors.muted,
           }}
         >
@@ -763,7 +764,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchSVod = () =>
     VodApi.getList({
-      category: vod?.vod_class,
+
+      vod_source_name: vod?.vod_source_name,
+      category: vod?.vod_class ? vod?.vod_class : vod?.type_name,
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
       rand: 1,
@@ -904,7 +907,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             fontSize: 13,
             textAlign: "center",
             fontWeight: "500",
-            color: currentEpisode === item.nid ? colors.selected : colors.muted,
+            color: currentEpisode === item.nid ? colors.primaryContrast : colors.muted,
           }}
         >
           {item.name}
@@ -1722,6 +1725,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                       navigation.navigate("午夜场剧情", {
                                         // class: item.vod_list[0].vod_class
                                         class: vod?.vod_class,
+                                        vod_source_name: "",
                                       });
                                     }, 150);
                                   }}

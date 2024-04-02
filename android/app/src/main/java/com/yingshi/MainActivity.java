@@ -8,6 +8,11 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import com.google.android.ump.ConsentForm;
+import com.google.android.ump.ConsentInformation;
+import com.google.android.ump.ConsentRequestParameters;
+import com.google.android.ump.UserMessagingPlatform;
+import com.google.android.ump.FormError;
 
 import android.content.Intent;
 import android.database.CursorWindow;
@@ -24,6 +29,7 @@ import android.util.Log;
 import java.lang.reflect.Field;
 
 public class MainActivity extends ReactActivity {
+   private ConsentInformation consentInformation;
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -43,6 +49,56 @@ public class MainActivity extends ReactActivity {
     // super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
     super.onCreate(null);
 
+    // Create a ConsentRequestParameters object.
+    ConsentRequestParameters params = new ConsentRequestParameters
+        .Builder()
+        .build();
+
+    consentInformation = UserMessagingPlatform.getConsentInformation(this);
+    consentInformation.requestConsentInfoUpdate(
+        this,
+        params,
+        // (consentInformation.onConsentInfoUpdateSuccess ()) () -> {
+        //   UserMessagingPlatform.loadAndShowConsentFormIfRequired(
+        //     this,
+        //     (OnConsentFormDismissedListener) loadAndShowError -> {
+        //       if (loadAndShowError != null) {
+        //         // Consent gathering failed.
+        //         Log.w(TAG, String.format("%s: %s",
+        //             loadAndShowError.getErrorCode(),
+        //             loadAndShowError.getMessage()));
+        //       }
+
+        //       // Consent has been gathered.
+        //     }
+        //   );
+        // },
+        new ConsentInformation.OnConsentInfoUpdateSuccessListener() {
+            @Override
+            public void onConsentInfoUpdateSuccess() {
+                // The consent information state was updated.
+                // You are now ready to check if a form is available.
+                if (consentInformation.isConsentFormAvailable() && consentInformation.getConsentStatus() == ConsentInformation.ConsentStatus.REQUIRED) {
+                    // Log.w(TAG, String.format("%s: %s",
+                    //     loadAndShowError.getErrorCode(),
+                    //     loadAndShowError.getMessage()));
+                }
+            }
+        },
+        // (consentInformation.onConsentInfoUpdateFailure(FormError error)) requestConsentError -> {
+        //   // Consent gathering failed.
+        //   Log.w(TAG, String.format("%s: %s",
+        //       requestConsentError.getErrorCode(),
+        //       requestConsentError.getMessage()));
+        // });
+        new ConsentInformation.OnConsentInfoUpdateFailureListener() {
+            @Override
+            public void onConsentInfoUpdateFailure(FormError formError) {
+                // Log.w(TAG, String.format("%s: %s",
+                //     requestConsentError.getErrorCode(),
+                //     requestConsentError.getMessage()));
+            }
+        });
 
     String appKey = getResources().getString(R.string.UMENG_APPKEY);
     String channel = getResources().getString(R.string.UMENG_CHANNEL);

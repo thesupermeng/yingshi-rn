@@ -11,6 +11,7 @@ import NoWifi from '@static/images/no-wifi.svg';
 import RefreshIcon from '@static/images/refresh.svg';
 import YingshiGreyIcon from '@static/images/yingshi-grey.svg';
 import { useOrientation } from '@hooks/useOrientation';
+import { IS_OTHER_SKIN } from '@utility/constants';
 interface Props {
   onClickRetry?: any;
   isPlay?: boolean;
@@ -67,7 +68,7 @@ export default function NoConnection({
             <View
               style={{
                 ...styles.refreshBtn,
-                backgroundColor: colors.title,
+                backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
               }}>
               <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
@@ -101,7 +102,7 @@ export default function NoConnection({
             <View
               style={{
                 ...styles.refreshBtn,
-                backgroundColor: colors.title,
+                backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
               }}>
               <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />

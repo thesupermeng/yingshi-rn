@@ -31,7 +31,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
-import { API_DOMAIN } from "@utility/constants";
+import { API_DOMAIN, IS_OTHER_SKIN } from "@utility/constants";
 import { CPopup } from "@utility/popup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
@@ -498,7 +498,7 @@ const LoginCard = ({
             style={styles.iconStyle}
             width={18}
             height={18}
-            color={colors.primary}
+            color={IS_OTHER_SKIN ? colors.success : colors.primary}
           />
         )}
 
@@ -620,7 +620,7 @@ const LoginCard = ({
             fontWeight: "600",
             fontSize: 14,
             letterSpacing: 0.2,
-            color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
+            color: loginValue === "" || !isReadTermNCondition ? "white" : colors.primaryContrast,
           }}
         >
           登入

@@ -9,6 +9,8 @@
 #import <CodePush/CodePush.h>
 #import <React/RCTAppSetupUtils.h>
 #import <React/RCTLinkingManager.h>
+#import <AppCenterReactNativeShared/AppCenterReactNativeShared.h>
+#import <AppCenterReactNative.h>
 
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
@@ -111,7 +113,7 @@ bool isCurrentMainView = NO;
 
   
   [AppCenterReactNativeShared setStartAutomatically:YES];
-  [AppCenterReactNativeShared setAppSecret:@"0e80fde0-ed4b-4c61-9f6c-0bc1fc316e3f"]
+  [AppCenterReactNativeShared setAppSecret:@"0e80fde0-ed4b-4c61-9f6c-0bc1fc316e3f"];
  [AppCenterReactNative register];
  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
