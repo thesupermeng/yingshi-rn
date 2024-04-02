@@ -159,7 +159,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
                     titleStyle={{
                       ...textVariants.body,
                       color:
-                        removeHistory.length === 0 ? colors.muted : colors.background,
+                        removeHistory.length === 0 ? colors.muted : (IS_OTHER_SKIN ? 'white' : colors.primaryContrast),
                     }}
                   >
                     删除
