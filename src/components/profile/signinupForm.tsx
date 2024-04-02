@@ -638,7 +638,7 @@ const LoginCard = ({
             fontWeight: "600",
             fontSize: 14,
             letterSpacing: 0.2,
-            color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
+            color: loginValue === "" || !isReadTermNCondition ? "white" : colors.primaryContrast,
           }}
         >
           登入

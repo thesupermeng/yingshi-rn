@@ -110,7 +110,7 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
                                         fontSize: 13,
                                         textAlign: 'center',
                                         fontWeight: '500',
-                                        color: ep.nid === activeEpisode ? colors.selected : colors.muted,
+                                        color: ep.nid === activeEpisode ? colors.primaryContrast : colors.muted,
                                     }}>
                                     {`${ep.name}`}
                                 </Text>

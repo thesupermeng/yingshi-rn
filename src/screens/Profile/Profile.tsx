@@ -402,7 +402,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         borderRadius: 10,
                       }}
                     >
-                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                      <Text style={{ color: colors.primaryContrast, fontWeight: "700" }}>
                         登录{" "}
                       </Text>
                     </View>
@@ -432,7 +432,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         borderRadius: 10,
                       }}
                     >
-                      <Text style={{ color: "#000", fontWeight: "700" }}>
+                      <Text style={{ color: colors.primaryContrast, fontWeight: "700" }}>
                         登录{" "}
                       </Text>
                     </View>

@@ -377,7 +377,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
               titleStyle={{
                 ...textVariants.body,
                 color:
-                  removeHistory.length === 0 ? colors.muted : colors.background,
+                  removeHistory.length === 0 ? colors.muted : (IS_OTHER_SKIN ? 'white' : colors.primaryContrast),
               }}
             >
               删除
