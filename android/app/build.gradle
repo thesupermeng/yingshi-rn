@@ -107,7 +107,7 @@ android {
         versionCode 2
         versionName "1.7.8"
         resValue "string", "UMENG_APPKEY", "65f957978d21b86a1842eb15"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
@@ -117,7 +117,7 @@ android {
         resValue "string", "UMENG_CHANNEL_MI_GETAPPS", "MI_GETAPPS"
         resValue "string", "UMENG_CHANNEL_SAMSUNG_GALAXY_STORE", "SAMSUNG_GALAXY_STORE"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
-        resValue "string", "ADMOB_APP_ID", "ca-app-pub-6143222543441738~9468533238"
+        resValue "string", "ADMOB_APP_ID", "ca-app-pub-6143222543441738~6284650169"
         ndk {
            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
         }
