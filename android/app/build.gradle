@@ -105,9 +105,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 5 , 2 april march // remember change appsflyer const
         versionCode 5
-        versionName "1.7.8"
+        versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"

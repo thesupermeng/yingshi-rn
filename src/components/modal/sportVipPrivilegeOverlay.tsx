@@ -61,7 +61,7 @@ export const SportVipPrivilegeOverlay = ({ showCondition, onClose, showBlur }: P
 
     <VipPrivilegeModal
       titleText={"VIP升级权益"}
-      benefitsTextsArray={['高清体育赛事  零时差感受赛场激情', '海量福利视频 你想要的这里都有', '高清画质 无广告观影体验']}
+      benefitsTextsArray={['海量福利视频 你想要的这里都有', '高清画质 无广告观影体验']}
       imageGradientColors={['#0E5ED800', '#0B6AE4']}
       contentGradientColors={['#0B6CE8', '#001A74']}
       coverBackground={sportBg}
