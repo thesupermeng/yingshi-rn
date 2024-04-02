@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Dialog} from '@rneui/themed';
+import React, { useState } from 'react';
+import { Dialog } from '@rneui/themed';
 import {
   View,
   Text,
@@ -8,7 +8,8 @@ import {
   TouchableHighlight,
   Linking,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
+import { IS_OTHER_SKIN } from '@utility/constants';
 
 interface Props {
   onConfirm: any;
@@ -28,16 +29,16 @@ export default function NotificationModal({
   subtitle3,
   confirmationText = '确定',
 }: Props) {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
 
   return (
     <Dialog
       isVisible={isVisible}
-      overlayStyle={{backgroundColor: 'rgba(34, 34, 34, 1)', ...styles.overlay}}
-      backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}
+      overlayStyle={{ backgroundColor: 'rgba(34, 34, 34, 1)', ...styles.overlay }}
+      backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
       onBackdropPress={onConfirm}>
-      <View style={{gap: spacing.m}}>
-        <Text style={{...textVariants.header, ...styles.head}}>{title}</Text>
+      <View style={{ gap: spacing.m }}>
+        <Text style={{ ...textVariants.header, ...styles.head }}>{title}</Text>
         <Text
           style={{
             ...textVariants.subBody,
@@ -53,7 +54,7 @@ export default function NotificationModal({
           {subtitle2 && <Text>{subtitle2}</Text>}
           {subtitle3 && (
             <TouchableOpacity
-              style={{justifyContent: 'center', alignItems: 'center'}}
+              style={{ justifyContent: 'center', alignItems: 'center' }}
               onPress={() => Linking.openURL(`mailto:${subtitle3}`)}>
               <Text
                 style={{
@@ -75,7 +76,7 @@ export default function NotificationModal({
               style={{
                 ...textVariants.body,
                 ...styles.head,
-                color: colors.primary,
+                color: IS_OTHER_SKIN ? colors.confirm : colors.primary,
               }}>
               {confirmationText}
             </Text>

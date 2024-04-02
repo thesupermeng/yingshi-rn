@@ -194,7 +194,7 @@ function VodEpisodeSelectionModal({
                     textAlign: "center",
                     fontWeight: "500",
                     color:
-                      ep.nid === activeEpisode ? colors.selected : colors.muted,
+                      ep.nid === activeEpisode ? colors.primaryContrast : colors.muted,
                   }}
                 >
                   {`${ep.name}`}

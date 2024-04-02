@@ -1,6 +1,6 @@
 import { Button } from "@ant-design/react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -31,7 +31,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useQuery } from "@tanstack/react-query";
-import { API_DOMAIN } from "@utility/constants";
+import { API_DOMAIN, IS_OTHER_SKIN } from "@utility/constants";
 import { CPopup } from "@utility/popup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
@@ -41,6 +41,7 @@ import { UserApi } from "@api";
 import { User } from "@models/user";
 import { UserStateType } from "@redux/reducers/userReducer";
 import AppsFlyerAnalytics from "../../../../AppsFlyer/AppsFlyerAnalytic";
+import TickedIcon from '@static/images/ticked.svg';
 
 
 export type SigninupRef = {
@@ -374,6 +375,8 @@ const LoginCard = ({
   onSubmit,
 }: LoginCardProps) => {
   const { colors } = useTheme();
+  const styles = useMemo(() => createStyles({ colors }), []);
+
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
@@ -491,9 +494,11 @@ const LoginCard = ({
         }
 
         {((loginValue !== "" && loginValueErrMsg === null) || (loginValueErrMsg && loginValueErrMsg?.includes("稍后"))) && (
-          <Image
+          <TickedIcon
             style={styles.iconStyle}
-            source={require("@static/images/profile/cricket_tick.png")}
+            width={18}
+            height={18}
+            color={IS_OTHER_SKIN ? colors.success : colors.primary}
           />
         )}
 
@@ -615,7 +620,7 @@ const LoginCard = ({
             fontWeight: "600",
             fontSize: 14,
             letterSpacing: 0.2,
-            color: loginValue === "" || !isReadTermNCondition ? "white" : "#000",
+            color: loginValue === "" || !isReadTermNCondition ? "white" : colors.primaryContrast,
           }}
         >
           登入
@@ -666,7 +671,7 @@ const LoginCard = ({
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = ({ colors }: any) => StyleSheet.create({
   textinputContainer: {
     marginTop: 15,
     marginBottom: 10,
@@ -761,7 +766,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
   },
   btnActive: {
-    backgroundColor: "#FAC33D",
+    backgroundColor: colors.primary,
     color: "#000",
   },
   btnInactive: {

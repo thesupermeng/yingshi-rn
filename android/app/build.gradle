@@ -103,11 +103,11 @@ android {
         applicationId "com.aimeiju"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 2 , 29 march // remember change appsflyer const
-        versionCode 3
+        // ABB version 4 , 4 april // remember change appsflyer const
+        versionCode 4
         versionName "1.7.8"
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
@@ -117,7 +117,7 @@ android {
         resValue "string", "UMENG_CHANNEL_MI_GETAPPS", "MI_GETAPPS"
         resValue "string", "UMENG_CHANNEL_SAMSUNG_GALAXY_STORE", "SAMSUNG_GALAXY_STORE"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
-        resValue "string", "ADMOB_APP_ID", "ca-app-pub-6143222543441738~9468533238"
+        resValue "string", "ADMOB_APP_ID", "ca-app-pub-6143222543441738~2669437855"
         ndk {
            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
         }

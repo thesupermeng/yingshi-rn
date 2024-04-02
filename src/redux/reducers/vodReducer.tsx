@@ -45,7 +45,6 @@ export function vodReducer(state = initialState, action: VodActionType) {
             }
 
             delete play.isAdultVideo;
-
             return {
                 ...state,
                 playVod: {

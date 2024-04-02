@@ -57,11 +57,29 @@ const removeAllListeners = () => {
   ATBannerEventEmitter.removeAllListeners(onBannerRefreshFail);
 }
 
+function createLoadPixelAdSize(width, height,usesPixel) {
+    var loadAdSize = {};
+    loadAdSize["width"] = width;
+    loadAdSize["height"] = height;
+    loadAdSize["usesPixel"] = usesPixel;
+    return loadAdSize;
+}
+
 function createLoadAdSize(width, height) {
     var loadAdSize = {};
     loadAdSize["width"] = width;
     loadAdSize["height"] = height;
     return loadAdSize;
+}
+
+function createShowPixelAdRect(x, y, width, height,usesPixel) {
+    var adRect = {};
+    adRect["x"] = x;
+    adRect["y"] = y;
+    adRect["width"] = width;
+    adRect["height"] = height;
+    adRect["usesPixel"] = usesPixel;
+    return adRect;
 }
 
 function createShowAdRect(x, y, width, height) {
@@ -113,6 +131,9 @@ module.exports = {
 
   createLoadAdSize,
   createShowAdRect,
+  
+  createLoadPixelAdSize,
+  createShowPixelAdRect,
 
   loadAd,
   hasAdReady: (placementId) =>  ATBannerRNSDK.hasAdReady(placementId),

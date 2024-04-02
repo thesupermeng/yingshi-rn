@@ -5,10 +5,10 @@ import {
   request,
   requestNotifications,
 } from 'react-native-permissions';
-import notifee, {
-  AuthorizationStatus,
-  AndroidImportance,
-} from '@notifee/react-native';
+// import notifee, {
+//   AuthorizationStatus,
+//   AndroidImportance,
+// } from '@notifee/react-native';
 
 export class FirebaseNotification {
   static async requestPermission() {
@@ -21,47 +21,49 @@ export class FirebaseNotification {
     //   messaging.NotificationAndroidPriority.PRIORITY_HIGH;
     // }
 
-    isGranted = notifee.requestPermission({
-      sound: true,
-      badge: true,
-    });
+    // isGranted = notifee.requestPermission({
+    //   sound: true,
+    //   badge: true,
+    // });
 
     return isGranted;
   }
 
   static async checkPermissionAndGetoken() {
-    const {authorizationStatus} = await notifee.getNotificationSettings();
 
-    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
-      await this.getFcmToken();
 
-      notifee.createChannel({
-        importance: AndroidImportance.HIGH,
-        id: 'yingshi.tv',
-        name: 'yingshi.tv',
-        badge: true,
-      });
+    // const {authorizationStatus} = await notifee.getNotificationSettings();
 
-      return true;
-    } else if (
-      authorizationStatus === AuthorizationStatus.NOT_DETERMINED ||
-      authorizationStatus === 0
-    ) {
-      const status = await this.requestPermission();
+    // if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    //   await this.getFcmToken();
 
-      if (status.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
-        await this.getFcmToken();
+    //   notifee.createChannel({
+    //     importance: AndroidImportance.HIGH,
+    //     id: 'yingshi.tv',
+    //     name: 'yingshi.tv',
+    //     badge: true,
+    //   });
 
-        notifee.createChannel({
-          importance: AndroidImportance.HIGH,
-          id: 'yingshi.tv',
-          name: 'yingshi.tv',
-          badge: true,
-        });
+    //   return true;
+    // } else if (
+    //   authorizationStatus === AuthorizationStatus.NOT_DETERMINED ||
+    //   authorizationStatus === 0
+    // ) {
+    //   const status = await this.requestPermission();
 
-        return true;
-      } else return false;
-    }
+    //   if (status.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    //     await this.getFcmToken();
+
+    //     notifee.createChannel({
+    //       importance: AndroidImportance.HIGH,
+    //       id: 'yingshi.tv',
+    //       name: 'yingshi.tv',
+    //       badge: true,
+    //     });
+
+    //     return true;
+    //   } else return false;
+    // }
   }
 
   static async getFcmToken() {
@@ -72,17 +74,17 @@ export class FirebaseNotification {
   }
 
   static setupLocalNotification(data: any) {
-    console.log('onForeground', data.notification);
-    const {
-      notification: {title, body},
-    } = data;
-    notifee.displayNotification({
-      title: title,
-      body: body,
-      android: {
-        channelId: 'yingshi.tv',
-      },
-    });
+    // console.log('onForeground', data.notification);
+    // const {
+    //   notification: {title, body},
+    // } = data;
+    // notifee.displayNotification({
+    //   title: title,
+    //   body: body,
+    //   android: {
+    //     channelId: 'yingshi.tv',
+    //   },
+    // });
   }
 
   static subscibeToTopic(topic: string) {

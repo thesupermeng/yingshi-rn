@@ -62,7 +62,7 @@ export const INVITE_DOMAIN = 'https://dasdui.store/invite.html?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "WEB";
+export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
 export const APP_VERSION = "1.7.8";
 
@@ -115,6 +115,8 @@ export const IS_ANDROID = Platform.OS === 'android';
 export const APP_NAME_CONST = '爱美剧';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
+
+export const IS_OTHER_SKIN = (APP_NAME_CONST !== '爱美剧' && APP_NAME_CONST !== '影视TV');
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 

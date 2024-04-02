@@ -57,8 +57,8 @@ export default ({
   showSliderThumbnail = false,
 }: Props) => {
   useEffect(() => { }, []);
-    const { textVariants, colors } = useTheme();
-    const getMinutesFromSeconds = (time: number) => {
+  const { textVariants, colors } = useTheme();
+  const getMinutesFromSeconds = (time: number) => {
     const minutes = time >= 60 ? Math.floor(time / 60) : 0;
     const seconds = Math.floor(time - minutes * 60);
 
@@ -94,7 +94,7 @@ export default ({
                 onValueChange={onSlideProgressBar}
                 onSlidingStart={onSlideStart}
                 onSlidingComplete={onSlideComplete}
-                minimumTrackTintColor={'#FAC33D'}
+                minimumTrackTintColor={colors.primary}
                 maximumTrackTintColor='rgba(255,255,255,0.2)'
                 thumbTintColor={'#FFFFFF'}
                 thumbStyle={{ height: 15, width: 15 }}
@@ -138,18 +138,18 @@ export default ({
                   onValueChange={onSlideProgressBar}
                   onSlidingStart={onSlideStart}
                   onSlidingComplete={onSlideComplete}
-                  minimumTrackTintColor={'#FAC33D'}
+                  minimumTrackTintColor={colors.primary}
                   maximumTrackTintColor='rgba(255,255,255,0.2)'
                   thumbTintColor={'#FFFFFF'}
                   // thumbImage={Platform.OS === 'ios' ? thumbImage : undefined}
                   thumbStyle={{ height: 15, width: 15 }}
                   // thumbProps={{
-                    // children: showSliderThumbnail && <View style={{
+                  // children: showSliderThumbnail && <View style={{
                   //   children: <VideoThumbnail url='https://upload.wikimedia.org/wikipedia/en/a/a6/Pokémon_Pikachu_art.png' />
                   // }}
                   style={{ flex: 16, marginTop: 2 }}
                 />
-                <View style={{...styles.timeWrapperLandscape}}>
+                <View style={{ ...styles.timeWrapperLandscape }}>
                   <Text style={styles.timeLeftLandscape}>
                     {new Date(currentTime * 1000).toISOString().substring(11, 19)}
                   </Text>
