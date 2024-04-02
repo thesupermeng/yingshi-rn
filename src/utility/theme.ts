@@ -7,6 +7,7 @@ export type ExtendedTheme = {
     sliderDot: string;
     title: string;
     primary: string;
+    primaryContrast: string,
     yellow: string,
     confirm: string,
     success: string,
@@ -109,7 +110,8 @@ export type ExtendedTheme = {
 
 // Add color palettes here:
 const palette = {
-  primary: '#FAC33D',
+  primary: '#E33724',
+  primaryContrast: '#FFFFFF',
   confirm: '#0A84FF',
   success: '#34C759',
   error: '#FF1010',
@@ -147,6 +149,7 @@ export const YingshiDarkTheme: ExtendedTheme = {
     muted: palette.grey2,
     title: palette.yellow,
     primary: palette.primary,
+    primaryContrast: palette.primaryContrast,
     yellow: palette.yellow,
     confirm: palette.confirm,
     success: palette.success,
@@ -255,6 +258,7 @@ export const YingshiLightTheme: ExtendedTheme = {
     muted: palette.grey2,
     title: palette.white,
     primary: palette.primary,
+    primaryContrast: palette.primaryContrast,
     yellow: palette.yellow,
     confirm: palette.confirm,
     success: palette.success,

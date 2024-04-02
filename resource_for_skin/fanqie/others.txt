@@ -1,0 +1,2 @@
+primary: '#E33724'
+APP_NAME_CONST = '番茄影视TV'
