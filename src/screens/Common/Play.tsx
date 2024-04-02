@@ -459,6 +459,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             alignSelf: "center",
             marginRight: 3,
           }}
+          color={colors.primaryContrast}
         />
         <Text
           numberOfLines={1}
@@ -470,7 +471,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             fontWeight: "600",
             color:
               currentSourceId === item.source_id
-                ? colors.selected
+                ? colors.primaryContrast
                 : colors.muted,
           }}
         >
@@ -750,7 +751,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     );
     setCurrentSourceId(vod?.vodSourceId);
   }, [vod]);
-  
+
   const {
     data: suggestedVods,
     isFetching: isFetchingSuggestedVod,
@@ -906,7 +907,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             fontSize: 13,
             textAlign: "center",
             fontWeight: "500",
-            color: currentEpisode === item.nid ? colors.selected : colors.muted,
+            color: currentEpisode === item.nid ? colors.primaryContrast : colors.muted,
           }}
         >
           {item.name}
@@ -1005,7 +1006,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   useEffect(() => {
     checkConnection();
-    
+
     if (!!vodUrl && !!vod?.vod_id) {
       // console.debug('vod url is', vodUrl)
       if (
