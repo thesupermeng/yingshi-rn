@@ -85,7 +85,7 @@ export default function VodLiveStationListVertical({
               <FastImage
                 style={{ flex: 1, borderRadius: 10 }}
                 source={{
-                  uri: item.live_station_img_url.charAt(0) == '/' ? 'https://dasdui.store' + item.live_station_img_url : item.live_station_img_url,
+                  uri: item.live_station_img_url.charAt(0) == '/' ? 'https://lebobotv.store' + item.live_station_img_url : item.live_station_img_url,
                   priority: 'normal',
                 }}
               />
