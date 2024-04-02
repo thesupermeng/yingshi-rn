@@ -187,10 +187,25 @@ const CatagoryHome = ({
           onPress={() => {
             console.debug('navid', navId)
             if (navId != 99) {
-              navigation.navigate('片库', {
-                type_id: item.vod_list[0].type_id,
-                class: item.type_name
-              });
+              // console.log('navid', navId)
+              // console.log('category 22222')
+              // console.log(item.vod_list[0].type_id)
+              // console.log(item.type_name)
+              if(navId == 6)
+              {
+                navigation.navigate('片库', {
+                  type_id: item.vod_list[0].type_id,
+                  class: item.type_name,
+                  area : '韩国'
+                });
+              }
+              else
+              {
+                navigation.navigate('片库', {
+                  type_id: item.vod_list[0].type_id,
+                  class: item.type_name,
+                });
+              }
             } else {
               navigation.navigate('午夜场剧情', {
                 class: item.vod_list[0].vod_class
@@ -291,10 +306,11 @@ const CatagoryHome = ({
           opacity: 0.9,
         }}
         onPress={() =>
+       {   console.log('category 33333')
           navigation.navigate('片库', {
             type_id: navId,
             class: item,
-          })
+          })}
         }>
         <Text
           style={{
@@ -423,6 +439,7 @@ const CatagoryHome = ({
                           onPress={() => {
                             console.debug('navid', navId)
                             if (navId != 99) {
+                              console.log('category 00000')
                               navigation.navigate('片库', {
                                 type_id: item.vod_list[0].type_id,
                               });
