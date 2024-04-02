@@ -30,7 +30,7 @@ let homePageShown = false;
 let retryCount = 0;
 const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
-  const userState = useSelector<UserStateType>('userReducer');
+  const userState = useSelector<UserStateType>("userReducer");
 
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
@@ -93,8 +93,11 @@ const useInterstitialAds = () => {
           console.log("not showing pop up ads, prevent blocking modal action");
         } else {
           homePageShown = true;
-          if (screenState.interstitialShow != true) {
-           ATInterstitialRNSDK.showAd(adsID);
+          if (
+            screenState.interstitialShow != true &&
+            screenState.isHomeGuideShown == true
+          ) {
+            ATInterstitialRNSDK.showAd(adsID);
           }
         }
         //
@@ -109,10 +112,7 @@ const useInterstitialAds = () => {
 
   const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     // not vip
-    if (
-      (!User.isVip(userState.user)) &&
-      retryCount < 3
-    ) {
+    if (!User.isVip(userState.user) && retryCount < 3) {
       retryCount += 1;
       // console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
@@ -152,7 +152,7 @@ const useInterstitialAds = () => {
     if (adsID != null) {
       setTimeout(() => {
         showInterstitial(adsID);
-      }, 100); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first 
+      }, 100); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first
     }
   }, [currentRoute]);
 

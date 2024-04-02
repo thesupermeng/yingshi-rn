@@ -11,9 +11,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {VodEpisodeListType} from '@type/ajaxTypes';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useTheme } from '@react-navigation/native';
+import { VodEpisodeListType } from '@type/ajaxTypes';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SortAscIcon from '@static/images/sortAsc.svg';
 import SortDescIcon from '@static/images/sortDesc.svg';
 import BottomSheet from '../bottomSheet/bottomSheet';
@@ -24,7 +24,7 @@ interface Props {
   episodes?: VodEpisodeListType;
   activeEpisode?: number;
   rangeSize?: number;
-  isVisible: boolean; 
+  isVisible: boolean;
   handleClose: any;
 }
 function VodEpisodeSelectionModal({
@@ -32,11 +32,11 @@ function VodEpisodeSelectionModal({
   onCancel,
   episodes,
   isVisible,
-  handleClose, 
+  handleClose,
   activeEpisode = 0,
   rangeSize = 50,
 }: Props) {
-  const {colors, textVariants, spacing} = useTheme();
+  const { colors, textVariants, spacing } = useTheme();
   const EPISODE_RANGE_SIZE = rangeSize;
   const insets = useSafeAreaInsets();
   const [sortBy, setSortBy] = useState('asc');
@@ -82,7 +82,7 @@ function VodEpisodeSelectionModal({
   };
 
   return (
-    <BottomSheet 
+    <BottomSheet
       isVisible={isVisible}
       onBackdropPress={handleClose}
       containerStyle={{
@@ -99,10 +99,10 @@ function VodEpisodeSelectionModal({
             ...styles.btn,
             ...textVariants.header
           }}>
-          {`${showEpisodeRangeStart+1}-${showEpisodeRangeEnd} 集`}
+          {`${showEpisodeRangeStart + 1}-${showEpisodeRangeEnd} 集`}
         </Text>
         <TouchableOpacity style={styles.sortBtn} onPress={sort}>
-          <View style={{paddingTop: 4}}>
+          <View style={{ paddingTop: 4 }}>
             {sortBy === 'asc' ? <SortAscIcon /> : <SortDescIcon />}
           </View>
           <Text
@@ -117,43 +117,43 @@ function VodEpisodeSelectionModal({
         </TouchableOpacity>
       </View>
       {(displayEpisodes && isVisible) &&
-      <ScrollView
-        contentContainerStyle={{
-          ...styles.episodeList,
-          paddingBottom: insets.bottom,
-        }}>
-        {displayEpisodes?.map((ep, idx) => (
-          <TouchableOpacity
-            key={`expand-${idx}`}
-            onPress={() => {
-              onConfirm(ep.nid);
-              onCancel();
-            }}>
-            <View
-              style={{
-                backgroundColor:
-                  ep.nid === activeEpisode ? colors.primary : colors.search,
-                padding: spacing.s,
-                minWidth: 60,
-                marginRight: 'auto',
-                marginBottom: spacing.s,
-                borderRadius: 8,
+        <ScrollView
+          contentContainerStyle={{
+            ...styles.episodeList,
+            paddingBottom: insets.bottom,
+          }}>
+          {displayEpisodes?.map((ep, idx) => (
+            <TouchableOpacity
+              key={`expand-${idx}`}
+              onPress={() => {
+                onConfirm(ep.nid);
+                onCancel();
               }}>
-              <Text
-                numberOfLines={1}
+              <View
                 style={{
-                  fontSize: 13,
-                  textAlign: 'center',
-                  fontWeight: '500',
-                  color:
-                    ep.nid === activeEpisode ? colors.selected : colors.muted,
+                  backgroundColor:
+                    ep.nid === activeEpisode ? colors.primary : colors.search,
+                  padding: spacing.s,
+                  minWidth: 60,
+                  marginRight: 'auto',
+                  marginBottom: spacing.s,
+                  borderRadius: 8,
                 }}>
-                {`${ep.name}`}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontSize: 13,
+                    textAlign: 'center',
+                    fontWeight: '500',
+                    color:
+                      ep.nid === activeEpisode ? colors.primaryContrast : colors.muted,
+                  }}>
+                  {`${ep.name}`}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       }
     </BottomSheet>
   );

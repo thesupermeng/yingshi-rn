@@ -111,7 +111,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       part.toLowerCase() === keyword.toLowerCase() ? (
         <Text
           key={index}
-          style={{ ...textVariants.body, color: colors.primary, fontSize: 15 }}
+          style={{ ...textVariants.body, color: colors.yellow, fontSize: 15 }}
         >
           {part}
         </Text>
@@ -257,7 +257,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     )} */}
                     {/* {userState.userMemberExpired >=
                       userState.userCurrentTimestamp && (
-                        <Text style={{ color: colors.primary, fontSize: 14 }}>
+                        <Text style={{ color: colors.yellow, fontSize: 14 }}>
                           VIP会员有效日期至{displayedDate}
                         </Text>
                       )} */}
@@ -314,7 +314,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   >
                     <View style={styles.left}>
                       <View style={styles.icon}>
-                        <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                        <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                       </View>
                       <View style={{ gap: 5 }}>
                         <Text
@@ -401,7 +401,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               >
                 <View style={styles.left}>
                   <View style={styles.icon}>
-                    <VipIcon width={icons.sizes.l} height={icons.sizes.l} />
+                    <VipIcon color={colors.yellow} width={icons.sizes.l} height={icons.sizes.l} />
                   </View>
 
                   <Text

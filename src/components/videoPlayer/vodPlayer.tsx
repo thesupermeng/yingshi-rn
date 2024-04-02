@@ -472,7 +472,6 @@ export default forwardRef<VideoRef, Props>(
       if (disableSeek.current === true) return
 
       if (isSeekErrorRef.current === true) {
-        isSeekErrorRef.current = false;
         return;
       }
 
@@ -521,7 +520,12 @@ export default forwardRef<VideoRef, Props>(
       setCurrentTime(data.currentTime);
 
       try {
-        currentTimeRef.current = data.currentTime;
+        if (isSeekErrorRef.current === true) {
+          isSeekErrorRef.current = false;
+        } else {
+          currentTimeRef.current = data.currentTime;
+        }
+
       } catch (err) {
         console.error("crash here");
       }
@@ -533,7 +537,6 @@ export default forwardRef<VideoRef, Props>(
       if (disableSeek.current === true) return
 
       if (isSeekErrorRef.current === true) {
-        isSeekErrorRef.current = false;
         return;
       }
 
