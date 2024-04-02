@@ -47,7 +47,7 @@ export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
 export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
-export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.yingshitv' : '';
+export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.fanqie' : '';
 
 export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
@@ -138,7 +138,7 @@ export const MINI_SHOW_LOGIN_NUMBER = Platform.OS === 'ios' ? 299 : 10;
 
 export const AD_VIDEO_SECONDS = 10;
 
-export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
+export const GOOGLE_SINGIN_CLIENT_WEB = '931856470914-4p0bre9gh3thc3lho7kkn0oaf692la0g.apps.googleusercontent.com';
 export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';
 
 export const MAX_CONCURRENT_VIDEO_DOWNLOAD = 1

@@ -1,43 +1,26 @@
 {
   "project_info": {
-    "project_number": "699123886701",
-    "project_id": "yingshitv",
-    "storage_bucket": "yingshitv.appspot.com"
+    "project_number": "931856470914",
+    "project_id": "fanqieyingshitv",
+    "storage_bucket": "fanqieyingshitv.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:699123886701:android:0049b655cfc5bcd5922d64",
+        "mobilesdk_app_id": "1:931856470914:android:1005afff797b0a2ea0f59b",
         "android_client_info": {
-          "package_name": "com.yingshitv"
+          "package_name": "com.fanqie"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBzNgki5Igx2gLlZgOF0MuaNqtab6a5aBY"
+          "current_key": "AIzaSyC-krbmcrJmh_DXvUtv9CiAZv8Qx_ryYOA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.yingshiapp.yingshi"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
