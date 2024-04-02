@@ -70,7 +70,6 @@ CGRect parseRectJsonStr(NSString* jsonStr) {
     CGRect rect = CGRectZero;
     if (jsonStr != nil) {
         NSDictionary *rectDict = [NSJSONSerialization at_JSONObjectWithString:jsonStr options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"showAdInRectangle:parseRectJsonStr:%@",rectDict);
         if ([rectDict isKindOfClass:[NSDictionary class]]) {
             CGFloat scale = [rectDict[@"usesPixel"] boolValue] ? UIScreen.mainScreen.nativeScale : 1.0f;
             rect = CGRectMake([rectDict[@"x"] doubleValue] / scale, [rectDict[@"y"] doubleValue] / scale, [rectDict[@"width"] doubleValue] / scale, [rectDict[@"height"] doubleValue] / scale);
