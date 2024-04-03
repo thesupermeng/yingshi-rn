@@ -18,7 +18,7 @@ import { AdsBannerContext } from "../contexts/yys_about";
 import { screenModel } from "@type/yys_service_setting";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
-import { setIsPlayGuideShown, setIsPlayGuideShown2, setIsSportGuideShown } from "@redux/actions/yys_runtimescheduler";
+import { setIsHomeGuideShown, setIsPlayGuideShown, setIsPlayGuideShown2, setIsSportGuideShown } from "@redux/actions/yys_runtimescheduler";
 type yys_Data =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
   | typeof IOS_HOME_PAGE_POP_UP_ADS
@@ -431,26 +431,27 @@ const useInterstitialAds = () => {
             // IOS_HOME_PAGE_POP_UP_ADS,
             // IOS_PLAY_DETAILS_POP_UP_ADS,
             // NON_VIP_STREAM_TIME_SECONDS,
-            console.log(111)
+          //  console.log(111)
             if((screenState.isPlayGuideShown2 == false || screenState.isPlayGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
             {
 
                dispatch(setIsPlayGuideShown(true));
                dispatch(setIsPlayGuideShown2(true));
-               console.log(22222)
+              // console.log(22222)
                return
             }
 
             if((screenState.isSportGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
             {
                dispatch(setIsSportGuideShown(true));
-               console.log(33333)
+             //  console.log(33333)
                return
             }
 
             if((screenState.isHomeGuideShown == false) &&  adsID == IOS_HOME_PAGE_POP_UP_ADS)
             {
-               console.log(44444)
+              // console.log(4444)
+               dispatch(setIsHomeGuideShown(true));
                return
             }
                ATInterstitialRNSDK.showAd(adsID);
