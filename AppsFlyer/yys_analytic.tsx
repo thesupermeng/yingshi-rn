@@ -18,7 +18,7 @@ enum ENLKsad {
 export default class yys_Filled {
 
    static #enable: boolean =
-      (Platform.OS === 'android' &&
+      (
          ENABLE_APPSFLYER &&
          UMENG_CHANNEL == 'GOOGLE_PLAY') ||
       yys_MinivodPangle.instance.isAppsflyerProduction;
@@ -213,7 +213,7 @@ export default class yys_Filled {
       sportsy.set(modityB, 3);
 
       let enableConst =
-         (Platform.OS === 'android' &&
+         (this.#enable &&
             ENABLE_APPSFLYER &&
             UMENG_CHANNEL == 'GOOGLE_PLAY') ||
          yys_MinivodPangle.instance.isAppsflyerProduction;
@@ -642,7 +642,7 @@ export default class yys_Filled {
       }
 
       let enableConst =
-         (Platform.OS === 'android' &&
+         (this.#enable &&
             ENABLE_APPSFLYER &&
             UMENG_CHANNEL == 'GOOGLE_PLAY') ||
          yys_MinivodPangle.instance.isAppsflyerProduction;
@@ -918,7 +918,7 @@ export default class yys_Filled {
       currency: string;
    }) => {
       let enableConst =
-         (Platform.OS === 'android' &&
+         (this.#enable &&
             ENABLE_APPSFLYER &&
             UMENG_CHANNEL == 'GOOGLE_PLAY') ||
          yys_MinivodPangle.instance.isAppsflyerProduction;
@@ -995,7 +995,7 @@ export default class yys_Filled {
       currency: string;
    }) => {
       let enableConst =
-         (Platform.OS === 'android' &&
+         (this.#enable &&
             ENABLE_APPSFLYER &&
             UMENG_CHANNEL == 'GOOGLE_PLAY') ||
          yys_MinivodPangle.instance.isAppsflyerProduction;
@@ -1059,7 +1059,7 @@ export default class yys_Filled {
       } while (linkk && ((downU.length ^ 3) >= 2));
 
       let enableConst =
-         (Platform.OS === 'android' &&
+         (this.#enable &&
             ENABLE_APPSFLYER &&
             UMENG_CHANNEL == 'GOOGLE_PLAY') ||
          yys_MinivodPangle.instance.isAppsflyerProduction;
@@ -1224,7 +1224,7 @@ export default class yys_Filled {
       isXmode?: boolean;
    }) => {
       let enableConst =
-         (Platform.OS === 'android' &&
+         (this.#enable &&
             ENABLE_APPSFLYER &&
             UMENG_CHANNEL == 'GOOGLE_PLAY') ||
          yys_MinivodPangle.instance.isAppsflyerProduction;
