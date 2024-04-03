@@ -431,29 +431,32 @@ const useInterstitialAds = () => {
             // IOS_HOME_PAGE_POP_UP_ADS,
             // IOS_PLAY_DETAILS_POP_UP_ADS,
             // NON_VIP_STREAM_TIME_SECONDS,
-          //  console.log(111)
-            if((screenState.isPlayGuideShown2 == false || screenState.isPlayGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
-            {
+      //   console.log(111)
+      //       if((screenState.isPlayGuideShown2 == false || screenState.isPlayGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
+      //       {
+      //          console.log(22222)
 
-               dispatch(setIsPlayGuideShown(true));
-               dispatch(setIsPlayGuideShown2(true));
-              // console.log(22222)
-               return
-            }
+      //          dispatch(setIsPlayGuideShown(true));
+      //          dispatch(setIsPlayGuideShown2(true));
+         
+      //          return
+      //       }
 
-            if((screenState.isSportGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
-            {
-               dispatch(setIsSportGuideShown(true));
-             //  console.log(33333)
-               return
-            }
+      //       if((screenState.isSportGuideShown == false) &&  adsID == IOS_PLAY_DETAILS_POP_UP_ADS)
+      //       {
+      //          console.log(33333)
+      //          dispatch(setIsSportGuideShown(true));
+            
+      //          return
+      //       }
 
-            if((screenState.isHomeGuideShown == false) &&  adsID == IOS_HOME_PAGE_POP_UP_ADS)
-            {
-              // console.log(4444)
-               dispatch(setIsHomeGuideShown(true));
-               return
-            }
+      //       if((screenState.isHomeGuideShown == false) &&  adsID == IOS_HOME_PAGE_POP_UP_ADS)
+      //       {
+      //        console.log(4444)
+      //          dispatch(setIsHomeGuideShown(true));
+      //          return
+      //       }
+            console.log('ads show')
                ATInterstitialRNSDK.showAd(adsID);
         }
         
