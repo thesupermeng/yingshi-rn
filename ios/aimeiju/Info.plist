@@ -1033,6 +1033,10 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>ln5gz23vtd.skadnetwork</string>
 		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>x2jnk7ly8j.skadnetwork</string>
+		</dict>
 	</array>
 	<key>UIAppFonts</key>
 	<array>
@@ -1042,7 +1046,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- <key>CFBundleDisplayName</key>
+	<string>$(INFOPLIST_KEY_CFBundleDisplayName)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string> -->
 	<key>CFBundleShortVersionString</key>
-	<string>1.7.8</string>
+	<string>$(MARKETING_VERSION)</string>
 </dict>
 </plist>
