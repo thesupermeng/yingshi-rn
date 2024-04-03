@@ -51,20 +51,20 @@ const topon_channel = "WEB";
 
 
 warnIgnore([
-   'Trying to load empty source.',
-   '`new NativeEventEmitter()` was called with a non-null argument without the required',
-   `ReactImageView: Image source "null" doesn't exist`,
-   'StatusBar._updatePropsStack',
-   'ATBanner',
-   'ATInterstitial',
-   'source.uri should not be an empty string',
+   // 'Trying to load empty source.',
+   // '`new NativeEventEmitter()` was called with a non-null argument without the required',
+   // `ReactImageView: Image source "null" doesn't exist`,
+   // 'StatusBar._updatePropsStack',
+   // 'ATBanner',
+   // 'ATInterstitial',
+   // 'source.uri should not be an empty string',
 ]);
 
 logIgnore([
-   /Opening .* for reading/,
-   /\[.*\] pts has no value/,
-   /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/,
-   'ATBanner',
+   // /Opening .* for reading/,
+   // /\[.*\] pts has no value/,
+   // /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/,
+   // 'ATBanner',
 ])
 
 let App = () => {
