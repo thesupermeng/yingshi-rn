@@ -26,12 +26,11 @@ export const ReadAgreementPrivacyPolicy = ({
     >
         <TouchableOpacity onPress={onPress}>
             {isReadChecked && (
-                <TickedIcon
-                    style={styles.checkImage}
-                    color={IS_OTHER_SKIN ? colors.success : colors.primary}
-                    width={16}
-                    height={16}
-                />
+              <Image
+              source={require("@static/images/profile/ticked.png")}
+              style={styles.checkImage}
+              resizeMode="contain"
+          />
             )}
 
             {!isReadChecked && (
