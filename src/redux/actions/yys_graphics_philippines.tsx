@@ -345,7 +345,7 @@ export const onBootApp = ({ } = {}) => async (
          },
          (result) => {
             console.log("Apps Flyer init success");
-            if (Platform.OS === 'ios') {
+            if (Platform.OS === 'ios' && __DEV__) {
                appsFlyer.setUseReceiptValidationSandbox(true);
             }
 
