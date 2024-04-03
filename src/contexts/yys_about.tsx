@@ -1748,6 +1748,10 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
               return;
             }
             
+            if(navbarHeight <10 && bannerId == IOS_HOME_PAGE_BANNER_ADS)
+            {
+               return;
+            }
             
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
@@ -1768,6 +1772,11 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
 
             
             hideAllBanner();
+
+            if(navbarHeight <10 && bannerId == IOS_HOME_PAGE_BANNER_ADS)
+            {
+               return;
+            }
             
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
@@ -1796,6 +1805,11 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
           ATBannerRNSDK.loadAd(bannerId, settings);
           setTimeout(() => {
             hideAllBanner();
+
+            if(navbarHeight <10 && bannerId == IOS_HOME_PAGE_BANNER_ADS)
+            {
+               return;
+            }
             
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
@@ -1807,6 +1821,11 @@ export const AdsBannerContextProvider = ({ children }: yys_ConfigureUimanager) =
           
           setTimeout(() => {
             hideAllBanner();
+
+            if(navbarHeight <10 && bannerId == IOS_HOME_PAGE_BANNER_ADS)
+            {
+               return;
+            }
             
             ATBannerRNSDK.showAdInRectangle(
               bannerId,
