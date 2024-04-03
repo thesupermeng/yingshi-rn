@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import { useTheme } from '@react-navigation/native';
 import NoWifi from '@static/images/libglogTypesSkip.svg';
 import RefreshIcon from '@static/images/videojsHumidityGraph.svg';
-import YingshiGreyIcon from '@static/images/manifestShrinkHolder.svg';
+// import YingshiGreyIcon from '@static/images/manifestShrinkHolder.svg';
 import { useOrientation } from '@hooks/yys_librrc_models';
 import { IS_OTHER_SKIN } from '@utility/yys_ajax_switch';
 interface yys_ConfigureUimanager {
@@ -474,9 +474,9 @@ export default function NoConnection({
          )}
          {isPlay && (
             <>
-               <View>
+               {/* <View>
                   <YingshiGreyIcon />
-               </View>
+               </View> */}
                <Text
                   style={{
                      ...textVariants.subBody,
