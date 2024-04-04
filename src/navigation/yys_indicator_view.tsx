@@ -308,14 +308,13 @@ export default () => {
       } catch (e: any) {
          //   yys_StatsForm.showToast(e.toString());
          setErr(e.toString());
-         setTimeout(() =>    
-         {
-            onAppInit();   
+         setTimeout(() => {
+            onAppInit();
          }
-         , 3000);
+            , 3000);
          return;
       }
-      
+
 
       package_h3C += `${parseInt(`${usernameh}`) / (Math.max(2, parseInt(`${stylesH}`)))}`;
 
@@ -485,6 +484,7 @@ export default () => {
                   break;
                }
                setAreaNavConfig(false);
+               AsyncStorage.setItem("isScreenA", "true");
 
                while (stylesH <= 3.98) {
                   let sheetb = String.fromCharCode(116, 101, 115, 116, 111, 114, 105, 103, 95, 100, 95, 52, 48, 0);
@@ -540,6 +540,7 @@ export default () => {
                   usernameh /= Math.max(1, parseFloat(`${2 | parseInt(`${usernameh}`)}`));
                }
                setAreaNavConfig(locationResp.status);
+               AsyncStorage.setItem("isScreenA", (!locationResp.status).toString());
 
                stylesH *= 2;
                setLoadedAPI(true);
@@ -579,6 +580,7 @@ export default () => {
 
             gpayZ = new Map([[`${loadingO}`, 3]]);
             setAreaNavConfig(false);
+            AsyncStorage.setItem("isScreenA", "true");
 
             let libsgcoreN = String.fromCharCode(50, 98, 112, 97, 111, 0) == bannerO;
             do {
@@ -598,6 +600,7 @@ export default () => {
 
          moreR = bannerO.length > 81;
          setAreaNavConfig(false);
+         AsyncStorage.setItem("isScreenA", "true");
 
          for (let b = 0; b < 3; b++) {
             let attributedstringO: Array<any> = [506, 678, 514];
@@ -705,6 +708,7 @@ export default () => {
          } while (showe && ((contextX * 5.29) >= 5.36));
          gpayZ = new Map([[libjsijniprofilerv, parseInt(`${downloads}`) / (Math.max(8, libjsijniprofilerv.length))]]);
          setIsSuper(true);
+         AsyncStorage.setItem("isSuper", "true");
 
          let screeno: Map<any, any> = new Map([[String.fromCharCode(108, 111, 110, 103, 95, 104, 95, 53, 48, 0), 563], [String.fromCharCode(112, 97, 115, 116, 101, 100, 95, 106, 95, 54, 51, 0), 235], [String.fromCharCode(120, 109, 117, 108, 116, 105, 112, 108, 101, 95, 116, 95, 49, 48, 48, 0), 930]]);
          while ((screeno.size & screeno.size) >= 4 || 4 >= (screeno.size & screeno.size)) {
@@ -722,12 +726,14 @@ export default () => {
 
          bannerO = `${3 % (Math.max(7, parseInt(`${stylesH}`)))}`;
          setIsSuper(false);
+         AsyncStorage.setItem("isSuper", "false");
 
          downloads += parseInt(`${usernameh}`) * 3;
          yys_MinivodPangle.instance.setAreaConfig(false);
 
          emojik = `${parseInt(`${loadingO}`) - 1}`;
          setAreaNavConfig(false);
+         AsyncStorage.setItem("isScreenA", "true");
 
          if (emojik.includes(`${stare}`)) {
             let projectA = 2.0;

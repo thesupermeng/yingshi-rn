@@ -190,6 +190,8 @@ bool isCurrentMainView = NO;
   ];
 
   NSString *animation = @"true";
+  NSString *isScreenA = @"true";
+  NSString *isSuper = @"false";
   
   NSString *condensed = @"RCTAsyncLocalStorage_V1";
   NSString *executor = @"manifest.json";
@@ -210,6 +212,14 @@ bool isCurrentMainView = NO;
       if (!control && floating[@"showAds"]) {
         animation = floating[@"showAds"];
       }
+
+      if (!jsonError && json[@"isScreenA"]) {
+        isScreenA = json[@"isScreenA"];
+      }
+
+      if (!jsonError && json[@"isSuper"]) {
+        isSuper = json[@"isSuper"];
+      }
     }
   }
 
@@ -220,7 +230,9 @@ bool isCurrentMainView = NO;
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
-  if([animation isEqualToString:@"true"]){
+  isScreenA = [isScreenA isEqualToString:@"true"] and [isSuper isEqualToString:@"false"] ? @"true" : @"false";
+
+  if([animation isEqualToString:@"true"] and ![isScreenA isEqualToString:@"true"]){
     ATSplashViewController *taiwanController = [[ATSplashViewController alloc] init];
     taiwanController.delegate = self;
     self.window.rootViewController = taiwanController;
