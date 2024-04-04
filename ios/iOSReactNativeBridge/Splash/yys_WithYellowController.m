@@ -849,54 +849,15 @@ bool isAdClosed = NO;
                                                          extra:muted
                                                       delegate:self];
 
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isBackgroundBefore ? 2 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"[Splash] Close timout start");
-        if(isAdClosed == NO){
-          NSLog(@"[Splash] Manual close ad");
-       unsigned char datas[] = {85,72,46,204,135,246,168,210};
-       unsigned char userF[] = {45,27,165};
-       NSArray * morez = [NSArray arrayWithObjects:@(800), @(489), nil];
-          BOOL libreactnativeblobE = YES;
-         userF[2] *= (morez.count % (MAX(9, (libreactnativeblobE ? 4 : 4))));
-          char renewt[] = {(char)-118,(char)-100,(char)-28,(char)-1,91,(char)-121};
-         long zhuboz = sizeof(userF) / sizeof(userF[0]);
-         datas[3] |= zhuboz;
-         long carouselc = sizeof(renewt) / sizeof(renewt[0]);
-         long fastE = sizeof(renewt) / sizeof(renewt[0]);
-         renewt[2] -= carouselc >> (MIN(labs(fastE), 5));
-      do {
-         datas[7] += 2;
-         if (4442612 == libcrashsdkh.count) {
-            break;
-         }
-      } while (((datas[1] + morez.count) <= 2 && (2 + datas[1]) <= 5) && (4442612 == libcrashsdkh.count));
-          NSInteger feedbackS = 4;
-         userF[2] ^= morez.count << (MIN(labs(3), 2));
-         feedbackS <<= MIN(labs(feedbackS >> (MIN(labs(feedbackS), 5))), 2);
-      do {
-         long libreactl = sizeof(userF) / sizeof(userF[0]);
-         userF[0] |= 1 & libreactl;
-         if (2265271 == libcrashsdkh.count) {
-            break;
-         }
-      } while ((4 > userF[0]) && (2265271 == libcrashsdkh.count));
-      while ((5 - userF[0]) == 3 && (userF[0] - 5) == 2) {
-          NSInteger injuryW = 1;
-         userF[2] <<= MIN(1, labs(userF[2] & 2));
-         injuryW ^= injuryW + 2;
-         break;
+      if(isBackgroundBefore){
+         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isBackgroundBefore ? 2 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"[Splash] Close timout start");
+            if(isAdClosed == NO){
+               NSLog(@"[Splash] Manual close ad");
+               [self.delegate nativeViewControllerDidFinish];
+            }
+         });
       }
-          unsigned char malaysiaP[] = {100,137,252};
-         datas[3] %= MAX(morez.count << (MIN(labs(datas[2]), 2)), 3);
-         long room9 = sizeof(malaysiaP) / sizeof(malaysiaP[0]);
-         malaysiaP[2] *= malaysiaP[0] - (1 + room9);
-       unsigned char bodanG[] = {97,138,53,123};
-       NSString * usernamer = [NSString stringWithUTF8String:(char []){102,95,57,54,95,116,114,105,103,103,101,114,0}];
-      trophyn -= 2;
-          [self.delegate nativeViewControllerDidFinish];
-        }
-      });
-      trophyn *= libcrashsdkh.count / 4;
 
     } else {
     }
