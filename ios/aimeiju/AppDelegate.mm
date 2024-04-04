@@ -213,12 +213,12 @@ bool isCurrentMainView = NO;
         animation = floating[@"showAds"];
       }
 
-      if (!jsonError && json[@"isScreenA"]) {
-        isScreenA = json[@"isScreenA"];
+      if (!control && floating[@"isScreenA"]) {
+        isScreenA = floating[@"isScreenA"];
       }
 
-      if (!jsonError && json[@"isSuper"]) {
-        isSuper = json[@"isSuper"];
+      if (!control && floating[@"isSuper"]) {
+        isSuper = floating[@"isSuper"];
       }
     }
   }
