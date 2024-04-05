@@ -54,6 +54,10 @@ export const VipMember = ({
             </Text>
             <Text
               style={styles.promoPriceText}>
+                 {membershipPlan.title === '1个月' && 
+                <Text   style={styles.promoPriceText2}>首月 {"  "}</Text>  
+                 }
+                
               {membershipPlan.promoPriceStr}
             </Text>
             <Text
@@ -135,6 +139,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#F4DBBA",
   },
+
+  promoPriceText2: {
+    textAlign: "center",
+    fontWeight: "900",
+    fontSize: 14,
+    color: "#fff",
+  },
+
   oriPriceText: {
     textAlign: "center",
     color: "#9C9C9C",
