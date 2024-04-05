@@ -417,7 +417,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
-    console.log(membershipSelected?.title)
+    console.log(membershipSelected)
   console.log(membershipSelected?.title)
 
   if(membershipSelected?.title == '1个月')
@@ -436,6 +436,13 @@ if(membershipSelected?.title == '3个月')
   console.log(2)
   setInfoTextIndex(2)
 }
+if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.description == 'VIP会员360天' )
+{
+  console.log(3)
+  setInfoTextIndex(3)
+}
+
+
 
   }, [membershipSelected]);
 
@@ -1305,14 +1312,13 @@ if(membershipSelected?.title == '3个月')
                     isRefreshing={refreshing}
                   />
                 </ScrollView>
-
+  {infoTextIndex <= 2 &&
                 <View style={styles.tncContainer2}>
-                    <Text style={{ ...textVariants.subBody, color: "#ffffff" }}>
-                      {infoText[infoTextIndex]}
+                    <Text style={{ ...textVariants.subBody,     fontSize: 12, color: "#ffffff" }}>
+{infoText[infoTextIndex]}
                     </Text>
                   </View>
-
-
+}
 
                 <View style={styles.tncContainer}>
                   <TouchableOpacity
@@ -1492,7 +1498,7 @@ const styles = StyleSheet.create({
   tncContainer2: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 15,
+    marginHorizontal: 20,
     flexDirection: "row",
     paddingVertical: 8,
     backgroundColor:'#342f29',
