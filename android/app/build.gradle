@@ -103,8 +103,8 @@ android {
         applicationId "com.yingshitv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 66 , 2 April  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
-        versionCode 66
+        // ABB version 67 , 5 April  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
+        versionCode 67
         versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
