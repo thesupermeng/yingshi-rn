@@ -64,7 +64,7 @@ export const INVITE_DOMAIN = 'https://lebobotv.store/invite.html?invite=';
 
 export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
-export const APP_VERSION = "1.7.8";
+export const APP_VERSION = "1.7.9";
 
 export const TOPON_ANDROID_APP_ID = 'a65f7e931ca8e2';
 export const TOPON_ANDROID_APP_KEY = 'a98f786383065622e56e00bd6e3a59723';

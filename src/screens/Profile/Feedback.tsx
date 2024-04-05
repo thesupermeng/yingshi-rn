@@ -133,7 +133,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
             style={{
               ...textVariants.body,
               fontWeight: "600",
-              color: text ? colors.background : colors.muted,
+              color: text ? colors.primaryContrast : colors.muted,
             }}
           >
             提交

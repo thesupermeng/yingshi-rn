@@ -2,8 +2,8 @@ import React, { useState, useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 
 import { API_DOMAIN } from "@utility/constants";
-import { VodData } from "@type/ajaxTypes";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { VodData, XVodData } from "@type/ajaxTypes";
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 
 import { acceptOverEighteen } from "@redux/actions/screenAction";
 import EighteenPlusOverlay from "../../components/modal/overEighteenOverlay";
@@ -28,6 +28,8 @@ export default function XVodTab({
   const [showLoading, setShowLoading] = useState(false);
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
+  const [totalPage, setTotalPage] = useState(1);
+  const [results, setResults] = useState<Array<XVodData>>([]);
 
   // const listItem = useCallback(
   //   ({ item, index }: { item: VodData; index: number }) => {
@@ -95,7 +97,8 @@ export default function XVodTab({
           text={item.type_name.trim()}
           onPress={() => {
             navigation.navigate("午夜场剧情", {
-              class: item.vod_list[0].vod_class,
+              class: item.type_name,
+              vod_source_name: item.vod_source_name
             });
           }}
         />
@@ -114,20 +117,55 @@ export default function XVodTab({
     );
   }
 
-  let data = useQuery({
-    queryKey: ["HomePage"],
-    queryFn: () => AppsApi.getHomePages(99)
-      .then((data) => {
-        setShowLoading(false);
-        return data;
-      }),
-  });
+  const fetchXCategories = (page: number) =>
+    AppsApi.getXVodList(page).then((results: Array<XVodData>) => {
+      setTotalPage(9);
+      console.log("HEH");
+      return Object.values(results);
+    });
+
+  const {
+    data: xData,
+    isSuccess,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isFetching,
+    refetch,
+  } = useInfiniteQuery(
+    ['xvodPlayList'],
+    ({pageParam = 1}) => fetchXCategories(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage === null) {
+          return undefined;
+        }
+        const nextPage: any = allPages.length + 1;
+        //if reach end
+        if (nextPage > totalPage && totalPage != 0) {
+          return undefined;
+        }
+        return nextPage;
+      },
+      onSuccess: data => {
+        if (data && data?.pages) {
+          setResults([...results, ...data.pages[data.pages.length - 1].flat()]);
+        }
+      },
+    },
+  );
 
   useEffect(() => {
-    if (data == undefined) {
+    if (results == undefined) {
       setShowLoading(true);
     }
   }, []);
+
+  useEffect(() => {
+    if(results.length == 0){
+      refetch();
+    }
+  }, [results])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -156,9 +194,9 @@ export default function XVodTab({
 
       <View style={{ paddingTop: 10 }}>
         <FlatList
-          data={data?.data?.categories ? data?.data?.categories : []}
+          data={results}
           keyExtractor={(item: VodData, index: number) => index.toString() + item.type_name}
-          initialNumToRender={(data?.data?.categories ? data?.data?.categories : []).length}
+          initialNumToRender={0}
           windowSize={3}
           maxToRenderPerBatch={3}
           renderItem={listItem}
@@ -166,6 +204,39 @@ export default function XVodTab({
           removeClippedSubviews={true}
           onEndReachedThreshold={0.5}
           scrollEnabled={isVip}
+          onEndReached={() => {
+            if (hasNextPage && !isFetchingNextPage && !isFetching) {
+              fetchNextPage();
+            }
+          }}
+          ListFooterComponent={
+            <View style={{...styles.loading}}>
+              {hasNextPage && (
+                <FastImage
+                  style={{
+                    height: 80,
+                    width: 80,
+
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  source={require('@static/images/loading-spinner.gif')}
+                  resizeMode={'contain'}
+                />
+              )}
+              {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+                <Text
+                  style={{
+                    ...textVariants.subBody,
+                    color: colors.muted,
+                    paddingTop: 12,
+                  }}>
+                  已经到底了
+                </Text>
+              )}
+            </View>
+          }
         />
       </View>
       {/* <EighteenPlusOverlay

@@ -1,6 +1,6 @@
 {
   "name": "aimeiju",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "private": true,
   "scripts": {
     "android": "source ~/.bash_profile && react-native run-android",
@@ -16,6 +16,7 @@
     "build-release": "cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "replace-constants-codepush": "export APK_CHANNEL=0&& npm run build-release",
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
+    "android-apk-pc6-release": "export APK_CHANNEL=PC6G&& npm run build-release",
     "android-apk-web-liebian-release": "export APK_CHANNEL=WEB_LIE_BIAN&& npm run build-release",
     "android-apk-fenxiang-release": "export APK_CHANNEL=FEN_XIANG&& npm run build-release",
     "android-apk-liulanqi-release": "export APK_CHANNEL=LIU_LAN_QI&& npm run build-release",

@@ -44,8 +44,9 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
   const fetchVod = async (page: number) => {
     return await VodApi.getList({
       page: page,
-      limit: 150,
+      limit: 10,
       category: route.params.class,
+      vod_source_name: route.params.vod_source_name,
       xMode: true,
     })
   };
