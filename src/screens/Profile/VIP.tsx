@@ -1070,7 +1070,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                       paddingHorizontal: 15,
                       paddingBottom: 10,
                       bottom: 0,
-                      gap: 15,
+                      gap: 5,
                     }}
                   >
                     <FastImage
@@ -1103,7 +1103,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                               key={product.productId}
                               style={{
                                 flex: 1,
-                                height: 70,
+                                height: 63,
                                 overflow: "hidden",
                                 borderRadius: 8,
                                 borderWidth:
@@ -1128,7 +1128,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                 locations={[0.0, 0.99]}
                                 style={{
                                   flex: 1,
-                                  paddingTop: 10,
+                                  paddingTop: 5,
                                   paddingHorizontal: 10,
                                 }}
                               >
@@ -1210,15 +1210,19 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                         paddingHorizontal: 10,
                         alignItems: "center",
                         justifyContent: "space-between",
+                        paddingTop:5
                       }}
                     >
                       <View
                         style={{
-                          gap: 12,
+                          gap: 4,
                           flexDirection: "row",
                         }}
                       >
+                                         <View style={{position:'relative' ,top:1}}>
                         <Text style={styles.countdownLabel}>限时优惠</Text>
+                        </View>
+
                         <View style={styles.countdownContainer}>
                           {remainingTimeAry.map((val, i) => {
                             return (
@@ -1227,6 +1231,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                 style={{
                                   flexDirection: "row",
                                   gap: 5,
+                                  position:'relative',
+                                  bottom:2
                                 }}
                               >
                                 <View
@@ -1237,6 +1243,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                     alignItems: "center",
                                     width: 20,
                                     height: 20,
+                                    position:'relative',
+                                    top : 5
                                   }}
                                 >
                                   <Text style={styles.countdownText}>
@@ -1273,6 +1281,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                             style={{
                               ...textVariants.subBody,
                               color: "#9c9c9c",
+                              fontSize :12
                             }}
                           >
                             VIP明细
@@ -1303,19 +1312,11 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     isRefreshing={refreshing}
                   />
                 </ScrollView>
-
-    
-
-
-
-
   {infoTextIndex <= 2 &&
-
                 <View style={styles.tncContainer2}>
             <TouchableOpacity onPress={handleAgreementPress}>
-                    <Text style={{ ...textVariants.subBody,     fontSize: 11, color: "#ffffff" }}>
+                    <Text style={{ ...textVariants.subBody,     fontSize: 12, color: "#ffffff" }}>
 {infoText[infoTextIndex]}
-
                     </Text>
                     </TouchableOpacity>
                   </View>
@@ -1327,11 +1328,11 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                       navigation.navigate("隐私政策");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c"  ,  fontSize: 12}}>
                       隐私协议{" "}
                     </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     |{" "}
                   </Text>
                   <TouchableOpacity
@@ -1339,11 +1340,11 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                       navigation.navigate("用户协议");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                       用户服务协议{" "}
                     </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     |{" "}
                   </Text>
 
@@ -1352,14 +1353,14 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                       navigation.navigate("续费服务");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                       自动续费协议{" "}
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.tncContainer}>
                   <TouchableOpacity onPress={openEmailApp}>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     {"如遇支付问题，请联系"}
                     <Text  style={{ textDecorationLine: "underline" }}>
                       contact.movie9@gmail.com
@@ -1474,7 +1475,7 @@ const styles = StyleSheet.create({
   },
   countdownLabel: {
     fontFamily: "PingFang SC",
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "900",
     color: "#D3AC7B",
     textAlignVertical: "center",
@@ -1486,7 +1487,7 @@ const styles = StyleSheet.create({
   summaryContainer: {
     width: "100%",
     padding: 15,
-    marginBottom: 15,
+    marginBottom: 10,
     position: "relative",
   },
   tncContainer: {
@@ -1499,14 +1500,16 @@ const styles = StyleSheet.create({
   tncContainer2: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 20,
+    marginLeft: 20,
+    marginRight: 26,
     flexDirection: "row",
-    paddingVertical: 8,
     backgroundColor:'#342f29',
     borderRadius:10,
+    paddingVertical: 8,
     paddingHorizontal:5,
     marginVertical:2,
-    marginBottom:2
+    marginBottom:2,
+    marginTop:5
   },
   footerContainer: {
     alignItems: "center",
