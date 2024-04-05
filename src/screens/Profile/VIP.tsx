@@ -1015,7 +1015,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                   style={{
                     flex:
                       UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
-                        ? 2.2
+                        ? 1.55
                         : IS_IOS
                           ? 1.5
                           : 1,
@@ -1298,6 +1298,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     marginRight: 20,
                     paddingLeft: 20,
                     paddingRight: 20,
+
                   }}
                   showsVerticalScrollIndicator={false}
                 >
@@ -1311,18 +1312,18 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     onZfSelect={setSelectedZf}
                     isRefreshing={refreshing}
                   />
-                </ScrollView>
-  {infoTextIndex <= 2 &&
+
+{infoTextIndex <= 2 &&
                 <View style={styles.tncContainer2}>
             <TouchableOpacity onPress={handleAgreementPress}>
-                    <Text style={{ ...textVariants.subBody,     fontSize: 12, color: "#ffffff" }}>
+                    <Text style={{ ...textVariants.subBody,     fontSize: 11, color: "#ffffff" }}>
 {infoText[infoTextIndex]}
                     </Text>
                     </TouchableOpacity>
                   </View>
 }
 
-                <View style={styles.tncContainer}>
+<View style={styles.tncContainer}>
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("隐私政策");
@@ -1368,6 +1369,10 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                   </Text>
                   </TouchableOpacity>
                 </View>
+                </ScrollView>
+
+
+              
               </View>
             )}
 
@@ -1493,15 +1498,14 @@ const styles = StyleSheet.create({
   tncContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 15,
+    // marginHorizontal: 15,
     flexDirection: "row",
     paddingVertical: 5,
   },
   tncContainer2: {
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 20,
-    marginRight: 26,
+
     flexDirection: "row",
     backgroundColor:'#342f29',
     borderRadius:10,
@@ -1509,7 +1513,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:5,
     marginVertical:2,
     marginBottom:2,
-    marginTop:5
+   
   },
   footerContainer: {
     alignItems: "center",
