@@ -139,7 +139,7 @@ export const MINI_SHOW_LOGIN_NUMBER = Platform.OS === 'ios' ? 299 : 10;
 export const AD_VIDEO_SECONDS = 10;
 
 export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
-export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';
+export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-nu1d7c3499hq9fmh7rch5rrb4am4lusa.apps.googleusercontent.com';
 
 export const MAX_CONCURRENT_VIDEO_DOWNLOAD = 1
 export const EVENT_CUSTOM_ON = true;
