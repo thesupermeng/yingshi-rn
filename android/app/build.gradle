@@ -103,8 +103,8 @@ android {
         applicationId "com.aimeiju"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 5 , 2 april march // remember change appsflyer const
-        versionCode 5
+        // ABB version 6 , 5 april march // remember change appsflyer const
+        versionCode 6
         versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
