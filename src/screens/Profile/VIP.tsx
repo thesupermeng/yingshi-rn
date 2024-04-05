@@ -865,6 +865,12 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
     };
   }, []);
 
+  const handleAgreementPress = () => {
+    // Navigate to "/home" screen
+    navigation.navigate('续费服务');
+  };
+
+
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
@@ -911,7 +917,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                         locations={[0.0, 0.99]}
                         style={{
                           height: 40,
-                          marginHorizontal: 10,
+                          marginTop: 5,
                           justifyContent: "center",
                           alignItems: "center",
                           paddingVertical: 8,
@@ -1004,6 +1010,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
 
             {!fetching && !isOffline && (
               <View style={{ flex: 1 }}>
+             
                 <View
                   style={{
                     flex:
@@ -1024,17 +1031,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                       zIndex: 200,
                     }}
                     onPress={() => {
-                      // if (
-                      //   !userState.user?.isLogin() &&
-                      //   userState.user?.isVip()
-                      // ) {
-                      //   navigation.goBack();
-                      // } else {
-                      //   if (screenState.isHomeGuideShown == true) {
-                      //     dispatch(setShowPromotionDialog(true));
-                      //   }
-                      //   navigation.goBack();
-                      // }
                       if (screenState.isHomeGuideShown == true) {
                         dispatch(setShowPromotionDialog(true));
                       }
@@ -1044,12 +1040,15 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                   >
                     <CloseButton />
                   </TouchableOpacity>
+
+                 
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
                     resizeMode="cover"
                     repeat={true}
                   />
+            
                   <LinearGradient
                     colors={[
                       "rgba(20, 22, 26, 0)",
@@ -1285,14 +1284,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                 </View>
 
                 <ScrollView
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={refreshing}
-                      onRefresh={handleRefresh}
-                      tintColor="#FAC33D"
-                    />
-                  }
-                  ref={scrollRef}
                   style={{
                     flex: 1,
                     marginRight: 20,
@@ -1312,11 +1303,21 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     isRefreshing={refreshing}
                   />
                 </ScrollView>
+
+    
+
+
+
+
   {infoTextIndex <= 2 &&
+
                 <View style={styles.tncContainer2}>
-                    <Text style={{ ...textVariants.subBody,     fontSize: 12, color: "#ffffff" }}>
+            <TouchableOpacity onPress={handleAgreementPress}>
+                    <Text style={{ ...textVariants.subBody,     fontSize: 11, color: "#ffffff" }}>
 {infoText[infoTextIndex]}
+
                     </Text>
+                    </TouchableOpacity>
                   </View>
 }
 
@@ -1485,7 +1486,7 @@ const styles = StyleSheet.create({
   summaryContainer: {
     width: "100%",
     padding: 15,
-    marginBottom: 25,
+    marginBottom: 15,
     position: "relative",
   },
   tncContainer: {
@@ -1505,7 +1506,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     paddingHorizontal:5,
     marginVertical:2,
-    marginBottom:5
+    marginBottom:2
   },
   footerContainer: {
     alignItems: "center",
