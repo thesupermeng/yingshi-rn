@@ -143,6 +143,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     ];
   }
 
+
+  const [infoText, setInfoText] = useState(["连续包月套餐：首月付费￥9，第2个月起按照￥19自动续费1个月，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包年套餐：首年付费￥169，第2年起按照￥169自动续费1年，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包季套餐：首季度（3个月）付费￥69，第2个季度起按照￥69自动续费3个月，可随时取消，取消方法见《自动续费协议》退订方法。"]);
+  const [infoTextIndex, setInfoTextIndex] = useState(0);
+
   const [dialogText, setDialogText] = useState([""]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLastShown, setIsLastShown] = useState(false);
@@ -413,6 +417,26 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
+    console.log(membershipSelected?.title)
+  console.log(membershipSelected?.title)
+
+  if(membershipSelected?.title == '1个月')
+{
+  console.log(0)
+  setInfoTextIndex(0)
+}
+if(membershipSelected?.title == '12个月')
+{
+  console.log(1)
+  setInfoTextIndex(1)
+}
+
+if(membershipSelected?.title == '3个月')
+{
+  console.log(2)
+  setInfoTextIndex(2)
+}
+
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
@@ -1282,6 +1306,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   />
                 </ScrollView>
 
+                <View style={styles.tncContainer2}>
+                    <Text style={{ ...textVariants.subBody, color: "#ffffff" }}>
+                      {infoText[infoTextIndex]}
+                    </Text>
+                  </View>
+
+
+
                 <View style={styles.tncContainer}>
                   <TouchableOpacity
                     onPress={() => {
@@ -1456,6 +1488,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     flexDirection: "row",
     paddingVertical: 5,
+  },
+  tncContainer2: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 15,
+    flexDirection: "row",
+    paddingVertical: 8,
+    backgroundColor:'#342f29',
+    borderRadius:10,
+    paddingHorizontal:5,
+    marginVertical:2,
+    marginBottom:5
   },
   footerContainer: {
     alignItems: "center",
