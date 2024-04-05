@@ -133,6 +133,8 @@ const CatagoryHome = ({
   }
 
   useFocusEffect(useCallback(() => {
+    if (carouselRef.current?.getCurrentIndex() === undefined) return;
+
     const currentCarousel = data.carousel[carouselRef.current.getCurrentIndex()];
 
     if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
@@ -145,7 +147,7 @@ const CatagoryHome = ({
         ads_name: currentCarousel.ads_name,
       });
     }
-  }, [isTabFocus, carouselRef.current?.getCurrentIndex()]));
+  }, [data, isTabFocus]));
 
   const renderBanner = useCallback((bannerAd: BannerAdType) => (
     <BannerContainer
