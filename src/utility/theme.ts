@@ -111,7 +111,7 @@ export type ExtendedTheme = {
 // Add color palettes here:
 const palette = {
   primary: '#FAC33D',
-  primaryContrast: '#FFFFFF',
+  primaryContrast: '#000000',
   confirm: '#0A84FF',
   success: '#34C759',
   error: '#FF1010',
