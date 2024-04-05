@@ -156,7 +156,7 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
-   // initFirebase();
+    initFirebase();
   }, []);
 
   const initFirebase = async () => {
@@ -289,23 +289,22 @@ const RecommendationHome = ({
     }, [isVip]),
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      const currentCarousel =
-        data.carousel[carouselRef.current.getCurrentIndex()];
+  useFocusEffect(useCallback(() => {
+    if (carouselRef.current?.getCurrentIndex() === undefined) return;
 
-      if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
-        UmengAnalytics.homeTabCarouselViewAnalytics({
-          tab_id: navId?.toString() ?? '0',
-          tab_name: tabName ?? '',
-          ads_slot_id: currentCarousel.ads_slot_id,
-          ads_id: currentCarousel.ads_id,
-          ads_title: currentCarousel.ads_event_title,
-          ads_name: currentCarousel.ads_name,
-        });
-      }
-    }, [data, isTabFocus, carouselRef.current?.getCurrentIndex()]),
-  );
+    const currentCarousel = data.carousel[carouselRef.current.getCurrentIndex()];
+
+    if (isTabFocus && carouselRef.current && currentCarousel?.is_ads) {
+      UmengAnalytics.homeTabCarouselViewAnalytics({
+        tab_id: navId?.toString() ?? '0',
+        tab_name: tabName ?? '',
+        ads_slot_id: currentCarousel.ads_slot_id,
+        ads_id: currentCarousel.ads_id,
+        ads_title: currentCarousel.ads_event_title,
+        ads_name: currentCarousel.ads_name,
+      });
+    }
+  }, [data, isTabFocus]));
 
   const renderBanner = useCallback(
     (allBannerAds: BannerAdType[]) => {
@@ -656,7 +655,7 @@ const RecommendationHome = ({
                   </View>
                 )}
 
-                {/* <View style={{gap: spacing.m}}>
+                <View style={{ gap: spacing.m }}>
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
@@ -667,7 +666,7 @@ const RecommendationHome = ({
                         text="体育推荐"
                         onPress={() => {
                           dispatch(setAutoSelectSport(true));
-                          navigation.navigate('Home', {screen: '会员中心'});
+                          navigation.navigate('Home', { screen: '会员中心' });
                         }}
                       />
                     )}
@@ -685,7 +684,7 @@ const RecommendationHome = ({
                       />
                     </View>
                   )}
-                </View> */}
+                </View>
 
                 <View style={{ gap: spacing.m }}>
                   <View

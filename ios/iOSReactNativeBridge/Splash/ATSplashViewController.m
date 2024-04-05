@@ -322,13 +322,15 @@ bool isAdClosed = NO;
                                                          extra:mutableDict
                                                       delegate:self];
 
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isBackgroundBefore ? 2 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"[Splash] Close timout start");
-        if(isAdClosed == NO){
-          NSLog(@"[Splash] Manual close ad");
-          [self.delegate nativeViewControllerDidFinish];
+        if(isBackgroundBefore){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isBackgroundBefore ? 2 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"[Splash] Close timout start");
+                if(isAdClosed == NO){
+                    NSLog(@"[Splash] Manual close ad");
+                    [self.delegate nativeViewControllerDidFinish];
+                }
+            });
         }
-      });
 
     } else {
 //        do else

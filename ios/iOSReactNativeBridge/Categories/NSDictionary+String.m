@@ -21,9 +21,9 @@ NSString *const kATUnityCheckLoadModelAdInfoKey = @"adInfo";
   NSError *error;
   NSData *jsonData;
   
-  NSMutableDictionary *extraDictM = [NSMutableDictionary dictionaryWithDictionary:self[kATUnityCheckLoadModelAdInfoKey]];
+  NSMutableDictionary *extraDictM = [NSMutableDictionary dictionaryWithDictionary:self];
   NSMutableDictionary *extraDataTemp = [NSMutableDictionary dictionary];
-  NSMutableDictionary *extraDataDictM = [NSMutableDictionary dictionaryWithDictionary:self[kATUnityCheckLoadModelAdInfoKey][kATUnityUserExtraDataKey]];
+  NSMutableDictionary *extraDataDictM = [NSMutableDictionary dictionaryWithDictionary:self[kATUnityUserExtraDataKey]];
   for (NSString *key in extraDataDictM.allKeys) {
       if ([extraDataDictM[key] isKindOfClass:[NSString class]] || [extraDataDictM[key] isKindOfClass:[NSNumber class]]) {
           [extraDataTemp setValue:extraDataDictM[key] forKey:key];
