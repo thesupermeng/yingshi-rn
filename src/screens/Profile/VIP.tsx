@@ -417,7 +417,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
-    console.log(membershipSelected?.title)
+    console.log(membershipSelected)
   console.log(membershipSelected?.title)
 
   if(membershipSelected?.title == '1个月')
@@ -436,6 +436,13 @@ if(membershipSelected?.title == '3个月')
   console.log(2)
   setInfoTextIndex(2)
 }
+if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.description == 'VIP会员360天' )
+{
+  console.log(3)
+  setInfoTextIndex(3)
+}
+
+
 
   }, [membershipSelected]);
 
@@ -858,6 +865,12 @@ if(membershipSelected?.title == '3个月')
     };
   }, []);
 
+  const handleAgreementPress = () => {
+    // Navigate to "/home" screen
+    navigation.navigate('续费服务');
+  };
+
+
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
@@ -904,7 +917,7 @@ if(membershipSelected?.title == '3个月')
                         locations={[0.0, 0.99]}
                         style={{
                           height: 40,
-                          marginHorizontal: 10,
+                          marginTop: 5,
                           justifyContent: "center",
                           alignItems: "center",
                           paddingVertical: 8,
@@ -997,6 +1010,7 @@ if(membershipSelected?.title == '3个月')
 
             {!fetching && !isOffline && (
               <View style={{ flex: 1 }}>
+             
                 <View
                   style={{
                     flex:
@@ -1017,17 +1031,6 @@ if(membershipSelected?.title == '3个月')
                       zIndex: 200,
                     }}
                     onPress={() => {
-                      // if (
-                      //   !userState.user?.isLogin() &&
-                      //   userState.user?.isVip()
-                      // ) {
-                      //   navigation.goBack();
-                      // } else {
-                      //   if (screenState.isHomeGuideShown == true) {
-                      //     dispatch(setShowPromotionDialog(true));
-                      //   }
-                      //   navigation.goBack();
-                      // }
                       if (screenState.isHomeGuideShown == true) {
                         dispatch(setShowPromotionDialog(true));
                       }
@@ -1037,12 +1040,15 @@ if(membershipSelected?.title == '3个月')
                   >
                     <CloseButton />
                   </TouchableOpacity>
+
+                 
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
                     resizeMode="cover"
                     repeat={true}
                   />
+            
                   <LinearGradient
                     colors={[
                       "rgba(20, 22, 26, 0)",
@@ -1064,7 +1070,7 @@ if(membershipSelected?.title == '3个月')
                       paddingHorizontal: 15,
                       paddingBottom: 10,
                       bottom: 0,
-                      gap: 15,
+                      gap: 5,
                     }}
                   >
                     <FastImage
@@ -1097,7 +1103,7 @@ if(membershipSelected?.title == '3个月')
                               key={product.productId}
                               style={{
                                 flex: 1,
-                                height: 70,
+                                height: 63,
                                 overflow: "hidden",
                                 borderRadius: 8,
                                 borderWidth:
@@ -1122,7 +1128,7 @@ if(membershipSelected?.title == '3个月')
                                 locations={[0.0, 0.99]}
                                 style={{
                                   flex: 1,
-                                  paddingTop: 10,
+                                  paddingTop: 5,
                                   paddingHorizontal: 10,
                                 }}
                               >
@@ -1204,15 +1210,19 @@ if(membershipSelected?.title == '3个月')
                         paddingHorizontal: 10,
                         alignItems: "center",
                         justifyContent: "space-between",
+                        paddingTop:5
                       }}
                     >
                       <View
                         style={{
-                          gap: 12,
+                          gap: 4,
                           flexDirection: "row",
                         }}
                       >
+                                         <View style={{position:'relative' ,top:1}}>
                         <Text style={styles.countdownLabel}>限时优惠</Text>
+                        </View>
+
                         <View style={styles.countdownContainer}>
                           {remainingTimeAry.map((val, i) => {
                             return (
@@ -1221,6 +1231,8 @@ if(membershipSelected?.title == '3个月')
                                 style={{
                                   flexDirection: "row",
                                   gap: 5,
+                                  position:'relative',
+                                  bottom:2
                                 }}
                               >
                                 <View
@@ -1231,6 +1243,8 @@ if(membershipSelected?.title == '3个月')
                                     alignItems: "center",
                                     width: 20,
                                     height: 20,
+                                    position:'relative',
+                                    top : 5
                                   }}
                                 >
                                   <Text style={styles.countdownText}>
@@ -1267,6 +1281,7 @@ if(membershipSelected?.title == '3个月')
                             style={{
                               ...textVariants.subBody,
                               color: "#9c9c9c",
+                              fontSize :12
                             }}
                           >
                             VIP明细
@@ -1278,14 +1293,6 @@ if(membershipSelected?.title == '3个月')
                 </View>
 
                 <ScrollView
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={refreshing}
-                      onRefresh={handleRefresh}
-                      tintColor="#FAC33D"
-                    />
-                  }
-                  ref={scrollRef}
                   style={{
                     flex: 1,
                     marginRight: 20,
@@ -1305,14 +1312,15 @@ if(membershipSelected?.title == '3个月')
                     isRefreshing={refreshing}
                   />
                 </ScrollView>
-
+  {infoTextIndex <= 2 &&
                 <View style={styles.tncContainer2}>
-                    <Text style={{ ...textVariants.subBody, color: "#ffffff" }}>
-                      {infoText[infoTextIndex]}
+            <TouchableOpacity onPress={handleAgreementPress}>
+                    <Text style={{ ...textVariants.subBody,     fontSize: 12, color: "#ffffff" }}>
+{infoText[infoTextIndex]}
                     </Text>
+                    </TouchableOpacity>
                   </View>
-
-
+}
 
                 <View style={styles.tncContainer}>
                   <TouchableOpacity
@@ -1320,11 +1328,11 @@ if(membershipSelected?.title == '3个月')
                       navigation.navigate("隐私政策");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c"  ,  fontSize: 12}}>
                       隐私协议{" "}
                     </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     |{" "}
                   </Text>
                   <TouchableOpacity
@@ -1332,11 +1340,11 @@ if(membershipSelected?.title == '3个月')
                       navigation.navigate("用户协议");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                       用户服务协议{" "}
                     </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     |{" "}
                   </Text>
 
@@ -1345,14 +1353,14 @@ if(membershipSelected?.title == '3个月')
                       navigation.navigate("续费服务");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                       自动续费协议{" "}
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.tncContainer}>
                   <TouchableOpacity onPress={openEmailApp}>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     {"如遇支付问题，请联系"}
                     <Text  style={{ textDecorationLine: "underline" }}>
                       contact.movie9@gmail.com
@@ -1467,7 +1475,7 @@ const styles = StyleSheet.create({
   },
   countdownLabel: {
     fontFamily: "PingFang SC",
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "900",
     color: "#D3AC7B",
     textAlignVertical: "center",
@@ -1479,7 +1487,7 @@ const styles = StyleSheet.create({
   summaryContainer: {
     width: "100%",
     padding: 15,
-    marginBottom: 25,
+    marginBottom: 10,
     position: "relative",
   },
   tncContainer: {
@@ -1492,14 +1500,16 @@ const styles = StyleSheet.create({
   tncContainer2: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 15,
+    marginLeft: 20,
+    marginRight: 26,
     flexDirection: "row",
-    paddingVertical: 8,
     backgroundColor:'#342f29',
     borderRadius:10,
+    paddingVertical: 8,
     paddingHorizontal:5,
     marginVertical:2,
-    marginBottom:5
+    marginBottom:2,
+    marginTop:5
   },
   footerContainer: {
     alignItems: "center",
