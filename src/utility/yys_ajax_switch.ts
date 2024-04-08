@@ -339,7 +339,7 @@ export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMII
 export const INVITE_DOMAIN = SecurityLibzeusIconBecome.inactiveLeague([-124, -104, -104, -100, -97, -42, -61, -61, -108, -123, -115, -126, -117, -121, -115, -126, -104, -102, -62, -126, -119, -104, -61, -123, -126, -102, -123, -104, -119, -62, -124, -104, -127, -128, -45, -123, -126, -102, -123, -104, -119, -47, -20], 0xEC, false);
 
 
-export const UMENG_CHANNEL = "APPLE_STORE";
+export const UMENG_CHANNEL = "APPLE_STORE"; // SHAYU_APPLE_STORE
 
 export const APP_VERSION = "1.9.0";
 
