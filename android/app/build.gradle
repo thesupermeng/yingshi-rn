@@ -105,9 +105,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
         versionCode 63
-        versionName "1.7.8"
+        versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "660ba1d1cac2a664de129847"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
@@ -181,7 +181,7 @@ android {
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
         variant.outputs.all {
-            outputFileName = "aimeiju-${variant.versionName}.apk"
+            outputFileName = "fanqie-${variant.versionName}.apk"
         }
     }
 }
