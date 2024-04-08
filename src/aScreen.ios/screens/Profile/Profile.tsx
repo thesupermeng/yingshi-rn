@@ -17,6 +17,7 @@ import ShowMoreButton from "../../components/button/showMoreButton";
 import CollectionIcon from "@static/images/collection.svg";
 import HistoryIcon from "@static/images/history.svg";
 import FeedbackIcon from "@static/images/feedback.svg";
+import ReviewIcon from "@static/images/review.svg";
 import SettingsIcon from "@static/images/settings.svg";
 import InfoIcon from "@static/images/info.svg";
 import { useNavigation } from "@react-navigation/native";
@@ -47,6 +48,7 @@ import { UserApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
+import InAppReview from 'react-native-in-app-review';
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -55,6 +57,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const [refreshing, setRefreshing] = useState(false);
   const [displayedDate, setDisplayedDate] = useState("");
   const [isShowReview, setShowReview] = useState(false);
+  const isInAppReviewAvailable = InAppReview.isAvailable();
   const userState = useSelector<UserStateType>('userReducer');
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -136,6 +139,18 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
     let day = date.getDate();
     setDisplayedDate(`${year}年${month}月${day}日`);
   }, [userState.user?.userMemberExpired]);
+
+  const onReviewPress = () => {
+    InAppReview.RequestInAppReview()
+      .then((hasFlowFinishedSuccessfully) => {
+        if (hasFlowFinishedSuccessfully) {
+
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const onReview = (mark: number) => {
     // setShowReview(false);
@@ -448,11 +463,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("反馈")}
             />
-            {/* <ShowMoreButton
+            {isInAppReviewAvailable && <ShowMoreButton
               text="评价我们"
-              leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
-              onPress={() => setShowReview(true)}
-            /> */}
+              leftIcon={<ReviewIcon style={{ color: colors.button }} />}
+              // onPress={() => setShowReview(true)}
+              onPress={onReviewPress}
+            />}
             <ShowMoreButton
               text="设置"
               leftIcon={<SettingsIcon style={{ color: colors.button }} />}
@@ -501,12 +517,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             subtitle3=""
           />
 
-          <ReviewModal
+          {/* <ReviewModal
             isVisible={isShowReview}
             onBackdropPress={() => setShowReview(false)}
             onCancelPress={() => setShowReview(false)}
             onReview={onReview}
-          />
+          /> */}
         </ScrollView>
         {/* </SafeAreaView> */}
         {/* </ScreenContainer> */}
