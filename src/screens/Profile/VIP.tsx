@@ -143,8 +143,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     ];
   }
 
-
-  const [infoText, setInfoText] = useState(["连续包月套餐：首月付费￥9，第2个月起按照￥19自动续费1个月，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包年套餐：首年付费￥169，第2年起按照￥169自动续费1年，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包季套餐：首季度（3个月）付费￥69，第2个季度起按照￥69自动续费3个月，可随时取消，取消方法见《自动续费协议》退订方法。"]);
+  const [infoText, setInfoText] = useState([
+    "连续包月套餐：首月付费￥9，第2个月起按照￥19自动续费1个月，可随时取消，取消方法见《自动续费协议》退订方法。",
+    "连续包年套餐：首年付费￥169，第2年起按照￥169自动续费1年，可随时取消，取消方法见《自动续费协议》退订方法。",
+    "连续包季套餐：首季度（3个月）付费￥69，第2个季度起按照￥69自动续费3个月，可随时取消，取消方法见《自动续费协议》退订方法。",
+  ]);
   const [infoTextIndex, setInfoTextIndex] = useState(0);
 
   const [dialogText, setDialogText] = useState([""]);
@@ -158,7 +161,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [countdownSecond, setCountdownSecond] = useState(
     (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
       (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-    1000
+      1000
   );
 
   const hours = Math.floor(countdownSecond / 60 / 60);
@@ -179,7 +182,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setCountdownSecond(
         (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
           (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-        1000
+          1000
       );
     }, 1000);
 
@@ -224,7 +227,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-            state.isInternetReachable === null
+          state.isInternetReachable === null
             ? true
             : false)
         );
@@ -417,33 +420,29 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
-    console.log(membershipSelected)
-  console.log(membershipSelected?.title)
+    console.log(membershipSelected);
+    console.log(membershipSelected?.title);
 
-  if(membershipSelected?.title == '1个月')
-{
-  console.log(0)
-  setInfoTextIndex(0)
-}
-if(membershipSelected?.title == '12个月')
-{
-  console.log(1)
-  setInfoTextIndex(1)
-}
+    if (membershipSelected?.title == "1个月") {
+      console.log(0);
+      setInfoTextIndex(0);
+    }
+    if (membershipSelected?.title == "12个月") {
+      console.log(1);
+      setInfoTextIndex(1);
+    }
 
-if(membershipSelected?.title == '3个月')
-{
-  console.log(2)
-  setInfoTextIndex(2)
-}
-if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.description == 'VIP会员360天' )
-{
-  console.log(3)
-  setInfoTextIndex(3)
-}
-
-
-
+    if (membershipSelected?.title == "3个月") {
+      console.log(2);
+      setInfoTextIndex(2);
+    }
+    if (
+      membershipSelected?.description == "VIP会员30天" ||
+      membershipSelected?.description == "VIP会员360天"
+    ) {
+      console.log(3);
+      setInfoTextIndex(3);
+    }
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
@@ -525,7 +524,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
   };
 
   const openEmailApp = () => {
-    Linking.openURL('mailto:contact.movie9@gmail.com');
+    Linking.openURL("mailto:contact.movie9@gmail.com");
   };
 
   const getDeepLink = (path = "") => {
@@ -814,7 +813,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
     checkCurrentPurchase();
   }, [currentPurchase, finishTransaction]);
 
-
   useEffect(() => {
     const removeBackPressListener = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -855,22 +853,19 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
     //       e.preventDefault();
     //     }
 
-  
     //   }
     // );
 
     return () => {
       removeBackPressListener.remove();
-    //   onBeforeRemoveListener();
+      //   onBeforeRemoveListener();
     };
   }, []);
 
   const handleAgreementPress = () => {
     // Navigate to "/home" screen
-    navigation.navigate('续费服务');
+    navigation.navigate("续费服务");
   };
-
-
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
@@ -900,9 +895,9 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-          screenState.showEventSplash == false ||
-          isLastShown ||
-          screenState.showEventSplashData.length == 0 ? (
+        screenState.showEventSplash == false ||
+        isLastShown ||
+        screenState.showEventSplashData.length == 0 ? (
           <ScreenContainer
             footer={
               <>
@@ -1010,15 +1005,14 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
 
             {!fetching && !isOffline && (
               <View style={{ flex: 1 }}>
-             
                 <View
                   style={{
                     flex:
                       UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
                         ? 1.55
                         : IS_IOS
-                          ? 1.5
-                          : 1,
+                        ? 1.5
+                        : 1,
                     overflow: "hidden",
                   }}
                 >
@@ -1035,20 +1029,18 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                         dispatch(setShowPromotionDialog(true));
                       }
                       navigation.goBack();
-
                     }}
                   >
                     <CloseButton />
                   </TouchableOpacity>
 
-                 
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
                     resizeMode="cover"
                     repeat={true}
                   />
-            
+
                   <LinearGradient
                     colors={[
                       "rgba(20, 22, 26, 0)",
@@ -1210,7 +1202,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                         paddingHorizontal: 10,
                         alignItems: "center",
                         justifyContent: "space-between",
-                        paddingTop:5
+                        paddingTop: 5,
                       }}
                     >
                       <View
@@ -1219,8 +1211,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                           flexDirection: "row",
                         }}
                       >
-                                         <View style={{position:'relative' ,top:1}}>
-                        <Text style={styles.countdownLabel}>限时优惠</Text>
+                        <View style={{ position: "relative", top: 1 }}>
+                          <Text style={styles.countdownLabel}>限时优惠</Text>
                         </View>
 
                         <View style={styles.countdownContainer}>
@@ -1231,8 +1223,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                 style={{
                                   flexDirection: "row",
                                   gap: 5,
-                                  position:'relative',
-                                  bottom:2
+                                  position: "relative",
+                                  bottom: 2,
                                 }}
                               >
                                 <View
@@ -1243,8 +1235,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                     alignItems: "center",
                                     width: 20,
                                     height: 20,
-                                    position:'relative',
-                                    top : 5
+                                    position: "relative",
+                                    top: 5,
                                   }}
                                 >
                                   <Text style={styles.countdownText}>
@@ -1281,7 +1273,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                             style={{
                               ...textVariants.subBody,
                               color: "#9c9c9c",
-                              fontSize :12
+                              fontSize: 12,
                             }}
                           >
                             VIP明细
@@ -1298,7 +1290,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     marginRight: 20,
                     paddingLeft: 20,
                     paddingRight: 20,
-
                   }}
                   showsVerticalScrollIndicator={false}
                 >
@@ -1313,66 +1304,107 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     isRefreshing={refreshing}
                   />
 
-{infoTextIndex <= 2 &&
-                <View style={styles.tncContainer2}>
-            <TouchableOpacity onPress={handleAgreementPress}>
-                    <Text style={{ ...textVariants.subBody,     fontSize: 11, color: "#ffffff" }}>
-{infoText[infoTextIndex]}
+                  {infoTextIndex <= 2 &&
+                    UMENG_CHANNEL === "GOOGLE_PLAY" &&
+                    IS_ANDROID && (
+                      <View style={styles.tncContainer2}>
+                        <TouchableOpacity onPress={handleAgreementPress}>
+                          <Text
+                            style={{
+                              ...textVariants.subBody,
+                              fontSize: 11,
+                              color: "#ffffff",
+                            }}
+                          >
+                            {infoText[infoTextIndex]}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
+
+                  <View style={styles.tncContainer}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("隐私政策");
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        隐私协议{" "}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: "#9c9c9c",
+                        fontSize: 12,
+                      }}
+                    >
+                      |{" "}
                     </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("用户协议");
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        用户服务协议{" "}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: "#9c9c9c",
+                        fontSize: 12,
+                      }}
+                    >
+                      |{" "}
+                    </Text>
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("续费服务");
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        自动续费协议{" "}
+                      </Text>
                     </TouchableOpacity>
                   </View>
-}
-
-<View style={styles.tncContainer}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("隐私政策");
-                    }}
-                  >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c"  ,  fontSize: 12}}>
-                      隐私协议{" "}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                    |{" "}
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("用户协议");
-                    }}
-                  >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                      用户服务协议{" "}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                    |{" "}
-                  </Text>
-
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("续费服务");
-                    }}
-                  >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                      自动续费协议{" "}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.tncContainer}>
-                  <TouchableOpacity onPress={openEmailApp}>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                    {"如遇支付问题，请联系"}
-                    <Text  style={{ textDecorationLine: "underline" }}>
-                      contact.movie9@gmail.com
-                    </Text>
-                  </Text>
-                  </TouchableOpacity>
-                </View>
+                  <View style={styles.tncContainer}>
+                    <TouchableOpacity onPress={openEmailApp}>
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        {"如遇支付问题，请联系"}
+                        <Text style={{ textDecorationLine: "underline" }}>
+                          contact.movie9@gmail.com
+                        </Text>
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </ScrollView>
-
-
-              
               </View>
             )}
 
@@ -1391,8 +1423,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
               index === 0
                 ? require(`@static/images/eventSplash1.png`)
                 : index === 1
-                  ? require(`@static/images/eventSplash2.png`)
-                  : require(`@static/images/eventSplash3.png`)
+                ? require(`@static/images/eventSplash2.png`)
+                : require(`@static/images/eventSplash3.png`)
             }
             isLast={index === screenState.showEventSplashData.length - 1}
           />
@@ -1410,7 +1442,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => { }}
+        onScrollBegin={() => {}}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
@@ -1507,13 +1539,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
 
     flexDirection: "row",
-    backgroundColor:'#342f29',
-    borderRadius:10,
+    backgroundColor: "#342f29",
+    borderRadius: 10,
     paddingVertical: 8,
-    paddingHorizontal:5,
-    marginVertical:2,
-    marginBottom:2,
-   
+    paddingHorizontal: 5,
+    marginVertical: 2,
+    marginBottom: 2,
   },
   footerContainer: {
     alignItems: "center",
