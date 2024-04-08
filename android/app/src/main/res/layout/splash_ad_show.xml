@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:id="@+id/logo_area"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/app_logo"
-            android:layout_width="280dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@mipmap/bootsplash_logo" />
     </LinearLayout>
 
