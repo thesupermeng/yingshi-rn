@@ -143,6 +143,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     ];
   }
 
+
+  const [infoText, setInfoText] = useState(["连续包月套餐：首月付费￥9，第2个月起按照￥19自动续费1个月，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包年套餐：首年付费￥169，第2年起按照￥169自动续费1年，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包季套餐：首季度（3个月）付费￥69，第2个季度起按照￥69自动续费3个月，可随时取消，取消方法见《自动续费协议》退订方法。"]);
+  const [infoTextIndex, setInfoTextIndex] = useState(0);
+
   const [dialogText, setDialogText] = useState([""]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLastShown, setIsLastShown] = useState(false);
@@ -413,6 +417,33 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
+    console.log(membershipSelected)
+  console.log(membershipSelected?.title)
+
+  if(membershipSelected?.title == '1个月')
+{
+  console.log(0)
+  setInfoTextIndex(0)
+}
+if(membershipSelected?.title == '12个月')
+{
+  console.log(1)
+  setInfoTextIndex(1)
+}
+
+if(membershipSelected?.title == '3个月')
+{
+  console.log(2)
+  setInfoTextIndex(2)
+}
+if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.description == 'VIP会员360天' )
+{
+  console.log(3)
+  setInfoTextIndex(3)
+}
+
+
+
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
@@ -834,6 +865,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     };
   }, []);
 
+  const handleAgreementPress = () => {
+    // Navigate to "/home" screen
+    navigation.navigate('续费服务');
+  };
+
+
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
@@ -880,7 +917,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                         locations={[0.0, 0.99]}
                         style={{
                           height: 40,
-                          marginHorizontal: 10,
+                          marginTop: 5,
                           justifyContent: "center",
                           alignItems: "center",
                           paddingVertical: 8,
@@ -973,11 +1010,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
             {!fetching && !isOffline && (
               <View style={{ flex: 1 }}>
+             
                 <View
                   style={{
                     flex:
                       UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
-                        ? 2.2
+                        ? 1.55
                         : IS_IOS
                           ? 1.5
                           : 1,
@@ -993,17 +1031,6 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       zIndex: 200,
                     }}
                     onPress={() => {
-                      // if (
-                      //   !userState.user?.isLogin() &&
-                      //   userState.user?.isVip()
-                      // ) {
-                      //   navigation.goBack();
-                      // } else {
-                      //   if (screenState.isHomeGuideShown == true) {
-                      //     dispatch(setShowPromotionDialog(true));
-                      //   }
-                      //   navigation.goBack();
-                      // }
                       if (screenState.isHomeGuideShown == true) {
                         dispatch(setShowPromotionDialog(true));
                       }
@@ -1013,12 +1040,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   >
                     <CloseButton />
                   </TouchableOpacity>
+
+                 
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
                     resizeMode="cover"
                     repeat={true}
                   />
+            
                   <LinearGradient
                     colors={[
                       "rgba(20, 22, 26, 0)",
@@ -1040,7 +1070,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       paddingHorizontal: 15,
                       paddingBottom: 10,
                       bottom: 0,
-                      gap: 15,
+                      gap: 5,
                     }}
                   >
                     <FastImage
@@ -1073,7 +1103,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                               key={product.productId}
                               style={{
                                 flex: 1,
-                                height: 70,
+                                height: 63,
                                 overflow: "hidden",
                                 borderRadius: 8,
                                 borderWidth:
@@ -1098,7 +1128,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                 locations={[0.0, 0.99]}
                                 style={{
                                   flex: 1,
-                                  paddingTop: 10,
+                                  paddingTop: 5,
                                   paddingHorizontal: 10,
                                 }}
                               >
@@ -1180,15 +1210,19 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                         paddingHorizontal: 10,
                         alignItems: "center",
                         justifyContent: "space-between",
+                        paddingTop:5
                       }}
                     >
                       <View
                         style={{
-                          gap: 12,
+                          gap: 4,
                           flexDirection: "row",
                         }}
                       >
+                                         <View style={{position:'relative' ,top:1}}>
                         <Text style={styles.countdownLabel}>限时优惠</Text>
+                        </View>
+
                         <View style={styles.countdownContainer}>
                           {remainingTimeAry.map((val, i) => {
                             return (
@@ -1197,6 +1231,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                 style={{
                                   flexDirection: "row",
                                   gap: 5,
+                                  position:'relative',
+                                  bottom:2
                                 }}
                               >
                                 <View
@@ -1207,6 +1243,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                                     alignItems: "center",
                                     width: 20,
                                     height: 20,
+                                    position:'relative',
+                                    top : 5
                                   }}
                                 >
                                   <Text style={styles.countdownText}>
@@ -1243,6 +1281,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                             style={{
                               ...textVariants.subBody,
                               color: "#9c9c9c",
+                              fontSize :12
                             }}
                           >
                             VIP明细
@@ -1254,19 +1293,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 </View>
 
                 <ScrollView
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={refreshing}
-                      onRefresh={handleRefresh}
-                      tintColor="#FAC33D"
-                    />
-                  }
-                  ref={scrollRef}
                   style={{
                     flex: 1,
                     marginRight: 20,
                     paddingLeft: 20,
                     paddingRight: 20,
+
                   }}
                   showsVerticalScrollIndicator={false}
                 >
@@ -1280,19 +1312,28 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                     onZfSelect={setSelectedZf}
                     isRefreshing={refreshing}
                   />
-                </ScrollView>
 
-                <View style={styles.tncContainer}>
+{infoTextIndex <= 2 &&
+                <View style={styles.tncContainer2}>
+            <TouchableOpacity onPress={handleAgreementPress}>
+                    <Text style={{ ...textVariants.subBody,     fontSize: 11, color: "#ffffff" }}>
+{infoText[infoTextIndex]}
+                    </Text>
+                    </TouchableOpacity>
+                  </View>
+}
+
+<View style={styles.tncContainer}>
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("隐私政策");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c"  ,  fontSize: 12}}>
                       隐私协议{" "}
                     </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     |{" "}
                   </Text>
                   <TouchableOpacity
@@ -1300,11 +1341,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       navigation.navigate("用户协议");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                       用户服务协议{" "}
                     </Text>
                   </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     |{" "}
                   </Text>
 
@@ -1313,14 +1354,14 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       navigation.navigate("续费服务");
                     }}
                   >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                       自动续费协议{" "}
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.tncContainer}>
                   <TouchableOpacity onPress={openEmailApp}>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" }}>
+                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
                     {"如遇支付问题，请联系"}
                     <Text  style={{ textDecorationLine: "underline" }}>
                       contact.movie9@gmail.com
@@ -1328,6 +1369,10 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   </Text>
                   </TouchableOpacity>
                 </View>
+                </ScrollView>
+
+
+              
               </View>
             )}
 
@@ -1435,7 +1480,7 @@ const styles = StyleSheet.create({
   },
   countdownLabel: {
     fontFamily: "PingFang SC",
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "900",
     color: "#D3AC7B",
     textAlignVertical: "center",
@@ -1447,15 +1492,28 @@ const styles = StyleSheet.create({
   summaryContainer: {
     width: "100%",
     padding: 15,
-    marginBottom: 25,
+    marginBottom: 10,
     position: "relative",
   },
   tncContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 15,
+    // marginHorizontal: 15,
     flexDirection: "row",
     paddingVertical: 5,
+  },
+  tncContainer2: {
+    alignItems: "center",
+    justifyContent: "center",
+
+    flexDirection: "row",
+    backgroundColor:'#342f29',
+    borderRadius:10,
+    paddingVertical: 8,
+    paddingHorizontal:5,
+    marginVertical:2,
+    marginBottom:2,
+   
   },
   footerContainer: {
     alignItems: "center",
