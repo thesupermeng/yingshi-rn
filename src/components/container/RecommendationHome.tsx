@@ -34,7 +34,7 @@ import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import VodHistoryList from "../vod/vodHistoryList";
 import VodLiveStationList from "../vod/vodLiveStationList";
-import { API_DOMAIN, API_DOMAIN_TEST, UMENG_CHANNEL } from "@utility/constants";
+import { API_DOMAIN, API_DOMAIN_TEST, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import VodListVertical from "../vod/vodListVertical";
 import { playVod, viewPlaylistDetails } from "@redux/actions/vodActions";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
