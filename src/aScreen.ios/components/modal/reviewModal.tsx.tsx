@@ -2,10 +2,10 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CPressable } from '../atoms';
 import { useTheme } from '@react-navigation/native';
-import LogoIcon from "@static/images/materialSingaporeHistory.svg";
+import LogoIcon from "@static/images/logo2.svg";
 import StarFillIcon from "@static/images/star_fill.svg";
 import StarUnfillIcon from "@static/images/star_unfill.svg";
-import { APP_NAME_CONST } from '@utility/yys_ajax_switch';
+import { APP_NAME_CONST } from '@utility/constants';
 
 type Props = {
   isVisible?: boolean,
