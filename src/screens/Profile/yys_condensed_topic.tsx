@@ -60,6 +60,7 @@ import { VipLoginAlertOverlay } from "../../components/modal/yys_copy";
 import { yys_Chinasame } from "@redux/reducers/yys_animation_animations";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import ReviewModal from "../../components/modal/reviewModal.tsx";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const navigator = useNavigation();
@@ -67,6 +68,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const dispatch = useAppDispatch();
    const [refreshing, setRefreshing] = useState(false);
    const [displayedDate, setDisplayedDate] = useState("");
+   const [isShowReview, setShowReview] = useState(false);
    const userState = useSelector<yys_HejiCricket>('userReducer');
    const appState = useSelector<yys_Chinasame>('backgroundReducer');
 
@@ -2846,13 +2848,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       }
    }, []);
 
-
-
-
-
-
-
-
+   const onReview = (mark: number) => {
+      // setShowReview(false);
+      // handle mark
+   }
 
    return (
       <>
@@ -2966,7 +2965,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                                        numberOfLines={1}
                                        ellipsizeMode="tail"
                                     >
-                                       {userState.user.userName}
+                                       {userState.user?.userName}
                                     </Text>
 
 
@@ -3269,6 +3268,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                      onPress={() => navigation.navigate("反馈")}
                   />
                   <ShowMoreButton
+                     text="评价我们"
+                     leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
+                     onPress={() => setShowReview(true)}
+                  />
+                  <ShowMoreButton
                      text="设置"
                      leftIcon={<SettingsIcon style={{ color: colors.button }} />}
                      onPress={() => navigation.navigate("设置")}
@@ -3314,6 +3318,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   subtitle1=""
                   subtitle2=""
                   subtitle3=""
+               />
+
+               <ReviewModal
+                  isVisible={isShowReview}
+                  onBackdropPress={() => setShowReview(false)}
+                  onCancelPress={() => setShowReview(false)}
+                  onReview={onReview}
                />
             </ScrollView>
             {/* </SafeAreaView> */}

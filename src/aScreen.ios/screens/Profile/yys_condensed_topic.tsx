@@ -48,6 +48,7 @@ import { yys_GesturesConst } from "@api";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { yys_DetailWhistle } from "../../../routes/yys_become_bootsplash";
+import ReviewModal from "../../components/modal/reviewModal.tsx";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const navigator = useNavigation();
@@ -55,6 +56,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const dispatch = useAppDispatch();
    const [refreshing, setRefreshing] = useState(false);
    const [displayedDate, setDisplayedDate] = useState("");
+   const [isShowReview, setShowReview] = useState(false);
    const userState = useSelector<yys_HejiCricket>('userReducer');
 
    const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -1075,6 +1077,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       setDisplayedDate(`${year}年${month}月${day}日`);
    }, [userState.user?.userMemberExpired]);
 
+   const onReview = (mark: number) => {
+      // setShowReview(false);
+      // handle mark
+   }
+
    return (
       <>
          <View style={{ paddingTop: insets.top }}>
@@ -1389,6 +1396,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                      onPress={() => navigation.navigate("反馈")}
                   />
                   <ShowMoreButton
+                     text="评价我们"
+                     leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
+                     onPress={() => setShowReview(true)}
+                  />
+                  <ShowMoreButton
                      text="设置"
                      leftIcon={<SettingsIcon style={{ color: colors.button }} />}
                      onPress={() => navigation.navigate("设置")}
@@ -1434,6 +1446,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   subtitle1=""
                   subtitle2=""
                   subtitle3=""
+               />
+
+               <ReviewModal
+                  isVisible={isShowReview}
+                  onBackdropPress={() => setShowReview(false)}
+                  onCancelPress={() => setShowReview(false)}
+                  onReview={onReview}
                />
             </ScrollView>
             {/* </SafeAreaView> */}
