@@ -66,17 +66,17 @@ export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
 export const APP_VERSION = "1.7.8";
 
-export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
-export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
+export const TOPON_ANDROID_APP_ID = 'a65f7e981b3031';
+export const TOPON_ANDROID_APP_KEY = 'a96242f7be305677e14965ff075c03646';
 
 export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b650d31a42cdd2';
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650d31c80eeba';
-export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b650d31d72638b';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1ffeadsmbdtcq';
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b1ffeadsmbe3ib';
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b1ffeadsmbe5qc';
+export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b1ffeadsmbe5qc';
 
 export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
 export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
@@ -84,8 +84,8 @@ export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b655aba884a693';
 export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650d314a73226';
-export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b650d31f7a8f63';
+export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1ffeadsmbe84u';
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1ffeadsmbe0e9';
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 
