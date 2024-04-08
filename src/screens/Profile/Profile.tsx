@@ -60,6 +60,7 @@ import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverla
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import ReviewModal from "../../components/modal/reviewModal.tsx";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -67,6 +68,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [displayedDate, setDisplayedDate] = useState("");
+  const [isShowReview, setShowReview] = useState(false);
   const userState = useSelector<UserStateType>('userReducer');
   const appState = useSelector<BackgroundType>('backgroundReducer');
   // console.log("Profile")
@@ -231,6 +233,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   //   }, [])
   // );
 
+  const onReview = (mark: number) => {
+    // setShowReview(false);
+    // handle mark
+  }
 
   return (
     <>
@@ -344,7 +350,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                           numberOfLines={1}
                           ellipsizeMode="tail"
                         >
-                          {userState.user.userName}
+                          {userState.user?.userName}
                         </Text>
 
 
@@ -638,6 +644,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("反馈")}
             />
+            {/* <ShowMoreButton
+              text="评价我们"
+              leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
+              onPress={() => setShowReview(true)}
+            /> */}
             <ShowMoreButton
               text="设置"
               leftIcon={<SettingsIcon style={{ color: colors.button }} />}
@@ -684,6 +695,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             subtitle1=""
             subtitle2=""
             subtitle3=""
+          />
+
+          <ReviewModal
+            isVisible={isShowReview}
+            onBackdropPress={() => setShowReview(false)}
+            onCancelPress={() => setShowReview(false)}
+            onReview={onReview}
           />
         </ScrollView>
         {/* </SafeAreaView> */}
