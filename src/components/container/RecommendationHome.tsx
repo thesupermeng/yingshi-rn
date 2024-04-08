@@ -156,7 +156,7 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
-  //  initFirebase();
+    //  initFirebase();
   }, []);
 
   const initFirebase = async () => {
@@ -686,7 +686,7 @@ const RecommendationHome = ({
                   )}
                 </View>
 
-                <View style={{ gap: spacing.m }}>
+                {/* <View style={{ gap: spacing.m }}>
                   <View
                     style={{
                       paddingLeft: spacing.sideOffset,
@@ -723,7 +723,7 @@ const RecommendationHome = ({
                       style={{ paddingLeft: spacing.sideOffset, height: 134 }}
                     />
                   )}
-                </View>
+                </View> */}
                 {data?.yunying &&
                   data.yunying.length > 0 &&
                   data.yunying.map(yunyingMap)}
