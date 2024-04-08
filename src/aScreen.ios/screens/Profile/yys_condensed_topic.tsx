@@ -17,6 +17,7 @@ import ShowMoreButton from "../../components/button/yys_sound_button";
 import CollectionIcon from "@static/images/langValuesConfigure.svg";
 import HistoryIcon from "@static/images/toponCross.svg";
 import FeedbackIcon from "@static/images/yys_statistics.svg";
+import ReviewIcon from "@static/images/review.svg";
 import SettingsIcon from "@static/images/gradleThailand.svg";
 import InfoIcon from "@static/images/copy_uMacauFloater.svg";
 import { useNavigation } from "@react-navigation/native";
@@ -49,6 +50,7 @@ import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { yys_DetailWhistle } from "../../../routes/yys_become_bootsplash";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
+import InAppReview from 'react-native-in-app-review';
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const navigator = useNavigation();
@@ -57,6 +59,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const [refreshing, setRefreshing] = useState(false);
    const [displayedDate, setDisplayedDate] = useState("");
    const [isShowReview, setShowReview] = useState(false);
+   const isInAppReviewAvailable = InAppReview.isAvailable();
    const userState = useSelector<yys_HejiCricket>('userReducer');
 
    const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -1077,6 +1080,18 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
       setDisplayedDate(`${year}年${month}月${day}日`);
    }, [userState.user?.userMemberExpired]);
 
+   const onReviewPress = () => {
+      InAppReview.RequestInAppReview()
+         .then((hasFlowFinishedSuccessfully) => {
+            if (hasFlowFinishedSuccessfully) {
+
+            }
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   }
+
    const onReview = (mark: number) => {
       // setShowReview(false);
       // handle mark
@@ -1395,11 +1410,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                      leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
                      onPress={() => navigation.navigate("反馈")}
                   />
-                  <ShowMoreButton
+                  {isInAppReviewAvailable && <ShowMoreButton
                      text="评价我们"
-                     leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
-                     onPress={() => setShowReview(true)}
-                  />
+                     leftIcon={<ReviewIcon style={{ color: colors.button }} />}
+                     // onPress={() => setShowReview(true)}
+                     onPress={onReviewPress}
+                  />}
                   <ShowMoreButton
                      text="设置"
                      leftIcon={<SettingsIcon style={{ color: colors.button }} />}
@@ -1448,12 +1464,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   subtitle3=""
                />
 
-               <ReviewModal
+               {/* <ReviewModal
                   isVisible={isShowReview}
                   onBackdropPress={() => setShowReview(false)}
                   onCancelPress={() => setShowReview(false)}
                   onReview={onReview}
-               />
+               /> */}
             </ScrollView>
             {/* </SafeAreaView> */}
             {/* </ScreenContainer> */}
