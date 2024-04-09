@@ -1410,12 +1410,12 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                      leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
                      onPress={() => navigation.navigate("反馈")}
                   />
-                  {isInAppReviewAvailable && <ShowMoreButton
+                  {/* {isInAppReviewAvailable && <ShowMoreButton
                      text="评价我们"
                      leftIcon={<ReviewIcon style={{ color: colors.button }} />}
                      // onPress={() => setShowReview(true)}
                      onPress={onReviewPress}
-                  />}
+                  />} */}
                   <ShowMoreButton
                      text="设置"
                      leftIcon={<SettingsIcon style={{ color: colors.button }} />}
