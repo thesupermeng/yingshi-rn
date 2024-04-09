@@ -885,7 +885,7 @@
 				CODE_SIGN_ENTITLEMENTS = aimeiju/aimeiju.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				ENABLE_BITCODE = NO;
@@ -908,7 +908,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -935,7 +935,7 @@
 				CODE_SIGN_ENTITLEMENTS = aimeiju/aimeiju.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -957,7 +957,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1212,7 +1212,7 @@
 				CODE_SIGN_ENTITLEMENTS = aimeiju/aimeiju.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1234,7 +1234,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
