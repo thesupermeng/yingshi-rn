@@ -118,6 +118,10 @@ export type RootStackParamList = {
     vodId: number
   };
   续费服务: undefined,
+  Webview: {
+    source: string,
+    onShouldStartLoadWithRequest?: (data: any) => boolean,
+  },
 };
 
 export type RootStackScreenProps<

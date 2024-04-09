@@ -74,6 +74,7 @@ import CarouselPagination from "../../components/container/CarouselPagination";
 import { User } from "@models/user";
 import { CPopup } from "@utility/popup";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
+import { CRouter } from "../../routes/router";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -114,10 +115,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const { textVariants, spacing } = useTheme();
   const userState = useSelector<UserStateType>("userReducer");
 
-  const [loading, setIsLoading] = useState(true);
   const [fetching, setFetching] = useState(true);
   const [isNavigated, setIsNavigated] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -161,7 +161,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const [countdownSecond, setCountdownSecond] = useState(
     (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
       (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-      1000
+    1000
   );
 
   const hours = Math.floor(countdownSecond / 60 / 60);
@@ -182,7 +182,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setCountdownSecond(
         (VIP_PROMOTION_COUNTDOWN_MINUTE * 60 * 1000 -
           (Date.now() - backgroundState.vipPromotionCountdownStart)) /
-          1000
+        1000
       );
     }, 1000);
 
@@ -227,7 +227,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         const offline = !(
           state.isConnected &&
           (state.isInternetReachable === true ||
-          state.isInternetReachable === null
+            state.isInternetReachable === null
             ? true
             : false)
         );
@@ -456,7 +456,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     // }
     setIsBtnEnable(false);
     try {
-      setIsVisible(true);
+      setIsLoading(true);
 
       if (zfSelected === "GOOGLE_PAY") {
         console.log("google method");
@@ -488,7 +488,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         handleZfGateway();
       }
     } catch (error) {
-      setIsVisible(false);
+      setIsLoading(false);
       if (error instanceof PurchaseError) {
         console.error("purchasing error: " + error);
       } else {
@@ -511,11 +511,29 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         productId: parseInt(membershipSelected.productId),
         zfType: zfSelected,
       });
-      console.log("returned order data: ", result);
+      console.debug("returned order data: ", result);
 
       if (result.paymentData.url) {
         openLink(result.paymentData.url, result.transaction_id);
-      } else throw new Error("no url is retuned");
+      } else if (result.paymentData.html) {
+        CRouter.toName('Webview', {
+          params: {
+            source: result.paymentData.html,
+            onShouldStartLoadWithRequest: (data: any) => {
+              if (data.url.includes('https://test.yingshi.tv/payment/yingshiapp')) {
+                CRouter.back();
+              }
+
+              return true;
+            }
+          }
+        })?.then((data) => {
+          // null is manual back
+          if (data === null) return;
+
+          getZfStatus(result.transaction_id);
+        });
+      }
     } catch (error) {
       console.log("error catch: ", error);
       setDialogText(axiosErrorText);
@@ -573,7 +591,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }, 15000);
             getZfStatus(transID);
           } else {
-            setIsVisible(false);
+            setIsLoading(false);
             setIsBtnEnable(true);
           }
         });
@@ -610,7 +628,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         }
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
-        setIsVisible(false);
+        setIsLoading(false);
         setIsBtnEnable(true);
         navigation.goBack();
       }
@@ -738,12 +756,12 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 purchase: currentPurchase,
                 isConsumable: isIAP,
               });
-              setIsVisible(false);
+              setIsLoading(false);
               setIsBtnEnable(true);
               return;
             }
 
-            setTimeout(() => setIsVisible(false), 10000);
+            setTimeout(() => setIsLoading(false), 10000);
 
             const success = isIAP
               ? await saveFinishIAP("1", "")
@@ -782,7 +800,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                 navigation.goBack();
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
-                setIsVisible(false);
+                setIsLoading(false);
                 setIsBtnEnable(true);
                 navigation.goBack();
               }
@@ -804,7 +822,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           } else {
             console.error("current purchase error: " + error);
           }
-          setIsVisible(false);
+          setIsLoading(false);
           setIsBtnEnable(true);
         }
       }
@@ -869,7 +887,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
-    setIsVisible(false);
+    setIsLoading(false);
     handleRefresh();
     setIsBtnEnable(true);
     setIsSuccess(false);
@@ -895,9 +913,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     return (
       <>
         {index === screenState.showEventSplashData.length - 1 ||
-        screenState.showEventSplash == false ||
-        isLastShown ||
-        screenState.showEventSplashData.length == 0 ? (
+          screenState.showEventSplash == false ||
+          isLastShown ||
+          screenState.showEventSplashData.length == 0 ? (
           <ScreenContainer
             footer={
               <>
@@ -970,7 +988,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               </View>
             )}
 
-            <SpinnerOverlay visible={isVisible} />
+            <SpinnerOverlay visible={isLoading} />
 
             {/* {IS_IOS && !isOffline && (
           <View style={{ backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1 }}>
@@ -1011,8 +1029,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       UMENG_CHANNEL === "GOOGLE_PLAY" && IS_ANDROID
                         ? 1.55
                         : IS_IOS
-                        ? 1.5
-                        : 1,
+                          ? 1.5
+                          : 1,
                     overflow: "hidden",
                   }}
                 >
@@ -1423,8 +1441,8 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
               index === 0
                 ? require(`@static/images/eventSplash1.png`)
                 : index === 1
-                ? require(`@static/images/eventSplash2.png`)
-                : require(`@static/images/eventSplash3.png`)
+                  ? require(`@static/images/eventSplash2.png`)
+                  : require(`@static/images/eventSplash3.png`)
             }
             isLast={index === screenState.showEventSplashData.length - 1}
           />
@@ -1442,7 +1460,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         height={height}
         data={screenState.showEventSplashData}
         scrollAnimationDuration={100}
-        onScrollBegin={() => {}}
+        onScrollBegin={() => { }}
         enabled={screenState.showEventSplash !== false}
         loop={false}
         onSnapToItem={(index) => {
