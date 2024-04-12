@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -19,7 +19,7 @@ import {
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
@@ -506,6 +506,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const handleZfGateway = async () => {
+    
     try {
       const result = await ProductApi.postFinzfOrder({
         productId: parseInt(membershipSelected.productId),
@@ -520,18 +521,25 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           params: {
             source: result.paymentData.html,
             onShouldStartLoadWithRequest: (data: any) => {
+              console.log('Webview data')
+              console.log(data)
               if (data.url.includes('https://test.yingshi.tv/payment/yingshiapp')) {
                 CRouter.back();
               }
-
               return true;
             }
           }
         })?.then((data) => {
           // null is manual back
-          if (data === null) return;
-
-          getZfStatus(result.transaction_id);
+          if (data === null) 
+          {
+           console.log('manual back')
+          }
+          console.log('manual back data not null')
+          console.log(data)
+          setTimeout(() => {
+            getZfStatus(result.transaction_id);
+          }, 2000);
         });
       }
     } catch (error) {
@@ -616,7 +624,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
         setIsSuccess(true);
-        navigation.goBack();
+        // navigation.goBack();
 
         if (currentPurchase && currentPurchase.transactionId) {
           AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics({
@@ -637,7 +645,13 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setDialogText(failedDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
-    } else {
+    } 
+    // else if (result.transaction_status_string === "IN_PROGRESS" && result.payment_channel =='CREDIT_CARD_H5') {
+    //   setIsLoading(false);
+    //   setIsBtnEnable(true);
+    //   dispatch(setShowPurchasePending(true));
+    // } 
+    else {
       console.log("order still in progress");
       dispatch(setShowPurchasePending(true));
       navigation.goBack();
@@ -891,6 +905,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     handleRefresh();
     setIsBtnEnable(true);
     setIsSuccess(false);
+    navigation.goBack();
   };
 
   // const webViewref = useRef<any>();
