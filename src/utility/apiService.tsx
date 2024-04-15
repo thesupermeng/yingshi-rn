@@ -10,15 +10,15 @@ import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from './constants';
 import { Platform } from 'react-native';
 
 export class CApi {
-    static #env = new CEnv(__DEV__ ? 'development' : 'production');
+    static env = new CEnv(__DEV__ ? 'development' : 'production');
     static #apiInstance: AxiosInstance | null = null;
     static bearerToken: string;
 
     static init = async () => {
         if (__DEV__) {
-            this.#env = new CEnv('development');
+            this.env = new CEnv('development');
         } else {
-            this.#env = new CEnv('production');
+            this.env = new CEnv('production');
         }
 
         let deviceId = await DeviceInfo.getUniqueId();
@@ -43,7 +43,7 @@ export class CApi {
             }
 
             // check if url is our system, pass bearer token and device id
-            if (config.url?.includes(this.#env.apiUrl)) {
+            if (config.url?.includes(this.env.apiUrl)) {
                 config.headers['Authorization'] = `Bearer ${this.bearerToken}`;
                 config.headers['Device-Id'] = deviceId;
                 config.headers['Platform-OS'] = Platform.OS.toUpperCase();
@@ -168,7 +168,7 @@ export class CApi {
             await this.init();
         }
 
-        const url = isFullUrl ? endpoint : `${this.#env.apiUrl}/${endpoint}`;
+        const url = isFullUrl ? endpoint : `${this.env.apiUrl}/${endpoint}`;
 
         let response: AxiosResponse;
 

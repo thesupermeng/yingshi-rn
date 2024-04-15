@@ -75,6 +75,8 @@ import { User } from "@models/user";
 import { CPopup } from "@utility/popup";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import { CRouter } from "../../routes/router";
+import { CApi } from "@utility/apiService";
+import { CEndpoint } from "../../constants/api";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -523,7 +525,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             onShouldStartLoadWithRequest: (data: any) => {
               console.log('Webview data')
               console.log(data)
-              if (data.url.includes('https://test.yingshi.tv/payment/yingshiapp')) {
+              if (data.url.includes(`${CApi.env.apiUrl}/${CEndpoint.paymentCallbackRedirect}`)) {
                 CRouter.back();
               }
               return true;

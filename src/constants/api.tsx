@@ -50,4 +50,6 @@ export class CEndpoint {
 
     static chatSocket = 'https://so.finapp.chat';
     static liveSportsChats = 'liveSports/v1/notice';
+
+    static paymentCallbackRedirect = 'payment/yingshiapp';
 }
