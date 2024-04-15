@@ -506,7 +506,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const handleZfGateway = async () => {
-    
+
     try {
       const result = await ProductApi.postFinzfOrder({
         productId: parseInt(membershipSelected.productId),
@@ -531,14 +531,15 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           }
         })?.then((data) => {
           // null is manual back
-          if (data === null) 
-          {
-           console.log('manual back')
-           return ;
+          if (data === null) {
+            console.log('manual back');
+            setIsLoading(false);
+            setIsBtnEnable(true);
+            return;
           }
-         
+
           getZfStatus(result.transaction_id);
-        
+
         });
       }
     } catch (error) {
@@ -644,7 +645,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setDialogText(failedDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
-    } 
+    }
     // else if (result.transaction_status_string === "IN_PROGRESS" && result.payment_channel =='CREDIT_CARD_H5') {
     //   setIsLoading(false);
     //   setIsBtnEnable(true);
