@@ -534,12 +534,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
           if (data === null) 
           {
            console.log('manual back')
+           return ;
           }
-          console.log('manual back data not null')
-          console.log(data)
-          setTimeout(() => {
-            getZfStatus(result.transaction_id);
-          }, 2000);
+         
+          getZfStatus(result.transaction_id);
+        
         });
       }
     } catch (error) {
