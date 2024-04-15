@@ -1,10 +1,10 @@
 import { RootStackScreenProps } from "@type/navigationTypes"
-import React from "react"
+import React, { useEffect } from "react"
 import WebView from "react-native-webview"
 import ScreenContainer from "../../components/container/screenContainer"
 import { useTheme } from "@react-navigation/native"
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader"
-import { View } from "react-native"
+import { BackHandler, Platform, View } from "react-native"
 import { CRouter } from "../../routes/router"
 import { CEndpoint } from "@constants"
 
@@ -12,6 +12,25 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
     const { source: htmlSource, isPayment } = route.params;
 
     const { spacing } = useTheme();
+
+    useEffect(() => {
+        if (Platform.OS === 'ios') {
+            navigation.setOptions({ gestureEnabled: false });
+        }
+
+        const removeBackPressListener = BackHandler.addEventListener("hardwareBackPress", () => {
+            CRouter.back(null)
+            return true;
+        });
+
+        return () => {
+            if (Platform.OS === 'ios') {
+                navigation.setOptions({ gestureEnabled: true });
+            }
+
+            removeBackPressListener.remove();
+        }
+    }, []);
 
     const _getOnNavigationState = (data: any) => {
         if (isPayment) {
@@ -53,7 +72,7 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
                 height: '100%',
                 backgroundColor: 'white',
             }}
-            // android 'onShouldStartLoadWithRequest' cannnot use on 'linked-pay'
+            // android 'onShouldStartLoadWithRequest' cannnot use on 'linked-pay', so use onNavigationStateChange
             onShouldStartLoadWithRequest={_getOnNavigationState}
             onNavigationStateChange={_getOnNavigationState}
         />
