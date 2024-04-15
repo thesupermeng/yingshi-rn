@@ -43,7 +43,7 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
     const paymentOnNavigationState = (data: any) => {
         console.log('Webview data')
         console.log(data)
-        if (data.url.includes(CEndpoint.paymentCallbackRedirect)) {
+        if (data.url.includes(CEndpoint.paymentCallbackRedirectDev) || data.url.includes(CEndpoint.paymentCallbackRedirectProd)) {
             CRouter.back();
         }
         return true;
