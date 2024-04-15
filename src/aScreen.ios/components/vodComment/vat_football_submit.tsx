@@ -8,12 +8,14 @@ import { CommentCard } from "./qm_modal";
 type DBLMorePoint = {
     comments: WQRReducer[],
     onlyShow?: number,
+    showAllCommentBtn?: boolean,
     onCommentTap: () => void,
 }
 
 export const VodCommentBox = ({
     comments,
     onlyShow = 3,
+    showAllCommentBtn,
     onCommentTap,
 }: DBLMorePoint) => {
     const { colors, textVariants } = useTheme();
@@ -21,7 +23,7 @@ export const VodCommentBox = ({
 
     return (
         <View>
-            <Text style={{ ...textVariants.body }}>
+            <Text style={{ ...textVariants.bodyBold }}>
                 影评 ({comments.length})
             </Text>
             { }
@@ -33,7 +35,7 @@ export const VodCommentBox = ({
                         paddingVertical: 16,
                     }}
                 >
-                     <CommentIcon  width={100} height={100}/>
+                    <CommentIcon width={100} height={100} />
                     <Text style={{
                         ...textVariants.subBody,
                         color: colors.muted,
@@ -51,13 +53,13 @@ export const VodCommentBox = ({
                     commentItem={comment} />
             ))}
 
-            {comments.length > onlyShow && (
+            {(showAllCommentBtn || comments.length > onlyShow) && (
                 <TouchableOpacity activeOpacity={0.85}
                     onPress={onCommentTap}
                 >
                     <View style={{ paddingVertical: 18, alignItems: 'center' }}>
                         <Text
-                            style={{ ...textVariants.small, color: colors.primary , fontWeight:'bold' }}
+                            style={{ ...textVariants.small, color: colors.primary, fontWeight: 'bold' }}
                         >
                             查看全部
                         </Text>

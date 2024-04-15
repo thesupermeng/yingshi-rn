@@ -309,7 +309,7 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
          vod_id: vod.vod_id,
       });
    }
-   console.log(vod);
+
    return (
       <>
          { }
@@ -349,9 +349,12 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
                   <Text style={{ ...textVariants.subBody, color: colors.muted }}>
                      {vod.type_name}
                   </Text>
+               </View>
+               <View style={{ marginTop: 10, }}>
                   <VodCommentBox
-                     comments={vod.douban_reviews ?? []}
+                     comments={vod?.douban_reviews ?? []}
                      onlyShow={2}
+                     showAllCommentBtn={true}
                      onCommentTap={() => {
                         navigation.navigate("全部评论", {
                            vod_id: vod.vod_id,
