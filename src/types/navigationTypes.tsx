@@ -120,7 +120,7 @@ export type RootStackParamList = {
   续费服务: undefined,
   Webview: {
     source: string,
-    onShouldStartLoadWithRequest?: (data: any) => boolean,
+    isPayment?: boolean,
   },
 };
 

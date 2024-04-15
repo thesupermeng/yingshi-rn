@@ -72,11 +72,8 @@ import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
 import { User } from "@models/user";
-import { CPopup } from "@utility/popup";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import { CRouter } from "../../routes/router";
-import { CApi } from "@utility/apiService";
-import { CEndpoint } from "../../constants/api";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -522,14 +519,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         CRouter.toName('Webview', {
           params: {
             source: result.paymentData.html,
-            onShouldStartLoadWithRequest: (data: any) => {
-              console.log('Webview data')
-              console.log(data)
-              if (data.url.includes(`${CApi.env.apiUrl}/${CEndpoint.paymentCallbackRedirect}`)) {
-                CRouter.back();
-              }
-              return true;
-            }
+            isPayment: true,
           }
         })?.then((data) => {
           // null is manual back

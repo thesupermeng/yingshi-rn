@@ -6,11 +6,29 @@ import { useTheme } from "@react-navigation/native"
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader"
 import { View } from "react-native"
 import { CRouter } from "../../routes/router"
+import { CEndpoint } from "@constants"
 
 export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">) => {
-    const { source: htmlSource, onShouldStartLoadWithRequest } = route.params;
+    const { source: htmlSource, isPayment } = route.params;
 
     const { spacing } = useTheme();
+
+    const _getOnNavigationState = (data: any) => {
+        if (isPayment) {
+            return paymentOnNavigationState(data);
+        }
+
+        return true;
+    }
+
+    const paymentOnNavigationState = (data: any) => {
+        console.log('Webview data')
+        console.log(data)
+        if (data.url.includes(CEndpoint.paymentCallbackRedirect)) {
+            CRouter.back();
+        }
+        return true;
+    }
 
     return <ScreenContainer
         containerStyle={{
@@ -35,7 +53,9 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
                 height: '100%',
                 backgroundColor: 'white',
             }}
-            onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+            // android 'onShouldStartLoadWithRequest' cannnot use on 'linked-pay'
+            onShouldStartLoadWithRequest={_getOnNavigationState}
+            onNavigationStateChange={_getOnNavigationState}
         />
     </ScreenContainer>
 }
