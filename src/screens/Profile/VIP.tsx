@@ -605,9 +605,23 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const getZfStatus = async (transID: string) => {
-    const result = await ProductApi.getFinzfTransaction({
-      transactionId: transID,
-    });
+    let result;
+
+    try {
+      result = await ProductApi.getFinzfTransaction({
+        transactionId: transID,
+      });
+
+      if (!result) {
+        throw 'not found';
+      }
+
+    } catch (e) {
+      setIsLoading(false);
+      setIsBtnEnable(true);
+      return;
+    }
+
     console.log("order status: ", result);
 
     if (result.transaction_status_string === "COMPLETED") {
@@ -642,7 +656,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     //   setIsLoading(false);
     //   setIsBtnEnable(true);
     //   dispatch(setShowPurchasePending(true));
-    // } 
+    // }
     else {
       console.log("order still in progress");
       dispatch(setShowPurchasePending(true));

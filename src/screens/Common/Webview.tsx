@@ -1,5 +1,5 @@
 import { RootStackScreenProps } from "@type/navigationTypes"
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import WebView from "react-native-webview"
 import ScreenContainer from "../../components/container/screenContainer"
 import { useTheme } from "@react-navigation/native"
@@ -12,6 +12,7 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
     const { source: htmlSource, isPayment } = route.params;
 
     const { spacing } = useTheme();
+    const isPayProcess = useRef(false);
 
     useEffect(() => {
         if (Platform.OS === 'ios') {
@@ -19,7 +20,7 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
         }
 
         const removeBackPressListener = BackHandler.addEventListener("hardwareBackPress", () => {
-            CRouter.back(null)
+            CRouter.back(isPayProcess.current ? undefined : null);
             return true;
         });
 
@@ -41,8 +42,12 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
     }
 
     const paymentOnNavigationState = (data: any) => {
-        console.log('Webview data')
-        console.log(data)
+        // console.log('Webview data')
+        // console.log(data)
+        if (data.url.includes('https://www.linked-pay.com/payment/pay/pushPayInfo')) {
+            isPayProcess.current = true;
+        }
+
         if (data.url.includes(CEndpoint.paymentCallbackRedirectDev) || data.url.includes(CEndpoint.paymentCallbackRedirectProd)) {
             CRouter.back();
         }
@@ -60,7 +65,7 @@ export const CWebview = ({ navigation, route }: RootStackScreenProps<"Webview">)
             paddingLeft: spacing.sideOffset,
             paddingRight: spacing.sideOffset,
         }}>
-            <TitleWithBackButtonHeader title="支付" onBack={() => CRouter.back(null)} />
+            <TitleWithBackButtonHeader title="支付" onBack={() => CRouter.back(isPayProcess.current ? undefined : null)} />
         </View>
 
         <WebView
