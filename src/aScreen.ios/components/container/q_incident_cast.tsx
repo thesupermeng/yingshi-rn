@@ -353,6 +353,7 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
                <View style={{ marginTop: 10, }}>
                   <VodCommentBox
                      comments={vod?.douban_reviews ?? []}
+                     commentLength={vod?.total_douban_review}
                      onlyShow={2}
                      showAllCommentBtn={true}
                      onCommentTap={() => {

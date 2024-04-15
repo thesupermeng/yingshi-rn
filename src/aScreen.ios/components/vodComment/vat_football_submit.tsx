@@ -7,6 +7,7 @@ import { CommentCard } from "./qm_modal";
 
 type DBLMorePoint = {
     comments: WQRReducer[],
+    commentLength?: number,
     onlyShow?: number,
     showAllCommentBtn?: boolean,
     onCommentTap: () => void,
@@ -14,6 +15,7 @@ type DBLMorePoint = {
 
 export const VodCommentBox = ({
     comments,
+    commentLength,
     onlyShow = 3,
     showAllCommentBtn,
     onCommentTap,
@@ -24,7 +26,7 @@ export const VodCommentBox = ({
     return (
         <View>
             <Text style={{ ...textVariants.bodyBold }}>
-                影评 ({comments.length})
+                影评 ({commentLength ?? comments.length})
             </Text>
             { }
             {comments.length === 0 && (
