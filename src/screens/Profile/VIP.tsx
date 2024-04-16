@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -19,7 +19,7 @@ import {
 } from "react-native-iap";
 import ScreenContainer from "../../components/container/screenContainer";
 import { RootStackScreenProps } from "@type/navigationTypes";
-import { useTheme } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
@@ -72,8 +72,8 @@ import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
 import { User } from "@models/user";
-import { CPopup } from "@utility/popup";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
+import { CRouter } from "../../routes/router";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -114,10 +114,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   const { textVariants, spacing } = useTheme();
   const userState = useSelector<UserStateType>("userReducer");
 
-  const [loading, setIsLoading] = useState(true);
   const [fetching, setFetching] = useState(true);
   const [isNavigated, setIsNavigated] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -143,8 +142,11 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
     ];
   }
 
-
-  const [infoText, setInfoText] = useState(["连续包月套餐：首月付费￥9，第2个月起按照￥19自动续费1个月，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包年套餐：首年付费￥169，第2年起按照￥169自动续费1年，可随时取消，取消方法见《自动续费协议》退订方法。" , "连续包季套餐：首季度（3个月）付费￥69，第2个季度起按照￥69自动续费3个月，可随时取消，取消方法见《自动续费协议》退订方法。"]);
+  const [infoText, setInfoText] = useState([
+    "连续包月套餐：首月付费￥9，第2个月起按照￥19自动续费1个月，可随时取消，取消方法见《自动续费协议》退订方法。",
+    "连续包年套餐：首年付费￥169，第2年起按照￥169自动续费1年，可随时取消，取消方法见《自动续费协议》退订方法。",
+    "连续包季套餐：首季度（3个月）付费￥69，第2个季度起按照￥69自动续费3个月，可随时取消，取消方法见《自动续费协议》退订方法。",
+  ]);
   const [infoTextIndex, setInfoTextIndex] = useState(0);
 
   const [dialogText, setDialogText] = useState([""]);
@@ -417,33 +419,29 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       setZfOptions(membershipSelected.zfOptions);
       setSelectedZf(membershipSelected.zfOptions[0].payment_type_code);
     }
-    console.log(membershipSelected)
-  console.log(membershipSelected?.title)
+    console.log(membershipSelected);
+    console.log(membershipSelected?.title);
 
-  if(membershipSelected?.title == '1个月')
-{
-  console.log(0)
-  setInfoTextIndex(0)
-}
-if(membershipSelected?.title == '12个月')
-{
-  console.log(1)
-  setInfoTextIndex(1)
-}
+    if (membershipSelected?.title == "1个月") {
+      console.log(0);
+      setInfoTextIndex(0);
+    }
+    if (membershipSelected?.title == "12个月") {
+      console.log(1);
+      setInfoTextIndex(1);
+    }
 
-if(membershipSelected?.title == '3个月')
-{
-  console.log(2)
-  setInfoTextIndex(2)
-}
-if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.description == 'VIP会员360天' )
-{
-  console.log(3)
-  setInfoTextIndex(3)
-}
-
-
-
+    if (membershipSelected?.title == "3个月") {
+      console.log(2);
+      setInfoTextIndex(2);
+    }
+    if (
+      membershipSelected?.description == "VIP会员30天" ||
+      membershipSelected?.description == "VIP会员360天"
+    ) {
+      console.log(3);
+      setInfoTextIndex(3);
+    }
   }, [membershipSelected]);
 
   const handlePurchase = async () => {
@@ -457,7 +455,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
     // }
     setIsBtnEnable(false);
     try {
-      setIsVisible(true);
+      setIsLoading(true);
 
       if (zfSelected === "GOOGLE_PAY") {
         console.log("google method");
@@ -489,7 +487,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
         handleZfGateway();
       }
     } catch (error) {
-      setIsVisible(false);
+      setIsLoading(false);
       if (error instanceof PurchaseError) {
         console.error("purchasing error: " + error);
       } else {
@@ -507,16 +505,35 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
   };
 
   const handleZfGateway = async () => {
+
     try {
       const result = await ProductApi.postFinzfOrder({
         productId: parseInt(membershipSelected.productId),
         zfType: zfSelected,
       });
-      console.log("returned order data: ", result);
+      console.debug("returned order data: ", result);
 
       if (result.paymentData.url) {
         openLink(result.paymentData.url, result.transaction_id);
-      } else throw new Error("no url is retuned");
+      } else if (result.paymentData.html) {
+        CRouter.toName('Webview', {
+          params: {
+            source: result.paymentData.html,
+            isPayment: true,
+          }
+        })?.then((data) => {
+          // null is manual back
+          if (data === null) {
+            console.log('manual back');
+            setIsLoading(false);
+            setIsBtnEnable(true);
+            return;
+          }
+
+          getZfStatus(result.transaction_id);
+
+        });
+      }
     } catch (error) {
       console.log("error catch: ", error);
       setDialogText(axiosErrorText);
@@ -525,7 +542,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
   };
 
   const openEmailApp = () => {
-    Linking.openURL('mailto:contact.movie9@gmail.com');
+    Linking.openURL("mailto:contact.movie9@gmail.com");
   };
 
   const getDeepLink = (path = "") => {
@@ -574,7 +591,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
             }, 15000);
             getZfStatus(transID);
           } else {
-            setIsVisible(false);
+            setIsLoading(false);
             setIsBtnEnable(true);
           }
         });
@@ -588,9 +605,23 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
   };
 
   const getZfStatus = async (transID: string) => {
-    const result = await ProductApi.getFinzfTransaction({
-      transactionId: transID,
-    });
+    let result;
+
+    try {
+      result = await ProductApi.getFinzfTransaction({
+        transactionId: transID,
+      });
+
+      if (!result) {
+        throw 'not found';
+      }
+
+    } catch (e) {
+      setIsLoading(false);
+      setIsBtnEnable(true);
+      return;
+    }
+
     console.log("order status: ", result);
 
     if (result.transaction_status_string === "COMPLETED") {
@@ -599,7 +630,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
         setDialogText(successDialogText);
         setIsDialogOpen(true);
         setIsSuccess(true);
-        navigation.goBack();
+        // navigation.goBack();
 
         if (currentPurchase && currentPurchase.transactionId) {
           AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics({
@@ -611,7 +642,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
         }
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
-        setIsVisible(false);
+        setIsLoading(false);
         setIsBtnEnable(true);
         navigation.goBack();
       }
@@ -620,7 +651,13 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
       setDialogText(failedDialogText);
       setIsDialogOpen(true);
       clearTimeout(pendingTimeoutRef.current);
-    } else {
+    }
+    // else if (result.transaction_status_string === "IN_PROGRESS" && result.payment_channel =='CREDIT_CARD_H5') {
+    //   setIsLoading(false);
+    //   setIsBtnEnable(true);
+    //   dispatch(setShowPurchasePending(true));
+    // }
+    else {
       console.log("order still in progress");
       dispatch(setShowPurchasePending(true));
       navigation.goBack();
@@ -739,12 +776,12 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                 purchase: currentPurchase,
                 isConsumable: isIAP,
               });
-              setIsVisible(false);
+              setIsLoading(false);
               setIsBtnEnable(true);
               return;
             }
 
-            setTimeout(() => setIsVisible(false), 10000);
+            setTimeout(() => setIsLoading(false), 10000);
 
             const success = isIAP
               ? await saveFinishIAP("1", "")
@@ -783,7 +820,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                 navigation.goBack();
               } else {
                 dispatch(setShowGuestPurchaseSuccess(true));
-                setIsVisible(false);
+                setIsLoading(false);
                 setIsBtnEnable(true);
                 navigation.goBack();
               }
@@ -805,7 +842,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
           } else {
             console.error("current purchase error: " + error);
           }
-          setIsVisible(false);
+          setIsLoading(false);
           setIsBtnEnable(true);
         }
       }
@@ -813,7 +850,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
 
     checkCurrentPurchase();
   }, [currentPurchase, finishTransaction]);
-
 
   useEffect(() => {
     const removeBackPressListener = BackHandler.addEventListener(
@@ -855,29 +891,27 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
     //       e.preventDefault();
     //     }
 
-  
     //   }
     // );
 
     return () => {
       removeBackPressListener.remove();
-    //   onBeforeRemoveListener();
+      //   onBeforeRemoveListener();
     };
   }, []);
 
   const handleAgreementPress = () => {
     // Navigate to "/home" screen
-    navigation.navigate('续费服务');
+    navigation.navigate("续费服务");
   };
-
-
 
   const handleConfirm = () => {
     setIsDialogOpen(false);
-    setIsVisible(false);
+    setIsLoading(false);
     handleRefresh();
     setIsBtnEnable(true);
     setIsSuccess(false);
+    navigation.goBack();
   };
 
   // const webViewref = useRef<any>();
@@ -975,7 +1009,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
               </View>
             )}
 
-            <SpinnerOverlay visible={isVisible} />
+            <SpinnerOverlay visible={isLoading} />
 
             {/* {IS_IOS && !isOffline && (
           <View style={{ backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1 }}>
@@ -1010,7 +1044,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
 
             {!fetching && !isOffline && (
               <View style={{ flex: 1 }}>
-             
                 <View
                   style={{
                     flex:
@@ -1035,20 +1068,18 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                         dispatch(setShowPromotionDialog(true));
                       }
                       navigation.goBack();
-
                     }}
                   >
                     <CloseButton />
                   </TouchableOpacity>
 
-                 
                   <Video
                     source={require("@static/images/splash/bg.mp4")}
                     style={styles.video}
                     resizeMode="cover"
                     repeat={true}
                   />
-            
+
                   <LinearGradient
                     colors={[
                       "rgba(20, 22, 26, 0)",
@@ -1210,7 +1241,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                         paddingHorizontal: 10,
                         alignItems: "center",
                         justifyContent: "space-between",
-                        paddingTop:5
+                        paddingTop: 5,
                       }}
                     >
                       <View
@@ -1219,8 +1250,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                           flexDirection: "row",
                         }}
                       >
-                                         <View style={{position:'relative' ,top:1}}>
-                        <Text style={styles.countdownLabel}>限时优惠</Text>
+                        <View style={{ position: "relative", top: 1 }}>
+                          <Text style={styles.countdownLabel}>限时优惠</Text>
                         </View>
 
                         <View style={styles.countdownContainer}>
@@ -1231,8 +1262,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                 style={{
                                   flexDirection: "row",
                                   gap: 5,
-                                  position:'relative',
-                                  bottom:2
+                                  position: "relative",
+                                  bottom: 2,
                                 }}
                               >
                                 <View
@@ -1243,8 +1274,8 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                                     alignItems: "center",
                                     width: 20,
                                     height: 20,
-                                    position:'relative',
-                                    top : 5
+                                    position: "relative",
+                                    top: 5,
                                   }}
                                 >
                                   <Text style={styles.countdownText}>
@@ -1281,7 +1312,7 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                             style={{
                               ...textVariants.subBody,
                               color: "#9c9c9c",
-                              fontSize :12
+                              fontSize: 12,
                             }}
                           >
                             VIP明细
@@ -1298,7 +1329,6 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     marginRight: 20,
                     paddingLeft: 20,
                     paddingRight: 20,
-
                   }}
                   showsVerticalScrollIndicator={false}
                 >
@@ -1313,66 +1343,107 @@ if(membershipSelected?.description == 'VIP会员30天' ||membershipSelected?.des
                     isRefreshing={refreshing}
                   />
 
-{infoTextIndex <= 2 &&
-                <View style={styles.tncContainer2}>
-            <TouchableOpacity onPress={handleAgreementPress}>
-                    <Text style={{ ...textVariants.subBody,     fontSize: 11, color: "#ffffff" }}>
-{infoText[infoTextIndex]}
+                  {infoTextIndex <= 2 &&
+                    UMENG_CHANNEL === "GOOGLE_PLAY" &&
+                    IS_ANDROID && (
+                      <View style={styles.tncContainer2}>
+                        <TouchableOpacity onPress={handleAgreementPress}>
+                          <Text
+                            style={{
+                              ...textVariants.subBody,
+                              fontSize: 11,
+                              color: "#ffffff",
+                            }}
+                          >
+                            {infoText[infoTextIndex]}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
+
+                  <View style={styles.tncContainer}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("隐私政策");
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        隐私协议{" "}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: "#9c9c9c",
+                        fontSize: 12,
+                      }}
+                    >
+                      |{" "}
                     </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("用户协议");
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        用户服务协议{" "}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: "#9c9c9c",
+                        fontSize: 12,
+                      }}
+                    >
+                      |{" "}
+                    </Text>
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("续费服务");
+                      }}
+                    >
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        自动续费协议{" "}
+                      </Text>
                     </TouchableOpacity>
                   </View>
-}
-
-<View style={styles.tncContainer}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("隐私政策");
-                    }}
-                  >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c"  ,  fontSize: 12}}>
-                      隐私协议{" "}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                    |{" "}
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("用户协议");
-                    }}
-                  >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                      用户服务协议{" "}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                    |{" "}
-                  </Text>
-
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("续费服务");
-                    }}
-                  >
-                    <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                      自动续费协议{" "}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.tncContainer}>
-                  <TouchableOpacity onPress={openEmailApp}>
-                  <Text style={{ ...textVariants.subBody, color: "#9c9c9c" ,  fontSize: 12 }}>
-                    {"如遇支付问题，请联系"}
-                    <Text  style={{ textDecorationLine: "underline" }}>
-                      contact.movie9@gmail.com
-                    </Text>
-                  </Text>
-                  </TouchableOpacity>
-                </View>
+                  <View style={styles.tncContainer}>
+                    <TouchableOpacity onPress={openEmailApp}>
+                      <Text
+                        style={{
+                          ...textVariants.subBody,
+                          color: "#9c9c9c",
+                          fontSize: 12,
+                        }}
+                      >
+                        {"如遇支付问题，请联系"}
+                        <Text style={{ textDecorationLine: "underline" }}>
+                          contact.movie9@gmail.com
+                        </Text>
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </ScrollView>
-
-
-              
               </View>
             )}
 
@@ -1507,13 +1578,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
 
     flexDirection: "row",
-    backgroundColor:'#342f29',
-    borderRadius:10,
+    backgroundColor: "#342f29",
+    borderRadius: 10,
     paddingVertical: 8,
-    paddingHorizontal:5,
-    marginVertical:2,
-    marginBottom:2,
-   
+    paddingHorizontal: 5,
+    marginVertical: 2,
+    marginBottom: 2,
   },
   footerContainer: {
     alignItems: "center",
