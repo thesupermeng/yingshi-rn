@@ -23,8 +23,8 @@ class SmallDetailsArrow {
       return result;
    }
 }
-import { useNavigation, useTheme } from "@react-navigation/native";
-import React from "react"
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
+import React, { useCallback, useState } from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import FastImage from "react-native-fast-image";
 import { XVSScoreDark } from "@type/wpk_long";
@@ -32,6 +32,7 @@ import Logo from '@static/images/membershipSubs.svg';
 import { useAppDispatch } from "@hooks/kg_index";
 import { playVod } from "@redux/actions/xif_layout";
 import { VodCommentBox } from "../vodComment";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface XFillButton {
    vod: XVSScoreDark;
@@ -44,6 +45,9 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
    const { colors, textVariants, spacing } = useTheme();
    const navigation = useNavigation();
    const dispatch = useAppDispatch();
+
+   const [comments, setComments] = useState<any[]>([]);
+   const [localComments, setLocalComments] = useState<any[]>([]);
    const pTagRegex = /(<p>|<\/p>)/g;
 
    const handleOnPress = () => {
@@ -310,6 +314,33 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
       });
    }
 
+   const getLocalComments = async () => {
+      try {
+         const locCommentId = "userComment" + vod.vod_id;
+
+         const comments = await AsyncStorage.getItem(locCommentId);
+
+         if (comments !== null) {
+            return JSON.parse(comments);
+         }
+         return [];
+      } catch (error) {
+         console.log("error when retrieving local comments: ", error);
+         return [];
+      }
+   };
+
+   useFocusEffect(useCallback(() => {
+      getLocalComments().then((result: any[]) => {
+         if (result && result.length > 0) {
+            setLocalComments(result);
+            setComments([...result, ...vod?.douban_reviews]);
+            return;
+         }
+         setComments(vod?.douban_reviews ?? []);
+      });
+   }, []));
+
    return (
       <>
          { }
@@ -352,8 +383,8 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
                </View>
                <View style={{ marginTop: 10, }}>
                   <VodCommentBox
-                     comments={vod?.douban_reviews ?? []}
-                     commentLength={vod?.total_douban_review}
+                     comments={comments}
+                     commentLength={vod?.total_douban_review + localComments.length}
                      onlyShow={2}
                      showAllCommentBtn={true}
                      onCommentTap={() => {
