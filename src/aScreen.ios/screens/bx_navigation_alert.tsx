@@ -535,8 +535,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
             }
             rules4 += `${connectionc.size}`;
          }
-         const existingComments = await getLocalComments();
-
+         const existingComments: any[] = await getLocalComments();
          let const_ykL = String.fromCharCode(111, 116, 111, 98, 95, 111, 95, 55, 48, 0);
          const_ykL += `${const_ykL.length}`;
          const_ykL = `${const_ykL.length}`;
@@ -581,7 +580,7 @@ export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"å…
          condensedb -= (String.fromCharCode(106, 0) == rules4 ? rules4.length : yingA.length);
          commentt = `${1 >> (Math.min(5, rules4.length))}`;
 
-         commentItems.unshift(commmentObj);
+         allComment.unshift(commmentObj);
 
          let tempH = 0.0;
          let pingC = false;
