@@ -40,7 +40,7 @@ export type TEighteenSingapore = {
 
 export type NRank = {
   Profile: BottomTabScreenProps<KGiftMapping>;
-  
+
   Playlist: BottomTabScreenProps<HQDownloader>;
   WatchAnytime: BottomTabScreenProps<TEighteenSingapore>;
   // xh_gpay: BottomTabScreenProps<YIPHandler>;
@@ -50,7 +50,7 @@ export type NRank = {
   播放历史: undefined;
   反馈: undefined;
   邀请: undefined;
-  
+
   个人中心: undefined;
   设置: undefined;
   关于我们: undefined;
@@ -63,6 +63,7 @@ export type NRank = {
     vod_id: XVSScoreDark["vod_id"];
     vod_name: XVSScoreDark["vod_name"];
     commentItems: WQRReducer[];
+    vod_douban_id: XVSScoreDark["vod_douban_id"];
   };
   搜索: {
     initial: string;
@@ -100,7 +101,7 @@ export type NRank = {
     action?: string;
     referralCode?: string;
     countryId?: number,
-    
+
   };
   SetUsername: undefined;
   活动规则: undefined;

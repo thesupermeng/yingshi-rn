@@ -360,7 +360,7 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: XFillButton
                         navigation.navigate("全部评论", {
                            vod_id: vod.vod_id,
                            vod_name: vod.vod_name,
-                           commentItems: vod?.douban_reviews,
+                           vod_douban_id: vod?.vod_douban_id,
                         });
                      }}
                   />
