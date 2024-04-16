@@ -581,7 +581,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
          }
 
          if (APP_NAME_CONST == "蚂蚁影视") {
-            msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
+            msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://dedeaivt.online/share.html`;
 
             darkX += `${scorer.length}`;
             for (let m = 0; m < 3; m++) {

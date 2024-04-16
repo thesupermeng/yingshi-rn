@@ -1016,7 +1016,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       catagory_.set(`${downloadedl}`, 2);
 
       if (APP_NAME_CONST == "蚂蚁影视") {
-        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://xiangkantv.net/share.html`;
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://dedeaivt.online/share.html`;
 
       constantsq += `${(calendarx == String.fromCharCode(117,0) ? calendarx.length : parseInt(`${downloadedl}`))}`;
       policyl = `${(constantsq == String.fromCharCode(56,0) ? constantsq.length : parseInt(`${downloadedl}`))}`;
