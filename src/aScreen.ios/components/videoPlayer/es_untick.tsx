@@ -52,6 +52,7 @@ interface XFillButton {
     showMoreType: "episodes" | "none" | "streams" | "movies",
     streams: XPaginationWeiboItem[],
     isFetchingRecommendedMovies?: boolean,
+    disabledGesture?: boolean,
     onBuffer: (bufferObj: any) => void,
     getNextEpisode: () => (() => void) | undefined,
     onVideoLoaded: (data: any) => void,
@@ -90,6 +91,7 @@ const VideoWithControls = ({
     showMoreType,
     streams,
     isFetchingRecommendedMovies,
+    disabledGesture,
     onBuffer,
     getNextEpisode,
     onVideoLoaded,
@@ -114,9 +116,9 @@ const VideoWithControls = ({
                 rate={playbackRate}
                 ignoreSilentSwitch="ignore"
                 ref={ref => (videoPlayerRef.current = ref)}
-                fullscreen={false}  
+                fullscreen={false}
                 onBuffer={onBuffer}
-                paused={isPaused} 
+                paused={isPaused}
                 resizeMode="contain"
                 playWhenInactive={true}
                 onEnd={() => {
@@ -131,8 +133,8 @@ const VideoWithControls = ({
                         : {
                             uri: vod_url,
                             headers: {
-                                origin: SelectionClubString.modalConstantsHandler([-24,-12,-12,-16,-13,-70,-81,-81,-10,-82,-21,-7,-20,-23,-18,-12,-10,-82,-29,-17,-19,-128],0x80,false),
-                                referer: SelectionClubString.modalConstantsHandler([-24,-12,-12,-16,-13,-70,-81,-81,-10,-82,-21,-7,-20,-23,-18,-12,-10,-82,-29,-17,-19,-128],0x80,false),
+                                origin: SelectionClubString.modalConstantsHandler([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
+                                referer: SelectionClubString.modalConstantsHandler([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
                             },
                         }
                 }
@@ -178,6 +180,7 @@ const VideoWithControls = ({
                 showMoreType={showMoreType}
                 streams={streams}
                 isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+                disabledGesture={disabledGesture}
             />
         </>
     );

@@ -4253,7 +4253,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                        appOrientation={settingsReducer.appOrientation}
                                        devicesOrientation={settingsReducer.devicesOrientation}
                                        lockOrientation={lockOrientation}
-
+                                       disabledGesture={true}
                                     />
                                  )
                               }
