@@ -2,8 +2,8 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 apply plugin: "com.google.gms.google-services"
 
-// apply from: 'topon_china.gradle'
-apply from: 'topon_non_china.gradle'
+apply from: 'topon_china.gradle'
+// apply from: 'topon_non_china.gradle'
 
 import com.android.build.OutputFile
 
