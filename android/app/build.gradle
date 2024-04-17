@@ -107,7 +107,7 @@ android {
         versionCode 63
         versionName "1.7.8"
         resValue "string", "UMENG_APPKEY", "661f7d2b940d5a4c4940f4b9"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "WAWA"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"

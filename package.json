@@ -16,6 +16,7 @@
     "build-release": "cd buildScripts && node replaceChannel.js && cd .. && npm run android-apk-release",
     "replace-constants-codepush": "export APK_CHANNEL=0&& npm run build-release",
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
+    "android-apk-wawa-release": "export APK_CHANNEL=WAWA&& npm run build-release",
     "android-apk-pc6-release": "export APK_CHANNEL=PC6&& npm run build-release",
     "android-apk-sky001-release": "export APK_CHANNEL=SKY001&& npm run build-release",
     "android-apk-web-liebian-release": "export APK_CHANNEL=WEB_LIE_BIAN&& npm run build-release",
