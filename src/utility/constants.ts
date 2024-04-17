@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 export const ENABLE_APPSFLYER = false;
 
@@ -49,7 +49,8 @@ export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
 export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.wawa' : '';
 
-export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
+export const APPSFLYER_PAYMENT_PUBLIC_KEY =
+  'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
 export const INVITE_DOMAIN = 'https://yingshi.tv/invite.html?invite=';
 
@@ -62,9 +63,9 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite.html?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "WEB";
+export const UMENG_CHANNEL = 'WEB';
 
-export const APP_VERSION = "1.7.8";
+export const APP_VERSION = '1.7.8';
 
 export const TOPON_ANDROID_APP_ID = 'a65f7e864ec33e';
 export const TOPON_ANDROID_APP_KEY = 'a7fa2bea6b6105fdee92beb136b1e31ec';
@@ -73,10 +74,10 @@ export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b650d31a42cdd2';
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650d31c80eeba';
-export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b650d31d72638b';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1ffea90t3mmpp';
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b1ffea90t3mqrn';
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b1ffea90t3mvl6';
+export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b1ffea90t3n32j';
 
 export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
 export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
@@ -84,8 +85,8 @@ export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b655aba884a693';
 export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650d314a73226';
-export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b650d31f7a8f63';
+export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1ffea90t3mgqp';
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1ffea90t3makj';
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 
@@ -116,7 +117,8 @@ export const APP_NAME_CONST = '娃娃追剧';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
-export const IS_OTHER_SKIN = (APP_NAME_CONST !== '爱美剧' && APP_NAME_CONST !== '影视TV');
+export const IS_OTHER_SKIN =
+  APP_NAME_CONST !== '爱美剧' && APP_NAME_CONST !== '影视TV';
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 
@@ -124,7 +126,7 @@ export const PLAY_HTTP_SERVER_PORT = 8085;
 
 export const SHOW_ZF_CONST = true;
 
-export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
+export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds
 
 // watch anytime download
 export const DOWNLOAD_WATCH_ANYTIME = Platform.OS === 'android' ? false : true; // 【爱美剧】oneplus 9 手机里的随心看小视频出现卡顿的画面和声音
@@ -138,10 +140,12 @@ export const MINI_SHOW_LOGIN_NUMBER = Platform.OS === 'ios' ? 299 : 10;
 
 export const AD_VIDEO_SECONDS = 10;
 
-export const GOOGLE_SINGIN_CLIENT_WEB = '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
-export const GOOGLE_SINGIN_CLIENT_IOS = '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';
+export const GOOGLE_SINGIN_CLIENT_WEB =
+  '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
+export const GOOGLE_SINGIN_CLIENT_IOS =
+  '699123886701-ok49jlua77cf0omih5g1u9f1irflnrq3.apps.googleusercontent.com';
 
-export const MAX_CONCURRENT_VIDEO_DOWNLOAD = 1
+export const MAX_CONCURRENT_VIDEO_DOWNLOAD = 1;
 export const EVENT_CUSTOM_ON = true;
 export const EVENT_ANALYSIS_INTERVEL_SECONDS = 300;
 
