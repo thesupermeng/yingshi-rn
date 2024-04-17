@@ -63,7 +63,7 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite.html?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = 'WEB';
+export const UMENG_CHANNEL = 'WAWA';
 
 export const APP_VERSION = '1.7.8';
 
