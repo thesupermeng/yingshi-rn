@@ -98,15 +98,15 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.yingshitv"
+    namespace "com.wawa"
     defaultConfig {
-        applicationId "com.yingshitv"
+        applicationId "com.wawa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
         versionCode 63
         versionName "1.7.8"
-        resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
+        resValue "string", "UMENG_APPKEY", "661f7d2b940d5a4c4940f4b9"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"

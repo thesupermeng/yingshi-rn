@@ -24,7 +24,7 @@
     public static ** valueOf(java.lang.String);
 }
 
--keep public class com.yingshitv.R$*{
+-keep public class com.wawa.R$*{
 public static final int *;
 }
 
