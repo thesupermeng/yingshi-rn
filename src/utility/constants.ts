@@ -51,7 +51,7 @@ export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.wawa' : '';
 
 export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
-export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
+export const INVITE_DOMAIN = 'https://yingshi.tv/invite.html?invite=';
 
 // const ALL_UMENG_CHANNELS = {
 //     'WEB': 'WEB',
@@ -66,8 +66,8 @@ export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
 export const APP_VERSION = "1.7.8";
 
-export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
-export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
+export const TOPON_ANDROID_APP_ID = 'a65f7e864ec33e';
+export const TOPON_ANDROID_APP_KEY = 'a7fa2bea6b6105fdee92beb136b1e31ec';
 
 export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
