@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 import { useSelector } from "./hooks";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { useEffect, useRef, useState } from "react";
+import { User } from "@models/user";
 
 
 const maxRetryTimes = 5;
@@ -38,6 +39,8 @@ export const useRewardVideoAds = ({
     }, [adsList]);
 
     const showAds = (type: RewardVideoAdsType) => {
+        if (User.isVip(userState.user)) return;
+
         const pId = _getPId(type);
 
         if (pId === undefined || pId === null || pId === '') return;
