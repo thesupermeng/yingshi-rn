@@ -91,7 +91,8 @@ export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 
 // topon 激励视频广告
-export const ANDROID_HOME_REWARD_ADS = 'b651e77ae56eda';
+export const ANDROID_DEMO_REWARD_ADS = 'b6620c56e9b5fa';
+export const IOS_DEMO_REWARD_ADS = 'b6620c56e9b5fa';
 
 // topon banner
 export const TOPON_BANNER_WIDTH = 415;
