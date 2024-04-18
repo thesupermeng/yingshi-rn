@@ -10,32 +10,15 @@ import { useSelector } from "./hooks";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { useEffect, useRef, useState } from "react";
 
-export enum RewardVideoAdsType {
-    DEMO,
-}
-
-class AdsQueueType {
-    pId: string;
-    isReady: boolean;
-    isPlay: boolean;
-    isDone: boolean;
-    isClose: boolean;
-    retry: number;
-
-    constructor(pId: string) {
-        this.pId = pId ?? '';
-        this.isReady = false;
-        this.isPlay = false;
-        this.isDone = false;
-        this.isClose = false;
-        this.retry = 0;
-    };
-}
 
 const maxRetryTimes = 5;
 
 type Props = {
     showLog?: boolean,
+}
+
+export enum RewardVideoAdsType {
+    DEMO,
 }
 
 export const useRewardVideoAds = ({
@@ -219,4 +202,22 @@ export const useRewardVideoAds = ({
         showAds,
         getDetails,
     }
+}
+
+class AdsQueueType {
+    pId: string;
+    isReady: boolean;
+    isPlay: boolean;
+    isDone: boolean;
+    isClose: boolean;
+    retry: number;
+
+    constructor(pId: string) {
+        this.pId = pId ?? '';
+        this.isReady = false;
+        this.isPlay = false;
+        this.isDone = false;
+        this.isClose = false;
+        this.retry = 0;
+    };
 }
