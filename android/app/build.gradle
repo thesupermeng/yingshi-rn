@@ -103,8 +103,8 @@ android {
         applicationId "com.aimeiju"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 6 , 5 april march // remember change appsflyer const
-        versionCode 6
+        // ABB version 7 , 19 april march // remember change appsflyer const
+        versionCode 7
         versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
@@ -208,7 +208,7 @@ dependencies {
     // implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
     implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
-    implementation (name:'umeng-common-9.6.1', ext:'aar')
+    implementation (name:'umeng-common-9.6.8+000', ext:'aar')
     implementation (name:'uyumao-1.1.2', ext:'aar')
     implementation (name:'anythink_reactnativejs_bridge', ext:'aar')
     
