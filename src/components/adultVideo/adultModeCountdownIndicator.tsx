@@ -21,7 +21,7 @@ const AdultModeCountdownIndicator = ({ containerStyle }: Props) => {
   const dispatch = useAppDispatch()
 
   const { adultVideoWatchTime, adultMode } = screenState
-  const isVip = User.isVip(userState.user);
+  const isVip = true// User.isVip(userState.user);
 
   useFocusEffect(
     useCallback(() => {

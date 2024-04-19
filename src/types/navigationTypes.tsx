@@ -11,7 +11,7 @@ export type HomeTabParamList = {
   播单: undefined;
   我的: undefined;
   体育: undefined;
-  会员中心: undefined;
+  '体育/成人': undefined;
 };
 
 export type ProfileTabParamList = {

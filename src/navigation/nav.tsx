@@ -235,7 +235,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "会员中心") {
+            } else if (route.name === "体育/成人") {
               icon = focused ? (
                 <VipActionIcon
                   width={iconWidth}
@@ -256,7 +256,7 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
+            <HomeTab.Screen name="体育/成人" component={SportAndX} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
@@ -264,7 +264,7 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
+            <HomeTab.Screen name="体育/成人" component={SportAndX} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>

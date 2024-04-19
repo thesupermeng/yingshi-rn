@@ -60,6 +60,7 @@ import {
   API_DOMAIN_TEST,
   APP_NAME_CONST,
   DOWNLOAD_FEATURE_ENABLED,
+  INVITE_FRIEND,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
 } from "@utility/constants";
@@ -121,6 +122,7 @@ import { CRouter } from "../../routes/router";
 import VipGuideModal from "../../components/modal/vipGuide";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import VipGuideModal2 from "../../components/modal/vipGuide2";
+import { RewardVideoAdsType, useRewardVideoAds } from "@hooks/useRewardVideoAds";
 let insetsTop = 0;
 let insetsBottom = 0;
 
@@ -341,6 +343,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [isShowDlEpisode, setShowDlEpisode] = useState(false);
 
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
+  const {
+    showAds,
+  } = useRewardVideoAds();
 
   const [refPosition, setRefPosition] = useState({
     x: 0,
@@ -1230,7 +1235,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {
           <>
-            {adultMode && <VipRegisterBar />}
+            {adultMode && INVITE_FRIEND && <VipRegisterBar />}
 
             {bannerAd && (
               <View
@@ -1556,6 +1561,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   {DOWNLOAD_FEATURE_ENABLED && !isVodRestricted && (
                     <TouchableOpacity
                       onPress={() => {
+                        showAds(RewardVideoAdsType.PLAY_DETAIL_DOWNLOAD);
                         setShowDlEpisode(true);
                       }}
                     >

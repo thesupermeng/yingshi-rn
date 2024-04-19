@@ -102,7 +102,7 @@ const RecommendationHome = ({
   tabName,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
   isTabFocus = false,
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
@@ -366,7 +366,7 @@ const RecommendationHome = ({
             if (item.is_ads == true) {
               const url =
                 item.ads_url.includes("https://") ||
-                item.ads_url.includes("http://")
+                  item.ads_url.includes("http://")
                   ? item.ads_url
                   : "https://" + item.ads_url;
               Linking.openURL(url);
@@ -692,7 +692,7 @@ const RecommendationHome = ({
                         text="体育推荐"
                         onPress={() => {
                           dispatch(setAutoSelectSport(true));
-                          navigation.navigate("Home", { screen: "会员中心" });
+                          navigation.navigate("Home", { screen: "体育/成人" });
                         }}
                       />
                     )}
@@ -721,7 +721,7 @@ const RecommendationHome = ({
                       }}
                     >
                       {data?.live_station_list &&
-                      data?.live_station_list.length > 0 ? (
+                        data?.live_station_list.length > 0 ? (
                         <ShowMoreVodButton
                           text="电视台推荐"
                           onPress={() => {
@@ -737,7 +737,7 @@ const RecommendationHome = ({
                       )}
                     </View>
                     {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                      data?.live_station_list.length > 0 ? (
                       <View style={{ paddingLeft: spacing.sideOffset }}>
                         <VodLiveStationList
                           vodStyle={styles.vod_live_station}

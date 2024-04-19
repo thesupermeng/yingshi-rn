@@ -52,7 +52,7 @@ import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { screenModel } from '@type/screenType';
 import { incrementSportWatchTime } from '@redux/actions/screenAction';
 import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
-import { NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
+import { INVITE_FRIEND, NON_VIP_STREAM_TIME_SECONDS } from '@utility/constants';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { RootState } from '@redux/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -107,7 +107,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [isLiveVideoFullScreen, setIsLiveVideoFullScreen] = useState(false);
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const showCountdown = !User.isVip(userState.user);
+  const showCountdown = false // !User.isVip(userState.user);
 
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
@@ -447,11 +447,13 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
             listLiveMatchDetailsUpdates={liveRoomUpdate}
           />
         )}
-        <VipRegisterBar onPress={() => {
-          videoRef.current?.setPause(true);
-        }} />
+        {INVITE_FRIEND &&
+          <VipRegisterBar onPress={() => {
+            videoRef.current?.setPause(true);
+          }} />
+        }
 
-        {bannerAd &&  !User.isVip(userState.user) && (
+        {bannerAd && !User.isVip(userState.user) && (
           <View style={{
             // paddingLeft: spacing.sideOffset,
             // paddingRight: spacing.sideOffset,

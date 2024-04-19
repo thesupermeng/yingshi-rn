@@ -1,6 +1,6 @@
 import {
-    ANDROID_DEMO_REWARD_ADS,
-    IOS_DEMO_REWARD_ADS,
+    ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS,
+    IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS,
 } from "@utility/constants";
 import {
     ATRewardedVideoRNSDK,
@@ -19,7 +19,7 @@ type Props = {
 }
 
 export enum RewardVideoAdsType {
-    DEMO,
+    PLAY_DETAIL_DOWNLOAD,
 }
 
 export const useRewardVideoAds = ({
@@ -99,10 +99,10 @@ export const useRewardVideoAds = ({
 
     const _getPId = (type: RewardVideoAdsType) => {
         switch (type) {
-            case RewardVideoAdsType.DEMO: {
+            case RewardVideoAdsType.PLAY_DETAIL_DOWNLOAD: {
                 return Platform.OS === "android"
-                    ? ANDROID_DEMO_REWARD_ADS
-                    : IOS_DEMO_REWARD_ADS
+                    ? ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS
+                    : IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS
             }
             default: return '';
         }
