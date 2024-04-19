@@ -44,7 +44,7 @@ import NotificationModal from "../../components/modal/notificationModal";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { DOWNLOAD_FEATURE_ENABLED, INVITE_FRIEND, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
@@ -401,7 +401,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 </View>
               </View>
               {/* 游客 no vip  */}
-              {User.isGuest(userState.user) &&
+              {/* {User.isGuest(userState.user) &&
                 !User.isVip(userState.user) && (
                   <View
                     style={{
@@ -428,10 +428,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                     </View>
                   </View>
-                )}
+                )} */}
 
               {/* 游客 got vip  */}
-              {User.isGuest(userState.user) &&
+              {/* {User.isGuest(userState.user) &&
                 User.isVip(userState.user) && (
                   <View
                     style={{
@@ -458,7 +458,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                     </View>
                   </View>
-                )}
+                )} */}
             </View>
           </TouchableOpacity>
 
@@ -571,7 +571,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               </View>
             )}
 
-            {!SHOW_ZF_CONST && (
+            {!SHOW_ZF_CONST && INVITE_FRIEND && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
