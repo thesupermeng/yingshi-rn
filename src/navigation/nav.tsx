@@ -159,7 +159,7 @@ export default () => {
   }
 
   const userState = useSelector<UserStateType>('userReducer');
-
+  const screenState = useSelector<screenModel>('screenReducer');
   const appState = useSelector<BackgroundType>('backgroundReducer');
 
   const HomeTabScreen = useCallback(() => {
@@ -264,14 +264,14 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
+            {screenState.showAdultTab && <HomeTab.Screen name="会员中心" component={SportAndX} />}
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )}
       </HomeTab.Navigator>
     );
-  }, []);
+  }, [screenState.showAdultTab]);
 
   const refreshUserState = async () => {
     const result = await UserApi.getUserDetails();
@@ -347,9 +347,6 @@ export default () => {
   //screen state
   const dispatch = useAppDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const screenState: screenModel = useAppSelector(
-    ({ screenReducer }: RootState) => screenReducer
-  );
   const [gifKey, setGifKey] = useState(0);
 
   useEffect(() => {

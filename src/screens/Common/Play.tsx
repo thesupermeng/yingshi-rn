@@ -60,6 +60,7 @@ import {
   API_DOMAIN_TEST,
   APP_NAME_CONST,
   DOWNLOAD_FEATURE_ENABLED,
+  INVITE_FRIEND,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
 } from "@utility/constants";
@@ -1230,7 +1231,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
         {
           <>
-            {adultMode && <VipRegisterBar />}
+            {adultMode && INVITE_FRIEND && <VipRegisterBar />}
 
             {bannerAd && (
               <View

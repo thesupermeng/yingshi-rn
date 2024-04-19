@@ -90,7 +90,8 @@ export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 
 // topon 激励视频广告
-export const ANDROID_HOME_REWARD_ADS = 'b651e77ae56eda';
+export const ANDROID_DEMO_REWARD_ADS = 'b6620c56e9b5fa';
+export const IOS_DEMO_REWARD_ADS = 'b6620c56e9b5fa';
 
 // topon banner
 export const TOPON_BANNER_WIDTH = 415;
@@ -123,6 +124,7 @@ export const NON_VIP_STREAM_TIME_SECONDS = 300;
 export const PLAY_HTTP_SERVER_PORT = 8085;
 
 export const SHOW_ZF_CONST = true;
+export const INVITE_FRIEND = true;
 
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 

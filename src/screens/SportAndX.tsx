@@ -25,7 +25,7 @@ import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
-import { API_DOMAIN, MATCH_API_DOMAIN } from "@utility/constants";
+import { API_DOMAIN, MATCH_API_DOMAIN, SHOW_ZF_CONST } from "@utility/constants";
 import Animated from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 // import { API } from './util';
@@ -88,7 +88,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     if (screenState.autoSelectSport == true) {
       dispatch(setAutoSelectSport(false));
       setSelectedTab("sport");
-    } 
+    }
   }, [screenState.autoSelectSport])
 
   // ========== for analytics - start ==========
@@ -176,7 +176,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       setShowBecomeVIPOverlay(false)
     }
   }, [selectedTab])
-  
+
 
   return (
     <>
@@ -344,49 +344,48 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 </>
               )}
             </View>
-            <TouchableOpacity
-              activeOpacity={
-                !User.isVip(userState.user) ||
-                  User.isGuest(userState.user)
-                  ? 0.5
-                  : 1
-              }
-              onPress={() => {
-                if (
-                  !User.isVip(userState.user)
-                ) {
-                  setShowBecomeVIPOverlay(true);
+            {SHOW_ZF_CONST &&
+              <TouchableOpacity
+                activeOpacity={
+                  !User.isVip(userState.user) ||
+                    User.isGuest(userState.user)
+                    ? 0.5
+                    : 1
                 }
-              }}
-            >
-
-
-              {!User.isVip(userState.user) ? (
-                <>
-                  <View style={styles.headerContainerRight2}>
-                    <VipEntry height={30} />
-                  </View>
-                </>
-              ) : (
-                <>
-                  <View style={styles.headerContainerRight}>
-                    <Image
-                      style={styles.iconStyle}
-                      source={require("@static/images/profile/vipSport.png")}
-                    />
-                    <Text
-                      style={{
-                        color: colors.text,
-                        fontSize: 14,
-                      }}
-                    >
-                      VIP {vipRemainingDay}天
-                    </Text>
-                  </View>
-                </>
-              )}
-
-            </TouchableOpacity>
+                onPress={() => {
+                  if (
+                    !User.isVip(userState.user)
+                  ) {
+                    setShowBecomeVIPOverlay(true);
+                  }
+                }}
+              >
+                {!User.isVip(userState.user) ? (
+                  <>
+                    <View style={styles.headerContainerRight2}>
+                      <VipEntry height={30} />
+                    </View>
+                  </>
+                ) : (
+                  <>
+                    <View style={styles.headerContainerRight}>
+                      <Image
+                        style={styles.iconStyle}
+                        source={require("@static/images/profile/vipSport.png")}
+                      />
+                      <Text
+                        style={{
+                          color: colors.text,
+                          fontSize: 14,
+                        }}
+                      >
+                        VIP {vipRemainingDay}天
+                      </Text>
+                    </View>
+                  </>
+                )}
+              </TouchableOpacity>
+            }
           </View>
           {selectedTab == "sport" &&
             matchTabs &&
