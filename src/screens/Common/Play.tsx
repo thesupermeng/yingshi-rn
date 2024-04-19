@@ -531,12 +531,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       // ========== for analytics - end ==========
 
       let msg = `《${vod?.vod_name
-        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+        }》高清播放${"\n"}https://wwzj.tv/index.php/vod/play/id/${vod?.vod_id
         }/sid/1/nid/${currentEpisode + 1
         }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == "娃娃追剧") {
-        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://yingshi.tv/share.html`;
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://wwzj.tv/share.html`;
       }
 
       const result = await Share.share({
