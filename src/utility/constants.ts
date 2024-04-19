@@ -124,6 +124,7 @@ export const NON_VIP_STREAM_TIME_SECONDS = 300;
 export const PLAY_HTTP_SERVER_PORT = 8085;
 
 export const SHOW_ZF_CONST = true;
+export const INVITE_FRIEND = true;
 
 export const ADULT_MODE_PREVIEW_DURATION = 300; // number of seconds 
 
