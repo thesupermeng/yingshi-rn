@@ -39,7 +39,7 @@ import {
   VodSourceType,
   BannerAdType,
 } from "@type/ajaxTypes";
-import { addVodToHistory, playVod } from "@redux/actions/vodActions";
+import { addVodToHistory, onViewShortVod, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
 import {
@@ -63,6 +63,7 @@ import {
   INVITE_FRIEND,
   PLAY_HTTP_SERVER_PORT,
   UMENG_CHANNEL,
+  VIEW_NUMBER_FOR_SHOW_VIDEO_ADS,
 } from "@utility/constants";
 import { useQuery } from "@tanstack/react-query";
 import ShowMoreVodButton from "../../components/button/showMoreVodButton";
@@ -288,6 +289,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const vod = vodReducer.playVod.vod;
+  const totalShortVodView = vodReducer.totalShortVodView ?? 0;
 
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -358,6 +360,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [vipGuideModalDL, setVipGuideModalDL] = useState(false);
   const [vipGuideModalOpen, setVipGuideModalOpen] = useState(false);
   const screenWidth = Dimensions.get("window");
+
+  const { data: navOptions } = useQuery({
+    queryKey: ['filterOptions'],
+    queryFn: () => VodApi.getTopicType(),
+  });
+
+  const shortVodId = useMemo(() => {
+    if (!navOptions) return -1;
+
+    return navOptions.find(x => x.type_name === '短剧')?.type_id ?? -1;
+  }, [navOptions]);
 
   const downloadedVod: VodDownloadType | undefined = useAppSelector(
     ({ downloadVideoReducer }: RootState) => {
@@ -1067,6 +1080,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         vod_name: vod.vod_name,
         isXmode: adultMode,
       });
+
+      if (vod && vod.type_id === shortVodId) {
+        dispatch(onViewShortVod());
+      }
     }
 
     setReadyPlay(true);
@@ -1098,8 +1115,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   useEffect(() => {
     if (!focused) return;
 
+    if (vodUri) {
+      setReadyPlay(false);
+    }
+
     if (vodUri && vodUri !== "" && videoPlayerRef.current) {
       videoPlayerRef.current?.setPause(false);
+    }
+
+    if (totalShortVodView >= VIEW_NUMBER_FOR_SHOW_VIDEO_ADS && vod?.type_id === shortVodId) {
+      showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
     }
   }, [vodUri]);
 

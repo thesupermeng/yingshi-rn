@@ -92,7 +92,9 @@ export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 
 // topon 激励视频广告
 export const ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b6620c56e9b5fa';
+export const ANDROID_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b6621d55d12755';
 export const IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b6620c56e9b5fa';
+export const IOS_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b6621d55d12755';
 
 // topon banner
 export const TOPON_BANNER_WIDTH = 415;
@@ -168,3 +170,5 @@ export const DOWNLOAD_FEATURE_ENABLED = true;
 export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+export const VIEW_NUMBER_FOR_SHOW_VIDEO_ADS = 10;

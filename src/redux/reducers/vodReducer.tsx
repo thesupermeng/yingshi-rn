@@ -5,6 +5,10 @@ import {
 import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "@type/actionTypes"
 import { VodTopicType, VodType } from "@type/ajaxTypes"
 
+export enum VodActionEventType {
+    ON_VIEW_SHORT_VOD = 'ON_VIEW_SHORT_VOD',
+}
+
 export interface VodRecordType extends VodType {
     timeWatched: number,
     recordedAt: Date,
@@ -19,6 +23,7 @@ interface PlayVodType {
 export interface VodReducerState {
     history: Array<VodRecordType>,
     playVod: PlayVodType,
+    totalShortVodView: number,
 }
 
 const initialState: VodReducerState = {
@@ -26,6 +31,7 @@ const initialState: VodReducerState = {
     playVod: {
         vod: null,
     },
+    totalShortVodView: 0,
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
@@ -49,9 +55,9 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 ...state,
                 playVod: {
                     vod: {
-                        ...play, 
-                        episodeWatched: action.episodeWatched ?? play.episodeWatched, 
-                        vodSourceId: action.vodSourceId ?? play.vodSourceId, 
+                        ...play,
+                        episodeWatched: action.episodeWatched ?? play.episodeWatched,
+                        vodSourceId: action.vodSourceId ?? play.vodSourceId,
                         timeWatched: action.timeWatched ?? play.timeWatched
                     }
                 }
@@ -64,7 +70,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
             };
         case ADD_VOD_TO_HISTORY: {
             firstPayloadItemWithTimestamp.isAdultVideo = action.isAdultVideo === undefined ? false : action.isAdultVideo;
- 
+
             const hst = state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             hst.unshift(firstPayloadItemWithTimestamp);
             return {
@@ -76,6 +82,12 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 ...state,
                 history: state.history.filter(vod => !action.payload.includes(vod))
             };
+        }
+        case VodActionEventType.ON_VIEW_SHORT_VOD: {
+            return {
+                ...state,
+                totalShortVodView: (state.totalShortVodView ?? 0) + 1,
+            }
         }
         default:
             return state

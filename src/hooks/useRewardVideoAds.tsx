@@ -1,6 +1,8 @@
 import {
     ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS,
+    ANDROID_PLAY_DETAIL_SHORT_VOD_REWARD_ADS,
     IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS,
+    IOS_PLAY_DETAIL_SHORT_VOD_REWARD_ADS,
 } from "@utility/constants";
 import {
     ATRewardedVideoRNSDK,
@@ -12,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { User } from "@models/user";
 
 
-const maxRetryTimes = 5;
+const maxRetryTimes = 3;
 
 type Props = {
     showLog?: boolean,
@@ -20,6 +22,7 @@ type Props = {
 
 export enum RewardVideoAdsType {
     PLAY_DETAIL_DOWNLOAD,
+    PLAY_DETAIL_SHORT_VOD,
 }
 
 export const useRewardVideoAds = ({
@@ -104,27 +107,34 @@ export const useRewardVideoAds = ({
                     ? ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS
                     : IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS
             }
+            case RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD: {
+                return Platform.OS === "android"
+                    ? ANDROID_PLAY_DETAIL_SHORT_VOD_REWARD_ADS
+                    : IOS_PLAY_DETAIL_SHORT_VOD_REWARD_ADS
+            }
             default: return '';
         }
     }
 
     const _retryAds = (pId: string) => {
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        setTimeout(() => {
+            const indexFound = adsList.findIndex((ads) => ads.pId === pId);
 
-        if (indexFound !== -1) {
-            setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, retry: v.retry + 1 } : v));
+            if (indexFound !== -1) {
+                setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, retry: v.retry + 1 } : v));
 
-            if (adsList[indexFound].retry >= maxRetryTimes) {
-                _removeFromQueue(pId);
-                return;
+                if (adsList[indexFound].retry >= maxRetryTimes) {
+                    _removeFromQueue(pId);
+                    return;
+                }
+
+                if (adsList[indexFound].isReady === false) {
+                    _loadVideoAds(pId);
+                } else {
+                    _showVideoAds(pId);
+                }
             }
-
-            if (adsList[indexFound].isReady === false) {
-                _loadVideoAds(pId);
-            } else {
-                _showVideoAds(pId);
-            }
-        }
+        }, 1000);
     }
 
     const _loadVideoAds = (pId: string) => {

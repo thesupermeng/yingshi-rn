@@ -4,16 +4,17 @@ import {
 } from "@utility/constants";
 import { VodActionType } from "@type/actionTypes";
 import { VodSourceType, VodTopicType, VodType } from "@type/ajaxTypes";
+import { VodActionEventType } from "@redux/reducers/vodReducer";
 
-export const addVodToFavorites = (vod: VodType, playMode: 'adult'|'normal'='normal') => {
+export const addVodToFavorites = (vod: VodType, playMode: 'adult' | 'normal' = 'normal') => {
     console.debug('playmode added', playMode)
     return (
-    {
-        type: ADD_VOD_TO_FAVORITES,
-        payload: {...vod, playMode: playMode}, 
-        playMode: playMode
-    }
-)
+        {
+            type: ADD_VOD_TO_FAVORITES,
+            payload: { ...vod, playMode: playMode },
+            playMode: playMode
+        }
+    )
 }
 export const removeVodFromFavorites = (vod: VodType) => (
     {
@@ -34,7 +35,7 @@ export const playVod = (vod: VodType, timeWatched?: number, episodeToPlay?: numb
         type: PLAY_VOD,
         payload: [vod],
         timeWatched: timeWatched,
-        episodeWatched: episodeToPlay, 
+        episodeWatched: episodeToPlay,
         vodSourceId: vodSourceId
     }
 }
@@ -75,5 +76,11 @@ export const clearHistory = () => (
     {
         type: CLEAR_HISTORY,
         payload: null
+    }
+)
+
+export const onViewShortVod = () => (
+    {
+        type: VodActionEventType.ON_VIEW_SHORT_VOD,
     }
 )
