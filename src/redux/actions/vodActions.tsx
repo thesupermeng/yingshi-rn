@@ -4,16 +4,17 @@ import {
 } from "@utility/constants";
 import { VodActionType } from "@type/actionTypes";
 import { VodSourceType, VodTopicType, VodType } from "@type/ajaxTypes";
+import { PlayList, Vod } from "@models";
 
-export const addVodToFavorites = (vod: VodType, playMode: 'adult'|'normal'='normal') => {
+export const addVodToFavorites = (vod: VodType, playMode: 'adult' | 'normal' = 'normal') => {
     console.debug('playmode added', playMode)
     return (
-    {
-        type: ADD_VOD_TO_FAVORITES,
-        payload: {...vod, playMode: playMode}, 
-        playMode: playMode
-    }
-)
+        {
+            type: ADD_VOD_TO_FAVORITES,
+            payload: { ...vod, playMode: playMode },
+            playMode: playMode
+        }
+    )
 }
 export const removeVodFromFavorites = (vod: VodType) => (
     {
@@ -29,12 +30,12 @@ export const removeVodFromFavorites = (vod: VodType) => (
 //     }
 // )
 
-export const playVod = (vod: VodType, timeWatched?: number, episodeToPlay?: number, vodSourceId?: number) => {
+export const playVod = (vod: Vod, timeWatched?: number, episodeToPlay?: number, vodSourceId?: number) => {
     return {
         type: PLAY_VOD,
         payload: [vod],
         timeWatched: timeWatched,
-        episodeWatched: episodeToPlay, 
+        episodeWatched: episodeToPlay,
         vodSourceId: vodSourceId
     }
 }
@@ -46,7 +47,7 @@ export const togglePlaylistFavorites = (playlist: VodTopicType) => (
     }
 )
 
-export const viewPlaylistDetails = (playlist: VodTopicType) => (
+export const viewPlaylistDetails = (playlist: PlayList) => (
     {
         type: VIEW_PLAYLIST,
         payload: playlist

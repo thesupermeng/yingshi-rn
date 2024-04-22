@@ -117,7 +117,7 @@ import {
 } from "@type/vodDownloadTypes";
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 import { CRouter } from "../../routes/router";
 import VipGuideModal from "../../components/modal/vipGuide";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";

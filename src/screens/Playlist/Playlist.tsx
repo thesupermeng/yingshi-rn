@@ -5,26 +5,18 @@ import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { VodPlayListType, VodTopicType } from '@type/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { API_DOMAIN } from '@utility/constants';
-// import FastImage from 'react-native-fast-image';
 import FastImage from "../../components/common/customFastImage"
 import { useIsFocused } from '@react-navigation/native';
-// import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import NoConnection from './../../components/common/noConnection';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { PlaylistApi } from '@api';
-
-type FlatListType = {
-  item: VodTopicType;
-  index: number;
-};
+import { PaggingObject, PlayList } from '@models';
 
 function Playlist({ navigation }: BottomTabScreenProps<any>) {
   // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
@@ -87,9 +79,9 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
 
   const fetchPlaylist = useCallback((page: number) =>
     PlaylistApi.getTopic(page)
-      .then((json: VodPlayListType) => {
+      .then((json: PaggingObject<PlayList>) => {
         setTotalPage(Number(json.TotalPageCount));
-        return Object.values(json.List);
+        return json.List;
       }), []);
 
   const {
@@ -131,7 +123,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
     },
   );
 
-  const renderItem = useCallback(({ item }: FlatListType) => (
+  const renderItem = useCallback(({ item }: { item: PlayList }) => (
     <VodPlaylist playlist={item} titleStyle={{ color: colors.text }} />
   ), []);
 

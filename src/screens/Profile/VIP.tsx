@@ -71,7 +71,7 @@ import { screenModel } from "@type/screenType";
 import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
-import { User } from "@models/user";
+import { User } from "@models";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import { CRouter } from "../../routes/router";
 

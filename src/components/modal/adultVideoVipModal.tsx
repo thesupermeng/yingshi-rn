@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { screenModel } from '@type/screenType';
 import { SHOW_ZF_CONST, UMENG_CHANNEL } from '@utility/constants';
 import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { User } from '@models';
 
 
 const AdultVideoVipModal = () => {

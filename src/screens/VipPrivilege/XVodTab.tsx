@@ -13,7 +13,7 @@ import ShowMoreVodButton from "../../components/button/showMoreVodButton";
 import VodListVerticalVip from "./vodListVerticalVip";
 import FastImage from "../../components/common/customFastImage";
 import { AppsApi } from "@api";
-import { User } from "@models/user";
+import { User } from "@models";
 import { UserStateType } from "@redux/reducers/userReducer";
 interface Props {
   handleRejectEighteenPlus: any;
@@ -134,7 +134,7 @@ export default function XVodTab({
     refetch,
   } = useInfiniteQuery(
     ['xvodPlayList'],
-    ({pageParam = 1}) => fetchXCategories(pageParam),
+    ({ pageParam = 1 }) => fetchXCategories(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -162,7 +162,7 @@ export default function XVodTab({
   }, []);
 
   useEffect(() => {
-    if(results.length == 0){
+    if (results.length == 0) {
       refetch();
     }
   }, [results])
@@ -210,7 +210,7 @@ export default function XVodTab({
             }
           }}
           ListFooterComponent={
-            <View style={{...styles.loading}}>
+            <View style={{ ...styles.loading }}>
               {hasNextPage && (
                 <FastImage
                   style={{

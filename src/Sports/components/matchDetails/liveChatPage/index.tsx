@@ -17,7 +17,7 @@ import createStyles from "./style";
 import { Streamer } from "../../../types/matchTypes";
 import { UnreadCard } from "../../../../components/chat/unread";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 type Props = {
     matchID: string,

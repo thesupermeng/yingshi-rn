@@ -46,7 +46,7 @@ import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
 

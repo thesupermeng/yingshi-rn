@@ -4,9 +4,9 @@ import { CEndpoint, CLangKey } from "@constants";
 // import { User } from "@modals";
 import { CApi } from "@utility/apiService";
 import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
-import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User } from "@models/user";
+import { User, Country } from "@models";
+import { CLang } from "@utility/langService";
 
 
 export class UserApi {
@@ -50,7 +50,7 @@ export class UserApi {
         loginType: 'EMAIL' | 'SMS',
         email?: string,
         phone?: string,
-        countryId?: number,
+        countryId?: string,
         referralCode?: string,
         otp?: string,
         isGoogleLogin?: boolean,
@@ -174,7 +174,11 @@ export class UserApi {
                 throw result.message;
             }
 
-            return result.data as CountryPhoneCodeType[];
+            if (result.data === undefined || result.data === null) {
+                throw CLang.get(CLangKey.apiEmptyResponse);
+            }
+
+            return Country.fromJsonList(result.data);
 
         } catch (e: any) {
             console.error(`[Error getCountries}]: ${e.toString()}`);

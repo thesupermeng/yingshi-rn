@@ -22,8 +22,6 @@ import {
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
-  VodTopicType,
-  VodPlayListType,
   VodCarousellType,
   BannerAdType,
 } from "@type/ajaxTypes";
@@ -55,7 +53,7 @@ import { AdsApi } from "../../api/ads";
 import DeviceInfo from "react-native-device-info";
 import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { PaggingObject, PlayList, User } from "@models";
 import VipGuideModal2 from "../modal/vipGuide2";
 import VipGuideModal from "../modal/vipGuide";
 import { screenModel } from "@type/screenType";
@@ -97,7 +95,7 @@ const RecommendationHome = ({
   tabName,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
   isTabFocus = false,
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
@@ -109,7 +107,7 @@ const RecommendationHome = ({
   const navigation = useNavigation();
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [results, setResults] = useState<Array<VodTopicType>>([]);
+  const [results, setResults] = useState<Array<PlayList>>([]);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const [bannerAdList, setBannerAdList] = useState<Array<BannerAdType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -223,7 +221,7 @@ const RecommendationHome = ({
   }, []);
 
   const fetchPlaylist = (page: number) =>
-    PlaylistApi.getTopic(page).then((results: VodPlayListType) => {
+    PlaylistApi.getTopic(page).then((results: PaggingObject<PlayList>) => {
       setTotalPage(Number(results.TotalPageCount));
       return Object.values(results.List);
     });
@@ -361,7 +359,7 @@ const RecommendationHome = ({
             if (item.is_ads == true) {
               const url =
                 item.ads_url.includes("https://") ||
-                item.ads_url.includes("http://")
+                  item.ads_url.includes("http://")
                   ? item.ads_url
                   : "https://" + item.ads_url;
               Linking.openURL(url);
@@ -415,7 +413,7 @@ const RecommendationHome = ({
   );
 
   const renderContent = useCallback(
-    ({ item, index }: { item: VodTopicType; index: number }) => (
+    ({ item, index }: { item: PlayList; index: number }) => (
       <View
         style={{
           paddingLeft: spacing.sideOffset,
@@ -707,7 +705,7 @@ const RecommendationHome = ({
                     </View>
                   )}
                 </View>
-                {UMENG_CHANNEL != "SKY001 " &&  APP_NAME_CONST != '番茄影视TV' && (
+                {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != '番茄影视TV' && (
                   <View style={{ gap: spacing.m }}>
                     <View
                       style={{
@@ -716,7 +714,7 @@ const RecommendationHome = ({
                       }}
                     >
                       {data?.live_station_list &&
-                      data?.live_station_list.length > 0 ? (
+                        data?.live_station_list.length > 0 ? (
                         <ShowMoreVodButton
                           text="电视台推荐"
                           onPress={() => {
@@ -732,7 +730,7 @@ const RecommendationHome = ({
                       )}
                     </View>
                     {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                      data?.live_station_list.length > 0 ? (
                       <View style={{ paddingLeft: spacing.sideOffset }}>
                         <VodLiveStationList
                           vodStyle={styles.vod_live_station}

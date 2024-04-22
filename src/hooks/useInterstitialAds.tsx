@@ -17,7 +17,7 @@ import { useAppSelector, useSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "@type/screenType";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 // LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS

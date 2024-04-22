@@ -60,7 +60,7 @@ import style from "../../Sports/components/matchDetails/liveChatPage/style";
 import { VipLoginAlertOverlay } from "../../components/modal/vipLoginAlertOverlay";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
 

@@ -4,6 +4,7 @@ import {
 } from "@utility/constants"
 import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "@type/actionTypes"
 import { VodTopicType, VodType } from "@type/ajaxTypes"
+import { PlayList } from "@models"
 
 export interface VodRecordType extends VodType {
     timeWatched: number,
@@ -49,9 +50,9 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 ...state,
                 playVod: {
                     vod: {
-                        ...play, 
-                        episodeWatched: action.episodeWatched ?? play.episodeWatched, 
-                        vodSourceId: action.vodSourceId ?? play.vodSourceId, 
+                        ...play,
+                        episodeWatched: action.episodeWatched ?? play.episodeWatched,
+                        vodSourceId: action.vodSourceId ?? play.vodSourceId,
                         timeWatched: action.timeWatched ?? play.timeWatched
                     }
                 }
@@ -64,7 +65,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
             };
         case ADD_VOD_TO_HISTORY: {
             firstPayloadItemWithTimestamp.isAdultVideo = action.isAdultVideo === undefined ? false : action.isAdultVideo;
- 
+
             const hst = state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             hst.unshift(firstPayloadItemWithTimestamp);
             return {
@@ -111,11 +112,11 @@ export function vodFavouritesReducer(state = initialFavoriteState, action: Favor
     }
 }
 
-
+// ============================== playlist ==============================
 export interface VodPlaylistReducerState {
-    playlistFavorites: Array<VodTopicType>,
+    playlistFavorites: Array<PlayList>,
     playlistDetails: {
-        playlist: VodTopicType | null,
+        playlist: PlayList | null,
         isFavorite: boolean
     }
 }

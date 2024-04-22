@@ -55,7 +55,7 @@ import { BannerContainer } from './bannerContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { AdsApi } from '../../api/ads';
-import { User } from '@models/user';
+import { User } from '@models';
 import { UserStateType } from '@redux/reducers/userReducer';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 

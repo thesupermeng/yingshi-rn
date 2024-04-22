@@ -53,7 +53,7 @@ import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
 import { RootState } from "@redux/store";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 

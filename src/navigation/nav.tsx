@@ -136,7 +136,7 @@ import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
 import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 import { CWebview } from "../screens/Common/Webview";
 
 export default () => {

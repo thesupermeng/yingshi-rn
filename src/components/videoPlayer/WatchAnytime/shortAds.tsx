@@ -27,7 +27,7 @@ import VipGuideModal from "../../modal/vipGuide";
 import { CPopup } from "@utility/popup";
 import { setIsMiniVodGuideShown } from "@redux/actions/screenAction";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from '@models/user';
+import { User } from '@models';
 interface Props {
   thumbnail?: string;
   displayHeight: number;

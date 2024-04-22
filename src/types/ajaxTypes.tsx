@@ -23,10 +23,6 @@ export type VodCarousellType = {
     live_station_list: Array<LiveTVStationItem>
 }
 
-export type VodPlayListType = PaggingResponseType<{
-    [key: string]: VodTopicType
-}>
-
 export type SuggestVodListType = PaggingResponseType<SuggestedVodType[]>
 export type AdultVodListType = PaggingResponseType<AdultVodType[]>
 export type MiniVideoListType = PaggingResponseTypeWithNonVip<MiniVideo[]>
@@ -439,16 +435,6 @@ export interface CommentsType {
     user_name: string,
     user_review: string,
 }
-
-export interface CountryPhoneCodeType {
-    country_id: number,
-    country_iso3: string,
-    country_name: string,
-    country_phonecode: string,
-    country_flag: string,
-    country_status: number,
-}
-
 
 export type VodPlayerAdType = {
     id: number | null,

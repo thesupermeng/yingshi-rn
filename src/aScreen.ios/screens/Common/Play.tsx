@@ -76,7 +76,7 @@ import { VodCommentBox } from "../../components/vodComment";
 import { CPopup } from "@utility/popup";
 import { VodApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 type VideoRef = {
   setPause: (param: boolean) => void;

@@ -2,7 +2,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { VodType, VodTopicType, LiveTVStationItem, CommentsType, BannerAdType } from "./ajaxTypes";
-import { User } from "@models/user";
+import { User } from "@models";
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -96,7 +96,7 @@ export type RootStackParamList = {
     phone?: string;
     action?: string;
     referralCode?: string;
-    countryId?: number,
+    countryId?: string,
     // deviceId?: string;
   };
   SetUsername: undefined;

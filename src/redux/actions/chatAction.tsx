@@ -5,7 +5,7 @@ import { getUniqueId } from "react-native-device-info";
 import { Socket, io } from "socket.io-client";
 import { chatBotMessageFromJson, liveChatRoomFromJson } from "@type/typeMapping";
 import { LiveChatRoomType } from "@type/ajaxTypes";
-import { User } from "@models/user";
+import { User } from "@models";
 
 enum SocketEvent {
     Connect = 'connect',

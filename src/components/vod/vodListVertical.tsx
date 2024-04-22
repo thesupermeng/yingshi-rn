@@ -1,18 +1,17 @@
 import React, { memo, useEffect, useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { VodType } from '@type/ajaxTypes';
-import { disableAdultMode, enableAdultMode } from '@redux/actions/screenAction';
 import DeviceInfo from 'react-native-device-info';
+import { Vod } from '@models';
 
 
 interface Props {
-    vods: Array<VodType>,
+    vods: Vod[],
     numOfRows?: number,
     outerRowPadding?: number,
     minNumPerRow?: number,
@@ -40,14 +39,14 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
     DeviceInfo.getDeviceName().then((d) => {
         setDeviceName(d.toLowerCase());
     });
-    
+
     useEffect(() => {
         calculateDimensions;
         // Dimensions.addEventListener('change', (e) => {
         //     setTimeout(() => {
         //         calculateDimensions;
         //       }, 1000);
-        
+
         //   })
     }, []);
     const calculateDimensions = useMemo(() => {
@@ -56,8 +55,7 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
         const maxWidth = (windowDim / minNumPerRow) - PADDING;
         let cardWidth = Math.min(160, Math.floor(maxWidth));
         const includesKeywords = ['flip', 'fold', 'mate x3', 'mate xs'].some(keyword => deviceName.includes(keyword));
-        if(DeviceInfo.isTablet() || includesKeywords)
-        {
+        if (DeviceInfo.isTablet() || includesKeywords) {
             cardWidth = Math.min(145, Math.floor(maxWidth));
         }
 

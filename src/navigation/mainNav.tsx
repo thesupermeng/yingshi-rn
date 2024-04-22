@@ -43,7 +43,7 @@ import DeviceInfo from "react-native-device-info";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { onBootApp, onCloseApp } from "@redux/actions/backgroundAction";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 export default () => {
   const appDispatch = useAppDispatch();

@@ -40,7 +40,7 @@ import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 interface Props {
   vod_url?: string;

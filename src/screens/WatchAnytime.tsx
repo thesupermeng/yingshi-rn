@@ -18,7 +18,7 @@ import NoConnection from './../components/common/noConnection';
 import { CPressable } from '../components/atoms';
 import { showLoginAction } from '@redux/actions/screenAction';
 import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { User } from '@models';
 import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
 import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 

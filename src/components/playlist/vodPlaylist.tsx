@@ -1,24 +1,18 @@
-import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
+import React, { useCallback, memo } from 'react';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { VodTopicType, VodType } from '@type/ajaxTypes';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import RightIcon from '@static/images/more_arrow.svg';
 import VodCard from '../vod/vodCard';
 import { useAppDispatch } from '@hooks/hooks';
 import { TextStyle } from 'react-native';
-import appsFlyer from 'react-native-appsflyer';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
+import { PlayList, Vod } from '@models';
 
 interface Props {
-  playlist: VodTopicType;
+  playlist: PlayList;
   titleStyle?: TextStyle;
 }
-
-type FlatListType = {
-  item: VodType;
-  index: number;
-};
 
 function VodPlaylist({ playlist, titleStyle }: Props) {
   const { textVariants, spacing, colors, icons } = useTheme();
@@ -37,25 +31,7 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
     // ========== for analytics - end ==========
   };
 
-  useEffect(() => {
-    const eventName = 'topic';
-    const eventValues = {
-      topic_name: playlist.topic_name,
-    };
-
-    // appsFlyer.logEvent(
-    //   eventName,
-    //   eventValues,
-    //   res => {
-    //     // console.log(res);
-    //   },
-    //   err => {
-    //     console.error(err);
-    //   },
-    // );
-  }, []);
-
-  const renderItem = useCallback(({ item, index }: FlatListType) => (
+  const renderItem = useCallback(({ item, index }: { item: Vod, index: number }) => (
     <VodCard
       vod_name={item.vod_name}
       vodImageStyle={{ width: 120, height: 180 }}

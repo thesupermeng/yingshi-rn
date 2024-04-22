@@ -91,7 +91,7 @@ import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import Video from "react-native-video";
-import { User } from "@models/user";
+import { User } from "@models";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {

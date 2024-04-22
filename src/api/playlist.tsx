@@ -1,10 +1,9 @@
-import { CEndpoint, CLangKey } from "@constants";
-import { VodPlayListType } from "@type/ajaxTypes";
+import { CEndpoint } from "@constants";
 import { CApi } from "@utility/apiService";
 import { APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
-import { CLang } from "@utility/langService";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
+import { PaggingObject, PlayList } from "@models";
 
 export class PlaylistApi {
     static getTopic = async (page: number = 1) => {
@@ -23,7 +22,7 @@ export class PlaylistApi {
                 throw result.message;
             }
 
-            return result.data as VodPlayListType;
+            return PaggingObject.fromJson<PlayList>(result.data, PlayList.fromJsonList);
 
         } catch (e: any) {
             console.error(`[Error getTopic}]: ${e.toString()}`);
@@ -39,7 +38,7 @@ export class PlaylistApi {
                 throw result.message;
             }
 
-            return result.data as VodPlayListType;
+            return PlayList.fromJsonList(result.data);
 
         } catch (e: any) {
             console.error(`[Error getTopicIosTmp}]: ${e.toString()}`);

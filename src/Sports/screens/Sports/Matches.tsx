@@ -21,7 +21,6 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
   VodTopicType,
 } from "@type/ajaxTypes";
-import VodPlaylist from "../../../components/playlist/vodPlaylist";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -46,7 +45,7 @@ import BecomeVipOverlay from "../../../components/modal/becomeVipOverlay";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 interface NavType {
   has_submenu: boolean;

@@ -19,7 +19,6 @@ import MainHeader from '../../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { DetailTab, BannerAdType, SportTabType } from '@type/ajaxTypes';
-import VodPlaylist from '../../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import Animated from 'react-native-reanimated';
 // import FastImage from 'react-native-fast-image';
@@ -64,7 +63,7 @@ import { AdsApi } from '@api';
 import LiveChatPage from '../../components/matchDetails/liveChatPage';
 import PrivateChatPage from '../../components/matchDetails/privateChatPage';
 import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { User } from '@models';
 
 let insetsTop = 0;
 let insetsBottom = 0;

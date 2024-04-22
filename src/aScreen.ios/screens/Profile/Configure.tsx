@@ -31,7 +31,7 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { User } from '@models';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);

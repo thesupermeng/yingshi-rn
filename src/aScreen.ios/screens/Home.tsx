@@ -41,7 +41,7 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
 import DeviceInfo from "react-native-device-info";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();

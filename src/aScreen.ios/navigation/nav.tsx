@@ -111,7 +111,7 @@ import { ATInterstitialRNSDK } from "./../../../AnyThinkAds/ATReactNativeSDK";
 import { UserApi } from "@api";
 import { CRouteInitializer } from "../../routes/router";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();

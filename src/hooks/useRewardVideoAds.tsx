@@ -9,7 +9,7 @@ import { Platform } from "react-native";
 import { useSelector } from "./hooks";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { useEffect, useRef, useState } from "react";
-import { User } from "@models/user";
+import { User } from "@models";
 
 
 const maxRetryTimes = 5;

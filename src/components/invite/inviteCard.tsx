@@ -37,7 +37,7 @@ import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
 import { screenModel } from "@type/screenType";
-import { User } from "@models/user";
+import { User } from "@models";
 interface Props {
   userState: User;
 }
