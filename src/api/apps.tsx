@@ -113,6 +113,7 @@ export class AppsApi {
                     channelId: UMENG_CHANNEL,
                     appName: APP_NAME_CONST,
                     ads: !isVip,
+                    dj: true,
                 },
             });
 
@@ -137,7 +138,8 @@ export class AppsApi {
                     channelId: UMENG_CHANNEL,
                     appName: APP_NAME_CONST,
                     page: page,
-                    limit: 6
+                    limit: 6,
+                    dj: true,
                 },
             });
             if (result.success === false) {

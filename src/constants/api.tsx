@@ -10,7 +10,7 @@ export class CEndpoint {
     static userGetCountries = 'country/v1/country';
 
     static homeGetNav = 'nav/v1/navItems';
-    static homeGetPages = 'page/v4/typepage?dj=true';
+    static homeGetPages = 'page/v4/typepage';
 
     static playlistGetTopic = 'topic/v1/topic';
     static playlistGetTopicDetail = 'topic/v1/topic/detail';
