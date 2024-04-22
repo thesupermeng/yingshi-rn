@@ -38,14 +38,20 @@ export class HomePageType {
         });
     }
 
-    public static fromArr = (arr: any[]): HomePageType => {
+    public static fromArr = (json: any): HomePageType => {
         return new HomePageType({
-            carousel: Carousel.fromArrList(arr[0]),
-            yunying: arr[0],
-            categories: arr[0],
-            class_list: arr[0],
-            live_station_list: LiveStation.fromArrList(arr[0]),
-            topic_list: PlayList.fromArrList(arr[0]),
+            carousel: Carousel.fromArrList(json.carousel),
+            yunying: VodPlayGroup.fromArrList(json.yunying),
+            categories: VodPlayGroup.fromArrList(json.categories),
+            class_list: json.class_list,
+            live_station_list: LiveStation.fromArrList(json.live_station_list),
+            topic_list: PlayList.fromArrList(json.topic_list),
+            // carousel: Carousel.fromArrList(arr[0]),
+            // yunying: arr[0],
+            // categories: arr[0],
+            // class_list: arr[0],
+            // live_station_list: LiveStation.fromArrList(arr[0]),
+            // topic_list: PlayList.fromArrList(arr[0]),
         });
     }
 }

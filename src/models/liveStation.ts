@@ -34,9 +34,9 @@ export class LiveStation {
     public static fromApiArr = (arr: any[]): LiveStation => {
         return new LiveStation({
             id: arr[0],
-            live_station_name: arr[0],
-            live_station_url: arr[0],
-            live_station_img_url: arr[0],
+            live_station_name: arr[1],
+            live_station_url: arr[2],
+            live_station_img_url: arr[3],
         });
     }
 

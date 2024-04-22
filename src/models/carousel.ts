@@ -57,16 +57,16 @@ export class Carousel {
 
     public static fromApiArr = (arr: any[]): Carousel => {
         return new Carousel({
-            carousel_id: arr[0],
-            carousel_name: arr[0],
-            carousel_pic_mobile: arr[0],
-            carousel_content_id: arr[0],
-            is_ads: arr[0],
-            ads_id: arr[0],
-            ads_name: arr[0],
-            ads_url: arr[0],
             ads_slot_id: arr[0],
-            ads_event_title: arr[0],
+            ads_id: arr[1],
+            ads_event_title: arr[2],
+            ads_name: arr[3],
+            carousel_id: arr[4],
+            carousel_name: arr[5],
+            carousel_content_id: arr[13],
+            carousel_pic_mobile: arr[15],
+            is_ads: arr[19],
+            ads_url: arr[20],
         });
     }
 

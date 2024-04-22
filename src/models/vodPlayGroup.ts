@@ -31,9 +31,9 @@ export class VodPlayGroup {
 
     public static fromApiArr = (arr: any[]): VodPlayGroup => {
         return new VodPlayGroup({
-            type_id: arr[0],
             type_name: arr[0],
-            vod_list: Vod.fromArrList(arr[1]),
+            type_id: arr[1],
+            vod_list: Vod.fromArrList(arr[2]),
         });
     }
 
