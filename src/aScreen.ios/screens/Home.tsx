@@ -5,9 +5,6 @@ import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  VodCarousellType,
-} from "@type/ajaxTypes";
-import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";
@@ -41,7 +38,7 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { AppsApi } from "@api";
 import DeviceInfo from "react-native-device-info";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models";
+import { HomePageType, User } from "@models";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -149,7 +146,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       item,
       index,
     }: {
-      item: UseQueryResult<VodCarousellType>;
+      item: UseQueryResult<HomePageType>;
       index: number;
     }) => {
       return (

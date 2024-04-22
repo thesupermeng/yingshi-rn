@@ -4,56 +4,27 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   RefreshControl,
   Dimensions,
   FlatList,
-  Linking,
 } from 'react-native';
-import { FlatList as FlatListSecondary } from 'react-native-gesture-handler';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
-import {
-  VodTopicType,
-  VodType,
-  VodData,
-  VodCarousellType,
-} from '@type/ajaxTypes';
-// import FastImage from 'react-native-fast-image';
 import FastImage from "../common/customFastImage";
-import { VodReducerState } from '@redux/reducers/vodReducer';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { RootState } from '@redux/store';
-import VodHistoryList from '../vod/vodHistoryList';
-import VodLiveStationList from '../vod/vodLiveStationList';
-import { API_DOMAIN, API_DOMAIN_TEST } from '@utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { playVod } from '@redux/actions/vodActions';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselPagination from './CarouselPagination';
-import Animated, {
-  Extrapolate,
-  interpolate,
-  runOnJS,
-  scrollTo,
-  useAnimatedGestureHandler,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
-// import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
+import { HomePageType, VodPlayGroup } from '@models';
 
 interface NavType {
   id: number;
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellType;
+  vodCarouselRes: HomePageType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -101,7 +72,7 @@ const CatagoryHome = ({
   };
 
   const listItem = useCallback(
-    ({ item, index }: { item: VodData; index: number }) => (
+    ({ item, index }: { item: VodPlayGroup; index: number }) => (
       <View
         key={`${item.type_name}-${index}`}
         style={{
@@ -113,7 +84,7 @@ const CatagoryHome = ({
           text={item.type_name}
           onPress={() => {
             navigation.navigate('片库', {
-              type_id: item.type_id,
+              type_id: item.type_id!,
               class: item.type_name,
             });
           }}

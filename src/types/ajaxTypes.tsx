@@ -15,14 +15,6 @@ export type NavOptionsType = {
     name: string,
 }
 
-export type VodCarousellType = {
-    carousel: Array<CarouselData>,
-    class_list: Array<string>,
-    yunying: Array<VodData>,
-    categories: Array<VodData>,
-    live_station_list: Array<LiveTVStationItem>
-}
-
 export type SuggestVodListType = PaggingResponseType<SuggestedVodType[]>
 export type AdultVodListType = PaggingResponseType<AdultVodType[]>
 export type MiniVideoListType = PaggingResponseTypeWithNonVip<MiniVideo[]>
@@ -257,30 +249,6 @@ export type XVodData = {
     type_name: string
     type_id: number
     vod_source_name: string
-}
-
-
-type CarouselData = {
-    carousel_id: number
-    carousel_name: string
-    carousel_channel: number
-    carousel_remarks: string
-    carousel_content_type: number
-    carousel_content_id: number
-    carousel_pic_pc: string
-    carousel_pic_mobile: string
-    vod: VodType
-    ads_slot_id: number,
-    ads_id: number,
-    ads_title: string,
-    ads_event_title: string,
-    ads_name: string,
-}
-
-export interface YingPingList {
-    type_name: string,
-    type_id: number,
-    vod_list: Array<VodType>,
 }
 
 export interface MiniVideo {

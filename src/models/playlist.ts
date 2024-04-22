@@ -29,6 +29,8 @@ export class PlayList {
     }
 
     public static fromJsonList = (list: any[]): PlayList[] => {
+        if (list === null || list === undefined) return [];
+
         return list.map((json) => this.fromJson(json));
     }
 
@@ -42,6 +44,8 @@ export class PlayList {
     }
 
     public static fromArrList = (list: any[]): PlayList[] => {
+        if (list === null || list === undefined) return [];
+
         return list.map((arr) => this.fromApiArr(arr));
     }
 }

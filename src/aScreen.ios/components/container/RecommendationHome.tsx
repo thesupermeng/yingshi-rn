@@ -12,36 +12,29 @@ import {
 } from 'react-native';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
-import { VodTopicType, VodType, VodCarousellType } from '@type/ajaxTypes';
-// import FastImage from "react-native-fast-image";
 import FastImage from '../common/customFastImage';
 import { VodReducerState } from '@redux/reducers/vodReducer';
 import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
-import VodHistoryList from '../vod/vodHistoryList';
-import VodLiveStationList from '../vod/vodLiveStationList';
-import { API_DOMAIN, API_DOMAIN_TEST } from '@utility/constants';
 import VodListVertical from '../vod/vodListVertical';
 import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselPagination from './CarouselPagination';
-import LoadingIcon from '@static/images/MutedVolume.svg';
 import { Image } from 'react-native';
 import { YingPingContainer } from '../container/yingPingContainer';
 import { AppsApi, PlaylistApi } from '@api';
 import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models';
+import { HomePageType, PlayList, User } from '@models';
 
 interface NavType {
   id: number;
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellType;
+  vodCarouselRes: HomePageType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -67,7 +60,7 @@ const RecommendationHome = ({
   const navigation = useNavigation();
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [results, setResults] = useState<Array<VodTopicType>>([]);
+  const [results, setResults] = useState<PlayList[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const carouselRef = useRef<any>();
   // const {width, height} = Dimensions.get('window');
@@ -201,7 +194,7 @@ const RecommendationHome = ({
   );
 
   const renderContent = useCallback(
-    ({ item, index }: { item: VodTopicType; index: number }) => (
+    ({ item, index }: { item: PlayList; index: number }) => (
       <View
         style={{
           paddingLeft: spacing.sideOffset,
@@ -347,7 +340,7 @@ const RecommendationHome = ({
                           text={category.type_name}
                           onPress={() => {
                             navigation.navigate('片库', {
-                              type_id: category.type_id,
+                              type_id: category.type_id!,
                             });
                           }}
                         />

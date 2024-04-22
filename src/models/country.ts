@@ -30,6 +30,8 @@ export class Country {
     }
 
     public static fromJsonList = (list: any[]): Country[] => {
+        if (list === null || list === undefined) return [];
+
         return list.map((json) => this.fromJson(json));
     }
 
@@ -44,6 +46,8 @@ export class Country {
     }
 
     public static fromArrList = (list: any[]): Country[] => {
+        if (list === null || list === undefined) return [];
+
         return list.map((arr) => this.fromApiArr(arr));
     }
 }

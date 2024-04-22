@@ -15,8 +15,6 @@ import { useFocusEffect, useNavigation, useTheme } from '@react-navigation/nativ
 import Swiper from 'react-native-swiper';
 import ShowMoreVodButton from '../button/showMoreVodButton';
 import {
-  VodData,
-  VodCarousellType,
   BannerAdType,
 } from '@type/ajaxTypes';
 // import FastImage from 'react-native-fast-image';
@@ -55,7 +53,7 @@ import { BannerContainer } from './bannerContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { AdsApi } from '../../api/ads';
-import { User } from '@models';
+import { HomePageType, User, VodPlayGroup } from '@models';
 import { UserStateType } from '@redux/reducers/userReducer';
 // import {FlatList, PanGestureHandler} from 'react-native-gesture-handler';
 
@@ -64,7 +62,7 @@ interface NavType {
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellType;
+  vodCarouselRes: HomePageType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -176,7 +174,7 @@ const CatagoryHome = ({
   ), [navId, tabName]);
 
   const listItem = useCallback(
-    ({ item, index }: { item: VodData; index: number }) => (
+    ({ item, index }: { item: VodPlayGroup; index: number }) => (
       <View
         key={`${item.type_name}-${index}`}
         style={{

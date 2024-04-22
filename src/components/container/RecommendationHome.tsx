@@ -22,7 +22,6 @@ import {
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
-  VodCarousellType,
   BannerAdType,
 } from "@type/ajaxTypes";
 // import FastImage from "react-native-fast-image";
@@ -53,7 +52,7 @@ import { AdsApi } from "../../api/ads";
 import DeviceInfo from "react-native-device-info";
 import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { PaggingObject, PlayList, User } from "@models";
+import { HomePageType, PaggingObject, PlayList, User } from "@models";
 import VipGuideModal2 from "../modal/vipGuide2";
 import VipGuideModal from "../modal/vipGuide";
 import { screenModel } from "@type/screenType";
@@ -76,7 +75,7 @@ interface NavType {
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellType;
+  vodCarouselRes: HomePageType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;

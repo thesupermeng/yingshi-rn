@@ -10,7 +10,7 @@ import ScreenContainer from "../components/container/screenContainer";
 import { useFocusEffect, useRoute, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { NavOptionsType, VodCarousellType } from "@type/ajaxTypes";
+import { NavOptionsType } from "@type/ajaxTypes";
 import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
@@ -61,7 +61,7 @@ import UmengAnalytics from "../../Umeng/UmengAnalytics";
 import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/eventSplash";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models";
+import { HomePageType, User } from "@models";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -214,7 +214,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       item,
       index,
     }: {
-      item: UseQueryResult<VodCarousellType>;
+      item: UseQueryResult<HomePageType>;
       index: number;
     }) => {
       return (

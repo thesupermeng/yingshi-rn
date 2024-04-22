@@ -1,10 +1,10 @@
-import { CEndpoint, CLangKey } from "@constants";
+import { CEndpoint } from "@constants";
 import { CApi } from "@utility/apiService";
 import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
-import { CLang } from "@utility/langService";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { NavOptionsType, VodCarousellType, XVodData, VodType } from "@type/ajaxTypes";
+import { NavOptionsType, XVodData, VodType } from "@type/ajaxTypes";
+import { HomePageType } from "../models/others";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {
@@ -121,7 +121,7 @@ export class AppsApi {
                 throw result.message;
             }
 
-            return result.data as VodCarousellType;
+            return HomePageType.fromJson(result.data);
 
         } catch (e: any) {
             console.error(`[Error getHomePages}]: ${e.toString()}`);

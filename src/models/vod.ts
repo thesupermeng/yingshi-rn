@@ -31,29 +31,33 @@ export class Vod {
             vod_name: json.vod_name,
             vod_pic: json.vod_pic,
             vod_pic_list: json.vod_pic_list,
-            vod_remarks: json.vod_remarks,
+            vod_remarks: json.vod_remarks ?? '',
             type_id: json.type_id,
-            vod_class: json.vod_class,
+            vod_class: json.vod_class ?? '',
         });
     }
 
     public static fromJsonList = (list: any[]): Vod[] => {
+        if (list === null || list === undefined) return [];
+
         return list.map((json) => this.fromJson(json));
     }
 
     public static fromApiArr = (arr: any[]): Vod => {
         return new Vod({
             vod_id: arr[0],
-            vod_name: arr[0],
-            vod_pic: arr[0],
-            vod_pic_list: arr[0],
-            vod_remarks: arr[0],
-            type_id: arr[0],
-            vod_class: arr[0],
+            type_id: arr[1],
+            vod_name: arr[4],
+            vod_class: arr[11],
+            vod_pic: arr[12],
+            vod_remarks: arr[23],
+            vod_pic_list: arr[78],
         });
     }
 
     public static fromArrList = (list: any[]): Vod[] => {
+        if (list === null || list === undefined) return [];
+
         return list.map((arr) => this.fromApiArr(arr));
     }
 }
