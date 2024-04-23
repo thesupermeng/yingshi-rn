@@ -167,7 +167,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   }, []);
   // bgVipXvod
 
-  const isVip = true//User.isVip(userState.user);
+  const isVip = User.isVip(userState.user);
 
   useEffect(() => {
     if (selectedTab === 'xvod' && !isVip) {

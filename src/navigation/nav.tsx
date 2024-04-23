@@ -50,8 +50,8 @@ import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
 
-import VipActionIcon from "@static/images/vip-icon.svg";
-import VipIcon from "@static/images/vip-icon-inactive.svg";
+import VipActionIcon from "@static/images/sportAndX.svg";
+import VipIcon from "@static/images/sportAndX.svg";
 
 import SportAndX from "./../../src/screens/SportAndX";
 
@@ -160,7 +160,9 @@ export default () => {
 
   const userState = useSelector<UserStateType>('userReducer');
 
-  const appState = useSelector<BackgroundType>('backgroundReducer');
+  const showSport = (YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5);
+  const screenState = useSelector<screenModel>('screenReducer');
+
 
   const HomeTabScreen = useCallback(() => {
     return (
@@ -256,7 +258,13 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="体育/成人" component={SportAndX} />
+            <HomeTab.Screen name="体育/成人" component={SportAndX} options={{
+              tabBarLabel: (props) => <Text style={{ color: props.color }}>
+                {showSport && '体育'}
+                {showSport && screenState.showAdultTab && '/'}
+                {screenState.showAdultTab && '成人'}
+              </Text>
+            }} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
@@ -271,7 +279,7 @@ export default () => {
         )}
       </HomeTab.Navigator>
     );
-  }, []);
+  }, [screenState.showAdultTab]);
 
   const refreshUserState = async () => {
     const result = await UserApi.getUserDetails();
@@ -347,9 +355,6 @@ export default () => {
   //screen state
   const dispatch = useAppDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const screenState: screenModel = useAppSelector(
-    ({ screenReducer }: RootState) => screenReducer
-  );
   const [gifKey, setGifKey] = useState(0);
 
   useEffect(() => {

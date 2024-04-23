@@ -42,7 +42,7 @@ export const useRewardVideoAds = ({
     }, [adsList]);
 
     const showAds = (type: RewardVideoAdsType) => {
-        if (User.isVip(userState.user)) return;
+        // if (User.isVip(userState.user)) return;
 
         const pId = _getPId(type);
 

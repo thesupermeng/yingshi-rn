@@ -297,14 +297,14 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             activeOpacity={1}
             onPress={() => {
 
-              if (!User.isLogin(userState.user)) {
-                dispatch(showLoginAction());
-                // console.log('props{');
-                // setActionType('login');
-                // setSignUpOrLogin(true);
-              } else {
-                navigation.navigate("个人中心");
-              }
+              // if (!User.isLogin(userState.user)) {
+              //   dispatch(showLoginAction());
+              //   // console.log('props{');
+              //   // setActionType('login');
+              //   // setSignUpOrLogin(true);
+              // } else {
+              //   navigation.navigate("个人中心");
+              // }
             }}
           >
             <View
@@ -337,7 +337,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     paddingLeft: 12,
                   }}
                 >
-                  {User.isGuest(userState.user) && (
+                  {User.isGuest(userState.user) || true && (
                     <>
                       <Text style={{ color: "#ffffff", fontSize: 14 }}>
                         游客ID:
@@ -347,7 +347,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                     </>
                   )}
-                  {User.isLogin(userState.user) && (
+                  {User.isLogin(userState.user) && false && (
                     <>
                       <View
                         style={{
@@ -395,7 +395,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     justifyContent: "center",
                   }}
                 >
-                  {User.isLogin(userState.user) && (
+                  {User.isLogin(userState.user) && false && (
                     <EditIcn width={29} height={29} color={colors.muted} />
                   )}
                 </View>

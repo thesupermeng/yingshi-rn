@@ -289,7 +289,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, []);
 
   const vod = vodReducer.playVod.vod;
-  const totalShortVodView = vodReducer.totalShortVodView ?? 0;
+  // const totalShortVodView = vodReducer.totalShortVodView ?? 0;
 
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -361,16 +361,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [vipGuideModalOpen, setVipGuideModalOpen] = useState(false);
   const screenWidth = Dimensions.get("window");
 
-  const { data: navOptions } = useQuery({
-    queryKey: ['filterOptions'],
-    queryFn: () => VodApi.getTopicType(),
-  });
+  // const { data: navOptions } = useQuery({
+  //   queryKey: ['filterOptions'],
+  //   queryFn: () => VodApi.getTopicType(),
+  // });
 
-  const shortVodId = useMemo(() => {
-    if (!navOptions) return -1;
+  // const shortVodId = useMemo(() => {
+  //   if (!navOptions) return -1;
 
-    return navOptions.find(x => x.type_name === '短剧')?.type_id ?? -1;
-  }, [navOptions]);
+  //   return navOptions.find(x => x.type_name === '短剧')?.type_id ?? -1;
+  // }, [navOptions]);
 
   const downloadedVod: VodDownloadType | undefined = useAppSelector(
     ({ downloadVideoReducer }: RootState) => {
@@ -1010,6 +1010,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }
 
+  let indexOfEpisode: number | undefined = undefined;
+  if (vodSources.length > 0 && !adultMode) {
+    if (vodSources.map((v) => v.source_id).includes(currentSourceId)) {
+      indexOfEpisode = vodSources
+        ?.find(({ source_id }) => source_id === currentSourceId)
+        ?.vod_play_list.urls?.findIndex((url) => url.nid === currentEpisode);
+    } else {
+      setCurrentSourceId(vodSources?.at(0)?.source_id);
+    }
+  }
+
   if (adultMode) {
     // console.debug("vod", vod)
     vodUrl = vod?.vod_play_list?.urls?.find((url) => url.nid === currentEpisode)
@@ -1081,9 +1092,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         isXmode: adultMode,
       });
 
-      if (vod && vod.type_id === shortVodId) {
-        dispatch(onViewShortVod());
-      }
+      // if (vod && vod.type_id === shortVodId) {
+      //   dispatch(onViewShortVod());
+      // }
     }
 
     setReadyPlay(true);
@@ -1123,7 +1134,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       videoPlayerRef.current?.setPause(false);
     }
 
-    if (totalShortVodView >= VIEW_NUMBER_FOR_SHOW_VIDEO_ADS && vod?.type_id === shortVodId) {
+    // if (totalShortVodView >= VIEW_NUMBER_FOR_SHOW_VIDEO_ADS && vod?.type_id === shortVodId) {
+    //   showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
+    // }
+
+    if (indexOfEpisode !== undefined && (indexOfEpisode + 1) > VIEW_NUMBER_FOR_SHOW_VIDEO_ADS) {
       showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
     }
   }, [vodUri]);
