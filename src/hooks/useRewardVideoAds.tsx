@@ -26,9 +26,9 @@ export enum RewardVideoAdsType {
 }
 
 export const useRewardVideoAds = ({
-    showLog = true,
+    showLog = false,
 }: Props = {
-        showLog: true,
+        showLog: false,
     }) => {
     const userState = useSelector<UserStateType>('userReducer');
     const [adsList, setAdsList] = useState<AdsQueueType[]>([]);
