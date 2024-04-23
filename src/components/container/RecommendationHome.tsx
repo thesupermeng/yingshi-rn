@@ -671,7 +671,7 @@ const RecommendationHome = ({
                     {renderBanner(bannerAdList)}
                   </View>
                 )}
-              {YSConfig.instance.len == 5 && (
+              {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
                 <View style={{ gap: spacing.m }}>
                   <View
                     style={{
