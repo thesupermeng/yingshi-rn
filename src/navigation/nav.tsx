@@ -159,8 +159,6 @@ export default () => {
   }
 
   const userState = useSelector<UserStateType>('userReducer');
-
-  const showSport = (YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5);
   const screenState = useSelector<screenModel>('screenReducer');
 
 
@@ -259,10 +257,9 @@ export default () => {
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
             <HomeTab.Screen name="体育/成人" component={SportAndX} options={{
-              tabBarLabel: (props) => <Text style={{ color: props.color }}>
-                {showSport && '体育'}
-                {showSport && screenState.showAdultTab && '/'}
-                {screenState.showAdultTab && '成人'}
+              tabBarLabel: (props) => <Text style={{ fontSize: 10, color: props.color, paddingBottom: 5 }}>
+                {'体育'}
+                {screenState.showAdultTab && '/成人'}
               </Text>
             }} />
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
@@ -272,7 +269,11 @@ export default () => {
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="体育/成人" component={SportAndX} />
+            {screenState.showAdultTab && <HomeTab.Screen name="体育/成人" component={SportAndX} options={{
+              tabBarLabel: (props) => <Text style={{ fontSize: 10, color: props.color, paddingBottom: 5 }}>
+                {screenState.showAdultTab && '成人'}
+              </Text>
+            }} />}
             <HomeTab.Screen name="播单" component={PlaylistScreen} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
