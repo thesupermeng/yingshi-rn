@@ -671,7 +671,7 @@ const RecommendationHome = ({
                     {renderBanner(bannerAdList)}
                   </View>
                 )}
-
+              {YSConfig.instance.len == 5 && (
                 <View style={{ gap: spacing.m }}>
                   <View
                     style={{
@@ -704,6 +704,7 @@ const RecommendationHome = ({
                     </View>
                   )}
                 </View>
+                 )}
                 {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != '番茄影视TV' && (
                   <View style={{ gap: spacing.m }}>
                     <View
