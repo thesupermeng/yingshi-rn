@@ -680,38 +680,40 @@ const RecommendationHome = ({
                   </View>
                 )}
 
-                <View style={{ gap: spacing.m }}>
-                  <View
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                    }}
-                  >
-                    {sportList && sportList.length > 0 && (
-                      <ShowMoreVodButton
-                        text="体育推荐"
-                        onPress={() => {
-                          dispatch(setAutoSelectSport(true));
-                          navigation.navigate("Home", { screen: "体育/成人" });
-                        }}
-                      />
-                    )}
-                  </View>
-
-                  {sportList && sportList.length > 0 && (
+                {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+                  <View style={{ gap: spacing.m }}>
                     <View
                       style={{
                         paddingLeft: spacing.sideOffset,
-                        paddingBottom: 5,
+                        paddingRight: spacing.sideOffset,
                       }}
                     >
-                      <VodSportsList
-                        sportList={sportList}
-                        isRefreshing={isRefreshing}
-                      />
+                      {sportList && sportList.length > 0 && (
+                        <ShowMoreVodButton
+                          text="体育推荐"
+                          onPress={() => {
+                            dispatch(setAutoSelectSport(true));
+                            navigation.navigate("Home", { screen: "体育/成人" });
+                          }}
+                        />
+                      )}
                     </View>
-                  )}
-                </View>
+
+                    {sportList && sportList.length > 0 && (
+                      <View
+                        style={{
+                          paddingLeft: spacing.sideOffset,
+                          paddingBottom: 5,
+                        }}
+                      >
+                        <VodSportsList
+                          sportList={sportList}
+                          isRefreshing={isRefreshing}
+                        />
+                      </View>
+                    )}
+                  </View>
+                }
                 {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != "番茄影视TV" && (
                   <View style={{ gap: spacing.m }}>
                     <View
