@@ -536,7 +536,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       if (APP_NAME_CONST == "娃娃追剧") {
-        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://wwzj.tv/share.html`;
+        msg = `海量视频内容 随时随地 想看就看 ${"\n"}https://wwzj.tv`;
       }
 
       const result = await Share.share({
