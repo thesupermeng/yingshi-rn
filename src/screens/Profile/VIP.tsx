@@ -626,7 +626,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
     if (result.transaction_status_string === "COMPLETED") {
       handleRefresh();
-      if (userState.user?.isLogin()) {
+      if (User.isLogin(userState.user)) {
         setDialogText(successDialogText);
         setIsDialogOpen(true);
         setIsSuccess(true);
@@ -805,7 +805,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
               handleRefresh();
 
-              if (userState.user?.isLogin()) {
+              if (User.isLogin(userState.user)) {
                 // if( userState.user?.isVip())
                 // {    dispatch(changeScreenAction(successDialogText[0]));
                 // }

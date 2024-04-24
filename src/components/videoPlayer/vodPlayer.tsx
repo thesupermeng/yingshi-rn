@@ -792,7 +792,7 @@ export default forwardRef<VideoRef, Props>(
                 changeEpisodeAndPlay={changeEpisodeAndPlay}
                 onShare={onShare}
                 onReadyForDisplay={onReadyForDisplay}
-                isVip={isVip}
+                isVip={User.fakeIsVip(userState.user)}
                 vodID={vodID}
                 sourceID={sourceID}
                 onDownloadVod={onDownloadVod}

@@ -115,7 +115,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [videoCurrentDurations[current], isPause]);
 
     useEffect(() => {
-      if (current > 0 && current % 4 == 0 && !isVip && adultMode) {
+      if (current > 0 && current % 4 == 0 && !User.fakeIsVip(userState.user) && adultMode) {
         setShowAdultVIPOverlay(true);
       }
     }, [current]);
@@ -301,7 +301,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, []);
 
     const hanldeOnEndReached = useCallback(() => {
-      if (!isVip && !adultMode) {
+      if (!User.fakeIsVip(userState.user) && !adultMode) {
         //   dispatch(showLoginAction());
       } else if (hasNextPage && !isFetchingNextPage && !isFetching) {
         fetchNextPage();
@@ -320,8 +320,8 @@ export default forwardRef<MiniVodRef, Props>(
 
       if (isFocus
         && Platform.OS !== 'ios'
-        && User.isGuest(userState.user)
-        && !User.isVip(userState.user)
+        && !User.fakeIsLogin(userState.user)
+        && !User.fakeIsVip(userState.user)
         && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER
         && current >= MINI_SHOW_LOGIN_NUMBER
       ) {
@@ -330,7 +330,7 @@ export default forwardRef<MiniVodRef, Props>(
     }, [userState.user, current, isFocus]);
 
     useEffect(() => {
-      if (User.isLogin(userState.user) || User.isVip(userState.user)) return;
+      if (User.fakeIsLogin(userState.user) || User.fakeIsVip(userState.user)) return;
 
       if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER && !adultMode) {
         swipeCount.current++;
@@ -375,7 +375,7 @@ export default forwardRef<MiniVodRef, Props>(
               onEndReached={hanldeOnEndReached}
               onEndReachedThreshold={0.8}
               ListFooterComponent={
-                isVip ?
+                User.fakeIsVip(userState.user) ?
                   <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
                     {hasNextPage && (
                       <FastImage

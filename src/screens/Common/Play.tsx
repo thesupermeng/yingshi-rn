@@ -1631,7 +1631,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         >
                           下载
                         </Text>
-                        {!isVip && (
+                        {!User.fakeIsVip(userState.user) && (
                           <View style={{ width: 12, height: "100%" }}>
                             <VipIcon
                               width={12}
@@ -1875,7 +1875,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   onDownload={onDownloadVod}
                   rangeSize={EPISODE_RANGE_SIZE}
                   vodId={vod?.vod_id}
-                  isVip={isVip}
+                  isVip={User.fakeIsVip(userState.user)}
                   setShowAdOverlay={setShowAdOverlay}
                   source={currentSourceId}
                 />

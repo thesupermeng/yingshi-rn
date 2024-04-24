@@ -27,7 +27,7 @@ export default function XVodTab({
   const navigation = useNavigation();
   const [showLoading, setShowLoading] = useState(false);
   const userState = useSelector<UserStateType>('userReducer');
-  const isVip = User.isVip(userState.user);
+  const isVip = User.fakeIsVip(userState.user);
   const [totalPage, setTotalPage] = useState(1);
   const [results, setResults] = useState<Array<XVodData>>([]);
 
@@ -134,7 +134,7 @@ export default function XVodTab({
     refetch,
   } = useInfiniteQuery(
     ['xvodPlayList'],
-    ({pageParam = 1}) => fetchXCategories(pageParam),
+    ({ pageParam = 1 }) => fetchXCategories(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage === null) {
@@ -162,7 +162,7 @@ export default function XVodTab({
   }, []);
 
   useEffect(() => {
-    if(results.length == 0){
+    if (results.length == 0) {
       refetch();
     }
   }, [results])
@@ -210,7 +210,7 @@ export default function XVodTab({
             }
           }}
           ListFooterComponent={
-            <View style={{...styles.loading}}>
+            <View style={{ ...styles.loading }}>
               {hasNextPage && (
                 <FastImage
                   style={{

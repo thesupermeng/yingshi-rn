@@ -224,7 +224,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
 
 
     // guest with VIP show login alert
-    if (User.isGuest(userState.user) && User.isVip(userState.user)) {
+    if (!User.fakeIsLogin(userState.user) && User.isVip(userState.user)) {
       setShowBecomeVIPOverlay(true)
     }
   }, []);
@@ -337,7 +337,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     paddingLeft: 12,
                   }}
                 >
-                  {User.isGuest(userState.user) || true && (
+                  {User.isGuest(userState.user) && (
                     <>
                       <Text style={{ color: "#ffffff", fontSize: 14 }}>
                         游客ID:
@@ -347,7 +347,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                       </Text>
                     </>
                   )}
-                  {User.isLogin(userState.user) && false && (
+                  {User.isLogin(userState.user) && (
                     <>
                       <View
                         style={{
@@ -395,7 +395,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     justifyContent: "center",
                   }}
                 >
-                  {User.isLogin(userState.user) && false && (
+                  {User.isLogin(userState.user) && (
                     <EditIcn width={29} height={29} color={colors.muted} />
                   )}
                 </View>

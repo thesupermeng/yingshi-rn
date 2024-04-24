@@ -23,7 +23,7 @@ const AdultVideoVipModal = () => {
   const { adultModeVipShow, adultMode, watchAnytimeAdultMode } = screenState
   const dispatch = useAppDispatch()
 
-  const isVip = User.isVip(userState.user);
+  const isVip = User.fakeIsVip(userState.user);
 
   const handleCloseModal = useCallback(() => {
     dispatch(hideAdultModeVip())

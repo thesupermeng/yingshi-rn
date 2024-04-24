@@ -167,7 +167,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
   }, []);
   // bgVipXvod
 
-  const isVip = User.isVip(userState.user);
+  const isVip = User.fakeIsVip(userState.user);
 
   useEffect(() => {
     if (selectedTab === 'xvod' && !isVip) {
@@ -319,7 +319,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                             marginBottom: 0,
                           }}
                         >
-                          夜来香
+                          成人
                         </Text>
 
                         <View

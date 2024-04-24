@@ -110,7 +110,7 @@ function ShortVideoPlayer({
 
   const userState = useSelector<UserStateType>('userReducer');
 
-  const isVip = User.isVip(userState.user);
+  const isVip = User.fakeIsVip(userState.user);
   const disableSeek =
     !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
 

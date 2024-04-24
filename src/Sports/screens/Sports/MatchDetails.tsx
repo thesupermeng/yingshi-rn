@@ -107,11 +107,11 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
   const [isLiveVideoFullScreen, setIsLiveVideoFullScreen] = useState(false);
   const [shouldShowComponents, setShouldShowComponents] = useState(true);
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const showCountdown = !User.isVip(userState.user);
+  const showCountdown = !User.fakeIsVip(userState.user);
 
   const videoRef = useRef<VideoRef | null>(null);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
-  const isVip = User.isVip(userState.user);
+  const isVip = User.fakeIsVip(userState.user);
   const sportTabDetails: SportTabType = YSConfig.instance.findTabByKey('体育');
 
   // const [isKeyboardShow, setKeyboardShow] = useState(false);

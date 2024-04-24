@@ -52,7 +52,7 @@ const eighteenPlusControls = ({ }: Props) => {
     showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
-  const isVip = User.isVip(userState.user);
+  const isVip = User.fakeIsVip(userState.user);
 
   // useEffect(() => {
   //   let interval: any;

@@ -140,7 +140,7 @@ const RecommendationHome = ({
   );
 
   useEffect(() => {
-    if (screenState.isHomeGuideShown != true && !isVip) {
+    if (screenState.isHomeGuideShown != true && !User.fakeIsVip(userState.user)) {
       //     setTimeout(() => {
       setVipGuideModal(true);
       // }, 0);

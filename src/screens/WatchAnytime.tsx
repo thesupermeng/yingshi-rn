@@ -87,7 +87,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
     isFetching,
     refetch,
     remove,
-  } = useMinivodQuery(fetchMode, isVip)
+  } = useMinivodQuery(fetchMode, User.fakeIsVip(userState.user));
 
   const checkConnection = useCallback(async () => {
     const state = await NetInfo.fetch();
@@ -155,7 +155,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         filtered = filtered.filter(x => !x.is_ads)
       }
 
-      if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
+      if (!User.fakeIsLogin(userState.user) && !adultMode && !User.fakeIsVip(userState.user)) {
         filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
       }
 
@@ -198,7 +198,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   );
 
   useEffect(() => {
-    if (User.isLogin(userState.user) && isFocusLogin.current) {
+    if (User.fakeIsLogin(userState.user) && isFocusLogin.current) {
       isFocusLogin.current = false;
     }
   }, [userState.user?.userToken]);
