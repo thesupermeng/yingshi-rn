@@ -200,3 +200,10 @@ export const setAutoSelectSport = (action: any) => ({
   type: "set_auto_select_sport",
   payload: action,
 });
+
+
+// 7
+export const setManualShowPopAds = (action: any) => ({
+  type: "set_manual_show_pop_ads",
+  payload: action,
+});

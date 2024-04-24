@@ -13,11 +13,12 @@ import {
   IOS_PLAY_DETAILS_POP_UP_ADS,
   NON_VIP_STREAM_TIME_SECONDS,
 } from "@utility/constants";
-import { useAppSelector, useSelector } from "./hooks";
+import { useAppDispatch, useAppSelector, useSelector } from "./hooks";
 import { AdsBannerContext } from "../contexts/AdsBannerContext";
 import { screenModel } from "@type/screenType";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import { setManualShowPopAds } from "@redux/actions/screenAction";
 // LogBox.ignoreAllLogs();
 type PlacementId =
   | typeof ANDROID_HOME_PAGE_POP_UP_ADS
@@ -32,11 +33,18 @@ const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
   const userState = useSelector<UserStateType>("userReducer");
 
-  const screenState: screenModel = useAppSelector(
+const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
   const { currentRoute } = useContext(AdsBannerContext);
   const [visitCount, setVisitCount] = useState<Record<string, number>>({});
+  const dispatch = useAppDispatch();
+
+
+
+
+
+
 
   ATInterstitialRNSDK.setAdListener(
     ATInterstitialRNSDK.onInterstitialLoaded,
@@ -53,6 +61,10 @@ const useInterstitialAds = () => {
 
     ATInterstitialRNSDK.loadAd(interstitialPlacementId, settings);
   };
+
+
+
+
 
   const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
@@ -128,6 +140,17 @@ const useInterstitialAds = () => {
     }
   };
 
+
+  useEffect(() => {
+    if (screenState.manualShowPopAds == true) {
+      dispatch(setManualShowPopAds(false));
+      setTimeout(() => {
+        showInterstitial(ANDROID_PLAY_DETAILS_POP_UP_ADS);
+      }, 10); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first
+    }
+  }, [screenState.manualShowPopAds]);
+
+
   useEffect(() => {
     retryCount = 0;
     let adsID: PlacementId;
@@ -156,6 +179,9 @@ const useInterstitialAds = () => {
     }
   }, [currentRoute]);
 
+
+
+
   useEffect(() => {
     retryCount = 0;
     loadInterstitial(
@@ -180,6 +206,10 @@ const useInterstitialAds = () => {
       }, 100);
     }
   }, []);
+
+
+
+
 
   return;
 };

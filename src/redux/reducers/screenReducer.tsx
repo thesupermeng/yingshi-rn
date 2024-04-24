@@ -36,6 +36,7 @@ const initialState: screenModel = {
   isPlayGuideShown2 :  false, //4
   isSportGuideShown : false, //5
   autoSelectSport : false, //6
+  manualShowPopAds : false, // 7
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -274,6 +275,12 @@ export function screenReducer(state = initialState, action: screenActionType) {
           return {
             ...state,
             autoSelectSport: action.payload,
+          };
+            //7
+        case "set_manual_show_pop_ads":
+          return {
+            ...state,
+            manualShowPopAds: action.payload,
           };
     default:
       return state;
