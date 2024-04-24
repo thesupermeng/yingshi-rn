@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, FlatList, Text, StyleSheet, Linking} from 'react-native';
+import { View, FlatList, Text, StyleSheet, Linking } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import {
@@ -12,21 +12,21 @@ import {
 } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
-import {playVod} from '@redux/actions/vodActions';
-import {VodType} from '@type/ajaxTypes';
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { playVod } from '@redux/actions/vodActions';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
+import { Vod } from '@models';
 
 type FlatListType = {
-  item: VodType;
+  item: Vod;
 };
 
 export default () => {
   const navigation = useNavigation();
-  const {colors, textVariants, icons} = useTheme();
+  const { colors, textVariants, icons } = useTheme();
   const dispatch = useAppDispatch();
   const favs: FavoriteVodReducerState = useAppSelector(
-    ({vodFavouritesReducer}: RootState) => vodFavouritesReducer,
+    ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
   const favorites = favs.favorites;
 
@@ -39,7 +39,7 @@ export default () => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             data={favorites}
-            contentContainerStyle={{paddingBottom: 120}}
+            contentContainerStyle={{ paddingBottom: 120 }}
             ListFooterComponent={
               <Text
                 style={{
@@ -50,7 +50,7 @@ export default () => {
                 没有更多了
               </Text>
             }
-            renderItem={({item}: FlatListType) => (
+            renderItem={({ item }: FlatListType) => (
               <FavoriteVodCard
                 vod={item}
                 initialFavoriteState={true}

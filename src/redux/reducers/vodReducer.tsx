@@ -3,10 +3,9 @@ import {
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY, SELECT_MINI_VOD_COLLECTION_ITEM
 } from "@utility/constants"
 import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "@type/actionTypes"
-import { VodTopicType, VodType } from "@type/ajaxTypes"
-import { PlayList } from "@models"
+import { PlayList, Vod } from "@models"
 
-export interface VodRecordType extends VodType {
+export interface VodRecordType extends Vod {
     timeWatched: number,
     recordedAt: Date,
     episodeWatched: number,
@@ -85,7 +84,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
 
 type FavouriteVodType = {
     playMode?: 'adult' | 'normal'
-} & VodType
+} & Vod
 
 export interface FavoriteVodReducerState {
     favorites: Array<FavouriteVodType>,

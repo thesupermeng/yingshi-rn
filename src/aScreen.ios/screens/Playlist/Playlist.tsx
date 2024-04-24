@@ -5,7 +5,6 @@ import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { VodTopicType } from '@type/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/constants';

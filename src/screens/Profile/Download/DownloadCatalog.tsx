@@ -11,22 +11,22 @@ import EmptyList from "../../../components/common/emptyList"
 import DownloadVodCard from "../../../components/download/downloadVodCard"
 import CheckBoxSelected from "@static/images/ticked.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
-import { VodType } from "@type/ajaxTypes"
 import ConfirmationModal from "../../../components/modal/confirmationModal"
 import { Button } from "@rneui/themed"
 import { removeVodFromDownloadThunk } from "@redux/actions/videoDownloadAction"
 import { IS_OTHER_SKIN } from "@utility/constants"
+import { Vod } from "@models"
 
 const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
-  const [removeHistory, setRemoveHistory] = useState<VodType[]>([]);
+  const [removeHistory, setRemoveHistory] = useState<Vod[]>([]);
   const allDownloads = useAppSelector(({ downloadVideoReducer }: RootState) => downloadVideoReducer.downloads)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
 
 
-  const toggleHistory = (vod: VodType) => {
+  const toggleHistory = (vod: Vod) => {
     const filtered = removeHistory.filter((x) => x.vod_id !== vod.vod_id);
     if (filtered.length === removeHistory.length) {
       setRemoveHistory([vod, ...removeHistory]);

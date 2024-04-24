@@ -11,7 +11,6 @@ import { RootState } from "@redux/store";
 import MoreArrow from '@static/images/more_arrow.svg'
 import DownloadYellowMiniIcon from '@static/images/download_mini.svg'
 import DownloadPauseYellowMiniIcon from '@static/images/download_pause_mini.svg'
-import { VodType } from "@type/ajaxTypes";
 import CheckBoxSelected from "@static/images/ticked.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
 import ConfirmationModal from "../../../components/modal/confirmationModal";

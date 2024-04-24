@@ -1,12 +1,12 @@
-import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {VodType} from '@type/ajaxTypes';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
 import FavoriteButton from '../button/favoriteVodButton';
 import VodDescription from './vodDescription';
+import { Vod } from '@models';
 
 interface Props {
-  vod: VodType;
+  vod: Vod;
   onPress?: any;
   params?: any[];
   btnStyle?: typeof StyleSheet;
@@ -20,12 +20,12 @@ export default function FavoriteVodCard({
   btnStyle,
   hideFavoriteButton = false,
   initialFavoriteState = false,
-  index, 
+  index,
   ...params
 }: Props) {
-  const {colors, spacing, textVariants} = useTheme();
+  const { colors, spacing, textVariants } = useTheme();
   return (
-    <View style={{...styles.card, gap: spacing.s}}>
+    <View style={{ ...styles.card, gap: spacing.s }}>
       <VodImageCard
         vod_img={vod.vod_pic}
         vodStyle={styles.image}
@@ -35,7 +35,7 @@ export default function FavoriteVodCard({
       />
       <TouchableOpacity
         activeOpacity={1}
-        style={{...styles.description, gap: spacing.xs}}
+        style={{ ...styles.description, gap: spacing.xs }}
         onPress={onPress}>
         <View
           style={{

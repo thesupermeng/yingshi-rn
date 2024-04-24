@@ -12,10 +12,6 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '@type/navigationTypes';
-import {
-  SuggestedVodType,
-  VodType,
-} from '@type/ajaxTypes';
 import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import {

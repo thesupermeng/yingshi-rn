@@ -36,8 +36,6 @@ import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@
 
 import {
   LiveTVStationItem,
-  VodEpisodeListType,
-  VodType,
 } from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
@@ -53,7 +51,7 @@ import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
 import { RootState } from "@redux/store";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models";
+import { User, Vod } from "@models";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -68,12 +66,12 @@ interface Props {
   onBack?: () => any;
   useWebview?: boolean;
   onEpisodeChange?: any;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   activeEpisode?: number;
   rangeSize?: number;
   autoPlayNext?: boolean;
   onShare?: () => any;
-  movieList?: VodType[];
+  movieList?: Vod[];
   showGuide?: boolean;
   showMoreType?: "episodes" | "streams" | "movies" | "none";
   streams?: LiveTVStationItem[];

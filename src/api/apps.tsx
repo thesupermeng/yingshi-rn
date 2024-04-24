@@ -3,8 +3,9 @@ import { CApi } from "@utility/apiService";
 import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { NavOptionsType, XVodData, VodType } from "@type/ajaxTypes";
+import { NavOptionsType, XVodData } from "@type/ajaxTypes";
 import { HomePageType } from "../models/others";
+import { Vod } from "@models";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {
@@ -147,7 +148,7 @@ export class AppsApi {
             }
 
             result.data.categories.forEach((cat: XVodData) => {
-                cat.vod_list.forEach((vod: VodType) => {
+                cat.vod_list.forEach((vod: Vod) => {
                     vod.vod_source_name = cat.vod_source_name;
                 })
             })

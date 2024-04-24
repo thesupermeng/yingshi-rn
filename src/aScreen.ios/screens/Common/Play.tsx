@@ -27,7 +27,7 @@ import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
-import { SuggestedVodType, CommentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
@@ -76,7 +76,7 @@ import { VodCommentBox } from "../../components/vodComment";
 import { CPopup } from "@utility/popup";
 import { VodApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models";
+import { User, Vod } from "@models";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -394,7 +394,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       category: vod?.vod_class?.split(",").shift(),
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
-    }).then((data) => data.List as SuggestedVodType[]);
+    }).then((data) => data.List as Vod[]);
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;

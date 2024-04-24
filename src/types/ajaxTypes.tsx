@@ -1,3 +1,5 @@
+import { Vod, VodEpisode, VodEpisodeGroup } from "@models"
+
 export type PaggingResponseType<T> = {
     Page: number
     TotalPageCount: number
@@ -15,143 +17,10 @@ export type NavOptionsType = {
     name: string,
 }
 
-export type SuggestVodListType = PaggingResponseType<SuggestedVodType[]>
-export type AdultVodListType = PaggingResponseType<AdultVodType[]>
 export type MiniVideoListType = PaggingResponseTypeWithNonVip<MiniVideo[]>
 export type MiniVideoVodListType = PaggingResponseType<MiniVideoCollectionItem[]>
 
-export interface VodType {
-    vod_id: number,
-    type_id: number,
-    type_id_1: number,
-    group_id: number,
-    vod_name: string,
-    vod_sub: string,
-    vod_en: string,
-    vod_status: string,
-    vod_letter: string,
-    vod_color: string,
-    vod_tag: string,
-    vod_class: string,
-    vod_pic: string,
-    vod_pic_thumb: string,
-    vod_pic_slide: string,
-    vod_pic_screenshot: string,
-    vod_actor: string,
-    vod_director: string,
-    vod_writer: string,
-    vod_behind: string,
-    vod_blurb: string,
-    vod_remarks: string,
-    vod_pubdate: string,
-    vod_total: number,
-    vod_serial: string,
-    vod_tv: string,
-    vod_weekday: string,
-    vod_area: string,
-    vod_lang: string,
-    vod_year: string,
-    vod_version: string,
-    vod_state: string,
-    vod_author: string,
-    vod_jumpurl: string,
-    vod_tpl: string,
-    vod_tpl_play: string,
-    vod_tpl_down: string,
-    vod_isend: number,
-    vod_lock: number,
-    vod_level: number,
-    vod_copyright: number,
-    vod_points: number,
-    vod_points_play: number,
-    vod_points_down: number,
-    vod_hits: number,
-    vod_hits_day: number,
-    vod_hits_week: number,
-    vod_hits_month: number,
-    vod_duration: string,
-    vod_up: number,
-    vod_down: number,
-    vod_score: number,
-    vod_score_all: number,
-    vod_score_num: number,
-    vod_time: number,
-    vod_time_add: number,
-    vod_time_hits: number,
-    vod_time_make: number,
-    vod_douban_id: number,
-    vod_douban_score: number,
-    vod_reurl: string,
-    vod_rel_vod: string,
-    vod_rel_art: string,
-    vod_pwd: string,
-    vod_pwd_url: string,
-    vod_pwd_play: string,
-    vod_pwd_down_url: string,
-    vod_pwd_down: string,
-    vod_content: string,
-    vod_play_from: string,
-    vod_play_server: string,
-    vod_play_note: string,
-    vod_play_url: string,
-    vod_down_from: string,
-    vod_down_server: string,
-    vod_down_note: string,
-    vod_down_url: string,
-    vod_plot: number,
-    vod_plot_name: string,
-    vod_plot_detail: string,
-    type_name: string,
-    vod_play_list: VodEpisodeListType,
-    vod_restricted: number,
-    vod_sources: VodSourceType[],
-    preferred_source_id: number,
-    vod_source_name: string,
-}
-
-export interface SuggestedVodType extends VodType {
-    vod_id: number
-    type_id: number
-    vod_name: string
-    vod_en: string
-    vod_letter: string
-    vod_class: string
-    vod_pic: string
-    vod_blurb: string
-    vod_remarks: string
-    vod_area: string
-    vod_lang: string
-    vod_state: string
-    vod_score: number
-    vod_time: number
-    vod_time_add: number
-    vod_content: string
-    vod_play_from: string
-    vod_play_url: string
-    vod_play_list: VodEpisodeListType
-    type_name: string
-}
-
-export interface VodEpisodeListType {
-    url_count: number
-    urls: VodEpisodeType[]
-}
-
-export interface VodSourceType {
-    source_id: number
-    source_name: string
-    source_url: string
-    vod_play_list: VodEpisodeListType
-}
-
-export interface VodEpisodeType {
-    name: string
-    url: string
-    from: string
-    nid: number
-}
-
-export interface VodEpisodeStatusType extends VodEpisodeType {
+export interface VodEpisodeStatusType extends VodEpisode {
     isDownloading: boolean
     isDownloaded: boolean
     progress: ProgressType
@@ -195,57 +64,15 @@ export interface TypeType {
     type_jumpurl: string
     childids: any
 }
-interface VodListType extends VodType {
-    type: TypeType
-}
-
-export interface VodTopicType {
-    topic_id: number
-    topic_name: string
-    topic_en: string
-    topic_sub: string
-    topic_status: number
-    topic_sort: number
-    topic_letter: string
-    topic_color: string
-    topic_tpl: string
-    topic_type: string
-    topic_pic: string
-    topic_pic_thumb: string
-    topic_pic_slide: string
-    topic_key: string
-    topic_des: string
-    topic_title: string
-    topic_blurb: string
-    topic_remarks: string
-    topic_level: number
-    topic_up: number
-    topic_down: number
-    topic_score: string
-    topic_score_all: number
-    topic_score_num: number
-    topic_hits: number
-    topic_hits_day: number
-    topic_hits_week: number
-    topic_hits_month: number
-    topic_time: string
-    topic_time_add: string
-    topic_tag: string
-    topic_rel_vod: string
-    topic_rel_art: string
-    topic_content: string
-    topic_extend: string
-    vod_list: VodListType[]
-}
 
 export type VodData = {
-    vod_list: Array<VodType>
+    vod_list: Array<Vod>
     type_name: string
     type_id: number
 }
 
 export type XVodData = {
-    vod_list: Array<VodType>
+    vod_list: Array<Vod>
     type_name: string
     type_id: number
     vod_source_name: string
@@ -364,33 +191,6 @@ export interface CheckVersionRequest {
     product: string,
     mobile_os: string,
     mobile_model: string,
-}
-
-export interface AdultVodType {
-    vod_id: number
-    type_id: number
-    type_id_1: number
-    vod_name: string
-    vod_en: string
-    vod_letter: string
-    vod_class: string
-    vod_pic: string
-    vod_pic_thumb: string
-    vod_blurb: string
-    vod_pubdate: string
-    vod_total: number
-    vod_year: number
-    vod_isend: number
-    vod_score: number
-    vod_time: number
-    vod_time_add: number
-    vod_time_hits: number
-    vod_content: string
-    vod_play_from: string
-    vod_play_url: string
-    vod_play_list: VodEpisodeListType
-    vod_restricted: number
-    vod_source_name: string
 }
 
 export interface CommentsResponseDataType {

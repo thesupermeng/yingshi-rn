@@ -11,7 +11,7 @@ import {
   Platform
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { VodEpisodeListType, VodEpisodeStatusType } from "@type/ajaxTypes";
+import { VodEpisodeStatusType } from "@type/ajaxTypes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import DownloadIcon from '@static/images/download.svg'
@@ -26,6 +26,7 @@ import { Provider, Toast } from "@ant-design/react-native";
 import { debounce, throttle } from "lodash";
 import { CPopup } from "@utility/popup";
 import { DOWNLOAD_FEATURE_MAX_QUEUE } from "@utility/constants";
+import { VodEpisodeGroup } from "@models";
 
 const throttledToast = debounce((msg: string) => {
   CPopup.showToast(msg)
@@ -37,7 +38,7 @@ interface Props {
   isVip: boolean;
   source?: number;
   screen: string;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   handleClose: any;
   rangeSize?: number;
   activeEpisode?: number;

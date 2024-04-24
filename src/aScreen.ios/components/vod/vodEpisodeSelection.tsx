@@ -1,14 +1,14 @@
 import React, { useState, useMemo, RefObject, memo, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { VodEpisodeListType, VodEpisodeType } from '@type/ajaxTypes';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import SortAscIcon from '@static/images/sortAsc.svg';
 import SortDescIcon from '@static/images/sortDesc.svg';
+import { VodEpisodeGroup } from '@models';
 interface Props {
     onConfirm: any,
     onCancel: any,
-    episodes?: VodEpisodeListType
+    episodes?: VodEpisodeGroup,
     activeEpisode?: number,
     rangeSize?: number
 }

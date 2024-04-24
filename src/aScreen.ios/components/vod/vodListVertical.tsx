@@ -6,7 +6,6 @@ import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { VodType } from '@type/ajaxTypes';
 import { Vod } from '@models';
 
 

@@ -12,7 +12,6 @@ import { removeVodsFromHistory, playVod } from '@redux/actions/vodActions';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
 import CheckBoxSelected from '@static/images/checkbox_selected.svg';
 import CheckBoxUnselected from '@static/images/checkbox_unselected.svg';
-import { AdultVodListType, AdultVodType, VodType } from '@type/ajaxTypes';
 import { Button } from '@rneui/themed';
 import ConfirmationModal from '../../components/modal/confirmationModal';
 import VodLiveStationListVertical from '../../components/vod/vodLiveStationListVertical';
@@ -22,10 +21,11 @@ import FastImage from '../../components/common/customFastImage';
 import { API_DOMAIN_TEST } from '@utility/constants';
 import { enableAdultMode } from '@redux/actions/screenAction';
 import { VodApi } from '@api';
+import { Vod } from '@models';
 
 type AdultVodReturnType = {
   data: {
-    List: Array<AdultVodType>;
+    List: Array<Vod>;
     TotalPageCount: number;
   };
 };
@@ -33,7 +33,7 @@ type AdultVodReturnType = {
 
 
 export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) => {
-  const [adultVodData, setAdultVodData] = useState<AdultVodType[]>([]);
+  const [adultVodData, setAdultVodData] = useState<Vod[]>([]);
   const { colors, textVariants, spacing, icons } = useTheme();
   const [page, setPage] = useState(1);
   const totalPageCount = useRef<number>(0);
@@ -61,7 +61,7 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
       setHasNextPage(true);
     }
     setIsFetching(true);
-    const vodData = await fetchVod(page) as AdultVodListType;
+    const vodData = await fetchVod(page);
     const data = vodData.List;
     setIsFetching(false);
 
@@ -69,7 +69,7 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
     setPage(page => page + 1);
   };
 
-  const renderItem = ({ item, index }: { item: AdultVodType; index: number }) => {
+  const renderItem = ({ item, index }: { item: Vod; index: number }) => {
     return (
       <View
         style={{

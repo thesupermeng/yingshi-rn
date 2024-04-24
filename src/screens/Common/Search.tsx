@@ -16,7 +16,6 @@ import SearchIcon from "@static/images/search.svg";
 import ClearIcon from "@static/images/cross.svg";
 import { useQuery } from "@tanstack/react-query";
 
-import { SuggestedVodType } from "@type/ajaxTypes";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { API_DOMAIN } from "@utility/constants";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
@@ -39,6 +38,7 @@ import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import { VodApi } from "@api";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { Vod } from "@models";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [search, setSearch] = useState("");
@@ -49,7 +49,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
-  const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>(
+  const [searchResults, setSearchResults] = useState<Vod[]>(
     []
   );
   const [showResults, setShowResults] = useState(false);

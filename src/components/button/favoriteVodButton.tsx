@@ -13,10 +13,10 @@ import {
   addVodToFavorites,
   removeVodFromFavorites,
 } from '@redux/actions/vodActions';
-import { VodType } from '@type/ajaxTypes';
 import { screenModel } from '@type/screenType';
+import { Vod } from '@models';
 interface Props {
-  vod: VodType;
+  vod: Vod;
   onPress?: any;
   textColor?: string;
   params?: any[];
@@ -35,9 +35,9 @@ export default function FavoriteVodButton({
 }: Props) {
   const { colors, textVariants, spacing, icons } = useTheme();
   const screenState: screenModel = useAppSelector(
-    ({screenReducer}) => screenReducer
+    ({ screenReducer }) => screenReducer
   )
-  const {adultMode} = screenState
+  const { adultMode } = screenState
   const dispatch = useAppDispatch();
   return (
     <View style={styles.btn}>
@@ -55,7 +55,7 @@ export default function FavoriteVodButton({
           if (initialState) {
             dispatch(removeVodFromFavorites(vod));
           } else {
-            const playMode = adultMode? 'adult' : 'normal'
+            const playMode = adultMode ? 'adult' : 'normal'
             dispatch(addVodToFavorites(vod, playMode));
           }
         }}

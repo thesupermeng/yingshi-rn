@@ -3,10 +3,9 @@ import {
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, REMOVE_VOD_HISTORY
 } from "@utility/constants";
 import { VodActionType } from "@type/actionTypes";
-import { VodSourceType, VodTopicType, VodType } from "@type/ajaxTypes";
 import { PlayList, Vod } from "@models";
 
-export const addVodToFavorites = (vod: VodType, playMode: 'adult' | 'normal' = 'normal') => {
+export const addVodToFavorites = (vod: Vod, playMode: 'adult' | 'normal' = 'normal') => {
     console.debug('playmode added', playMode)
     return (
         {
@@ -16,14 +15,14 @@ export const addVodToFavorites = (vod: VodType, playMode: 'adult' | 'normal' = '
         }
     )
 }
-export const removeVodFromFavorites = (vod: VodType) => (
+export const removeVodFromFavorites = (vod: Vod) => (
     {
         type: REMOVE_VOD_FROM_FAVORITES,
         payload: vod
     }
 )
 
-// export const toggleVodFavorites = (vod: VodType) => (
+// export const toggleVodFavorites = (vod: Vod) => (
 //     {
 //         type: TOGGLE_VOD_FAVORITES,
 //         payload: [vod]
@@ -40,7 +39,7 @@ export const playVod = (vod: Vod, timeWatched?: number, episodeToPlay?: number, 
     }
 }
 
-export const togglePlaylistFavorites = (playlist: VodTopicType) => (
+export const togglePlaylistFavorites = (playlist: PlayList) => (
     {
         type: TOGGLE_PLAYLIST_FAVORITES,
         payload: playlist
@@ -54,7 +53,7 @@ export const viewPlaylistDetails = (playlist: PlayList) => (
     }
 )
 
-export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatched: number = 0, isAdultMode = false, vodSourceId: number = 0) => {
+export const addVodToHistory = (vod: Vod, timeWatched: number, episodeWatched: number = 0, isAdultMode = false, vodSourceId: number = 0) => {
     return {
         type: ADD_VOD_TO_HISTORY,
         payload: [vod],
@@ -65,7 +64,7 @@ export const addVodToHistory = (vod: VodType, timeWatched: number, episodeWatche
     }
 }
 
-export const removeVodsFromHistory = (vods: Array<VodType>) => (
+export const removeVodsFromHistory = (vods: Vod[]) => (
     {
         type: REMOVE_VOD_HISTORY,
         payload: vods

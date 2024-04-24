@@ -1,8 +1,7 @@
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { VodType, VodTopicType, LiveTVStationItem, CommentsType, BannerAdType } from "./ajaxTypes";
-import { User } from "@models";
+import { LiveTVStationItem, CommentsType, BannerAdType } from "./ajaxTypes";
+import { PlayList, User, Vod } from "@models";
 
 // https://reactnavigation.org/docs/typescript/
 export type HomeTabParamList = {
@@ -53,19 +52,19 @@ export type RootStackParamList = {
   关于我们: undefined;
   分享App: undefined;
   播放: {
-    vod_id: VodType["vod_id"];
+    vod_id: Vod["vod_id"];
     player_mode?: "adult" | 'normal';
   };
   全部评论: {
-    vod_id: VodType["vod_id"];
-    vod_name: VodType["vod_name"];
+    vod_id: Vod["vod_id"];
+    vod_name: Vod["vod_name"];
     commentItems: CommentsType[];
   };
   搜索: {
     initial: string;
   };
   PlaylistDetail: {
-    topic_id: VodTopicType["topic_id"];
+    topic_id: PlayList["topic_id"];
   };
   隐私政策: undefined;
   用户协议: undefined;

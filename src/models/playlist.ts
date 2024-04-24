@@ -1,4 +1,3 @@
-import { PaggingObject } from "./pagging";
 import { Vod } from "./vod";
 
 export class PlayList {

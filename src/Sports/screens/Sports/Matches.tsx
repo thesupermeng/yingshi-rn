@@ -19,9 +19,6 @@ import MainHeader from "../../../components/header/homeHeader";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
-  VodTopicType,
-} from "@type/ajaxTypes";
-import {
   BottomTabScreenProps,
   useBottomTabBarHeight,
 } from "@react-navigation/bottom-tabs";

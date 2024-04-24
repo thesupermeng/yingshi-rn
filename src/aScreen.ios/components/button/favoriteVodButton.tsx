@@ -13,9 +13,9 @@ import {
   addVodToFavorites,
   removeVodFromFavorites,
 } from '@redux/actions/vodActions';
-import { VodType } from '@type/ajaxTypes';
+import { Vod } from '@models';
 interface Props {
-  vod: VodType;
+  vod: Vod;
   onPress?: any;
   textColor?: string;
   params?: any[];

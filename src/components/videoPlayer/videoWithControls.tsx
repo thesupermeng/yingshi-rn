@@ -1,10 +1,11 @@
-import { MutableRefObject, memo } from "react"
+import { MutableRefObject, memo, useEffect } from "react"
 import { Platform, StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
-import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
+import { LiveTVStationItem } from "@type/ajaxTypes";
 import AdultModeCountdownIndicator from "../adultVideo/adultModeCountdownIndicator";
 import { useRoute } from "@react-navigation/native";
+import { Vod, VodEpisodeGroup } from "@models";
 
 
 interface Props {
@@ -21,10 +22,10 @@ interface Props {
     vodTitle: string,
     videoType: string,
     activeEpisode?: number,
-    episodes?: VodEpisodeListType,
+    episodes?: VodEpisodeGroup,
     rangeSize?: number,
     accumulatedSkip: any,
-    movieList: VodType[],
+    movieList: Vod[],
     showGuide: boolean,
     showMoreType: "episodes" | "none" | "streams" | "movies",
     streams: LiveTVStationItem[],
@@ -116,7 +117,12 @@ const VideoWithControls = ({
      */
 
     const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : { ref: ref => (videoPlayerRef.current = ref) }
-
+    useEffect(() => {
+        console.log('mount')
+        return () => {
+            console.log('unmount')
+        }
+    }, [])
     return (
         <View
             style={{

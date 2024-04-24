@@ -7,7 +7,7 @@ import BackButton from '../button/backButton';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
-import { LiveTVStationItem, VodEpisodeListType, VodType } from '@type/ajaxTypes';
+import { LiveTVStationItem } from '@type/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
 import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS, FadeIn } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
@@ -24,6 +24,7 @@ import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicat
 import { DOWNLOAD_FEATURE_ENABLED, UMENG_CHANNEL } from '@utility/constants';
 import DownloadBtn from '@static/images/download_btn.svg';
 import VodDownloadSelection from '../vod/vodDownloadSelection';
+import { Vod, VodEpisodeGroup } from '@models';
 
 type Props = {
   videoUrl: string;
@@ -41,8 +42,8 @@ type Props = {
   onPlaybackRateChange: (rate: number) => any;
   playbackRate: number;
   onEpisodeChange: any;
-  episodes?: VodEpisodeListType
-  movieList?: VodType[],
+  episodes?: VodEpisodeGroup;
+  movieList?: Vod[],
   activeEpisode?: number,
   rangeSize?: number,
   onNextEpisode?: () => any,

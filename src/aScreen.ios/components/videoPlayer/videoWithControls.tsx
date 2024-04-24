@@ -2,7 +2,8 @@ import { MutableRefObject, memo } from "react"
 import { StyleSheet } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
-import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
+import { LiveTVStationItem } from "@type/ajaxTypes";
+import { Vod, VodEpisodeGroup } from "@models";
 
 
 interface Props {
@@ -19,10 +20,10 @@ interface Props {
     vodTitle: string,
     videoType: string,
     activeEpisode?: number,
-    episodes?: VodEpisodeListType,
+    episodes?: VodEpisodeGroup,
     rangeSize?: number,
     accumulatedSkip: any,
-    movieList: VodType[],
+    movieList: Vod[],
     showGuide: boolean,
     showMoreType: "episodes" | "none" | "streams" | "movies",
     streams: LiveTVStationItem[],

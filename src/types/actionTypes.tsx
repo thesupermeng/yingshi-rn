@@ -1,7 +1,6 @@
 import { FFmpegSession } from "ffmpeg-kit-react-native"
-import { VodTopicType, VodType } from "./ajaxTypes"
 import { DownloadStatus } from "./vodDownloadTypes"
-import { PlayList } from "@models"
+import { PlayList, Vod } from "@models"
 
 export interface ThemeActionType {
     type: string
@@ -9,7 +8,7 @@ export interface ThemeActionType {
 
 export interface VodActionType {
     type: string,
-    payload: Array<VodType>
+    payload: Array<Vod>
     timeWatched?: number,
     episodeWatched?: number
     fromMiniVodCollectionItemIndex?: number
@@ -20,7 +19,7 @@ export interface VodActionType {
 
 export interface FavoriteVodActionType {
     type: string,
-    payload: VodType
+    payload: Vod
 }
 
 export interface VodPlaylistActionType {

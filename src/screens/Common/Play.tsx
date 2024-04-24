@@ -34,9 +34,6 @@ import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
 import {
-  AdultVodListType,
-  SuggestedVodType,
-  VodSourceType,
   BannerAdType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
@@ -117,7 +114,7 @@ import {
 } from "@type/vodDownloadTypes";
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models";
+import { User, Vod, VodSource } from "@models";
 import { CRouter } from "../../routes/router";
 import VipGuideModal from "../../components/modal/vipGuide";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
@@ -333,7 +330,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [currentQuality, setCurrentQuality] = useState(
     vod?.sourceWatched === undefined ? 0 : vod.sourceWatched
   );
-  const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
+  const [vodSources, setVodSources] = useState<VodSource[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
   const [shouldResumeAfterLoad, setShouldResumeAfterLoad] = useState(false);
@@ -739,7 +736,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
     }).then((data) => {
-      return data.List as SuggestedVodType[];
+      return data.List as Vod[];
     })
   };
 
@@ -772,7 +769,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       limit: 6,
       rand: 1,
       xMode: true,
-    }).then((data) => data.List as AdultVodListType[]);
+    }).then((data) => data.List);
 
   const {
     data: suggestedSVods,
@@ -1135,6 +1132,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       });
     }
   };
+
+  useEffect(() => {
+    console.debug('play play');
+
+    return () => console.debug('no play')
+  }, []);
 
   return (
     <>

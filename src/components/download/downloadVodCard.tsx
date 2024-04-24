@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
-import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {VodType} from '@type/ajaxTypes';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import VodImageCard from '../vod/vodImageCard';
 import VodDescription from '../vod/vodDescription';
 import { DownloadStatus, VodDownloadType } from '@type/vodDownloadTypes';
@@ -13,38 +12,38 @@ import { Divider } from '@rneui/base';
 
 const DownloadingGif = require('@static/images/downloading.gif')
 
-const DownloadIndicator = (props: {downloading: boolean; paused: boolean}) => (
+const DownloadIndicator = (props: { downloading: boolean; paused: boolean }) => (
   <View
     style={{
       flexDirection: 'row',
       opacity: props.downloading || props.paused ? 1 : 0,
-      height: 18, 
+      height: 18,
       gap: 2
     }}>
     {props.downloading && (
       <>
-        <Text style={{color: '#FAC33D', lineHeight: 18}}>下载中</Text>
+        <Text style={{ color: '#FAC33D', lineHeight: 18 }}>下载中</Text>
         <FastImage
           useFastImage={true}
           source={DownloadingGif}
           resizeMode="contain"
-          style={{width: 18, height: 18}}
+          style={{ width: 18, height: 18 }}
         />
       </>
     )}
     {props.paused && (
       <>
-        <Text style={{color: '#FAC33D', lineHeight: 18, opacity: 0.5}}>已暂停</Text>
+        <Text style={{ color: '#FAC33D', lineHeight: 18, opacity: 0.5 }}>已暂停</Text>
         <DownloadPauseYellowIcon
           width={18}
           height={18}
-          style={{opacity: 0.5}}
+          style={{ opacity: 0.5 }}
         />
       </>
     )}
   </View>
 );
-    
+
 
 
 
@@ -54,7 +53,7 @@ interface Props {
   params?: any[];
   btnStyle?: typeof StyleSheet;
   index: number;
-  imgOrientation?: 'horizontal' | 'vertical'; 
+  imgOrientation?: 'horizontal' | 'vertical';
   vod_pic_list: string[]
   activeOpacity?: number;
 }
@@ -62,18 +61,18 @@ function DownloadVodCard({
   download,
   onPress,
   btnStyle,
-  index, 
+  index,
   imgOrientation,
   activeOpacity = 0.2,
-  vod_pic_list, 
+  vod_pic_list,
   ...params
 }: Props) {
-  const {colors, spacing, textVariants} = useTheme();
+  const { colors, spacing, textVariants } = useTheme();
 
   const totalFileSizeInMB = download.episodes.reduce((prev, curr) => prev + curr.sizeInBytes, 0) / 1024 / 1024  // size in MiB
 
   let totalNumberOfEpisodes, totalDownloadedEpisodes;
-  if (download.vod.vod_sources){
+  if (download.vod.vod_sources) {
     const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources.shift()
     totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
     totalDownloadedEpisodes = download.episodes.length
@@ -82,15 +81,15 @@ function DownloadVodCard({
     totalNumberOfEpisodes = download.vod.vod_play_list.url_count
     totalDownloadedEpisodes = download.episodes.length
   }
-  const isVodsDownloading = download.episodes.some(ep => ep.status === DownloadStatus.DOWNLOADING) 
+  const isVodsDownloading = download.episodes.some(ep => ep.status === DownloadStatus.DOWNLOADING)
   const isVodsDownloadingPaused = !isVodsDownloading && download.episodes.some(ep => ep.status === DownloadStatus.ERROR || ep.status === DownloadStatus.PAUSED)
 
   return (
     <TouchableOpacity
       activeOpacity={activeOpacity}
-      style={{...styles.description, gap: spacing.xs}}
+      style={{ ...styles.description, gap: spacing.xs }}
       onPress={onPress}>
-      <View style={{...styles.card, gap: spacing.s}}>
+      <View style={{ ...styles.card, gap: spacing.s }}>
         <VodImageCard
           vod_img={download.imagePath}
           vodStyle={
@@ -123,11 +122,11 @@ function DownloadVodCard({
             {download.vod.vod_name}
           </Text>
           <View style={styles.videoCountDetail}>
-            <Text style={{color: colors.muted}}>
+            <Text style={{ color: colors.muted }}>
               {totalDownloadedEpisodes}个视频
             </Text>
-            <Divider orientation='vertical'/>
-            <Text style={{color: colors.muted}}>
+            <Divider orientation='vertical' />
+            <Text style={{ color: colors.muted }}>
               共{totalFileSizeInMB.toFixed(0)}MB
             </Text>
 
@@ -158,15 +157,15 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   image: {
-   width: 120, 
-   height: 180,
+    width: 120,
+    height: 180,
   },
   imageHorizontal: {
     width: 154,
     height: 87,
-  }, 
+  },
   videoCountDetail: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     gap: 5
   }
 });

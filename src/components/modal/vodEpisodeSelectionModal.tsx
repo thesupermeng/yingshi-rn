@@ -9,17 +9,17 @@ import {
   FlatList,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { VodEpisodeListType } from "@type/ajaxTypes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import SortAscIcon from "@static/images/sortAsc.svg";
 import SortDescIcon from "@static/images/sortDesc.svg";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import { VodRecordType } from "@redux/reducers/vodReducer";
+import { VodEpisodeGroup } from "@models";
 
 interface Props {
   onConfirm: any;
   onCancel: any;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   activeEpisode?: number;
   rangeSize?: number;
   isVisible: boolean;
