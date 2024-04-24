@@ -33,7 +33,7 @@ const useInterstitialAds = () => {
   const [adsReadyFlag, setAdsReadyFlag] = useState(false);
   const userState = useSelector<UserStateType>("userReducer");
 
-const screenState: screenModel = useAppSelector(
+  const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
   const { currentRoute } = useContext(AdsBannerContext);
@@ -80,7 +80,9 @@ const screenState: screenModel = useAppSelector(
       } else if (
         currentRoute == "播放" ||
         currentRoute == "体育详情" ||
-        currentRoute == "电视台播放"
+        currentRoute == "电视台播放" ||
+        currentRoute == "体育/成人" ||
+        currentRoute == "随心看"
       ) {
         adsID =
           Platform.OS === "android"
@@ -143,6 +145,8 @@ const screenState: screenModel = useAppSelector(
 
   useEffect(() => {
     if (screenState.manualShowPopAds == true) {
+      retryCount = 0;
+
       dispatch(setManualShowPopAds(false));
       setTimeout(() => {
         showInterstitial(ANDROID_PLAY_DETAILS_POP_UP_ADS);
@@ -150,6 +154,15 @@ const screenState: screenModel = useAppSelector(
     }
   }, [screenState.manualShowPopAds]);
 
+  useEffect(() => {
+    if (screenState.watchAnytimeAdultMode == true) {
+      retryCount = 0;
+
+      setTimeout(() => {
+        showInterstitial(ANDROID_PLAY_DETAILS_POP_UP_ADS);
+      }, 10); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first
+    }
+  }, [screenState.watchAnytimeAdultMode]);
 
   useEffect(() => {
     retryCount = 0;

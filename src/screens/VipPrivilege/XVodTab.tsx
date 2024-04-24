@@ -5,7 +5,7 @@ import { API_DOMAIN } from "@utility/constants";
 import { VodData, XVodData } from "@type/ajaxTypes";
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 
-import { acceptOverEighteen } from "@redux/actions/screenAction";
+import { acceptOverEighteen, setManualShowPopAds } from "@redux/actions/screenAction";
 import EighteenPlusOverlay from "../../components/modal/overEighteenOverlay";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
@@ -156,6 +156,7 @@ export default function XVodTab({
   );
 
   useEffect(() => {
+    dispatch(setManualShowPopAds(true))
     if (results == undefined) {
       setShowLoading(true);
     }
