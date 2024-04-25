@@ -18,11 +18,11 @@ import android.content.Intent;
 import android.database.CursorWindow;
 import android.os.Bundle;
 
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
+// import com.umeng.analytics.MobclickAgent;
+// import com.umeng.commonsdk.UMConfigure;
 
 import com.aimeiju.SplashAdShowActivity;
-import com.aimeiju.RNUMConfigure;
+// import com.aimeiju.RNUMConfigure;
 import android.content.Context;
 import android.util.Log;
 
@@ -100,12 +100,12 @@ public class MainActivity extends ReactActivity {
             }
         });
 
-    String appKey = getResources().getString(R.string.UMENG_APPKEY);
-    String channel = getResources().getString(R.string.UMENG_CHANNEL);
-    RNUMConfigure.setLogEnabled(true);
-    RNUMConfigure.preInit(this, appKey, channel);
-    RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
-    MobclickAgent.setSessionContinueMillis(1000*40);
+    // String appKey = getResources().getString(R.string.UMENG_APPKEY);
+    // String channel = getResources().getString(R.string.UMENG_CHANNEL);
+    // RNUMConfigure.setLogEnabled(true);
+    // RNUMConfigure.preInit(this, appKey, channel);
+    // RNUMConfigure.init(this, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, "");
+    // MobclickAgent.setSessionContinueMillis(1000*40);
 
     showSplashScreenAd();
 
@@ -137,14 +137,14 @@ public class MainActivity extends ReactActivity {
   public void onResume() {   
     // 友盟统计初始化        
     super.onResume();
-    MobclickAgent.onResume(this);
+    // MobclickAgent.onResume(this);
   }    
 
   @Override    
   protected void onPause() {
     //友盟统计初始化
     super.onPause();
-    MobclickAgent.onPause(this);
+    // MobclickAgent.onPause(this);
   }
 
   /**
