@@ -50,11 +50,11 @@ bool isCurrentMainView = NO;
   [self initRootController];
   [ATAPI setLogEnabled:NO]; // Turn on debug logs
 
-  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a65093c4e166c3" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
-  ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a65093c4e166c3"];
-//  ATPangleConfigure *pangleConfigure = [[ATPangleConfigure alloc] initWithAppid:@"a65093c4e166c3"];
-//  ATVungleConfigure *vungleConfigure = [[ATVungleConfigure alloc] initWithAppid:@"a65093c4e166c3"];
-  ATAdColonyConfigure *adcolonyConfigure = [[ATAdColonyConfigure alloc] initWithAppid:@"a65093c4e166c3" zoneIds:@[]];
+  ATMintegralConfigure *mtgConfigure = [[ATMintegralConfigure alloc] initWithAppid:@"a6629ff64da95b" appkey:@"0b1cab850e5de6fdc1fe0e114a0256eb"];
+  ATGDTConfigure *gdtConfigure = [[ATGDTConfigure alloc] initWithAppid:@"a6629ff64da95b"];
+//  ATPangleConfigure *pangleConfigure = [[ATPangleConfigure alloc] initWithAppid:@"a6629ff64da95b"];
+//  ATVungleConfigure *vungleConfigure = [[ATVungleConfigure alloc] initWithAppid:@"a6629ff64da95b"];
+  ATAdColonyConfigure *adcolonyConfigure = [[ATAdColonyConfigure alloc] initWithAppid:@"a6629ff64da95b" zoneIds:@[]];
   ATMyTargetConfigure *mytargetConfigure = [[ATMyTargetConfigure alloc] init];
   ATFacebookConfigure *facebookConfigure = [[ATFacebookConfigure alloc] init];
 
@@ -95,7 +95,7 @@ bool isCurrentMainView = NO;
   }
 
 
-  [[ATAPI sharedInstance] startWithAppID:@"a65093c4e166c3" appKey:@"ac16f5a19bcbae7438b36f0f7160fbac3" sdkConfigures:configuration error:nil];
+  [[ATAPI sharedInstance] startWithAppID:@"a6629ff64da95b" appKey:@"ae2e7a7fe60c2a6e7a85e157c999618e4" sdkConfigures:configuration error:nil];
   [[ATAPI sharedInstance] setPresetPlacementConfigPathBundle:[NSBundle mainBundle]];
   
   self.launchOptions = launchOptions;
