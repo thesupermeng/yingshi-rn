@@ -6,6 +6,7 @@
             <domain includeSubdomains="true">127.0.0.1</domain>
             <domain includeSubdomains="true">10.0.0.1</domain>
             <domain includeSubdomains="true">localhost</domain>
+            <domain includeSubdomains="true">http://hz.gxhongdeli168.com</domain>
         </domain-config>
 
         <domain includeSubdomains="true">reactnative.dev</domain>
@@ -14,4 +15,10 @@
             <certificates src="system"/>
         </trust-anchors>
     </domain-config>
+        <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
 </network-security-config>

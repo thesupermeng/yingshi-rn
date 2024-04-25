@@ -714,7 +714,7 @@ const RecommendationHome = ({
                     )}
                   </View>
                 }
-                {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != "番茄影视TV" && (
+                {/* {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != "番茄影视TV" && (
                   <View style={{ gap: spacing.m }}>
                     <View
                       style={{
@@ -754,7 +754,7 @@ const RecommendationHome = ({
                       />
                     )}
                   </View>
-                )}
+                )} */}
 
                 {data?.yunying &&
                   data.yunying.length > 0 &&
