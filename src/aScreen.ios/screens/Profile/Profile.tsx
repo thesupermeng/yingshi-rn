@@ -16,6 +16,7 @@ import ShowMoreButton from "../../components/button/showMoreButton";
 
 import CollectionIcon from "@static/images/collection.svg";
 import HistoryIcon from "@static/images/history.svg";
+import UploadIcon from "@static/images/add.svg";
 import FeedbackIcon from "@static/images/feedback.svg";
 import ReviewIcon from "@static/images/review.svg";
 import SettingsIcon from "@static/images/settings.svg";
@@ -458,6 +459,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             /> */}
+            <ShowMoreButton
+              text="我要上传"
+              leftIcon={<UploadIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("uploadVideo")}
+            />
             <ShowMoreButton
               text="我要反馈"
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}

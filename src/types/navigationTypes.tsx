@@ -1,7 +1,7 @@
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { VodType, VodTopicType, LiveTVStationItem, CommentsType, BannerAdType } from "./ajaxTypes";
+import { VodType, VodTopicType, LiveTVStationItem, CommentsType, BannerAdType, UploadVideoPreviewParams } from "./ajaxTypes";
 import { User } from "@models/user";
 
 // https://reactnavigation.org/docs/typescript/
@@ -12,6 +12,7 @@ export type HomeTabParamList = {
   我的: undefined;
   体育: undefined;
   '体育/成人': undefined;
+  热搜: undefined;
 };
 
 export type ProfileTabParamList = {
@@ -122,6 +123,9 @@ export type RootStackParamList = {
     source: string,
     isPayment?: boolean,
   },
+  uploadVideo: undefined,
+  uploadVideoPreview: UploadVideoPreviewParams,
+  uploadHistory: undefined,
 };
 
 export type RootStackScreenProps<

@@ -46,4 +46,20 @@ export class PlaylistApi {
             throw e;
         }
     };
+
+    static getTopicIosRank = async () => {
+        try {
+            const result = await CApi.get(CEndpoint.playlistGetTopicIosTmp2);
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result.data as VodPlayListType;
+
+        } catch (e: any) {
+            console.error(`[Error getTopicIosTmp}]: ${e.toString()}`);
+            throw e;
+        }
+    };
 }

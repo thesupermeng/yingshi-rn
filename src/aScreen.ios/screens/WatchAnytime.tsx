@@ -88,7 +88,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const fetchVods = (page: number) => MiniVodApi.getListByPage({
         page,
         limit: LIMIT,
-    });
+    }).then((result) => result.List);
 
     const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
         useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
@@ -150,7 +150,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
+                <Text style={{ color: '#FFF', fontSize: 20 }}>解说</Text>
             </View>
             {!isOffline &&
                 <MiniVideoList

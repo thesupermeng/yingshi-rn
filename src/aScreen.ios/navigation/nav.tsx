@@ -47,6 +47,8 @@ import ProfileTabIcon from "@static/images/profile_tab.svg";
 import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
 import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
 import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
+import HotSearchTabIcon from "@static/images/hotSearch.svg";
+import HotSearchActiveTabIcon from "@static/images/hotSearch.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
@@ -112,6 +114,10 @@ import { UserApi } from "@api";
 import { CRouteInitializer } from "../../routes/router";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models/user";
+import Rank from "@iosScreen/screens/HotSearch/Rank";
+import { UploadVideoPreview } from "@iosScreen/screens/upload/uploadVideoPreview";
+import { UploadHistory } from "@iosScreen/screens/upload/uploadHistory";
+import { UploadVideo } from "@iosScreen/screens/upload/uploadVideo";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -209,6 +215,18 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
+            } else if (route.name === "热搜") {
+              icon = focused ? (
+                <HotSearchActiveTabIcon
+                  width={iconWidth}
+                  color={theme.icons.activeNavIconColor}
+                />
+              ) : (
+                <HotSearchTabIcon
+                  width={iconWidth}
+                  color={theme.icons.inactiveNavIconColor}
+                />
+              );
             }
             return icon;
           },
@@ -216,17 +234,35 @@ export default () => {
       >
         {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
           <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
+            <HomeTab.Screen name="首页" component={HomeScreen} options={{
+              tabBarLabel: (props) => <Text style={{ fontSize: 10, color: props.color, paddingBottom: 5 }}>
+                社区
+              </Text>
+            }} />
+            <HomeTab.Screen name="随心看" component={WatchAnytime} options={{
+              tabBarLabel: (props) => <Text style={{ fontSize: 10, color: props.color, paddingBottom: 5 }}>
+                小视频
+              </Text>
+            }} />
             {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            {/* <HomeTab.Screen name="播单" component={PlaylistScreen} /> */}
+            <HomeTab.Screen name="热搜" component={Rank} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         ) : (
           <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            <HomeTab.Screen name="首页" component={HomeScreen} options={{
+              tabBarLabel: (props) => <Text style={{ fontSize: 10, color: props.color, paddingBottom: 5 }}>
+                社区
+              </Text>
+            }} />
+            <HomeTab.Screen name="随心看" component={WatchAnytime} options={{
+              tabBarLabel: (props) => <Text style={{ fontSize: 10, color: props.color, paddingBottom: 5 }}>
+                小视频
+              </Text>
+            }} />
+            {/* <HomeTab.Screen name="播单" component={PlaylistScreen} /> */}
+            <HomeTab.Screen name="热搜" component={Rank} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )}
@@ -630,6 +666,24 @@ export default () => {
           <Stack.Screen
             name="VIP明细"
             component={VipDetails}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
+            name="uploadVideo"
+            component={UploadVideo}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
+            name="uploadVideoPreview"
+            component={UploadVideoPreview}
+            options={{ orientation: "portrait" }}
+          />
+
+          <Stack.Screen
+            name="uploadHistory"
+            component={UploadHistory}
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>

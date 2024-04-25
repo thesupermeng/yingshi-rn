@@ -8,6 +8,7 @@ type CTextInputProps = {
     maxLength?: number,
     onChangeText?: (value: string) => void,
     showErrorStyle?: boolean,
+    multiline?: boolean,
     style?: TextStyle,
 }
 
@@ -18,6 +19,7 @@ export const CTextInput = ({
     maxLength,
     onChangeText,
     showErrorStyle = false,
+    multiline,
     style,
 }: CTextInputProps) => {
 
@@ -38,6 +40,7 @@ export const CTextInput = ({
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 maxLength={maxLength}
+                multiline={multiline}
             />
         </>
     );

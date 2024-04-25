@@ -257,7 +257,7 @@ export default forwardRef<MiniVodRef, Props>(
                         // isRefreshing will change disable (because if pagingEnabled=true, refresh loading will not working)
                         pagingEnabled={isRefreshing ? false : true}
                         scrollEnabled={isRefreshing ? false : true}
-                        keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
+                        keyExtractor={(item: any, index: any) => item?.mini_video_id?.toString()}
                         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}

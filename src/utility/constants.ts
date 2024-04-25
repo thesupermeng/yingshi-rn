@@ -70,8 +70,8 @@ export const APP_VERSION = '1.7.8';
 export const TOPON_ANDROID_APP_ID = 'a65f7e864ec33e';
 export const TOPON_ANDROID_APP_KEY = 'a7fa2bea6b6105fdee92beb136b1e31ec';
 
-export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
-export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
+export const TOPON_IOS_APP_ID = 'a6629ff64da95b';
+export const TOPON_IOS_APP_KEY = 'ae2e7a7fe60c2a6e7a85e157c999618e4';
 
 // topon 横幅广告
 export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1ffea90t3mmpp';
@@ -79,22 +79,22 @@ export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b1ffea90t3mqrn';
 export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b1ffea90t3mvl6';
 export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b1ffea90t3n32j';
 
-export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
-export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
-export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b655aba884a693';
-export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
+export const IOS_HOME_PAGE_BANNER_ADS = 'b662a00e69448b';
+export const IOS_PLAY_DETAILS_BANNER_ADS = 'b662a00f210721';
+export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b662a010d8f865';
+export const IOS_TOPIC_TAB_BANNER_ADS = 'b662a011a0c567';
 
 // topon 插屏广告
 export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1ffea90t3mgqp';
 export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1ffea90t3makj';
-export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
-export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
+export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b6629fff6cb865';
+export const IOS_HOME_PAGE_POP_UP_ADS = 'b6629ffe981749';
 
 // topon 激励视频广告
 export const ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b6620c56e9b5fa';
 export const ANDROID_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b6621d55d12755';
-export const IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b6620c56e9b5fa';
-export const IOS_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b6621d55d12755';
+export const IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b662a013e339de';
+export const IOS_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b662a01476b4d5';
 
 // topon banner
 export const TOPON_BANNER_WIDTH = 415;
@@ -172,3 +172,6 @@ export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
 
 export const VIEW_NUMBER_FOR_SHOW_VIDEO_ADS = 10;
+
+export const VIDEO_UPLOAD_DEFAULT_SIZE = 1000000; // 1 mb
+export const VIDEO_UPLOAD_SPEED = 900000; // 900 kb
