@@ -1,3 +1,5 @@
+import { CommentsType } from "@type/ajaxTypes";
+
 export class Vod {
     vod_id: number;
     vod_name: string;
@@ -22,6 +24,7 @@ export class Vod {
     type_id: number;
     type_name: string;
     preferred_source_id: number;
+    douban_reviews: CommentsType[];
 
     public constructor(data: {
         vod_id: number,
@@ -47,6 +50,7 @@ export class Vod {
         type_id: number,
         type_name: string,
         preferred_source_id: number,
+        douban_reviews: CommentsType[],
     }) {
         this.vod_id = data.vod_id;
         this.vod_name = data.vod_name;
@@ -71,6 +75,7 @@ export class Vod {
         this.type_id = data.type_id;
         this.type_name = data.type_name;
         this.preferred_source_id = data.preferred_source_id;
+        this.douban_reviews = data.douban_reviews;
     }
 
     public static fromJson = (json: any): Vod => {
@@ -98,6 +103,7 @@ export class Vod {
             type_id: json.type_id,
             type_name: json.type_name,
             preferred_source_id: json.preferred_source_id,
+            douban_reviews: json.douban_reviews,
         });
     }
 
@@ -132,6 +138,7 @@ export class Vod {
             type_id: arr[0],
             type_name: arr[0],
             preferred_source_id: arr[0],
+            douban_reviews: arr[0],
         });
     }
 

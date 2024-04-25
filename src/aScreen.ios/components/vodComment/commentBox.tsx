@@ -7,13 +7,17 @@ import { CommentCard } from "./commentCard";
 
 type VodCommentBoxProps = {
     comments: CommentsType[],
+    commentLength?: number,
     onlyShow?: number,
+    showAllCommentBtn?: boolean,
     onCommentTap: () => void,
 }
 
 export const VodCommentBox = ({
     comments,
+    commentLength,
     onlyShow = 3,
+    showAllCommentBtn,
     onCommentTap,
 }: VodCommentBoxProps) => {
     const { colors, textVariants } = useTheme();
@@ -22,7 +26,7 @@ export const VodCommentBox = ({
     return (
         <View>
             <Text style={{ ...textVariants.body }}>
-                影评 ({comments.length})
+                影评 ({commentLength ?? comments.length})
             </Text>
             {/* ========== no comment ========== */}
             {comments.length === 0 && (
@@ -51,7 +55,7 @@ export const VodCommentBox = ({
                     commentItem={comment} />
             ))}
 
-            {comments.length > onlyShow && (
+            {(showAllCommentBtn || comments.length > onlyShow) && (
                 <TouchableOpacity
                     onPress={onCommentTap}
                 >

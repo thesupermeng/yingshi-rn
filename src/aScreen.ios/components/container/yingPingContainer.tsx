@@ -1,11 +1,13 @@
-import { useNavigation, useTheme } from "@react-navigation/native";
-import React from "react"
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
+import React, { useCallback, useState } from "react"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import FastImage from "react-native-fast-image";
 import Logo from '@static/images/ying_ping_logo.svg';
 import { useAppDispatch } from "@hooks/hooks";
 import { playVod } from "@redux/actions/vodActions";
 import { Vod } from "@models";
+import { VodCommentBox } from "../vodComment";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
   vod: Vod;
@@ -18,6 +20,9 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+
+  const [comments, setComments] = useState<any[]>([]);
+  const [localComments, setLocalComments] = useState<any[]>([]);
   const pTagRegex = /(<p>|<\/p>)/g;
 
   const handleOnPress = () => {
@@ -26,6 +31,33 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: Props) => {
       vod_id: vod.vod_id,
     });
   }
+
+  const getLocalComments = async () => {
+    try {
+      const locCommentId = "userComment" + vod.vod_id;
+
+      const comments = await AsyncStorage.getItem(locCommentId);
+
+      if (comments !== null) {
+        return JSON.parse(comments);
+      }
+      return [];
+    } catch (error) {
+      console.log("error when retrieving local comments: ", error);
+      return [];
+    }
+  };
+
+  useFocusEffect(useCallback(() => {
+    getLocalComments().then((result: any[]) => {
+      if (result && result.length > 0) {
+        setLocalComments(result);
+        setComments([...result, ...vod?.douban_reviews]);
+        return;
+      }
+      setComments(vod?.douban_reviews ?? []);
+    });
+  }, []));
 
   return (
     <>
@@ -65,6 +97,21 @@ export const YingPingContainer = ({ vod, width, imgRatio, isSlide }: Props) => {
             <Text style={{ ...textVariants.subBody, color: colors.muted }}>
               {vod.type_name}
             </Text>
+          </View>
+          <View style={{ marginTop: 10, }}>
+            <VodCommentBox
+              comments={comments}
+              commentLength={vod?.total_douban_review + localComments.length}
+              onlyShow={2}
+              showAllCommentBtn={true}
+              onCommentTap={() => {
+                navigation.navigate("全部评论", {
+                  vod_id: vod.vod_id,
+                  vod_name: vod.vod_name,
+                  vod_douban_id: vod?.vod_douban_id,
+                });
+              }}
+            />
           </View>
         </TouchableOpacity>
       ) : (
