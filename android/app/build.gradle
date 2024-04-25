@@ -102,8 +102,8 @@ android {
         applicationId "com.yingshipin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 6 ,  april 24
-        versionCode 6
+        // ABB version 7 ,  april 25
+        versionCode 7
         versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "65e675eda7208a5af1b4eebb"
         resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
