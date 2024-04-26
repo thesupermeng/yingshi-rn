@@ -1,4 +1,5 @@
 import AnalyticsUtil from './AnalyticsUtil';
+import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
 
 /**
@@ -227,40 +228,100 @@ enum CustomEventKey {
 
 export default class UmengAnalytics {
     static showLog: boolean = false;
+    static disabled: boolean = false;
+    static disabledUmeng: boolean = false;
+    static disabledFirebase: boolean = true;
+    static disabledCustom: boolean = false;
+
+    static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {
+        if (this.disabled || this.disabledUmeng) return;
+
+        AnalyticsUtil.onEventWithMap(eventId, body);
+        if (this.showLog) console.log('trigger umeng event id:', eventId);
+    }
+
+    static #triggerFirebaseCustomEvent = async (eventId: EventId, body: any = {}) => {
+        if (this.disabled || this.disabledFirebase) return;
+
+        await analytics().logEvent(eventId.replace('-', '_'), body);
+        if (this.showLog) console.log('trigger firebase event id:', eventId);
+    }
+
+    static #triggerFirebaseEvent = async (
+        type: 'boot',
+
+    ) => {
+        if (this.disabled || this.disabledFirebase) return;
+
+        switch (type) {
+            case 'boot': {
+                await analytics().logAppOpen();
+                break;
+            }
+        }
+
+        if (this.showLog) console.log('trigger firebase event id:', type);
+    }
+
+    static #triggerCustomEvent = (type: 'view' | 'click' | 'count', eventId: CustomEventKey | string, data: {
+        name?: string | undefined;
+        ads_slot_id?: number | undefined;
+        ads_id?: number | undefined;
+        params?: any | undefined;
+    } = {}) => {
+        if (this.disabled || this.disabledCustom) return;
+
+        CustomEventAnalytic.onEvent({
+            type: type,
+            title: eventId,
+            name: data?.name,
+            ads_slot_id: data?.ads_slot_id,
+            ads_id: data?.ads_id,
+            params: data?.params,
+        });
+        if (this.showLog) console.log('trigger custom event id:', eventId);
+    }
+
+    // ============================== boot ==============================
+    static onBootAnalytics = () => {
+        // this.#triggerUmengEvent(EventId.Home_views);
+        this.#triggerFirebaseEvent('boot');
+        // this.#triggerCustomEvent('view', CustomEventKey.Home);
+    }
 
     // ============================== Home ==============================
     static homeTabViewsAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Home_views, {
+        this.#triggerUmengEvent(EventId.Home_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Home,
+        this.#triggerFirebaseCustomEvent(EventId.Home_views, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerCustomEvent('view', CustomEventKey.Home, {
             params: {
                 desc_1: 'tab.id:' + tab_id,
                 desc_2: 'tab.name:' + tab_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Home_views);
     }
 
     static homeTabClicksAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Home_clicks, {
+        this.#triggerUmengEvent(EventId.Home_clicks, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Home,
+        this.#triggerFirebaseCustomEvent(EventId.Home_clicks, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerCustomEvent('click', CustomEventKey.Home, {
             params: {
                 desc_1: 'tab.id:' + tab_id,
                 desc_2: 'tab.name:' + tab_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Home_clicks);
     }
 
     static homeTabCarouselViewAnalytics = ({
@@ -278,13 +339,15 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Home_Carousel_views, {
+        this.#triggerUmengEvent(EventId.Home_Carousel_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Home_Carousel_views, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerCustomEvent('view', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -293,8 +356,6 @@ export default class UmengAnalytics {
                 desc_2: 'tab.name:' + tab_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Home_Carousel_views);
     }
 
     static homeTabCarouselClickAnalytics = ({
@@ -312,13 +373,15 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Home_Carousel_clicks, {
+        this.#triggerUmengEvent(EventId.Home_Carousel_clicks, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Home_Carousel_clicks, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -327,8 +390,6 @@ export default class UmengAnalytics {
                 desc_2: 'tab.name:' + tab_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Home_Carousel_clicks);
     }
 
     static homeTabBannerViewAnalytics = ({
@@ -346,15 +407,19 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Home_Banner_views, {
+        this.#triggerUmengEvent(EventId.Home_Banner_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Home_Banner_views, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('view', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -363,8 +428,6 @@ export default class UmengAnalytics {
                 desc_2: 'tab.name:' + tab_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Home_Banner_views);
     }
 
     static homeTabBannerClickAnalytics = ({
@@ -382,15 +445,19 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Home_Banner_clicks, {
+        this.#triggerUmengEvent(EventId.Home_Banner_clicks, {
             'tab_id': tab_id,
             'tab_name': tab_name,
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Home_Banner_clicks, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -399,29 +466,26 @@ export default class UmengAnalytics {
                 desc_2: 'tab.name:' + tab_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Home_Banner_clicks);
     }
 
     // ============================== WatchAnytime ==============================
     static watchAnytimeViewsAnalytics = ({ isXmode = false }: { isXmode?: boolean } = { isXmode: false }) => {
-        let evendId: string = EventId.WatchAnytime_views;
+        let evendId: EventId = EventId.WatchAnytime_views;
 
         if (isXmode) {
             evendId = EventId.WatchAnytime_x_views;
         }
 
-        AnalyticsUtil.onEventWithMap(evendId, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: isXmode ? CustomEventKey.WatchAnytimeX : CustomEventKey.WatchAnytime,
-        });
-
-        if (this.showLog) console.log('trigger event id:', evendId);
+        this.#triggerUmengEvent(evendId);
+        this.#triggerFirebaseCustomEvent(evendId);
+        this.#triggerCustomEvent('view', isXmode
+            ? CustomEventKey.WatchAnytimeX
+            : CustomEventKey.WatchAnytime,
+        );
     }
 
     static watchAnytimeVideoViewTimesAnalytics = ({ userId, vod_id, isXmode }: { userId: string, vod_id: string, isXmode?: boolean }) => {
-        let evendId: string = EventId.WatchAnytime_video_view_times;
+        let evendId: EventId = EventId.WatchAnytime_video_view_times;
 
         if (isXmode) {
             evendId = EventId.WatchAnytime_x_video_view_times;
@@ -431,44 +495,39 @@ export default class UmengAnalytics {
 
         // add prefix
         if (userId !== '') {
-            prefixUserId = 'userId-' + userId;
+            prefixUserId = 'userId_' + userId;
         } else {
             prefixUserId = 'guest';
         }
 
-        AnalyticsUtil.onEventWithMap(evendId, {
+        this.#triggerUmengEvent(evendId, {
             [prefixUserId]: vod_id,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: isXmode ? CustomEventKey.WatchAnytimeX_Play_Times : CustomEventKey.WatchAnytime_Play_Times,
-            params: {
-                desc_1: 'user.id:' + userId,
-                // desc_2: vod_id,
-            }
+        this.#triggerFirebaseCustomEvent(evendId, {
+            [prefixUserId]: vod_id,
         });
-
-        if (this.showLog) console.log('trigger event id:', evendId);
+        this.#triggerCustomEvent('view', isXmode
+            ? CustomEventKey.WatchAnytimeX_Play_Times
+            : CustomEventKey.WatchAnytime_Play_Times,
+            {
+                params: {
+                    desc_1: 'user.id:' + userId,
+                    // desc_2: vod_id,
+                }
+            }
+        );
     }
 
     static watchAnytimeVideoClicksAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_video_clicks, {});
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.WatchAnytime_View_Video,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_video_clicks);
+        this.#triggerUmengEvent(EventId.WatchAnytime_video_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_video_clicks);
+        this.#triggerCustomEvent('click', CustomEventKey.WatchAnytime_View_Video);
     }
 
     static watchAnytimePlaylistClicksAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_playlist_clicks, {});
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.WatchAnytime_View_Playlist,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_playlist_clicks);
+        this.#triggerUmengEvent(EventId.WatchAnytime_playlist_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_playlist_clicks);
+        this.#triggerCustomEvent('click', CustomEventKey.WatchAnytime_View_Playlist);
     }
 
     static watchAnytimeAdsViewAnalytics = ({
@@ -482,16 +541,13 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_Ads_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerUmengEvent(EventId.WatchAnytime_Ads_views);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_Ads_views);
+        this.#triggerCustomEvent('view', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_Ads_views);
     }
 
     static watchAnytimeAdsClicksAnalytics = ({
@@ -505,38 +561,27 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.WatchAnytime_Ads_clicks, {});
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerUmengEvent(EventId.WatchAnytime_Ads_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_Ads_clicks);
+        this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.WatchAnytime_Ads_clicks);
     }
 
 
     // ============================== Sport ==============================
     static sportViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Sport_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Sport,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Sport_views);
+        this.#triggerUmengEvent(EventId.Sport_views);
+        this.#triggerFirebaseCustomEvent(EventId.Sport_views);
+        this.#triggerCustomEvent('view', CustomEventKey.Sport);
     }
 
     static sportClicksAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Sport_clicks, {});
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Sport,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Sport_clicks);
+        this.#triggerUmengEvent(EventId.Sport_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.Sport_clicks);
+        this.#triggerCustomEvent('click', CustomEventKey.Sport);
     }
 
     static sportBannerViewAnalytics = ({
@@ -550,19 +595,19 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Sport_Banner_views, {
+        this.#triggerUmengEvent(EventId.Sport_Banner_views, {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Sport_Banner_views, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('view', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Sport_Banner_views);
     }
 
     static sportBannerClickAnalytics = ({
@@ -576,312 +621,279 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Sport_Banner_clicks, {
+        this.#triggerUmengEvent(EventId.Sport_Banner_clicks, {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Sport_Banner_clicks, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Sport_Banner_clicks);
     }
 
     // ============================== Sport Details ==============================
     static sportDetailsViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.SportDetails_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.SportDetails,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.SportDetails_views);
+        this.#triggerUmengEvent(EventId.SportDetails_views);
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_views);
+        this.#triggerCustomEvent('view', CustomEventKey.SportDetails);
     }
 
     static sportDetailsPlaysTimesAnalytics = (category: 'live' | 'animation') => {
-        AnalyticsUtil.onEventWithMap(EventId.SportDetails_plays_times, {
+        this.#triggerUmengEvent(EventId.SportDetails_plays_times, {
             'live_category': category === 'live' ? '视频直播' : '动画直播',
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.SportDetails_Play_Times,
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_plays_times, {
+            'live_category': category === 'live' ? '视频直播' : '动画直播',
+        });
+        this.#triggerCustomEvent('view', CustomEventKey.SportDetails_Play_Times, {
             params: {
                 desc_1: category,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.SportDetails_plays_times);
     }
 
     static sportDetailsVipPopupTimesAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.SportDetails_vip_popup_times, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.SportDetails_Vip_Popup,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.SportDetails_vip_popup_times);
+        this.#triggerUmengEvent(EventId.SportDetails_vip_popup_times);
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_vip_popup_times);
+        this.#triggerCustomEvent('view', CustomEventKey.SportDetails_Vip_Popup);
     }
 
     static sportDetailsVipPopupClicksAnalytics = (category: 'pay' | 'invite') => {
-        AnalyticsUtil.onEventWithMap(EventId.SportDetails_vip_clicks, {
+        this.#triggerUmengEvent(EventId.SportDetails_vip_clicks, {
             'click_category': category === 'pay' ? '购买' : '邀请',
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.SportDetails_Vip_Popup,
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_vip_clicks, {
+            'click_category': category === 'pay' ? '购买' : '邀请',
+        });
+        this.#triggerCustomEvent('click', CustomEventKey.SportDetails_Vip_Popup, {
             params: {
                 desc_1: category,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.SportDetails_vip_clicks);
     }
 
 
     // ============================== Playlist ==============================
     static playlistViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Playlist_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Playlist,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Playlist_views);
+        this.#triggerUmengEvent(EventId.Playlist_views);
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_views);
+        this.#triggerCustomEvent('view', CustomEventKey.Playlist);
     }
 
     static playlistClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Playlist_clicks, {
+        this.#triggerUmengEvent(EventId.Playlist_clicks, {
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Playlist,
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_clicks, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
+        this.#triggerCustomEvent('click', CustomEventKey.Playlist, {
             params: {
                 desc_1: 'topic.id:' + topic_id,
                 desc_2: 'topic.name:' + topic_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Playlist_clicks);
     }
 
     static playlistTopicsViewsAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Playlist_topics_views, {
+        this.#triggerUmengEvent(EventId.Playlist_topics_views, {
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Playlist_Topics,
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_topics_views, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
+        this.#triggerCustomEvent('view', CustomEventKey.Playlist_Topics, {
             params: {
                 desc_1: 'topic.id:' + topic_id,
                 desc_2: 'topic.name:' + topic_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Playlist_topics_views);
     }
 
     static playlistTopicsClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Playlist_topics_clicks, {
+        this.#triggerUmengEvent(EventId.Playlist_topics_clicks, {
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Playlist_Topics,
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_topics_clicks, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
+        this.#triggerCustomEvent('click', CustomEventKey.Playlist_Topics, {
             params: {
                 desc_1: 'topic.id:' + topic_id,
                 desc_2: 'topic.name:' + topic_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Playlist_topics_clicks);
     }
 
 
     // ============================== User Center ==============================
     static userCenterLoginSuccessTimesAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.UserCenter_login_success_times, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.UserCenter_Login_Success_Times,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.UserCenter_login_success_times);
+        this.#triggerUmengEvent(EventId.UserCenter_login_success_times);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_login_success_times);
+        this.#triggerCustomEvent('view', CustomEventKey.UserCenter_Login_Success_Times);
     }
 
     static userCenterVipLoginSuccessTimesAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.UserCenter_vip_login_success_times, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.UserCenter_Vip_Login_Success_Times,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.UserCenter_vip_login_success_times);
+        this.#triggerUmengEvent(EventId.UserCenter_vip_login_success_times);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_vip_login_success_times);
+        this.#triggerCustomEvent('view', CustomEventKey.UserCenter_Vip_Login_Success_Times);
     }
 
     static userCenterVipPayViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.UserCenter_pay_vip_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.UserCenter_View_Vip,
+        this.#triggerUmengEvent(EventId.UserCenter_pay_vip_views);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_pay_vip_views);
+        this.#triggerCustomEvent('view', CustomEventKey.UserCenter_View_Vip, {
             params: {
                 desc_1: 'pay',
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.UserCenter_pay_vip_views);
     }
 
     static userCenterVipInviteViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.UserCenter_invites_vip_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.UserCenter_View_Vip,
+        this.#triggerUmengEvent(EventId.UserCenter_invites_vip_views);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_invites_vip_views);
+        this.#triggerCustomEvent('view', CustomEventKey.UserCenter_View_Vip, {
             params: {
                 desc_1: 'invite',
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.UserCenter_invites_vip_views);
     }
 
 
     // ============================== Search ==============================
     static searchResultViewsAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Search_result_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Search_Result,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Search_result_views);
+        this.#triggerUmengEvent(EventId.Search_result_views);
+        this.#triggerFirebaseCustomEvent(EventId.Search_result_views);
+        this.#triggerCustomEvent('view', CustomEventKey.Search_Result);
     }
 
     static searchResultClicksAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Search_result_clicks, {});
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Search_Result,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Search_result_clicks);
+        this.#triggerUmengEvent(EventId.Search_result_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.Search_result_clicks);
+        this.#triggerCustomEvent('click', CustomEventKey.Search_Result);
     }
 
     static searchKeywordAnalytics = (keyword: string) => {
-        AnalyticsUtil.onEventWithMap(EventId.Search_keyword, {
+        this.#triggerUmengEvent(EventId.Search_keyword, {
             'keyword': keyword,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Search_Keyword,
+        this.#triggerFirebaseCustomEvent(EventId.Search_keyword, {
+            'keyword': keyword,
+        });
+        this.#triggerCustomEvent('view', CustomEventKey.Search_Keyword, {
             params: {
                 desc_1: keyword,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Search_keyword);
     }
 
 
     // ============================== Catalog ==============================
     static catalogViewsAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Catalog_views, {
+        this.#triggerUmengEvent(EventId.Catalog_views, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: CustomEventKey.Catalog,
+        this.#triggerFirebaseCustomEvent(EventId.Catalog_views, {
+            'category_id': category_id,
+            'category_name': category_name,
+        });
+        this.#triggerCustomEvent('view', CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
                 desc_2: 'category.name:' + category_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Catalog_views);
     }
 
     static catalogClicksAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Catalog_clicks, {
+        this.#triggerUmengEvent(EventId.Catalog_clicks, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Catalog,
+        this.#triggerFirebaseCustomEvent(EventId.Catalog_clicks, {
+            'category_id': category_id,
+            'category_name': category_name,
+        });
+        this.#triggerCustomEvent('click', CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
                 desc_2: 'category.name:' + category_name,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Catalog_clicks);
     }
 
 
     // ============================== Plays ==============================
     static playsViewsAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode?: boolean }) => {
-        let eventId: string = EventId.Plays_views;
+        let eventId: EventId = EventId.Plays_views;
 
         if (isXmode) {
             eventId = EventId.Plays_X_views;
         }
 
-        AnalyticsUtil.onEventWithMap(eventId, {
+        this.#triggerUmengEvent(eventId, {
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: isXmode ? CustomEventKey.PlaysX : CustomEventKey.Plays,
-            params: {
-                desc_1: 'vod.id:' + vod_id,
-                desc_2: 'vod.name:' + vod_name,
-            }
+        this.#triggerFirebaseCustomEvent(eventId, {
+            'vod_id': vod_id,
+            'vod_name': vod_name,
         });
-
-        if (this.showLog) console.log('trigger event id:', eventId);
+        this.#triggerCustomEvent('view', isXmode
+            ? CustomEventKey.PlaysX
+            : CustomEventKey.Plays,
+            {
+                params: {
+                    desc_1: 'vod.id:' + vod_id,
+                    desc_2: 'vod.name:' + vod_name,
+                }
+            },
+        );
     }
 
     static playsPlaysTimesAnalytics = ({ vod_id, vod_name, isXmode = false }: { vod_id: string, vod_name: string, isXmode?: boolean }) => {
-        let eventId: string = EventId.Plays_plays_times;
+        let eventId: EventId = EventId.Plays_plays_times;
 
         if (isXmode) {
             eventId = EventId.Plays_X_plays_times;
         }
 
-        AnalyticsUtil.onEventWithMap(eventId, {
+        this.#triggerUmengEvent(eventId, {
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: isXmode ? CustomEventKey.PlaysX_Plays_Times : CustomEventKey.Plays_Plays_Times,
-            params: {
-                desc_1: 'vod.id:' + vod_id,
-                desc_2: 'vod.name:' + vod_name,
-            }
+        this.#triggerFirebaseCustomEvent(eventId, {
+            'vod_id': vod_id,
+            'vod_name': vod_name,
         });
-
-        if (this.showLog) console.log('trigger event id:', eventId);
+        this.#triggerCustomEvent('view', isXmode
+            ? CustomEventKey.PlaysX_Plays_Times
+            : CustomEventKey.Plays_Plays_Times,
+            {
+                params: {
+                    desc_1: 'vod.id:' + vod_id,
+                    desc_2: 'vod.name:' + vod_name,
+                }
+            },
+        );
     }
 
     static playsShareClicksAnalytics = () => {
-        AnalyticsUtil.onEventWithMap(EventId.Plays_share_clicks, {});
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: CustomEventKey.Plays_Share,
-        });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Plays_share_clicks);
+        this.#triggerUmengEvent(EventId.Plays_share_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.Plays_share_clicks);
+        this.#triggerCustomEvent('click', CustomEventKey.Plays_Share);
     }
 
     static playsAdsViewAnalytics = ({
@@ -895,16 +907,13 @@ export default class UmengAnalytics {
         ads_title?: string,
         ads_name?: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Plays_ads_views, {});
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerUmengEvent(EventId.Plays_ads_views);
+        this.#triggerFirebaseCustomEvent(EventId.Plays_ads_views);
+        this.#triggerCustomEvent('view', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Plays_ads_views);
     }
 
     static playsAdsClickAnalytics = ({
@@ -932,10 +941,9 @@ export default class UmengAnalytics {
             }
         }
 
-        AnalyticsUtil.onEventWithMap(EventId.Plays_ads_clicks, params);
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerUmengEvent(EventId.Plays_ads_clicks, params);
+        this.#triggerFirebaseCustomEvent(EventId.Plays_ads_clicks, params);
+        this.#triggerCustomEvent('click', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
@@ -943,8 +951,6 @@ export default class UmengAnalytics {
                 desc_1: url ?? 'none',
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Plays_ads_clicks);
     }
 
 
@@ -962,14 +968,17 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.VideoPlayer_Banner_views, {
+        this.#triggerUmengEvent(EventId.VideoPlayer_Banner_views, {
             'player_type': playerType,
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.VideoPlayer_Banner_views, {
+            'player_type': playerType,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('view', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
@@ -977,8 +986,6 @@ export default class UmengAnalytics {
                 desc_1: playerType,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.VideoPlayer_Banner_views);
     }
 
     static videoPlayerBannerClickAnalytics = ({
@@ -994,14 +1001,17 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.VideoPlayer_Banner_clicks, {
+        this.#triggerUmengEvent(EventId.VideoPlayer_Banner_clicks, {
             'player_type': playerType,
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.VideoPlayer_Banner_clicks, {
+            'player_type': playerType,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('click', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
@@ -1009,8 +1019,6 @@ export default class UmengAnalytics {
                 desc_1: playerType,
             }
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.VideoPlayer_Banner_clicks);
     }
 
 
@@ -1026,19 +1034,19 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_views, {
+        this.#triggerUmengEvent(EventId.Profile_Banner_views, {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'view',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Profile_Banner_views, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('view', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Profile_Banner_views);
     }
 
     static profileBannerClickAnalytics = ({
@@ -1052,18 +1060,18 @@ export default class UmengAnalytics {
         ads_title: string,
         ads_name: string,
     }) => {
-        AnalyticsUtil.onEventWithMap(EventId.Profile_Banner_clicks, {
+        this.#triggerUmengEvent(EventId.Profile_Banner_clicks, {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
-        CustomEventAnalytic.onEvent({
-            type: 'click',
-            title: ads_title,
+        this.#triggerFirebaseCustomEvent(EventId.Profile_Banner_clicks, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerCustomEvent('click', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
         });
-
-        if (this.showLog) console.log('trigger event id:', EventId.Profile_Banner_clicks);
     }
 }
