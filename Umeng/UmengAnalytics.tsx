@@ -1,4 +1,5 @@
 import AnalyticsUtil from './AnalyticsUtil';
+import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
 
 /**
@@ -229,6 +230,7 @@ export default class UmengAnalytics {
     static showLog: boolean = false;
     static disabled: boolean = false;
     static disabledUmeng: boolean = true;
+    static disabledFirebase: boolean = true;
     static disabledCustom: boolean = false;
 
     static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {
@@ -236,6 +238,29 @@ export default class UmengAnalytics {
 
         AnalyticsUtil.onEventWithMap(eventId, body);
         if (this.showLog) console.log('trigger umeng event id:', eventId);
+    }
+
+    static #triggerFirebaseCustomEvent = async (eventId: EventId, body: any = {}) => {
+        if (this.disabled || this.disabledFirebase) return;
+
+        await analytics().logEvent(eventId.replace('-', '_'), body);
+        if (this.showLog) console.log('trigger firebase event id:', eventId);
+    }
+
+    static #triggerFirebaseEvent = async (
+        type: 'boot',
+
+    ) => {
+        if (this.disabled || this.disabledFirebase) return;
+
+        switch (type) {
+            case 'boot': {
+                await analytics().logAppOpen();
+                break;
+            }
+        }
+
+        if (this.showLog) console.log('trigger firebase event id:', type);
     }
 
     static #triggerCustomEvent = (type: 'view' | 'click' | 'count', eventId: CustomEventKey | string, data: {
@@ -257,9 +282,20 @@ export default class UmengAnalytics {
         if (this.showLog) console.log('trigger custom event id:', eventId);
     }
 
+    // ============================== boot ==============================
+    static onBootAnalytics = () => {
+        // this.#triggerUmengEvent(EventId.Home_views);
+        this.#triggerFirebaseEvent('boot');
+        // this.#triggerCustomEvent('view', CustomEventKey.Home);
+    }
+
     // ============================== Home ==============================
     static homeTabViewsAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
         this.#triggerUmengEvent(EventId.Home_views, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Home_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
@@ -273,6 +309,10 @@ export default class UmengAnalytics {
 
     static homeTabClicksAnalytics = ({ tab_id, tab_name }: { tab_id: string, tab_name: string }) => {
         this.#triggerUmengEvent(EventId.Home_clicks, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Home_clicks, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
@@ -300,6 +340,10 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.Home_Carousel_views, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Home_Carousel_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
@@ -333,6 +377,10 @@ export default class UmengAnalytics {
             'tab_id': tab_id,
             'tab_name': tab_name,
         });
+        this.#triggerFirebaseCustomEvent(EventId.Home_Carousel_clicks, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+        });
         this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
@@ -360,6 +408,12 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.Home_Banner_views, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Home_Banner_views, {
             'tab_id': tab_id,
             'tab_name': tab_name,
             'ads_id': ads_id,
@@ -397,6 +451,12 @@ export default class UmengAnalytics {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
+        this.#triggerFirebaseCustomEvent(EventId.Home_Banner_clicks, {
+            'tab_id': tab_id,
+            'tab_name': tab_name,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
         this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
@@ -417,6 +477,7 @@ export default class UmengAnalytics {
         }
 
         this.#triggerUmengEvent(evendId);
+        this.#triggerFirebaseCustomEvent(evendId);
         this.#triggerCustomEvent('view', isXmode
             ? CustomEventKey.WatchAnytimeX
             : CustomEventKey.WatchAnytime,
@@ -434,12 +495,15 @@ export default class UmengAnalytics {
 
         // add prefix
         if (userId !== '') {
-            prefixUserId = 'userId-' + userId;
+            prefixUserId = 'userId_' + userId;
         } else {
             prefixUserId = 'guest';
         }
 
         this.#triggerUmengEvent(evendId, {
+            [prefixUserId]: vod_id,
+        });
+        this.#triggerFirebaseCustomEvent(evendId, {
             [prefixUserId]: vod_id,
         });
         this.#triggerCustomEvent('view', isXmode
@@ -456,11 +520,13 @@ export default class UmengAnalytics {
 
     static watchAnytimeVideoClicksAnalytics = () => {
         this.#triggerUmengEvent(EventId.WatchAnytime_video_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_video_clicks);
         this.#triggerCustomEvent('click', CustomEventKey.WatchAnytime_View_Video);
     }
 
     static watchAnytimePlaylistClicksAnalytics = () => {
         this.#triggerUmengEvent(EventId.WatchAnytime_playlist_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_playlist_clicks);
         this.#triggerCustomEvent('click', CustomEventKey.WatchAnytime_View_Playlist);
     }
 
@@ -476,6 +542,7 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.WatchAnytime_Ads_views);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_Ads_views);
         this.#triggerCustomEvent('view', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
@@ -495,6 +562,7 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.WatchAnytime_Ads_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.WatchAnytime_Ads_clicks);
         this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
@@ -506,11 +574,13 @@ export default class UmengAnalytics {
     // ============================== Sport ==============================
     static sportViewsAnalytics = () => {
         this.#triggerUmengEvent(EventId.Sport_views);
+        this.#triggerFirebaseCustomEvent(EventId.Sport_views);
         this.#triggerCustomEvent('view', CustomEventKey.Sport);
     }
 
     static sportClicksAnalytics = () => {
         this.#triggerUmengEvent(EventId.Sport_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.Sport_clicks);
         this.#triggerCustomEvent('click', CustomEventKey.Sport);
     }
 
@@ -526,6 +596,10 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.Sport_Banner_views, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Sport_Banner_views, {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
@@ -551,6 +625,10 @@ export default class UmengAnalytics {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
+        this.#triggerFirebaseCustomEvent(EventId.Sport_Banner_clicks, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
         this.#triggerCustomEvent('click', ads_title, {
             name: ads_name,
             ads_slot_id: ads_slot_id,
@@ -561,11 +639,15 @@ export default class UmengAnalytics {
     // ============================== Sport Details ==============================
     static sportDetailsViewsAnalytics = () => {
         this.#triggerUmengEvent(EventId.SportDetails_views);
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_views);
         this.#triggerCustomEvent('view', CustomEventKey.SportDetails);
     }
 
     static sportDetailsPlaysTimesAnalytics = (category: 'live' | 'animation') => {
         this.#triggerUmengEvent(EventId.SportDetails_plays_times, {
+            'live_category': category === 'live' ? '视频直播' : '动画直播',
+        });
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_plays_times, {
             'live_category': category === 'live' ? '视频直播' : '动画直播',
         });
         this.#triggerCustomEvent('view', CustomEventKey.SportDetails_Play_Times, {
@@ -577,11 +659,15 @@ export default class UmengAnalytics {
 
     static sportDetailsVipPopupTimesAnalytics = () => {
         this.#triggerUmengEvent(EventId.SportDetails_vip_popup_times);
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_vip_popup_times);
         this.#triggerCustomEvent('view', CustomEventKey.SportDetails_Vip_Popup);
     }
 
     static sportDetailsVipPopupClicksAnalytics = (category: 'pay' | 'invite') => {
         this.#triggerUmengEvent(EventId.SportDetails_vip_clicks, {
+            'click_category': category === 'pay' ? '购买' : '邀请',
+        });
+        this.#triggerFirebaseCustomEvent(EventId.SportDetails_vip_clicks, {
             'click_category': category === 'pay' ? '购买' : '邀请',
         });
         this.#triggerCustomEvent('click', CustomEventKey.SportDetails_Vip_Popup, {
@@ -595,11 +681,16 @@ export default class UmengAnalytics {
     // ============================== Playlist ==============================
     static playlistViewsAnalytics = () => {
         this.#triggerUmengEvent(EventId.Playlist_views);
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_views);
         this.#triggerCustomEvent('view', CustomEventKey.Playlist);
     }
 
     static playlistClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
         this.#triggerUmengEvent(EventId.Playlist_clicks, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_clicks, {
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
@@ -616,6 +707,10 @@ export default class UmengAnalytics {
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_topics_views, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
         this.#triggerCustomEvent('view', CustomEventKey.Playlist_Topics, {
             params: {
                 desc_1: 'topic.id:' + topic_id,
@@ -626,6 +721,10 @@ export default class UmengAnalytics {
 
     static playlistTopicsClickAnalytics = ({ topic_id, topic_name }: { topic_id: string, topic_name: string }) => {
         this.#triggerUmengEvent(EventId.Playlist_topics_clicks, {
+            'topic_id': topic_id,
+            'topic_name': topic_name,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Playlist_topics_clicks, {
             'topic_id': topic_id,
             'topic_name': topic_name,
         });
@@ -641,16 +740,19 @@ export default class UmengAnalytics {
     // ============================== User Center ==============================
     static userCenterLoginSuccessTimesAnalytics = () => {
         this.#triggerUmengEvent(EventId.UserCenter_login_success_times);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_login_success_times);
         this.#triggerCustomEvent('view', CustomEventKey.UserCenter_Login_Success_Times);
     }
 
     static userCenterVipLoginSuccessTimesAnalytics = () => {
         this.#triggerUmengEvent(EventId.UserCenter_vip_login_success_times);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_vip_login_success_times);
         this.#triggerCustomEvent('view', CustomEventKey.UserCenter_Vip_Login_Success_Times);
     }
 
     static userCenterVipPayViewsAnalytics = () => {
         this.#triggerUmengEvent(EventId.UserCenter_pay_vip_views);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_pay_vip_views);
         this.#triggerCustomEvent('view', CustomEventKey.UserCenter_View_Vip, {
             params: {
                 desc_1: 'pay',
@@ -660,6 +762,7 @@ export default class UmengAnalytics {
 
     static userCenterVipInviteViewsAnalytics = () => {
         this.#triggerUmengEvent(EventId.UserCenter_invites_vip_views);
+        this.#triggerFirebaseCustomEvent(EventId.UserCenter_invites_vip_views);
         this.#triggerCustomEvent('view', CustomEventKey.UserCenter_View_Vip, {
             params: {
                 desc_1: 'invite',
@@ -671,16 +774,21 @@ export default class UmengAnalytics {
     // ============================== Search ==============================
     static searchResultViewsAnalytics = () => {
         this.#triggerUmengEvent(EventId.Search_result_views);
+        this.#triggerFirebaseCustomEvent(EventId.Search_result_views);
         this.#triggerCustomEvent('view', CustomEventKey.Search_Result);
     }
 
     static searchResultClicksAnalytics = () => {
         this.#triggerUmengEvent(EventId.Search_result_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.Search_result_clicks);
         this.#triggerCustomEvent('click', CustomEventKey.Search_Result);
     }
 
     static searchKeywordAnalytics = (keyword: string) => {
         this.#triggerUmengEvent(EventId.Search_keyword, {
+            'keyword': keyword,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Search_keyword, {
             'keyword': keyword,
         });
         this.#triggerCustomEvent('view', CustomEventKey.Search_Keyword, {
@@ -697,6 +805,10 @@ export default class UmengAnalytics {
             'category_id': category_id,
             'category_name': category_name,
         });
+        this.#triggerFirebaseCustomEvent(EventId.Catalog_views, {
+            'category_id': category_id,
+            'category_name': category_name,
+        });
         this.#triggerCustomEvent('view', CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
@@ -707,6 +819,10 @@ export default class UmengAnalytics {
 
     static catalogClicksAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
         this.#triggerUmengEvent(EventId.Catalog_clicks, {
+            'category_id': category_id,
+            'category_name': category_name,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Catalog_clicks, {
             'category_id': category_id,
             'category_name': category_name,
         });
@@ -728,6 +844,10 @@ export default class UmengAnalytics {
         }
 
         this.#triggerUmengEvent(eventId, {
+            'vod_id': vod_id,
+            'vod_name': vod_name,
+        });
+        this.#triggerFirebaseCustomEvent(eventId, {
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
@@ -754,6 +874,10 @@ export default class UmengAnalytics {
             'vod_id': vod_id,
             'vod_name': vod_name,
         });
+        this.#triggerFirebaseCustomEvent(eventId, {
+            'vod_id': vod_id,
+            'vod_name': vod_name,
+        });
         this.#triggerCustomEvent('view', isXmode
             ? CustomEventKey.PlaysX_Plays_Times
             : CustomEventKey.Plays_Plays_Times,
@@ -768,6 +892,7 @@ export default class UmengAnalytics {
 
     static playsShareClicksAnalytics = () => {
         this.#triggerUmengEvent(EventId.Plays_share_clicks);
+        this.#triggerFirebaseCustomEvent(EventId.Plays_share_clicks);
         this.#triggerCustomEvent('click', CustomEventKey.Plays_Share);
     }
 
@@ -783,6 +908,7 @@ export default class UmengAnalytics {
         ads_name?: string,
     }) => {
         this.#triggerUmengEvent(EventId.Plays_ads_views);
+        this.#triggerFirebaseCustomEvent(EventId.Plays_ads_views);
         this.#triggerCustomEvent('view', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -816,6 +942,7 @@ export default class UmengAnalytics {
         }
 
         this.#triggerUmengEvent(EventId.Plays_ads_clicks, params);
+        this.#triggerFirebaseCustomEvent(EventId.Plays_ads_clicks, params);
         this.#triggerCustomEvent('click', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -842,6 +969,11 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.VideoPlayer_Banner_views, {
+            'player_type': playerType,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.VideoPlayer_Banner_views, {
             'player_type': playerType,
             'ads_id': ads_id,
             'ads_name': ads_title,
@@ -874,6 +1006,11 @@ export default class UmengAnalytics {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
+        this.#triggerFirebaseCustomEvent(EventId.VideoPlayer_Banner_clicks, {
+            'player_type': playerType,
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
         this.#triggerCustomEvent('click', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -901,6 +1038,10 @@ export default class UmengAnalytics {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
+        this.#triggerFirebaseCustomEvent(EventId.Profile_Banner_views, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
         this.#triggerCustomEvent('view', ads_title, {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
@@ -920,6 +1061,10 @@ export default class UmengAnalytics {
         ads_name: string,
     }) => {
         this.#triggerUmengEvent(EventId.Profile_Banner_clicks, {
+            'ads_id': ads_id,
+            'ads_name': ads_title,
+        });
+        this.#triggerFirebaseCustomEvent(EventId.Profile_Banner_clicks, {
             'ads_id': ads_id,
             'ads_name': ads_title,
         });
