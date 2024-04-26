@@ -14,12 +14,15 @@ import { BackgroundActionEventType } from '@redux/reducers/backgroundReducer';
 import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
 import appsFlyer from 'react-native-appsflyer';
 import { Platform } from 'react-native';
+import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 
 export const onBootApp =
   ({ } = {}) =>
     async (dispatch: any, getState: () => RootState) => {
       try {
         console.log('onBootApp');
+        UmengAnalytics.onBootAnalytics();
+
         const backgroundState = getState().backgroundReducer;
 
         // ========== vip promotion modal ==========
