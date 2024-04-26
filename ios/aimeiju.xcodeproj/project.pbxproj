@@ -22,14 +22,12 @@
 		38EB5E0B2ACDB24500F913BB /* NSJSONSerialization+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E012ACDB24500F913BB /* NSJSONSerialization+String.m */; };
 		38EB5E0C2ACDB24500F913BB /* NSDictionary+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E022ACDB24500F913BB /* NSDictionary+String.m */; };
 		38EB5E0D2ACDB24500F913BB /* ATRNSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E062ACDB24500F913BB /* ATRNSDK.m */; };
-		48E8BADE2B90636200DAED2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48E8BADD2B90636200DAED2A /* GoogleService-Info.plist */; };
 		5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */; };
 		68D418A93432479CAB3A770A /* libPods-aimeiju.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EB66B45C384DDF868C2647 /* libPods-aimeiju.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8771425FD4D41BE8C44942BA /* libPods-aimeiju-aimeijuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9348CCF0EBC8F929A290B5CE /* libPods-aimeiju-aimeijuTests.a */; };
 		8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */; };
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
-		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
 		C6624F59138B4D30A2743B04 /* Archivo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9BB9899CA0D4BF2816AF949 /* Archivo-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -99,7 +97,6 @@
 		9348CCF0EBC8F929A290B5CE /* libPods-aimeiju-aimeijuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju-aimeijuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93EB66B45C384DDF868C2647 /* libPods-aimeiju.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A218EB62AC413D600F6B98C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		9A218F882AC42D1400F6B98C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		A31B7D6109B419792C3A6C42 /* Pods-yingshi-yingshiTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.staging.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.staging.xcconfig"; sourceTree = "<group>"; };
 		AA4A5A97788DA838968151AC /* Pods-aimeiju-aimeijuTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.staging.xcconfig"; sourceTree = "<group>"; };
@@ -273,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				48E8BADD2B90636200DAED2A /* GoogleService-Info.plist */,
-				9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* aimeiju */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* aimeijuTests */,
@@ -453,9 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48E8BADE2B90636200DAED2A /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0E468246AAB34070B20364F4 /* 045-SSYiFeiTi.ttf in Resources */,
 				5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */,
