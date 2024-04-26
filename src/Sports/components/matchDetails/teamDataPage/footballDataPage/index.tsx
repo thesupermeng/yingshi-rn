@@ -1,17 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import GoalDistribution from '../../../goalDistribution';
+import wawaIconarrowrightorangeSuggestion from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
-import styles from './style';
-import EmptyDataPage from '../../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './wawa_hiad_iconnewchat';
+import EmptyDataPage from '../../../wawa_shoot_round';
+import { wawaReactnativeultimatelistviewDisconnected } from '../../../../types/wawa_phoneshare_reactnavigation';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
+interface wawaAwayShow {
+  liveRoomMatchDetails?: wawaReactnativeultimatelistviewDisconnected,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
+const FootballDataPage = ({liveRoomMatchDetails} : wawaAwayShow) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <GoalDistribution
+              <wawaIconarrowrightorangeSuggestion
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ctp-ZM-Jg6">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,52 +9,52 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="jy6-Wj-fEm">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                <viewController id="Ctp-ZM-Jg6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WDQ-ek-TIh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="a46-ZJ-Y3h">
                                 <rect key="frame" x="0.0" y="190.5" width="320" height="0.0"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MN2-I3-ftu">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="FDF-9C-GHM">
                                 <rect key="frame" x="0.0" y="388" width="320" height="160"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.6823529411764706" green="0.6588235294117647" blue="0.1843137254901961" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BootSplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="1et-y0-VE5">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="liveendmodallogoBaiduadsEpisodes" translatesAutoresizingMaskIntoConstraints="NO" id="gIQ-N7-SsI">
                                 <rect key="frame" x="10" y="20" width="300" height="368"/>
                             </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="5WD-3F-oEI"/>
+                        <color key="backgroundColor" red="0.07450980392156863" green="0.7647058823529411" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="MN2-I3-ftu" secondAttribute="bottom" constant="20" id="OZV-Vh-mqD"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="Q3B-4B-g5h"/>
-                            <constraint firstItem="MN2-I3-ftu" firstAttribute="top" secondItem="1et-y0-VE5" secondAttribute="bottom" id="Zsz-cC-31f"/>
-                            <constraint firstItem="MN2-I3-ftu" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="akx-eg-2ui"/>
-                            <constraint firstItem="1et-y0-VE5" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="aqN-jz-4OK"/>
-                            <constraint firstItem="MN2-I3-ftu" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="i1E-0Y-4RG"/>
-                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="bottom" multiplier="1/3" constant="1" id="moa-c2-u7t"/>
-                            <constraint firstItem="1et-y0-VE5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="10" id="vwd-Te-NJE"/>
-                            <constraint firstItem="1et-y0-VE5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-80" id="w7N-a0-xe2"/>
-                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="x7j-FC-K8j"/>
-                            <constraint firstItem="1et-y0-VE5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xRs-gm-moG"/>
-                            <constraint firstAttribute="trailing" secondItem="1et-y0-VE5" secondAttribute="trailing" constant="10" id="zt0-Bs-Dp6"/>
+                            <constraint firstItem="5WD-3F-oEI" firstAttribute="bottom" secondItem="FDF-9C-GHM" secondAttribute="bottom" constant="20.01" id="pYW-zs-0aI"/>
+                            <constraint firstItem="5WD-3F-oEI" firstAttribute="centerX" secondItem="a46-ZJ-Y3h" secondAttribute="centerX" id="QYj-Ak-lpe"/>
+                            <constraint firstItem="FDF-9C-GHM" firstAttribute="top" secondItem="gIQ-N7-SsI" secondAttribute="bottom" id="au9-nM-RnU"/>
+                            <constraint firstItem="FDF-9C-GHM" firstAttribute="centerX" secondItem="5WD-3F-oEI" secondAttribute="centerX" id="95C-OJ-SL2"/>
+                            <constraint firstItem="gIQ-N7-SsI" firstAttribute="top" secondItem="5WD-3F-oEI" secondAttribute="top" id="fjv-Ot-A7x"/>
+                            <constraint firstItem="FDF-9C-GHM" firstAttribute="leading" secondItem="5WD-3F-oEI" secondAttribute="leading" id="7WB-Mu-kFW"/>
+                            <constraint firstItem="a46-ZJ-Y3h" firstAttribute="centerY" secondItem="WDQ-ek-TIh" secondAttribute="bottom" multiplier="1/3" constant="1.01" id="8iJ-8a-qhp"/>
+                            <constraint firstItem="gIQ-N7-SsI" firstAttribute="leading" secondItem="WDQ-ek-TIh" secondAttribute="leading" constant="9.97" id="Ow1-4h-W5u"/>
+                            <constraint firstItem="gIQ-N7-SsI" firstAttribute="centerY" secondItem="WDQ-ek-TIh" secondAttribute="centerY" constant="-80" id="NsZ-Ew-uy3"/>
+                            <constraint firstItem="a46-ZJ-Y3h" firstAttribute="leading" secondItem="5WD-3F-oEI" secondAttribute="leading" symbolic="YES" id="7Gm-sK-265"/>
+                            <constraint firstItem="gIQ-N7-SsI" firstAttribute="centerX" secondItem="WDQ-ek-TIh" secondAttribute="centerX" id="w5d-Q8-xel"/>
+                            <constraint firstAttribute="trailing" secondItem="gIQ-N7-SsI" secondAttribute="trailing" constant="9.98" id="NiX-Nt-utZ"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E7o-4l-YKn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
     <resources>
-        <image name="BootSplashLogo" width="480" height="136"/>
+        <image name="liveendmodallogoBaiduadsEpisodes" width="480" height="136"/>
     </resources>
 </document>

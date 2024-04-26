@@ -1,5 +1,5 @@
 import {View, Text, Image, ImageBackground} from 'react-native';
-import styles from './style';
+import styles from './wawa_hiad_iconnewchat';
 import { HomeIcon, AwayIcon } from '../../../../../assets';
 
 const TeamStat = ({data}) => {

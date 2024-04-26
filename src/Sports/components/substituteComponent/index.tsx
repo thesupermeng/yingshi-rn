@@ -1,20 +1,20 @@
 import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
-import styles from './style';
+import styles from './wawa_hiad_iconnewchat';
 import SubPlayerComponent from './subPlayerComponent';
-import { Away, Away2, Home, Home2, Injury } from '../../types/liveMatchTypes';
+import { wawaTextGradlew, wawaFinal, wawa_down, wawaLeaguedetailsbgType, wawaFilled } from '../../types/wawa_phoneshare_reactnavigation';
 
-interface Props {
+interface wawaAwayShow {
   showTeamIcon?: boolean,
   isInjuryList?: boolean,
-  homeTeam?: Home,
-  awayTeam?: Away,
+  homeTeam?: wawa_down,
+  awayTeam?: wawaTextGradlew,
   homePlayerList?: Array<any>
   awayPlayerList?: Array<any>
 }
 
-const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: Props) => {
+const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: wawaAwayShow) => {
   return (
     <View style={{backgroundColor: '#14161A'}}>
       <View style={styles.titleView}>
@@ -65,7 +65,7 @@ const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, aw
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <SubPlayerComponent key={"homePlayer" + index} isInjury={isInjuryList} data={item} isHome={true}></SubPlayerComponent>
+                <SubPlayerComponent key={"bgvipxvodGreenarrowupShow" + index} isInjury={isInjuryList} data={item} isHome={true}></SubPlayerComponent>
               )
             })
           }
@@ -74,7 +74,7 @@ const SubsComponent = ({ showTeamIcon = true, isInjuryList = false, homeTeam, aw
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <SubPlayerComponent key={"awayPlayer" + index} isInjury={isInjuryList} data={item} isHome={false}></SubPlayerComponent>
+                <SubPlayerComponent key={"tickIncident" + index} isInjury={isInjuryList} data={item} isHome={false}></SubPlayerComponent>
               )
             })
           }

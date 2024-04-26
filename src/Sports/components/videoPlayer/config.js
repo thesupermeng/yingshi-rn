@@ -1,4 +1,4 @@
-import {VideoLiveType} from '../../global/const';
+import {VideoLiveType} from '../../global/wawa_plash_home';
 
 export const AnimationDuration = 300;
 export const AnimationHeight = 400;

@@ -2,17 +2,17 @@ import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
 import InjuryComponent from './injuryComponent';
-import styles from './style';
-import { Home, Away, Injury } from '../../types/liveMatchTypes';
+import styles from './wawa_hiad_iconnewchat';
+import { wawa_down, wawaTextGradlew, wawaFilled } from '../../types/wawa_phoneshare_reactnavigation';
 
-interface Props {
-  homeTeam?: Home
-  awayTeam?: Away
-  homePlayerList?: Injury[]
-  awayPlayerList?: Injury[]
+interface wawaAwayShow {
+  homeTeam?: wawa_down
+  awayTeam?: wawaTextGradlew
+  homePlayerList?: wawaFilled[]
+  awayPlayerList?: wawaFilled[]
 }
 
-const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: Props) => {
+const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: wawaAwayShow) => {
   return (
     <View>
       <View style={styles.titleView}>
@@ -61,7 +61,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"homePlayer" + index} data={item} isHome={true}></InjuryComponent>
+                <InjuryComponent key={"bgvipxvodGreenarrowupShow" + index} data={item} isHome={true}></InjuryComponent>
               )
             })
           }
@@ -70,7 +70,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"awayPlayer" + index} data={item} isHome={false}></InjuryComponent>
+                <InjuryComponent key={"tickIncident" + index} data={item} isHome={false}></InjuryComponent>
               )
             })
           }

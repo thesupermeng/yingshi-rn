@@ -1,14 +1,14 @@
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import styles from './style';
+import styles from './wawa_hiad_iconnewchat';
 import { HomeIcon, AwayIcon } from '../../assets';
 import { calculateScore } from '../../utility/utils';
-import { Away, V } from '../../types/liveMatchTypes';
-import { MatchDetailsType } from '../../types/matchTypes';
+import { wawaTextGradlew, V } from '../../types/wawa_phoneshare_reactnavigation';
+import { wawaPhone } from '../../types/wawa_klevin_iconwechat';
 
-interface Props {
+interface wawaAwayShow {
   data?: V[]
   dataTotal?: any
-  teamDetails?: Away
+  teamDetails?: wawaTextGradlew
   isHome?: boolean
   title?: string
   sportsType?: number
@@ -21,7 +21,7 @@ const MatchHistory = ({
   isHome = true,
   title = '',
   sportsType = 3,
-}: Props) => {
+}: wawaAwayShow) => {
 
   console.log("SPORTS TYPE", sportsType)
 

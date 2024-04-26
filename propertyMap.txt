@@ -1,0 +1,7 @@
+{
+  "bannerViews" : "stationsGrey",
+  "skipButton" : "firebaseProfilepic",
+  "splashImageView" : "basketballdetailsbgMembership",
+  "defaultAdSourceConfigStr" : "backwhiteBgvipxvod",
+  "modelBackView" : "tooltipsRank"
+}

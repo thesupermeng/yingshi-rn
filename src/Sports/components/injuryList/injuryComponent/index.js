@@ -1,11 +1,11 @@
 import {View, Image, Text, ImageBackground} from 'react-native';
-import styles from './style';
+import styles from './wawa_hiad_iconnewchat';
 import {
   BasketballHomeTeam,
   BasketballAwayTeam,
   InjuryIcon
 } from '../../../assets';
-import vars from '../../../utility/vars';
+import vars from '../../../utility/wawa_empty_active';
 
 const InjuryComponent = ({data, isHome = true}) => {
   return (

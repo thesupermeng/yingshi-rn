@@ -6,7 +6,7 @@ import {
   BasketballIcon,
   SubBasketballPlayer
 } from '../../../../../assets';
-import styles from './style';
+import styles from './wawa_hiad_iconnewchat';
 import PlayerStats from '../../../../../components/playerStats';
 import {useState} from 'react';
 

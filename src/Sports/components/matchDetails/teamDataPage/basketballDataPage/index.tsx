@@ -3,15 +3,14 @@ import MatchHistory from '../../../matchHistory';
 import TeamStat from './teamStat';
 import MatchAverage from './matchAverage';
 import CustomMatchDetailsTabBar from '../../../customMatchDetailsTabBar';
-import styles from './style';
-// import AdsComp from '../../../../components/adsComp';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './wawa_hiad_iconnewchat';
+import { wawaReactnativeultimatelistviewDisconnected } from '../../../../types/wawa_phoneshare_reactnavigation';
 
-interface Props {
-  liveRoomMatchDetails: MatchDetailWithRankingData
+interface wawaAwayShow {
+  liveRoomMatchDetails: wawaReactnativeultimatelistviewDisconnected
 }
 
-const BasketballDataPage = ({ liveRoomMatchDetails }: Props) => {
+const BasketballDataPage = ({ liveRoomMatchDetails }: wawaAwayShow) => {
   const tabBar = [
     {
       name: '球队概况',

@@ -4,18 +4,16 @@ import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
 
-//style
-import styles from './style';
-import { MatchUpdatesType } from '../../types/matchUpdatesType';
-// import FastImage from 'react-native-fast-image';
-import FastImage from '../../../components/common/customFastImage';
+import styles from './wawa_hiad_iconnewchat';
+import { wawaScrollviewMiddlesound } from '../../types/wawa_feedback_hash';
+import FastImage from '../../../components/common/wawa_iconarrowrightblack';
 
 
-interface Props {
-  liveRoomUpdate?: MatchUpdatesType
+interface wawaAwayShow {
+  liveRoomUpdate?: wawaScrollviewMiddlesound
 }
 
-const StorylineEvent = ({ liveRoomUpdate }: Props) => {
+const StorylineEvent = ({ liveRoomUpdate }: wawaAwayShow) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (

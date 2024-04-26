@@ -1,5 +1,5 @@
 import vars from './vars';
-import Api from '../middleware/api';
+import wawaLibjsinspector from '../middleware/api';
 import {Url} from '../middleware/url';
 import {Alert, Linking, Platform} from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
@@ -12,7 +12,7 @@ import {
 import RNFS from 'react-native-fs';
 import AppSettingsAction from '@redux/actions/appSettingsAction';
 import Config from '../global/env';
-import {AppConfig} from '../global/appConfig';
+import {wawaYellowvideolive} from '../global/appConfig';
 import {getPredictionShareTimeStamp} from '../global/asyncStorage';
 import {createIconSetFromFontello} from 'react-native-vector-icons';
 import {showToast} from './toast';
@@ -340,7 +340,7 @@ export const deepCopyArray = array => {
 
 export const liveRoomName = async matchId => {
   const params = {id: matchId};
-  const res = await Api.call(Url.liveRoomDetail, params, 'GET');
+  const res = await wawaLibjsinspector.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
       return 'noMatchDetails';
@@ -538,10 +538,10 @@ export const createShareLink = async (path, id) => {
     default:
       break;
   }
-  const response = await Api.call(Url.createShare, params);
+  const response = await wawaLibjsinspector.call(Url.createShare, params);
   if (response.success) {
     const key = response.data;
-    const shareLink = `${AppConfig.instance.config?.shortUrlDomain}/${key}`;
+    const shareLink = `${wawaYellowvideolive.instance.config?.shortUrlDomain}/${key}`;
     return shareLink;
   } else {
     return '';

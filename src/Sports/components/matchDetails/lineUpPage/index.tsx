@@ -1,25 +1,23 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './style';
+import styles from './wawa_hiad_iconnewchat';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { LineUpType } from '../../../types/lineUpTypes';
+import EmptyDataPage from '../../wawa_shoot_round';
+import { wawaReactnativeultimatelistviewDisconnected } from '../../../types/wawa_phoneshare_reactnavigation';
+import { wawaIconsharefriends } from '../../../types/wawa_disconnectedlogo';
 import { useIsFocused } from '@react-navigation/native';
 
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomLineup?: LineUpType
+interface wawaAwayShow {
+  liveRoomMatchDetails?: wawaReactnativeultimatelistviewDisconnected,
+  liveRoomLineup?: wawaIconsharefriends
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: wawaAwayShow) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
   return (
     <View>

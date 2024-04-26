@@ -1,18 +1,18 @@
 import {View, ScrollView} from 'react-native';
 import BasketballStatisticPage from './basketballStatisticPage';
 import {useSelector} from 'react-redux';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { wawaReactnativeultimatelistviewDisconnected } from '../../../types/wawa_phoneshare_reactnavigation';
+import { wawaScrollviewMiddlesound } from '../../../types/wawa_feedback_hash';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface wawaAwayShow {
+  liveRoomMatchDetails?: wawaReactnativeultimatelistviewDisconnected,
+  liveRoomUpdate?: wawaScrollviewMiddlesound
 }
 
 
 
-const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
-  // const [ads] = useAds(adsList);
+const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : wawaAwayShow) => {
+  
   return (
     <View>
       <BasketballStatisticPage
