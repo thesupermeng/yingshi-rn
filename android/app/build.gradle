@@ -102,11 +102,11 @@ android {
         applicationId "com.yingshipin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 7 ,  april 25
-        versionCode 7
+        // ABB version 8 ,  april 26
+        versionCode 8
         versionName "1.7.9"
         resValue "string", "UMENG_APPKEY", "65e675eda7208a5af1b4eebb"
-        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
+        resValue "string", "UMENG_CHANNEL", "GOOGLE_6AY"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
