@@ -1,11 +1,11 @@
 import {View, Image, Text, ImageBackground} from 'react-native';
-import styles from './style';
+import styles from './ww_utils_orangeclock';
 import {
   BasketballHomeTeam,
   BasketballAwayTeam,
   InjuryIcon
 } from '../../../assets';
-import vars from '../../../utility/vars';
+import vars from '../../../utility/ww_middle_target';
 
 const InjuryComponent = ({data, isHome = true}) => {
   return (

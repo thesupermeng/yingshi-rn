@@ -1,13 +1,13 @@
-import { CEndpoint } from "@constants";
-import { CApi } from "@utility/apiService";
-import { EventApiJsonType } from "../../Umeng/EventAnalytic";
+import { wwCollection } from "@constants";
+import { wwForegroundModules } from "@utility/ww_rewardvideo";
+import { wwFastforward } from "../../Umeng/ww_material";
 
 export class EventApi {
-    static postEvents = async (events: EventApiJsonType) => {
+    static postEvents = async (events: wwFastforward) => {
         try {
             if (events.stats.length <= 0) return;
 
-            const result = await CApi.post(CEndpoint.eventPost, {
+            const result = await wwForegroundModules.post(wwCollection.eventPost, {
                 body: events,
             });
 

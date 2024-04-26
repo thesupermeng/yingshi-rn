@@ -1,4 +1,4 @@
-import {VideoLiveType} from '../../global/const';
+import {VideoLiveType} from '../../global/ww_libswresample';
 
 export const AnimationDuration = 300;
 export const AnimationHeight = 400;

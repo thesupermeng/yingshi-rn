@@ -6,7 +6,7 @@ import {
   BasketballIcon,
   SubBasketballPlayer
 } from '../../../../../assets';
-import styles from './style';
+import styles from './ww_utils_orangeclock';
 import PlayerStats from '../../../../../components/playerStats';
 import {useState} from 'react';
 

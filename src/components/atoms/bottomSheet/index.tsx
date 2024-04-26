@@ -1,1 +1,1 @@
-export * from './component';
+export * from './ww_close_step';

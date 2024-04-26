@@ -3,15 +3,14 @@ import MatchHistory from '../../../matchHistory';
 import TeamStat from './teamStat';
 import MatchAverage from './matchAverage';
 import CustomMatchDetailsTabBar from '../../../customMatchDetailsTabBar';
-import styles from './style';
-// import AdsComp from '../../../../components/adsComp';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './ww_utils_orangeclock';
+import { wwShirtBdxadsdk } from '../../../../types/ww_sina_liblogger';
 
-interface Props {
-  liveRoomMatchDetails: MatchDetailWithRankingData
+interface wwIndexDice {
+  liveRoomMatchDetails: wwShirtBdxadsdk
 }
 
-const BasketballDataPage = ({ liveRoomMatchDetails }: Props) => {
+const BasketballDataPage = ({ liveRoomMatchDetails }: wwIndexDice) => {
   const tabBar = [
     {
       name: '球队概况',

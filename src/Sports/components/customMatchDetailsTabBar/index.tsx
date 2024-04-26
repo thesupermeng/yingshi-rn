@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Colors } from '../../global/colors';
-import styles from './style';
-import EmptyDataPage from '../EmptyDataPage';
+import { Colors } from '../../global/ww_drag';
+import styles from './ww_utils_orangeclock';
+import EmptyDataPage from '../ww_result_clock';
 
-type BarType = {
+type wwLibzeus = {
   name: string
   children: React.ReactNode
 }
 
-interface Props {
-  tabBar: BarType[]
+interface wwIndexDice {
+  tabBar: wwLibzeus[]
 }
 
-const CustomMatchDetailsTabBar = ({ tabBar }: Props) => {
+const CustomMatchDetailsTabBar = ({ tabBar }: wwIndexDice) => {
   const [tab, setTab] = useState(0);
   const activeTabColor = '#FAC33D';
   const activeTextColor = '#000000';

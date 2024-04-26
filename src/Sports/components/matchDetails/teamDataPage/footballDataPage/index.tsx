@@ -1,17 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import GoalDistribution from '../../../goalDistribution';
+import wwShielddone from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
-import styles from './style';
-import EmptyDataPage from '../../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './ww_utils_orangeclock';
+import EmptyDataPage from '../../../ww_result_clock';
+import { wwShirtBdxadsdk } from '../../../../types/ww_sina_liblogger';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
+interface wwIndexDice {
+  liveRoomMatchDetails?: wwShirtBdxadsdk,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
+const FootballDataPage = ({liveRoomMatchDetails} : wwIndexDice) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <GoalDistribution
+              <wwShielddone
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

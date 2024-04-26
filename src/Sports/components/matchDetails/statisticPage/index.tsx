@@ -1,18 +1,18 @@
 import {View, ScrollView} from 'react-native';
 import BasketballStatisticPage from './basketballStatisticPage';
 import {useSelector} from 'react-redux';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { wwShirtBdxadsdk } from '../../../types/ww_sina_liblogger';
+import { wwWhistleorange } from '../../../types/ww_chinasame';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface wwIndexDice {
+  liveRoomMatchDetails?: wwShirtBdxadsdk,
+  liveRoomUpdate?: wwWhistleorange
 }
 
 
 
-const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
-  // const [ads] = useAds(adsList);
+const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : wwIndexDice) => {
+  
   return (
     <View>
       <BasketballStatisticPage

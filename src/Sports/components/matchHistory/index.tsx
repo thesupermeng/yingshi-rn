@@ -1,14 +1,14 @@
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import styles from './style';
+import styles from './ww_utils_orangeclock';
 import { HomeIcon, AwayIcon } from '../../assets';
 import { calculateScore } from '../../utility/utils';
-import { Away, V } from '../../types/liveMatchTypes';
-import { MatchDetailsType } from '../../types/matchTypes';
+import { wwScheduler, V } from '../../types/ww_sina_liblogger';
+import { wwInfo } from '../../types/ww_dice';
 
-interface Props {
+interface wwIndexDice {
   data?: V[]
   dataTotal?: any
-  teamDetails?: Away
+  teamDetails?: wwScheduler
   isHome?: boolean
   title?: string
   sportsType?: number
@@ -21,7 +21,7 @@ const MatchHistory = ({
   isHome = true,
   title = '',
   sportsType = 3,
-}: Props) => {
+}: wwIndexDice) => {
 
   console.log("SPORTS TYPE", sportsType)
 

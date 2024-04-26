@@ -4,18 +4,16 @@ import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
 import { WhistleOrange, OrangeClock } from '../../assets';
 
-//style
-import styles from './style';
-import { MatchUpdatesType } from '../../types/matchUpdatesType';
-// import FastImage from 'react-native-fast-image';
-import FastImage from '../../../components/common/customFastImage';
+import styles from './ww_utils_orangeclock';
+import { wwWhistleorange } from '../../types/ww_chinasame';
+import FastImage from '../../../components/common/ww_result';
 
 
-interface Props {
-  liveRoomUpdate?: MatchUpdatesType
+interface wwIndexDice {
+  liveRoomUpdate?: wwWhistleorange
 }
 
-const StorylineEvent = ({ liveRoomUpdate }: Props) => {
+const StorylineEvent = ({ liveRoomUpdate }: wwIndexDice) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (

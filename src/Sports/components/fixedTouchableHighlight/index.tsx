@@ -1,4 +1,3 @@
-// FixedTouchableHighlight.js
 import React, { useRef } from 'react';
 import { GestureResponderEvent, TouchableHighlight, View } from 'react-native';
 

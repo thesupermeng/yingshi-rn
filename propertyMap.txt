@@ -1,0 +1,7 @@
+{
+  "defaultAdSourceConfigStr" : "productIconstar",
+  "skipButton" : "specPlayercommon",
+  "bannerViews" : "mappingLogo",
+  "splashImageView" : "weatherJingdong",
+  "modelBackView" : "minivodStar"
+}

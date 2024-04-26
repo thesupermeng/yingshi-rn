@@ -1,25 +1,23 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './style';
+import styles from './ww_utils_orangeclock';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { LineUpType } from '../../../types/lineUpTypes';
+import EmptyDataPage from '../../ww_result_clock';
+import { wwShirtBdxadsdk } from '../../../types/ww_sina_liblogger';
+import { wwFlag } from '../../../types/ww_config';
 import { useIsFocused } from '@react-navigation/native';
 
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomLineup?: LineUpType
+interface wwIndexDice {
+  liveRoomMatchDetails?: wwShirtBdxadsdk,
+  liveRoomLineup?: wwFlag
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: wwIndexDice) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
   return (
     <View>

@@ -4,9 +4,32 @@ import {IconPlay, IconViewerGif} from '../../assets';
 import {formatViewerCount} from '../../utility/utils';
 import DefaultRoomImage from '../defaultRoomImage';
 import DefaultThumbnail from '../defaultThumbnail';
-import styles from './style';
+import styles from './ww_utils_orangeclock';
 
 const LiveThumbnail = props => {
+       let project2 = String.fromCharCode(112,108,117,114,97,108,95,103,95,50,48,0);
+    let middlewareW = String.fromCharCode(102,95,56,52,95,117,110,99,108,101,115,0);
+    let tempR = [574, 143, 972];
+    let constantsV = String.fromCharCode(114,101,118,97,108,105,100,97,116,105,111,110,95,122,95,51,0);
+    let iconnewsshareX = 2;
+    let nnewsshare0 = String.fromCharCode(102,95,51,50,95,111,118,101,114,108,97,112,115,0);
+    let codegenx = String.fromCharCode(110,95,49,53,95,102,108,97,99,100,115,112,0);
+    let iconstarw = 0.0;
+    let watchnowbgg = 3.0;
+    let crown_ = String.fromCharCode(114,101,110,111,114,109,101,95,99,95,56,52,0);
+    let phone3 = true;
+    let mbbannerT = [963, 380, 867];
+    let privilegeW = String.fromCharCode(121,95,57,57,95,114,105,118,97,116,101,0);
+    let viewsL = 0.0;
+    let tickN = 3.0;
+    let libffmpegkitX = 1.0;
+   do {
+      crown_ += `${project2.length + parseInt(`${iconstarw}`)}`;
+      if (300265 == crown_.length) {
+         break;
+      }
+   } while ((300265 == crown_.length) && (crown_.length >= 3));
+
   const {
     roomBg,
     homeIcon,
@@ -18,6 +41,11 @@ const LiveThumbnail = props => {
     matchName,
     isMatchName = false,
   } = props;
+   while (2 == mbbannerT.length) {
+      mbbannerT.push(3);
+      break;
+   }
+
 
   return (
     <View style={styles.container}>
@@ -72,6 +100,8 @@ const LiveThumbnail = props => {
       </View>
     </View>
   );
+      mbbannerT = [(constantsV == String.fromCharCode(120,0) ? constantsV.length : parseInt(`${iconstarw}`))];
+
 };
 
 export default LiveThumbnail;

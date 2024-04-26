@@ -2,17 +2,17 @@ import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
 import { HomeIcon, AwayIcon } from '../../assets';
 import InjuryComponent from './injuryComponent';
-import styles from './style';
-import { Home, Away, Injury } from '../../types/liveMatchTypes';
+import styles from './ww_utils_orangeclock';
+import { ww_service_root, wwScheduler, wwAnalytics } from '../../types/ww_sina_liblogger';
 
-interface Props {
-  homeTeam?: Home
-  awayTeam?: Away
-  homePlayerList?: Injury[]
-  awayPlayerList?: Injury[]
+interface wwIndexDice {
+  homeTeam?: ww_service_root
+  awayTeam?: wwScheduler
+  homePlayerList?: wwAnalytics[]
+  awayPlayerList?: wwAnalytics[]
 }
 
-const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: Props) => {
+const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = [] }: wwIndexDice) => {
   return (
     <View>
       <View style={styles.titleView}>
@@ -61,7 +61,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             homePlayerList?.length > 0 && homePlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"homePlayer" + index} data={item} isHome={true}></InjuryComponent>
+                <InjuryComponent key={"giflivestreamingDetails" + index} data={item} isHome={true}></InjuryComponent>
               )
             })
           }
@@ -70,7 +70,7 @@ const InjuryList = ({ homeTeam, awayTeam, homePlayerList = [], awayPlayerList = 
           {
             awayPlayerList?.length > 0 && awayPlayerList.map((item, index) => {
               return (
-                <InjuryComponent key={"awayPlayer" + index} data={item} isHome={false}></InjuryComponent>
+                <InjuryComponent key={"short_qLibavformat" + index} data={item} isHome={false}></InjuryComponent>
               )
             })
           }
