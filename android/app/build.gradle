@@ -181,7 +181,7 @@ android {
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
         variant.outputs.all {
-            outputFileName = "wawa-${variant.versionName}.apk"
+            outputFileName = "wawa-pc6-${variant.versionName}.apk"
         }
     }
 }
