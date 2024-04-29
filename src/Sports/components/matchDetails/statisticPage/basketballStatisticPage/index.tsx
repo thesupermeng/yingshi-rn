@@ -2,25 +2,25 @@ import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import PlayerStatistic from './playerStatistic';
 import TopPlayerStatistic from './topPlayerStatistic';
 import TeamStatistic from './teamStatistic';
-import styles from './style';
+import styles from './tt_with_success';
 import InjuryList from '../../../../components/injuryList';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../../types/matchUpdatesType';
+import { ttVideoSuccess } from '../../../../types/tt_sound';
+import { ttReminderScreen } from '../../../../types/tt_handler_prediction';
 import React from 'react';
-import EmptyDataPage from '../../../EmptyDataPage';
+import EmptyDataPage from '../../../tt_line';
 import { useIsFocused } from '@react-navigation/native';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface ttSmall {
+  liveRoomMatchDetails?: ttVideoSuccess,
+  liveRoomUpdate?: ttReminderScreen
 }
 
 const BasketballStatisticPage = ({
   liveRoomUpdate,
   liveRoomMatchDetails,
-}: Props) => {
+}: ttSmall) => {
   const isFocus = useIsFocused();
-  // console.log('Stats', liveRoomMatchDetails?.home)
+  
   return (
     <SafeAreaView style={{ height: '100%', backgroundColor: '#161616' }}>
       {isFocus && liveRoomUpdate?.basketball_match_live?.players == undefined &&

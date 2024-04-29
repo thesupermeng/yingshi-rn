@@ -1,11 +1,11 @@
 import {View, Image, Text, ImageBackground} from 'react-native';
-import styles from './style';
+import styles from './tt_with_success';
 import {
   BasketballHomeTeam,
   BasketballAwayTeam,
   InjuryIcon
 } from '../../../assets';
-import vars from '../../../utility/vars';
+import vars from '../../../utility/tt_mbjscommon_source';
 
 const InjuryComponent = ({data, isHome = true}) => {
   return (

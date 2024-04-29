@@ -1,0 +1,7 @@
+{
+  "bannerViews" : "downloaderCount",
+  "modelBackView" : "chatChange",
+  "defaultAdSourceConfigStr" : "with_qMinivod",
+  "splashImageView" : "listTicked",
+  "skipButton" : "viewRound"
+}

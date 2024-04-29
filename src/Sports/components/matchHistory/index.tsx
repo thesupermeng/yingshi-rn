@@ -1,14 +1,14 @@
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import styles from './style';
+import styles from './tt_with_success';
 import { HomeIcon, AwayIcon } from '../../assets';
 import { calculateScore } from '../../utility/utils';
-import { Away, V } from '../../types/liveMatchTypes';
-import { MatchDetailsType } from '../../types/matchTypes';
+import { ttShared, V } from '../../types/tt_sound';
+import { ttAway } from '../../types/tt_zhubo';
 
-interface Props {
+interface ttSmall {
   data?: V[]
   dataTotal?: any
-  teamDetails?: Away
+  teamDetails?: ttShared
   isHome?: boolean
   title?: string
   sportsType?: number
@@ -21,7 +21,7 @@ const MatchHistory = ({
   isHome = true,
   title = '',
   sportsType = 3,
-}: Props) => {
+}: ttSmall) => {
 
   console.log("SPORTS TYPE", sportsType)
 

@@ -1,1 +1,1 @@
-export * from './iconGroup';
+export * from './tt_album_index';

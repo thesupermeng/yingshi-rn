@@ -1,25 +1,23 @@
 import { ScrollView, View } from 'react-native';
 import LineUpFootball from '../../../components/lineUpFootball';
 import SubsComponent from '../../substituteComponent';
-import styles from './style';
+import styles from './tt_with_success';
 import FootballIconComponent from '../../../components/footballIconComponent';
-import EmptyDataPage from '../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { LineUpType } from '../../../types/lineUpTypes';
+import EmptyDataPage from '../../tt_line';
+import { ttVideoSuccess } from '../../../types/tt_sound';
+import { ttStatsPagination } from '../../../types/tt_mbridge';
 import { useIsFocused } from '@react-navigation/native';
 
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomLineup?: LineUpType
+interface ttSmall {
+  liveRoomMatchDetails?: ttVideoSuccess,
+  liveRoomLineup?: ttStatsPagination
 }
 
 
-const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: Props) => {
+const LineUpPage = ({ liveRoomLineup, liveRoomMatchDetails }: ttSmall) => {
   const isFocus = useIsFocused();
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
   return (
     <View>

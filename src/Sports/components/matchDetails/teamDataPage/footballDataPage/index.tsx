@@ -1,17 +1,17 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import GoalDistribution from '../../../goalDistribution';
+import ttZoomVolume from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
-import styles from './style';
-import EmptyDataPage from '../../../EmptyDataPage';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './tt_with_success';
+import EmptyDataPage from '../../../tt_line';
+import { ttVideoSuccess } from '../../../../types/tt_sound';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
+interface ttSmall {
+  liveRoomMatchDetails?: ttVideoSuccess,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
+const FootballDataPage = ({liveRoomMatchDetails} : ttSmall) => {
   return (
     <SafeAreaView style={{height: '100%'}}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : Props) => {
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <GoalDistribution
+              <ttZoomVolume
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Colors } from '../../global/colors';
-import styles from './style';
-import EmptyDataPage from '../EmptyDataPage';
+import { Colors } from '../../global/tt_umeng';
+import styles from './tt_with_success';
+import EmptyDataPage from '../tt_line';
 
-type BarType = {
+type ttRouterEdit = {
   name: string
   children: React.ReactNode
 }
 
-interface Props {
-  tabBar: BarType[]
+interface ttSmall {
+  tabBar: ttRouterEdit[]
 }
 
-const CustomMatchDetailsTabBar = ({ tabBar }: Props) => {
+const CustomMatchDetailsTabBar = ({ tabBar }: ttSmall) => {
   const [tab, setTab] = useState(0);
   const activeTabColor = '#FAC33D';
   const activeTextColor = '#000000';

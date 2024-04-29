@@ -1,4 +1,4 @@
-import {VideoLiveType} from '../../global/const';
+import {VideoLiveType} from '../../global/tt_libcrashsdk_spinner';
 
 export const AnimationDuration = 300;
 export const AnimationHeight = 400;

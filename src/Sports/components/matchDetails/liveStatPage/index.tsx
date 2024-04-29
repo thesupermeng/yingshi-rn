@@ -3,7 +3,7 @@ import { Text, View, ScrollView, Dimensions } from 'react-native';
 import AreaChart from '../../areaChart';
 import CustomMatchDetailsTabBar from '../../customMatchDetailsTabBar';
 import StatisticsChart from '../../statisticsChart';
-import styles from './style';
+import styles from './tt_with_success';
 import MatchStatisticTab from './matchStatisticTab';
 import FootballIconComponent from '../../footballIconComponent';
 import AreaChartBasketball from '../../areaChartBasketball';
@@ -11,31 +11,29 @@ import MatchStatistic from '../../matchStatistic';
 import StorylineEvent from '../../storylineEvent';
 import BasketballLiveDetails from '../../basketballLiveDetails';
 import LiveScoreBasketball from '../../liveScoreBasketball';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { ttVideoSuccess } from '../../../types/tt_sound';
+import { ttReminderScreen } from '../../../types/tt_handler_prediction';
 import Weather from '../../weather';
-import EmptyDataPage from '../../EmptyDataPage';
+import EmptyDataPage from '../../tt_line';
 import { useIsFocused } from '@react-navigation/native';
-// import AdsComp from '../../../components/adsComp';
-// import {useAds} from '@hooks/useAds';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData
-  liveRoomUpdate?: MatchUpdatesType
+interface ttSmall {
+  liveRoomMatchDetails?: ttVideoSuccess
+  liveRoomUpdate?: ttReminderScreen
 }
 
-type Tab = {
+type ttDice = {
   name: string
   children: React.ReactNode
 }
 
-const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: Props) => {
+const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: ttSmall) => {
   const isFocus = useIsFocused();
 
   // const adsList = useSelector(state => state.adsList);
-  // const [ads] = useAds(adsList);
+  
 
-  const tabBar: Tab[] = [
+  const tabBar: ttDice[] = [
     {
       name: '重要事件',
       children: <StorylineEvent liveRoomUpdate={liveRoomUpdate} />,
@@ -61,7 +59,7 @@ const LiveStatPage = ({ liveRoomUpdate, liveRoomMatchDetails }: Props) => {
   }
 
   if (liveRoomMatchDetails?.sports_type === 1) {
-    // 比赛未开赛
+    
     if (liveRoomMatchDetails.status === 0) {
       return (
         <ScrollView style={{ backgroundColor: '#14161A' }}>

@@ -1,18 +1,18 @@
 import {View, ScrollView} from 'react-native';
 import BasketballStatisticPage from './basketballStatisticPage';
 import {useSelector} from 'react-redux';
-import { MatchDetailWithRankingData } from '../../../types/liveMatchTypes';
-import { MatchUpdatesType } from '../../../types/matchUpdatesType';
+import { ttVideoSuccess } from '../../../types/tt_sound';
+import { ttReminderScreen } from '../../../types/tt_handler_prediction';
 
-interface Props {
-  liveRoomMatchDetails?: MatchDetailWithRankingData,
-  liveRoomUpdate?: MatchUpdatesType
+interface ttSmall {
+  liveRoomMatchDetails?: ttVideoSuccess,
+  liveRoomUpdate?: ttReminderScreen
 }
 
 
 
-const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : Props) => {
-  // const [ads] = useAds(adsList);
+const StatisticPage = ({liveRoomUpdate, liveRoomMatchDetails} : ttSmall) => {
+  
   return (
     <View>
       <BasketballStatisticPage

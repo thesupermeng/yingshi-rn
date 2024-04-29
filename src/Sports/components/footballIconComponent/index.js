@@ -15,7 +15,7 @@ import {
   ShootYesGoal,
   ShootNoGoal,
 } from '../../assets';
-import styles from './style';
+import styles from './tt_with_success';
 
 const FootballIconComponent = ({showLessIcon = false}) => {
   return (

@@ -3,15 +3,14 @@ import MatchHistory from '../../../matchHistory';
 import TeamStat from './teamStat';
 import MatchAverage from './matchAverage';
 import CustomMatchDetailsTabBar from '../../../customMatchDetailsTabBar';
-import styles from './style';
-// import AdsComp from '../../../../components/adsComp';
-import { MatchDetailWithRankingData } from '../../../../types/liveMatchTypes';
+import styles from './tt_with_success';
+import { ttVideoSuccess } from '../../../../types/tt_sound';
 
-interface Props {
-  liveRoomMatchDetails: MatchDetailWithRankingData
+interface ttSmall {
+  liveRoomMatchDetails: ttVideoSuccess
 }
 
-const BasketballDataPage = ({ liveRoomMatchDetails }: Props) => {
+const BasketballDataPage = ({ liveRoomMatchDetails }: ttSmall) => {
   const tabBar = [
     {
       name: '球队概况',
