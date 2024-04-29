@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>699123886701-nu1d7c3499hq9fmh7rch5rrb4am4lusa.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.699123886701-nu1d7c3499hq9fmh7rch5rrb4am4lusa</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>699123886701-2udhr7lnh9ghg3cjd0niegcqn6jvisjs.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB5qZvFzNjTx2azBACOv_Lvxs5Tf-FZOXQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>699123886701</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.zhengquannetwork.app.cn</string>
+	<key>PROJECT_ID</key>
+	<string>yingshitv</string>
+	<key>STORAGE_BUCKET</key>
+	<string>yingshitv.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:699123886701:ios:54e7f638985ae2a2922d64</string>
+</dict>
+</plist>

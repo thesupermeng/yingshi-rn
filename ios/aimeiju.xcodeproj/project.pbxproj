@@ -29,6 +29,7 @@
 		8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */; };
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		C6624F59138B4D30A2743B04 /* Archivo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9BB9899CA0D4BF2816AF949 /* Archivo-Regular.ttf */; };
+		C80A8ED02BDF82CA00977B2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C80A8ECD2BDF82CA00977B2A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +88,6 @@
 		38EB5E052ACDB24500F913BB /* ATRNSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATRNSDK.h; sourceTree = "<group>"; };
 		38EB5E062ACDB24500F913BB /* ATRNSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATRNSDK.m; sourceTree = "<group>"; };
 		3ABE73C894C3270F39CB08E1 /* Pods-aimeiju.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.debug.xcconfig"; sourceTree = "<group>"; };
-		48E8BADD2B90636200DAED2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		59122A987846CA6CA0E2BDD2 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "045-SSYiFeiTi.ttf"; path = "../assets/fonts/045-SSYiFeiTi.ttf"; sourceTree = "<group>"; };
 		6FC4288F8122D12445752171 /* Pods-aimeiju.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.release.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +102,7 @@
 		AA4A5A97788DA838968151AC /* Pods-aimeiju-aimeijuTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.staging.xcconfig"; sourceTree = "<group>"; };
 		AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Anton-Regular.ttf"; path = "../assets/fonts/Anton-Regular.ttf"; sourceTree = "<group>"; };
 		BC7BF9602F2319F79850DD86 /* Pods-yingshi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.debug.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.debug.xcconfig"; sourceTree = "<group>"; };
+		C80A8ECD2BDF82CA00977B2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "assets/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CABA2759F26C1ABC887F1D07 /* Pods-yingshi-yingshiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi-yingshiTests.debug.xcconfig"; path = "Target Support Files/Pods-yingshi-yingshiTests/Pods-yingshi-yingshiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E04321E543D2F7EB0D66361D /* Pods-aimeiju-aimeijuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.release.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1F242248CB4C62E3062B641 /* Pods-yingshi.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yingshi.staging.xcconfig"; path = "Target Support Files/Pods-yingshi/Pods-yingshi.staging.xcconfig"; sourceTree = "<group>"; };
@@ -269,7 +270,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				48E8BADD2B90636200DAED2A /* GoogleService-Info.plist */,
+				C80A8ECD2BDF82CA00977B2A /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* aimeiju */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* aimeijuTests */,
@@ -449,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C80A8ED02BDF82CA00977B2A /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0E468246AAB34070B20364F4 /* 045-SSYiFeiTi.ttf in Resources */,
