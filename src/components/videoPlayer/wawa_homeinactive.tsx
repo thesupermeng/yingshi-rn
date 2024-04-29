@@ -96,11 +96,11 @@ export const AdVideoImage = ({
                         后关闭广告
                     </Text>
 
-                    <View style={styles.verticalLine} />
+                    {/* <View style={styles.verticalLine} />
 
                     <Text style={{ color: colors.primary }}>
                         VIP跳广告 》
-                    </Text>
+                    </Text> */}
                 </CPressable>
                 {/* {isShowShare &&
                     <CPressable onPress={onShare}>
@@ -131,9 +131,9 @@ export const AdVideoImage = ({
 
 const styles = StyleSheet.create({
     countdownContainer: {
-        
-        
-        
+
+
+
         zIndex: 999,
         backgroundColor: '#00000055',
         flexDirection: 'row',
