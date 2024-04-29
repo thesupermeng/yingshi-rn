@@ -29,7 +29,7 @@ const AdultVideoVipModal = () => {
     dispatch(hideAdultModeVip())
   }, [])
 
-  if (adultModeVipShow && !isVip && adultMode)
+  if (adultModeVipShow && !isVip && adultMode) {
     return (
       <View
         style={{
@@ -119,6 +119,7 @@ const AdultVideoVipModal = () => {
         </VipModal>
       </View>
     );
+  }
 };
 
 const styles = StyleSheet.create({
