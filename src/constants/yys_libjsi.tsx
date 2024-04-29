@@ -76,4 +76,7 @@ export class yys_FavoriteCustom {
 
     static chatSocket = ActionsMaterialConfigureUpdate.subsNetworkPolicyReact([-89, -69, -69, -65, -68, -11, -32, -32, -68, -96, -31, -87, -90, -95, -82, -65, -65, -31, -84, -89, -82, -69, -49], 0xCF, false);
     static liveSportsChats = 'liveSports/v1/notice';
+
+    static paymentCallbackRedirectDev = 'https://test.yingshi.tv/payment/yingshiapp';
+    static paymentCallbackRedirectProd = 'https://yingshi.tv/payment/yingshiapp';
 }

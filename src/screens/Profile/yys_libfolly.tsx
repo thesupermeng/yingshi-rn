@@ -99,6 +99,7 @@ import CarouselPagination from "../../components/container/yys_kick_orange";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { yys_StatsForm } from "@utility/yys_context_muted";
 import yys_Filled from "../../../AppsFlyer/yys_analytic";
+import { yys_DetailWhistle } from "../../routes/yys_become_bootsplash";
 
 const iap_skus = ["yingshi_vip_1_month", "yingshi_vip_12_months"];
 const subs_skus = [
@@ -139,10 +140,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
    const { textVariants, spacing } = useTheme();
    const userState = useSelector<yys_HejiCricket>("userReducer");
 
-   const [loading, setIsLoading] = useState(true);
    const [fetching, setFetching] = useState(true);
    const [isNavigated, setIsNavigated] = useState(false);
-   const [isVisible, setIsVisible] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
    const [refreshing, setRefreshing] = useState(false);
    const [isDialogOpen, setIsDialogOpen] = useState(false);
    const [isSuccess, setIsSuccess] = useState(false);
@@ -2875,7 +2875,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                break;
             }
          } while (flipperr && ((libavdeviceA | switch_s4C) > 2));
-         setIsVisible(true);
+         setIsLoading(true);
 
          let tailK = true;
          while (!tailK) {
@@ -3025,7 +3025,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       } catch (error) {
 
          policyT <<= Math.min(Math.abs(policyT), 3);
-         setIsVisible(false);
+         setIsLoading(false);
 
          policyT /= Math.max(upgradey.length, 2);
          if (error instanceof PurchaseError) {
@@ -3358,7 +3358,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             rncoreJ += `${rncoreJ.length}`;
             mbbide -= overlay0.length;
          }
-         console.log("returned order data: ", result);
+         console.debug("returned order data: ", result);
 
          let mapbufferQ = true;
          let sourceF = String.fromCharCode(121, 95, 57, 54, 95, 110, 118, 99, 0);
@@ -3567,7 +3567,24 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                }
             } while ((5 <= (1 % (Math.max(10, submitS)))) && playercommonC);
             openLink(result.paymentData.url, result.transaction_id);
-         } else throw new Error("no url is retuned");
+         } else if (result.paymentData.html) {
+            yys_DetailWhistle.toName('Webview', {
+               params: {
+                  source: result.paymentData.html,
+                  isPayment: true,
+               }
+            })?.then((data) => {
+               // null is manual back
+               if (data === null) {
+                  console.log('manual back');
+                  setIsLoading(false);
+                  setIsBtnEnable(true);
+                  return;
+               }
+
+               getZfStatus(result.transaction_id);
+            });
+         }
       } catch (error) {
 
          submitS ^= submitS << (Math.min(Math.abs(2), 1));
@@ -4502,7 +4519,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                   }, 15000);
                   getZfStatus(transID);
                } else {
-                  setIsVisible(false);
+                  setIsLoading(false);
                   setIsBtnEnable(true);
                }
             });
@@ -4617,9 +4634,23 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
    };
 
    const getZfStatus = async (transID: string) => {
-      const result = await yys_SubsPlus.getFinzfTransaction({
-         transactionId: transID,
-      });
+      let result;
+
+      try {
+         result = await yys_SubsPlus.getFinzfTransaction({
+            transactionId: transID,
+         });
+
+         if (!result) {
+            throw 'not found';
+         }
+
+      } catch (e) {
+         setIsLoading(false);
+         setIsBtnEnable(true);
+         return;
+      }
+
       console.log("order status: ", result);
 
       if (result.transaction_status_string === "COMPLETED") {
@@ -4640,7 +4671,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }
          } else {
             dispatch(setShowGuestPurchaseSuccess(true));
-            setIsVisible(false);
+            setIsLoading(false);
             setIsBtnEnable(true);
             navigation.goBack();
          }
@@ -5787,7 +5818,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                      }
                      let mutedn: Array<any> = [String.fromCharCode(98, 117, 105, 108, 100, 115, 95, 106, 95, 57, 53, 0), String.fromCharCode(118, 95, 54, 95, 115, 101, 108, 101, 99, 116, 101, 100, 0), String.fromCharCode(102, 105, 103, 117, 114, 101, 95, 99, 95, 56, 53, 0)];
                      playv = `${1 + playv.length}`;
-                     setIsVisible(false);
+                     setIsLoading(false);
 
                      let trash_ = String.fromCharCode(100, 95, 50, 57, 95, 115, 111, 119, 97, 107, 101, 117, 112, 0);
                      let calendard: Array<any> = [28, 938, 544];
@@ -5862,7 +5893,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                      return;
                   }
 
-                  setTimeout(() => setIsVisible(false), 10000);
+                  setTimeout(() => setIsLoading(false), 10000);
 
                   for (let p = 0; p < 2; p++) {
                      libjsinspectorH = new Map([[megaphoneq, 2 ^ parseInt(`${tnewinterstitialX}`)]]);
@@ -6210,7 +6241,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                         navigation.goBack();
                      } else {
                         dispatch(setShowGuestPurchaseSuccess(true));
-                        setIsVisible(false);
+                        setIsLoading(false);
                         setIsBtnEnable(true);
                         navigation.goBack();
                      }
@@ -6232,7 +6263,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                } else {
                   console.error("current purchase error: " + error);
                }
-               setIsVisible(false);
+               setIsLoading(false);
                setIsBtnEnable(true);
             }
          }
@@ -6511,7 +6542,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
          anner0 /= Math.max(parseFloat(`${shootF.length}`), 5);
          break;
       }
-      setIsVisible(false);
+      setIsLoading(false);
 
       let rewardvideo_ = 6203862 >= telegramA.length;
       do {
@@ -6924,7 +6955,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                      </View>
                   )}
 
-                  <SpinnerOverlay visible={isVisible} />
+                  <SpinnerOverlay visible={isLoading} />
 
                   {/* {IS_IOS && !isOffline && (
           <View style={{ backgroundColor: 'rgba(20, 22, 26, 1)', flex: loading ? 0 : 1 }}>

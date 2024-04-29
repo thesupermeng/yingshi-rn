@@ -116,6 +116,10 @@ export type yys_ServiceBridge = {
     vodId: number
   };
   续费服务: undefined,
+  Webview: {
+    source: string,
+    isPayment?: boolean,
+  },
   uploadVideo: undefined,
   uploadVideoPreview: UploadVideoPreviewParams,
   uploadHistory: undefined,
