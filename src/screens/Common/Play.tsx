@@ -1144,6 +1144,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [vodUri]);
 
   const onPressCountdown = () => {
+    return;
     setShowAdOverlay(true);
     videoPlayerRef.current?.setPause(true);
   };

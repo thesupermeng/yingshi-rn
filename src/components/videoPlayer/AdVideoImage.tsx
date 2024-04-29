@@ -99,11 +99,11 @@ export const AdVideoImage = ({
                         后关闭广告
                     </Text>
 
-                    <View style={styles.verticalLine} />
+                    {/* <View style={styles.verticalLine} />
 
                     <Text style={{ color: colors.primary }}>
                         VIP跳广告 》
-                    </Text>
+                    </Text> */}
                 </CPressable>
                 {/* {isShowShare &&
                     <CPressable onPress={onShare}>

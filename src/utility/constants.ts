@@ -142,7 +142,7 @@ export const COMMENT_MAX_INPUT = 200;
 
 export const MINI_SHOW_LOGIN_NUMBER = Platform.OS === 'ios' ? 299 : 10;
 
-export const AD_VIDEO_SECONDS = 10;
+export const AD_VIDEO_SECONDS = 15;
 
 export const GOOGLE_SINGIN_CLIENT_WEB =
   '699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com';
