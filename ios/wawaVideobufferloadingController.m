@@ -88,7 +88,7 @@ self.predictionlossView = [[wawaHeaderView alloc] init];
          NSInteger bgvipxvodi = sizeof(vignetteK) / sizeof(vignetteK[0]);
          vignetteK[0] ^= (3 + bgvipxvodi) & vignetteK[0];
       regengB = regengB;
-  self.view.backgroundColor = [UIColor colorWithRed:233 / 255.0 green:100 / 255.0 blue:145 / 255.0 alpha:1];
+  self.view.backgroundColor = [UIColor blackColor];
 
   [self setupUI];
 }
@@ -284,7 +284,7 @@ self.predictionlossView = [[wawaHeaderView alloc] init];
   self.mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    self.mainView.backgroundColor = [UIColor colorWithRed:233 / 255.0 green:100 / 255.0 blue:145 / 255.0 alpha:1];
+    self.mainView.backgroundColor = [UIColor blackColor];
   });
 }
 
