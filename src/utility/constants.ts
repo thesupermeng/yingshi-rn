@@ -67,17 +67,17 @@ export const UMENG_CHANNEL = 'WAWA';
 
 export const APP_VERSION = '1.7.8';
 
-export const TOPON_ANDROID_APP_ID = 'a65f7e864ec33e';
-export const TOPON_ANDROID_APP_KEY = 'a7fa2bea6b6105fdee92beb136b1e31ec';
+export const TOPON_ANDROID_APP_ID = 'a662f3183e4840';
+export const TOPON_ANDROID_APP_KEY = 'a8c9f80b1d43600ad45766820fe3edb10';
 
 export const TOPON_IOS_APP_ID = 'a6629ff64da95b';
 export const TOPON_IOS_APP_KEY = 'ae2e7a7fe60c2a6e7a85e157c999618e4';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1ffea90t3mmpp';
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b1ffea90t3mqrn';
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b1ffea90t3mvl6';
-export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b1ffea90t3n32j';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1fil9ee9e28g9';
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b1fil9ee9e1lj9';
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b1fil9ee9e2cen';
+export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b1fil9ee9e1r39';
 
 export const IOS_HOME_PAGE_BANNER_ADS = 'b662a00e69448b';
 export const IOS_PLAY_DETAILS_BANNER_ADS = 'b662a00f210721';
@@ -85,14 +85,14 @@ export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b662a010d8f865';
 export const IOS_TOPIC_TAB_BANNER_ADS = 'b662a011a0c567';
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1ffea90t3mgqp';
-export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1ffea90t3makj';
+export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1fil9ee9e1dd1';
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1fil9ee9e1vdf';
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b6629fff6cb865';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b6629ffe981749';
 
 // topon 激励视频广告
-export const ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b6620c56e9b5fa';
-export const ANDROID_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b6621d55d12755';
+export const ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b1fil9ee9e2ggs';
+export const ANDROID_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b1fil9ee9e2kg5';
 export const IOS_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b662a013e339de';
 export const IOS_PLAY_DETAIL_SHORT_VOD_REWARD_ADS = 'b662a01476b4d5';
 
