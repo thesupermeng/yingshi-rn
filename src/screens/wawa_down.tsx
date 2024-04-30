@@ -661,13 +661,17 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
    );
 
    const handleRefresh = async (id: number, showloading: boolean = false) => {
+      console.log('handleRefresh')
+     // setShowHomeLoading(true);
       if (showloading) {
          setIsRefreshing(true);
+       
       }
       try {
          const index = navOptions?.findIndex(x => x.id === id);
 
          if (index !== undefined) {
+            console.log('await')
             await data[index].refetch();
          }
 
@@ -692,7 +696,7 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
                   return true; // Update to true
                }
             });
-            await handleRefresh(navId, true);
+            await handleRefresh(navId, false);
             setIsRefreshing(false);
          }
       };
@@ -1839,7 +1843,7 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
                         </View>
                      )}
                      {data &&
-                        !isOffline &&
+                        !isOffline && !isRefreshing &&
                         getContent({ item: data[i], index: tab.id })}
                   </>
                )}
