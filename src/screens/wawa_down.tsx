@@ -660,16 +660,18 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
       }, [settingsReducer.isOffline])
    );
 
-
-
-
-
    const handleRefresh = async (id: number, showloading: boolean = false) => {
       if (showloading) {
          setIsRefreshing(true);
       }
       try {
-         await queryClient.resetQueries(["HomePage", id]);
+         const index = navOptions?.findIndex(x => x.id === id);
+
+         if (index !== undefined) {
+            await data[index].refetch();
+         }
+
+         // await queryClient.resetQueries(["HomePage", id]);
          setIsRefreshing(false);
          setNavId(id);
          setShowHomeLoading(false);
@@ -698,7 +700,7 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
       const unsubscribe = navigation.addListener("tabPress", handleTabPress);
       // Clean up the event listener when the component unmounts or when navId changes
       return () => unsubscribe();
-   }, [isFocused, navId, handleRefresh, isRefreshing]);
+   }, [isFocused, navId, handleRefresh, isRefreshing, navOptions, data]);
 
    const handleRejectEighteenPlus = useCallback(() => {
       let gestures4 = 3;
@@ -1801,6 +1803,7 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
                               position: "absolute",
                               left: "50%",
                               marginLeft: -40,
+                              zIndex: 999,
                            }}
                         >
                            {
