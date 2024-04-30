@@ -1,6 +1,6 @@
-import {ScrollView, SafeAreaView, View} from 'react-native';
-import {useSelector} from 'react-redux';
-import wawaIconarrowrightorangeSuggestion from '../../../goalDistribution';
+import { ScrollView, SafeAreaView, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import WawaIconarrowrightorangeSuggestion from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
 import styles from './wawa_hiad_iconnewchat';
@@ -11,9 +11,9 @@ interface wawaAwayShow {
   liveRoomMatchDetails?: wawaReactnativeultimatelistviewDisconnected,
 }
 
-const FootballDataPage = ({liveRoomMatchDetails} : wawaAwayShow) => {
+const FootballDataPage = ({ liveRoomMatchDetails }: wawaAwayShow) => {
   return (
-    <SafeAreaView style={{height: '100%'}}>
+    <SafeAreaView style={{ height: '100%' }}>
       {liveRoomMatchDetails?.football_match_analysis == undefined &&
         liveRoomMatchDetails?.football_away_injuries == undefined && (
           <EmptyDataPage />
@@ -40,13 +40,13 @@ const FootballDataPage = ({liveRoomMatchDetails} : wawaAwayShow) => {
         {liveRoomMatchDetails?.home != undefined &&
           liveRoomMatchDetails?.away != undefined &&
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.home_scored?.length > 0 &&
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <wawaIconarrowrightorangeSuggestion
+              <WawaIconarrowrightorangeSuggestion
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={
@@ -60,7 +60,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : wawaAwayShow) => {
         {liveRoomMatchDetails?.football_match_analysis?.history?.vs !=
           undefined &&
           liveRoomMatchDetails?.football_match_analysis?.history?.vs_total !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.home != undefined && (
             <View>
               <MatchHistory
@@ -82,7 +82,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : wawaAwayShow) => {
         {liveRoomMatchDetails?.football_match_analysis?.history?.home !=
           undefined &&
           liveRoomMatchDetails?.football_match_analysis?.history?.home_total !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.home != undefined && (
             <MatchHistory
               title="近期战绩"
@@ -100,7 +100,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : wawaAwayShow) => {
         {liveRoomMatchDetails?.football_match_analysis?.history?.away !=
           undefined &&
           liveRoomMatchDetails?.football_match_analysis?.history?.away_total !=
-            undefined &&
+          undefined &&
           liveRoomMatchDetails?.away != undefined && (
             <MatchHistory
               data={
