@@ -87,6 +87,7 @@ import { wawaPhoneControls } from "@redux/reducers/wawa_umeng";
 import { wawaLibglog } from "@models/wawa_refreshborderless_found";
 
 function wawa_down({ navigation }: BottomTabScreenProps<any>) {
+   const [isRefreshing, setIsRefreshing] = useState(false);
    const dispatch = useAppDispatch();
    const isFocused = useIsFocused();
    const { colors, spacing } = useTheme();
@@ -660,7 +661,7 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
    );
 
 
-   const [isRefreshing, setIsRefreshing] = useState(false);
+
 
 
    const handleRefresh = async (id: number, showloading: boolean = false) => {
