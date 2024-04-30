@@ -697,7 +697,7 @@ function wawa_down({ navigation }: BottomTabScreenProps<any>) {
       const unsubscribe = navigation.addListener("tabPress", handleTabPress);
       // Clean up the event listener when the component unmounts or when navId changes
       return () => unsubscribe();
-   }, [isFocused, navId, handleRefresh]);
+   }, [isFocused, navId, handleRefresh, isRefreshing]);
 
    const handleRejectEighteenPlus = useCallback(() => {
       let gestures4 = 3;
