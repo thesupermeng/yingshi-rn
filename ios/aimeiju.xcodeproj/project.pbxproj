@@ -98,7 +98,7 @@
 		00E356EE1AD99517003FC87E /* aimeijuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = aimeijuTests.xctest; path = aimeiju.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* aimeijuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aimeijuTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* aimeiju.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aimeiju.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* 娃娃追剧.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "娃娃追剧.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = aimeiju/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = aimeiju/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = aimeiju/Images.xcassets; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* aimeiju.app */,
+				13B07F961A680F5B00A75B9A /* 娃娃追剧.app */,
 				00E356EE1AD99517003FC87E /* aimeijuTests.xctest */,
 			);
 			name = Products;
@@ -498,7 +498,7 @@
 			);
 			name = aimeiju;
 			productName = yingshi;
-			productReference = 13B07F961A680F5B00A75B9A /* aimeiju.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* 娃娃追剧.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -928,7 +928,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = "娃娃追剧";
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -976,7 +976,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = "娃娃追剧";
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
 				SWIFT_VERSION = 5.0;
@@ -1258,7 +1258,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhengquannetwork.app.cn;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = "娃娃追剧";
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
 				SWIFT_VERSION = 5.0;
