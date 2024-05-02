@@ -43,7 +43,7 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
-import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, ANDROID_PLAY_PAUSE_POP_UP_ADS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, ANDROID_PLAY_PAUSE_POP_UP_ADS, IOS_PLAY_PAUSE_POP_UP_ADS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
@@ -568,7 +568,7 @@ export default forwardRef<VideoRef, Props>(
       setIsPaused(!isPaused);
 
       if (triggerByPlayPauseBtn && !isPaused) {
-        dispatch(setManualShowPopAds(ANDROID_PLAY_PAUSE_POP_UP_ADS));
+        dispatch(setManualShowPopAds(Platform.OS === 'android' ? ANDROID_PLAY_PAUSE_POP_UP_ADS : IOS_PLAY_PAUSE_POP_UP_ADS));
       }
     };
 

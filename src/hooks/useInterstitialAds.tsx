@@ -153,7 +153,7 @@ const useInterstitialAds = () => {
     if (screenState.manualShowPopAds !== undefined) {
       retryCount = 0;
 
-      dispatch(setManualShowPopAds(false));
+      dispatch(setManualShowPopAds(undefined));
       setTimeout(() => {
         showInterstitial(screenState.manualShowPopAds as PlacementId);
       }, 10); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first
