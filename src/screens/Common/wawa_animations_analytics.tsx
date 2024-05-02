@@ -3458,7 +3458,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
          (itemId + 1) % VIEW_NUMBER_FOR_SHOW_VIDEO_ADS === 1 &&
          vod?.type_id === shortVodId
       ) {
-         showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
+         showAds(UGreytickLoading.UShowless);
       }
    }, []);
 
@@ -4975,7 +4975,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       }
 
       // if (totalShortVodView >= VIEW_NUMBER_FOR_SHOW_VIDEO_ADS && vod?.type_id === shortVodId) {
-      //   showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
+      //   showAds(UGreytickLoading.UShowless);
       // }
 
       // if (indexOfEpisode !== undefined && (indexOfEpisode + 1) > VIEW_NUMBER_FOR_SHOW_VIDEO_ADS) {
@@ -6091,7 +6091,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   setShowAdOverlay={setShowAdOverlay}
                   onAdsMount={onAdsMount}
                   vipGuideModalOpen={vipGuideModalOpen}
-                  isPlayRewardVideo={getDetails(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD)?.isPlay}
+                  isPlayRewardVideo={getDetails(UGreytickLoading.UShowless)?.isPlay}
                />
             )}
             {isOffline && dismountPlayer && episode && (
