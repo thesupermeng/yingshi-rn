@@ -1,4 +1,4 @@
-import { MutableRefObject, memo } from "react"
+import { MutableRefObject, memo, useState } from "react"
 import { Platform, StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
@@ -97,7 +97,8 @@ const VideoWithControls = ({
     isSeekErrorRef,
 }: Props) => {
 
-    const route = useRoute()
+    const route = useRoute();
+    const [videoAspetRatio, setVideoAspetRatio] = useState('16/9');
 
     /**
      * Please read: 
@@ -122,7 +123,10 @@ const VideoWithControls = ({
     return (
         <View
             style={{
-                position: 'absolute'
+                position: 'absolute',
+                height: '100%',
+                backgroundColor: 'black',
+                aspectRatio: videoAspetRatio,
             }}
         >
             <Video
@@ -166,7 +170,7 @@ const VideoWithControls = ({
                     }
                 }}
                 onReadyForDisplay={onReadyForDisplay}
-                style={styles.video}
+                style={{ ...styles.video, aspectRatio: videoAspetRatio }}
                 {...conditionalProp}
             />
             <VideoControlsOverlay
@@ -205,8 +209,9 @@ const VideoWithControls = ({
                 sourceID={sourceID}
                 onDownloadVod={onDownloadVod}
                 setShowAdOverlay={setShowAdOverlay}
+                videoRatioStr={videoAspetRatio}
+                setVideoRatio={setVideoAspetRatio}
             />
-
         </View>
     );
 }
@@ -217,6 +222,5 @@ export default memo(VideoWithControls);
 const styles = StyleSheet.create({
     video: {
         width: '100%',
-        aspectRatio: 16 / 9,
     },
 });

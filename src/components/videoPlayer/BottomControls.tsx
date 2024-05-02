@@ -37,6 +37,9 @@ type Props = {
   onLock: () => any,
   showMoreType?: 'episodes' | 'streams' | 'movies' | 'none',
   showSliderThumbnail: boolean,
+  hasVideoRatioControl?: boolean,
+  videoRatioStr: string,
+  onVideoAspetRatioPress: () => void,
 };
 
 export default ({
@@ -55,6 +58,9 @@ export default ({
   onLock,
   showMoreType = 'episodes',
   showSliderThumbnail = false,
+  hasVideoRatioControl = false,
+  videoRatioStr,
+  onVideoAspetRatioPress,
 }: Props) => {
   useEffect(() => { }, []);
   const { textVariants, colors } = useTheme();
@@ -169,6 +175,14 @@ export default ({
               </RectButton>
             </View>
             <View style={{ ...styles.row, gap: 20 }}>
+              {
+                hasVideoRatioControl &&
+                <RectButton
+                  disallowInterruption={true}
+                  onPress={onVideoAspetRatioPress}>
+                  <Text style={{ color: colors.text }}>{videoRatioStr}</Text>
+                </RectButton>
+              }
               {
                 onNextEpisode !== undefined &&
                 <RectButton
