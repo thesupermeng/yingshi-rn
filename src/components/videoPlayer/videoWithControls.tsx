@@ -1,4 +1,4 @@
-import { MutableRefObject, memo, useState } from "react"
+import { MutableRefObject, memo, useEffect, useState } from "react"
 import { Platform, StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./VideoControlsOverlay";
@@ -99,6 +99,12 @@ const VideoWithControls = ({
 
     const route = useRoute();
     const [videoAspetRatio, setVideoAspetRatio] = useState('16/9');
+
+    useEffect(() => {
+        if (isFullScreen === false) {
+            setVideoAspetRatio('16/9');
+        }
+    }, [isFullScreen]);
 
     /**
      * Please read: 
