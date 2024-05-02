@@ -61,7 +61,9 @@ interface wawaAwayShow {
     onSeek: (time: number) => void,
     onSeekGesture: (time: number) => void,
     onSkip: (time: any) => void,
-    onTogglePlayPause: () => void,
+    onTogglePlayPause: ({ triggerByPlayPauseBtn, }: {
+        triggerByPlayPauseBtn?: boolean;
+    }) => void,
     onToggleFullScreen: () => void,
     onGoBack: () => void,
     setPlaybackRate: (value: number) => void,
@@ -122,7 +124,7 @@ const VideoWithControls = ({
 
     const route = useRoute()
 
-     
+
 
     const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : { ref: ref => (videoPlayerRef.current = ref) }
 
@@ -137,9 +139,9 @@ const VideoWithControls = ({
                 disableFocus
                 rate={playbackRate}
                 ignoreSilentSwitch="ignore"
-                fullscreen={false}  
+                fullscreen={false}
                 onBuffer={onBuffer}
-                paused={isPaused} 
+                paused={isPaused}
                 resizeMode="contain"
                 playWhenInactive={true}
                 onEnd={() => {
@@ -154,8 +156,8 @@ const VideoWithControls = ({
                         : {
                             uri: vod_url,
                             headers: {
-                                origin: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24,-12,-12,-16,-13,-70,-81,-81,-10,-82,-21,-7,-20,-23,-18,-12,-10,-82,-29,-17,-19,-128],0x80,false),
-                                referer: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24,-12,-12,-16,-13,-70,-81,-81,-10,-82,-21,-7,-20,-23,-18,-12,-10,-82,-29,-17,-19,-128],0x80,false),
+                                origin: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
+                                referer: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
                             },
                         }
                 }

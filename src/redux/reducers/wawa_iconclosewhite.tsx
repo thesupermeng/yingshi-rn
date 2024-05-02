@@ -29,14 +29,14 @@ const initialState: screenModel = {
   showAdultVipPrivilegeMiniVideo: false,
   showPromotionDialog: false,
   showGuestPurchaseSuccess: false,
-  showPurchasePending:false,
-  isHomeGuideShown : 'null', 
-  isMiniVodGuideShown : false, 
-  isPlayGuideShown : false, 
-  isPlayGuideShown2 :  false, 
-  isSportGuideShown : false, 
-  autoSelectSport : false, 
-  manualShowPopAds : false, 
+  showPurchasePending: false,
+  isHomeGuideShown: 'null',
+  isMiniVodGuideShown: false,
+  isPlayGuideShown: false,
+  isPlayGuideShown2: false,
+  isSportGuideShown: false,
+  autoSelectSport: false,
+  manualShowPopAds: undefined,
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -235,53 +235,53 @@ export function screenReducer(state = initialState, action: screenActionType) {
         ...state,
         showGuestPurchaseSuccess: action.payload,
       };
-      case "set_show_purchase_pending":
-        return {
-          ...state,
-          showPurchasePending: action.payload,
-        };
-        
-        case "set_is_home_guide_shown":
-          return {
-            ...state,
-            isHomeGuideShown: action.payload,
-          };
-                  
-        case "set_is_mini_vod_guide_shown":
-          return {
-            ...state,
-            isMiniVodGuideShown: action.payload,
-          };
-                  
-        case "set_is_play_guide_shown":
-          return {
-            ...state,
-            isPlayGuideShown: action.payload,
-          };
-                  
-        case "set_is_play_guide_shown_2":
-          return {
-            ...state,
-            isPlayGuideShown2: action.payload,
-          };
-                  
-        case "set_is_sport_guide_shown":
-          return {
-            ...state,
-            isSportGuideShown: action.payload,
-          };
-                        
-        case "set_auto_select_sport":
-          return {
-            ...state,
-            autoSelectSport: action.payload,
-          };
-            
-        case "set_manual_show_pop_ads":
-          return {
-            ...state,
-            manualShowPopAds: action.payload,
-          };
+    case "set_show_purchase_pending":
+      return {
+        ...state,
+        showPurchasePending: action.payload,
+      };
+
+    case "set_is_home_guide_shown":
+      return {
+        ...state,
+        isHomeGuideShown: action.payload,
+      };
+
+    case "set_is_mini_vod_guide_shown":
+      return {
+        ...state,
+        isMiniVodGuideShown: action.payload,
+      };
+
+    case "set_is_play_guide_shown":
+      return {
+        ...state,
+        isPlayGuideShown: action.payload,
+      };
+
+    case "set_is_play_guide_shown_2":
+      return {
+        ...state,
+        isPlayGuideShown2: action.payload,
+      };
+
+    case "set_is_sport_guide_shown":
+      return {
+        ...state,
+        isSportGuideShown: action.payload,
+      };
+
+    case "set_auto_select_sport":
+      return {
+        ...state,
+        autoSelectSport: action.payload,
+      };
+
+    case "set_manual_show_pop_ads":
+      return {
+        ...state,
+        manualShowPopAds: action.payload,
+      };
     default:
       return state;
   }

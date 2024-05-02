@@ -8,10 +8,10 @@ export interface screenModel {
   resetBottomSheet: boolean;
   resetInputForm: boolean;
   navigateToProfile: boolean;
-  sportWatchTime: number; 
+  sportWatchTime: number;
   interstitialShow: boolean;
   isPlayerFullScreen: boolean;
-  adultVideoWatchTime: number; 
+  adultVideoWatchTime: number;
   adultModeDisclaimerShow: boolean;
   adultModeVipShow: boolean;
   adultMode: boolean;
@@ -23,13 +23,13 @@ export interface screenModel {
   showPromotionDialog: boolean;
   showGuestPurchaseSuccess: boolean;
   showPurchasePending: boolean;
-  isHomeGuideShown :  any; 
-  isMiniVodGuideShown :  boolean;
-  isPlayGuideShown :  boolean;
-  isPlayGuideShown2 :  boolean;
-  isSportGuideShown :  boolean;
-  autoSelectSport:  boolean; 
-  manualShowPopAds:  boolean; 
+  isHomeGuideShown: any;
+  isMiniVodGuideShown: boolean;
+  isPlayGuideShown: boolean;
+  isPlayGuideShown2: boolean;
+  isSportGuideShown: boolean;
+  autoSelectSport: boolean;
+  manualShowPopAds?: string;
 
 
 
