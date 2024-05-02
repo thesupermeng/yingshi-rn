@@ -32,7 +32,7 @@ import FastImage from "../../components/common/customFastImage";
 import FastForwardProgressIcon from "@static/images/fastforwardProgress.svg";
 import RewindProgressIcon from "@static/images/rewindProgress.svg";
 
-import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux/actions/screenAction";
+import { incrementSportWatchTime, setFullscreenState, setManualShowPopAds, showAdultModeVip } from "@redux/actions/screenAction";
 
 import {
   LiveTVStationItem,
@@ -43,7 +43,7 @@ import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
 import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
-import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
+import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, ANDROID_PLAY_PAUSE_POP_UP_ADS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { AdVideoImage } from "./AdVideoImage";
 import { VodReducerState } from "@redux/reducers/vodReducer";
 import { VodApi } from "@api";
@@ -91,6 +91,7 @@ interface Props {
   setShowAdOverlay: (show: boolean) => void,
   onAdsMount?: () => void,
   vipGuideModalOpen?: boolean,
+  isPlayRewardVideo?: boolean,
 }
 
 type VideoControlsRef = {
@@ -144,6 +145,7 @@ export default forwardRef<VideoRef, Props>(
       setShowAdOverlay,
       onAdsMount,
       vipGuideModalOpen = false,
+      isPlayRewardVideo = false,
     }: Props,
     ref
   ) => {
@@ -560,8 +562,14 @@ export default forwardRef<VideoRef, Props>(
       }
     };
 
-    const onTogglePlayPause = () => {
+    const onTogglePlayPause = ({ triggerByPlayPauseBtn, }: {
+      triggerByPlayPauseBtn?: boolean;
+    } = {}) => {
       setIsPaused(!isPaused);
+
+      if (triggerByPlayPauseBtn && !isPaused) {
+        dispatch(setManualShowPopAds(ANDROID_PLAY_PAUSE_POP_UP_ADS));
+      }
     };
 
     const hideSeekProgress = useCallback(
@@ -759,7 +767,7 @@ export default forwardRef<VideoRef, Props>(
               <VideoWithControls
                 playbackRate={playbackRate}
                 videoPlayerRef={videoPlayerRef}
-                isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
+                isPaused={isPaused || pauseSportVideo || isPlayRewardVideo} // Pause video  when sport timer is up
                 vod_source={vod_source}
                 vod_url={vod_url}
                 currentTimeRef={currentTimeRef}

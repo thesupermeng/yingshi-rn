@@ -347,6 +347,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const {
     showAds,
+    getDetails,
   } = useRewardVideoAds();
 
   const [refPosition, setRefPosition] = useState({
@@ -361,16 +362,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [vipGuideModalOpen, setVipGuideModalOpen] = useState(false);
   const screenWidth = Dimensions.get("window");
 
-  // const { data: navOptions } = useQuery({
-  //   queryKey: ['filterOptions'],
-  //   queryFn: () => VodApi.getTopicType(),
-  // });
+  const { data: navOptions } = useQuery({
+    queryKey: ['filterOptions'],
+    queryFn: () => VodApi.getTopicType(),
+  });
 
-  // const shortVodId = useMemo(() => {
-  //   if (!navOptions) return -1;
+  const shortVodId = useMemo(() => {
+    if (!navOptions) return -1;
 
-  //   return navOptions.find(x => x.type_name === '短剧')?.type_id ?? -1;
-  // }, [navOptions]);
+    return navOptions.find(x => x.type_name === '短剧')?.type_id ?? -1;
+  }, [navOptions]);
 
   const downloadedVod: VodDownloadType | undefined = useAppSelector(
     ({ downloadVideoReducer }: RootState) => {
@@ -903,6 +904,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setCurrentEpisode(itemId);
     currentEpisodeRef.current = itemId;
     currentTimeRef.current = 0;
+
+    if (
+      itemId !== undefined &&
+      (itemId + 1) > VIEW_NUMBER_FOR_SHOW_VIDEO_ADS &&
+      (itemId + 1) % VIEW_NUMBER_FOR_SHOW_VIDEO_ADS === 1 &&
+      vod?.type_id === shortVodId
+    ) {
+      showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
+    }
+
   }, []);
 
   const renderEpisodes = useCallback(
@@ -1138,9 +1149,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     //   showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
     // }
 
-    if (indexOfEpisode !== undefined && (indexOfEpisode + 1) > VIEW_NUMBER_FOR_SHOW_VIDEO_ADS) {
-      showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
-    }
+    // if (indexOfEpisode !== undefined && (indexOfEpisode + 1) > VIEW_NUMBER_FOR_SHOW_VIDEO_ADS) {
+    //   showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
+    // }
   }, [vodUri]);
 
   const onPressCountdown = () => {
@@ -1250,6 +1261,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             setShowAdOverlay={setShowAdOverlay}
             onAdsMount={onAdsMount}
             vipGuideModalOpen={vipGuideModalOpen}
+            isPlayRewardVideo={getDetails(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD)?.isPlay}
           />
         )}
         {isOffline && dismountPlayer && episode && (
