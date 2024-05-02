@@ -9,8 +9,10 @@ import {
 import {
   ANDROID_HOME_PAGE_POP_UP_ADS,
   ANDROID_PLAY_DETAILS_POP_UP_ADS,
+  ANDROID_PLAY_PAUSE_POP_UP_ADS,
   IOS_HOME_PAGE_POP_UP_ADS,
   IOS_PLAY_DETAILS_POP_UP_ADS,
+  IOS_PLAY_PAUSE_POP_UP_ADS,
   NON_VIP_STREAM_TIME_SECONDS,
 } from "@utility/constants";
 import { useAppDispatch, useAppSelector, useSelector } from "./hooks";
@@ -25,6 +27,8 @@ type PlacementId =
   | typeof IOS_HOME_PAGE_POP_UP_ADS
   | typeof ANDROID_PLAY_DETAILS_POP_UP_ADS
   | typeof IOS_PLAY_DETAILS_POP_UP_ADS
+  | typeof ANDROID_PLAY_PAUSE_POP_UP_ADS
+  | typeof IOS_PLAY_PAUSE_POP_UP_ADS
   | null;
 
 let homePageShown = false;
@@ -88,6 +92,8 @@ const useInterstitialAds = () => {
           Platform.OS === "android"
             ? ANDROID_PLAY_DETAILS_POP_UP_ADS
             : IOS_PLAY_DETAILS_POP_UP_ADS;
+      } else {
+        adsID = interstitialPlacementId;
       }
 
       if (adsID == null && homePageShown == false) {
@@ -144,12 +150,12 @@ const useInterstitialAds = () => {
 
 
   useEffect(() => {
-    if (screenState.manualShowPopAds == true) {
+    if (screenState.manualShowPopAds !== undefined) {
       retryCount = 0;
 
-      dispatch(setManualShowPopAds(false));
+      dispatch(setManualShowPopAds(undefined));
       setTimeout(() => {
-        showInterstitial(ANDROID_PLAY_DETAILS_POP_UP_ADS);
+        showInterstitial(screenState.manualShowPopAds as PlacementId);
       }, 10); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first
     }
   }, [screenState.manualShowPopAds]);

@@ -36,7 +36,9 @@ interface Props {
     onSeek: (time: number) => void,
     onSeekGesture: (time: number) => void,
     onSkip: (time: any) => void,
-    onTogglePlayPause: () => void,
+    onTogglePlayPause: ({ triggerByPlayPauseBtn, }: {
+        triggerByPlayPauseBtn?: boolean;
+    }) => void,
     onToggleFullScreen: () => void,
     onGoBack: () => void,
     setPlaybackRate: (value: number) => void,

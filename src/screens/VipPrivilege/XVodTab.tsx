@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Platform } from "react-native";
 
-import { API_DOMAIN } from "@utility/constants";
+import { ANDROID_PLAY_DETAILS_POP_UP_ADS, API_DOMAIN, IOS_PLAY_DETAILS_POP_UP_ADS } from "@utility/constants";
 import { VodData, XVodData } from "@type/ajaxTypes";
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 
@@ -156,7 +156,7 @@ export default function XVodTab({
   );
 
   useEffect(() => {
-    dispatch(setManualShowPopAds(true))
+    dispatch(setManualShowPopAds(Platform.OS === 'android' ? ANDROID_PLAY_DETAILS_POP_UP_ADS : IOS_PLAY_DETAILS_POP_UP_ADS))
     if (results == undefined) {
       setShowLoading(true);
     }

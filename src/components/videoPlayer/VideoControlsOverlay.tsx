@@ -31,7 +31,11 @@ type Props = {
   duration: number;
   onVideoSeek: (params: any) => any;
   onFastForward: (params: any) => any;
-  onTogglePlayPause: () => any;
+  onTogglePlayPause: ({
+    triggerByPlayPauseBtn,
+  }: {
+    triggerByPlayPauseBtn?: boolean,
+  }) => any;
   onHandleFullScreen: () => any;
   paused: boolean;
   isFullScreen: boolean;
@@ -143,10 +147,14 @@ export default forwardRef<RefHandler, Props>(({
     onFastForward(time);
   };
 
-  const handlePlayPause = () => {
+  const handlePlayPause = ({
+    triggerByPlayPauseBtn = false,
+  }: {
+    triggerByPlayPauseBtn?: boolean,
+  } = {}) => {
     setShowSliderThumbnail(!showSliderThumbnail);
     delayControls(!paused);
-    onTogglePlayPause();
+    onTogglePlayPause({ triggerByPlayPauseBtn });
   };
 
   const onSeek = (time: number) => {
@@ -473,7 +481,7 @@ export default forwardRef<RefHandler, Props>(({
               {/* Middle Controls */}
               <MiddleControls
                 fastForward={handleFastForward}
-                togglePlayPause={handlePlayPause}
+                togglePlayPause={() => handlePlayPause({ triggerByPlayPauseBtn: true })}
                 videoType={videoType}
                 paused={paused}
               />

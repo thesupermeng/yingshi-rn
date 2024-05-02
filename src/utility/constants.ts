@@ -87,6 +87,7 @@ export const IOS_TOPIC_TAB_BANNER_ADS = 'b662a011a0c567';
 // topon 插屏广告
 export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1fil9ee9e1dd1';
 export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1fil9ee9e1vdf';
+export const ANDROID_PLAY_PAUSE_POP_UP_ADS = 'b663331efb7bff'; 
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b6629fff6cb865';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b6629ffe981749';
 
@@ -171,7 +172,7 @@ export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
 
-export const VIEW_NUMBER_FOR_SHOW_VIDEO_ADS = 10;
+export const VIEW_NUMBER_FOR_SHOW_VIDEO_ADS = 20;
 
 export const VIDEO_UPLOAD_DEFAULT_SIZE = 1000000; // 1 mb
 export const VIDEO_UPLOAD_SPEED = 900000; // 900 kb

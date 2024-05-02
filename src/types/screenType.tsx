@@ -23,13 +23,13 @@ export interface screenModel {
   showPromotionDialog: boolean;
   showGuestPurchaseSuccess: boolean;
   showPurchasePending: boolean;
-  isHomeGuideShown :  any; //1
-  isMiniVodGuideShown :  boolean;//2
-  isPlayGuideShown :  boolean;//3
-  isPlayGuideShown2 :  boolean;//4
-  isSportGuideShown :  boolean;//5
-  autoSelectSport:  boolean; //6 
-  manualShowPopAds:  boolean; // 7 
+  isHomeGuideShown: any; //1
+  isMiniVodGuideShown: boolean;//2
+  isPlayGuideShown: boolean;//3
+  isPlayGuideShown2: boolean;//4
+  isSportGuideShown: boolean;//5
+  autoSelectSport: boolean; //6 
+  manualShowPopAds?: string; // 7 
 
 
 
