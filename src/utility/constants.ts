@@ -90,6 +90,7 @@ export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1fil9ee9e1vdf';
 export const ANDROID_PLAY_PAUSE_POP_UP_ADS = 'b663331efb7bff'; 
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b6629fff6cb865';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b6629ffe981749';
+export const IOS_PLAY_PAUSE_POP_UP_ADS = 'b663320bbd7c24'; 
 
 // topon 激励视频广告
 export const ANDROID_PLAY_DETAIL_DOWNLOAD_REWARD_ADS = 'b1fil9ee9e2ggs';
