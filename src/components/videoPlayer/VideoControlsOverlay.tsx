@@ -552,6 +552,7 @@ export default forwardRef<RefHandler, Props>(({
                   hasVideoRatioControl={true}
                   videoRatioStr={videoRatioStr}
                   onVideoAspetRatioPress={() => {
+                    clearHidingDelay();
                     setShowSlider('aspectRatio');
                   }}
                 />
