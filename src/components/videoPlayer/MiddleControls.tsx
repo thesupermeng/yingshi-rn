@@ -4,7 +4,7 @@ import Play from '@static/images/blackPlay.svg';
 import Pause from '@static/images/pause.svg';
 import Rewind from '@static/images/rewind.svg';
 import Fastforward from '@static/images/fastforward.svg';
-import { RectButton } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useTheme } from '@react-navigation/native';
 
 type Props = {
@@ -31,32 +31,26 @@ const MiddleControls = ({
     <View style={styles.middleControls}>
       {videoType !== 'live' && (
         <View style={styles.leftButton}>
-          <RectButton
-            rippleColor="transparent"
-            disallowInterruption={true}
+          <TouchableOpacity
             onPress={() => onSkip(-10)}>
             <Rewind width={55} height={55} />
-          </RectButton>
+          </TouchableOpacity>
         </View>
       )}
-      <RectButton
-        disallowInterruption={true}
-        rippleColor="transparent"
+      <TouchableOpacity
         onPress={() => onTogglePlayPause()}>
         {paused ? (
           <Play width={55} height={55} />
         ) : (
           <Pause width={55} height={55} />
         )}
-      </RectButton>
+      </TouchableOpacity>
       {videoType !== 'live' && (
         <View style={styles.rightButton}>
-          <RectButton
-            rippleColor="transparent"
-            disallowInterruption={true}
+          <TouchableOpacity
             onPress={() => onSkip(10)}>
             <Fastforward width={55} height={55} />
-          </RectButton>
+          </TouchableOpacity>
         </View>
       )}
     </View>
