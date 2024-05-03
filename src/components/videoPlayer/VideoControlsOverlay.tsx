@@ -371,7 +371,7 @@ export default forwardRef<RefHandler, Props>(({
                   {
                     showSlider === 'aspectRatio' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
-                      视频比率
+                      视频比例
                     </Text>
                   }
                   {

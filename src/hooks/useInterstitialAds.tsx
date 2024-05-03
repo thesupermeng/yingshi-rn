@@ -70,13 +70,17 @@ const useInterstitialAds = () => {
 
 
 
-  const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
+  const isInterstitialReady = async (interstitialPlacementId: PlacementId, { useId = false }: { useId?: boolean } = {}) => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
     setAdsReadyFlag(ready);
     if (ready) {
       let adsID: PlacementId;
       adsID = null;
-      if (currentRoute == "首页") {
+
+      if (useId) {
+        adsID = interstitialPlacementId;
+
+      } else if (currentRoute == "首页") {
         adsID =
           Platform.OS === "android"
             ? ANDROID_HOME_PAGE_POP_UP_ADS
@@ -92,8 +96,6 @@ const useInterstitialAds = () => {
           Platform.OS === "android"
             ? ANDROID_PLAY_DETAILS_POP_UP_ADS
             : IOS_PLAY_DETAILS_POP_UP_ADS;
-      } else {
-        adsID = interstitialPlacementId;
       }
 
       if (adsID == null && homePageShown == false) {
@@ -125,19 +127,19 @@ const useInterstitialAds = () => {
     } else {
       // console.log("====== not ready =======");
       setTimeout(() => {
-        showInterstitial(interstitialPlacementId);
+        showInterstitial(interstitialPlacementId, { useId });
       }, 500);
     }
   };
 
-  const showInterstitial = async (interstitialPlacementId: PlacementId) => {
+  const showInterstitial = async (interstitialPlacementId: PlacementId, { useId = false }: { useId?: boolean } = {}) => {
     // not vip
     if (!User.isVip(userState.user) && retryCount < 3) {
       retryCount += 1;
       // console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
       setTimeout(() => {
-        isInterstitialReady(interstitialPlacementId);
+        isInterstitialReady(interstitialPlacementId, { useId });
       }, 500);
     } else {
       if (retryCount >= 3) {
@@ -155,7 +157,7 @@ const useInterstitialAds = () => {
 
       dispatch(setManualShowPopAds(undefined));
       setTimeout(() => {
-        showInterstitial(screenState.manualShowPopAds as PlacementId);
+        showInterstitial(screenState.manualShowPopAds as PlacementId, { useId: true });
       }, 10); //change from 100 to 1000 for 前贴片  haven't load finish will have sound if this show first
     }
   }, [screenState.manualShowPopAds]);
@@ -190,7 +192,6 @@ const useInterstitialAds = () => {
           ? ANDROID_PLAY_DETAILS_POP_UP_ADS
           : IOS_PLAY_DETAILS_POP_UP_ADS;
     }
-
     if (adsID != null) {
       setTimeout(() => {
         showInterstitial(adsID);
