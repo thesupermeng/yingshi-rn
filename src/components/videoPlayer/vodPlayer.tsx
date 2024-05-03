@@ -897,7 +897,7 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#22232b',
+    backgroundColor: 'black',
   },
   buffering: {
     display: "flex",

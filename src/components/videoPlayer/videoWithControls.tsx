@@ -5,6 +5,7 @@ import VideoControlsOverlay from "./VideoControlsOverlay";
 import { LiveTVStationItem, VodEpisodeListType, VodType } from "@type/ajaxTypes";
 import AdultModeCountdownIndicator from "../adultVideo/adultModeCountdownIndicator";
 import { useRoute } from "@react-navigation/native";
+import { isNumber } from "lodash";
 
 
 interface Props {
@@ -126,59 +127,80 @@ const VideoWithControls = ({
 
     const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : { ref: ref => (videoPlayerRef.current = ref) }
 
+    const _getRatioFromStr = (ratioStr: string) => {
+        if (!isNumber(ratioStr) && ratioStr.includes('/')) {
+            const numbers = ratioStr.split('/');
+
+            return parseFloat(numbers[0]) / parseFloat(numbers[1]);
+        }
+
+        return ratioStr;
+    }
+
     return (
         <View
             style={{
                 position: 'absolute',
                 height: '100%',
-                backgroundColor: 'black',
-                aspectRatio: videoAspetRatio,
+                width: '100%',
+                alignItems: 'center',
+                marginBottom: 10,
             }}
         >
-            <Video
-                mixWithOthers="mix"
-                disableFocus
-                rate={playbackRate}
-                ignoreSilentSwitch="ignore"
-                fullscreen={false}  // make it false to prevent duplicate fullscreen function 
-                onBuffer={onBuffer}
-                paused={isPaused} // Pause video when app is in the background
-                resizeMode="contain"
-                playWhenInactive={true}
-                onEnd={() => {
-                    const nextEpi = getNextEpisode();
-                    if (nextEpi !== undefined) {
-                        nextEpi();
-                    }
-                }}
-                source={
-                    vod_source !== undefined
-                        ? vod_source
-                        : {
-                            uri: vod_url,
-                            headers: {
-                                origin: 'https://v.kylintv.com',
-                                referer: 'https://v.kylintv.com',
-                            },
+            <View style={{
+                height: '100%',
+                width: '100%',
+                aspectRatio: _getRatioFromStr(videoAspetRatio),
+            }}>
+                <Video
+                    mixWithOthers="mix"
+                    disableFocus
+                    rate={playbackRate}
+                    ignoreSilentSwitch="ignore"
+                    fullscreen={false}  // make it false to prevent duplicate fullscreen function 
+                    onBuffer={onBuffer}
+                    paused={isPaused} // Pause video when app is in the background
+                    resizeMode="contain"
+                    playWhenInactive={true}
+                    onEnd={() => {
+                        const nextEpi = getNextEpisode();
+                        if (nextEpi !== undefined) {
+                            nextEpi();
                         }
-                }
-                onLoad={onVideoLoaded}
-                progressUpdateInterval={1000}
-                onProgress={onVideoProgessing}
-                onSeek={data => {
-                    if ((data.currentTime === 0 || data.currentTime === 0.001) && currentTimeRef.current > 10) {
-                        isSeekErrorRef.current = true;
-                        return;
+                    }}
+                    source={
+                        vod_source !== undefined
+                            ? vod_source
+                            : {
+                                uri: vod_url,
+                                headers: {
+                                    origin: 'https://v.kylintv.com',
+                                    referer: 'https://v.kylintv.com',
+                                },
+                            }
                     }
+                    onLoad={onVideoLoaded}
+                    progressUpdateInterval={1000}
+                    onProgress={onVideoProgessing}
+                    onSeek={data => {
+                        if ((data.currentTime === 0 || data.currentTime === 0.001) && currentTimeRef.current > 10) {
+                            isSeekErrorRef.current = true;
+                            return;
+                        }
 
-                    if (currentTimeRef) {
-                        currentTimeRef.current = data.currentTime;
-                    }
-                }}
-                onReadyForDisplay={onReadyForDisplay}
-                style={{ ...styles.video, aspectRatio: videoAspetRatio }}
-                {...conditionalProp}
-            />
+                        if (currentTimeRef) {
+                            currentTimeRef.current = data.currentTime;
+                        }
+                    }}
+                    onReadyForDisplay={onReadyForDisplay}
+                    style={{
+                        ...styles.video,
+                        aspectRatio: _getRatioFromStr(videoAspetRatio),
+                    }}
+                    {...conditionalProp}
+                />
+            </View>
+
             <VideoControlsOverlay
                 ref={controlsRef}
                 videoUrl={vod_url ?? ''}

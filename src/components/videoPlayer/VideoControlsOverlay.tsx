@@ -113,6 +113,8 @@ export default forwardRef<RefHandler, Props>(({
   setVideoRatio,
 }, ref) => {
   const { colors, spacing, textVariants, icons } = useTheme();
+
+  const styles = useMemo(() => createStyles({ isFullScreen }), [isFullScreen]);
   const navigation = useNavigation();
   const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'episodes' | 'download' | 'movies' | 'streams' | 'aspectRatio'>('none');
   const [showControls, setShowControls] = useState(true);
@@ -573,7 +575,7 @@ export default forwardRef<RefHandler, Props>(({
   );
 });
 
-const styles = StyleSheet.create({
+const createStyles = ({ isFullScreen = false }: { isFullScreen?: boolean } = {}) => StyleSheet.create({
   controlsOverlay: {
     position: 'absolute',
     top: 0,
@@ -592,6 +594,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 99,
+    paddingHorizontal: isFullScreen ? 20 : 0,
+    paddingVertical: isFullScreen ? 10 : 0,
   },
   topBlur: {
     position: 'absolute',
@@ -599,6 +603,8 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     zIndex: 99,
+    paddingHorizontal: isFullScreen ? 20 : 0,
+    paddingVertical: isFullScreen ? 10 : 0,
   },
   videoHeader: {
     display: 'flex',
