@@ -963,6 +963,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     setCurrentEpisode(selectedEpisodeId);
     currentTimeRef.current = 0; // Reset the current time to 0
     handleModalClose();
+
+    if (
+      selectedEpisodeId !== undefined &&
+      (selectedEpisodeId + 1) > VIEW_NUMBER_FOR_SHOW_VIDEO_ADS &&
+      (selectedEpisodeId + 1) % VIEW_NUMBER_FOR_SHOW_VIDEO_ADS === 1 &&
+      vod?.type_id === shortVodId
+    ) {
+      showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
+    }
   };
 
   const onDownloadVod = (nid: number) => {
