@@ -180,7 +180,7 @@ export default ({
                 <RectButton
                   disallowInterruption={true}
                   onPress={onVideoAspetRatioPress}>
-                  <Text style={{ color: colors.text }}>{videoRatioStr}</Text>
+                  <Text style={{ color: colors.text }}>比例</Text>
                 </RectButton>
               }
               {

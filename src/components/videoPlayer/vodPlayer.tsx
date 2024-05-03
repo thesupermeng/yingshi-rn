@@ -155,6 +155,7 @@ export default forwardRef<VideoRef, Props>(
     const { colors, textVariants } = useTheme();
     const [isFullScreen, setIsFullScreen] = useState(screenState.isPlayerFullScreen);
     const [isPaused, setIsPaused] = useState(false);
+    const [isUserPaused, setIsUserPaused] = useState(false);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(initialStartTime);
     const [isBuffering, setIsBuffering] = useState(false);
@@ -566,8 +567,10 @@ export default forwardRef<VideoRef, Props>(
       triggerByPlayPauseBtn?: boolean;
     } = {}) => {
       setIsPaused(!isPaused);
+      setIsUserPaused(false);
 
       if (triggerByPlayPauseBtn && !isPaused) {
+        setIsUserPaused(true);
         dispatch(setManualShowPopAds(Platform.OS === 'android' ? ANDROID_PLAY_PAUSE_POP_UP_ADS : IOS_PLAY_PAUSE_POP_UP_ADS));
       }
     };
@@ -626,10 +629,10 @@ export default forwardRef<VideoRef, Props>(
 
       if ((screenState.interstitialShow == true || vipGuideModalOpen === true) && Platform.OS === "ios") {
         setIsPaused(true);
-      } else {
+      } else if (!isUserPaused) {
         setIsPaused(false);
       }
-    }, [screenState.interstitialShow, vipGuideModalOpen]);
+    }, [screenState.interstitialShow, vipGuideModalOpen, isUserPaused]);
 
     useEffect(() => {
       if (screenState.interstitialShow === true || vipGuideModalOpen === true) {
