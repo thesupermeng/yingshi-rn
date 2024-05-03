@@ -150,7 +150,7 @@ export default forwardRef<VideoRef, Props>(
     ref
   ) => {
     const screenState = useSelector<screenModel>('screenReducer');
-
+    const [cooldown, setCooldown] = useState(false);
     const videoPlayerRef = React.useRef<Video | null>();
     const { colors, textVariants } = useTheme();
     const [isFullScreen, setIsFullScreen] = useState(screenState.isPlayerFullScreen);
@@ -563,17 +563,51 @@ export default forwardRef<VideoRef, Props>(
       }
     };
 
-    const onTogglePlayPause = ({ triggerByPlayPauseBtn, }: {
-      triggerByPlayPauseBtn?: boolean;
-    } = {}) => {
-      setIsPaused(!isPaused);
-      setIsUserPaused(false);
+    // Define a debounced version of the dispatch function
+        useEffect(() => {
+          if (cooldown) {
+            const timer = setTimeout(() => {
+              setCooldown(false);
+             // console.log("Cooldown ended");
+            }, 10000);
+    
+            // Cleanup function to clear the timeout when component unmounts or cooldown is reset
+            return () => clearTimeout(timer);
+          }
+        }, [cooldown]);
+    
+        const onTogglePlayPause = ({
+          triggerByPlayPauseBtn,
+        }: { triggerByPlayPauseBtn?: boolean } = {}) => {
+          setIsPaused(!isPaused);
+          setIsUserPaused(false);
+    
+          if (triggerByPlayPauseBtn && !isPaused && !cooldown) {
+            setIsUserPaused(true);
+            setCooldown(true);
+         //  console.log("Cooldown started");
+    
+            dispatch(
+              setManualShowPopAds(
+                Platform.OS === "android"
+                  ? ANDROID_PLAY_PAUSE_POP_UP_ADS
+                  : IOS_PLAY_PAUSE_POP_UP_ADS
+              )
+            );
+          }
+        };
 
-      if (triggerByPlayPauseBtn && !isPaused) {
-        setIsUserPaused(true);
-        dispatch(setManualShowPopAds(Platform.OS === 'android' ? ANDROID_PLAY_PAUSE_POP_UP_ADS : IOS_PLAY_PAUSE_POP_UP_ADS));
-      }
-    };
+    // const onTogglePlayPause = ({ triggerByPlayPauseBtn, }: {
+    //   triggerByPlayPauseBtn?: boolean;
+    // } = {}) => {
+    //   setIsPaused(!isPaused);
+    //   setIsUserPaused(false);
+
+    //   if (triggerByPlayPauseBtn && !isPaused) {
+    //     setIsUserPaused(true);
+    //     dispatch(setManualShowPopAds(Platform.OS === 'android' ? ANDROID_PLAY_PAUSE_POP_UP_ADS : IOS_PLAY_PAUSE_POP_UP_ADS));
+    //   }
+    // };
 
     const hideSeekProgress = useCallback(
       debounce(() => setSeekDirection("none"), 300),
