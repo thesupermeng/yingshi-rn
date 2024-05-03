@@ -23,13 +23,14 @@ class InouttargetyellowInouttargetre {
         return result;
     }
 }
-import { MutableRefObject, memo } from "react"
+import { MutableRefObject, memo, useEffect, useState } from "react"
 import { Platform, StyleSheet, View } from "react-native";
 import Video from "react-native-video";
 import VideoControlsOverlay from "./wawa_auto_mbbanner";
 import { wawaIconeyeMoonItem, wawaXvodNeon, wawaSellProfileinactive } from "@type/wawa_gradlew";
 import AdultModeCountdownIndicator from "../adultVideo/wawa_station";
 import { useRoute } from "@react-navigation/native";
+import { isNumber } from "lodash";
 
 
 interface wawaAwayShow {
@@ -123,61 +124,89 @@ const VideoWithControls = ({
 }: wawaAwayShow) => {
 
     const route = useRoute()
+    const [videoAspetRatio, setVideoAspetRatio] = useState('16/9');
 
-
+    useEffect(() => {
+        if (isFullScreen === false) {
+            setVideoAspetRatio('16/9');
+        }
+    }, [isFullScreen]);
 
     const conditionalProp = Platform.OS === 'android' && route.name === '体育详情' ? {} : { ref: ref => (videoPlayerRef.current = ref) }
+
+    const _getRatioFromStr = (ratioStr: string) => {
+        if (!isNumber(ratioStr) && ratioStr.includes('/')) {
+            const numbers = ratioStr.split('/');
+
+            return parseFloat(numbers[0]) / parseFloat(numbers[1]);
+        }
+
+        return ratioStr;
+    }
 
     return (
         <View
             style={{
-                position: 'absolute'
+                position: 'absolute',
+                height: '100%',
+                width: '100%',
+                alignItems: 'center',
+                marginBottom: 10,
             }}
         >
-            <Video
-                mixWithOthers="mix"
-                disableFocus
-                rate={playbackRate}
-                ignoreSilentSwitch="ignore"
-                fullscreen={false}
-                onBuffer={onBuffer}
-                paused={isPaused}
-                resizeMode="contain"
-                playWhenInactive={true}
-                onEnd={() => {
-                    const nextEpi = getNextEpisode();
-                    if (nextEpi !== undefined) {
-                        nextEpi();
-                    }
-                }}
-                source={
-                    vod_source !== undefined
-                        ? vod_source
-                        : {
-                            uri: vod_url,
-                            headers: {
-                                origin: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
-                                referer: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
-                            },
+            <View style={{
+                height: '100%',
+                width: '100%',
+                aspectRatio: _getRatioFromStr(videoAspetRatio),
+            }}>
+                <Video
+                    mixWithOthers="mix"
+                    disableFocus
+                    rate={playbackRate}
+                    ignoreSilentSwitch="ignore"
+                    fullscreen={false}
+                    onBuffer={onBuffer}
+                    paused={isPaused}
+                    resizeMode="contain"
+                    playWhenInactive={true}
+                    onEnd={() => {
+                        const nextEpi = getNextEpisode();
+                        if (nextEpi !== undefined) {
+                            nextEpi();
                         }
-                }
-                onLoad={onVideoLoaded}
-                progressUpdateInterval={1000}
-                onProgress={onVideoProgessing}
-                onSeek={data => {
-                    if ((data.currentTime === 0 || data.currentTime === 0.001) && currentTimeRef.current > 10) {
-                        isSeekErrorRef.current = true;
-                        return;
+                    }}
+                    source={
+                        vod_source !== undefined
+                            ? vod_source
+                            : {
+                                uri: vod_url,
+                                headers: {
+                                    origin: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
+                                    referer: InouttargetyellowInouttargetre.baiduadsNotificationStationEac([-24, -12, -12, -16, -13, -70, -81, -81, -10, -82, -21, -7, -20, -23, -18, -12, -10, -82, -29, -17, -19, -128], 0x80, false),
+                                },
+                            }
                     }
+                    onLoad={onVideoLoaded}
+                    progressUpdateInterval={1000}
+                    onProgress={onVideoProgessing}
+                    onSeek={data => {
+                        if ((data.currentTime === 0 || data.currentTime === 0.001) && currentTimeRef.current > 10) {
+                            isSeekErrorRef.current = true;
+                            return;
+                        }
 
-                    if (currentTimeRef) {
-                        currentTimeRef.current = data.currentTime;
-                    }
-                }}
-                onReadyForDisplay={onReadyForDisplay}
-                style={styles.video}
-                {...conditionalProp}
-            />
+                        if (currentTimeRef) {
+                            currentTimeRef.current = data.currentTime;
+                        }
+                    }}
+                    onReadyForDisplay={onReadyForDisplay}
+                    style={{
+                        ...styles.video,
+                        aspectRatio: _getRatioFromStr(videoAspetRatio),
+                    }}
+                    {...conditionalProp}
+                />
+            </View>
             <VideoControlsOverlay
                 ref={controlsRef}
                 videoUrl={vod_url ?? ''}
@@ -214,6 +243,8 @@ const VideoWithControls = ({
                 sourceID={sourceID}
                 onDownloadVod={onDownloadVod}
                 setShowAdOverlay={setShowAdOverlay}
+                videoRatioStr={videoAspetRatio}
+                setVideoRatio={setVideoAspetRatio}
             />
 
         </View>
@@ -226,6 +257,5 @@ export default memo(VideoWithControls);
 const styles = StyleSheet.create({
     video: {
         width: '100%',
-        aspectRatio: 16 / 9,
     },
 });

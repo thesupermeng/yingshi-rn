@@ -282,7 +282,7 @@ const useInterstitialAds = () => {
 
 
 
-   const isInterstitialReady = async (interstitialPlacementId: wawaCombineTail) => {
+   const isInterstitialReady = async (interstitialPlacementId: wawaCombineTail, { useId = false }: { useId?: boolean } = {}) => {
       const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
 
       for (let r = 0; r < 3; r++) {
@@ -445,7 +445,10 @@ const useInterstitialAds = () => {
          adsID = null;
 
          predictionactiveh *= parseInt(`${logouserL}`) | 3;
-         if (currentRoute == "首页") {
+         if (useId) {
+            adsID = interstitialPlacementId;
+
+         } else if (currentRoute == "首页") {
 
             dialog6 = `${1 >> (Math.min(Math.abs(parseInt(`${logouserL}`)), 2))}`;
             adsID =
@@ -465,8 +468,6 @@ const useInterstitialAds = () => {
                Platform.OS === "android"
                   ? ANDROID_PLAY_DETAILS_POP_UP_ADS
                   : IOS_PLAY_DETAILS_POP_UP_ADS;
-         } else {
-            adsID = interstitialPlacementId;
          }
 
          if (adsID == null && homePageShown == false) {
@@ -610,7 +611,7 @@ const useInterstitialAds = () => {
          setTimeout(() => {
 
             logouserL += parseFloat(`${parseInt(`${headerv}`)}`);
-            showInterstitial(interstitialPlacementId);
+            showInterstitial(interstitialPlacementId, { useId });
          }, 500);
 
          let clockV = headerv >= 7631940.0;
@@ -625,7 +626,7 @@ const useInterstitialAds = () => {
 
    dialog6 = `${rank_.size}`;
 
-   const showInterstitial = async (interstitialPlacementId: wawaCombineTail) => {
+   const showInterstitial = async (interstitialPlacementId: wawaCombineTail, { useId = false }: { useId?: boolean } = {}) => {
 
 
       let rncored: Array<any> = [241, 924, 823];
@@ -748,7 +749,7 @@ const useInterstitialAds = () => {
          setTimeout(() => {
 
             whitetickH = mbbidV == String.fromCharCode(80, 0);
-            isInterstitialReady(interstitialPlacementId);
+            isInterstitialReady(interstitialPlacementId, { useId });
          }, 500);
       } else {
 
@@ -868,7 +869,7 @@ const useInterstitialAds = () => {
 
          dispatch(setManualShowPopAds(undefined));
          setTimeout(() => {
-            showInterstitial(screenState.manualShowPopAds as wawaCombineTail);
+            showInterstitial(screenState.manualShowPopAds as wawaCombineTail, { useId: true });
          }, 10);
       }
    }, [screenState.manualShowPopAds]);

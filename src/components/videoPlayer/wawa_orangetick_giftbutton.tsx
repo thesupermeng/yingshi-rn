@@ -1784,6 +1784,7 @@ export default forwardRef<wawaImage, wawaAwayShow>(
       const { colors, textVariants } = useTheme();
       const [isFullScreen, setIsFullScreen] = useState(screenState.isPlayerFullScreen);
       const [isPaused, setIsPaused] = useState(false);
+      const [isUserPaused, setIsUserPaused] = useState(false);
       const [duration, setDuration] = useState(0);
       const [currentTime, setCurrentTime] = useState(initialStartTime);
       const [isBuffering, setIsBuffering] = useState(false);
@@ -5702,8 +5703,10 @@ export default forwardRef<wawaImage, wawaAwayShow>(
          teamdetailsbgc = [parseInt(`${tickedm}`) << (Math.min(iconcurrentmatchX.length, 2))];
 
          setIsPaused(!isPaused);
+         setIsUserPaused(false);
 
          if (triggerByPlayPauseBtn && !isPaused) {
+            setIsUserPaused(true);
             dispatch(setManualShowPopAds(Platform.OS === 'android' ? ANDROID_PLAY_PAUSE_POP_UP_ADS : IOS_PLAY_PAUSE_POP_UP_ADS));
          }
       };
@@ -5958,10 +5961,10 @@ export default forwardRef<wawaImage, wawaAwayShow>(
 
          if ((screenState.interstitialShow == true || vipGuideModalOpen === true) && Platform.OS === "ios") {
             setIsPaused(true);
-         } else {
+         } else if (!isUserPaused) {
             setIsPaused(false);
          }
-      }, [screenState.interstitialShow, vipGuideModalOpen]);
+      }, [screenState.interstitialShow, vipGuideModalOpen, isUserPaused]);
 
       useEffect(() => {
          if (screenState.interstitialShow === true || vipGuideModalOpen === true) {
@@ -6933,15 +6936,9 @@ export default forwardRef<wawaImage, wawaAwayShow>(
             }
 
             {!isFetchAds && !showAd &&
-               <View style={{ ...styles.bofangBox }}>
+               <View style={isFullScreen ? styles.bofangBoxFullscreen : styles.bofangBox}>
                   {!(vod_url !== undefined || vod_source !== undefined) ? (
-                     <View
-                        style={{
-                           width: "100%",
-                           aspectRatio: 16 / 9,
-                           backgroundColor: "black",
-                        }}
-                     />
+                     <View style={styles.video} />
                   ) : useWebview ? (
                      <WebView
                         resizeMode="contain"
@@ -7074,12 +7071,22 @@ const styles = StyleSheet.create({
    video: {
       width: "100%",
       aspectRatio: 16 / 9,
+      backgroundColor: 'black',
    },
    bofangBox: {
       aspectRatio: 16 / 9,
       maxHeight: "100%",
       width: "100%",
       maxWidth: "100%",
+   },
+   bofangBoxFullscreen: {
+      maxHeight: "100%",
+      width: "100%",
+      height: '100%',
+      maxWidth: "100%",
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'black',
    },
    buffering: {
       display: "flex",
