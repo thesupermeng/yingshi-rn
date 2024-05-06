@@ -28,6 +28,8 @@ export const lang = {
     // ============================== bottom tab ==============================
     [CLangKey.homeTab]: 'Home',
     [CLangKey.watchanytimeTab]: 'Shorts',
+    [CLangKey.vipCenterTab]: 'Vip Center',
+    [CLangKey.playlistTab]: 'Playlist',
     [CLangKey.moviesTab]: 'Movies',
     [CLangKey.tvShowsTab]: 'TV Shows',
     [CLangKey.profileTab]: 'Profile',
@@ -36,6 +38,15 @@ export const lang = {
     [CLangKey.myFavourite]: 'Favourite',
     [CLangKey.playHistory]: 'History',
     [CLangKey.myDownload]: 'Download',
-    [CLangKey.feedback]: 'Feedback',
+    [CLangKey.iWantFeedback]: 'Feedback',
     [CLangKey.setting]: 'Settings',
+    [CLangKey.rateUs]: 'Rate Us',
+    [CLangKey.aboutUs]: 'About Us',
+    [CLangKey.video]: 'Video',
+    [CLangKey.playlist]: 'Playlist',
+    [CLangKey.favourite]: 'Favourite',
+
+    // ============================== sentence ==============================
+    [CLangKey.noXFavourite]: 'No %x Favourite',
+    [CLangKey.noAnyMore]: 'No any more'
 }

@@ -28,6 +28,8 @@ export const lang = {
     // ============================== bottom tab ==============================
     [CLangKey.homeTab]: '首页',
     [CLangKey.watchanytimeTab]: '随心看',
+    [CLangKey.vipCenterTab]: '会员中心',
+    [CLangKey.playlistTab]: '播单',
     [CLangKey.moviesTab]: '电影',
     [CLangKey.tvShowsTab]: '电视台',
     [CLangKey.profileTab]: '我的',
@@ -36,6 +38,15 @@ export const lang = {
     [CLangKey.myFavourite]: '我的收藏',
     [CLangKey.playHistory]: '播放历史',
     [CLangKey.myDownload]: '我的下载',
-    [CLangKey.feedback]: '我要反馈',
+    [CLangKey.iWantFeedback]: '我要反馈',
     [CLangKey.setting]: '设置',
+    [CLangKey.rateUs]: '评价我们',
+    [CLangKey.aboutUs]: '关于我们',
+    [CLangKey.video]: '视频',
+    [CLangKey.playlist]: '播单',
+    [CLangKey.favourite]: '收藏',
+
+    // ============================== sentence ==============================
+    [CLangKey.noXFavourite]: '暂无%x收藏',
+    [CLangKey.noAnyMore]: '没有更多了',
 }

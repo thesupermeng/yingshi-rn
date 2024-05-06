@@ -1,12 +1,11 @@
 import { Platform } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { CEndpoint } from "@constants";
+import { CEndpoint, CLangKey } from "@constants";
 // import { User } from "@modals";
 import { CApi } from "@utility/apiService";
 import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User, Country } from "@models";
-import { CLang } from "@utility/langService";
 
 
 export class UserApi {
@@ -111,15 +110,15 @@ export class UserApi {
             }
 
             if (result.data === undefined) {
-                throw CLang.apiEmptyResponse();
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             if (result.data instanceof Object === false) {
-                throw CLang.apiErrorDataType();
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             if (!(result.data as Object).hasOwnProperty('user')) {
-                throw CLang.apiEmptyResponse();
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             return result.data;
@@ -175,7 +174,7 @@ export class UserApi {
             }
 
             if (result.data === undefined || result.data === null) {
-                throw CLang.get(CLangKey.apiEmptyResponse);
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             return Country.fromJsonList(result.data);

@@ -1,10 +1,9 @@
-import { CEndpoint } from "@constants";
+import { CEndpoint, CLangKey } from "@constants";
 import { FilterOptionsType, CommentsResponseDataType, VodPlayerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
 import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { CLang } from "@utility/langService";
 import { PaggingObject, Vod } from "@models";
 
 export class VodApi {
@@ -43,7 +42,7 @@ export class VodApi {
             }
 
             if (result.data === undefined || result.data === null || result.data.length <= 0) {
-                throw CLang.apiEmptyResponse();
+                throw CLangKey.apiEmptyResponse.tr();
             }
             return result.data[0] as Vod;
 

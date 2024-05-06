@@ -1,3 +1,14 @@
+
+import { CLang } from '@utility/langService';
+import '../string.d.ts';
+
+String.prototype.tr = function (props?: any): string {
+    const str = String(this);
+    return CLang.get(str, props);
+
+}
+
+
 export class CLangKey {
     // ============================== api ==============================
     static httpRequestCancelled = 'httpRequestCancelled';
@@ -37,6 +48,16 @@ export class CLangKey {
     static myFavourite = 'myFavourite';
     static playHistory = 'playHistory';
     static myDownload = 'myDownload';
-    static feedback = 'feedback';
+    static iWantFeedback = 'feedback';
     static setting = 'setting';
+    static rateUs = 'rateUs';
+    static aboutUs = 'aboutUs';
+    static video = 'video';
+    static playlist = 'playlist';
+    static favourite = 'favourite';
+
+    // ============================== sentence ==============================
+    static noXFavourite = 'noXFavourite';
+    static noAnyMore = 'noAnyMore';
 }
+
