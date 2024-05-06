@@ -7,7 +7,7 @@ import BackButton from '../button/backButton';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
-import { LiveTVStationItem } from '@type/ajaxTypes';
+import { LiveTVStationItem, VodEpisodeListType, VodType } from '@type/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
 import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS, FadeIn } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
@@ -24,7 +24,6 @@ import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicat
 import { DOWNLOAD_FEATURE_ENABLED, UMENG_CHANNEL } from '@utility/constants';
 import DownloadBtn from '@static/images/download_btn.svg';
 import VodDownloadSelection from '../vod/vodDownloadSelection';
-import { Vod, VodEpisodeGroup } from '@models';
 
 type Props = {
   videoUrl: string;
@@ -32,7 +31,11 @@ type Props = {
   duration: number;
   onVideoSeek: (params: any) => any;
   onFastForward: (params: any) => any;
-  onTogglePlayPause: () => any;
+  onTogglePlayPause: ({
+    triggerByPlayPauseBtn,
+  }: {
+    triggerByPlayPauseBtn?: boolean,
+  }) => any;
   onHandleFullScreen: () => any;
   paused: boolean;
   isFullScreen: boolean;
@@ -42,8 +45,8 @@ type Props = {
   onPlaybackRateChange: (rate: number) => any;
   playbackRate: number;
   onEpisodeChange: any;
-  episodes?: VodEpisodeGroup;
-  movieList?: Vod[],
+  episodes?: VodEpisodeListType
+  movieList?: VodType[],
   activeEpisode?: number,
   rangeSize?: number,
   onNextEpisode?: () => any,
@@ -58,7 +61,9 @@ type Props = {
   vodID?: number,
   sourceID?: number,
   onDownloadVod?: (nid: number) => void,
-  setShowAdOverlay: (show: boolean) => void
+  setShowAdOverlay: (show: boolean) => void,
+  videoRatioStr: string,
+  setVideoRatio: (ratio: string) => void,
 };
 
 type RefHandler = {
@@ -103,11 +108,15 @@ export default forwardRef<RefHandler, Props>(({
   vodID,
   sourceID,
   onDownloadVod,
-  setShowAdOverlay
+  setShowAdOverlay,
+  videoRatioStr,
+  setVideoRatio,
 }, ref) => {
   const { colors, spacing, textVariants, icons } = useTheme();
+
+  const styles = useMemo(() => createStyles({ isFullScreen }), [isFullScreen]);
   const navigation = useNavigation();
-  const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'episodes' | 'download' | 'movies' | 'streams'>('none');
+  const [showSlider, setShowSlider] = useState<'none' | 'playback' | 'episodes' | 'download' | 'movies' | 'streams' | 'aspectRatio'>('none');
   const [showControls, setShowControls] = useState(true);
   const hideControlsTimeout = useRef(-1);
   const opacity = useSharedValue(1);
@@ -144,10 +153,14 @@ export default forwardRef<RefHandler, Props>(({
     onFastForward(time);
   };
 
-  const handlePlayPause = () => {
+  const handlePlayPause = ({
+    triggerByPlayPauseBtn = false,
+  }: {
+    triggerByPlayPauseBtn?: boolean,
+  } = {}) => {
     setShowSliderThumbnail(!showSliderThumbnail);
     delayControls(!paused);
-    onTogglePlayPause();
+    onTogglePlayPause({ triggerByPlayPauseBtn });
   };
 
   const onSeek = (time: number) => {
@@ -168,6 +181,12 @@ export default forwardRef<RefHandler, Props>(({
   const changePlaybackRate = (rate: number) => {
     setShowSlider('none');
     onPlaybackRateChange(rate);
+    delayControls(false);
+  }
+
+  const changeVideoRatio = (ratio: string) => {
+    setShowSlider('none');
+    setVideoRatio(ratio);
     delayControls(false);
   }
 
@@ -230,6 +249,7 @@ export default forwardRef<RefHandler, Props>(({
       setIsLocked(true);
     }
   }
+
   return (
     <View
       style={{ ...styles.controlsOverlay }}>
@@ -349,6 +369,12 @@ export default forwardRef<RefHandler, Props>(({
                     </Text>
                   }
                   {
+                    showSlider === 'aspectRatio' &&
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
+                      视频比例
+                    </Text>
+                  }
+                  {
                     showSlider === 'playback' &&
                     <FlatList
                       data={[0.5, 0.75, 1, 1.25, 1.5, 2]}
@@ -421,6 +447,24 @@ export default forwardRef<RefHandler, Props>(({
                       </View>
                     </View>
                   }
+                  {
+                    showSlider === 'aspectRatio' &&
+                    <FlatList
+                      data={['16/9', '4/3', '3/2', '2/1']}
+                      renderItem={({ item }) =>
+                        <RectButton disallowInterruption={true} style={styles.rateButtons} onPress={() => {
+                          changeVideoRatio(item);
+                        }}>
+                          <Text style={{
+                            ...textVariants.header,
+                            color: item === videoRatioStr ? colors.primary : colors.text
+                          }}>
+                            {item}
+                          </Text>
+                        </RectButton>
+                      }
+                    />
+                  }
                 </View>
               </View>
             </View>
@@ -474,7 +518,7 @@ export default forwardRef<RefHandler, Props>(({
               {/* Middle Controls */}
               <MiddleControls
                 fastForward={handleFastForward}
-                togglePlayPause={handlePlayPause}
+                togglePlayPause={() => handlePlayPause({ triggerByPlayPauseBtn: true })}
                 videoType={videoType}
                 paused={paused}
               />
@@ -507,6 +551,12 @@ export default forwardRef<RefHandler, Props>(({
                   onLock={toggleLock}
                   showMoreType={showMoreType}
                   showSliderThumbnail={showSliderThumbnail}
+                  hasVideoRatioControl={true}
+                  videoRatioStr={videoRatioStr}
+                  onVideoAspetRatioPress={() => {
+                    clearHidingDelay();
+                    setShowSlider('aspectRatio');
+                  }}
                 />
               </LinearGradient>
             </>
@@ -525,7 +575,7 @@ export default forwardRef<RefHandler, Props>(({
   );
 });
 
-const styles = StyleSheet.create({
+const createStyles = ({ isFullScreen = false }: { isFullScreen?: boolean } = {}) => StyleSheet.create({
   controlsOverlay: {
     position: 'absolute',
     top: 0,
@@ -544,6 +594,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 99,
+    paddingHorizontal: isFullScreen ? 20 : 0,
+    paddingVertical: isFullScreen ? 10 : 0,
   },
   topBlur: {
     position: 'absolute',
@@ -551,6 +603,8 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     zIndex: 99,
+    paddingHorizontal: isFullScreen ? 20 : 0,
+    paddingVertical: isFullScreen ? 10 : 0,
   },
   videoHeader: {
     display: 'flex',

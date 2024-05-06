@@ -737,15 +737,9 @@ export default forwardRef<VideoRef, Props>(
         }
 
         {!isFetchAds && !showAd &&
-          <View style={{ ...styles.bofangBox }}>
+          <View style={isFullScreen ? styles.bofangBoxFullscreen : styles.bofangBox}>
             {!(vod_url !== undefined || vod_source !== undefined) ? (
-              <View
-                style={{
-                  width: "100%",
-                  aspectRatio: 16 / 9,
-                  backgroundColor: "black",
-                }}
-              />
+              <View style={styles.video} />
             ) : useWebview ? (
               <WebView
                 resizeMode="contain"
@@ -878,12 +872,22 @@ const styles = StyleSheet.create({
   video: {
     width: "100%",
     aspectRatio: 16 / 9,
+    backgroundColor: 'black',
   },
   bofangBox: {
     aspectRatio: 16 / 9,
     maxHeight: "100%",
     width: "100%",
     maxWidth: "100%",
+  },
+  bofangBoxFullscreen: {
+    maxHeight: "100%",
+    width: "100%",
+    height: '100%',
+    maxWidth: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
   },
   buffering: {
     display: "flex",
