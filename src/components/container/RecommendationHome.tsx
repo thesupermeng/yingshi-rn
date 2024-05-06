@@ -705,7 +705,7 @@ const RecommendationHome = ({
                     )}
                   </View>
                 }
-                {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != '番茄影视TV' && (
+                {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != '爱美剧' && (
                   <View style={{ gap: spacing.m }}>
                     <View
                       style={{
