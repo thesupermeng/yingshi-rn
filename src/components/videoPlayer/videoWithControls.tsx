@@ -140,14 +140,12 @@ const VideoWithControls = ({
                     }
                 }}
                 source={
-                    vod_source !== undefined
-                        ? vod_source
-                        : {
-                            uri: vod_url,
-                            headers: {
-                                origin: 'https://v.kylintv.com',
-                                referer: 'https://v.kylintv.com',
-                            },
+                   {
+                            uri: 'https://9str-m3u8v1.playm4u.xyz/m3u8v2/auto/662765f9e23f92cba9ad0a82/1f015393fbb11bd927e968103836ec69/6e8bd4cfd8307aaed02bce2446984d0d/1714990932/da57bf7b73898c890ff2c86a439138f4.m3u8',
+                            // headers: {
+                            //     origin: 'https://v.kylintv.com',
+                            //     referer: 'https://v.kylintv.com',
+                            // },
                         }
                 }
                 onLoad={onVideoLoaded}

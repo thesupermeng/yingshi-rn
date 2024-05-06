@@ -194,12 +194,23 @@ const _initFirebase = async () => {
     FirebaseNotification.subscibeToTopic("insidertest");
 
     FirebaseNotification.subscibeToTopic(
-      `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${APP_NAME_CONST}_general`
+      `STAGING_${APP_NAME_CONST}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`
     );
+
+ 
+
+
+    const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
+
+
+    FirebaseNotification.subscibeToTopic(
+      `STAGING_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`
+    );
+
 
     console.log("订阅 firebase messagin");
     console.log(
-      `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${APP_NAME_CONST}_general`
+      `STAGING_${APP_NAME_CONST}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`
     );
   } catch (err) {
     console.log("Firebase init failed", err);

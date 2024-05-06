@@ -224,10 +224,7 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       setNavId(found);
 
       // ========== for analytics - start ==========
-      UmengAnalytics.homeTabClicksAnalytics({
-        tab_id: navOptions[found].id.toString(),
-        tab_name: navOptions[found].name,
-      });
+
       // ========== for analytics - end ==========
     }
   }
