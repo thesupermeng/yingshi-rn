@@ -1,4 +1,4 @@
-import { CLangKey } from "@utility/langService";
+import { CLangKey } from "@constants";
 
 export const lang = {
     // ============================== api ==============================

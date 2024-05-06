@@ -1,5 +1,6 @@
 import { lang as langZh } from '../utils/lang/zh';
 import { lang as langEn } from '../utils/lang/en';
+import { CLangKey } from '@constants';
 
 
 export enum CLanguageType {
@@ -58,57 +59,19 @@ export class CLang {
     static loginExpiry = (props?: any) => this.get(CLangKey.loginExpiry, props);
     static httpTimeoutUserMsg = (props?: any) => this.get(CLangKey.httpTimeoutUserMsg, props);
 
-    // ============================== common ==============================
-    static home = (props?: any) => this.get(CLangKey.homeTab, props);
-    static watchanytime = (props?: any) => this.get(CLangKey.watchanytimeTab, props);
-    static movies = (props?: any) => this.get(CLangKey.moviesTab, props);
-    static tvShows = (props?: any) => this.get(CLangKey.tvShowsTab, props);
-    static profile = (props?: any) => this.get(CLangKey.profileTab, props);
+    // ============================== bottom tab ==============================
+    static homeTab = (props?: any) => this.get(CLangKey.homeTab, props);
+    static watchanytimeTab = (props?: any) => this.get(CLangKey.watchanytimeTab, props);
+    static vipCenterTab = (props?: any) => this.get(CLangKey.vipCenterTab, props);
+    static playlistTab = (props?: any) => this.get(CLangKey.playlistTab, props);
+    static moviesTab = (props?: any) => this.get(CLangKey.moviesTab, props);
+    static tvShowsTab = (props?: any) => this.get(CLangKey.tvShowsTab, props);
+    static profileTab = (props?: any) => this.get(CLangKey.profileTab, props);
 
+    // ============================== common ==============================
     static myFavourite = (props?: any) => this.get(CLangKey.myFavourite, props);
     static playHistory = (props?: any) => this.get(CLangKey.playHistory, props);
     static myDownload = (props?: any) => this.get(CLangKey.myDownload, props);
     static feedback = (props?: any) => this.get(CLangKey.feedback, props);
     static setting = (props?: any) => this.get(CLangKey.setting, props);
-}
-
-export class CLangKey {
-    // ============================== api ==============================
-    static httpRequestCancelled = 'httpRequestCancelled';
-    static httpConnectionTimeout = 'httpConnectionTimeout';
-    static httpRequestTimeout = 'httpRequestTimeout';
-    static httpReceiveTimeout = 'httpReceiveTimeout';
-    static http400 = 'badRequest';
-    static http401 = 'unauthenticated';
-    static http403 = 'forbidden';
-    static http404 = 'notFound';
-    static http405 = 'methodNotAllowed';
-    static http500 = 'internalServerError';
-    static http502 = 'badGateway';
-    static http503 = 'serviceUnavailableError';
-    static http505 = 'httpVersionNotSupported';
-    static unknownError = 'unknownError';
-    static noInternetAccess = 'noInternetAccess';
-    static downloadFailed = 'downloadFailed';
-    static downloadCompleted = 'downloadCompleted';
-    static serverResponseEmpty = 'serverResponseEmpty';
-    static serverResponseErrorDataType = 'serverResponseErrorDataType';
-    static apiEmptyResponse = 'apiEmptyResponse';
-    static apiErrorDataType = 'apiErrorDataType';
-    static loginExpiry = 'loginExpiry';
-    static httpTimeoutUserMsg = 'httpTimeoutUserMsg';
-
-    // ============================== bottom tab ==============================
-    static homeTab = 'homeTab';
-    static watchanytimeTab = 'watchanytimeTab';
-    static moviesTab = 'moviesTab';
-    static tvShowsTab = 'tvShowsTab';
-    static profileTab = 'profileTab';
-
-    // ============================== common ==============================
-    static myFavourite = 'myFavourite';
-    static playHistory = 'playHistory';
-    static myDownload = 'myDownload';
-    static feedback = 'feedback';
-    static setting = 'setting';
 }
