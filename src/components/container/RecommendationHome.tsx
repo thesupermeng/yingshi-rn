@@ -158,7 +158,7 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
-    initFirebase();
+   // initFirebase();
   }, []);
 
   const initFirebase = async () => {
