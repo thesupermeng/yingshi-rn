@@ -69,6 +69,7 @@ import VodSportsList from "../vod/vodSportsList";
 import messaging from "@react-native-firebase/messaging";
 import firebase from "@react-native-firebase/app";
 import { FirebaseNotification } from "@utility/firebaseNotification";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 
 interface NavType {
   id: number;
@@ -131,6 +132,10 @@ const RecommendationHome = ({
     ({ screenReducer }) => screenReducer
   );
 
+  // const settingState: SettingsReducerState = useAppSelector(
+  //   ({ settingsReducer }: RootState) => settingsReducer
+  // );
+
   useEffect(() => {
     if (screenState.isHomeGuideShown != true && !isVip) {
       //     setTimeout(() => {
@@ -138,7 +143,7 @@ const RecommendationHome = ({
       // }, 0);
     }
     //  setVipGuideModal(true);
-  }, []);
+  }, [screenState]);
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
