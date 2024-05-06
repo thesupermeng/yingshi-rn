@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { CEndpoint, CLangKey } from "@constants";
+import { CEndpoint } from "@constants";
 // import { User } from "@modals";
 import { CApi } from "@utility/apiService";
 import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
@@ -111,15 +111,15 @@ export class UserApi {
             }
 
             if (result.data === undefined) {
-                throw CLangKey.apiEmptyResponse;
+                throw CLang.apiEmptyResponse();
             }
 
             if (result.data instanceof Object === false) {
-                throw CLangKey.apiErrorDataType;
+                throw CLang.apiErrorDataType();
             }
 
             if (!(result.data as Object).hasOwnProperty('user')) {
-                throw CLangKey.apiEmptyResponse;
+                throw CLang.apiEmptyResponse();
             }
 
             return result.data;

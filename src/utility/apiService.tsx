@@ -4,7 +4,6 @@ import { CEnv } from './env';
 import { CPopup } from './popup';
 import { CLang } from './langService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CLangKey } from '../constants';
 import { YSConfig } from '../../ysConfig';
 import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from './constants';
 import { Platform } from 'react-native';
@@ -235,63 +234,63 @@ export class CApi {
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http400),
+                    message: result?.message ?? CLang.http400(),
                 });
             case 401:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http401),
+                    message: result?.message ?? CLang.http401(),
                 });
             case 403:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http403),
+                    message: result?.message ?? CLang.http403(),
                 });
             case 404:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http404),
+                    message: result?.message ?? CLang.http404(),
                 });
             case 405:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http405),
+                    message: result?.message ?? CLang.http405(),
                 });
             case 500:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http500),
+                    message: result?.message ?? CLang.http500(),
                 });
             case 502:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http502),
+                    message: result?.message ?? CLang.http502(),
                 });
             case 503:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http503),
+                    message: result?.message ?? CLang.http503(),
                 });
             case 505:
                 return new ResponseModel({
                     statusCode: response.status,
                     success: false,
                     errors: result?.errors,
-                    message: result?.message ?? CLang.get(CLangKey.http505),
+                    message: result?.message ?? CLang.http505(),
                 });
             default:
                 if (400 <= response.status && response.status <= 599) {

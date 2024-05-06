@@ -1,4 +1,4 @@
-import { CLangKey } from "../../constants";
+import { CLangKey } from "@utility/langService";
 
 export const lang = {
     // ============================== api ==============================
@@ -25,6 +25,17 @@ export const lang = {
     [CLangKey.apiErrorDataType]: 'API 返回错误数据类型',
     [CLangKey.loginExpiry]: '登录到期',
 
-    // ============================== common ==============================
+    // ============================== bottom tab ==============================
+    [CLangKey.homeTab]: '首页',
+    [CLangKey.watchanytimeTab]: '随心看',
+    [CLangKey.moviesTab]: '电影',
+    [CLangKey.tvShowsTab]: '电视台',
+    [CLangKey.profileTab]: '我的',
 
+    // ============================== common ==============================
+    [CLangKey.myFavourite]: '我的收藏',
+    [CLangKey.playHistory]: '播放历史',
+    [CLangKey.myDownload]: '我的下载',
+    [CLangKey.feedback]: '我要反馈',
+    [CLangKey.setting]: '设置',
 }

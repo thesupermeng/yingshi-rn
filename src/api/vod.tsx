@@ -1,4 +1,4 @@
-import { CEndpoint, CLangKey } from "@constants";
+import { CEndpoint } from "@constants";
 import { FilterOptionsType, CommentsResponseDataType, VodPlayerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
 import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
@@ -43,7 +43,7 @@ export class VodApi {
             }
 
             if (result.data === undefined || result.data === null || result.data.length <= 0) {
-                throw CLang.get(CLangKey.apiEmptyResponse);
+                throw CLang.apiEmptyResponse();
             }
             return result.data[0] as Vod;
 

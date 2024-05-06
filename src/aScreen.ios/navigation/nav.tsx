@@ -150,86 +150,58 @@ export default () => {
             let icon: React.ReactNode;
 
             if (route.name === "首页") {
-              icon = focused ? (
-                <HomeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <HomeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <HomeTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "播单") {
-              icon = focused ? (
-                <PlaylistActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <PlaylistTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <PlaylistTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "我的") {
-              icon = focused ? (
-                <ProfileActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <ProfileTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <ProfileTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "随心看") {
-              icon = focused ? (
-                <WatchAnytimeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <WatchAnytimeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <WatchAnytimeTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "体育") {
-              icon = focused ? (
-                <SportsIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <SportsIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <SportsIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             }
             return icon;
           },
         })}
       >
-        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        ) : (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        )}
+        <HomeTab.Screen name="首页" component={HomeScreen} />
+        {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
+        {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+              <HomeTab.Screen name="体育" component={MatchesScreen} />
+            } */}
+        <HomeTab.Screen name="播单" component={PlaylistScreen} />
+        <HomeTab.Screen name="我的" component={ProfileScreen} />
+
 
         {/* {userState.userToken !== '' &&
         userState.userMemberExpired >= userState.userCurrentTimestamp ? (
