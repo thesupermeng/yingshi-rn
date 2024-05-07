@@ -118,6 +118,9 @@ export type RootStackParamList = {
   };
   续费服务: undefined,
   Webview: {
+    url: string,
+  },
+  PaymentWebview: {
     source: string,
     isPayment?: boolean,
   },

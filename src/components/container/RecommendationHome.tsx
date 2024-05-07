@@ -66,9 +66,6 @@ import { Url } from "../../Sports/middleware/url";
 import Api from "../../Sports/middleware/api";
 import { MatchDetailsType } from "../../Sports/types/matchTypes";
 import VodSportsList from "../vod/vodSportsList";
-import messaging from "@react-native-firebase/messaging";
-import firebase from "@react-native-firebase/app";
-import { FirebaseNotification } from "@utility/firebaseNotification";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 
 interface NavType {
@@ -158,17 +155,7 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
-   // initFirebase();
   }, []);
-
-  const initFirebase = async () => {
-    try {
-      await FirebaseNotification.checkPermissionAndGetoken();
-      FirebaseNotification.subscibeToTopic("insidertest");
-    } catch (err) {
-      console.log("Firebase init failed", err);
-    }
-  };
 
   const [deviceName, setDeviceName] = useState("");
 

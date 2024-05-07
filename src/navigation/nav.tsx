@@ -132,8 +132,9 @@ import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSu
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models";
-import { CWebview } from "../screens/Common/Webview";
+import { PaymentWebview } from "../screens/Common/PaymentWebview";
 import { CLangKey } from "@constants";
+import { Webview } from "../screens/Common/Webview";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -708,8 +709,13 @@ export default () => {
           />
           <Stack.Screen name="续费服务" component={AutoRenewService} />
           <Stack.Screen
+            name="PaymentWebview"
+            component={PaymentWebview}
+            options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen
             name="Webview"
-            component={CWebview}
+            component={Webview}
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>

@@ -1,9 +1,11 @@
 import { RootState } from '@redux/store';
 import { CustomEventAnalytic } from '../../../Umeng/EventAnalytic';
 import {
+  APP_NAME_CONST,
   APPSFLYER_APPID,
   APPSFLYER_DEVKEY,
   EVENT_CUSTOM_ON,
+  UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
   VIP_PROMOTION_INTERVEL_SECONDS,
   VIP_PROMOTION_PURCHASE_MAX,
@@ -13,8 +15,16 @@ import {
 import { BackgroundActionEventType } from '@redux/reducers/backgroundReducer';
 import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
 import appsFlyer from 'react-native-appsflyer';
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
+import messaging from "@react-native-firebase/messaging";
+import { CRouter } from '../../routes/router';
+import { FirebaseNotification } from '@utility/firebaseNotification';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import { VodApi } from '@api';
+import { playVod } from './vodActions';
+
+let _firebaseNotificationListener: any = null;
 
 export const onBootApp =
   ({ } = {}) =>
@@ -132,6 +142,25 @@ export const onBootApp =
         if (EVENT_CUSTOM_ON) {
           CustomEventAnalytic.start();
         }
+
+        // ========== firebase notification ==========
+        _initFirebase().then(() => {
+          // use for on boot
+          messaging().getInitialNotification().then((remoteMessage) => {
+            setTimeout(() => {
+              _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
+            }, 500);
+
+          });
+
+          // use for app in background (no killed)
+          _firebaseNotificationListener = messaging().onNotificationOpenedApp((remoteMessage) => {
+            setTimeout(() => {
+              _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
+            }, 500);
+          });
+        });
+
       } catch (e) { }
     };
 
@@ -148,6 +177,11 @@ export const onCloseApp =
         if (backgroundState.vipPromotionIntervel) {
           clearInterval(backgroundState.vipPromotionIntervel);
         }
+
+        // ========== firebase notification ==========
+        if (_firebaseNotificationListener) {
+          _firebaseNotificationListener();
+        }
       } catch (e) { }
     };
 
@@ -158,3 +192,74 @@ export const loginModalShown = () => ({
 export const vipPromotionModalShown = () => ({
   type: BackgroundActionEventType.VIP_PROMOTION_MODAL_SHOWN,
 });
+
+const _initFirebase = async () => {
+  try {
+    await FirebaseNotification.checkPermissionAndGetoken();
+    FirebaseNotification.subscibeToTopic("insidertest");
+
+    const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
+
+    const stagingTopic = `STAGING_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
+    const productionTopic = `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${encodedSearchTerm}_general`;
+
+    FirebaseNotification.subscibeToTopic(stagingTopic);
+    FirebaseNotification.subscibeToTopic(productionTopic);
+
+    console.log("订阅 firebase messaging");
+    console.log(stagingTopic);
+    console.log(productionTopic);
+  } catch (err) {
+    console.log("Firebase init failed", err);
+  }
+};
+
+const _notificationHandle = (data: {
+  [key: string]: string | object;
+} | undefined, {
+  dispatch
+}: {
+  dispatch: any,
+}) => {
+  if (data) {
+    const type = data.redirect_type?.toString();
+    const url = data.url?.toString();
+    const vodId = data.vod_id?.toString();
+
+    switch (type) {
+      case '1': {
+        if (url) {
+          CRouter.toName("Webview", { params: { url: url } });
+        }
+        break;
+      }
+      case '2': {
+        if (url) {
+          InAppBrowser.open(url.toString())
+            .catch((err) => console.error("Error opening URL:", err));
+        }
+        break;
+      }
+      case '3': {
+        if (url) {
+          Linking.openURL(url.toString())
+            .catch((err) => console.error("Error opening external link:", err));
+        }
+        break;
+      }
+      case '4': {
+        CRouter.toName("Home", { params: { screen: "首页" } });
+        break;
+      }
+      case '5': {
+        if (vodId) {
+          VodApi.getDetail(vodId, '').then((result) => {
+            dispatch(playVod(result));
+            CRouter.toName("播放", { params: { vod_id: vodId } });
+          });
+        }
+        break;
+      }
+    }
+  }
+}

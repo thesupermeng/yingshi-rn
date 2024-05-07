@@ -54,7 +54,6 @@ import {
   setEventSplashLastPageViewTime,
 } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
-import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
 import {
   membershipModel,
@@ -605,7 +604,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     }
                   }}
                 >
-                  <CloseButton />
+                  <CloseButton color="white" />
                 </TouchableOpacity>
 
                 {/* <LottieView
