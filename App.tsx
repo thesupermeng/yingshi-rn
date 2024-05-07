@@ -87,6 +87,11 @@ logIgnore([
 let App = () => {
   useEffect(() => {
     // Initialize Adjust SDK
+
+    Adjust.getSdkVersion(function (sdkVersion) {
+      console.log("Adjust SDK version: " + sdkVersion);
+    });
+
     // AdjustConfig.EnvironmentSandbox
     // or
     // AdjustConfig.EnvironmentProduction
@@ -99,17 +104,20 @@ let App = () => {
     Adjust.create(adjustConfig);
 
     setTimeout(() => {
-      // install
-      var adjustEvent = new AdjustEvent("wpmm20");
-      Adjust.trackEvent(adjustEvent);
-   
-    }, 5000);
+      Adjust.isEnabled((isEnabled) => {
+        if (isEnabled) {
+          console.log("SDK is enabled");
+        } else {
+          console.log("SDK is disabled");
+        }
 
-    setTimeout(() => {
-
-      // app open
-      var adjustEvent = new AdjustEvent("qw69nm");
-      Adjust.trackEvent(adjustEvent);
+        // install
+        let adjustEvent = new AdjustEvent("wpmm20");
+        Adjust.trackEvent(adjustEvent);
+        // app open
+        let adjustEvent2 = new AdjustEvent("qw69nm");
+        Adjust.trackEvent(adjustEvent2);
+      });
     }, 8000);
 
     // Call componentWillUnmount when unmounting
