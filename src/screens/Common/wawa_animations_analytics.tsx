@@ -3460,7 +3460,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       ) {
          showAds(UGreytickLoading.UShowless);
       }
-   }, []);
+   }, [shortVodId]);
 
    const renderEpisodes = useCallback(
       ({ item }) => (
@@ -3489,7 +3489,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             </Text>
          </TouchableOpacity>
       ),
-      [currentEpisode]
+      [shortVodId, currentEpisode]
    );
 
    const onContentSizeChange = () => {
