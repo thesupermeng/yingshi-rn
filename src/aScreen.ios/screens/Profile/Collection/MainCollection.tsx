@@ -19,6 +19,7 @@ import EmptyList from '../../../components/common/emptyList';
 import PlaylistCollection from './PlaylistCollection';
 import VodCollection from './VodCollection';
 import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 type FlatListType = {
   item: Vod;
@@ -45,7 +46,7 @@ export default ({ navigation }: RootStackScreenProps<'我的收藏'>) => {
 
   return (
     <ScreenContainer>
-      <TitleWithBackButtonHeader title="我的收藏" />
+      <TitleWithBackButtonHeader title={CLangKey.myFavourite.tr()} />
       <MainCollectionHeader
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}

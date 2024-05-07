@@ -1,7 +1,8 @@
-import React, {memo} from "react";
-import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
+import React, { memo } from "react";
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import MoreArrow from '@static/images/more_arrow.svg';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
+import { CLangKey } from "@constants";
 interface Props {
   onPress?: any;
   text: string;
@@ -16,24 +17,24 @@ function ShowMoreVodButton({
   showMoreButton = true,
   ...params
 }: Props) {
-  const {colors, textVariants, icons} = useTheme();
+  const { colors, textVariants, icons } = useTheme();
   return (
-    <View style={{...styles.banner, marginBottom: isPlayScreen ? -5 : 5}}>
+    <View style={{ ...styles.banner, marginBottom: isPlayScreen ? -5 : 5 }}>
       <Text style={isPlayScreen ? textVariants.body : textVariants.header}>
         {text}
       </Text>
 
       {showMoreButton == true &&
-        <TouchableOpacity onPress={onPress} style={{...styles.banner}}>
+        <TouchableOpacity onPress={onPress} style={{ ...styles.banner }}>
           <Text
             style={{
               color: colors.muted,
               fontSize: isPlayScreen ? 15 : textVariants.small.fontSize,
             }}>
-            更多
+            {CLangKey.more.tr()}
           </Text>
           <MoreArrow
-            style={{color: colors.muted}}
+            style={{ color: colors.muted }}
             height={icons.sizes.m}
             width={icons.sizes.m}
           />

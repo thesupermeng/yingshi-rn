@@ -7,6 +7,7 @@ import { DownloadStatus, VodDownloadType } from '@type/vodDownloadTypes';
 import FastImage from '../common/customFastImage'
 import DownloadPauseYellowIcon from '@static/images/downloadPause_yellow.svg'
 import { Divider } from '@rneui/base';
+import { CLangKey } from '@constants';
 
 
 
@@ -22,7 +23,7 @@ const DownloadIndicator = (props: { downloading: boolean; paused: boolean }) => 
     }}>
     {props.downloading && (
       <>
-        <Text style={{ color: '#FAC33D', lineHeight: 18 }}>下载中</Text>
+        <Text style={{ color: '#FAC33D', lineHeight: 18 }}>{CLangKey.downloading.tr()}</Text>
         <FastImage
           useFastImage={true}
           source={DownloadingGif}
@@ -33,7 +34,7 @@ const DownloadIndicator = (props: { downloading: boolean; paused: boolean }) => 
     )}
     {props.paused && (
       <>
-        <Text style={{ color: '#FAC33D', lineHeight: 18, opacity: 0.5 }}>已暂停</Text>
+        <Text style={{ color: '#FAC33D', lineHeight: 18, opacity: 0.5 }}>{CLangKey.paused.tr()}</Text>
         <DownloadPauseYellowIcon
           width={18}
           height={18}
@@ -123,11 +124,11 @@ function DownloadVodCard({
           </Text>
           <View style={styles.videoCountDetail}>
             <Text style={{ color: colors.muted }}>
-              {totalDownloadedEpisodes}个视频
+              {CLangKey.xVideos.tr({ x: totalDownloadedEpisodes })}
             </Text>
             <Divider orientation='vertical' />
             <Text style={{ color: colors.muted }}>
-              共{totalFileSizeInMB.toFixed(0)}MB
+              {CLangKey.totalXMb.tr({ x: totalFileSizeInMB.toFixed(0) })}
             </Text>
 
           </View>

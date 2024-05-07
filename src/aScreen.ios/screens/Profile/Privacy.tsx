@@ -7,7 +7,8 @@ import PrivacyBackButtonHeader from "../../components/header/privacyBackButtonHe
 
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { APP_NAME_CONST , APP_NAME_CONST2 } from "@utility/constants";
+import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/constants";
+import { CLangKey } from "@constants";
 
 export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -21,8 +22,8 @@ export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
     // <ScreenContainer scrollView={true}>
     <ScreenContainer>
       <View style={{ gap: spacing.m }}>
-        {/* <TitleWithBackButtonHeader title='隐私政策' /> */}
-        <PrivacyBackButtonHeader title="隐私政策" />
+        {/* <TitleWithBackButtonHeader title={CLangKey.privacyPolicy.tr()} /> */}
+        <PrivacyBackButtonHeader title={CLangKey.privacyPolicy.tr()} />
         <ScrollView>
           <Text
             style={{
@@ -31,10 +32,10 @@ export default ({ navigation }: RootStackScreenProps<"隐私政策">) => {
               paddingBottom: 10,
             }}
           >
-            {APP_NAME_CONST}隐私协议
+            {APP_NAME_CONST}{CLangKey.privacyPolicy.tr()}
           </Text>
           <Text style={textVariants.body}>
-            {`《${APP_NAME_CONST}隐私协议》\n` +
+            {`《${APP_NAME_CONST} ${CLangKey.privacyPolicy.tr()}》\n` +
               `一、引言\n` +
               `二、名词解释\n` +
               `三、我们如何收集和使用您的个人信息\n` +

@@ -39,6 +39,7 @@ import ConfirmationModal from "../../components/modal/confirmationModal";
 import { VodApi } from "@api";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { Vod } from "@models";
+import { CLangKey } from "@constants";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [search, setSearch] = useState("");
@@ -67,7 +68,9 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () => VodApi.getListByRecommendations(),
+    queryFn: () => VodApi.getListByRecommendations().then((result) => {
+      return result.List;
+    }),
   });
 
   async function fetchData(text: string, userSearch: boolean = false) {
@@ -271,12 +274,12 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
             {search !== undefined &&
               search !== null &&
               search.length === 0 &&
-              recommendations ? (
+              (recommendations?.length ?? 0) > 0 ? (
               <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
                   <View style={{ gap: spacing.m }}>
                     <View style={styles.rowApart}>
-                      <Text style={{ ...textVariants.header }}>历史搜索</Text>
+                      <Text style={{ ...textVariants.header }}>{CLangKey.searchHistory.tr()}</Text>
                       <TouchableOpacity
                         style={styles.rowApart}
                         onPress={() => {
@@ -290,7 +293,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
                             color: colors.muted,
                           }}
                         >
-                          清除
+                          {CLangKey.clear.tr()}
                         </Text>
                         <ClearHistoryIcon
                           height={textVariants.small.fontSize}
@@ -351,7 +354,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
         </ScrollView>
       )}
       {showResults && searchResults.length === 0 && !isFetching && (
-        <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
+        <EmptyList description={CLangKey.noRelatedVideoFoundForX.tr({ x: search })} />
       )}
 
       {showResults && searchResults.length === 0 && isFetching && (
@@ -373,8 +376,8 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           setIsDialogOpen(false);
         }}
         isVisible={isDialogOpen}
-        title="清除提示"
-        subtitle="您是否确定清除搜索记录吗？"
+        title={CLangKey.clearXInform.tr({ x: CLangKey.searchRecord.tr() })}
+        subtitle={CLangKey.confirmToClearX.tr({ x: CLangKey.searchRecord.tr() })}
       />
     </ScreenContainer>
   );

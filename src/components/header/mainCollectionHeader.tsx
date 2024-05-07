@@ -1,27 +1,28 @@
-import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useTheme} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '@type/navigationTypes';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@type/navigationTypes';
+import { CLangKey } from '@constants';
 
 interface Props {
   selectedTab: String;
   setSelectedTab: Function;
 }
 
-export default function CollectionHeader({selectedTab, setSelectedTab}: Props) {
-  const {textVariants, spacing, colors} = useTheme();
+export default function CollectionHeader({ selectedTab, setSelectedTab }: Props) {
+  const { textVariants, spacing, colors } = useTheme();
 
   const btnStyle = (tabName: '视频收藏' | '播单收藏' | '合集收藏') => {
     if (tabName === selectedTab) {
-      return {...textVariants.header, color: colors.primary};
+      return { ...textVariants.header, color: colors.primary };
     }
-    return {...textVariants.body, color: colors.muted};
+    return { ...textVariants.body, color: colors.muted };
   };
 
   const underlineStyle = (tabName: '视频收藏' | '播单收藏' | '合集收藏') => {
     if (tabName === selectedTab) {
-      return {backgroundColor: colors.primary, ...styles.underline};
+      return { backgroundColor: colors.primary, ...styles.underline };
     }
     return {};
   };
@@ -31,19 +32,19 @@ export default function CollectionHeader({selectedTab, setSelectedTab}: Props) {
   }
 
   return (
-    <View style={{...styles.container, gap: spacing.l}}>
+    <View style={{ ...styles.container, gap: spacing.l }}>
       <TouchableOpacity
         onPress={() => {
           setSelectedTab('视频收藏');
         }}>
-        <Text style={btnStyle('视频收藏')}>视频</Text>
+        <Text style={btnStyle('视频收藏')}>{CLangKey.video.tr()}</Text>
         <View style={underlineStyle('视频收藏')} />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setSelectedTab('播单收藏');
         }}>
-        <Text style={btnStyle('播单收藏')}>播单</Text>
+        <Text style={btnStyle('播单收藏')}>{CLangKey.playlist.tr()}</Text>
         <View style={underlineStyle('播单收藏')} />
       </TouchableOpacity>
       {/* <TouchableOpacity onPress={navigate('合集收藏')}>

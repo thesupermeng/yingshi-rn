@@ -41,6 +41,7 @@ import { UserApi } from "../../api/user";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from "@models";
+import { CLangKey } from "@constants";
 
 export default ({ navigation }: RootStackScreenProps<"设置">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -49,7 +50,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
 
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
-  const [subtitle1, setSubtitle1] = useState("当前已是最新版本" + APP_VERSION);
+  const [subtitle1, setSubtitle1] = useState(CLangKey.currentlyAreLatestVersion.tr() + APP_VERSION);
   const [isBackdropVisible, setIsBackdropVisible] = useState(false); // New state for backdrop visibility
 
   const settingsReducer: SettingsReducerState = useAppSelector(
@@ -103,20 +104,20 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
         style={{ gap: spacing.m, justifyContent: "space-between", flex: 1 }}
       >
         <View>
-          <TitleWithBackButtonHeader title="设置" />
+          <TitleWithBackButtonHeader title={CLangKey.setting.tr()} />
 
           <NotificationModal
             onConfirm={toggleVersionDialog}
             isVisible={isVersionDialogOpen && !isOffline}
-            title="检查更新"
+            title={CLangKey.checkUpdate.tr()}
             subtitle1={subtitle1}
-            confirmationText="我知道了"
+            confirmationText={CLangKey.iSee.tr()}
           />
 
           <NotificationModal
             isVisible={isVersionDialogOpen && isOffline}
             onConfirm={toggleVersionDialog}
-            title="无法检测网络，请稍后再试"
+            title={CLangKey.noNetworkDetect.tr()}
           />
 
           <ConfirmationModal
@@ -126,9 +127,9 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
             }}
             onCancel={toggleClearDialog}
             isVisible={isClearDialogOpen}
-            title="空间清理"
-            subtitle="清除所有的缓存"
-            confirmationText="清除"
+            title={CLangKey.clearCache.tr()}
+            subtitle={CLangKey.clearAllCache.tr()}
+            confirmationText={CLangKey.clear.tr()}
             confirmationColor={IS_OTHER_SKIN ? colors.error : undefined}
           />
 
@@ -152,17 +153,16 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}
-            title="退出登录"
-            subtitle="您是否确定要退出登录？"
-            confirmationText="确定"
+            title={CLangKey.logout.tr()}
+            subtitle={CLangKey.logoutConfirm.tr()}
           />
 
           {/* displayed content */}
           <View>
             <View>
-              <ShowMoreButton text="空间清理" onPress={toggleClearDialog} />
+              <ShowMoreButton text={CLangKey.clearCache.tr()} onPress={toggleClearDialog} />
               <ShowMoreButton
-                text="检查更新"
+                text={CLangKey.checkUpdate.tr()}
                 onPress={toggleVersionDialog}
                 rightIcon={
                   <View style={styles.icon}>
@@ -173,7 +173,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
                         color: colors.muted,
                       }}
                     >
-                      当前版本{APP_VERSION}
+                      {CLangKey.currentVersion.tr()}{APP_VERSION}
                     </Text>
                     <MoreArrow
                       width={icons.sizes.l}
@@ -200,7 +200,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
                 marginBottom: 30,
               }}
             >
-              <Text style={{ color: "#FF3C3C" }}>退出登录</Text>
+              <Text style={{ color: "#FF3C3C" }}>{CLangKey.logout.tr()}</Text>
             </View>
           </TouchableOpacity>
         )}

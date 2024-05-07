@@ -32,6 +32,7 @@ import { CPopup } from '@utility/popup';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models';
+import { CLangKey } from '@constants';
 export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   const { colors, textVariants, icons, spacing } = useTheme();
   const [isVersionDialogOpen, setIsVersionDialogOpen] = useState(false);
@@ -40,7 +41,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
 
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
-  const [subtitle1, setSubtitle1] = useState('当前已是最新版本' + APP_VERSION);
+  const [subtitle1, setSubtitle1] = useState(CLangKey.currentlyAreLatestVersion.tr() + APP_VERSION);
 
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
@@ -63,7 +64,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   }
   const onRemoveAccount = () => {
     setTimeout(() => {
-      CPopup.showToast('我们将在3个工作日内处理您注销请求，请注意您的邮箱，在此期间您可以继续登录');
+      CPopup.showToast(CLangKey.cancelAccountSuccessMsg.tr());
     }, 500);
   }
 
@@ -89,25 +90,24 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
   // }, []);
   const userState = useSelector<UserStateType>('userReducer');
 
-  console.log(userState)
   return (
     <ScreenContainer>
       <View style={{ gap: spacing.m, justifyContent: 'space-between', flex: 1 }}>
         <View>
-          <TitleWithBackButtonHeader title="设置" />
+          <TitleWithBackButtonHeader title={CLangKey.setting.tr()} />
 
           <NotificationModal
             onConfirm={toggleVersionDialog}
             isVisible={isVersionDialogOpen && !isOffline}
-            title="检查更新"
+            title={CLangKey.checkUpdate.tr()}
             subtitle1={subtitle1}
-            confirmationText="我知道了"
+            confirmationText={CLangKey.iSee.tr()}
           />
 
           <NotificationModal
             isVisible={isVersionDialogOpen && isOffline}
             onConfirm={toggleVersionDialog}
-            title="无法检测网络，请稍后再试"
+            title={CLangKey.noNetworkDetect.tr()}
           />
 
           <ConfirmationModal
@@ -117,9 +117,9 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             }}
             onCancel={toggleClearDialog}
             isVisible={isClearDialogOpen}
-            title="空间清理"
-            subtitle="清除所有的缓存"
-            confirmationText="清除"
+            title={CLangKey.clearCache.tr()}
+            subtitle={CLangKey.clearAllCache.tr()}
+            confirmationText={CLangKey.clear.tr()}
             confirmationColor={IS_OTHER_SKIN ? colors.error : undefined}
           />
 
@@ -131,9 +131,8 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               }}
               onCancel={toggleRemoveAccountDialog}
               isVisible={isRemoveDialogOpen}
-              title={`确定注销“${APP_NAME_CONST}”账号`}
-              subtitle="确认删除帐户后，您的所有帐户数据将被永久删除"
-              confirmationText="确定"
+              title={CLangKey.confirmCancelAccountX.tr({ x: APP_NAME_CONST })}
+              subtitle={CLangKey.accountWillRemoveIfConfirm.tr()}
             />
           }
 
@@ -151,17 +150,16 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             }}
             onCancel={toggleLogoutDialog}
             isVisible={isLogoutDialogOpen}
-            title="退出登录"
-            subtitle="您是否确定要退出登录？"
-            confirmationText="确定"
+            title={CLangKey.logout.tr()}
+            subtitle={CLangKey.logoutConfirm.tr()}
           />
 
           {/* displayed content */}
           <View>
             <View>
-              <ShowMoreButton text="空间清理" onPress={toggleClearDialog} />
+              <ShowMoreButton text={CLangKey.clearCache.tr()} onPress={toggleClearDialog} />
               <ShowMoreButton
-                text="检查更新"
+                text={CLangKey.checkUpdate.tr()}
                 onPress={toggleVersionDialog}
                 rightIcon={
                   <View style={styles.icon}>
@@ -171,7 +169,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                         paddingBottom: 3,
                         color: colors.muted,
                       }}>
-                      当前版本{APP_VERSION}
+                      {CLangKey.currentVersion.tr()}{APP_VERSION}
                     </Text>
                     <MoreArrow
                       width={icons.sizes.l}
@@ -182,7 +180,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                 }
               />
               {User.isLogin(userState.user) &&
-                <ShowMoreButton text="注销账号" onPress={toggleRemoveAccountDialog} />
+                <ShowMoreButton text={CLangKey.cancelAccount.tr()} onPress={toggleRemoveAccountDialog} />
               }
             </View>
           </View>
@@ -200,7 +198,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                 alignItems: 'center',
                 marginBottom: 30,
               }}>
-              <Text style={{ color: '#FF3C3C' }}>退出登录</Text>
+              <Text style={{ color: '#FF3C3C' }}>{CLangKey.logout.tr()}</Text>
             </View>
           </TouchableOpacity>
         )}

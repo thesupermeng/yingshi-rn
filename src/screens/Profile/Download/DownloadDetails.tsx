@@ -21,6 +21,7 @@ import { debounce, throttle } from "lodash";
 import FastImage from '../../../components/common/customFastImage'
 import NetInfo from "@react-native-community/netinfo";
 import { IS_OTHER_SKIN } from "@utility/constants";
+import { CLangKey } from "@constants";
 
 const LoadingGif = require('@static/images/loading-spinner.gif')
 
@@ -88,7 +89,12 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const isDeleteAll = removeHistory.length === allEpisodes.length
 
-  const deleteAlertText = isDeleteAll ? `您是否确定清楚《${download.vod.vod_name}》?` : "您是否确定清除？"
+  const deleteAlertText = CLangKey.confirmToClearX.tr({
+    x: isDeleteAll
+      ? `《${download.vod.vod_name}》`
+      : CLangKey.downloadedVideo.tr().toLowerCase(),
+    'these ': isDeleteAll ? '' : null
+  });
 
   let resumeTimeout: any;
 
@@ -174,18 +180,18 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
     isButtonVisible = false
   } else if (download.episodes.some(x => x.status === DownloadStatus.DOWNLOADING)) {
     isButtonVisible = true
-    allButtonText = "全部暂停"
+    allButtonText = CLangKey.pauseAll.tr()
     buttonIcon = <DownloadPauseYellowMiniIcon color={colors.muted} />
   } else if (download.episodes.every(x => [DownloadStatus.PAUSED, DownloadStatus.ERROR, DownloadStatus.COMPLETED].includes(x.status))) {
     isButtonVisible = true
-    allButtonText = "全部下载"
+    allButtonText = CLangKey.downloadAll.tr()
     buttonIcon = <DownloadYellowMiniIcon color={colors.muted} />
   }
 
 
   const handleButtonPress = useCallback(
     debounce(() => {
-      if (allButtonText === '全部暂停') {
+      if (allButtonText === CLangKey.pauseAll.tr()) {
         download.episodes
           .filter(x => x.status === DownloadStatus.DOWNLOADING)
           .forEach((episodeDownload) => {
@@ -197,7 +203,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
               ),
             );
           });
-      } else if (allButtonText === '全部下载') {
+      } else if (allButtonText === CLangKey.downloadAll.tr()) {
         download.episodes
           .filter(x => x.status === DownloadStatus.PAUSED || x.status === DownloadStatus.ERROR)
           .forEach((episodeDownload) => {
@@ -258,7 +264,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
                 opacity:
                   download.episodes && download.episodes.length > 0 ? 100 : 0,
               }}>
-              {isEditing ? '取消' : '编辑'}
+              {isEditing ? CLangKey.cancel.tr() : CLangKey.edit.tr()}
             </Text>
           </Pressable>
         }
@@ -284,7 +290,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
                 fontWeight: '400',
                 fontFamily: 'PingFang SC',
               }}>
-              已用{totalDownloadSize.toFixed(0)}MB
+              {CLangKey.totalXMb.tr({ x: totalDownloadSize.toFixed(0) })}
             </Text>
           </View>
           <Pressable style={styles.downloadMoreButton}>
@@ -295,7 +301,9 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
                 fontFamily: 'PingFang SC',
                 lineHeight: icons.sizes.m
               }}
-            >下载更多</Text>
+            >
+              {CLangKey.downloadMore.tr()}
+            </Text>
             <MoreArrow style={{ height: icons.sizes.m, width: icons.sizes.m }} color={colors.muted} />
           </Pressable>
         </View>
@@ -340,7 +348,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
           }}
           onCancel={toggleOverlay}
           isVisible={isDialogOpen}
-          title="清除提示"
+          title={CLangKey.clearXInform.tr({ x: CLangKey.downloadedVideo.tr() })}
           subtitle={deleteAlertText}
         />
         {isEditing && (
@@ -362,8 +370,8 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             >
               {removeHistory.length === 0 ||
                 removeHistory.length !== allEpisodes.length
-                ? "全选"
-                : "取消全选"}
+                ? CLangKey.selectAll.tr()
+                : CLangKey.unselectAll.tr()}
             </Button>
             <Button
               onPress={() => {
@@ -379,7 +387,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
                   removeHistory.length === 0 ? colors.muted : (IS_OTHER_SKIN ? 'white' : colors.primaryContrast),
               }}
             >
-              删除
+              {CLangKey.delete.tr()}
             </Button>
           </View>
         )}

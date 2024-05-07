@@ -11,6 +11,7 @@ import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 import { PlayList } from '@models';
+import { CLangKey } from '@constants';
 
 type FlatListType = {
   item: PlayList;
@@ -39,7 +40,7 @@ export default () => {
                 color: colors.muted,
                 ...styles.noMore,
               }}>
-              没有更多了
+              {CLangKey.noAnyMore.tr()}
             </Text>
           }
           renderItem={({ item }: FlatListType) => (
@@ -48,7 +49,7 @@ export default () => {
         />
       )}
       {favorites && favorites.length === 0 && (
-        <EmptyList description="暂无播单收藏" />
+        <EmptyList description={CLangKey.noXFavouriteTr({ x: CLangKey.playlist.tr() })} />
       )}
     </>
   );

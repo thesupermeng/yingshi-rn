@@ -133,6 +133,7 @@ import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User } from "@models";
 import { CWebview } from "../screens/Common/Webview";
+import { CLangKey } from "@constants";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -225,11 +226,30 @@ export default () => {
             }
             return icon;
           },
+          tabBarLabel: ({ focused, color, children }) => {
+            let label = children;
+
+            if (label === '首页') {
+              label = CLangKey.homeTab.tr();
+            } else if (label === '随心看') {
+              label = CLangKey.watchanytimeTab.tr();
+            } else if (label === '会员中心') {
+              label = CLangKey.vipCenterTab.tr();
+            } else if (label === '播单') {
+              label = CLangKey.playlistTab.tr();
+            } else if (label === '我的') {
+              label = CLangKey.profileTab.tr();
+            }
+
+            return <Text style={{ fontSize: 11, color: color, paddingBottom: 5 }}>
+              {label}
+            </Text>
+          }
         })}
       >
         <HomeTab.Screen name="首页" component={HomeScreen} />
         <HomeTab.Screen name="随心看" component={WatchAnytime} />
-        {!(YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5) && screenState.showAdultTab &&
+        {(YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5) &&
           <HomeTab.Screen name="会员中心" component={SportAndX} />
         }
         <HomeTab.Screen name="播单" component={PlaylistScreen} />

@@ -16,6 +16,7 @@ import { Button } from "@rneui/themed"
 import { removeVodFromDownloadThunk } from "@redux/actions/videoDownloadAction"
 import { IS_OTHER_SKIN } from "@utility/constants"
 import { Vod } from "@models"
+import { CLangKey } from "@constants"
 
 const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -83,7 +84,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader
-        title="我的下载"
+        title={CLangKey.myDownload.tr()}
         right={
           <Pressable
             onPress={() => {
@@ -97,7 +98,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
                 opacity: allDownloads && allDownloads.length > 0 ? 100 : 0,
               }}
             >
-              {isEditing ? "取消" : "编辑"}
+              {isEditing ? CLangKey.cancel.tr() : CLangKey.edit.tr()}
             </Text>
           </Pressable>
         }
@@ -123,8 +124,12 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
                 }}
                 onCancel={toggleOverlay}
                 isVisible={isDialogOpen}
-                title="清除提示"
-                subtitle="您是否确定清除？"
+                title={CLangKey.clearXInform.tr({
+                  x: CLangKey.downloadedVideo.tr().toLowerCase()
+                })}
+                subtitle={CLangKey.confirmToClearX.tr({
+                  x: CLangKey.downloadedVideo.tr().toLowerCase()
+                })}
               />
               {isEditing && (
                 <View style={styles.deleteConfirmationModal}>
@@ -145,8 +150,8 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
                   >
                     {removeHistory.length === 0 ||
                       removeHistory.length !== allDownloads.length
-                      ? "全选"
-                      : "取消全选"}
+                      ? CLangKey.selectAll.tr()
+                      : CLangKey.unselectAll.tr()}
                   </Button>
                   <Button
                     onPress={() => {
@@ -162,7 +167,7 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
                         removeHistory.length === 0 ? colors.muted : (IS_OTHER_SKIN ? 'white' : colors.primaryContrast),
                     }}
                   >
-                    删除
+                    {CLangKey.delete.tr()}
                   </Button>
                 </View>
               )}
@@ -170,10 +175,10 @@ const DownloadCatalog = ({ navigation }: RootStackScreenProps<"我的下载">) =
             :
             <View style={styles.emptyListContainer}>
               <EmptyList
-                description="暂无下载视频"
+                description={CLangKey.noX.tr({ x: CLangKey.downloadedVideo.tr() })}
                 additionalElement={
                   <Pressable style={{ ...styles.seeMoreBtn, backgroundColor: IS_OTHER_SKIN ? 'white' : colors.primary }} onPress={handleSeeMore}>
-                    <Text style={styles.seeMoreBtnText}>查看精彩视频</Text>
+                    <Text style={styles.seeMoreBtnText}>{CLangKey.viewGreatVideos.tr()}</Text>
                   </Pressable>
                 } />
             </View>

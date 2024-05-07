@@ -3,6 +3,7 @@ import { Dialog } from '@rneui/themed';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { IS_OTHER_SKIN } from '@utility/constants';
+import { CLangKey } from '@constants';
 
 interface Props {
     onConfirm: any,
@@ -14,7 +15,7 @@ interface Props {
     cancelText?: string,
     confirmationColor?: string,
 }
-export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = '确定', cancelText = '取消', confirmationColor }: Props) {
+export default function ConfirmationModal({ onConfirm, onCancel, isVisible, title = '', subtitle = '', confirmationText = CLangKey.confirm.tr(), cancelText = CLangKey.cancel.tr(), confirmationColor }: Props) {
     const { colors, textVariants, spacing } = useTheme();
 
     return (

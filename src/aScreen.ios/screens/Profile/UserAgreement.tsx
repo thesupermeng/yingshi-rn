@@ -9,10 +9,11 @@ import { RootStackScreenProps } from "@type/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST,APP_NAME_CONST2 } from "@utility/constants";
+import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/constants";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { useAppDispatch, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
+import { CLangKey } from "@constants";
 
 export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   const { textVariants, spacing } = useTheme();
@@ -22,13 +23,12 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('beforeRemove', (e) => {
       if (screenReducer.navigateToProfile === true) {
-      // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
+        // Check if the previous route was "RegistrationPage" and the destination is "ProfileScreen"
         // If yes, trigger your custom action
         const navState = navigation.getState();
         const currentRouteName = navState.routes[navState.index].name;
         const previousRouteName = navState.routes[navState.index - 1]?.name;
-        if( previousRouteName !='关于我们')
-        {
+        if (previousRouteName != '关于我们') {
           dispatch(showLoginAction());
         }
       } else {
@@ -43,12 +43,12 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
   return (
     <ScreenContainer scrollView={true}>
       <View style={{ gap: spacing.m }}>
-        <TitleWithBackButtonHeader title="用户协议" />
+        <TitleWithBackButtonHeader title={CLangKey.userAgreement.tr()} />
         <Text style={{ ...textVariants.header, textAlign: "center" }}>
-          {APP_NAME_CONST}用户协议
+          {APP_NAME_CONST}{CLangKey.userAgreement.tr()}
         </Text>
         <Text style={textVariants.body}>
-          {`《${APP_NAME_CONST}用户服务协议》\n` +
+          {`《${APP_NAME_CONST}${CLangKey.userAgreement.tr()}》\n` +
             `一、协议的定义及服务说明\n` +
             `二、您的${APP_NAME_CONST2}账号\n` +
             `三、服务使用规则\n` +

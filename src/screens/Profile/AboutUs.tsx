@@ -23,6 +23,7 @@ import {
 } from "@utility/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
+import { CLangKey } from "@constants";
 
 export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
@@ -43,7 +44,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
   }
 
   useEffect(() => {
-    if(countToggleB == 8){
+    if (countToggleB == 8) {
       switchToggle();
     }
   }, [countToggleB])
@@ -61,7 +62,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
     // }
     <ScreenContainer>
       <View style={{ gap: spacing.m }}>
-        <TitleWithBackButtonHeader title="关于我们" />
+        <TitleWithBackButtonHeader title={CLangKey.aboutUs.tr()} />
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
@@ -73,22 +74,22 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
         <NotificationModal
           onConfirm={toggleOverlay}
           isVisible={isDialogOpen}
-          title="版权声明"
-          subtitle1={`如果该APP提供内容侵犯了您的版权, 请发送电子邮件说明, 我们将立即删除内容, 保护版权所有者的权益。`}
-          subtitle2="联系邮箱:"
+          title={CLangKey.copyrightNotice.tr()}
+          subtitle1={CLangKey.ifAppInfringeCopyright.tr()}
+          subtitle2={`${CLangKey.contactEmail.tr()}:`}
           subtitle3={APP_EMAIL_CONST}
         />
         <View>
           <ShowMoreButton
-            text="隐私政策"
+            text={CLangKey.privacyPolicy.tr()}
             onPress={() => navigation.navigate("隐私政策")}
           />
           <ShowMoreButton
-            text="用户协议"
+            text={CLangKey.userAgreement.tr()}
             onPress={() => navigation.navigate("用户协议")}
           />
           <ShowMoreButton
-            text="版权声明"
+            text={CLangKey.copyrightNotice.tr()}
             onPress={() => setIsDialogOpen(!isDialogOpen)}
           />
         </View>

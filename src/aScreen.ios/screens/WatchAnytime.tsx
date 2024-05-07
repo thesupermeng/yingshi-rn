@@ -19,6 +19,7 @@ import { useAppSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { MiniVodApi } from '@api';
+import { CLangKey } from '@constants';
 
 type MiniVideoResponseType = {
     data: {
@@ -150,7 +151,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
             <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
+                <Text style={{ color: '#FFF', fontSize: 20 }}>{CLangKey.watchanytimeTab.tr()}</Text>
             </View>
             {!isOffline &&
                 <MiniVideoList

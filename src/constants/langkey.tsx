@@ -1,5 +1,5 @@
 
-import { CLang } from '@utility/langService';
+import { CLang, CLanguageType } from '@utility/langService';
 import '../string.d.ts';
 
 String.prototype.tr = function (props?: any): string {
@@ -26,8 +26,8 @@ export class CLangKey {
     static http505 = 'httpVersionNotSupported';
     static unknownError = 'unknownError';
     static noInternetAccess = 'noInternetAccess';
-    static downloadFailed = 'downloadFailed';
-    static downloadCompleted = 'downloadCompleted';
+    // static downloadFailed = 'downloadFailed';
+    // static downloadCompleted = 'downloadCompleted';
     static serverResponseEmpty = 'serverResponseEmpty';
     static serverResponseErrorDataType = 'serverResponseErrorDataType';
     static apiEmptyResponse = 'apiEmptyResponse';
@@ -55,9 +55,92 @@ export class CLangKey {
     static video = 'video';
     static playlist = 'playlist';
     static favourite = 'favourite';
+    static confirm = 'confirm';
+    static cancel = 'cancel';
+    static edit = 'edit';
+    static today = 'today';
+    static earlier = 'earlier';
+    static selectAll = 'selectAll';
+    static unselectAll = 'unselectAll';
+    static delete = 'delete';
+    static download = 'download';
+    static downloadedVideo = 'downloadedVideo';
+    static total = 'total';
+    static totally = 'totally';
+    static downloading = 'downloading';
+    static pause = 'pause';
+    static paused = 'paused';
+    static doned = 'doned';
+    static downloadFailed = 'downloadFailed';
+    static downloadMore = 'downloadMore';
+    static problemFeedback = 'problemFeedback';
+    static submit = 'submit';
+    static downloadAll = 'downloadAll';
+    static pauseAll = 'pauseAll';
+    static clearCache = 'clearCache';
+    static userAgreement = 'userAgreement';
+    static privacyPolicy = 'privacyPolicy';
+    static version = 'version';
+    static copyrightNotice = 'copyrightNotice';
+    static contactEmail = 'contactEmail';
+    static clear = 'clear';
+    static logout = 'logout';
+    static checkUpdate = 'checkUpdate';
+    static iSee = 'iSee';
+    static currentVersion = 'currentVersion';
+    static cancelAccount = 'cancelAccount';
+    static doneFavourite = 'doneFavourite';
+    static update = 'update';
+    static share = 'share';
+    static director = 'director';
+    static actor = 'actor';
+    static details = 'details';
+    static playSource = 'playSource';
+    static anthology = 'anthology';
+    static episodes = 'episodes';
+    static relatedX = 'relatedX';
+    static suggestion = 'suggestion';
+    static more = 'more';
+    static writer = 'writer';
+    static intro = 'intro';
+    static sort = 'sort';
+    static noNetwork = 'noNetwork';
+    static tryAgain = 'tryAgain';
+    static refresh = 'refresh';
+    static searchHistory = 'searchHistory';
+    static searchRecord = 'searchRecord';
+
 
     // ============================== sentence ==============================
-    static noXFavourite = 'noXFavourite';
+    static noX = 'noX';
+    static noXYTr = ({ x, y }: { x: string, y: string }) => this.noX.tr({
+        x: `${x}${CLang.isEn() ? ' ' : ''}${y}`
+    });
+    static noXFavouriteTr = ({ x }: { x: string }) => this.noXYTr({
+        x: CLang.isEn() ? this.favourite.tr() : x,
+        y: CLang.isEn() ? x : this.favourite.tr(),
+    });
     static noAnyMore = 'noAnyMore';
+    static clearXInform = 'clearXInform';
+    static confirmToClearX = 'confirmToClearX';
+    static viewGreatVideos = 'viewGreatVideos';
+    static xVideos = 'xVideos';
+    static totalXMb = 'totalXMb';
+    static describeYourProblemAndSuggess = 'describeYourProblemAndSuggess';
+    static feedbackSuccessSent = 'feedbackSuccessSent';
+    static noNetworkDetect = 'noNetworkDetect';
+    static ifAppInfringeCopyright = 'ifAppInfringeCopyright';
+    static clearAllCache = 'clearAllCache';
+    static logoutConfirm = 'logoutConfirm';
+    static currentlyAreLatestVersion = 'currentlyAreLatestVersion';
+    static confirmCancelAccountX = 'confirmCancelAccountX';
+    static accountWillRemoveIfConfirm = 'accountWillRemoveIfConfirm';
+    static cancelAccountSuccessMsg = 'cancelAccountSuccessMsg';
+    static downloadOnlyForVip = 'downloadOnlyForVip';
+    static maximumOnlyDownloadXVideo = 'maximumOnlyDownloadXVideo';
+    static alreadyDownloadCheckMyDownload = 'alreadyDownloadCheckMyDownload';
+    static networkConnectFailTryAgain = 'networkConnectFailTryAgain';
+    static noNetworkPleaseRefreshVideo = 'noNetworkPleaseRefreshVideo';
+    static noRelatedVideoFoundForX = 'noRelatedVideoFoundForX';
 }
 

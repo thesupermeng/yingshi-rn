@@ -16,6 +16,7 @@ import { playVod } from '@redux/actions/vodActions';
 import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 type FlatListType = {
   item: Vod;
@@ -47,7 +48,7 @@ export default () => {
                   color: colors.muted,
                   ...styles.noMore,
                 }}>
-                没有更多了
+                {CLangKey.noAnyMore.tr()}
               </Text>
             }
             renderItem={({ item }: FlatListType) => (
@@ -66,7 +67,7 @@ export default () => {
         )}
       </View>
       {favorites && favorites.length === 0 && (
-        <EmptyList description="暂无视频收藏" />
+        <EmptyList description={CLangKey.noXFavouriteTr({ x: CLangKey.video.tr() })} />
       )}
     </>
   );
