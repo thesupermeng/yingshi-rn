@@ -1,3 +1,5 @@
+import { Vod } from "./vod";
+
 export class Carousel {
     carousel_id: number;
     carousel_name: string;
@@ -9,6 +11,7 @@ export class Carousel {
     ads_url: string;
     ads_slot_id: number;
     ads_event_title: string;
+    vod?: Vod;
 
     public constructor(data: {
         carousel_id: number,
@@ -21,6 +24,7 @@ export class Carousel {
         ads_url: string,
         ads_slot_id: number,
         ads_event_title: string,
+        vod: Vod,
     }) {
         this.carousel_id = data.carousel_id;
         this.carousel_name = data.carousel_name;
@@ -32,6 +36,7 @@ export class Carousel {
         this.ads_url = data.ads_url;
         this.ads_slot_id = data.ads_slot_id;
         this.ads_event_title = data.ads_event_title;
+        this.vod = data.vod;
     }
 
     public static fromJson = (json: any): Carousel => {
@@ -46,6 +51,7 @@ export class Carousel {
             ads_url: json.ads_url,
             ads_slot_id: json.ads_slot_id,
             ads_event_title: json.ads_event_title,
+            vod: Vod.fromJson(json.vod),
         });
     }
 
@@ -67,6 +73,7 @@ export class Carousel {
             carousel_pic_mobile: arr[15],
             is_ads: arr[19],
             ads_url: arr[20],
+            vod: Vod.fromApiArr(arr[0]),
         });
     }
 
