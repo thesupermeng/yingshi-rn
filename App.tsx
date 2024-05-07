@@ -116,9 +116,12 @@ let App = () => {
         Adjust.trackEvent(adjustEvent);
         // app open
         let adjustEvent2 = new AdjustEvent("qw69nm");
+        adjustEvent2.addCallbackParameter("test", "value");
         Adjust.trackEvent(adjustEvent2);
+
+
       });
-    }, 8000);
+    }, 1000);
 
     // Call componentWillUnmount when unmounting
     return () => {
