@@ -3,6 +3,7 @@ import {persistor, store} from '@redux/store';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {CheckVersionRequest, MiniVideo} from '@type/ajaxTypes';
 import {
+  ADJUST_APP_KEY,
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
@@ -19,7 +20,7 @@ import {
   UMENG_CHANNEL,
 } from '@utility/constants';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {constructor, useEffect, useState} from 'react';
 import {Platform, View} from 'react-native';
 import CodePush from 'react-native-code-push';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -48,6 +49,7 @@ import appsFlyer from 'react-native-appsflyer';
 import AppsFlyerAnalytics from './AppsFlyer/AppsFlyerAnalytic';
 import messaging from '@react-native-firebase/messaging';
 import {FirebaseNotification} from '@utility/firebaseNotification';
+import { Adjust, AdjustEvent, AdjustConfig } from 'react-native-adjust';
 
 const topon_channel = 'WEB';
 
@@ -63,6 +65,9 @@ const topon_channel = 'WEB';
 //     profilesSampleRate: 1.0,
 //   },
 // });
+
+
+
 
 warnIgnore([
   'Trying to load empty source.',
@@ -83,6 +88,25 @@ logIgnore([
 ]);
 
 let App = () => {
+
+  useEffect(() => {
+    // Initialize Adjust SDK
+    // AdjustConfig.EnvironmentSandbox
+    // or
+    // AdjustConfig.EnvironmentProduction
+    const adjustConfig = new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentSandbox);
+    // set log for testing 
+    adjustConfig.setLogLevel(AdjustConfig.LogLevelVerbose)
+    Adjust.create(adjustConfig);
+  
+
+    // Call componentWillUnmount when unmounting
+    return () => {
+      Adjust.componentWillUnmount();
+    };
+  }, []);
+
+
   CodePush.notifyAppReady();
 
   const queryClient = new QueryClient({
