@@ -93,6 +93,7 @@
     "react-devtools-core": "~4.14.0",
     "react-native": "^0.71.8",
     "react-native-adjust": "^4.38.1",
+    "react-native-adjust-oaid": "^4.38.1",
     "react-native-android-navbar-height": "git+https://github.com/ConnectyCube/react-native-android-navbar-height.git#main",
     "react-native-appsflyer": "^6.10.3",
     "react-native-bidirectional-infinite-scroll": "^0.3.3",
