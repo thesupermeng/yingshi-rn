@@ -197,7 +197,7 @@ const _initFirebase = async () => {
       `STAGING_${APP_NAME_CONST}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`
     );
 
- 
+
 
 
     const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
@@ -224,16 +224,9 @@ const _notificationHandle = (data: {
 }: {
   dispatch: any,
 }) => {
-  // for debuging test use
-  // data = {
-  //   notification_redirect_type: '1',
-  //   notification_url: 'https://yingshi.tv',
-  //   vod_id: '105120',
-  // }
-
   if (data) {
-    const type = data.notification_redirect_type?.toString();
-    const url = data.notification_url?.toString();
+    const type = data.redirect_type?.toString();
+    const url = data.url?.toString();
     const vodId = data.vod_id?.toString();
 
     switch (type) {
