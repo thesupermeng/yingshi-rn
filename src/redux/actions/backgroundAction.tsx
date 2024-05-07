@@ -238,14 +238,14 @@ const _notificationHandle = (data: {
       }
       case '2': {
         if (url) {
-          InAppBrowser.open(data.notification_url.toString())
+          InAppBrowser.open(url.toString())
             .catch((err) => console.error("Error opening URL:", err));
         }
         break;
       }
       case '3': {
         if (url) {
-          Linking.openURL(data.notification_url.toString())
+          Linking.openURL(url.toString())
             .catch((err) => console.error("Error opening external link:", err));
         }
         break;
