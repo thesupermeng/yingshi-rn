@@ -68,9 +68,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () => VodApi.getListByRecommendations().then((result) => {
-      return result.List;
-    }),
+    queryFn: () => VodApi.getListByRecommendations(),
   });
 
   async function fetchData(text: string, userSearch: boolean = false) {
@@ -119,7 +117,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
         setHasMore(false); // No more items available
       } else {
         // Append the new results to the existing ones
-        setSearchResults([...searchResults, ...json.data.List]);
+        setSearchResults([...searchResults, ...data]);
         setPage(nextPage);
         // ========== for analytics - start ==========
         if (userSearch) UmengAnalytics.searchResultViewsAnalytics();
@@ -139,7 +137,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   };
 
   useEffect(() => {
-    if (route.params.initial !== "") {
+    if (route.params.initial !== "" && route.params.initial !== undefined) {
       fetchData(route.params.initial);
     }
   }, []);

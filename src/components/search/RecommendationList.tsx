@@ -21,7 +21,7 @@ export default function RecommendationList({ recommendationList }: Props) {
   const { colors, textVariants, spacing, icons } = useTheme();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  console.log(recommendationList);
+
   return (
     <View style={{ gap: spacing.m, marginBottom: 60 }}>
       <Text style={{ ...textVariants.header }}>热搜总榜</Text>

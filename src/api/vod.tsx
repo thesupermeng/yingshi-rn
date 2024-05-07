@@ -142,7 +142,7 @@ export class VodApi {
                 throw result.message;
             }
 
-            return PaggingObject.fromJson<Vod>(result.data.vod_list, Vod.fromJsonList);
+            return Vod.fromJsonList(result.data.vod_list);
 
         } catch (e: any) {
             console.error(`[Error getListByRecommendations}]: ${e.toString()}`);
