@@ -128,7 +128,6 @@ export class VodApi {
 
     static getListByRecommendations = async () => {
         try {
-            console.log('getListByRecommendations')
             const result = await CApi.get(CEndpoint.playlistGetTopicDetail, {
                 query: {
                     id: 1,
@@ -138,8 +137,7 @@ export class VodApi {
                     ip: YSConfig.instance.ip,
                 }
             });
-            console.log('result')
-            console.log(result.data)
+
             if (result.success === false) {
                 throw result.message;
             }
