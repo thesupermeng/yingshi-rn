@@ -196,7 +196,11 @@ export const vipPromotionModalShown = () => ({
 const _initFirebase = async () => {
   try {
     await FirebaseNotification.checkPermissionAndGetoken();
-    FirebaseNotification.subscibeToTopic("insidertest");
+
+    if (__DEV__) {
+      FirebaseNotification.subscibeToTopic("insidertest");
+    }
+
 
     const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
 
