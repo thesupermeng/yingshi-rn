@@ -12,6 +12,7 @@ import RefreshIcon from '@static/images/refresh.svg';
 import YingshiGreyIcon from '@static/images/yingshi-grey.svg';
 import { useOrientation } from '@hooks/useOrientation';
 import { IS_OTHER_SKIN } from '@utility/constants';
+import { CLangKey } from '@constants';
 interface Props {
   onClickRetry?: any;
   isPlay?: boolean;
@@ -53,7 +54,7 @@ export default function NoConnection({
               textAlign: 'center',
               paddingTop: 10,
             }}>
-            无网络
+            {CLangKey.noNetwork.tr()}
           </Text>
           <Text
             style={{
@@ -61,8 +62,9 @@ export default function NoConnection({
               color: colors.muted,
               textAlign: 'center',
               paddingTop: 12,
+              width: '70%'
             }}>
-            网络连接失败，请刷新重试
+            {CLangKey.networkConnectFailTryAgain.tr()}
           </Text>
           <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
             <View
@@ -78,7 +80,7 @@ export default function NoConnection({
                   ...styles.head,
                   color: colors.background,
                 }}>
-                点击重试
+                {CLangKey.tryAgain.tr()}
               </Text>
             </View>
           </TouchableOpacity>
@@ -95,8 +97,9 @@ export default function NoConnection({
               color: colors.muted,
               textAlign: 'center',
               paddingTop: 12,
+              width: '70%'
             }}>
-            无网络或断网，请刷新视频
+            {CLangKey.noNetworkPleaseRefreshVideo.tr()}
           </Text>
           <TouchableOpacity activeOpacity={0.7} onPress={onClickRetry}>
             <View
@@ -112,7 +115,7 @@ export default function NoConnection({
                   ...styles.head,
                   color: colors.background,
                 }}>
-                刷新
+                {CLangKey.refresh.tr()}
               </Text>
             </View>
           </TouchableOpacity>

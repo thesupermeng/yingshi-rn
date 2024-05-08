@@ -31,8 +31,6 @@ import { incrementSportWatchTime, setFullscreenState } from "@redux/actions/scre
 
 import {
   LiveTVStationItem,
-  VodEpisodeListType,
-  VodType,
 } from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
@@ -40,7 +38,7 @@ import { useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User, Vod, VodEpisodeGroup } from "@models";
 
 interface Props {
   vod_url?: string;
@@ -52,12 +50,12 @@ interface Props {
   onBack?: () => any;
   useWebview?: boolean;
   onEpisodeChange?: any;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   activeEpisode?: number;
   rangeSize?: number;
   autoPlayNext?: boolean;
   onShare?: () => any;
-  movieList?: VodType[];
+  movieList?: Vod[];
   showGuide?: boolean;
   showMoreType?: "episodes" | "streams" | "movies" | "none";
   streams?: LiveTVStationItem[];

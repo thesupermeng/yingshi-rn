@@ -54,7 +54,6 @@ import {
   setEventSplashLastPageViewTime,
 } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
-import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
 import {
   membershipModel,
@@ -91,7 +90,7 @@ import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
 import Video from "react-native-video";
-import { User } from "@models/user";
+import { User } from "@models";
 
 export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
   const {
@@ -605,7 +604,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                     }
                   }}
                 >
-                  <CloseButton />
+                  <CloseButton color="white" />
                 </TouchableOpacity>
 
                 {/* <LottieView

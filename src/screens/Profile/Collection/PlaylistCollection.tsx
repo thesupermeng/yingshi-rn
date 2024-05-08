@@ -1,27 +1,28 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
-import {VodTopicType} from '@type/ajaxTypes';
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
+import { PlayList } from '@models';
+import { CLangKey } from '@constants';
 
 type FlatListType = {
-  item: VodTopicType;
+  item: PlayList;
 };
 
 export default () => {
   const navigation = useNavigation();
-  const {colors, textVariants, icons, spacing} = useTheme();
+  const { colors, textVariants, icons, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const vodPlaylistReducer = useAppSelector(
-    ({vodPlaylistReducer}: RootState) => vodPlaylistReducer,
+    ({ vodPlaylistReducer }: RootState) => vodPlaylistReducer,
   );
   const favorites = vodPlaylistReducer.playlistFavorites;
   return (
@@ -31,7 +32,7 @@ export default () => {
       {favorites && favorites.length > 0 && (
         <FlatList
           data={favorites}
-          contentContainerStyle={{paddingBottom: 30}}
+          contentContainerStyle={{ paddingBottom: 30 }}
           ListFooterComponent={
             <Text
               style={{
@@ -39,16 +40,16 @@ export default () => {
                 color: colors.muted,
                 ...styles.noMore,
               }}>
-              没有更多了
+              {CLangKey.noAnyMore.tr()}
             </Text>
           }
-          renderItem={({item}: FlatListType) => (
+          renderItem={({ item }: FlatListType) => (
             <FavoritePlaylist playlist={item} navigator={navigation} />
           )}
         />
       )}
       {favorites && favorites.length === 0 && (
-        <EmptyList description="暂无播单收藏" />
+        <EmptyList description={CLangKey.noXFavouriteTr({ x: CLangKey.playlist.tr() })} />
       )}
     </>
   );

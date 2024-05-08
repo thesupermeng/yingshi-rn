@@ -47,7 +47,6 @@ import {
   showLoginAction,
 } from "@redux/actions/screenAction";
 import { ProductApi, UserApi } from "@api";
-import WebView from "react-native-webview";
 import { YSConfig } from "../../../ysConfig";
 import { VipCard } from "../../components/vip/vipCard";
 import {
@@ -71,7 +70,7 @@ import { screenModel } from "@type/screenType";
 import SplashCard from "../../components/common/splashCard";
 import Carousel from "react-native-reanimated-carousel";
 import CarouselPagination from "../../components/container/CarouselPagination";
-import { User } from "@models/user";
+import { User } from "@models";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import { CRouter } from "../../routes/router";
 
@@ -516,7 +515,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
       if (result.paymentData.url) {
         openLink(result.paymentData.url, result.transaction_id);
       } else if (result.paymentData.html) {
-        CRouter.toName('Webview', {
+        CRouter.toName('PaymentWebview', {
           params: {
             source: result.paymentData.html,
             isPayment: true,
@@ -1070,7 +1069,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       navigation.goBack();
                     }}
                   >
-                    <CloseButton />
+                    <CloseButton color="white" />
                   </TouchableOpacity>
 
                   <Video

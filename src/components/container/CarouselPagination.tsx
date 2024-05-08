@@ -1,9 +1,10 @@
 import { useTheme } from '@react-navigation/native';
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { Carousel } from '@models';
 
 interface Props {
-  data?: any;
+  data?: Carousel[];
   activeIndex?: any;
   dashStyle: boolean;
   onDotPress?: (index: number) => void;
@@ -70,7 +71,7 @@ const CarouselPagination = ({ data, dashStyle = false, activeIndex, onDotPress, 
 
   return (
     <View style={styles.paginationContainer}>
-      {data.map(currentItem)}
+      {data?.map(currentItem)}
     </View>
   );
 };

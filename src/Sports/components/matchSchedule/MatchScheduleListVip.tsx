@@ -25,7 +25,7 @@ import { useAppSelector, useSelector } from "@hooks/hooks";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
 import { AdsApi } from "../../../api/ads";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 import { screenModel } from "@type/screenType";
 
 interface Props {

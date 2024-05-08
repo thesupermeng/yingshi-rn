@@ -1,18 +1,18 @@
 import { FFmpegSession } from "ffmpeg-kit-react-native"
 import { DownloadVideoActionPayload, DownloadVideoQueueItem } from "./actionTypes"
-import { VodType } from "./ajaxTypes"
+import { Vod } from "@models"
 
-export enum DownloadStatus { 
-  DOWNLOADING, 
-  PAUSED, 
-  CANCELLED, 
+export enum DownloadStatus {
+  DOWNLOADING,
+  PAUSED,
+  CANCELLED,
   ERROR,
   COMPLETED
 }
 
 export interface EpisodeDownloadType {
   progress: {
-    percentage: number, 
+    percentage: number,
     bytes: number
   }
   status: DownloadStatus
@@ -24,8 +24,8 @@ export interface EpisodeDownloadType {
 }
 
 export interface VodDownloadType {
-  vod: VodType
-  imagePath: string 
+  vod: Vod
+  imagePath: string
   episodes: EpisodeDownloadType[]
   vodIsAdult: boolean
 }

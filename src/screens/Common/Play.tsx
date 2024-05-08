@@ -34,9 +34,6 @@ import { YSConfig } from "../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
 import {
-  AdultVodListType,
-  SuggestedVodType,
-  VodSourceType,
   BannerAdType,
 } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
@@ -103,7 +100,7 @@ import { VodDescription } from "../../components/videoPlayer/Play/vodDescription
 
 import { BannerContainer } from "../../components/container/bannerContainer";
 import { CApi } from "@utility/apiService";
-import { CEndpoint } from "@constants";
+import { CEndpoint, CLangKey } from "@constants";
 import BecomeVipOverlay from "../../components/modal/becomeVipOverlay";
 import { AdsApi } from "../../api/ads";
 import SimpleToast from "react-native-simple-toast";
@@ -117,7 +114,7 @@ import {
 } from "@type/vodDownloadTypes";
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User, Vod, VodSource } from "@models";
 import { CRouter } from "../../routes/router";
 import VipGuideModal from "../../components/modal/vipGuide";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
@@ -333,7 +330,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [currentQuality, setCurrentQuality] = useState(
     vod?.sourceWatched === undefined ? 0 : vod.sourceWatched
   );
-  const [vodSources, setVodSources] = useState<VodSourceType[]>([]);
+  const [vodSources, setVodSources] = useState<VodSource[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
   const [shouldResumeAfterLoad, setShouldResumeAfterLoad] = useState(false);
@@ -739,7 +736,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
     }).then((data) => {
-      return data.List as SuggestedVodType[];
+      return data.List as Vod[];
     })
   };
 
@@ -772,7 +769,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       limit: 6,
       rand: 1,
       xMode: true,
-    }).then((data) => data.List as AdultVodListType[]);
+    }).then((data) => data.List);
 
   const {
     data: suggestedSVods,
@@ -1348,7 +1345,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       //             paddingBottom: 3,
                       //           }}
                       //         >
-                      //           已收藏
+                      //           {CLangKey.doneFavourite.tr()}
                       //         </Text>
                       //       ) : (
                       //         <Text
@@ -1358,7 +1355,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       //             paddingBottom: 3,
                       //           }}
                       //         >
-                      //           收藏
+                      //           {CLangKey.favourite.tr()}
                       //         </Text>
                       //       )}
                       //     </View>
@@ -1389,10 +1386,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 .slice(0, 10)
                                 .replace(/\//g, "-");
 
-                          return `更新：${dateValue}`;
+                          return `${CLangKey.update.tr()}：${dateValue}`;
                         } catch (error) {
                           console.error("Error while formatting date:", error);
-                          return "更新：N/A"; // or any default value you want to display on error
+                          return `${CLangKey.update.tr()}：N/A`; // or any default value you want to display on error
                         }
                       })()}
                     </Text>
@@ -1406,7 +1403,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               color: colors.muted,
                             }}
                           >
-                            分享：
+                            {CLangKey.share.tr()}：
                           </Text>
                           <WeChatIcon />
                           <PYQIcon />
@@ -1420,8 +1417,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                 {/* <View>
                   {!adultMode &&
                     <Text style={styles.descriptionContainer2Text}>
-                      {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
-                        `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
+                      {`${CLangKey.director.tr()}：${definedValue(vod?.vod_director)}${"\n"}` +
+                        `${CLangKey.actor.tr()}：${definedValue(vod?.vod_actor)}${"\n"}`}
                     </Text>
                   }
                   <TouchableOpacity
@@ -1502,7 +1499,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               paddingBottom: 3,
                             }}
                           >
-                            已收藏
+                            {CLangKey.doneFavourite.tr()}
                           </Text>
                         ) : (
                           <Text
@@ -1512,7 +1509,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                               paddingBottom: 3,
                             }}
                           >
-                            收藏
+                            {CLangKey.favourite.tr()}
                           </Text>
                         )}
                       </View>
@@ -1548,7 +1545,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             paddingBottom: 3,
                           }}
                         >
-                          详情
+                          {CLangKey.details.tr()}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -1584,7 +1581,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             paddingBottom: 3,
                           }}
                         >
-                          下载
+                          {CLangKey.download.tr()}
                         </Text>
                         {!isVip && (
                           <View style={{ width: 12, height: "100%" }}>
@@ -1629,7 +1626,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           <View
                             style={{ ...styles.spaceApart, gap: spacing.l }}
                           >
-                            <Text style={textVariants.body}>播放源</Text>
+                            <Text style={textVariants.body}>{CLangKey.playSource.tr()}</Text>
                           </View>
                           <FlatList
                             horizontal={true}
@@ -1654,7 +1651,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           <View
                             style={{ ...styles.spaceApart, gap: spacing.l }}
                           >
-                            <Text style={textVariants.body}>选集播放</Text>
+                            <Text style={textVariants.body}>{CLangKey.anthology.tr()}</Text>
                             <TouchableOpacity
                               style={styles.share}
                               onPress={() => {
@@ -1668,7 +1665,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 }}
                               >
                                 {`${foundSource
-                                  ? `1-${foundSource.url_count || 0}集`
+                                  ? `1-${foundSource.url_count || 0} ${CLangKey.episodes.tr()}`
                                   : "No episodes available"
                                   }`}
                                 {/* {`${showEpisodeRangeStart + 1
@@ -1719,7 +1716,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                 <ShowMoreVodButton
                                   isPlayScreen={true}
                                   // text={`相关${vod?.vod_class ?? '影片'}`}
-                                  text={"相关推荐"}
+                                  text={CLangKey.relatedX.tr({ x: CLangKey.suggestion.tr() })}
                                   onPress={() => {
                                     //  videoPlayerRef.current?.setPause(true);
                                     setTimeout(() => {
@@ -1757,7 +1754,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             <View style={{ gap: spacing.l, marginBottom: 60 }}>
                               <ShowMoreVodButton
                                 isPlayScreen={true}
-                                text={`相关${vod?.type_name ?? "相关推荐"}`}
+                                text={CLangKey.relatedX.tr({ x: vod?.type_name ?? CLangKey.suggestion.tr() })}
                                 onPress={() => {
                                   //  videoPlayerRef.current?.setPause(true);
                                   setTimeout(() => {
@@ -1871,7 +1868,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       paddingBottom: 3,
                     }}
                   >
-                    下载
+                    {CLangKey.download.tr()}
                   </Text>
                   {!isVip && (
                     <View style={{ width: 12, height: "100%" }}>

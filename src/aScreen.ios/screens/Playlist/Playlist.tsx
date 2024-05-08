@@ -5,7 +5,6 @@ import ScreenContainer from '../../components/container/screenContainer';
 import MainHeader from '../../components/header/homeHeader';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { VodPlayListType, VodTopicType } from '@type/ajaxTypes';
 import VodPlaylist from '../../components/playlist/vodPlaylist';
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/constants';
@@ -20,11 +19,7 @@ import { RootState } from '@redux/store';
 import { useAppSelector } from '@hooks/hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { PlaylistApi } from '@api';
-
-type FlatListType = {
-  item: VodTopicType;
-  index: number;
-};
+import { PaggingObject, PlayList } from '@models';
 
 function Playlist({ navigation }: BottomTabScreenProps<any>) {
   // const BTN_COLORS = ['#FFCC12', '#F1377A', '#ED7445', '#7E9CEE', '#30AA55',];
@@ -89,9 +84,10 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
 
   const fetchPlaylist = useCallback((page: number) =>
     PlaylistApi.getTopicIosTmp()
-      .then((json: VodPlayListType) => {
-        setTotalPage(Number(json.TotalPageCount));
-        return Object.values(json);
+      .then((json: PlayList[]) => {
+        // setTotalPage(Number(json.TotalPageCount));
+        setTotalPage(1);
+        return json;
       }), []);
 
   const {
@@ -133,7 +129,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
     },
   );
 
-  const renderItem = ({ item }: FlatListType) => (
+  const renderItem = ({ item }: { item: PlayList }) => (
     <VodPlaylist playlist={item} titleStyle={{ color: colors.text }} />
   );
 

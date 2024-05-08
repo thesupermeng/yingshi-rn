@@ -32,7 +32,7 @@ import DescriptionBar from './DescriptionBar';
 import HejiButton from './HejiButton';
 import { addIdToCache } from '../../../utils/minivodDownloader';
 import { UserStateType } from '@redux/reducers/userReducer';
-import { User } from '@models/user';
+import { User } from '@models';
 
 interface Props {
   thumbnail?: string;

@@ -230,7 +230,7 @@ export default class UmengAnalytics {
     static showLog: boolean = false;
     static disabled: boolean = false;
     static disabledUmeng: boolean = true;
-    static disabledFirebase: boolean = false;
+    static disabledFirebase: boolean = true;
     static disabledCustom: boolean = false;
 
     static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {

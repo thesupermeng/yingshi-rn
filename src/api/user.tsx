@@ -3,10 +3,9 @@ import DeviceInfo from "react-native-device-info";
 import { CEndpoint, CLangKey } from "@constants";
 // import { User } from "@modals";
 import { CApi } from "@utility/apiService";
-import { YING_SHI_PRODUCT_ANDROID, YING_SHI_PRODUCT_IOS } from "@utility/constants";
-import { CountryPhoneCodeType } from "@type/ajaxTypes";
+import { AMJ_PRODUCT_ANDROID, AMJ_PRODUCT_IOS } from "@utility/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User } from "@models/user";
+import { User, Country } from "@models";
 
 
 export class UserApi {
@@ -50,7 +49,7 @@ export class UserApi {
         loginType: 'EMAIL' | 'SMS',
         email?: string,
         phone?: string,
-        countryId?: number,
+        countryId?: string,
         referralCode?: string,
         otp?: string,
         isGoogleLogin?: boolean,
@@ -64,9 +63,9 @@ export class UserApi {
             }
 
             if (Platform.OS === "android") {
-                platform_id = YING_SHI_PRODUCT_ANDROID;
+                platform_id = AMJ_PRODUCT_ANDROID;
             } else {
-                platform_id = YING_SHI_PRODUCT_IOS;
+                platform_id = AMJ_PRODUCT_IOS;
             }
 
             const result = await CApi.post(CEndpoint.userPostSigninup, {
@@ -111,15 +110,15 @@ export class UserApi {
             }
 
             if (result.data === undefined) {
-                throw CLangKey.apiEmptyResponse;
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             if (result.data instanceof Object === false) {
-                throw CLangKey.apiErrorDataType;
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             if (!(result.data as Object).hasOwnProperty('user')) {
-                throw CLangKey.apiEmptyResponse;
+                throw CLangKey.apiEmptyResponse.tr();
             }
 
             return result.data;
@@ -174,7 +173,11 @@ export class UserApi {
                 throw result.message;
             }
 
-            return result.data as CountryPhoneCodeType[];
+            if (result.data === undefined || result.data === null) {
+                throw CLangKey.apiEmptyResponse.tr();
+            }
+
+            return Country.fromJsonList(result.data);
 
         } catch (e: any) {
             console.error(`[Error getCountries}]: ${e.toString()}`);

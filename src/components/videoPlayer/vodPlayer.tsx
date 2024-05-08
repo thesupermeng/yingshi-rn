@@ -36,8 +36,6 @@ import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@
 
 import {
   LiveTVStationItem,
-  VodEpisodeListType,
-  VodType,
 } from "@type/ajaxTypes";
 import VideoWithControls from "./videoWithControls";
 import { useDispatch } from "react-redux";
@@ -53,7 +51,7 @@ import InAppBrowser from "react-native-inappbrowser-reborn";
 import ImmersiveMode from "react-native-immersive-mode"
 import { RootState } from "@redux/store";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User, Vod } from "@models";
 
 LogBox.ignoreLogs([`Trying to load empty source.`]);
 
@@ -68,12 +66,12 @@ interface Props {
   onBack?: () => any;
   useWebview?: boolean;
   onEpisodeChange?: any;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   activeEpisode?: number;
   rangeSize?: number;
   autoPlayNext?: boolean;
   onShare?: () => any;
-  movieList?: VodType[];
+  movieList?: Vod[];
   showGuide?: boolean;
   showMoreType?: "episodes" | "streams" | "movies" | "none";
   streams?: LiveTVStationItem[];
@@ -739,15 +737,9 @@ export default forwardRef<VideoRef, Props>(
         }
 
         {!isFetchAds && !showAd &&
-          <View style={{ ...styles.bofangBox }}>
+          <View style={isFullScreen ? styles.bofangBoxFullscreen : styles.bofangBox}>
             {!(vod_url !== undefined || vod_source !== undefined) ? (
-              <View
-                style={{
-                  width: "100%",
-                  aspectRatio: 16 / 9,
-                  backgroundColor: "black",
-                }}
-              />
+              <View style={styles.video} />
             ) : useWebview ? (
               <WebView
                 resizeMode="contain"
@@ -880,12 +872,22 @@ const styles = StyleSheet.create({
   video: {
     width: "100%",
     aspectRatio: 16 / 9,
+    backgroundColor: 'black',
   },
   bofangBox: {
     aspectRatio: 16 / 9,
     maxHeight: "100%",
     width: "100%",
     maxWidth: "100%",
+  },
+  bofangBoxFullscreen: {
+    maxHeight: "100%",
+    width: "100%",
+    height: '100%',
+    maxWidth: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
   },
   buffering: {
     display: "flex",

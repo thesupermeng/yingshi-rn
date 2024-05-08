@@ -3,9 +3,9 @@ import {
     TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY, SELECT_MINI_VOD_COLLECTION_ITEM
 } from "@utility/constants"
 import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "@type/actionTypes"
-import { VodTopicType, VodType } from "@type/ajaxTypes"
+import { PlayList, Vod } from "@models"
 
-export interface VodRecordType extends VodType {
+export interface VodRecordType extends Vod {
     timeWatched: number,
     recordedAt: Date,
     episodeWatched: number,
@@ -49,9 +49,9 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 ...state,
                 playVod: {
                     vod: {
-                        ...play, 
-                        episodeWatched: action.episodeWatched ?? play.episodeWatched, 
-                        vodSourceId: action.vodSourceId ?? play.vodSourceId, 
+                        ...play,
+                        episodeWatched: action.episodeWatched ?? play.episodeWatched,
+                        vodSourceId: action.vodSourceId ?? play.vodSourceId,
                         timeWatched: action.timeWatched ?? play.timeWatched
                     }
                 }
@@ -64,7 +64,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
             };
         case ADD_VOD_TO_HISTORY: {
             firstPayloadItemWithTimestamp.isAdultVideo = action.isAdultVideo === undefined ? false : action.isAdultVideo;
- 
+
             const hst = state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             hst.unshift(firstPayloadItemWithTimestamp);
             return {
@@ -84,7 +84,7 @@ export function vodReducer(state = initialState, action: VodActionType) {
 
 type FavouriteVodType = {
     playMode?: 'adult' | 'normal'
-} & VodType
+} & Vod
 
 export interface FavoriteVodReducerState {
     favorites: Array<FavouriteVodType>,
@@ -111,11 +111,11 @@ export function vodFavouritesReducer(state = initialFavoriteState, action: Favor
     }
 }
 
-
+// ============================== playlist ==============================
 export interface VodPlaylistReducerState {
-    playlistFavorites: Array<VodTopicType>,
+    playlistFavorites: Array<PlayList>,
     playlistDetails: {
-        playlist: VodTopicType | null,
+        playlist: PlayList | null,
         isFavorite: boolean
     }
 }

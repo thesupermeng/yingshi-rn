@@ -16,7 +16,6 @@ import SearchIcon from "@static/images/search.svg";
 import ClearIcon from "@static/images/cross.svg";
 import { useQuery } from "@tanstack/react-query";
 
-import { SuggestedVodType } from "@type/ajaxTypes";
 import { RootStackScreenProps } from "@type/navigationTypes";
 import { API_DOMAIN } from "@utility/constants";
 import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
@@ -39,6 +38,8 @@ import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import { VodApi } from "@api";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { Vod } from "@models";
+import { CLangKey } from "@constants";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [search, setSearch] = useState("");
@@ -49,7 +50,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
-  const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>(
+  const [searchResults, setSearchResults] = useState<Vod[]>(
     []
   );
   const [showResults, setShowResults] = useState(false);
@@ -116,7 +117,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
         setHasMore(false); // No more items available
       } else {
         // Append the new results to the existing ones
-        setSearchResults([...searchResults, ...json.data.List]);
+        setSearchResults([...searchResults, ...data]);
         setPage(nextPage);
         // ========== for analytics - start ==========
         if (userSearch) UmengAnalytics.searchResultViewsAnalytics();
@@ -136,7 +137,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   };
 
   useEffect(() => {
-    if (route.params.initial !== "") {
+    if (route.params.initial !== "" && route.params.initial !== undefined) {
       fetchData(route.params.initial);
     }
   }, []);
@@ -271,12 +272,12 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
             {search !== undefined &&
               search !== null &&
               search.length === 0 &&
-              recommendations ? (
+              (recommendations?.length ?? 0) > 0 ? (
               <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
                   <View style={{ gap: spacing.m }}>
                     <View style={styles.rowApart}>
-                      <Text style={{ ...textVariants.header }}>历史搜索</Text>
+                      <Text style={{ ...textVariants.header }}>{CLangKey.searchHistory.tr()}</Text>
                       <TouchableOpacity
                         style={styles.rowApart}
                         onPress={() => {
@@ -290,7 +291,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
                             color: colors.muted,
                           }}
                         >
-                          清除
+                          {CLangKey.clear.tr()}
                         </Text>
                         <ClearHistoryIcon
                           height={textVariants.small.fontSize}
@@ -351,7 +352,7 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
         </ScrollView>
       )}
       {showResults && searchResults.length === 0 && !isFetching && (
-        <EmptyList description={`抱歉没有找到“${search}”的相关视频`} />
+        <EmptyList description={CLangKey.noRelatedVideoFoundForX.tr({ x: search })} />
       )}
 
       {showResults && searchResults.length === 0 && isFetching && (
@@ -373,8 +374,8 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           setIsDialogOpen(false);
         }}
         isVisible={isDialogOpen}
-        title="清除提示"
-        subtitle="您是否确定清除搜索记录吗？"
+        title={CLangKey.clearXInform.tr({ x: CLangKey.searchRecord.tr() })}
+        subtitle={CLangKey.confirmToClearX.tr({ x: CLangKey.searchRecord.tr() })}
       />
     </ScreenContainer>
   );

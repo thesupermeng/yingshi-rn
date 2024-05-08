@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks"
 import { showAdultModeVip } from "@redux/actions/screenAction"
 import { useNavigation, useTheme } from "@react-navigation/native"
 import { UserStateType } from "@redux/reducers/userReducer"
-import { User } from "@models/user"
+import { User } from "@models"
 
 
 const VipRegisterBar = ({

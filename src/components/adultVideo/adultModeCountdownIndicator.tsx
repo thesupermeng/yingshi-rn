@@ -7,7 +7,7 @@ import { incrementAdultVideoWatchTime, showAdultModeVip } from "@redux/actions/s
 import { memo, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 interface Props {
   containerStyle: ViewStyle;

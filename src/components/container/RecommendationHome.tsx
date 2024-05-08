@@ -22,9 +22,6 @@ import {
 import Swiper from "react-native-swiper";
 import ShowMoreVodButton from "../button/showMoreVodButton";
 import {
-  VodTopicType,
-  VodPlayListType,
-  VodCarousellType,
   BannerAdType,
 } from "@type/ajaxTypes";
 // import FastImage from "react-native-fast-image";
@@ -55,7 +52,7 @@ import { AdsApi } from "../../api/ads";
 import DeviceInfo from "react-native-device-info";
 import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { HomePageType, PaggingObject, PlayList, User } from "@models";
 import VipGuideModal2 from "../modal/vipGuide2";
 import VipGuideModal from "../modal/vipGuide";
 import { screenModel } from "@type/screenType";
@@ -69,16 +66,14 @@ import { Url } from "../../Sports/middleware/url";
 import Api from "../../Sports/middleware/api";
 import { MatchDetailsType } from "../../Sports/types/matchTypes";
 import VodSportsList from "../vod/vodSportsList";
-import messaging from "@react-native-firebase/messaging";
-import firebase from "@react-native-firebase/app";
-import { FirebaseNotification } from "@utility/firebaseNotification";
+import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 
 interface NavType {
   id: number;
   name: string;
 }
 interface Props {
-  vodCarouselRes: VodCarousellType;
+  vodCarouselRes: HomePageType;
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
@@ -97,7 +92,7 @@ const RecommendationHome = ({
   tabName,
   onRefresh,
   refreshProp = false,
-  onLoad = () => {},
+  onLoad = () => { },
   isTabFocus = false,
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
@@ -109,7 +104,7 @@ const RecommendationHome = ({
   const navigation = useNavigation();
   const [totalPage, setTotalPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [results, setResults] = useState<Array<VodTopicType>>([]);
+  const [results, setResults] = useState<Array<PlayList>>([]);
   const [bannerAd, setBannerAd] = useState<BannerAdType>();
   const [bannerAdList, setBannerAdList] = useState<Array<BannerAdType>>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -134,6 +129,10 @@ const RecommendationHome = ({
     ({ screenReducer }) => screenReducer
   );
 
+  // const settingState: SettingsReducerState = useAppSelector(
+  //   ({ settingsReducer }: RootState) => settingsReducer
+  // );
+
   useEffect(() => {
     if (screenState.isHomeGuideShown != true && !isVip) {
       //     setTimeout(() => {
@@ -141,7 +140,7 @@ const RecommendationHome = ({
       // }, 0);
     }
     //  setVipGuideModal(true);
-  }, []);
+  }, [screenState]);
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
@@ -156,17 +155,7 @@ const RecommendationHome = ({
   useEffect(() => {
     handleTabletFold();
     fetchMatchData();
-   // initFirebase();
   }, []);
-
-  const initFirebase = async () => {
-    try {
-      await FirebaseNotification.checkPermissionAndGetoken();
-      FirebaseNotification.subscibeToTopic("insidertest");
-    } catch (err) {
-      console.log("Firebase init failed", err);
-    }
-  };
 
   const [deviceName, setDeviceName] = useState("");
 
@@ -223,7 +212,7 @@ const RecommendationHome = ({
   }, []);
 
   const fetchPlaylist = (page: number) =>
-    PlaylistApi.getTopic(page).then((results: VodPlayListType) => {
+    PlaylistApi.getTopic(page).then((results: PaggingObject<PlayList>) => {
       setTotalPage(Number(results.TotalPageCount));
       return Object.values(results.List);
     });
@@ -361,7 +350,7 @@ const RecommendationHome = ({
             if (item.is_ads == true) {
               const url =
                 item.ads_url.includes("https://") ||
-                item.ads_url.includes("http://")
+                  item.ads_url.includes("http://")
                   ? item.ads_url
                   : "https://" + item.ads_url;
               Linking.openURL(url);
@@ -415,7 +404,7 @@ const RecommendationHome = ({
   );
 
   const renderContent = useCallback(
-    ({ item, index }: { item: VodTopicType; index: number }) => (
+    ({ item, index }: { item: PlayList; index: number }) => (
       <View
         style={{
           paddingLeft: spacing.sideOffset,
@@ -674,40 +663,41 @@ const RecommendationHome = ({
                     {renderBanner(bannerAdList)}
                   </View>
                 )}
-
-                <View style={{ gap: spacing.m }}>
-                  <View
-                    style={{
-                      paddingLeft: spacing.sideOffset,
-                      paddingRight: spacing.sideOffset,
-                    }}
-                  >
-                    {sportList && sportList.length > 0 && (
-                      <ShowMoreVodButton
-                        text="体育推荐"
-                        onPress={() => {
-                          dispatch(setAutoSelectSport(true));
-                          navigation.navigate("Home", { screen: "会员中心" });
-                        }}
-                      />
-                    )}
-                  </View>
-
-                  {sportList && sportList.length > 0 && (
+                {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+                  <View style={{ gap: spacing.m }}>
                     <View
                       style={{
                         paddingLeft: spacing.sideOffset,
-                        paddingBottom: 5,
+                        paddingRight: spacing.sideOffset,
                       }}
                     >
-                      <VodSportsList
-                        sportList={sportList}
-                        isRefreshing={isRefreshing}
-                      />
+                      {sportList && sportList.length > 0 && (
+                        <ShowMoreVodButton
+                          text="体育推荐"
+                          onPress={() => {
+                            dispatch(setAutoSelectSport(true));
+                            navigation.navigate("Home", { screen: "会员中心" });
+                          }}
+                        />
+                      )}
                     </View>
-                  )}
-                </View>
-                {UMENG_CHANNEL != "SKY001 " &&  APP_NAME_CONST != '番茄影视TV' && (
+
+                    {sportList && sportList.length > 0 && (
+                      <View
+                        style={{
+                          paddingLeft: spacing.sideOffset,
+                          paddingBottom: 5,
+                        }}
+                      >
+                        <VodSportsList
+                          sportList={sportList}
+                          isRefreshing={isRefreshing}
+                        />
+                      </View>
+                    )}
+                  </View>
+                }
+                {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != '爱美剧' && (
                   <View style={{ gap: spacing.m }}>
                     <View
                       style={{
@@ -716,7 +706,7 @@ const RecommendationHome = ({
                       }}
                     >
                       {data?.live_station_list &&
-                      data?.live_station_list.length > 0 ? (
+                        data?.live_station_list.length > 0 ? (
                         <ShowMoreVodButton
                           text="电视台推荐"
                           onPress={() => {
@@ -732,7 +722,7 @@ const RecommendationHome = ({
                       )}
                     </View>
                     {data?.live_station_list &&
-                    data?.live_station_list.length > 0 ? (
+                      data?.live_station_list.length > 0 ? (
                       <View style={{ paddingLeft: spacing.sideOffset }}>
                         <VodLiveStationList
                           vodStyle={styles.vod_live_station}

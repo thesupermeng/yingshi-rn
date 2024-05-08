@@ -7,7 +7,7 @@ import { View } from "react-native";
 import { screenModel } from "@type/screenType";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { UMENG_CHANNEL } from "@utility/constants";
-import { User } from "@models/user";
+import { User } from "@models";
 import { UserStateType } from "@redux/reducers/userReducer";
 
 const sportModels = require('@static/images/vip_sport_models.png');

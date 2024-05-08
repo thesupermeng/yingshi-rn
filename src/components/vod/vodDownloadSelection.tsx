@@ -3,14 +3,14 @@ import {
   View,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { VodEpisodeListType } from "@type/ajaxTypes";
 import SelectDownloadComponent from "../download/selectDownloadComponent";
+import { VodEpisodeGroup } from "@models";
 
 interface Props {
   vodId?: number;
   isVip: boolean;
   source?: number;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   rangeSize?: number;
   activeEpisode?: number;
   onDownload: (nid: number) => void;

@@ -14,9 +14,6 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '@type/navigationTypes';
-import {
-  SuggestedVodType,
-} from '@type/ajaxTypes';
 import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import {
@@ -44,6 +41,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
 import { VodApi } from '@api';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
+import { Vod } from '@models';
 
 interface NavType {
   id: number;
@@ -175,7 +173,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   // this variable to handle scrollY value +- 50 status is cause by collapse
   const isCollapseEffect = useSharedValue(false);
 
-  const [results, setResults] = useState<Array<SuggestedVodType>>([]);
+  const [results, setResults] = useState<Vod[]>([]);
 
   const contentStyle = useAnimatedStyle(() => {
     return {
@@ -208,7 +206,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           by: orderBy.value,
           year: year.value !== '全部时间' ? year.value : undefined,
           orderBy: 'desc',
-        }).then((data) => data.List as SuggestedVodType[])
+        }).then((data) => data.List as Vod[])
       } else {
         return VodApi.getList({
           page,
@@ -220,7 +218,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           lang: lang.value !== '全部语言' ? lang.value : undefined,
           year: year.value !== '全部时间' ? year.value : undefined,
           orderBy: 'desc',
-        }).then((data) => data.List as SuggestedVodType[])
+        }).then((data) => data.List as Vod[])
       }
     },
     [area, year, lang, topicClass, currentTopicId, orderBy],
@@ -404,7 +402,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   );
 
   const renderVods = useCallback(
-    ({ item, index }: { item: SuggestedVodType; index: number }) => {
+    ({ item, index }: { item: Vod; index: number }) => {
       return (
         <View
           style={{
@@ -563,7 +561,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           <Animated.FlatList
             data={results}
             onScroll={scrollHandler}
-            keyExtractor={(item: SuggestedVodType, index: number) => {
+            keyExtractor={(item: Vod, index: number) => {
               return `#-${item?.vod_id}-${index}`;
             }}
             onEndReached={() => {

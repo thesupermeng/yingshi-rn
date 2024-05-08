@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { CPopup } from "@utility/popup";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 
 export const AllCommentScreen = ({ navigation, route }: RootStackScreenProps<"全部评论">) => {
   const { vod_id, vod_name, commentItems } = route.params;

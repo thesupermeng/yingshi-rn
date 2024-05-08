@@ -1,7 +1,6 @@
 import React, {
   useState,
   useEffect,
-  useRef,
   useCallback,
   useContext,
 } from "react";
@@ -39,13 +38,9 @@ import ConfigureScreen from "../screens/Profile/Configure";
 import OtpScreen from "../screens/Auth/Otp";
 import SetUsername from "../screens/Auth/setUsername";
 import HomeTabIcon from "@static/images/home_tab.svg";
-import HomeActiveTabIcon from "@static/images/home_tab_active.svg";
 import PlaylistTabIcon from "@static/images/playlist_tab.svg";
-import PlaylistActiveTabIcon from "@static/images/playlist_tab_active.svg";
 import ProfileTabIcon from "@static/images/profile_tab.svg";
-import ProfileActiveTabIcon from "@static/images/profile_tab_active.svg";
 import WatchAnytimeTabIcon from "@static/images/video_tab.svg";
-import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
@@ -136,8 +131,10 @@ import { VipPromotionOverlay } from "../components/modal/vipPromotionOverlay";
 import { GuestPurchaseSuccessOverlay } from "../components/modal/guestPurchaseSuccessOverlay";
 import { BackgroundType } from "@redux/reducers/backgroundReducer";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
-import { CWebview } from "../screens/Common/Webview";
+import { User } from "@models";
+import { PaymentWebview } from "../screens/Common/PaymentWebview";
+import { CLangKey } from "@constants";
+import { Webview } from "../screens/Common/Webview";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -188,87 +185,76 @@ export default () => {
             let icon: React.ReactNode;
 
             if (route.name === "首页") {
-              icon = focused ? (
-                <HomeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <HomeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <HomeTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "播单") {
-              icon = focused ? (
-                <PlaylistActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <PlaylistTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <PlaylistTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "我的") {
-              icon = focused ? (
-                <ProfileActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <ProfileTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <ProfileTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "随心看") {
-              icon = focused ? (
-                <WatchAnytimeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <WatchAnytimeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <WatchAnytimeTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "会员中心") {
-              icon = focused ? (
-                <VipActionIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <VipIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <VipIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             }
             return icon;
           },
+          tabBarLabel: ({ focused, color, children }) => {
+            let label = children;
+
+            if (label === '首页') {
+              label = CLangKey.homeTab.tr();
+            } else if (label === '随心看') {
+              label = CLangKey.watchanytimeTab.tr();
+            } else if (label === '会员中心') {
+              label = CLangKey.vipCenterTab.tr();
+            } else if (label === '播单') {
+              label = CLangKey.playlistTab.tr();
+            } else if (label === '我的') {
+              label = CLangKey.profileTab.tr();
+            }
+
+            return <Text style={{ fontSize: 11, color: color, paddingBottom: 5 }}>
+              {label}
+            </Text>
+          }
         })}
       >
-        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        ) : (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            {screenState.showAdultTab && <HomeTab.Screen name="会员中心" component={SportAndX} />}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        )}
+        <HomeTab.Screen name="首页" component={HomeScreen} />
+        <HomeTab.Screen name="随心看" component={WatchAnytime} />
+        {(YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5) &&
+          <HomeTab.Screen name="会员中心" component={SportAndX} />
+        }
+        <HomeTab.Screen name="播单" component={PlaylistScreen} />
+        <HomeTab.Screen name="我的" component={ProfileScreen} />
       </HomeTab.Navigator>
     );
   }, [screenState.showAdultTab]);
@@ -723,8 +709,13 @@ export default () => {
           />
           <Stack.Screen name="续费服务" component={AutoRenewService} />
           <Stack.Screen
+            name="PaymentWebview"
+            component={PaymentWebview}
+            options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen
             name="Webview"
-            component={CWebview}
+            component={Webview}
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>

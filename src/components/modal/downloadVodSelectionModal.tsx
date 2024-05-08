@@ -3,13 +3,13 @@ import {
   StyleSheet,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { VodEpisodeListType } from "@type/ajaxTypes";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import SelectDownloadComponent from "../download/selectDownloadComponent";
+import { VodEpisodeGroup } from "@models";
 
 interface Props {
   onDownload: (nid: number) => void;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   activeEpisode?: number;
   rangeSize?: number;
   isVisible: boolean;

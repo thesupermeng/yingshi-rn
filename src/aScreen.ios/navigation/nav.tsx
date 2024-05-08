@@ -111,7 +111,8 @@ import { ATInterstitialRNSDK } from "./../../../AnyThinkAds/ATReactNativeSDK";
 import { UserApi } from "@api";
 import { CRouteInitializer } from "../../routes/router";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
+import { CLangKey } from "@constants";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -150,86 +151,77 @@ export default () => {
             let icon: React.ReactNode;
 
             if (route.name === "首页") {
-              icon = focused ? (
-                <HomeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <HomeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <HomeTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "播单") {
-              icon = focused ? (
-                <PlaylistActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <PlaylistTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <PlaylistTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "我的") {
-              icon = focused ? (
-                <ProfileActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <ProfileTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <ProfileTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "随心看") {
-              icon = focused ? (
-                <WatchAnytimeActiveTabIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <WatchAnytimeTabIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <WatchAnytimeTabIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             } else if (route.name === "体育") {
-              icon = focused ? (
-                <SportsIcon
-                  width={iconWidth}
-                  color={theme.icons.activeNavIconColor}
-                />
-              ) : (
-                <SportsIcon
-                  width={iconWidth}
-                  color={theme.icons.inactiveNavIconColor}
-                />
-              );
+              icon = <SportsIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             }
             return icon;
           },
+          tabBarLabel: ({ focused, color, children }) => {
+            let label = children;
+
+            if (label === '首页') {
+              label = CLangKey.homeTab.tr();
+            } else if (label === '随心看') {
+              label = CLangKey.watchanytimeTab.tr();
+            } else if (label === '会员中心') {
+              label = CLangKey.vipCenterTab.tr();
+            } else if (label === '播单') {
+              label = CLangKey.playlistTab.tr();
+            } else if (label === '我的') {
+              label = CLangKey.profileTab.tr();
+            }
+
+            return <Text style={{ fontSize: 11, color: color, paddingBottom: 5 }}>
+              {label}
+            </Text>
+          }
         })}
       >
-        {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 ? (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        ) : (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        )}
+        <HomeTab.Screen name="首页" component={HomeScreen} />
+        {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
+        {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+              <HomeTab.Screen name="体育" component={MatchesScreen} />
+            } */}
+        <HomeTab.Screen name="播单" component={PlaylistScreen} />
+        <HomeTab.Screen name="我的" component={ProfileScreen} />
+
 
         {/* {userState.userToken !== '' &&
         userState.userMemberExpired >= userState.userCurrentTimestamp ? (

@@ -1,24 +1,24 @@
-import {memo, useState} from 'react';
+import { memo, useState } from 'react';
 import VodListVertical from '../../vod/vodListVertical';
 import ShowMoreVodButton from '../../button/showMoreVodButton';
-import {View} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import { SuggestedVodType } from '@type/ajaxTypes';
+import { View } from 'react-native';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { Vod } from '@models';
 
 interface Props {
   vod: any;
-  suggestions: SuggestedVodType[];
+  suggestions: Vod[];
   adultMode: boolean;
 }
 
-const RelatedVodSuggestion = ({vod, suggestions, adultMode}: Props) => {
-  const {spacing} = useTheme();
+const RelatedVodSuggestion = ({ vod, suggestions, adultMode }: Props) => {
+  const { spacing } = useTheme();
   const navigation = useNavigation();
 
   if (!(suggestions !== undefined && suggestions?.length > 0)) return <></>;
   else if (adultMode) {
     return (
-      <View style={{gap: spacing.l, marginBottom: 60}}>
+      <View style={{ gap: spacing.l, marginBottom: 60 }}>
         <ShowMoreVodButton
           isPlayScreen={true}
           // text={`相关${vod?.vod_class ?? '影片'}`}
@@ -46,7 +46,7 @@ const RelatedVodSuggestion = ({vod, suggestions, adultMode}: Props) => {
     );
   } else {
     return (
-      <View style={{gap: spacing.l, marginBottom: 60}}>
+      <View style={{ gap: spacing.l, marginBottom: 60 }}>
         <ShowMoreVodButton
           isPlayScreen={true}
           text={`相关${vod?.type_name ?? '相关推荐'}`}

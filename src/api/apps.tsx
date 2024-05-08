@@ -1,10 +1,11 @@
-import { CEndpoint, CLangKey } from "@constants";
+import { CEndpoint } from "@constants";
 import { CApi } from "@utility/apiService";
 import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
-import { CLang } from "@utility/langService";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { NavOptionsType, VodCarousellType, XVodData, VodType } from "@type/ajaxTypes";
+import { NavOptionsType, XVodData } from "@type/ajaxTypes";
+import { HomePageType } from "../models/others";
+import { Vod } from "@models";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {
@@ -113,6 +114,7 @@ export class AppsApi {
                     channelId: UMENG_CHANNEL,
                     appName: APP_NAME_CONST,
                     ads: !isVip,
+                    dj: true,
                 },
             });
 
@@ -120,7 +122,7 @@ export class AppsApi {
                 throw result.message;
             }
 
-            return result.data as VodCarousellType;
+            return HomePageType.fromJson(result.data);
 
         } catch (e: any) {
             console.error(`[Error getHomePages}]: ${e.toString()}`);
@@ -137,7 +139,8 @@ export class AppsApi {
                     channelId: UMENG_CHANNEL,
                     appName: APP_NAME_CONST,
                     page: page,
-                    limit: 6
+                    limit: 6,
+                    dj: true,
                 },
             });
             if (result.success === false) {
@@ -145,7 +148,7 @@ export class AppsApi {
             }
 
             result.data.categories.forEach((cat: XVodData) => {
-                cat.vod_list.forEach((vod: VodType) => {
+                cat.vod_list.forEach((vod: Vod) => {
                     vod.vod_source_name = cat.vod_source_name;
                 })
             })

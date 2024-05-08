@@ -6,12 +6,12 @@ import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import VodCard from '../../components/vod/vodCard';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { VodType } from '@type/ajaxTypes';
 import { disableAdultMode, enableAdultMode } from '@redux/actions/screenAction';
+import { Vod } from '@models';
 
 
 interface Props {
-    vods: Array<VodType>,
+    vods: Vod[],
     numOfRows?: number,
     outerRowPadding?: number,
     minNumPerRow?: number,
@@ -20,7 +20,7 @@ interface Props {
     playerMode?: 'normal' | 'adult'
 }
 
-function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress, playerMode='normal' }: Props) {
+function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress, playerMode = 'normal' }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -41,14 +41,14 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
         const PADDING = 8;
         const windowDim = width - insets.left - insets.right - outerRowPadding - (2.1 * spacing.sideOffset); // usable space
         const maxWidth = (windowDim / minNumPerRow) - PADDING;
-        let cardWidth = Math.min(160, Math.floor(maxWidth)) ;
+        let cardWidth = Math.min(160, Math.floor(maxWidth));
         const cardHeight = heightToWidthRatio * cardWidth;
         const CARDS_PER_ROW = Math.floor(windowDim / cardWidth);
         let BTN_MARGIN_RIGHT = (windowDim - (CARDS_PER_ROW * cardWidth)) / (CARDS_PER_ROW - 1);
         if (BTN_MARGIN_RIGHT > 16) {
             const excess = (BTN_MARGIN_RIGHT - 16) * (CARDS_PER_ROW - 1);
             BTN_MARGIN_RIGHT = 16;
-            cardWidth += Math.floor(excess / CARDS_PER_ROW)  
+            cardWidth += Math.floor(excess / CARDS_PER_ROW)
         }
 
         setCardsPerRow(CARDS_PER_ROW);
@@ -56,7 +56,7 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
         setCardWidth(cardWidth - 10);
         setCardHeight(cardHeight);
     }, []);
-    
+
     const vodMapItem = (vod: any, idx: any) => (
         <VodCard
             key={`${vod.vod_id}`}
@@ -72,7 +72,7 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
                 marginBottom: Math.min(marginRight, 14)
             }}
             onPress={() => {
-                if(onPress){
+                if (onPress) {
                     onPress();
                 }
                 dispatch(playVod(vod));
@@ -86,7 +86,7 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
             index={idx}
         />
     )
-    
+
     return (
         <View style={styles.vodList}>
             {

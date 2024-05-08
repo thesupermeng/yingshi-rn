@@ -35,7 +35,7 @@ import { UMENG_CHANNEL } from "@utility/constants";
 import { AdultVipPrivilegeOverlay } from "../modal/adultVipPrivilegeOverlay";
 import { VipPrivilegeFloatingIndicator } from "./vipPrivilegeFloatingIndicator";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 interface Props { }
 
 const eighteenPlusControls = ({ }: Props) => {

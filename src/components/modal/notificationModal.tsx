@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { IS_OTHER_SKIN } from '@utility/constants';
+import { CLangKey } from '@constants';
 
 interface Props {
   onConfirm: any;
@@ -27,7 +28,7 @@ export default function NotificationModal({
   subtitle1,
   subtitle2,
   subtitle3,
-  confirmationText = '确定',
+  confirmationText = CLangKey.confirm.tr(),
 }: Props) {
   const { colors, textVariants, spacing } = useTheme();
 

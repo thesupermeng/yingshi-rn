@@ -27,7 +27,7 @@ import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../../ysConfig";
 
 import { RootStackScreenProps } from "@type/navigationTypes";
-import { SuggestedVodType, CommentsType } from "@type/ajaxTypes";
+import { CommentsType } from "@type/ajaxTypes";
 import { addVodToHistory, playVod } from "@redux/actions/vodActions";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { RootState } from "@redux/store";
@@ -76,7 +76,8 @@ import { VodCommentBox } from "../../components/vodComment";
 import { CPopup } from "@utility/popup";
 import { VodApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User, Vod } from "@models";
+import { CLangKey } from "@constants";
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -394,7 +395,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       category: vod?.vod_class?.split(",").shift(),
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
-    }).then((data) => data.List as SuggestedVodType[]);
+    }).then((data) => data.List as Vod[]);
 
   useEffect(() => {
     currentEpisodeRef.current = vod?.episodeWatched;
@@ -822,7 +823,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                     paddingBottom: 3,
                                   }}
                                 >
-                                  已收藏
+                                  {CLangKey.doneFavourite.tr()}
                                 </Text>
                               ) : (
                                 <Text
@@ -832,7 +833,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                     paddingBottom: 3,
                                   }}
                                 >
-                                  收藏
+                                  {CLangKey.favourite.tr()}
                                 </Text>
                               )}
                             </View>
@@ -865,13 +866,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                                   .slice(0, 10)
                                   .replace(/\//g, "-");
 
-                            return `更新：${dateValue}`;
+                            return `${CLangKey.update.tr()}：${dateValue}`;
                           } catch (error) {
                             console.error(
                               "Error while formatting date:",
                               error
                             );
-                            return "更新：N/A"; // or any default value you want to display on error
+                            return `${CLangKey.update.tr()}：N/A`; // or any default value you want to display on error
                           }
                         })()}
                       </Text>
@@ -909,8 +910,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                   </View>
                   <View>
                     <Text style={styles.descriptionContainer2Text}>
-                      {`导演：${definedValue(vod?.vod_director)}${"\n"}` +
-                        `主演：${definedValue(vod?.vod_actor)}${"\n"}`}
+                      {`${CLangKey.director.tr()}：${definedValue(vod?.vod_director)}${"\n"}` +
+                        `${CLangKey.actor.tr()}：${definedValue(vod?.vod_actor)}${"\n"}`}
                     </Text>
                     <TouchableOpacity
                       onPress={() => {

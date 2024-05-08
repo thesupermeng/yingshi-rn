@@ -7,7 +7,7 @@ import BackButton from '../button/backButton';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { BaseButton, FlatList, Gesture, GestureDetector, RectButton, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import VodEpisodeSelection from '../vod/vodEpisodeSelection';
-import { LiveTVStationItem, VodEpisodeListType, VodType } from '@type/ajaxTypes';
+import { LiveTVStationItem } from '@type/ajaxTypes';
 import VodCombinedGesture from '../gestures/vod/vodCombinedGesture';
 import Animated, { SlideInRight, useAnimatedStyle, withTiming, useSharedValue, FadeInDown, runOnJS, FadeIn } from 'react-native-reanimated';
 import Orientation from 'react-native-orientation-locker';
@@ -18,6 +18,7 @@ import GesturesGuide from '../gestures/vod/GesturesGuide';
 import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
+import { Vod, VodEpisodeGroup } from '@models';
 
 type Props = {
   videoUrl: string;
@@ -35,8 +36,8 @@ type Props = {
   onPlaybackRateChange: (rate: number) => any;
   playbackRate: number;
   onEpisodeChange: any;
-  episodes?: VodEpisodeListType
-  movieList?: VodType[],
+  episodes?: VodEpisodeGroup
+  movieList?: Vod[],
   activeEpisode?: number,
   rangeSize?: number,
   onNextEpisode?: () => any,

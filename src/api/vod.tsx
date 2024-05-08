@@ -1,10 +1,10 @@
 import { CEndpoint, CLangKey } from "@constants";
-import { FilterOptionsType, SuggestVodListType, VodType, CommentsResponseDataType, AdultVodListType, VodPlayerAdType } from "@type/ajaxTypes";
+import { FilterOptionsType, CommentsResponseDataType, VodPlayerAdType } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
 import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { CLang } from "@utility/langService";
+import { PaggingObject, Vod } from "@models";
 
 export class VodApi {
     static getTopicType = async () => {
@@ -36,15 +36,15 @@ export class VodApi {
                     vod_source_name: vodSourceName
                 }
             });
-            
+
             if (result.success === false) {
                 throw result.message;
             }
 
             if (result.data === undefined || result.data === null || result.data.length <= 0) {
-                throw CLang.get(CLangKey.apiEmptyResponse);
+                throw CLangKey.apiEmptyResponse.tr();
             }
-            return result.data[0] as VodType;
+            return result.data[0] as Vod;
 
         } catch (e: any) {
             console.error(`[Error getDetail}]: ${e.toString()}`);
@@ -107,18 +107,18 @@ export class VodApi {
             if (rand) {
                 query['rand'] = rand;
             }
-            if(vod_source_name != "" && xMode == true){
+            if (vod_source_name != "" && xMode == true) {
                 query['vod_source_name'] = vod_source_name;
             }
             const result = await CApi.get(xMode ? CEndpoint.vodGetXList : CEndpoint.vodGetList, {
                 query,
             });
-            
+
             if (result.success === false) {
                 throw result.message;
             }
 
-            return xMode ? result.data as AdultVodListType : result.data as SuggestVodListType;
+            return PaggingObject.fromJson<Vod>(result.data, Vod.fromJsonList);
 
         } catch (e: any) {
             console.error(`[Error getList}]: ${e.toString()}`);
@@ -142,9 +142,7 @@ export class VodApi {
                 throw result.message;
             }
 
-            const data = result.data.vod_list as SuggestVodListType;
-
-            return result.data.vod_list
+            return Vod.fromJsonList(result.data.vod_list);
 
         } catch (e: any) {
             console.error(`[Error getListByRecommendations}]: ${e.toString()}`);
@@ -166,7 +164,7 @@ export class VodApi {
                 throw result.message;
             }
 
-            const data = result.data as SuggestVodListType;
+            const data = PaggingObject.fromJson<Vod>(result.data, Vod.fromJsonList);
 
             return data.List ?? [];
 

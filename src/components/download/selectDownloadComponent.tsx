@@ -11,7 +11,7 @@ import {
   Platform
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { VodEpisodeListType, VodEpisodeStatusType } from "@type/ajaxTypes";
+import { VodEpisodeStatusType } from "@type/ajaxTypes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import DownloadIcon from '@static/images/download.svg'
@@ -26,6 +26,8 @@ import { Provider, Toast } from "@ant-design/react-native";
 import { debounce, throttle } from "lodash";
 import { CPopup } from "@utility/popup";
 import { DOWNLOAD_FEATURE_MAX_QUEUE } from "@utility/constants";
+import { VodEpisodeGroup } from "@models";
+import { CLangKey } from "@constants";
 
 const throttledToast = debounce((msg: string) => {
   CPopup.showToast(msg)
@@ -37,7 +39,7 @@ interface Props {
   isVip: boolean;
   source?: number;
   screen: string;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   handleClose: any;
   rangeSize?: number;
   activeEpisode?: number;
@@ -74,7 +76,7 @@ function SelectDownloadComponent({
     ({ downloadVideoReducer }: RootState) => downloadVideoReducer
   );
   const [iosCustomToastIsVisible, setIosCustomToastIsVisible] = useState(false)
-  const [iosCustomToastText, setIosCustomToastText] = useState("已加入下载队列，请查看‘我的下载’")
+  const [iosCustomToastText, setIosCustomToastText] = useState(CLangKey.alreadyDownloadCheckMyDownload.tr())
 
   const debouncedSetIosCustomToastIsVisibleTrue = debounce(() => { setIosCustomToastIsVisible(true) }, 1000)
 
@@ -187,7 +189,7 @@ function SelectDownloadComponent({
             fontSize: index === currentIndex ? 18 : 15,
           }}
         >
-          {`${item}集`}
+          {`${item}${CLangKey.episodes.tr()}`}
         </Text>
       </TouchableOpacity>
     );
@@ -226,7 +228,7 @@ function SelectDownloadComponent({
               styles.title,
               textVariants.header
             ]}>
-            下载
+            {CLangKey.download.tr()}
           </Text>
         </View>
       )}
@@ -262,19 +264,19 @@ function SelectDownloadComponent({
                     setShowAdOverlay(true);
                   } else {
                     if (downloadVideoReducer.queue.length + downloadVideoReducer.currentDownloading.length >= DOWNLOAD_FEATURE_MAX_QUEUE) {
-                      setIosCustomToastText('最多同时下载10个视频，请稍后继续')
+                      setIosCustomToastText(CLangKey.maximumOnlyDownloadXVideo.tr({ x: DOWNLOAD_FEATURE_MAX_QUEUE }))
                       if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
-                      else CPopup.showToast('最多同时下载10个视频，请稍后继续')
+                      else CPopup.showToast(CLangKey.maximumOnlyDownloadXVideo.tr({ x: DOWNLOAD_FEATURE_MAX_QUEUE }))
                     } else {
-                      setIosCustomToastText('已加入下载队列，请查看‘我的下载’')
+                      setIosCustomToastText(CLangKey.alreadyDownloadCheckMyDownload.tr())
                       onDownload(ep.nid);
                       // Toast.info({
-                      //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>'已加入下载队列，请查看‘我的下载’'</Text>, 
+                      //   content: <Text style={{color: 'white', top:-100, backgroundColor: '#00000080', padding: 5}}>{CLangKey.alreadyDownloadCheckMyDownload.tr()}</Text>, 
                       //   duration: 1, 
                       //   mask: false
                       // })
                       if (screen === 'landscape' && Platform.OS === 'ios') debouncedSetIosCustomToastIsVisibleTrue() // if ios landscape, dont show toast 
-                      else throttledToast('已加入下载队列，请查看‘我的下载’')
+                      else throttledToast(CLangKey.alreadyDownloadCheckMyDownload.tr())
                     }
                   }
                 }}
@@ -380,7 +382,7 @@ function SelectDownloadComponent({
                   paddingBottom: 3,
                 }}
               >
-                我的下载
+                {CLangKey.myDownload.tr()}
               </Text>
             </TouchableOpacity>
           ) : (
@@ -405,7 +407,7 @@ function SelectDownloadComponent({
                   color: !isVip ? colors.selected : colors.muted,
                 }}
               >
-                下载功能仅对VIP会员开放
+                {CLangKey.downloadOnlyForVip.tr()}
               </Text>
             </TouchableOpacity>
           )}

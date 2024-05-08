@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { hideAdultVipPrivilegeMiniVideoAction, showAdultVipPrivilegeMiniVideoAction, showLoginAction } from "@redux/actions/screenAction";
 import { View } from "react-native";
 import { screenModel } from "@type/screenType";
-import { User } from "@models/user";
+import { User } from "@models";
 import { UserStateType } from "@redux/reducers/userReducer";
 
 const adultModels = require('@static/images/vip_adult_models.png');

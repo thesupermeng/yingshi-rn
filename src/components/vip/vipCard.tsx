@@ -3,7 +3,7 @@ import { VipMember } from './vipMember';
 import { promoMembershipModel, zfModel } from '@type/membershipType';
 import { VipZf } from './vipZf';
 import { useEffect, useRef, useState } from 'react';
-import { User } from '@models/user';
+import { User } from '@models';
 import { FlatList } from 'react-native-gesture-handler';
 import { IS_IOS, UMENG_CHANNEL } from '@utility/constants';
 
@@ -30,11 +30,11 @@ export const VipCard = ({
 }: Props) => {
   const planRef = useRef<FlatList>(null);
   const screenWidth = Dimensions.get("window").width;
-  
+
   const getItemLayout = (data: any, index: number) => { return { length: screenWidth, offset: screenWidth * index, index, }; };
   const setListPosition = () => {
     planRef?.current?.scrollToIndex({
-    //  index: membershipProduct.length -1,
+      //  index: membershipProduct.length -1,
       index: 0,
       animated: true,
       viewPosition: 0,
@@ -46,15 +46,15 @@ export const VipCard = ({
   useEffect(() => {
     if (isRefreshing == false) {
       console.log(false)
-      setTimeout(() => {setListPosition()}, 200); 
+      setTimeout(() => { setListPosition() }, 200);
     }
   }, [isRefreshing]);
-  
+
   return (
     <View
       style={{
         flexDirection: 'column',
-      //  marginLeft:20
+        //  marginLeft:20
       }}>
 
       {/* membership plan */}

@@ -1,4 +1,4 @@
-import { User } from "@models/user";
+import { User } from "@models";
 
 export const loginChecking = (page: string | undefined, params: any) => {
     const userState = params.userState;

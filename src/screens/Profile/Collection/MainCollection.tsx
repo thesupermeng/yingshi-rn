@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {View, FlatList, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 import FavoritePlaylist from '../../../components/playlist/favoritePlaylist';
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import {
@@ -12,15 +12,16 @@ import {
 } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import MainCollectionHeader from '../../../components/header/mainCollectionHeader';
-import {playVod} from '@redux/actions/vodActions';
-import {VodType} from '@type/ajaxTypes';
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { playVod } from '@redux/actions/vodActions';
+import { VodType } from '@type/ajaxTypes';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 
-import {VodTopicType} from '@type/ajaxTypes';
+import { VodTopicType } from '@type/ajaxTypes';
 
 import PlaylistCollection from './PlaylistCollection';
 import VodCollection from './VodCollection';
+import { CLangKey } from '@constants';
 
 type FlatListType = {
   item: VodType;
@@ -30,24 +31,24 @@ interface Props {
   initialTab?: string;
 }
 
-export default ({navigation}: RootStackScreenProps<'我的收藏'>) => {
-  const {colors, textVariants, icons} = useTheme();
+export default ({ navigation }: RootStackScreenProps<'我的收藏'>) => {
+  const { colors, textVariants, icons } = useTheme();
   const dispatch = useAppDispatch();
   const favs: FavoriteVodReducerState = useAppSelector(
-    ({vodFavouritesReducer}: RootState) => vodFavouritesReducer,
+    ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
   const favorites = favs.favorites;
 
   const [selectedTab, setSelectedTab] = useState('视频收藏');
 
   const vodPlaylistReducer = useAppSelector(
-    ({vodPlaylistReducer}: RootState) => vodPlaylistReducer,
+    ({ vodPlaylistReducer }: RootState) => vodPlaylistReducer,
   );
   const favoritesList = vodPlaylistReducer.playlistFavorites;
 
   return (
     <ScreenContainer>
-      <TitleWithBackButtonHeader title="我的收藏" />
+      <TitleWithBackButtonHeader title={CLangKey.myFavourite.tr()} />
       <MainCollectionHeader
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}

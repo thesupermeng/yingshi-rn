@@ -2,19 +2,19 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View, FlatList, Text, StyleSheet, Linking } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
-import { VodType } from "@type/ajaxTypes";
 import { useAppDispatch } from "@hooks/hooks";
 import FavoriteVodCard from "./favoriteVodCard";
 import { playVod } from "@redux/actions/vodActions";
+import { Vod } from "@models";
 
 interface Props {
-  vodList: Array<VodType>;
+  vodList: Vod[];
   onClickSearchResult?: () => void;
   onClickCatalogVideo?: () => void;
 }
 
 type FlatListType = {
-  item: VodType;
+  item: Vod;
   index: number;
 };
 

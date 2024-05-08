@@ -46,9 +46,10 @@ import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
+import { CLangKey } from "@constants";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -180,7 +181,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 fontSize: 22,
               }}
             >
-              我的
+              {CLangKey.profileTab.tr()}
             </Text>
             {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
                       {
@@ -444,38 +445,33 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             )}
 
             <ShowMoreButton
-              text="我的收藏"
+              text={CLangKey.myFavourite.tr()}
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("我的收藏")}
             />
             {/* <ShowMoreButton
-              text="我的下载"
-              leftIcon={<DownloadIcon style={{color: colors.button}} />}
-              onPress={() => setIsDialogOpen(true)}
-            /> */}
-            {/* <ShowMoreButton
-              text="播放历史"
+              text={CLang.playHistory()}
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             /> */}
             <ShowMoreButton
-              text="我要反馈"
+              text={CLangKey.iWantFeedback.tr()}
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("反馈")}
             />
             {isInAppReviewAvailable && <ShowMoreButton
-              text="评价我们"
+              text={CLangKey.rateUs.tr()}
               leftIcon={<ReviewIcon style={{ color: colors.button }} />}
               // onPress={() => setShowReview(true)}
               onPress={onReviewPress}
             />}
             <ShowMoreButton
-              text="设置"
+              text={CLangKey.setting.tr()}
               leftIcon={<SettingsIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("设置")}
             />
             <ShowMoreButton
-              text="关于我们"
+              text={CLangKey.aboutUs.tr()}
               leftIcon={<InfoIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("关于我们")}
             />

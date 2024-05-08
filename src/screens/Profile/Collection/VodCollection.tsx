@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, FlatList, Text, StyleSheet} from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '@hooks/hooks';
-import {RootState} from '@redux/store';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
 import {
@@ -12,22 +12,23 @@ import {
 } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
-import {playVod} from '@redux/actions/vodActions';
-import {VodType} from '@type/ajaxTypes';
-import {RootStackScreenProps} from '@type/navigationTypes';
+import { playVod } from '@redux/actions/vodActions';
+import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 import { disableAdultMode, enableAdultMode } from '@redux/actions/screenAction';
+import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 type FlatListType = {
-  item: VodType & {playMode?: 'adult'|'normal'};
+  item: Vod & { playMode?: 'adult' | 'normal' };
 };
 
 export default () => {
   const navigation = useNavigation();
-  const {colors, textVariants, icons} = useTheme();
+  const { colors, textVariants, icons } = useTheme();
   const dispatch = useAppDispatch();
   const favs: FavoriteVodReducerState = useAppSelector(
-    ({vodFavouritesReducer}: RootState) => vodFavouritesReducer,
+    ({ vodFavouritesReducer }: RootState) => vodFavouritesReducer,
   );
   const favorites = favs.favorites;
 
@@ -40,7 +41,7 @@ export default () => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             data={favorites}
-            contentContainerStyle={{paddingBottom: 120}}
+            contentContainerStyle={{ paddingBottom: 120 }}
             ListFooterComponent={
               <Text
                 style={{
@@ -48,10 +49,10 @@ export default () => {
                   color: colors.muted,
                   ...styles.noMore,
                 }}>
-                没有更多了
+                {CLangKey.noAnyMore.tr()}
               </Text>
             }
-            renderItem={({item}: FlatListType) => (
+            renderItem={({ item }: FlatListType) => (
               <FavoriteVodCard
                 vod={item}
                 initialFavoriteState={true}
@@ -61,8 +62,8 @@ export default () => {
                     vod_id: item.vod_id,
                     player_mode: item.playMode
                   });
-                  if (item.playMode === 'adult') {dispatch(enableAdultMode())}
-                  else {dispatch(disableAdultMode())}
+                  if (item.playMode === 'adult') { dispatch(enableAdultMode()) }
+                  else { dispatch(disableAdultMode()) }
                 }}
                 imgOrientation='horizontal'
               />
@@ -71,7 +72,7 @@ export default () => {
         )}
       </View>
       {favorites && favorites.length === 0 && (
-        <EmptyList description="暂无视频收藏" />
+        <EmptyList description={CLangKey.noXFavouriteTr({ x: CLangKey.video.tr() })} />
       )}
     </>
   );

@@ -22,7 +22,7 @@ import { changeScreenAction } from '@redux/actions/screenAction';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { UserApi } from '@api';
 import { useSelector } from '@hooks/hooks';
-import { User } from '@models/user';
+import { User } from '@models';
 import { UserStateType } from '@redux/reducers/userReducer';
 import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
 
@@ -57,7 +57,7 @@ type OtpInputsProps = {
   email?: string,
   phone?: string,
   referralCode?: string,
-  countryId?: number,
+  countryId?: string,
 }
 
 const OtpInputs = ({

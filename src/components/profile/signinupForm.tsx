@@ -24,7 +24,6 @@ import GmailIcon from '@static/images/gmail.svg';
 import DropdownIcon from '@static/images/dropdown.svg';
 import { CountryPhoneList } from "./countryPhoneList";
 import FastImage from '../common/customFastImage';
-import { CountryPhoneCodeType } from "@type/ajaxTypes";
 import { ReadAgreementPrivacyPolicy } from "./readAgreementPrivacyPolicy";
 
 import {
@@ -38,11 +37,11 @@ import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { useDispatch } from "react-redux";
 import { addUserAuthState } from "@redux/actions/userAction";
 import { UserApi } from "@api";
-import { User } from "@models/user";
 import { UserStateType } from "@redux/reducers/userReducer";
 import AppsFlyerAnalytics from "../../../AppsFlyer/AppsFlyerAnalytic";
 import TickedIcon from '@static/images/ticked.svg';
 import { IS_OTHER_SKIN } from "@utility/constants";
+import { Country, User } from "@models";
 
 
 export type SigninupRef = {
@@ -69,7 +68,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
 
   // for country phone code
   const [isShowCountryList, setShowCountryList] = useState(false);
-  const [countryPhoneSelected, setCountryPhoneSelected] = useState<CountryPhoneCodeType>();
+  const [countryPhoneSelected, setCountryPhoneSelected] = useState<Country>();
 
   // others
   const [isSubmitting, setSubmitting] = useState(false);
@@ -150,7 +149,7 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     setShowCountryList(!isShowCountryList);
   }
 
-  const onSelectCountryPhone = (data: any) => {
+  const onSelectCountryPhone = (data: Country) => {
     setCountryPhoneSelected(data);
     setShowCountryList(false);
   }
@@ -366,7 +365,7 @@ type LoginCardProps = {
   loginValueErrMsg: string | null,
   referralCodeErrMsg: string | null,
   isReadTermNCondition: boolean,
-  countryPhoneSelected?: CountryPhoneCodeType,
+  countryPhoneSelected?: Country,
   onLoginValueChange: (value: string) => void,
   onReferralCodeChange: (value: string) => void,
   onPressTermNCondition: () => void,

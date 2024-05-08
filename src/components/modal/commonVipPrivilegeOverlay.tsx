@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import { UMENG_CHANNEL } from "@utility/constants";
-import { User } from "@models/user";
+import { User } from "@models";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { UserStateType } from "@redux/reducers/userReducer";
 

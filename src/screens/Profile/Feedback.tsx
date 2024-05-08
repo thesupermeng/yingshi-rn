@@ -27,13 +27,14 @@ import { useAppSelector } from "@hooks/hooks";
 import { YSConfig } from "../../../ysConfig";
 import { FeedbackApi } from "@api";
 import FastImage from "../../components/common/customFastImage";
+import { CLangKey } from "@constants";
 
 export default ({ navigation }: RootStackScreenProps<"反馈">) => {
   const { colors, textVariants, icons } = useTheme();
   const [text, setTextInput] = React.useState("");
   const [feedbackCategory, setFeedbackCategory] = React.useState(0);
   const [email, setEmail] = React.useState("");
-  const [dialogText, setDialogText] = React.useState("反馈成功，我们会在 24 小时内处理你的反馈！");
+  const [dialogText, setDialogText] = React.useState(CLangKey.feedbackSuccessSent.tr());
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const [platformId, setPlatformId] = React.useState(0);
@@ -68,13 +69,13 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
     if (!isOffline) {
       const result = FeedbackApi.postFeedback(data);
 
-      setDialogText("反馈成功，我们会在 24 小时内处理你的反馈！");
+      setDialogText(CLangKey.feedbackSuccessSent.tr());
       Keyboard.dismiss();
       setIsDialogOpen(true);
 
       return result;
     } else {
-      setDialogText("无法检测网络， 请稍后再试");
+      setDialogText(CLangKey.noNetworkDetect.tr());
       Keyboard.dismiss();
       setIsDialogOpen(true);
     }
@@ -94,10 +95,10 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
 
   return (
     <ScreenContainer>
-      <TitleWithBackButtonHeader title="我要反馈" />
+      <TitleWithBackButtonHeader title={CLangKey.iWantFeedback.tr()} />
       <View style={{ marginTop: 30, marginBottom: 20 }}>
         <Text style={{ ...textVariants.header, marginBottom: 20 }}>
-          问题反馈:
+          {CLangKey.problemFeedback.tr()}:
         </Text>
         <TextInput
           style={{
@@ -106,7 +107,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
             ...textVariants.body,
           }}
           onChangeText={setTextInput}
-          placeholder="请详细描述您的问题和建议"
+          placeholder={CLangKey.describeYourProblemAndSuggess.tr()}
           editable
           multiline
           placeholderTextColor={colors.muted}
@@ -136,7 +137,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
               color: text ? colors.primaryContrast : colors.muted,
             }}
           >
-            提交
+            {CLangKey.submit.tr()}
           </Text>
         </View>
       </TouchableOpacity>

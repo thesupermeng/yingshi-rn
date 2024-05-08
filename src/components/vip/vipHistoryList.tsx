@@ -3,7 +3,7 @@ import { VipHistoryCard } from "./vipHistoryCard";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 import { YSConfig } from "../../../ysConfig";
-import { User } from "@models/user";
+import { User } from "@models";
 
 interface Props {
   userState: User;
@@ -18,7 +18,7 @@ export const VipHistoryList = ({ userState }: Props) => {
     let displayText;
     if (historyData) {
       historyList = historyData.map((history: any) => {
-        displayText = history.product_name_2 
+        displayText = history.product_name_2
         return {
           displayText: displayText,
           createdDate: history.start_date,

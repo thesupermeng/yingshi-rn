@@ -9,17 +9,18 @@ import {
   FlatList,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { VodEpisodeListType } from "@type/ajaxTypes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import SortAscIcon from "@static/images/sortAsc.svg";
 import SortDescIcon from "@static/images/sortDesc.svg";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import { VodRecordType } from "@redux/reducers/vodReducer";
+import { VodEpisodeGroup } from "@models";
+import { CLangKey } from "@constants";
 
 interface Props {
   onConfirm: any;
   onCancel: any;
-  episodes?: VodEpisodeListType;
+  episodes?: VodEpisodeGroup;
   activeEpisode?: number;
   rangeSize?: number;
   isVisible: boolean;
@@ -138,7 +139,7 @@ function VodEpisodeSelectionModal({
                     fontSize: index === currentIndex ? 18 : 15,
                   }}
                 >
-                  {`${item}集`}
+                  {`${item}${CLangKey.episodes.tr()}`}
                 </Text>
               </TouchableOpacity>
             );
@@ -156,7 +157,7 @@ function VodEpisodeSelectionModal({
               fontSize: 15,
             }}
           >
-            顺序
+            {CLangKey.sort.tr()}
           </Text>
         </TouchableOpacity>
       </View>

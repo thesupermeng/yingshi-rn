@@ -1,6 +1,6 @@
 import { FFmpegSession } from "ffmpeg-kit-react-native"
-import { VodTopicType, VodType } from "./ajaxTypes"
 import { DownloadStatus } from "./vodDownloadTypes"
+import { PlayList, Vod } from "@models"
 
 export interface ThemeActionType {
     type: string
@@ -8,7 +8,7 @@ export interface ThemeActionType {
 
 export interface VodActionType {
     type: string,
-    payload: Array<VodType>
+    payload: Array<Vod>
     timeWatched?: number,
     episodeWatched?: number
     fromMiniVodCollectionItemIndex?: number
@@ -19,12 +19,12 @@ export interface VodActionType {
 
 export interface FavoriteVodActionType {
     type: string,
-    payload: VodType
+    payload: Vod
 }
 
 export interface VodPlaylistActionType {
     type: string,
-    payload: VodTopicType
+    payload: PlayList
 }
 
 export interface SearchHistoryActionType {
@@ -61,16 +61,16 @@ export interface OptionalUpdateFields {
         percentage?: number;
         bytes?: number;
     }
-    sizeInBytes?: number; 
-    status?: DownloadStatus; 
-    ffmpegSession?: number | null; 
-  }
+    sizeInBytes?: number;
+    status?: DownloadStatus;
+    ffmpegSession?: number | null;
+}
 
 export interface DownloadVideoActionPayload extends OptionalUpdateFields {
     vod: VodType;
     vodSourceId: number;
     vodUrlNid: number;
-    vodIsAdult?: boolean; 
+    vodIsAdult?: boolean;
 }
 
 export interface DownloadVideoQueueItem extends Omit<DownloadVideoActionPayload, 'vod'> {
@@ -78,7 +78,7 @@ export interface DownloadVideoQueueItem extends Omit<DownloadVideoActionPayload,
 }
 
 export interface DownloadVideoActionType {
-  type:
+    type:
     | 'ADD_VIDEO_TO_DOWNLOAD'
     | 'REMOVE_VIDEO_FROM_DOWNLOAD'
     | 'REMOVE_VOD_FROM_DOWNLOAD'
@@ -92,5 +92,5 @@ export interface DownloadVideoActionType {
     | 'RESET_QUEUE'
     | 'UPDATE_VOD_DETAILS'
     ;
-  payload: DownloadVideoActionPayload;
+    payload: DownloadVideoActionPayload;
 }

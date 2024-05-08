@@ -30,7 +30,7 @@ import { useAppSelector, useSelector } from "@hooks/hooks";
 import { SettingsReducerState } from "@redux/reducers/settingsReducer";
 import { screenModel } from "@type/screenType";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { User } from "@models/user";
+import { User } from "@models";
 // LogBox.ignoreAllLogs();
 interface Props {
   children: ReactNode;
@@ -42,9 +42,9 @@ export const AdsBannerContext = createContext<{
   reloadBanner: any;
   currentRoute: string | null;
 }>({
-  setRoute: () => {},
-  setNavbarHeight: () => {},
-  reloadBanner: () => {},
+  setRoute: () => { },
+  setNavbarHeight: () => { },
+  reloadBanner: () => { },
   currentRoute: "",
 });
 
@@ -88,9 +88,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
         latestMsg = event.errorMsg;
         console.warn(
           "ATBannerLoadFail: " +
-            event.placementId +
-            ", errorMsg: " +
-            event.errorMsg
+          event.placementId +
+          ", errorMsg: " +
+          event.errorMsg
         );
       }
     });
@@ -110,9 +110,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       (event) => {
         console.log(
           "ATBannerCloseButtonTapped: " +
-            event.placementId +
-            ", adCallbackInfo: " +
-            event.adCallbackInfo
+          event.placementId +
+          ", adCallbackInfo: " +
+          event.adCallbackInfo
         );
       }
     );
@@ -120,9 +120,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerClick, (event) => {
       console.log(
         "ATBannerClick: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+        event.placementId +
+        ", adCallbackInfo: " +
+        event.adCallbackInfo
       );
     });
 
@@ -141,9 +141,9 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
     ATBannerRNSDK.setAdListener(ATBannerRNSDK.onBannerRefreshFail, (event) => {
       console.log(
         "ATBannerRefreshFail: " +
-          event.placementId +
-          ", adCallbackInfo: " +
-          event.adCallbackInfo
+        event.placementId +
+        ", adCallbackInfo: " +
+        event.adCallbackInfo
       );
     });
   };
