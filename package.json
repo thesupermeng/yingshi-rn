@@ -18,6 +18,7 @@
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
     "android-apk-pc6-release": "export APK_CHANNEL=PC6&& npm run build-release",
     "android-apk-sky001-release": "export APK_CHANNEL=SKY001&& npm run build-release",
+    "android-apk-huangshayu-release": "export APK_CHANNEL=HUANGSHAYU&& npm run build-release",
     "android-apk-web-liebian-release": "export APK_CHANNEL=WEB_LIE_BIAN&& npm run build-release",
     "android-apk-fenxiang-release": "export APK_CHANNEL=FEN_XIANG&& npm run build-release",
     "android-apk-liulanqi-release": "export APK_CHANNEL=LIU_LAN_QI&& npm run build-release",
