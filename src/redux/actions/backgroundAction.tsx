@@ -5,6 +5,7 @@ import {
   APPSFLYER_APPID,
   APPSFLYER_DEVKEY,
   EVENT_CUSTOM_ON,
+  INIT_FIREBASE,
   UMENG_CHANNEL,
   VIP_PROMOTION_COUNTDOWN_MINUTE,
   VIP_PROMOTION_INTERVEL_SECONDS,
@@ -144,6 +145,9 @@ export const onBootApp =
         }
 
         // ========== firebase notification ==========
+
+        if(INIT_FIREBASE)
+          {
         _initFirebase().then(() => {
           // use for on boot
           messaging().getInitialNotification().then((remoteMessage) => {
@@ -160,7 +164,7 @@ export const onBootApp =
             }, 500);
           });
         });
-
+      }
       } catch (e) { }
     };
 
