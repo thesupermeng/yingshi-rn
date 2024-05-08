@@ -11,6 +11,7 @@ import {
   APP_NAME_CONST,
   APP_VERSION,
   EVENT_CUSTOM_START,
+  INIT_FIREBASE,
   IOS_HOME_PAGE_BANNER_ADS,
   TOPON_ANDROID_APP_ID,
   TOPON_ANDROID_APP_KEY,
@@ -119,13 +120,17 @@ let App = () => {
   }, [isConnected]);
 
   useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      FirebaseNotification.setupLocalNotification(
-        // JSON.stringify(remoteMessage),
-        remoteMessage,
-      );
-    });
-    return unsubscribe;
+    if(INIT_FIREBASE)
+      {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+          FirebaseNotification.setupLocalNotification(
+            // JSON.stringify(remoteMessage),
+            remoteMessage,
+          );
+        });
+        return unsubscribe;
+      }
+
   }, []);
 
   const downloadWatchAnytimeSequence = async () => {
