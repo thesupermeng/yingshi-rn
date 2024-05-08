@@ -27,11 +27,16 @@ export enum RewardVideoAdsType {
 
 export const useRewardVideoAds = ({
     showLog = false,
-}: Props = {
-        showLog: false,
-    }) => {
+}: Props = {}) => {
     const userState = useSelector<UserStateType>('userReducer');
-    const [adsList, setAdsList] = useState<AdsQueueType[]>([]);
+    // use ref not state is because prevent when retry need get latest value, but state value update is after render
+    const adsListRef = useRef<AdsQueueType[]>([]);
+    const [_, _forceRender] = useState(false);
+
+    const updateAdsListRef = (newList: AdsQueueType[]) => {
+        adsListRef.current = newList;
+        _forceRender(prev => !prev);
+    }
 
     useEffect(() => {
         _addListenerAds();
@@ -39,7 +44,7 @@ export const useRewardVideoAds = ({
         return () => {
             ATRewardedVideoRNSDK.removeAllListeners();
         }
-    }, [adsList]);
+    }, [_]);
 
     const showAds = (type: RewardVideoAdsType) => {
         // if (User.isVip(userState.user)) return;
@@ -56,7 +61,7 @@ export const useRewardVideoAds = ({
 
         if (pId === undefined || pId === null || pId === '') return;
 
-        return adsList.find((ads) => ads.pId === pId);
+        return adsListRef.current.find((ads) => ads.pId === pId);
     }
 
     const _addListenerAds = () => {
@@ -118,17 +123,17 @@ export const useRewardVideoAds = ({
 
     const _retryAds = (pId: string) => {
         setTimeout(() => {
-            const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+            const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
             if (indexFound !== -1) {
-                setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, retry: v.retry + 1 } : v));
+                updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, retry: v.retry + 1 } : v));
 
-                if (adsList[indexFound].retry >= maxRetryTimes) {
+                if (adsListRef.current[indexFound].retry >= maxRetryTimes) {
                     _removeFromQueue(pId);
                     return;
                 }
 
-                if (adsList[indexFound].isReady === false) {
+                if (adsListRef.current[indexFound].isReady === false) {
                     _loadVideoAds(pId);
                 } else {
                     _showVideoAds(pId);
@@ -143,26 +148,28 @@ export const useRewardVideoAds = ({
             // [ATInterstitialRNSDK.userDataKey]: 'test_user_data',
         }
 
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
         if (indexFound === -1) {
-            setAdsList(prev => [...prev, new AdsQueueType(pId)]);
+            updateAdsListRef([...adsListRef.current, new AdsQueueType(pId)]);
+        } else {
+            updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, retry: 0 } : v));
         }
 
         ATRewardedVideoRNSDK.loadAd(pId, settings);
     }
 
     const _changeStatusToReady = (pId: string, status?: boolean) => {
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
         if (indexFound === -1) return;
 
         if (status === false) {
-            setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, isReady: status } : v));
+            updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, isReady: status } : v));
             return;
         }
 
-        setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, isReady: true } : v));
+        updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, isReady: true } : v));
         _showVideoAds(pId);
     }
 
@@ -179,36 +186,36 @@ export const useRewardVideoAds = ({
     }
 
     const _changeStatusToPlay = (pId: string) => {
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
         if (indexFound === -1) return;
 
-        setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, isPlay: true } : v));
+        updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, isPlay: true } : v));
     }
 
     const _changeStatusToDone = (pId: string) => {
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
         if (indexFound === -1) return;
 
-        setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, isDone: true } : v));
+        updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, isDone: true } : v));
     }
 
     const _changeStatusToClose = (pId: string) => {
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
         if (indexFound === -1) return;
 
-        setAdsList(adsList.map((v, i) => i === indexFound ? { ...v, isClose: true } : v));
+        updateAdsListRef(adsListRef.current.map((v, i) => i === indexFound ? { ...v, isClose: true } : v));
         _removeFromQueue(pId);
     }
 
     const _removeFromQueue = (pId: string) => {
-        const indexFound = adsList.findIndex((ads) => ads.pId === pId);
+        const indexFound = adsListRef.current.findIndex((ads) => ads.pId === pId);
 
         if (indexFound === -1) return;
 
-        setAdsList(adsList.filter((v, i) => i !== indexFound));
+        updateAdsListRef(adsListRef.current.filter((v, i) => i !== indexFound));
     }
 
     return {
