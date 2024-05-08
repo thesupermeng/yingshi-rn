@@ -328,8 +328,9 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
     let splashListTemp = [];
     try {
-      if (screenState.eventSplashLastPageViewTime !== undefined &&
-        (Date.now() - screenState.eventSplashLastPageViewTime) < EVENT_SPLASH_SHOW_DURATION
+      if (screenState.eventSplashLastPageViewTime !== undefined
+        // &&
+        // (Date.now() - screenState.eventSplashLastPageViewTime) < EVENT_SPLASH_SHOW_DURATION
       ) {
         return;
       }
@@ -353,20 +354,20 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
       dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
     }
 
-    // if (SHOW_ZF_CONST &&
-    //   screenState.showEventSplashData) {
-    //   console.log("==================== splashList from main ======================")
-    //   console.log(screenState.showEventSplash)
-    //   console.log(screenState.showEventSplashData)
-    //   // navigation.navigate("付费Google");
-    //   navigation.navigate("付费VIP");
+    if (SHOW_ZF_CONST &&
+      screenState.showEventSplashData) {
+      console.log("==================== splashList from main ======================")
+      console.log(screenState.showEventSplash)
+      console.log(screenState.showEventSplashData)
+      // navigation.navigate("付费Google");
+      navigation.navigate("付费VIP");
 
-    //   if (screenState.showEventSplash == false) {
-    //     dispatch(setEventSplashLastPageViewTime());
-    //   }
+      if (screenState.showEventSplash == false) {
+        dispatch(setEventSplashLastPageViewTime());
+      }
 
-    //   //     // dispatch(clearEventSplashLastPageViewTime());
-    // }
+      //     // dispatch(clearEventSplashLastPageViewTime());
+    }
   };
 
   // ========== for analytics - end ==========
