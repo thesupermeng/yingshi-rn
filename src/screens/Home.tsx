@@ -306,68 +306,69 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   }, [navId]);
 
   useEffect(() => {
-    // checkSplash();
+    checkSplash();
   }, []);
 
-  // const checkSplash = async () => {
+  const checkSplash = async () => {
 
-  //   //if no banner thn show
-  //   let bannerRes;
-  //   try {
-  //     bannerRes = await AdsApi.getBannerAd(100);
-  //     let banner = bannerRes.ads;
-  //     let bannerList = bannerRes.ads_list;
+    //if no banner thn show
+    let bannerRes;
+    try {
+      bannerRes = await AdsApi.getBannerAd(100);
+      let banner = bannerRes.ads;
+      let bannerList = bannerRes.ads_list;
 
-  //     if (!banner) {
-  //       dispatch(setIsHomeGuideShown(true));
-  //     }
-  //   }
-  //   catch (err) {
-  //     dispatch(setIsHomeGuideShown(true));
-  //   }
+      if (!banner) {
+        dispatch(setIsHomeGuideShown(true));
+      }
+    }
+    catch (err) {
+      dispatch(setIsHomeGuideShown(true));
+    }
 
-  //   let splashListTemp = [];
-  //   try {
-  //     if (screenState.eventSplashLastPageViewTime !== undefined &&
-  //       (Date.now() - screenState.eventSplashLastPageViewTime) < EVENT_SPLASH_SHOW_DURATION
-  //     ) {
-  //       return;
-  //     }
-  //     splashListTemp = await SplashApi.getSplash();
+    let splashListTemp = [];
+    try {
+      if (screenState.eventSplashLastPageViewTime !== undefined
+        // &&
+        // (Date.now() - screenState.eventSplashLastPageViewTime) < EVENT_SPLASH_SHOW_DURATION
+      ) {
+        return;
+      }
+      splashListTemp = await SplashApi.getSplash();
 
-  //     // console.log("==================== splashList from main ======================")
-  //     // console.log(splashListTemp)
-  //     if (splashListTemp.length > 0) {
-  //       splashListTemp = splashListTemp.map((item: any) => {
-  //         const obj = Object.assign({}, item);
-  //         obj.url = "https://yingshi.tv" + obj.intro_page_image_url;
-  //         return obj;
-  //       });
-  //     }
-  //     await dispatch(setShowEventSplashData(
-  //       [...splashListTemp, { "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]
-  //     ));
-  //     //     console.log("==================== splashList from main ======================")
-  //     // console.log(screenState.showEventSplashData)
-  //   } catch (e) {
-  //     dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
-  //   }
+      // console.log("==================== splashList from main ======================")
+      // console.log(splashListTemp)
+      if (splashListTemp.length > 0) {
+        splashListTemp = splashListTemp.map((item: any) => {
+          const obj = Object.assign({}, item);
+          obj.url = "https://yingshi.tv" + obj.intro_page_image_url;
+          return obj;
+        });
+      }
+      await dispatch(setShowEventSplashData(
+        [...splashListTemp, { "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]
+      ));
+      //     console.log("==================== splashList from main ======================")
+      // console.log(screenState.showEventSplashData)
+    } catch (e) {
+      dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": "https://yingshi.tv/upload/vod/111.jpeg" }]));
+    }
 
-  //   if (SHOW_ZF_CONST &&
-  //     screenState.showEventSplashData) {
-  //     console.log("==================== splashList from main ======================")
-  //     console.log(screenState.showEventSplash)
-  //     console.log(screenState.showEventSplashData)
-  //     // navigation.navigate("付费Google");
-  //     navigation.navigate("付费VIP");
+    if (SHOW_ZF_CONST &&
+      screenState.showEventSplashData) {
+      console.log("==================== splashList from main ======================")
+      console.log(screenState.showEventSplash)
+      console.log(screenState.showEventSplashData)
+      // navigation.navigate("付费Google");
+      navigation.navigate("付费VIP");
 
-  //     if (screenState.showEventSplash == false) {
-  //       dispatch(setEventSplashLastPageViewTime());
-  //     }
+      if (screenState.showEventSplash == false) {
+        dispatch(setEventSplashLastPageViewTime());
+      }
 
-  //     //     // dispatch(clearEventSplashLastPageViewTime());
-  //   }
-  // };
+      //     // dispatch(clearEventSplashLastPageViewTime());
+    }
+  };
 
   // ========== for analytics - end ==========
 
