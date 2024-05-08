@@ -31,13 +31,13 @@ export class CEndpoint {
     static feedbackPost = 'feedback/v2/submit';
 
     static productGetList = 'products/v1/products';
-    static nativeProductGetList = 'products/v2/nativeProducts';
+    static nativeProductGetList = 'products/v3/nativeProducts';
     static productPostAndroidSubscription = 'android/v1/subscription';
     static productPostAndroidIAP = 'android/v1/onetime';
     static productPostValidateReceiptIos = 'validate/v1/iosreceipt';
     static productPostValidateReceiptAndroid = 'validate/v1/androidreceipt';
     static productGetFinzfTransaction = 'finzf/v1/transactions';
-    static productPostFinzfOrder = 'finzf/v1/order';
+    static productPostFinzfOrder = 'finzf/v2/order';
 
     static bannerAd = 'ads/v2/slot';
     static bannerEventAds = 'ads/v1/events';
