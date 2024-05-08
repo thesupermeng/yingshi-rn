@@ -254,7 +254,7 @@ export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMII
 export const INVITE_DOMAIN = Default_gcType_dCatalogContain.time_woRegister_sdModel([-56,-44,-44,-48,-45,-102,-113,-113,-40,-55,-63,-50,-57,-53,-63,-50,-44,-42,-114,-50,-59,-44,-113,-55,-50,-42,-55,-44,-59,-114,-56,-44,-51,-52,-97,-55,-50,-42,-55,-44,-59,-99,-96],0xA0,false);
 
 
-export const UMENG_CHANNEL = "GOOGLE_PLAY";
+export const UMENG_CHANNEL = "HUANGSHAYU";
 
 export const APP_VERSION = "1.7.9";
 
