@@ -2,7 +2,7 @@ import AnalyticsUtil from './AnalyticsUtil';
 import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
 import { Adjust, AdjustEvent } from 'react-native-adjust';
-import { ANALYTICS_FIREBASE, ANALYTICS_UMENG } from '@utility/constants';
+import { ANALYTICS_FIREBASE, ANALYTICS_UMENG, UMENG_CHANNEL } from '@utility/constants';
 
 /**
 catalog
@@ -242,7 +242,7 @@ export default class UmengAnalytics {
     static disabled: boolean = false;
     static disabledUmeng: boolean = !ANALYTICS_UMENG;
     static disabledFirebase: boolean = !ANALYTICS_FIREBASE;
-    static disabledAdjust: boolean = true;
+    static disabledAdjust: boolean = UMENG_CHANNEL != "HYTG001";
     static disabledCustom: boolean = false;
 
     static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {
