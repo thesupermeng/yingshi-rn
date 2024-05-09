@@ -133,14 +133,14 @@ const RecommendationHome = ({
   //   ({ settingsReducer }: RootState) => settingsReducer
   // );
 
-  useEffect(() => {
-    if (screenState.isHomeGuideShown != true && !isVip) {
-         setTimeout(() => {
-          setVipGuideModal(true);
-       }, 800);
-    }
-    //  setVipGuideModal(true);
-  }, [screenState]);
+  // useEffect(() => {
+  //   if (screenState.isHomeGuideShown != true && !isVip) {
+  //        setTimeout(() => {
+  //         setVipGuideModal(true);
+  //      }, 800);
+  //   }
+
+  // }, [screenState]);
 
   useEffect(() => {
     setWidth(Number(Dimensions.get("window").width));
