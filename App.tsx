@@ -3,7 +3,6 @@ import { persistor, store } from "@redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CheckVersionRequest, MiniVideo } from "@type/ajaxTypes";
 import {
-  ADJUST_APP_KEY,
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
   API_DOMAIN_TEST,
@@ -49,7 +48,6 @@ import appsFlyer from "react-native-appsflyer";
 import AppsFlyerAnalytics from "./AppsFlyer/AppsFlyerAnalytic";
 import messaging from "@react-native-firebase/messaging";
 import { FirebaseNotification } from "@utility/firebaseNotification";
-import { Adjust, AdjustEvent, AdjustConfig } from "react-native-adjust";
 
 const topon_channel = "WEB";
 
@@ -85,139 +83,6 @@ logIgnore([
 ]);
 
 let App = () => {
-  useEffect(() => {
-    // Initialize Adjust SDK
-
-    Adjust.getSdkVersion(function (sdkVersion) {
-      console.log("Adjust SDK version: " + sdkVersion);
-    });
-
-    Adjust.getGoogleAdId((googleAdId) => {
-      console.log("Google Ad Id = " + googleAdId);
-    });
-    Adjust.getAdid((adid) => {
-      console.log("Adid = " + adid);
-    });
-
-    // AdjustConfig.EnvironmentSandbox
-    // or
-    // AdjustConfig.EnvironmentProduction
-    const adjustConfig = new AdjustConfig(
-      ADJUST_APP_KEY,
-      AdjustConfig.EnvironmentProduction
-    );
-
-    adjustConfig.setExternalDeviceId("test-yingshi");
-    // set log for testing
-    adjustConfig.setLogLevel(AdjustConfig.LogLevelVerbose);
-    adjustConfig.setDelayStart(1);
-
-    adjustConfig.setAttributionCallbackListener(function (attribution) {
-      // Printing all attribution properties.
-      console.log("Attribution changed!");
-      console.log(attribution.trackerToken);
-      console.log(attribution.trackerName);
-      console.log(attribution.network);
-      console.log(attribution.campaign);
-      console.log(attribution.adgroup);
-      console.log(attribution.creative);
-      console.log(attribution.clickLabel);
-      console.log(attribution.adid);
-      console.log(attribution.costType);
-      console.log(attribution.costAmount);
-      console.log(attribution.costCurrency);
-      console.log(attribution.fbInstallReferrer);
-    });
-
-    adjustConfig.setEventTrackingFailedCallbackListener(function (
-      eventFailure
-    ) {
-      // Printing all event failure properties.
-      console.log("Event tracking failed!");
-      console.log(eventFailure.message);
-      console.log(eventFailure.timestamp);
-      console.log(eventFailure.eventToken);
-      console.log(eventFailure.callbackId);
-      console.log(eventFailure.adid);
-      console.log(eventFailure.willRetry);
-      console.log(eventFailure.jsonResponse);
-    });
-
-    adjustConfig.setSessionTrackingSucceededCallbackListener(function (
-      sessionSuccess
-    ) {
-      // Printing all session success properties.
-      console.log("Session tracking succeeded!");
-      console.log(sessionSuccess.message);
-      console.log(sessionSuccess.timestamp);
-      console.log(sessionSuccess.adid);
-      console.log(sessionSuccess.jsonResponse);
-    });
-
-    adjustConfig.setSessionTrackingFailedCallbackListener(function (
-      sessionFailure
-    ) {
-      // Printing all session failure properties.
-      console.log("Session tracking failed!");
-      console.log(sessionFailure.message);
-      console.log(sessionFailure.timestamp);
-      console.log(sessionFailure.adid);
-      console.log(sessionFailure.willRetry);
-      console.log(sessionFailure.jsonResponse);
-    });
-
-    adjustConfig.setEventTrackingSucceededCallbackListener(function (
-      eventSuccess
-    ) {
-      // Printing all event success properties.
-      console.log("Event tracking succeeded!");
-      console.log(eventSuccess.message);
-      console.log(eventSuccess.timestamp);
-      console.log(eventSuccess.eventToken);
-      console.log(eventSuccess.callbackId);
-      console.log(eventSuccess.adid);
-      console.log(eventSuccess.jsonResponse);
-    });
-
-    Adjust.setOfflineMode(true);
-    adjustConfig.setSendInBackground(true);
-    Adjust.create(adjustConfig);
-
-    Adjust.getAttribution((attribution) => {
-      console.log("Tracker token = " + attribution.trackerToken);
-      console.log("Tracker name = " + attribution.trackerName);
-      console.log("Network = " + attribution.network);
-      console.log("Campaign = " + attribution.campaign);
-      console.log("Adgroup = " + attribution.adgroup);
-      console.log("Creative = " + attribution.creative);
-      console.log("Click label = " + attribution.clickLabel);
-      console.log("Adid = " + attribution.adid);
-    });
-
-    setTimeout(() => {
-      Adjust.isEnabled((isEnabled) => {
-        if (isEnabled) {
-          console.log("SDK is enabled");
-        } else {
-          console.log("SDK is disabled");
-        }
-
-        // install
-        let adjustEvent = new AdjustEvent("wpmm20");
-        Adjust.trackEvent(adjustEvent);
-        // app open
-        let adjustEvent2 = new AdjustEvent("qw69nm");
-        adjustEvent2.addCallbackParameter("test", "value");
-        Adjust.trackEvent(adjustEvent2);
-      });
-    }, 1000);
-
-    // Call componentWillUnmount when unmounting
-    return () => {
-      Adjust.componentWillUnmount();
-    };
-  }, []);
-
   CodePush.notifyAppReady();
 
   const queryClient = new QueryClient({

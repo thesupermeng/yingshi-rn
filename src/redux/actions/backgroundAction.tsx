@@ -1,6 +1,7 @@
 import { RootState } from '@redux/store';
 import { CustomEventAnalytic } from '../../../Umeng/EventAnalytic';
 import {
+  ADJUST_APP_KEY,
   APPSFLYER_APPID,
   APPSFLYER_DEVKEY,
   EVENT_CUSTOM_ON,
@@ -15,6 +16,7 @@ import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
 import appsFlyer from 'react-native-appsflyer';
 import { Platform } from 'react-native';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
+import { Adjust, AdjustConfig } from 'react-native-adjust';
 
 export const onBootApp =
   ({ } = {}) =>
@@ -129,6 +131,9 @@ export const onBootApp =
         // ========== custom event ==========
         CustomEventAnalytic.foundLocalPush();
 
+        // ========== adjust event ==========
+        Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
+
         if (EVENT_CUSTOM_ON) {
           CustomEventAnalytic.start();
         }
@@ -143,6 +148,9 @@ export const onCloseApp =
 
         // ========== custom event ==========
         CustomEventAnalytic.close();
+
+        // ========== adjust event ==========
+        Adjust.componentWillUnmount();
 
         // ========== vip promotion modal ==========
         if (backgroundState.vipPromotionIntervel) {
