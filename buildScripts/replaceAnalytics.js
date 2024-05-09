@@ -73,7 +73,7 @@ const replaceNativeFileAnalytics = () => {
             '../android/app/src/main/java/com/yingshi/AnalyticsModule.java',
             '../android/app/src/main/java/com/yingshi/RNUMConfigure.java'
         ],
-        from: ANALYTICS_UMENG === '1' ? /\/\/endif/g : /\/\/endif\*\//g,
+        from: ANALYTICS_UMENG === '1' ? /\/\/endif(?!\*)/g : /\/\/endif\*\//g,
         to: ANALYTICS_UMENG === '1' ? '//endif*/' : '//endif',
     };
 
