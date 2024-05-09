@@ -187,7 +187,7 @@ android {
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
         variant.outputs.all {
-            outputFileName = "aimeiju-${variant.versionName}.apk"
+            outputFileName = "yingshi-${variant.versionName}.apk"
         }
     }
 }
