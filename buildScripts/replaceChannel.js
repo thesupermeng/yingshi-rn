@@ -85,12 +85,21 @@ const replaceAppToponConf = {
   to: 'const topon_channel = "DEFAULT"',
 };
 
+const replaceApkUmengLabel = {
+  files: ['../android/app/build.gradle'],
+  from: /def Umeng_Channel_Label = "([^"]+)"/g,
+  to: `def Umeng_Channel_Label = "DEFAULT"`,
+};
+
 replaceToChannelRN.to = 'export const UMENG_CHANNEL = "' + channel + '"';
 replaceToAppVersionRN.to = 'export const APP_VERSION = "' + versionNum + '"';
 replaceToChannelAndroid.to =
   'resValue "string", "UMENG_CHANNEL", "' + channel + '"';
 replaceToUmengAppKey.to =
   'resValue "string", "UMENG_APPKEY", "' + umengKey + '"';
+  replaceApkUmengLabel.to =
+  `def Umeng_Channel_Label = "` + channel +`"`;
+
 replaceAppToponConf.to = 'const topon_channel = "' + channel + '"';
 console.log(replaceToChannelRN.to);
 
@@ -125,6 +134,13 @@ try {
 try {
   let umengKeyResults = replace.sync(replaceToUmengAppKey);
   console.log('UMENG Key updated in Android: ', umengKeyResults);
+} catch (error) {
+  console.error('Error occurred:', error);
+}
+
+try {
+  let replaceApkUmengLabelResult = replace.sync(replaceApkUmengLabel);
+  console.log('UMENG apk label updated in Android: ', replaceApkUmengLabelResult);
 } catch (error) {
   console.error('Error occurred:', error);
 }
