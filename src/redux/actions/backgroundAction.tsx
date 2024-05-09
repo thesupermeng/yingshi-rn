@@ -145,8 +145,9 @@ export const onBootApp =
         CustomEventAnalytic.foundLocalPush();
 
         // ========== adjust event ==========
+        if (UMENG_CHANNEL == "HYTG001") {
         Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
-
+        }
         if (EVENT_CUSTOM_ON) {
           CustomEventAnalytic.start();
         }
@@ -184,8 +185,10 @@ export const onCloseApp =
         // ========== custom event ==========
         CustomEventAnalytic.close();
 
+        if (UMENG_CHANNEL == "HYTG001") {
         // ========== adjust event ==========
         Adjust.componentWillUnmount();
+        }
 
         // ========== vip promotion modal ==========
         if (backgroundState.vipPromotionIntervel) {
