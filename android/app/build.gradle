@@ -7,6 +7,10 @@ apply from: 'topon_china.gradle'
 
 import com.android.build.OutputFile
 
+
+def ANALYTICS_FIREBASE = "0";
+def ANALYTICS_UMENG = "0";
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -104,8 +108,10 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
-        versionCode 63
+        versionCode 72
         versionName "1.7.8"
+        resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
+        resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
@@ -210,10 +216,12 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation fileTree(include:['*.jar'], dir:'libs')
     // implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
-    implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
-    implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
-    implementation (name:'umeng-common-9.6.8', ext:'aar')
-    implementation (name:'uyumao-1.1.2', ext:'aar')
+    if(ANALYTICS_UMENG == "1"){
+        implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
+        implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
+        implementation (name:'umeng-common-9.6.8', ext:'aar')
+        implementation (name:'uyumao-1.1.2', ext:'aar')
+    }
     implementation (name:'anythink_reactnativejs_bridge', ext:'aar')
     
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")

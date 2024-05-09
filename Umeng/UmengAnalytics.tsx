@@ -2,6 +2,7 @@ import AnalyticsUtil from './AnalyticsUtil';
 import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
 import { Adjust, AdjustEvent } from 'react-native-adjust';
+import { ANALYTICS_FIREBASE, ANALYTICS_UMENG } from '@utility/constants';
 
 /**
 catalog
@@ -239,8 +240,8 @@ enum AdjustEventKey {
 export default class UmengAnalytics {
     static showLog: boolean = false;
     static disabled: boolean = false;
-    static disabledUmeng: boolean = true;
-    static disabledFirebase: boolean = true;
+    static disabledUmeng: boolean = !ANALYTICS_UMENG;
+    static disabledFirebase: boolean = !ANALYTICS_FIREBASE;
     static disabledAdjust: boolean = true;
     static disabledCustom: boolean = false;
 

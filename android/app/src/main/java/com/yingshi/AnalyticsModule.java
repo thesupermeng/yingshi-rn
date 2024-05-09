@@ -1,5 +1,6 @@
 package com.yingshitv;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -19,15 +20,12 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.ReadableType;
-import com.umeng.analytics.MobclickAgent;
 
-/**
- * 示例： SDK 接口桥接封装类，并未封装SDK所有API(仅封装常用API接口)，设置配置参数类API应在Android原生代码
- * 调用，例如：SDK初始化函数，Log开关函数，子进程自定义事件埋点使能函数，异常捕获功能使能/关闭函数等等。
- * 如果还需要封装其它SDK API，请参考本例自行封装
- * Created by wangfei on 17/8/28.
- * -- 适配海棠版(common 2.0.0 + analytics 8.0.0) modify by yujie on 18/12/28
- */
+/*/if
+import com.umeng.analytics.MobclickAgent;
+//else*/
+import com.yingshitv.MobclickAgent;
+//endif
 
 public class AnalyticsModule extends ReactContextBaseJavaModule {
     private ReactApplicationContext context;
@@ -43,7 +41,6 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
         return "UMAnalyticsModule";
     }
 
-    /********************************U-App统计*********************************/
     @ReactMethod
     public void onPageStart(String pageName) {
         //android.util.Log.e("xxxxxx","onPageStart="+mPageName);
@@ -190,7 +187,7 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
         }
         MobclickAgent.setFirstLaunchEvent(context, list);
     }
-    /********************************U-Dplus*********************************/
+
     @ReactMethod
     public void profileSignInWithPUID(String puid) {
         MobclickAgent.onProfileSignIn(puid);
