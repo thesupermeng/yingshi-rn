@@ -914,7 +914,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       showAds(RewardVideoAdsType.PLAY_DETAIL_SHORT_VOD);
     }
 
-  }, []);
+  }, [shortVodId]);
 
   const renderEpisodes = useCallback(
     ({ item }) => (
@@ -943,7 +943,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         </Text>
       </TouchableOpacity>
     ),
-    [currentEpisode]
+    [shortVodId, currentEpisode]
   );
 
   const onContentSizeChange = () => {
