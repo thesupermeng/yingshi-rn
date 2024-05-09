@@ -145,11 +145,12 @@ export default () => {
         setLoadedAPI(true);
       }
     } catch (e) {
-      YSConfig.instance.setAreaConfig(false);
       if (Platform.OS === "ios") {
         setAreaNavConfig(false);
+        YSConfig.instance.setAreaConfig(false);
       } else {
         setAreaNavConfig(true);
+        YSConfig.instance.setAreaConfig(true);
       }
       setLoadedAPI(true);
     }
