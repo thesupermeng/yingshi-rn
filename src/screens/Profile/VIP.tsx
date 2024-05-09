@@ -630,21 +630,28 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
         setIsDialogOpen(true);
         setIsSuccess(true);
         // navigation.goBack();
-
-        if (currentPurchase && currentPurchase.transactionId) {
-          AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics({
-            productIdentifier: result.product_id,
-            transactionId: result.transaction_id,
-            price: membershipSelected.promoPrice ?? membershipSelected.price,
-            currency: membershipSelected.currency.currencyCode,
-          });
-        }
       } else {
         dispatch(setShowGuestPurchaseSuccess(true));
         setIsLoading(false);
         setIsBtnEnable(true);
         navigation.goBack();
       }
+
+      if (currentPurchase && currentPurchase.transactionId) {
+        AppsFlyerAnalytics.zfPaymentSuccessTimesAnalytics({
+          productIdentifier: result.product_id,
+          transactionId: result.transaction_id,
+          price: membershipSelected.promoPrice ?? membershipSelected.price,
+          currency: membershipSelected.currency.currencyCode,
+        });
+
+        UmengAnalytics.paymentSuccessTimesAnalytics({
+          transactionId: result?.transaction_id.toString(),
+          price: membershipSelected?.promoPrice.toString() ?? membershipSelected?.price.toString(),
+          currency: membershipSelected?.currency?.currencyCode.toString(),
+        });
+      }
+
       clearTimeout(pendingTimeoutRef.current);
     } else if (result.transaction_status_string === "FAILED") {
       setDialogText(failedDialogText);

@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-export const ENABLE_APPSFLYER = true;
+export const ENABLE_APPSFLYER = false;
 
 export const DARK_THEME = 'DARK_THEME';
 export const LIGHT_THEME = 'LIGHT_THEME';
@@ -51,7 +51,7 @@ export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.yingshitv' : '';
 
 export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
-export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
+export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 
 // const ALL_UMENG_CHANNELS = {
 //     'WEB': 'WEB',
@@ -62,21 +62,21 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "HUANGSHAYU";
+export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
-export const APP_VERSION = "1.7.9";
+export const APP_VERSION = "1.7.8";
 
-export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
-export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
+export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
+export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
 
 export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b65002ded406c8';
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b65017594babf8';
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650175c1b7a23';
-export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b6523b931be70d';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b650d31a42cdd2';
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650d31c80eeba';
+export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b650d31d72638b';
 
 export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
 export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
@@ -84,8 +84,8 @@ export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b655aba884a693';
 export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650bf7ba6ea04';
-export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b65002e06244c7';
+export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650d314a73226';
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b650d31f7a8f63';
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 
@@ -113,9 +113,9 @@ export const AMJ_PRODUCT_IOS = 6;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '影视TV';
+export const APP_NAME_CONST = '爱美剧';
 export const APP_NAME_CONST2 = '该APP';
-export const APP_EMAIL_CONST = 'contactus@yingshi.tv';
+export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
 export const IS_OTHER_SKIN = (APP_NAME_CONST !== '爱美剧' && APP_NAME_CONST !== '影视TV');
 
@@ -165,4 +165,8 @@ export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
 
-export const INIT_FIREBASE = false 
+export const INIT_FIREBASE = false; 
+
+export const ADJUST_APP_KEY = '9cnz9ep9bhmo';
+
+
