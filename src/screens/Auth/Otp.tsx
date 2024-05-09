@@ -193,6 +193,15 @@ const OtpInputs = ({
     if (resultMsg.includes("注册成功")) {
       navigation.navigate('SetUsername');
 
+      // ========== for analytics - start ==========
+      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
+      AppsFlyerAnalytics.userCenterLoginSuccessTimesAnalytics();
+
+      if (user.isVip()) {
+        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+
     } else if (resultMsg.includes("登录成功")) {
 
       if (user.isVip()) {

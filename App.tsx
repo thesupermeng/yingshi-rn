@@ -1,7 +1,7 @@
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {persistor, store} from '@redux/store';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {CheckVersionRequest, MiniVideo} from '@type/ajaxTypes';
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { persistor, store } from "@redux/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { CheckVersionRequest, MiniVideo } from "@type/ajaxTypes";
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
@@ -11,46 +11,46 @@ import {
   APP_NAME_CONST,
   APP_VERSION,
   EVENT_CUSTOM_START,
-  INIT_FIREBASE,
   IOS_HOME_PAGE_BANNER_ADS,
   TOPON_ANDROID_APP_ID,
   TOPON_ANDROID_APP_KEY,
   TOPON_IOS_APP_ID,
   TOPON_IOS_APP_KEY,
   UMENG_CHANNEL,
-} from '@utility/constants';
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {Platform, View} from 'react-native';
-import CodePush from 'react-native-code-push';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import RegengOverlay from './src/components/modal/regengOverlay';
-import MainNav from './src/navigation/mainNav';
-import {YSConfig} from './ysConfig';
+} from "@utility/constants";
+import axios from "axios";
+import React, { constructor, useEffect, useState } from "react";
+import { Platform, View } from "react-native";
+import CodePush from "react-native-code-push";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import RegengOverlay from "./src/components/modal/regengOverlay";
+import MainNav from "./src/navigation/mainNav";
+import { YSConfig } from "./ysConfig";
 
-import {ATRNSDK} from './AnyThinkAds/ATReactNativeSDK';
-import RNRestart from 'react-native-restart';
+import { ATRNSDK } from "./AnyThinkAds/ATReactNativeSDK";
+import RNRestart from "react-native-restart";
 // remove when merge
-import {TermsAcceptContextProvider} from './src/contexts/TermsAcceptedContext';
-import {TermsAcceptContextProvider as TermsAcceptContextProviderA} from './src/contexts/TermsAcceptedContext';
-import {TermsAcceptContextProvider as TermsAcceptContextProviderIos} from './src/contexts/TermsAcceptedContext';
-import {prefetchAdultMiniVod, prefetchMiniVod} from './src/api/miniVod';
+import { TermsAcceptContextProvider } from "./src/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from "./src/contexts/TermsAcceptedContext";
+import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from "./src/contexts/TermsAcceptedContext";
+import { prefetchAdultMiniVod, prefetchMiniVod } from "./src/api/miniVod";
 import {
   checkExpiredCacheFile,
   deleteCachedVideos,
-} from './src/utils/minivodDownloader';
-import NetInfo from '@react-native-community/netinfo';
-import {AppsApi, PlaylistApi, VodApi} from '@api';
-import {CustomEventAnalytic} from './Umeng/EventAnalytic';
-import {logIgnore, warnIgnore} from '@utility/helper';
-import appsFlyer from 'react-native-appsflyer';
-import AppsFlyerAnalytics from './AppsFlyer/AppsFlyerAnalytic';
-import messaging from '@react-native-firebase/messaging';
-import {FirebaseNotification} from '@utility/firebaseNotification';
+} from "./src/utils/minivodDownloader";
+import NetInfo from "@react-native-community/netinfo";
+import { AppsApi, PlaylistApi, VodApi } from "@api";
+import { CustomEventAnalytic } from "./Umeng/EventAnalytic";
+import { logIgnore, warnIgnore } from "@utility/helper";
+import appsFlyer from "react-native-appsflyer";
+import AppsFlyerAnalytics from "./AppsFlyer/AppsFlyerAnalytic";
+import messaging from "@react-native-firebase/messaging";
+import { FirebaseNotification } from "@utility/firebaseNotification";
+import { INIT_FIREBASE } from "./src/utility/constants";
 
-const topon_channel = 'WEB';
+const topon_channel = "WEB";
 
 // import * as Sentry from "@sentry/react-native";
 
@@ -66,21 +66,21 @@ const topon_channel = 'WEB';
 // });
 
 warnIgnore([
-  'Trying to load empty source.',
-  '`new NativeEventEmitter()` was called with a non-null argument without the required',
+  "Trying to load empty source.",
+  "`new NativeEventEmitter()` was called with a non-null argument without the required",
   `ReactImageView: Image source "null" doesn't exist`,
-  'StatusBar._updatePropsStack',
-  'ATBanner',
-  'ATInterstitial',
-  'source.uri should not be an empty string',
-  '[notifee]',
+  "StatusBar._updatePropsStack",
+  "ATBanner",
+  "ATInterstitial",
+  "source.uri should not be an empty string",
+  "[notifee]",
 ]);
 
 logIgnore([
   /Opening .* for reading/,
   /\[.*\] pts has no value/,
   /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/,
-  'ATBanner',
+  "ATBanner",
 ]);
 
 let App = () => {
@@ -122,15 +122,14 @@ let App = () => {
   useEffect(() => {
     if(INIT_FIREBASE)
       {
-        const unsubscribe = messaging().onMessage(async remoteMessage => {
-          FirebaseNotification.setupLocalNotification(
-            // JSON.stringify(remoteMessage),
-            remoteMessage,
-          );
-        });
-        return unsubscribe;
-      }
-
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      FirebaseNotification.setupLocalNotification(
+        // JSON.stringify(remoteMessage),
+        remoteMessage
+      );
+    });
+    return unsubscribe;
+  }
   }, []);
 
   const downloadWatchAnytimeSequence = async () => {
@@ -143,18 +142,18 @@ let App = () => {
 
   useEffect(() => {
     queryClient.prefetchQuery({
-      queryKey: ['HomePage', 0],
+      queryKey: ["HomePage", 0],
       queryFn: () =>
-        AppsApi.getHomePages(0).then(data => {
+        AppsApi.getHomePages(0).then((data) => {
           setCount(99);
           return data;
         }),
     });
 
     queryClient.prefetchQuery({
-      queryKey: ['HomePage', 1000],
+      queryKey: ["HomePage", 1000],
       queryFn: () =>
-        AppsApi.getHomePages(1000).then(data => {
+        AppsApi.getHomePages(1000).then((data) => {
           return data.yingping_list;
         }),
     });
@@ -201,11 +200,11 @@ let App = () => {
 
     let appId, appKey, bannerPlacementId;
 
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       appId = TOPON_ANDROID_APP_ID;
       appKey = TOPON_ANDROID_APP_KEY;
       bannerPlacementId = ANDROID_HOME_PAGE_BANNER_ADS;
-    } else if (Platform.OS === 'ios') {
+    } else if (Platform.OS === "ios") {
       appId = TOPON_IOS_APP_ID;
       appKey = TOPON_IOS_APP_KEY;
       bannerPlacementId = IOS_HOME_PAGE_BANNER_ADS;
@@ -217,40 +216,40 @@ let App = () => {
   function initTopOnSDK(appId, appKey) {
     ATRNSDK.setLogDebug(true);
 
-    ATRNSDK.getSDKVersionName().then(versionName => {
-      console.log('TopOn SDK version name: ' + versionName);
+    ATRNSDK.getSDKVersionName().then((versionName) => {
+      console.log("TopOn SDK version name: " + versionName);
     });
 
     var customMap = {
       channel: topon_channel,
-      appCustomKey1: 'appCustomValue1',
-      appCustomKey2: 'appCustomValue2',
+      appCustomKey1: "appCustomValue1",
+      appCustomKey2: "appCustomValue2",
     };
     ATRNSDK.initCustomMap(customMap);
 
     var placementCustomMap = {
-      placementCustomKey1: 'placementCustomValue1',
-      placementCustomKey2: 'placementCustomValue2',
+      placementCustomKey1: "placementCustomValue1",
+      placementCustomKey2: "placementCustomValue2",
     };
 
     ATRNSDK.setGDPRLevel(ATRNSDK.PERSONALIZED);
 
-    ATRNSDK.getUserLocation().then(userLocation => {
-      console.log('userLocation: ' + userLocation);
+    ATRNSDK.getUserLocation().then((userLocation) => {
+      console.log("userLocation: " + userLocation);
       if (userLocation == ATRNSDK.kATUserLocationInEU) {
-        console.log('userLocation: in EU');
-        ATRNSDK.getGDPRLevel().then(level => {
-          console.log('gdpr level: ' + level);
+        console.log("userLocation: in EU");
+        ATRNSDK.getGDPRLevel().then((level) => {
+          console.log("gdpr level: " + level);
           if (level == ATRNSDK.UNKNOWN) {
             ATRNSDK.showGDPRAuth();
           }
         });
       } else {
-        console.log('userLocation: not in EU');
+        console.log("userLocation: not in EU");
       }
     });
 
-    console.log('TopOn SDK init ....');
+    console.log("TopOn SDK init ....");
     ATRNSDK.initSDK(appId, appKey);
 
     initAdListener();
@@ -272,20 +271,20 @@ let App = () => {
       ip_address: YSConfig.instance.ip,
       channel_id: UMENG_CHANNEL,
       version_number: APP_VERSION,
-      product: APP_NAME_CONST + '-' + Platform.OS.toUpperCase(),
+      product: APP_NAME_CONST + "-" + Platform.OS.toUpperCase(),
       mobile_os: Platform.OS,
-      mobile_model: 'HUAWEIP20',
+      mobile_model: "HUAWEIP20",
     };
     console.log(checkVersionReq);
 
-    const {data: response} = await axios.post(
+    const { data: response } = await axios.post(
       `${API_DOMAIN}version/v1/check`,
-      checkVersionReq,
+      checkVersionReq
     );
 
     const res = response.data.version;
-    const v1 = parseInt(APP_VERSION.replace(/\./g, ''), 10);
-    const v2 = parseInt(res.replace(/\./g, ''), 10);
+    const v1 = parseInt(APP_VERSION.replace(/\./g, ""), 10);
+    const v2 = parseInt(res.replace(/\./g, ""), 10);
 
     // 0 ignore , 1 focce , 2 optional , 3 in background
     const updateType = response.data.update_res.update_type;
@@ -296,7 +295,7 @@ let App = () => {
     YSConfig.instance.setUpdateDesc(response.data.update_res.update_desc);
 
     if (v2 > v1 && updateType != 0) {
-      CodePush.checkForUpdate().then(update => {
+      CodePush.checkForUpdate().then((update) => {
         if (update) {
           if (updateType == 1 || updateType == 2) {
             setShowRegengOverlay(true);
@@ -318,14 +317,14 @@ let App = () => {
   }, []);
 
   return (
-    <View style={{flex: 1, backgroundColor: '#161616'}}>
+    <View style={{ flex: 1, backgroundColor: "#161616" }}>
       <TermsAcceptContextProviderIos>
         <TermsAcceptContextProviderA>
           <TermsAcceptContextProvider>
             <QueryClientProvider client={queryClient}>
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                  <GestureHandlerRootView style={{flex: 1}}>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
                       <MainNav />
                     </BottomSheetModalProvider>

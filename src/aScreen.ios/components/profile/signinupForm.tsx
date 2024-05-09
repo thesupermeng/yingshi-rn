@@ -209,6 +209,15 @@ export const SigninupForm = forwardRef<SigninupRef, Props>(({
     if (userInfo.message.includes("注册成功")) {
       navigation.navigate('SetUsername');
 
+      // ========== for analytics - start ==========
+      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
+      AppsFlyerAnalytics.userCenterLoginSuccessTimesAnalytics();
+
+      if (user.isVip()) {
+        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
+      }
+      // ========== for analytics - end ==========
+
     } else if (userInfo.message.includes("登录成功")) {
 
       if (user.isVip()) {

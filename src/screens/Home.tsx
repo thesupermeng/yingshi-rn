@@ -356,9 +356,6 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
 
     if (SHOW_ZF_CONST &&
       screenState.showEventSplashData) {
-      console.log("==================== splashList from main ======================")
-      console.log(screenState.showEventSplash)
-      console.log(screenState.showEventSplashData)
       // navigation.navigate("付费Google");
       navigation.navigate("付费VIP");
 
