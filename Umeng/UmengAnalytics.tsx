@@ -282,7 +282,8 @@ export default class UmengAnalytics {
         if (eventId === AdjustEventKey.Payment_Success) {
             if (!('transactionId' in body)) body.transactionId = new Date().toUTCString();
             if (!('price' in body)) body.price = 0.0;
-            if (!('currency' in body)) body.currency = 'USD';
+            // if (!('currency' in body)) body.currency = 'CNY';
+            body.currency = 'CNY';
 
             if ('price' in body) {
                 body.price = parseFloat(body.price);
