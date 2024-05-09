@@ -146,10 +146,13 @@ export default () => {
       }
     } catch (e) {
       YSConfig.instance.setAreaConfig(false);
-      setAreaNavConfig(false);
+      if (Platform.OS === "ios") {
+        setAreaNavConfig(false);
+      } else {
+        setAreaNavConfig(true);
+      }
       setLoadedAPI(true);
     }
-
     appDispatch(onBootApp());
 
     //check super (profile click)
