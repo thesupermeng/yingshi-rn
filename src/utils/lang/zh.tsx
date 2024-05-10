@@ -99,6 +99,8 @@ export const lang = {
     [CLangKey.refresh]: '刷新',
     [CLangKey.searchHistory]: '历史搜索',
     [CLangKey.searchRecord]: '搜索记录',
+    [CLangKey.watchVideo]: '看正片',
+    [CLangKey.watchPlaylist]: '看播单',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',
