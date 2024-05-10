@@ -1,11 +1,16 @@
 import React, { memo } from "react";
 import {
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import SelectDownloadComponent from "../download/selectDownloadComponent";
+import CloseIcon from "@static/images/close_icon.svg";
 import { VodEpisodeGroup } from "@models";
+import { CLangKey } from "@constants";
 
 interface Props {
   onDownload: (nid: number) => void;
@@ -33,7 +38,7 @@ function DownloadVodSelectionModal({
   setShowAdOverlay,
   onPressToDownload,
 }: Props) {
-  const { spacing } = useTheme();
+  const { spacing, textVariants, colors } = useTheme();
 
   return (
     <BottomSheet
@@ -47,7 +52,15 @@ function DownloadVodSelectionModal({
       }}
       height="50%"
       bottomOffset={-100}
+      showWhiteLine={false}
     >
+      <View style={styles.headerContainer}>
+        <Text style={textVariants.header}>{CLangKey.download.tr()}</Text>
+        <TouchableOpacity onPress={() => setShowAdOverlay(false)}>
+          <CloseIcon color={colors.muted} />
+        </TouchableOpacity>
+      </View>
+
       {isVisible && (
         <SelectDownloadComponent
           handleClose={handleClose}
@@ -107,5 +120,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  headerContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });

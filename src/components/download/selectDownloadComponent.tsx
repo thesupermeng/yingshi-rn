@@ -185,7 +185,7 @@ function SelectDownloadComponent({
           style={{
             textAlign: "center",
             ...textVariants.header,
-            color: index === currentIndex ? colors.text : colors.muted,
+            color: index === currentIndex ? colors.primary : colors.muted,
             fontSize: index === currentIndex ? 18 : 15,
           }}
         >
@@ -218,7 +218,7 @@ function SelectDownloadComponent({
           {iosCustomToastText}
         </Text>
       </View>}
-      {screen === 'potrait' && (
+      {/* {screen === 'potrait' && (
         <View
           style={{
             ...styles.header, marginHorizontal: 30,
@@ -231,7 +231,7 @@ function SelectDownloadComponent({
             {CLangKey.download.tr()}
           </Text>
         </View>
-      )}
+      )} */}
 
       <FlatList
         horizontal
@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });

@@ -99,6 +99,9 @@ export const lang = {
     [CLangKey.refresh]: 'Refresh',
     [CLangKey.searchHistory]: 'Recent Search',
     [CLangKey.searchRecord]: 'Search Record',
+    [CLangKey.about]: 'About',
+    [CLangKey.watchVideo]: 'Play',
+    [CLangKey.watchPlaylist]: 'Play',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',

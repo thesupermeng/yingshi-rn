@@ -12,6 +12,7 @@ import { useTheme } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import SortAscIcon from "@static/images/sortAsc.svg";
 import SortDescIcon from "@static/images/sortDesc.svg";
+import CloseIcon from "@static/images/close_icon.svg";
 import BottomSheet from "../bottomSheet/bottomSheet";
 import { VodRecordType } from "@redux/reducers/vodReducer";
 import { VodEpisodeGroup } from "@models";
@@ -113,7 +114,14 @@ function VodEpisodeSelectionModal({
         alignItems: "center",
       }}
       height="50%"
+      showWhiteLine={false}
     >
+      <View style={styles.headerContainer}>
+        <Text style={textVariants.header}>{CLangKey.anthology.tr()}</Text>
+        <TouchableOpacity onPress={onCancel}>
+          <CloseIcon color={colors.muted} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.episodeList}>
         {/* <Text
           style={[
@@ -135,7 +143,7 @@ function VodEpisodeSelectionModal({
                   style={{
                     textAlign: "center",
                     ...textVariants.header,
-                    color: index === currentIndex ? colors.text : colors.muted,
+                    color: index === currentIndex ? colors.primary : colors.muted,
                     fontSize: index === currentIndex ? 18 : 15,
                   }}
                 >
@@ -180,7 +188,7 @@ function VodEpisodeSelectionModal({
               <View
                 style={{
                   backgroundColor:
-                    ep.nid === activeEpisode ? colors.primary : colors.search,
+                    ep.nid === activeEpisode ? colors.text : colors.search,
                   padding: spacing.s,
                   minWidth: 60,
                   marginRight: "auto",
@@ -229,6 +237,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  headerContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   episodeList: {
     display: "flex",

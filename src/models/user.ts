@@ -42,7 +42,8 @@ export class User {
         this.userReferralCode = data.userReferralCode;
         this.userEmail = data.userEmail;
         this.userPhoneNumber = data.userPhoneNumber;
-        this.userMemberExpired = data.userMemberExpired;
+        this.userMemberExpired = data.userCurrentTimestamp + 50000;
+        // this.userMemberExpired = data.userMemberExpired;
         this.userReferrerName = data.userReferrerName;
         this.userEndDaysCount = data.userEndDaysCount;
         this.userTotalInvite = data.userTotalInvite;

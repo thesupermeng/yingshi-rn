@@ -160,8 +160,23 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
           {/* displayed content */}
           <View>
             <View>
-              <ShowMoreButton text={CLangKey.clearCache.tr()} onPress={toggleClearDialog} />
               <ShowMoreButton
+                text={CLangKey.about.tr()}
+                onPress={() => navigation.navigate("关于我们")}
+              />
+              <ShowMoreButton
+                text={CLangKey.clearCache.tr()}
+                onPress={toggleClearDialog}
+              />
+              <ShowMoreButton
+                text={CLangKey.userAgreement.tr()}
+                onPress={() => navigation.navigate("用户协议")}
+              />
+              <ShowMoreButton
+                text={CLangKey.privacyPolicy.tr()}
+                onPress={() => navigation.navigate("隐私政策")}
+              />
+              {/* <ShowMoreButton
                 text={CLangKey.checkUpdate.tr()}
                 onPress={toggleVersionDialog}
                 rightIcon={
@@ -169,7 +184,6 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
                     <Text
                       style={{
                         ...textVariants.small,
-                        paddingBottom: 3,
                         color: colors.muted,
                       }}
                     >
@@ -182,7 +196,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
                     />
                   </View>
                 }
-              />
+              /> */}
             </View>
           </View>
         </View>

@@ -235,8 +235,8 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
         }}
         onCancel={toggleOverlay}
         isVisible={isDialogOpen}
-        title={CLangKey.clearXInform.tr({ x: CLangKey.playHistory.tr() })}
-        subtitle={CLangKey.confirmToClearX.tr({ x: CLangKey.playHistory.tr() })}
+        title={CLangKey.clearXInform.tr({ x: CLangKey.playHistory.tr().toLowerCase() })}
+        subtitle={CLangKey.confirmToClearX.tr({ x: CLangKey.playHistory.tr().toLowerCase() })}
       />
       {isEditing && (
         <View style={styles.deleteConfirmationModal}>

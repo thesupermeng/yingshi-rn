@@ -72,7 +72,7 @@ function DownloadVodCard({
 
   const totalFileSizeInMB = download.episodes.reduce((prev, curr) => prev + curr.sizeInBytes, 0) / 1024 / 1024  // size in MiB
 
-  let totalNumberOfEpisodes, totalDownloadedEpisodes;
+  let totalNumberOfEpisodes, totalDownloadedEpisodes, totalCompleteEpisodes;
   if (download.vod.vod_sources) {
     const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources.shift()
     totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
@@ -82,6 +82,8 @@ function DownloadVodCard({
     totalNumberOfEpisodes = download.vod.vod_play_list.url_count
     totalDownloadedEpisodes = download.episodes.length
   }
+  totalCompleteEpisodes = download.episodes.filter(ep => ep.status === DownloadStatus.COMPLETED).length;
+
   const isVodsDownloading = download.episodes.some(ep => ep.status === DownloadStatus.DOWNLOADING)
   const isVodsDownloadingPaused = !isVodsDownloading && download.episodes.some(ep => ep.status === DownloadStatus.ERROR || ep.status === DownloadStatus.PAUSED)
 
@@ -124,7 +126,8 @@ function DownloadVodCard({
           </Text>
           <View style={styles.videoCountDetail}>
             <Text style={{ color: colors.muted }}>
-              {CLangKey.xVideos.tr({ x: totalDownloadedEpisodes })}
+              {/* {CLangKey.xVideos.tr({ x: totalDownloadedEpisodes })} */}
+              ({totalCompleteEpisodes}/{totalDownloadedEpisodes})
             </Text>
             <Divider orientation='vertical' />
             <Text style={{ color: colors.muted }}>

@@ -22,7 +22,7 @@ import {
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "@static/images/favorite.svg";
 import VodDetailIcon from "@static/images/vod_detail.svg";
-import DlVodIcon from "@static/images/download_vod.svg";
+import DownloadIcon from "@static/images/download.svg";
 import ScreenContainer from "../../components/container/screenContainer";
 import {
   useTheme,
@@ -442,7 +442,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           // justifyContent: "space-between",
           alignItems: "center",
           backgroundColor:
-            currentSourceId === item.source_id ? colors.primary : colors.search,
+            currentSourceId === item.source_id ? colors.text : colors.search,
           paddingVertical: 8,
           paddingHorizontal: 8,
           // minWidth: 70,
@@ -890,7 +890,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       <TouchableOpacity
         style={{
           backgroundColor:
-            currentEpisode === item.nid ? colors.primary : colors.search,
+            currentEpisode === item.nid ? colors.text : colors.search,
           paddingVertical: 8,
           paddingHorizontal: 10,
           minWidth: 70,
@@ -1269,7 +1269,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
             >
               <View style={{ ...styles.descriptionContainer2, gap: spacing.m }}>
                 <View style={styles.videoDescription}>
-                  {adultMode ? (
+                  {/* {adultMode ? (
                     <FastImage
                       key={`${vod?.vod_pic}-${isOffline}`}
                       source={{
@@ -1303,7 +1303,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       useFastImage={Platform.OS === "android"}
                       alternativeImg={vod?.vod_pic_list}
                     />
-                  )}
+                  )} */}
 
                   <View style={styles.descriptionContainer}>
                     {vod && (
@@ -1479,7 +1479,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       <View
                         style={{
                           display: "flex",
-                          flexDirection: "row",
+                          // flexDirection: "row",
                           alignItems: "center",
                           gap: spacing.xxs,
                         }}
@@ -1521,7 +1521,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       <View
                         style={{
                           display: "flex",
-                          flexDirection: "row",
+                          // flexDirection: "row",
                           alignItems: "center",
                           alignContent: "center",
                           gap: spacing.xxs,
@@ -1562,12 +1562,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         ref={componentRef}
                         style={{
                           display: "flex",
-                          flexDirection: "row",
+                          // flexDirection: "row",
                           alignItems: "center",
                           gap: spacing.xxs,
                         }}
                       >
-                        <DlVodIcon
+                        <DownloadIcon
                           width={24}
                           height={24}
                           style={{
@@ -1854,7 +1854,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     gap: spacing.xxs,
                   }}
                 >
-                  <DlVodIcon
+                  <DownloadIcon
                     width={24}
                     height={24}
                     style={{

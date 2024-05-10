@@ -62,13 +62,13 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
     // }
     <ScreenContainer>
       <View style={{ gap: spacing.m }}>
-        <TitleWithBackButtonHeader title={CLangKey.aboutUs.tr()} />
+        <TitleWithBackButtonHeader title={CLangKey.about.tr()} />
         <View style={styles.logo}>
           <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
         </View>
         <TouchableOpacity onPress={spamToggleB}>
           <Text style={{ textAlign: "center", ...textVariants.body }}>
-            {APP_VERSION}
+            {`${CLangKey.version.tr()} ${APP_VERSION}`}
           </Text>
         </TouchableOpacity>
         <NotificationModal
@@ -79,7 +79,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
           subtitle2={`${CLangKey.contactEmail.tr()}:`}
           subtitle3={APP_EMAIL_CONST}
         />
-        <View>
+        {/* <View>
           <ShowMoreButton
             text={CLangKey.privacyPolicy.tr()}
             onPress={() => navigation.navigate("隐私政策")}
@@ -92,7 +92,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
             text={CLangKey.copyrightNotice.tr()}
             onPress={() => setIsDialogOpen(!isDialogOpen)}
           />
-        </View>
+        </View> */}
       </View>
     </ScreenContainer>
   );

@@ -7,7 +7,7 @@ export enum CLanguageType {
 }
 
 export class CLang {
-    static #language: CLanguageType = CLanguageType.Chinese;
+    static #language: CLanguageType = CLanguageType.English;
     static #langs: { [key: string]: { [key: string]: string } } = {
         [CLanguageType.Chinese]: langZh,
         [CLanguageType.English]: langEn,

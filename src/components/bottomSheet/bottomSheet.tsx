@@ -14,6 +14,7 @@ interface Props {
   maxHeight?: string | number;
   bottomOffset?: number;
   supportedOrientations?: ("portrait" | "landscape")[];
+  showWhiteLine?: boolean;
 }
 
 export default function BottomSheet({
@@ -26,6 +27,7 @@ export default function BottomSheet({
   maxHeight,
   bottomOffset = 0,
   supportedOrientations = ["portrait", "landscape"],
+  showWhiteLine = true,
 }: Props) {
   const { colors } = useTheme();
   const [bottomPosition, setBottomPosition] = useState(0);
@@ -89,14 +91,16 @@ export default function BottomSheet({
           marginTop: 10,
         }}
       >
-        <View
-          style={{
-            backgroundColor: "white",
-            width: 40,
-            height: 5,
-            borderRadius: 10,
-          }}
-        />
+        {showWhiteLine &&
+          <View
+            style={{
+              backgroundColor: "white",
+              width: 40,
+              height: 5,
+              borderRadius: 10,
+            }}
+          />
+        }
       </View>
       {children}
     </ReactBottomSheet>

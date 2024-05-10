@@ -8,6 +8,10 @@ import {
   Text,
 } from "react-native";
 import Logo from "@static/images/logo.svg";
+import ShareRectIcon from "@static/images/shareRect.svg";
+import SearchIcon from "@static/images/search.svg";
+import NavIcon from "@static/images/nav.svg";
+import FireIcon from "@static/images/fire.svg";
 import VipEntry from "@static/images/splash/VipEntry.svg";
 import History from "@static/images/history.svg";
 import { useTheme } from "@react-navigation/native";
@@ -21,9 +25,23 @@ interface Props {
   logo?: React.ReactNode;
   navigator: any;
   headerStyle?: ViewStyle;
+  title?: string,
+  rightComponent?: React.ReactNode,
+  searchIcon?: boolean,
+  navIcon?: boolean,
+  fireIcon?: boolean,
 }
-function MainHeader({ logo, navigator, headerStyle }: Props) {
-  const { icons } = useTheme();
+function MainHeader({
+  logo,
+  navigator,
+  headerStyle,
+  title,
+  rightComponent,
+  searchIcon = false,
+  navIcon = false,
+  fireIcon = false,
+}: Props) {
+  const { textVariants, colors, } = useTheme();
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
@@ -40,13 +58,29 @@ function MainHeader({ logo, navigator, headerStyle }: Props) {
 
   return (
     <View style={{ ...styles.container, ...headerStyle }}>
-      {logo ? logo : <Logo height={36} />}
-      <SearchBar
-        onPress={() =>
-          navigator.navigate("搜索", { initial: randomVod?.vod_name })
-        }
-        defaultValue={randomVod !== undefined ? randomVod.vod_name : ""}
-      />
+      <ShareRectIcon />
+
+      <Text style={{
+        ...textVariants.header,
+        flex: 1,
+        color: colors.text,
+        textAlign: 'center',
+      }}
+      >
+        {title}
+      </Text>
+
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 6,
+      }}>
+        {rightComponent}
+        {searchIcon && <SearchIcon />}
+        {navIcon && <NavIcon />}
+        {fireIcon && <FireIcon />}
+      </View>
       {SHOW_ZF_CONST &&
         <TouchableOpacity
           onPress={() => {

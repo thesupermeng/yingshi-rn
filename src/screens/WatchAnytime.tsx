@@ -22,6 +22,7 @@ import { User } from '@models';
 import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
 import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import { CLangKey } from '@constants';
+import HomeHeader from '../components/header/homeHeader';
 
 type MiniVideoResponseType = {
   data: {
@@ -219,9 +220,16 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   return (
     <ScreenContainer containerStyle={styles.containerStyle}>
       <View style={styles.titleTextContainer}>
-        <Text style={styles.titleText}>{CLangKey.watchanytimeTab.tr()}</Text>
+        <HomeHeader
+          navigator={navigation}
+          title={CLangKey.watchanytimeTab.tr()}
+          rightComponent={
+            <EighteenPlusControls />
+          }
+        />
       </View>
-      <EighteenPlusControls />
+
+
       {!isOffline && (
         <MiniVideoList
           ref={miniVodRef}
@@ -277,7 +285,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    padding: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     zIndex: 50,
     width: '100%',
     flexDirection: 'row',

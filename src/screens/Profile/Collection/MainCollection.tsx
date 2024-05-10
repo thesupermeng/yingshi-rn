@@ -49,10 +49,10 @@ export default ({ navigation }: RootStackScreenProps<'我的收藏'>) => {
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader title={CLangKey.myFavourite.tr()} />
-      <MainCollectionHeader
+      {/* <MainCollectionHeader
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
-      />
+      /> */}
 
       {selectedTab === '视频收藏' && (
         <>

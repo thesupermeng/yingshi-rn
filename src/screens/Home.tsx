@@ -62,6 +62,7 @@ import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/eventSplash";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { HomePageType, User } from "@models";
+import { CLangKey } from "@constants";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -425,7 +426,13 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
             paddingRight: spacing.sideOffset,
           }}
         >
-          <HomeHeader navigator={navigation} />
+          <HomeHeader
+            navigator={navigation}
+            title={CLangKey.homeTab.tr()}
+            searchIcon={true}
+            navIcon={true}
+            fireIcon={true}
+          />
         </View>
         <HomeNav
           // hideContent={hideContent}

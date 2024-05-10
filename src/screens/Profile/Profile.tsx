@@ -64,6 +64,7 @@ import { User } from "@models";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
 import { CLangKey } from "../../constants/langkey";
+import HomeHeader from "../../components/header/homeHeader";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -283,18 +284,13 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           showsVerticalScrollIndicator={false}
         >
           <View style={{ ...styles.topNav }}>
-            <Text
-              style={{
-                ...textVariants.bigHeader,
-                color: colors.text,
-                fontSize: 22,
-              }}
-            >
-              {CLangKey.profileTab.tr()}
-            </Text>
+            <HomeHeader
+              navigator={navigator}
+              title={CLangKey.profileTab.tr()}
+            />
           </View>
-          {/* 游客登录  component*/}
-          <TouchableOpacity
+
+          {/* <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
 
@@ -378,9 +374,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         )}
                       </View>
 
-                      {/* {userState.userMemberExpired == '0' && (
-                      <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
-                    )} */}
                       {User.isVip(userState.user) &&
                         (
                           <Text style={{ color: colors.yellow, fontSize: 14 }}>
@@ -401,7 +394,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   )}
                 </View>
               </View>
-              {/* 游客 no vip  */}
+
               {User.isGuest(userState.user) &&
                 !User.isVip(userState.user) && (
                   <View
@@ -431,7 +424,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   </View>
                 )}
 
-              {/* 游客 got vip  */}
               {User.isGuest(userState.user) &&
                 User.isVip(userState.user) && (
                   <View
@@ -461,7 +453,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   </View>
                 )}
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {bannerAd &&
             bannerAd.map((ad) => {
@@ -476,7 +468,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
             })}
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            {SHOW_ZF_CONST && (
+            {/* {SHOW_ZF_CONST && (
               <View
                 style={{
                   flexDirection: "row",
@@ -602,7 +594,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   color={colors.muted}
                 />
               </TouchableOpacity>
-            )}
+            )} */}
             {/* 
             {Platform.OS === "android" && (
               <TouchableOpacity
@@ -635,11 +627,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
-            {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
-              text={CLangKey.myDownload.tr()}
-              leftIcon={<DownloadIcon style={{ color: colors.button }} />}
-              onPress={() => navigation.navigate("我的下载")}
-            />}
             <ShowMoreButton
               text={CLangKey.myFavourite.tr()}
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
@@ -650,6 +637,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             />
+            {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
+              text={CLangKey.myDownload.tr()}
+              leftIcon={<DownloadIcon style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("我的下载")}
+            />}
             <ShowMoreButton
               text={CLangKey.iWantFeedback.tr()}
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
@@ -666,11 +658,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<SettingsIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("设置")}
             />
-            <ShowMoreButton
+            {/* <ShowMoreButton
               text={CLangKey.aboutUs.tr()}
               leftIcon={<InfoIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("关于我们")}
-            />
+            /> */}
             {/* <TouchableOpacity
               style={{
                 ...styles.btn,

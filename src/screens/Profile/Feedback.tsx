@@ -97,9 +97,9 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
     <ScreenContainer>
       <TitleWithBackButtonHeader title={CLangKey.iWantFeedback.tr()} />
       <View style={{ marginTop: 30, marginBottom: 20 }}>
-        <Text style={{ ...textVariants.header, marginBottom: 20 }}>
+        {/* <Text style={{ ...textVariants.header, marginBottom: 20 }}>
           {CLangKey.problemFeedback.tr()}:
-        </Text>
+        </Text> */}
         <TextInput
           style={{
             ...styles.input,
@@ -150,14 +150,14 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
         backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         onBackdropPress={() => setIsDialogOpen(false)}
       >
-        {!isOffline && IS_OTHER_SKIN
+        {/* {!isOffline && IS_OTHER_SKIN
           ? <FastImage
             source={require("@static/images/feedback_success.gif")}
             style={{ width: 100, height: 100 }}
             resizeMode="contain"
           />
           : <FeedbackSuccessIcon />
-        }
+        } */}
 
         <Text style={{ ...textVariants.bigHeader, textAlign: 'center' }}>{dialogText}</Text>
       </Dialog>
