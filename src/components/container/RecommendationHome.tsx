@@ -52,7 +52,7 @@ import { AdsApi } from "../../api/ads";
 import DeviceInfo from "react-native-device-info";
 import { VipPromotionOverlay } from "../modal/vipPromotionOverlay";
 import { UserStateType } from "@redux/reducers/userReducer";
-import { HomePageType, PaggingObject, PlayList, User } from "@models";
+import { Carousel as CarouselModel, HomePageType, PaggingObject, PlayList, User } from "@models";
 import VipGuideModal2 from "../modal/vipGuide2";
 import VipGuideModal from "../modal/vipGuide";
 import { screenModel } from "@type/screenType";
@@ -339,7 +339,7 @@ const RecommendationHome = ({
   );
 
   const renderCarousel = useCallback(
-    ({ item, index }: { item: any; index: number }) => {
+    ({ item, index }: { item: CarouselModel; index: number }) => {
       const key = item.is_ads
         ? item.carousel_id + item.carousel_pic_mobile
         : item.carousel_id;
@@ -364,9 +364,8 @@ const RecommendationHome = ({
                 ads_name: item.ads_name,
               });
             } else {
-              dispatch(playVod(item.vod));
               navigation.navigate("播放", {
-                vod_id: item.carousel_content_id,
+                vod_id: item.vod?.vod_id ?? 0,
               });
             }
           }}
@@ -485,9 +484,9 @@ const RecommendationHome = ({
       </View>
       <VodListVertical vods={category.vod_list} />
 
-      {(data.yunying.length + index + 1) % 3 === 0 &&
+      {/* {(data.yunying.length + index + 1) % 3 === 0 &&
         bannerAd &&
-        renderBanner(bannerAdList)}
+        renderBanner(bannerAdList)} */}
     </View>
   );
 
@@ -569,7 +568,6 @@ const RecommendationHome = ({
                 </View>
               )}
               <View>
-                {/* previous style={{ gap: spacing.m }} */}
                 {data?.carousel[0] && history.length > 0 && (
                   <View>
                     <View
@@ -597,7 +595,7 @@ const RecommendationHome = ({
                   </View>
                 )}
 
-                {bannerAd && distanceToBottom != 0 && (
+                {/* {bannerAd && distanceToBottom != 0 && (
                   <Modal visible={vipGuideModal} transparent={true}>
                     <View
                       style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.8)" }}
@@ -741,7 +739,7 @@ const RecommendationHome = ({
 
                 {data?.yunying &&
                   data.yunying.length > 0 &&
-                  data.yunying.map(yunyingMap)}
+                  data.yunying.map(yunyingMap)} */}
 
                 {data?.categories &&
                   data.categories.length > 0 &&
@@ -749,7 +747,8 @@ const RecommendationHome = ({
               </View>
             </>
           }
-          data={results}
+          data={[]}
+          // data={results}
           onEndReached={() => {
             if (hasNextPage && !isFetchingNextPage && !isFetching) {
               fetchNextPage();

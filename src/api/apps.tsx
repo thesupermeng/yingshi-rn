@@ -39,8 +39,8 @@ export class AppsApi {
         try {
             const result = await CApi.get(CEndpoint.appGetBottomNav, {
                 query: {
-                    channelId: UMENG_CHANNEL,
-                    mobileOS: Platform.OS.toUpperCase(),
+                    // channelId: UMENG_CHANNEL,
+                    // mobileOS: Platform.OS.toUpperCase(),
                 },
             });
 
@@ -110,11 +110,11 @@ export class AppsApi {
             const result = await CApi.get(CEndpoint.homeGetPages, {
                 query: {
                     id: id,
-                    platform: Platform.OS,
-                    channelId: UMENG_CHANNEL,
-                    appName: APP_NAME_CONST,
-                    ads: !isVip,
-                    dj: true,
+                    // platform: Platform.OS,
+                    // channelId: UMENG_CHANNEL,
+                    // appName: APP_NAME_CONST,
+                    // ads: !isVip,
+                    // dj: true,
                 },
             });
 

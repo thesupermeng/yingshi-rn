@@ -228,7 +228,7 @@ enum CustomEventKey {
 
 export default class UmengAnalytics {
     static showLog: boolean = false;
-    static disabled: boolean = false;
+    static disabled: boolean = true;
     static disabledUmeng: boolean = true;
     static disabledFirebase: boolean = true;
     static disabledCustom: boolean = false;
