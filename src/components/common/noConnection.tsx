@@ -72,9 +72,9 @@ export default function NoConnection({
                 ...styles.refreshBtn,
                 backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
               }}>
-              <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
+              {/* <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
-              </View>
+              </View> */}
               <Text
                 style={{
                   ...styles.head,
@@ -107,9 +107,9 @@ export default function NoConnection({
                 ...styles.refreshBtn,
                 backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
               }}>
-              <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
+              {/* <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
-              </View>
+              </View> */}
               <Text
                 style={{
                   ...styles.head,

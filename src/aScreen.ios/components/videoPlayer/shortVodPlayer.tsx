@@ -24,6 +24,7 @@ import ExpandUpIcon from '@static/images/expandHeji.svg';
 import { QueryClient } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
+import { CLangKey } from '@constants';
 
 interface Props {
   thumbnail?: string;
@@ -82,7 +83,7 @@ function ShortVideoPlayer({
   const [showIcon, setShowIcon] = useState(false);
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
   const [isBodan, setIsBodan] = useState(true);
-  const [watchText, setWatchText] = useState('看正片');
+  const [watchText, setWatchText] = useState(CLangKey.watchVideo.tr());
   const [imageLoaded, setImageLoaded] = useState(false);
   const overlayRef = useRef(false);
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
@@ -104,10 +105,10 @@ function ShortVideoPlayer({
 
     if (currentVod.mini_video_topic?.topic_id != 0) {
       setIsBodan(true);
-      setWatchText('看播单');
+      setWatchText(CLangKey.watchPlaylist.tr());
     } else {
       setIsBodan(false);
-      setWatchText('看正片');
+      setWatchText(CLangKey.watchVideo.tr());
     }
 
     return () => {
@@ -115,7 +116,7 @@ function ShortVideoPlayer({
       setShowIcon(false);
       updateVideoDuration(0);
       setIsBodan(false);
-      setWatchText('看正片');
+      setWatchText(CLangKey.watchVideo.tr());
     };
   }, [currentVod]);
 

@@ -112,6 +112,17 @@ export class CLangKey {
     static about = 'about';
     static watchVideo = 'watchVideo';
     static watchPlaylist = 'watchPlaylist';
+    static speed = 'speed';
+    static videoScale = 'videoScale';
+    static selectEpisode = 'selectEpisode';
+    static liveStation = 'liveStation';
+    static movie = 'movie';
+    static xSuggess = 'xSuggess';
+    static liveStationSuggessTr = () => this.xSuggess.tr({ x: this.liveStation.tr() });
+    static movieSuggessTr = () => this.xSuggess.tr({ x: this.movie.tr() });
+    static trending = 'trending';
+    static trendingRank = 'trendingRank';
+    static filter = 'filter';
 
 
     // ============================== sentence ==============================

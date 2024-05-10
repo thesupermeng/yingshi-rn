@@ -7,6 +7,8 @@ import {
   addSearchHistory,
   clearSearchHistory,
 } from '@redux/actions/searchActions';
+import { CLangKey } from '@constants';
+import FireIcon from "@static/images/fire.svg";
 
 interface Props {
   recommendationList: Array<SuggestedVodType>;
@@ -24,7 +26,10 @@ export default function RecommendationList({ recommendationList }: Props) {
 
   return (
     <View style={{ gap: spacing.m, marginBottom: 60 }}>
-      <Text style={{ ...textVariants.header }}>热搜总榜</Text>
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <FireIcon />
+        <Text style={{ ...textVariants.header, color: 'orange' }}>{CLangKey.trendingRank.tr()}</Text>
+      </View>
       {recommendationList.map((item, index) => (
         <View
           key={`suggestion-${index}`}

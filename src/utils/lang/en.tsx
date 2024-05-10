@@ -102,6 +102,15 @@ export const lang = {
     [CLangKey.about]: 'About',
     [CLangKey.watchVideo]: 'Play',
     [CLangKey.watchPlaylist]: 'Play',
+    [CLangKey.speed]: 'Speed',
+    [CLangKey.videoScale]: 'Video Scale',
+    [CLangKey.selectEpisode]: 'Select Episode',
+    [CLangKey.liveStation]: 'Live Station',
+    [CLangKey.movie]: 'Movie',
+    [CLangKey.xSuggess]: '%x Suggess',
+    [CLangKey.trending]: 'Trending',
+    [CLangKey.trendingRank]: 'Trending',
+    [CLangKey.filter]: 'Filter',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',

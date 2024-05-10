@@ -77,9 +77,21 @@ function MainHeader({
         gap: 6,
       }}>
         {rightComponent}
-        {searchIcon && <SearchIcon />}
-        {navIcon && <NavIcon />}
-        {fireIcon && <FireIcon />}
+        {searchIcon &&
+          <TouchableOpacity onPress={() => navigator.navigate('搜索')}>
+            <SearchIcon />
+          </TouchableOpacity>
+        }
+        {navIcon &&
+          <TouchableOpacity onPress={() => navigator.navigate('片库')}>
+            <NavIcon />
+          </TouchableOpacity>
+        }
+        {fireIcon &&
+          <TouchableOpacity onPress={() => navigator.navigate('Trending')}>
+            <FireIcon />
+          </TouchableOpacity>
+        }
       </View>
       {SHOW_ZF_CONST &&
         <TouchableOpacity

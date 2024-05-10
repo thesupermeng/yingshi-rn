@@ -22,6 +22,7 @@ import { VodDescription } from "./vodDescription"
 import { CBottomSheet } from "../../atoms";
 import { useTheme } from '@react-navigation/native';
 import { CLangKey } from "@constants";
+import CloseIcon from "@static/images/close_icon.svg";
 
 interface Props {
   isVisible?: boolean;
@@ -32,6 +33,10 @@ interface Props {
   vod_writer?: string,
   vod_actor?: string,
   vod_content?: string,
+  vod_year?: string,
+  vod_area?: string,
+  vod_class?: string,
+  vod_time_add?: number,
   textColor?: string;
 }
 const definedValue = (val: any) => {
@@ -56,6 +61,10 @@ function DescriptionBottomSheet({
   vod_writer = "",
   vod_actor = "",
   vod_content = "",
+  vod_year = "",
+  vod_area = "",
+  vod_class = "",
+  vod_time_add,
   textColor = '',
 }: Props) {
   const { colors, textVariants, spacing, icons } = useTheme();
@@ -77,7 +86,15 @@ function DescriptionBottomSheet({
       }}
       maxHeight={'85%'}
       style={{ paddingBottom: 50 }}
+      showWhiteLine={false}
     >
+      <View style={styles.headerContainer}>
+        <Text style={textVariants.header}>{CLangKey.details.tr()}</Text>
+        <TouchableOpacity onPress={handleClose}>
+          <CloseIcon color={colors.muted} />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.titleContainer}>
         <Text
           numberOfLines={1}
@@ -89,6 +106,37 @@ function DescriptionBottomSheet({
           {`${definedValue(vodTitle)}`}
         </Text>
       </View>
+      <Text
+        style={{ ...textVariants.subBody, color: colors.muted }}
+        numberOfLines={2}
+      >
+        {`${definedValue(vod_year)}`}
+        {/* {`${definedValue(vod_area)}`} */}
+        {`${definedValue(vod_class)}`}
+      </Text>
+      <Text
+        style={{ ...textVariants.subBody, color: colors.muted }}
+      >
+        {(() => {
+          try {
+            const dateValue =
+              !!vod_time_add
+                ? new Date(vod_time_add * 1000)
+                  .toISOString()
+                  .slice(0, 10)
+                  .replace(/\//g, "-")
+                : new Date()
+                  .toISOString()
+                  .slice(0, 10)
+                  .replace(/\//g, "-");
+
+            return `${CLangKey.update.tr()}：${dateValue}`;
+          } catch (error) {
+            console.error("Error while formatting date:", error);
+            return `${CLangKey.update.tr()}：N/A`; // or any default value you want to display on error
+          }
+        })()}
+      </Text>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.descriptionContainer2Text}>
           {`${CLangKey.director.tr()}：${definedValue(vod_director)}${"\n"}` +
@@ -98,13 +146,19 @@ function DescriptionBottomSheet({
       </View>
       <View style={{ marginBottom: 20 }}>
         <Text
+          style={textVariants.header}
+          numberOfLines={2}
+        >
+          {CLangKey.intro.tr()}
+        </Text>
+        <Text
           ref={textRef}
           onTextLayout={handleTextLayout}
           style={styles.descriptionContainer2Text}
           // numberOfLines={isCollapsed ? 2 : 20}
           numberOfLines={30}
         >
-          {`${CLangKey.intro.tr()} ${"\n"}${definedValue(vod_content)}`}
+          {definedValue(vod_content)}
         </Text>
       </View>
     </CBottomSheet>
@@ -113,7 +167,6 @@ function DescriptionBottomSheet({
 
 const styles = StyleSheet.create({
   titleContainer: {
-    alignItems: 'center',
     justifyContent: 'flex-start',
 
   },
@@ -121,6 +174,12 @@ const styles = StyleSheet.create({
     color: "#9C9C9C",
     fontSize: 15,
 
+  },
+  headerContainer: {
+    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

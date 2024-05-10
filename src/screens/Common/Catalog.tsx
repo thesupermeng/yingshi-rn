@@ -42,6 +42,7 @@ import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
 import { VodApi } from '@api';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
 import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 interface NavType {
   id: number;
@@ -446,7 +447,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     <>
       <ScreenContainer>
         <TitleWithBackButtonHeader
-          title="片库"
+          title={CLangKey.filter.tr()}
         // headerStyle={{marginBottom: spacing.s}}
         />
         <Animated.View style={{ paddingTop: 16 }}>

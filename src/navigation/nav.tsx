@@ -139,6 +139,7 @@ import { User } from "@models";
 import { PaymentWebview } from "../screens/Common/PaymentWebview";
 import { CLangKey } from "@constants";
 import { Webview } from "../screens/Common/Webview";
+import Trending from "../screens/Trending";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -743,6 +744,11 @@ export default () => {
           <Stack.Screen
             name="Webview"
             component={Webview}
+            options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen
+            name="Trending"
+            component={Trending}
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>

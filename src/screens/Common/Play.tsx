@@ -1932,6 +1932,10 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         vod_writer={vod?.vod_author}
         vod_director={vod?.vod_director}
         vod_content={vodDetails?.vod_content}
+        vod_year={vod?.vod_year}
+        vod_area={vod?.vod_area}
+        vod_class={vod?.vod_class?.split(",").join(" ")}
+        vod_time_add={vod?.vod_time_add}
       />
 
       <BecomeVipOverlay

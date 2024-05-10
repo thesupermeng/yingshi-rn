@@ -126,6 +126,7 @@ export type RootStackParamList = {
     source: string,
     isPayment?: boolean,
   },
+  Trending: undefined,
 };
 
 export type RootStackScreenProps<
