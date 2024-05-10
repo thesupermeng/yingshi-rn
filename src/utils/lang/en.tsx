@@ -107,6 +107,8 @@ export const lang = {
     [CLangKey.liveStation]: 'Live Station',
     [CLangKey.movie]: 'Movie',
     [CLangKey.xSuggess]: '%x Suggess',
+    [CLangKey.trending]: 'Trending',
+    [CLangKey.trendingRank]: 'Trending',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',

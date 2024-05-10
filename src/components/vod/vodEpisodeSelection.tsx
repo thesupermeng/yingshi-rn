@@ -5,6 +5,7 @@ import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import SortAscIcon from '@static/images/sortAsc.svg';
 import SortDescIcon from '@static/images/sortDesc.svg';
 import { VodEpisodeGroup } from '@models';
+import { CLangKey } from '@constants';
 interface Props {
     onConfirm: any,
     onCancel: any,
@@ -65,7 +66,7 @@ function VodEpisodeSelection({ onConfirm, onCancel, episodes, activeEpisode = 0,
                                     color: index === currentIndex ? colors.text : colors.muted,
                                     fontSize: index === currentIndex ? 18 : 15
                                 }}>
-                                {`${item}集`}
+                                {`${item}${CLangKey.episodes.tr()}`}
                             </Text>
                         </TouchableOpacity>
                     }}

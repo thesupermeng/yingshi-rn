@@ -107,6 +107,8 @@ export const lang = {
     [CLangKey.liveStation]: '电视台',
     [CLangKey.movie]: '电影',
     [CLangKey.xSuggess]: '%x推荐',
+    [CLangKey.trending]: '热搜',
+    [CLangKey.trendingRank]: '热搜总榜',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',

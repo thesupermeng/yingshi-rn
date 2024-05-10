@@ -119,7 +119,8 @@ export class CLangKey {
     static xSuggess = 'xSuggess';
     static liveStationSuggessTr = () => this.xSuggess.tr({ x: this.liveStation.tr() });
     static movieSuggessTr = () => this.xSuggess.tr({ x: this.movie.tr() });
-
+    static trending = 'trending';
+    static trendingRank = 'trendingRank';
 
 
     // ============================== sentence ==============================
