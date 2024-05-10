@@ -111,6 +111,15 @@ export class CLangKey {
     static searchRecord = 'searchRecord';
     static watchVideo = 'watchVideo';
     static watchPlaylist = 'watchPlaylist';
+    static speed = 'speed';
+    static videoScale = 'videoScale';
+    static selectEpisode = 'selectEpisode';
+    static liveStation = 'liveStation';
+    static movie = 'movie';
+    static xSuggess = 'xSuggess';
+    static liveStationSuggessTr = () => this.xSuggess.tr({ x: this.liveStation.tr() });
+    static movieSuggessTr = () => this.xSuggess.tr({ x: this.movie.tr() });
+
 
 
     // ============================== sentence ==============================

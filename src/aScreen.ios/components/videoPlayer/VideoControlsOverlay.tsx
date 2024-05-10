@@ -19,6 +19,7 @@ import VodLiveStationListVertical from '../vod/vodLiveStationListVertical';
 // import FastImage from 'react-native-fast-image';
 import FastImage from '../common/customFastImage';
 import { Vod, VodEpisodeGroup } from '@models';
+import { CLangKey } from '@constants';
 
 type Props = {
   videoUrl: string;
@@ -306,22 +307,22 @@ export default forwardRef<RefHandler, Props>(({
                 <View style={{ paddingVertical: 30, paddingHorizontal: 30, flex: 1, zIndex: 99 }}>
                   {
                     showSlider === 'playback' &&
-                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'center' }}>倍速</Text>
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'center' }}>{CLangKey.speed.tr()}</Text>
                   }
                   {
                     showSlider === 'episodes' &&
-                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>选集</Text>
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>{CLangKey.selectEpisode.tr()}</Text>
                   }
                   {
                     showSlider === 'movies' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
-                      电影推荐
+                      {CLangKey.movieSuggessTr()}
                     </Text>
                   }
                   {
                     showSlider === 'streams' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
-                      电视台推荐
+                      {CLangKey.liveStationSuggessTr()}
                     </Text>
                   }
                   {

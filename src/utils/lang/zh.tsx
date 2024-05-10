@@ -101,6 +101,12 @@ export const lang = {
     [CLangKey.searchRecord]: '搜索记录',
     [CLangKey.watchVideo]: '看正片',
     [CLangKey.watchPlaylist]: '看播单',
+    [CLangKey.speed]: '倍速',
+    [CLangKey.videoScale]: '视频比例',
+    [CLangKey.selectEpisode]: '选集',
+    [CLangKey.liveStation]: '电视台',
+    [CLangKey.movie]: '电影',
+    [CLangKey.xSuggess]: '%x推荐',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',
