@@ -1,3 +1,4 @@
+import { CLangKey } from '@constants';
 import { Vod } from '@models';
 import { useTheme } from '@react-navigation/native';
 import { View, StyleSheet, Text } from 'react-native';
@@ -27,7 +28,7 @@ export default function VodDescription({ vod, vodStyle }: Props) {
       {vod?.playMode != 'adult' &&
         <View style={{ ...styles.des, gap: spacing.s }}>
           <Text style={{ ...textVariants.subBody, color: colors.muted }}>
-            主演:
+            {CLangKey.actor.tr()}:
           </Text>
           <Text
             style={{ ...textVariants.subBody, flex: 1, color: colors.muted }}

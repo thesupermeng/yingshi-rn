@@ -6,6 +6,7 @@ import { useAppDispatch } from "@hooks/hooks";
 import FavoriteVodCard from "./favoriteVodCard";
 import { playVod } from "@redux/actions/vodActions";
 import { Vod } from "@models";
+import { CLangKey } from "@constants";
 
 interface Props {
   vodList: Vod[];
@@ -64,7 +65,7 @@ export default ({
                   paddingBottom: 20,
                 }}
               >
-                没有更多了
+                {CLangKey.noAnyMore.tr()}
               </Text>
             </View>
           }

@@ -17,9 +17,9 @@ export class CEndpoint {
     static playlistGetTopicIosTmp = 'topic/v1/topic/temp';
 
     static vodGetTopicType = 'type/v2/type';
-    static vodGetDetail = 'vod/v3/vod/detail';
+    static vodGetDetail = 'yindu/v1/vod/detail';
     static vodGetXDetail = 'svod/v2/vod/detail';
-    static vodGetList = 'vod/v3/vod';
+    static vodGetList = 'yindu/v1/vod';
     static vodGetXList = 'svod/v2/vod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
     static vodGetAdsSlot = 'ads/v1/slot';
@@ -28,7 +28,7 @@ export class CEndpoint {
     static minivodGetXList = 'miniSVod/v1/miniSVod';
     static minivodGetCollections = (id: number) => `miniVod/v2/collections/${id}`;
 
-    static feedbackPost = 'feedback/v2/submit';
+    static feedbackPost = 'yindu/v1/feedback';
 
     static productGetList = 'products/v1/products';
     static nativeProductGetList = 'products/v3/nativeProducts';

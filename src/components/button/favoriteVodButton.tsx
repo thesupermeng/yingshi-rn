@@ -23,6 +23,7 @@ interface Props {
   leftIcon?: React.ReactNode;
   buttonStyle?: TextStyle;
   initialState?: boolean;
+  showName?: boolean,
 }
 export default function FavoriteVodButton({
   onPress,
@@ -31,6 +32,7 @@ export default function FavoriteVodButton({
   buttonStyle,
   vod,
   initialState = false,
+  showName = false,
   ...params
 }: Props) {
   const { colors, textVariants, spacing, icons } = useTheme();
@@ -40,16 +42,18 @@ export default function FavoriteVodButton({
   const { adultMode } = screenState
   const dispatch = useAppDispatch();
   return (
-    <View style={styles.btn}>
-      <Text
-        numberOfLines={1}
-        style={{
-          ...textVariants.header,
-          color: textColor ? textColor : colors.text,
-          flex: 1,
-        }}>
-        {vod.vod_name}
-      </Text>
+    <View style={buttonStyle ?? styles.btn}>
+      {showName &&
+        <Text
+          numberOfLines={1}
+          style={{
+            ...textVariants.header,
+            color: textColor ? textColor : colors.text,
+            flex: 1,
+          }}>
+          {vod.vod_name}
+        </Text>
+      }
       <TouchableOpacity
         onPress={() => {
           if (initialState) {

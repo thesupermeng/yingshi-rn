@@ -28,12 +28,12 @@ export class VodApi {
             const result = await CApi.get(xMode ? CEndpoint.vodGetXDetail : CEndpoint.vodGetDetail, {
                 query: {
                     id,
-                    appName: APP_NAME_CONST,
-                    platform: Platform.OS.toUpperCase(),
-                    channelId: UMENG_CHANNEL,
-                    ip: YSConfig.instance.ip,
-                    tid: typeId,
-                    vod_source_name: vodSourceName
+                    // appName: APP_NAME_CONST,
+                    // platform: Platform.OS.toUpperCase(),
+                    // channelId: UMENG_CHANNEL,
+                    // ip: YSConfig.instance.ip,
+                    // tid: typeId,
+                    // vod_source_name: vodSourceName
                 }
             });
 
@@ -41,10 +41,10 @@ export class VodApi {
                 throw result.message;
             }
 
-            if (result.data === undefined || result.data === null || result.data.length <= 0) {
+            if (result.data === undefined || result.data === null) {
                 throw CLangKey.apiEmptyResponse.tr();
             }
-            return result.data[0] as Vod;
+            return Vod.fromJson(result.data);
 
         } catch (e: any) {
             console.error(`[Error getDetail}]: ${e.toString()}`);
@@ -90,16 +90,16 @@ export class VodApi {
                 query['tid'] = tid;
             }
             if (category) {
-                query['class'] = category;
+                query['vod_genre'] = category;
             }
             if (area) {
-                query['area'] = area;
+                query['vod_country'] = area;
             }
-            if (lang) {
-                query['lang'] = lang;
-            }
+            // if (lang) {
+            //     query['lang'] = lang;
+            // }
             if (year) {
-                query['year'] = year;
+                query['vod_release'] = year;
             }
             if (by) {
                 query['by'] = by;
@@ -108,7 +108,7 @@ export class VodApi {
                 query['rand'] = rand;
             }
             if (vod_source_name != "" && xMode == true) {
-                query['vod_source_name'] = vod_source_name;
+                query['vod_name'] = vod_source_name;
             }
             const result = await CApi.get(xMode ? CEndpoint.vodGetXList : CEndpoint.vodGetList, {
                 query,

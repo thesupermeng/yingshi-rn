@@ -86,11 +86,11 @@ export class Vod {
             vod_pic_list: json.vod_pic_list,
             vod_pic_slide: json.vod_pic_slide,
             vod_remarks: json.vod_remarks ?? '',
-            vod_class: json.vod_class ?? '',
-            vod_actor: json.vod_actor,
+            vod_class: json.vod_genre ?? '',
+            vod_actor: json.vod_actors,
             vod_director: json.vod_director,
-            vod_area: json.vod_area,
-            vod_year: json.vod_year,
+            vod_area: json.vod_country,
+            vod_year: json.vod_release,
             vod_author: json.vod_author,
             vod_time_add: json.vod_time_add,
             vod_douban_id: json.vod_douban_id,
@@ -197,8 +197,8 @@ export class VodEpisodeGroup {
 
     public static fromJson = (json: any): VodEpisodeGroup => {
         return new VodEpisodeGroup({
-            url_count: json.url_count,
-            urls: VodEpisode.fromJsonList(json.urls),
+            url_count: json?.url_count ?? 0,
+            urls: VodEpisode.fromJsonList(json?.urls),
         });
     }
 }

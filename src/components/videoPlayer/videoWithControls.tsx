@@ -174,11 +174,14 @@ const VideoWithControls = ({
                             : {
                                 uri: vod_url,
                                 headers: {
-                                    origin: 'https://v.kylintv.com',
-                                    referer: 'https://v.kylintv.com',
+                                    origin: 'https://minoplres.xyz',
+                                    referer: 'https://minoplres.xyz',
                                 },
                             }
                     }
+                    onError={(err) => {
+                        console.debug(err);
+                    }}
                     onLoad={onVideoLoaded}
                     progressUpdateInterval={1000}
                     onProgress={onVideoProgessing}

@@ -140,7 +140,7 @@ function DescriptionBottomSheet({
       <View style={{ marginTop: 20 }}>
         <Text style={styles.descriptionContainer2Text}>
           {`${CLangKey.director.tr()}：${definedValue(vod_director)}${"\n"}` +
-            `${CLangKey.writer.tr()}：${definedValue(vod_writer)}${"\n"}` +
+            // `${CLangKey.writer.tr()}：${definedValue(vod_writer)}${"\n"}` +
             `${CLangKey.actor.tr()}：${definedValue(vod_actor)}${"\n"}`}
         </Text>
       </View>

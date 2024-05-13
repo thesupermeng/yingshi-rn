@@ -6,6 +6,7 @@ import { VodType } from "@type/ajaxTypes";
 import { useAppDispatch } from "@hooks/hooks";
 import FavoriteVodCard from "./favoriteVodCard";
 import { playVod } from "@redux/actions/vodActions";
+import { CLangKey } from "@constants";
 
 interface Props {
   vodList: Array<VodType>;
@@ -66,7 +67,7 @@ function VodWithDescriptionList({
                   paddingBottom: 20,
                 }}
               >
-                没有更多了
+                {CLangKey.noAnyMore.tr()}
               </Text>
             </View>
           }

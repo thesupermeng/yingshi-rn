@@ -67,7 +67,7 @@ export default ({ navigation }: RootStackScreenProps<"反馈">) => {
 
   const submitFeedback = async (data: SubmitFeedbackRequest) => {
     if (!isOffline) {
-      const result = FeedbackApi.postFeedback(data);
+      const result = FeedbackApi.postFeedback(data.email, data.feedback);
 
       setDialogText(CLangKey.feedbackSuccessSent.tr());
       Keyboard.dismiss();

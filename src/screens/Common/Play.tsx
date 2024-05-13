@@ -271,6 +271,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }) => screenReducer
   );
+
+  const [isOffline, setIsOffline] = useState(false);
+
   const adultMode = route.params.player_mode === "adult" ? true : false;
   const [isShowAdOverlay, setShowAdOverlay] = useState(false);
   const [distanceToBottom, setDistanceToBottom] = useState<number>(0); // State to hold the distance to bottom
@@ -285,7 +288,54 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const vod = vodReducer.playVod.vod;
 
-  // const [vod, setVod] = useState(vodReducer.playVod.vod);
+  const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
+    queryKey: ["vodDetails", route.params.vod_id, isOffline],
+    queryFn: () => handleFetchVodDetail(route.params.vod_id.toString()),
+  });
+
+  const handleFetchVodDetail = async (vodId: string) => {
+    const promise = async () => downloadedVod?.vod;
+
+    let vodResult: Vod | undefined;
+
+    if (isOffline) {
+      console.debug("is offline");
+      vodResult = await promise();
+    } else {
+      console.debug("not offline");
+      vodResult = await fetchVodDetails(vodId);
+    }
+
+    if (vodResult) {
+      dispatch(playVod(vodResult));
+    }
+
+    return vodResult;
+  };
+  const fetchVodDetails = useCallback(
+    (vodId: string) => VodApi.getDetail(
+      vodId.toString() ?? "",
+      '',
+      '',
+      {
+        xMode: adultMode,
+      }
+    ).then((data) => {
+      const isRestricted = data.vod_restricted === 1;
+      if (isRestricted) {
+        videoPlayerRef.current?.setPause(true);
+        // use setTimeout to prevent video non pause before unmount the screen
+        setTimeout(() => {
+          setVodRestricted(isRestricted);
+        }, 100);
+      } else {
+        setVodRestricted(isRestricted);
+      }
+
+      return data;
+    }),
+    []);
+
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
     (x) => x.vod_id === vod?.vod_id
@@ -294,19 +344,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     vod?.episodeWatched === undefined ? 0 : vod.episodeWatched
   );
 
-  // ATRNSDK.setLogDebug(true);
-
   const [isVodRestricted, setVodRestricted] = useState(false);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const [actualNumberOfLines, setActualNumberOfLines] = useState(0);
-  const textRef = useRef(null);
-
-  const handleTextLayout = (event: { nativeEvent: { lines: any } }) => {
-    const { lines } = event.nativeEvent;
-    setActualNumberOfLines(lines.length);
-  };
 
   const currentTimeRef = useRef<number>(0);
   const episodeRef = useRef<FlatList>(null);
@@ -316,20 +356,16 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const sourceRef = useRef<FlatList>(null);
 
   const [dismountPlayer, setDismountPlayer] = useState(false);
-  const [isOffline, setIsOffline] = useState(false);
+
   const [isShowSheet, setShowSheet] = useState(false);
   const isVip = User.isVip(userState.user);
 
   const [isReadyPlay, setReadyPlay] = useState(false);
 
-  //logic and function for multiple sources
-
   const [currentSourceId, setCurrentSourceId] = useState(
     vod?.sourceWatched === undefined ? 0 : vod.sourceWatched
   );
-  const [currentQuality, setCurrentQuality] = useState(
-    vod?.sourceWatched === undefined ? 0 : vod.sourceWatched
-  );
+
   const [vodSources, setVodSources] = useState<VodSource[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isVodPlayerLoading, setIsVodPlayerLoading] = useState(false);
@@ -417,68 +453,51 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }, 850);
   };
 
-  // For adding loading spinner before load player
-  // const onPressSource = useCallback((itemId: any) => {
-  //   if (itemId !== currentSourceId) {
-  //     setIsLoading(true); // Set loading state to true when switching sources
-  //     setCurrentSourceId(itemId);
-  //     // currentSourceRef.current = itemId;
-  //     currentTimeRef.current = 0;
-  //     if (videoPlayerRef.current) {
-  //       videoPlayerRef.current?.setPause(true);
-  //     }
-  //     // Simulate loading for 2 seconds before displaying the player again
-  //     setTimeout(() => {
-  //       setIsLoading(false); // Set loading state to false after 2 seconds (simulating loading)
-  //     }, 2000);
-  //   }
-  // }, [currentSourceId]);
-
-  const renderSources = useCallback(
-    ({ item, index }) => (
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          // justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor:
-            currentSourceId === item.source_id ? colors.text : colors.search,
-          paddingVertical: 8,
-          paddingHorizontal: 8,
-          // minWidth: 70,
-          marginRight: spacing.xs,
-          ...styles.episodeBtn,
-        }}
-        // onPress={() => onPressEpisode(item.id)}
-        onPress={() => onPressSource(item.source_id)}
-      >
-        <SourceIcon
-          style={{
-            alignSelf: "center",
-            marginRight: 3,
-          }}
-          color={colors.primaryContrast}
-        />
-        <Text
-          numberOfLines={1}
-          style={{
-            flex: 1,
-            fontSize: 15,
-            textAlign: "center",
-            verticalAlign: "bottom",
-            fontWeight: "600",
-            color:
-              currentSourceId === item.source_id
-                ? colors.primaryContrast
-                : colors.muted,
-          }}
-        >
-          {item.source_name}
-        </Text>
-      </TouchableOpacity>
-    ),
-    [currentSourceId]
-  );
+  // const renderSources = useCallback(
+  //   ({ item, index }) => (
+  //     <TouchableOpacity
+  //       style={{
+  //         flexDirection: "row",
+  //         // justifyContent: "space-between",
+  //         alignItems: "center",
+  //         backgroundColor:
+  //           currentSourceId === item.source_id ? colors.text : colors.search,
+  //         paddingVertical: 8,
+  //         paddingHorizontal: 8,
+  //         // minWidth: 70,
+  //         marginRight: spacing.xs,
+  //         ...styles.episodeBtn,
+  //       }}
+  //       // onPress={() => onPressEpisode(item.id)}
+  //       onPress={() => onPressSource(item.source_id)}
+  //     >
+  //       <SourceIcon
+  //         style={{
+  //           alignSelf: "center",
+  //           marginRight: 3,
+  //         }}
+  //         color={colors.primaryContrast}
+  //       />
+  //       <Text
+  //         numberOfLines={1}
+  //         style={{
+  //           flex: 1,
+  //           fontSize: 15,
+  //           textAlign: "center",
+  //           verticalAlign: "bottom",
+  //           fontWeight: "600",
+  //           color:
+  //             currentSourceId === item.source_id
+  //               ? colors.primaryContrast
+  //               : colors.muted,
+  //         }}
+  //       >
+  //         {item.source_name}
+  //       </Text>
+  //     </TouchableOpacity>
+  //   ),
+  //   [currentSourceId]
+  // );
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -546,31 +565,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
     // console.log("player is dismounted")
   };
-  // useEffect(() => {
-  //   // cleanup for svod
-
-  //   // check previous screen is watchanytime or not
-  //   const previousPage = navigation.getState().routes[navigation.getState().routes.length - 2];
-  //   // tab index 1 is '随心看'
-  //   const isFromWatchAnytime = previousPage.name === 'Home' && previousPage.state?.index === 1;
-
-  //   return () => {
-  //     // is not from '随心看' disable
-  //     if (!isFromWatchAnytime) {
-  //       dispatch(disableAdultMode())
-  //     }
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   let interval: any;
-  //   if (adultMode && !isVip) {
-  //     interval = setInterval(() => {
-  //       dispatch(incrementAdultVideoWatchTime())
-  //     }, 1000)
-  //   }
-  //   return () => clearInterval(interval)
-  // }, [adultMode])
 
   useEffect(() => {
     if (vod) {
@@ -602,68 +596,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       }
     }, [settingsReducer.isOffline])
   );
-
-  useEffect(() => {
-    setIsOffline(settingsReducer.isOffline);
-    const eventName = "watch_video";
-    const eventValues = {
-      vod_name: vod?.vod_name,
-    };
-
-    // console.log("HELLLOOO===================");
-    // appsFlyer.logEvent(
-    //   eventName,
-    //   eventValues,
-    //   res => {
-    //     // console.log(res);
-    //   },
-    //   err => {
-    //     console.error(err);
-    //   },
-    // );
-  }, []);
-
-  const fetchVodDetails = useCallback(
-    () =>
-      VodApi.getDetail(
-        vod?.vod_id.toString() ?? "",
-        vod?.type_id.toString() ?? "",
-        vod?.vod_source_name ?? "",
-        {
-          xMode: adultMode,
-        }
-      ).then((data) => {
-        const isRestricted = data.vod_restricted === 1;
-        if (isRestricted) {
-          videoPlayerRef.current?.setPause(true);
-          // use setTimeout to prevent video non pause before unmount the screen
-          setTimeout(() => {
-            setVodRestricted(isRestricted);
-          }, 100);
-        } else {
-          setVodRestricted(isRestricted);
-        }
-
-        return data;
-      }),
-    [vod]
-  );
-
-  const handleFetchVodDetail = async () => {
-    const promise = async () => downloadedVod?.vod;
-    if (isOffline) {
-      console.debug("is offline");
-      return promise();
-    } else {
-      console.debug("not offline");
-      return fetchVodDetails();
-    }
-  };
-
-  const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
-    queryKey: ["vodDetails", vod?.vod_id, isOffline],
-    queryFn: () => handleFetchVodDetail(),
-  });
 
   const fetchBannerAd = async () => {
     const bannerRes = await AdsApi.getBannerAd(adultMode ? 113 : 112);
@@ -1316,51 +1248,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                       >
                         {vod.vod_name}
                       </Text>
-                      // <FavoriteButton
-                      //   initialState={isFavorite}
-                      //   vod={vod}
-                      //   leftIcon={
-                      //     <View
-                      //       style={{
-                      //         display: "flex",
-                      //         flexDirection: "row",
-                      //         alignItems: "center",
-                      //         gap: spacing.xxs,
-                      //       }}
-                      //     >
-                      //       <FavoriteIcon
-                      //         width={18}
-                      //         height={18}
-                      //         style={{
-                      //           color: isFavorite
-                      //             ? colors.primary
-                      //             : colors.muted,
-                      //         }}
-                      //       />
-                      //       {isFavorite ? (
-                      //         <Text
-                      //           style={{
-                      //             ...textVariants.subBody,
-                      //             color: colors.primary,
-                      //             paddingBottom: 3,
-                      //           }}
-                      //         >
-                      //           {CLangKey.doneFavourite.tr()}
-                      //         </Text>
-                      //       ) : (
-                      //         <Text
-                      //           style={{
-                      //             ...textVariants.subBody,
-                      //             color: colors.muted,
-                      //             paddingBottom: 3,
-                      //           }}
-                      //         >
-                      //           {CLangKey.favourite.tr()}
-                      //         </Text>
-                      //       )}
-                      //     </View>
-                      //   }
-                      // />
                     )}
                     <Text
                       style={{ ...textVariants.subBody, color: colors.muted }}
@@ -1414,79 +1301,30 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                     )}
                   </View>
                 </View>
-                {/* <View>
-                  {!adultMode &&
-                    <Text style={styles.descriptionContainer2Text}>
-                      {`${CLangKey.director.tr()}：${definedValue(vod?.vod_director)}${"\n"}` +
-                        `${CLangKey.actor.tr()}：${definedValue(vod?.vod_actor)}${"\n"}`}
-                    </Text>
-                  }
-                  <TouchableOpacity
-                    onPress={() => {
-                      setIsCollapsed(!isCollapsed);
-                    }}
-                  > */}
-                {/* <View style={{ paddingBottom: 18 }}> */}
-                {/* <View style={{ paddingBottom: 5 }}>
-                      {isCollapsed ? (
-                        <Text />
-                      ) : (
-                        <Text
-                          ref={textRef}
-                          onTextLayout={handleTextLayout}
-                          style={styles.descriptionContainer2Text}
-                          // numberOfLines={isCollapsed ? 2 : 20}
-                          numberOfLines={20}
-                        >
-                          {`${definedValue(vodDetails?.vod_content)}`}
-                        </Text>
-                      )}
-                    </View>
-                    <View style={{ paddingBottom: 0, }}>
-                      {isCollapsed && actualNumberOfLines >= 0 && (
-                        <FastImage
-                          style={{
-                            flex: 1,
-                            height: 12,
-                            width: 14,
-                            alignSelf: "center",
-                          }}
-                          source={require("@static/images/down_arrow.png")}
-                          resizeMode={"contain"}
-                        />
-                      )}
-                      {!isCollapsed && actualNumberOfLines >= 2 && (
-                        <FastImage
-                          style={{
-                            flex: 1,
-                            height: 12,
-                            width: 14,
-                            alignSelf: "center",
-                          }}
-                          source={require("@static/images/up_arrow.png")}
-                          resizeMode={"contain"}
-                        />
-                      )}
-                    </View>
-                  </TouchableOpacity>
-                </View> */}
-
                 <View style={styles.videoDescription}>
                   <FavoriteButton
                     initialState={isFavorite}
                     vod={vod}
+                    showName={false}
+                    buttonStyle={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flexShrink: 1,
+                    }}
                     leftIcon={
                       <View
                         style={{
                           display: "flex",
-                          // flexDirection: "row",
                           alignItems: "center",
+                          alignContent: "center",
                           gap: spacing.xxs,
                         }}
                       >
                         <FavoriteIcon
-                          width={18}
-                          height={18}
+                          width={24}
+                          height={24}
                           style={{
                             color: isFavorite ? colors.primary : colors.muted,
                           }}
@@ -1583,15 +1421,15 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         >
                           {CLangKey.download.tr()}
                         </Text>
-                        {!isVip && (
-                          <View style={{ width: 12, height: "100%" }}>
+                        {/* {!isVip && (
+                          <View style={{ width: 12 }}>
                             <VipIcon
                               width={12}
                               height={12}
                               style={{ ...styles.legend }}
                             />
                           </View>
-                        )}
+                        )} */}
                       </View>
                     </TouchableOpacity>
                   )}
@@ -1621,7 +1459,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   ) : (
                     <>
                       {/* For multiple source UI */}
-                      {!adultMode && (
+                      {/* {!adultMode && (
                         <>
                           <View
                             style={{ ...styles.spaceApart, gap: spacing.l }}
@@ -1644,7 +1482,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             keyExtractor={(item, index) => index.toString()}
                           />
                         </>
-                      )}
+                      )} */}
                       {/* For multiple source UI */}
                       {foundSource !== undefined && (
                         <>
@@ -1668,8 +1506,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                                   ? `1-${foundSource.url_count || 0} ${CLangKey.episodes.tr()}`
                                   : "No episodes available"
                                   }`}
-                                {/* {`${showEpisodeRangeStart + 1
-                                  }-${showEpisodeRangeEnd}集`} */}
                               </Text>
                               <MoreArrow
                                 style={{ color: colors.muted }}
@@ -1754,7 +1590,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                             <View style={{ gap: spacing.l, marginBottom: 60 }}>
                               <ShowMoreVodButton
                                 isPlayScreen={true}
-                                text={CLangKey.relatedX.tr({ x: vod?.type_name ?? CLangKey.suggestion.tr() })}
+                                text={CLangKey.relatedX.tr({ x: vod?.type_name ?? '' })}
                                 onPress={() => {
                                   //  videoPlayerRef.current?.setPause(true);
                                   setTimeout(() => {

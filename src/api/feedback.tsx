@@ -3,11 +3,15 @@ import { SubmitFeedbackRequest } from "@type/ajaxTypes";
 import { CApi } from "@utility/apiService";
 
 export class FeedbackApi {
-    static postFeedback = async (data: SubmitFeedbackRequest) => {
+    static postFeedback = async (email: string, feedback: string) => {
         try {
             const result = await CApi.post(CEndpoint.feedbackPost, {
-                body: data,
+                body: {
+                    email: email,
+                    feedback: feedback,
+                },
             });
+
             if (result.success === false) {
                 throw result.message;
             }
