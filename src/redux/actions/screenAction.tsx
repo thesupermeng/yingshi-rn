@@ -1,5 +1,7 @@
 // dont use constants first to prevent conflict in other file
 
+import { Ads } from "@models";
+
 // export const showScreenAction = (action: boolean) => ({
 //   type: 'show_screen_action',
 //   payload: action,
@@ -198,5 +200,10 @@ export const setIsSportGuideShown = (action: any) => ({
 // 6
 export const setAutoSelectSport = (action: any) => ({
   type: "set_auto_select_sport",
+  payload: action,
+});
+
+export const setHomeHeaderAds = (action?: Ads) => ({
+  type: "set_home_header_ads",
   payload: action,
 });

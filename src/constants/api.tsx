@@ -16,13 +16,14 @@ export class CEndpoint {
     static playlistGetTopicDetail = 'topic/v1/topic/detail';
     static playlistGetTopicIosTmp = 'topic/v1/topic/temp';
 
-    static vodGetTopicType = 'type/v2/type';
+    static vodGetTopicType = 'yindu/v1/type';
     static vodGetDetail = 'yindu/v1/vod/detail';
     static vodGetXDetail = 'svod/v2/vod/detail';
     static vodGetList = 'yindu/v1/vod';
-    static vodGetXList = 'svod/v2/vod';
+    static vodGetXList = 'yindu/v1/svod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
     static vodGetAdsSlot = 'ads/v1/slot';
+    static vodGetXCategories = 'yindu/v1/svod/categories';
 
     static minivodGetList = 'miniVod/v2/miniVod';
     static minivodGetXList = 'miniSVod/v1/miniSVod';
@@ -50,6 +51,8 @@ export class CEndpoint {
 
     static chatSocket = 'https://so.finapp.chat';
     static liveSportsChats = 'liveSports/v1/notice';
+
+    static adsGetSlot = 'yindu/v1/ads';
 
     static paymentCallbackRedirectDev = 'https://test.yingshi.tv/payment/yingshiapp';
     static paymentCallbackRedirectProd = 'https://yingshi.tv/payment/yingshiapp';

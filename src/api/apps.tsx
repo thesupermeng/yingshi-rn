@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
 import { NavOptionsType, XVodData } from "@type/ajaxTypes";
 import { HomePageType } from "../models/others";
-import { Vod } from "@models";
+import { Ads, Vod } from "@models";
 
 export class AppsApi {
     static getLocalIpAddress = async () => {
@@ -154,6 +154,27 @@ export class AppsApi {
             })
 
             return result.data.categories as Array<XVodData>;
+
+        } catch (e: any) {
+            console.error(`[Error getHomePages}]: ${e.toString()}`);
+            throw e;
+        }
+    };
+
+    static getHomeHeaderAds = async () => {
+        try {
+            const result = await CApi.get(CEndpoint.adsGetSlot, {
+                query: {
+                    slot_id: 1,
+                    ip: YSConfig.instance.ip,
+                },
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            return result.data != null ? Ads.fromJson(result.data) : undefined;
 
         } catch (e: any) {
             console.error(`[Error getHomePages}]: ${e.toString()}`);

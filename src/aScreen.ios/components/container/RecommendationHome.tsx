@@ -272,7 +272,7 @@ const RecommendationHome = ({
               <View>
                 <View style={{ gap: spacing.m }}></View>
 
-                {yingPingList &&
+                {/* {yingPingList &&
                   yingPingList.yingping_list.vod_list.length > 0 && (
                     <View
                       style={{
@@ -295,7 +295,7 @@ const RecommendationHome = ({
                         ),
                       )}
                     </View>
-                  )}
+                  )} */}
 
                 {/* {data?.yunying &&
                   data.yunying.length > 0 &&
@@ -322,7 +322,7 @@ const RecommendationHome = ({
                     </View>
                   ))} */}
 
-                {yingPingList?.categories &&
+                {/* {yingPingList?.categories &&
                   yingPingList.categories.length > 0 &&
                   yingPingList.categories.map((category, index) => (
                     <View
@@ -347,7 +347,7 @@ const RecommendationHome = ({
                       </View>
                       <VodListVertical vods={category.vod_list} />
                     </View>
-                  ))}
+                  ))} */}
               </View>
             </>
           }

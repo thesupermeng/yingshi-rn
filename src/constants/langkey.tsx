@@ -123,7 +123,12 @@ export class CLangKey {
     static trending = 'trending';
     static trendingRank = 'trendingRank';
     static filter = 'filter';
-
+    static continueWatch = 'continueWatch';
+    static info = 'info';
+    static all = 'all';
+    static allClass = 'allClass';
+    static allArea = 'allArea';
+    static allTime = 'allTime';
 
     // ============================== sentence ==============================
     static noX = 'noX';

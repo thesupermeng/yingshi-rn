@@ -89,6 +89,7 @@ import {
   resetBottomSheetAction,
   resetOverEighteen,
   resetSportWatchTime,
+  setHomeHeaderAds,
   setShowGuestPurchaseSuccess,
   setShowPromotionDialog,
   setShowPurchasePending,
@@ -120,7 +121,7 @@ import { VipDetails } from "../components/vip/vipDetails";
 import { ATInterstitialRNSDK } from "./../../AnyThinkAds/ATReactNativeSDK";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import AdultVideoList from "../screens/Playlist/AdultVideoList";
-import { UserApi } from "@api";
+import { AppsApi, UserApi } from "@api";
 import AdEvent from "../screens/Common/AdEvent";
 import { CRouteInitializer } from "../routes/router";
 import {
@@ -140,6 +141,7 @@ import { PaymentWebview } from "../screens/Common/PaymentWebview";
 import { CLangKey } from "@constants";
 import { Webview } from "../screens/Common/Webview";
 import Trending from "../screens/Trending";
+import XVodCatalog from "../screens/Common/XVodCatalog";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -438,6 +440,10 @@ export default () => {
     const removeNetInfoListener = NetInfo.addEventListener(
       (state: NetInfoState) => dispatch(updateNetworkInfo(state))
     );
+
+    AppsApi.getHomeHeaderAds().then((ads) => {
+      dispatch(setHomeHeaderAds(ads));
+    });
 
     return () => {
       Orientation.removeOrientationListener(appOrientationListener);
@@ -749,6 +755,11 @@ export default () => {
           <Stack.Screen
             name="Trending"
             component={Trending}
+            options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen
+            name="XVodCatalog"
+            component={XVodCatalog}
             options={{ orientation: "portrait" }}
           />
         </Stack.Navigator>

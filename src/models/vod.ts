@@ -24,6 +24,7 @@ export class Vod {
     type_id: number;
     type_name: string;
     preferred_source_id: number;
+    score?: number;
     douban_reviews: CommentsType[];
 
     public constructor(data: {
@@ -50,6 +51,7 @@ export class Vod {
         type_id: number,
         type_name: string,
         preferred_source_id: number,
+        score?: number,
         douban_reviews: CommentsType[],
     }) {
         this.vod_id = data.vod_id;
@@ -75,6 +77,7 @@ export class Vod {
         this.type_id = data.type_id;
         this.type_name = data.type_name;
         this.preferred_source_id = data.preferred_source_id;
+        this.score = data.score;
         this.douban_reviews = data.douban_reviews;
     }
 
@@ -103,6 +106,7 @@ export class Vod {
             type_id: json.type_id,
             type_name: json.type_name,
             preferred_source_id: json.preferred_source_id,
+            score: json.vod_imdb,
             douban_reviews: json.douban_reviews,
         });
     }
@@ -138,6 +142,7 @@ export class Vod {
             type_id: arr[0],
             type_name: arr[0],
             preferred_source_id: arr[0],
+            score: arr[0],
             douban_reviews: arr[0],
         });
     }
@@ -231,6 +236,32 @@ export class VodEpisode {
     }
 
     public static fromJsonList = (list: any[]): VodEpisode[] => {
+        if (list === null || list === undefined) return [];
+
+        return list.map((json) => this.fromJson(json));
+    }
+}
+
+export class XVodCategory {
+    id: number;
+    name: string;
+
+    public constructor(data: {
+        id: number,
+        name: string,
+    }) {
+        this.id = data.id;
+        this.name = data.name;
+    }
+
+    public static fromJson = (json: any): XVodCategory => {
+        return new XVodCategory({
+            id: json.id,
+            name: json.name,
+        });
+    }
+
+    public static fromJsonList = (list: any[]): XVodCategory[] => {
         if (list === null || list === undefined) return [];
 
         return list.map((json) => this.fromJson(json));

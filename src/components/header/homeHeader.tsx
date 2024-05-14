@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ViewStyle,
   Text,
+  Linking,
 } from "react-native";
 import Logo from "@static/images/logo.svg";
 import ShareRectIcon from "@static/images/shareRect.svg";
@@ -18,8 +19,11 @@ import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { SuggestVodListType } from "@type/ajaxTypes";
 import { useMemo } from "react";
-import { VodApi } from "@api";
+import { AppsApi, VodApi } from "@api";
 import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { useSelector } from "@hooks/hooks";
+import { screenModel } from "@type/screenType";
+import CustomFastImage from "../common/customFastImage";
 
 interface Props {
   logo?: React.ReactNode;
@@ -30,6 +34,7 @@ interface Props {
   searchIcon?: boolean,
   navIcon?: boolean,
   fireIcon?: boolean,
+  typeId?: string,
 }
 function MainHeader({
   logo,
@@ -40,12 +45,17 @@ function MainHeader({
   searchIcon = false,
   navIcon = false,
   fireIcon = false,
+  typeId,
 }: Props) {
   const { textVariants, colors, } = useTheme();
 
+  const screenState = useSelector<screenModel>('screenReducer');
+
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () => VodApi.getListByRecommendations(),
+    queryFn: () => AppsApi.getHomePages(0, true).then((result) => {
+      return result.categories.filter((category) => category.type_name.toLowerCase().includes('trending')) ?? [];
+    }),
   });
 
   const randomVod = useMemo(() => {
@@ -83,13 +93,28 @@ function MainHeader({
           </TouchableOpacity>
         }
         {navIcon &&
-          <TouchableOpacity onPress={() => navigator.navigate('片库')}>
+          <TouchableOpacity onPress={() => navigator.navigate('片库', {
+            type_id: typeId,
+          })}>
             <NavIcon />
           </TouchableOpacity>
         }
-        {fireIcon &&
-          <TouchableOpacity onPress={() => navigator.navigate('Trending')}>
-            <FireIcon />
+        {fireIcon && screenState.homeHeaderAds &&
+          <TouchableOpacity onPress={() => {
+            // navigator.navigate('Trending')
+            Linking.openURL(screenState.homeHeaderAds?.ads_url.toString() ?? '')
+              .catch((err) => console.error("Error opening external link:", err));
+          }}>
+            {/* <FireIcon /> */}
+            <CustomFastImage
+              source={{
+                uri: screenState.homeHeaderAds.ads_pic
+              }}
+              style={{
+                width: 24,
+                height: 24,
+              }}
+            />
           </TouchableOpacity>
         }
       </View>

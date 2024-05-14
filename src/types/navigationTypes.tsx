@@ -127,6 +127,9 @@ export type RootStackParamList = {
     isPayment?: boolean,
   },
   Trending: undefined,
+  XVodCatalog: {
+    type_id: number,
+  },
 };
 
 export type RootStackScreenProps<

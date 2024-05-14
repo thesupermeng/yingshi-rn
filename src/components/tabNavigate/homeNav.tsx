@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useTheme } from "@react-navigation/native";
 import { useCallback, useRef } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 import FastImage from "react-native-fast-image";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { hideAdultModeDisclaimer, showAdultModeDisclaimer, updateLastSeenNavName } from "@redux/actions/screenAction";
@@ -16,7 +16,9 @@ interface Props {
   onTabPress: (target?: string) => void,
   onTabFocus: (target?: string) => void,
   onTabSwipe: (index: number, tab: any) => void,
-  navId: number
+  navId: number,
+  tabItemStyle?: ViewStyle,
+  tabItemTextStyle?: TextStyle,
 }
 
 export default function HomeNav({
@@ -27,6 +29,8 @@ export default function HomeNav({
   onTabFocus,
   onTabSwipe,
   navId,
+  tabItemStyle,
+  tabItemTextStyle,
 }: Props) {
 
   const { colors, textVariants } = useTheme();
@@ -42,6 +46,7 @@ export default function HomeNav({
             <Text
               style={{
                 ...styles.textStyles,
+                ...tabItemTextStyle,
                 fontSize: textVariants.selected.fontSize,
                 color: colors.primary,
                 fontWeight: textVariants.selected.fontWeight,
@@ -52,6 +57,7 @@ export default function HomeNav({
             <Text
               style={{
                 ...styles.textStyles,
+                ...tabItemTextStyle,
                 fontSize: textVariants.unselected.fontSize,
                 color: colors.muted,
                 fontWeight: textVariants.unselected.fontWeight,
@@ -61,7 +67,6 @@ export default function HomeNav({
             </Text>
           ),
       })}
-
       children={() => tabChildren(tab, i)}
       listeners={{
         tabPress: e => onTabPress(e.target),
@@ -99,7 +104,7 @@ export default function HomeNav({
             tabBarIndicatorStyle: {
               opacity: 0,
             },
-            tabBarItemStyle: {
+            tabBarItemStyle: tabItemStyle ?? {
               alignItems: 'center',
               display: 'flex',
               flexDirection: 'row-reverse',

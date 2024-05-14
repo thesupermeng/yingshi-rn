@@ -60,32 +60,6 @@ const sameTextAndValueObj = (text: string): Option => {
   };
 };
 
-// Translate Chinese to English order_by for API / display
-const translateToCN = (txt: string) => {
-  if (txt === 'time') {
-    return '新上线';
-  }
-  if (txt === 'score') {
-    return '好评榜';
-  }
-  return '热播榜';
-};
-
-// Order by options for filtering
-const ORDER_BY_OPTIONS: Array<Option> = [
-  {
-    text: '新上线',
-    value: 'time',
-  },
-  {
-    text: '热播榜',
-    value: 'hits_day',
-  },
-  {
-    text: '好评榜',
-    value: 'score',
-  },
-];
 export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   const { textVariants, colors, spacing, icons } = useTheme();
   const insets = useSafeAreaInsets();
@@ -97,40 +71,26 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     queryKey: ['filterOptions'],
     queryFn: () => VodApi.getTopicType(),
   });
+
   // Filtering
   const [currentTopicId, setCurrentTopicId] = useState(
     route.params.type_id === undefined ? 1 : route.params.type_id,
   );
+
   const [topicClass, setTopicClass] = useState(
-    route.params.class === undefined || route.params.class.startsWith('全部') || route.params.class.startsWith('短剧')
-      ? sameTextAndValueObj('全部类型')
+    route.params.class === undefined || route.params.class.startsWith('All')
+      ? sameTextAndValueObj(CLangKey.allClass.tr())
       : sameTextAndValueObj(route.params.class),
   );
   const [area, setArea] = useState(
-    route.params.area === undefined || route.params.area.startsWith('全部')
-      ? sameTextAndValueObj('全部地区')
+    route.params.area === undefined || route.params.area.startsWith('All')
+      ? sameTextAndValueObj(CLangKey.allArea.tr())
       : sameTextAndValueObj(route.params.area),
   );
-  const [lang, setLang] = useState(
-    route.params.lang === undefined || route.params.lang.startsWith('全部')
-      ? sameTextAndValueObj('全部语言')
-      : sameTextAndValueObj(route.params.lang),
-  );
   const [year, setYear] = useState(
-    route.params.year === undefined || route.params.year.startsWith('全部')
-      ? sameTextAndValueObj('全部时间')
+    route.params.year === undefined || route.params.year.startsWith('All')
+      ? sameTextAndValueObj(CLangKey.allTime.tr())
       : sameTextAndValueObj(route.params.year),
-  );
-  const [orderBy, setOrderBy] = useState(
-    route.params.order_by === undefined
-      ? {
-        text: '热播榜',
-        value: 'hits_day',
-      }
-      : {
-        text: translateToCN(route.params.order_by),
-        value: route.params.order_by,
-      },
   );
 
   // For calculating the margin and width for displaying the vods for different viewports.
@@ -191,10 +151,9 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
   const reset = () => {
     queryClient.removeQueries(['filteredVods']);
-    setTopicClass(sameTextAndValueObj('全部类型'));
-    setArea(sameTextAndValueObj('全部地区'));
-    setLang(sameTextAndValueObj('全部语言'));
-    setYear(sameTextAndValueObj('全部时间'));
+    setTopicClass(sameTextAndValueObj(CLangKey.allClass.tr()));
+    setArea(sameTextAndValueObj(CLangKey.allArea.tr()));
+    setYear(sameTextAndValueObj(CLangKey.allTime.tr()));
   };
 
   const fetchVods = useCallback(
@@ -204,8 +163,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           page,
           limit: LIMIT_PER_PAGE,
           tid: currentTopicId.toString(),
-          by: orderBy.value,
-          year: year.value !== '全部时间' ? year.value : undefined,
+          year: year.value !== CLangKey.allTime.tr() ? year.value : undefined,
           orderBy: 'desc',
         }).then((data) => data.List as Vod[])
       } else {
@@ -213,16 +171,15 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
           page,
           limit: LIMIT_PER_PAGE,
           tid: currentTopicId.toString(),
-          by: orderBy.value,
-          category: topicClass.value !== '全部类型' ? topicClass.value : undefined,
-          area: area.value !== '全部地区' ? area.value : undefined,
-          lang: lang.value !== '全部语言' ? lang.value : undefined,
-          year: year.value !== '全部时间' ? year.value : undefined,
+          category: topicClass.value !== CLangKey.allClass.tr() ? topicClass.value : undefined,
+          area: area.value !== CLangKey.allArea.tr() ? area.value : undefined,
+          // lang: lang.value !== '全部语言' ? lang.value : undefined,
+          year: year.value !== CLangKey.allTime.tr() ? year.value : undefined,
           orderBy: 'desc',
         }).then((data) => data.List as Vod[])
       }
     },
-    [area, year, lang, topicClass, currentTopicId, orderBy],
+    [area, year, topicClass, currentTopicId],
   );
 
   const {
@@ -234,7 +191,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     isFetching,
     // refetch,
   } = useInfiniteQuery(
-    ['filteredVods', area, year, lang, topicClass, currentTopicId, orderBy],
+    ['filteredVods', area, year, topicClass, currentTopicId],
     ({ pageParam = 1 }) => fetchVods(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
@@ -269,7 +226,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   useEffect(() => {
     setResults([]);
     // refetch();
-  }, [area, year, lang, topicClass, currentTopicId, orderBy]);
+  }, [area, year, topicClass, currentTopicId]);
 
   // useFocusEffect(
   //   useCallback(() => {
@@ -346,36 +303,9 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   }, [currentTopicId, topicOptions]);
   // ========== for analytics - end ==========
 
-  // for auto select 短剧
-  useEffect(() => {
-    // console.log("route.params.class")
-    // console.log(route.params.class)
-
-    if (route.params.class == '短剧')
-      setCurrentTopicId(46);
-  }, [topicOptions]);
-
-
-  useEffect(() => {
-    const eventName = 'catalog';
-    const eventValues = {
-      pianku: 'pianku',
-    };
-
-    // appsFlyer.logEvent(
-    //   eventName,
-    //   eventValues,
-    //   res => {
-    //     console.log(res);
-    //   },
-    //   err => {
-    //     console.error(err);
-    //   },
-    // );
-  }, []);
-
   const renderNavItems = useCallback(
     ({ item }: { item: NavType }) => {
+      console.log('item: ', item)
       return (
         <TouchableOpacity
           style={{ ...styles.btn }}
@@ -406,6 +336,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     ({ item, index }: { item: Vod; index: number }) => {
       return (
         <View
+          key={item.vod_id}
           style={{
             marginBottom: spacing.s,
             marginRight:
@@ -461,16 +392,16 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
         <Animated.View style={{ paddingBottom: spacing.xxs }}>
           {options && (
             <Animated.View style={contentStyle}>
-              <VodTopicFilter
+              {/* <VodTopicFilter
                 callback={setOrderBy}
                 init={orderBy}
                 options={ORDER_BY_OPTIONS}
-              />
+              /> */}
               <VodTopicFilter
                 callback={setTopicClass}
                 init={topicClass}
                 options={[
-                  '全部类型',
+                  CLangKey.allClass.tr(),
                   ...options.type_extend_obj.class.split(','),
                 ].map(x => sameTextAndValueObj(x))}
               />
@@ -478,23 +409,23 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 callback={setArea}
                 init={area}
                 options={[
-                  '全部地区',
+                  CLangKey.allArea.tr(),
                   ...options.type_extend_obj.area.split(','),
                 ].map(x => sameTextAndValueObj(x))}
               />
-              <VodTopicFilter
+              {/* <VodTopicFilter
                 callback={setLang}
                 init={lang}
                 options={[
                   '全部语言',
                   ...options.type_extend_obj.lang.split(','),
                 ].map(x => sameTextAndValueObj(x))}
-              />
+              /> */}
               <VodTopicFilter
                 callback={setYear}
                 init={year}
                 options={[
-                  '全部时间',
+                  CLangKey.allTime.tr(),
                   ...options.type_extend_obj.year.split(','),
                 ].map(x => sameTextAndValueObj(x))}
               />
@@ -533,7 +464,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         backgroundColor: colors.primary,
                       }}
                     />
-                    <Text style={{ ...textVariants.small, color: colors.muted }}>
+                    {/* <Text style={{ ...textVariants.small, color: colors.muted }}>
                       {lang.text}
                     </Text>
                     <View
@@ -541,7 +472,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                         ...styles.dot,
                         backgroundColor: colors.primary,
                       }}
-                    />
+                    /> */}
                     <Text style={{ ...textVariants.small, color: colors.muted }}>
                       {year.text}
                     </Text>
@@ -585,14 +516,14 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                   !hasNextPage &&
                   results.length > 0 && (
                     <Text style={{ ...textVariants.body, color: colors.muted }}>
-                      没有更多了
+                      {CLangKey.noAnyMore.tr()}
                     </Text>
                   )}
                 {!(isFetchingNextPage || isFetching) &&
                   !hasNextPage &&
                   results.length == 0 && (
-                    <View style={{ marginTop: 10 }}>
-                      <EmptyList description={'暂无数据'} />
+                    <View style={{ marginTop: "30%" }}>
+                      <EmptyList description={CLangKey.noAnyMore.tr()} />
                     </View>
                   )}
               </View>

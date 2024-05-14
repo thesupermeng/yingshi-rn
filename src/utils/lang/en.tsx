@@ -111,6 +111,12 @@ export const lang = {
     [CLangKey.trending]: 'Trending',
     [CLangKey.trendingRank]: 'Trending',
     [CLangKey.filter]: 'Filter',
+    [CLangKey.continueWatch]: 'Continue',
+    [CLangKey.info]: 'Info',
+    [CLangKey.all]: 'All',
+    [CLangKey.allClass]: 'All Class',
+    [CLangKey.allArea]: 'All Area',
+    [CLangKey.allTime]: 'All Year',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',

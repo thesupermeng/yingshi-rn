@@ -111,6 +111,12 @@ export const lang = {
     [CLangKey.trending]: '热搜',
     [CLangKey.trendingRank]: '热搜总榜',
     [CLangKey.filter]: '筛选',
+    [CLangKey.continueWatch]: '继续看',
+    [CLangKey.info]: '简介',
+    [CLangKey.all]: '全部',
+    [CLangKey.allClass]: '全部类型',
+    [CLangKey.allArea]: '全部地区',
+    [CLangKey.allTime]: '全部时间',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',

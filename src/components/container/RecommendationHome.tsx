@@ -43,7 +43,7 @@ import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { PlaylistApi } from "../../api/playlist";
 import { CApi } from "@utility/apiService";
-import { CEndpoint } from "@constants";
+import { CEndpoint, CLangKey } from "@constants";
 import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -402,37 +402,37 @@ const RecommendationHome = ({
     []
   );
 
-  const renderContent = useCallback(
-    ({ item, index }: { item: PlayList; index: number }) => (
-      <View
-        style={{
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-        }}
-      >
-        {/* previous style={{ gap: spacing.m }} */}
-        <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
-          <View style={{ paddingBottom: 5 }}>
-            <ShowMoreVodButton
-              text={item.topic_name}
-              onPress={() => {
-                dispatch(viewPlaylistDetails(item));
-                navigation.navigate("PlaylistDetail", {
-                  topic_id: item.topic_id,
-                });
-              }}
-            />
-          </View>
-          <VodListVertical vods={item.vod_list} />
-          {(data.yunying.length + data.categories.length + index + 1) % 3 ===
-            0 &&
-            bannerAd &&
-            renderBanner(bannerAdList)}
-        </View>
-      </View>
-    ),
-    [data, bannerAd, bannerAdList]
-  );
+  // const renderContent = useCallback(
+  //   ({ item, index }: { item: PlayList; index: number }) => (
+  //     <View
+  //       style={{
+  //         paddingLeft: spacing.sideOffset,
+  //         paddingRight: spacing.sideOffset,
+  //       }}
+  //     >
+  //       {/* previous style={{ gap: spacing.m }} */}
+  //       <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
+  //         <View style={{ paddingBottom: 5 }}>
+  //           <ShowMoreVodButton
+  //             text={item.topic_name}
+  //             onPress={() => {
+  //               dispatch(viewPlaylistDetails(item));
+  //               navigation.navigate("PlaylistDetail", {
+  //                 topic_id: item.topic_id,
+  //               });
+  //             }}
+  //           />
+  //         </View>
+  //         <VodListVertical vods={item.vod_list} />
+  //         {(data.yunying.length + data.categories.length + index + 1) % 3 ===
+  //           0 &&
+  //           bannerAd &&
+  //           renderBanner(bannerAdList)}
+  //       </View>
+  //     </View>
+  //   ),
+  //   [data, bannerAd, bannerAdList]
+  // );
 
   const yunyingMap = (item: any, index: any) => (
     <View
@@ -459,7 +459,9 @@ const RecommendationHome = ({
     </View>
   );
 
-  const categoriesMap = (category: any, index: any) => (
+  const categoriesMap = ({ item, index }: {
+    item: any, index: any
+  }) => (
     <View
       key={`category-${index}`}
       style={{
@@ -474,19 +476,20 @@ const RecommendationHome = ({
         }}
       >
         <ShowMoreVodButton
-          text={category.type_name}
+          text={item.type_name}
           onPress={() => {
-            navigation.navigate("片库", {
-              type_id: category.type_id,
-            });
+            if (index === 1) {
+              navigation.navigate("XVodCatalog");
+            } else {
+              navigation.navigate("片库", {
+                type_id: item.type_id,
+              });
+            }
+
           }}
         />
       </View>
-      <VodListVertical vods={category.vod_list} />
-
-      {/* {(data.yunying.length + index + 1) % 3 === 0 &&
-        bannerAd &&
-        renderBanner(bannerAdList)} */}
+      <VodListVertical vods={item.vod_list} playerMode={index === 1 ? 'adult' : 'normal'} />
     </View>
   );
 
@@ -578,7 +581,7 @@ const RecommendationHome = ({
                       }}
                     >
                       <ShowMoreVodButton
-                        text="继续看"
+                        text={CLangKey.continueWatch.tr()}
                         onPress={() => {
                           navigation.navigate("播放历史");
                         }}
@@ -741,13 +744,13 @@ const RecommendationHome = ({
                   data.yunying.length > 0 &&
                   data.yunying.map(yunyingMap)} */}
 
-                {data?.categories &&
-                  data.categories.length > 0 &&
-                  data.categories.map(categoriesMap)}
+                {/* {data?.categories &&
+                  data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).length > 0 &&
+                  data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).map(categoriesMap)} */}
               </View>
             </>
           }
-          data={[]}
+          data={data.categories ?? []}
           // data={results}
           onEndReached={() => {
             if (hasNextPage && !isFetchingNextPage && !isFetching) {
@@ -756,7 +759,8 @@ const RecommendationHome = ({
           }}
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
-          renderItem={renderContent}
+          // renderItem={renderContent}
+          renderItem={categoriesMap}
           disableVirtualization={true}
           ListFooterComponent={
             <View style={{ ...styles.loading, marginBottom: 60 }}>

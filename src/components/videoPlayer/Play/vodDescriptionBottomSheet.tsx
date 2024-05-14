@@ -149,7 +149,7 @@ function DescriptionBottomSheet({
           style={textVariants.header}
           numberOfLines={2}
         >
-          {CLangKey.intro.tr()}
+          {CLangKey.info.tr()}
         </Text>
         <Text
           ref={textRef}

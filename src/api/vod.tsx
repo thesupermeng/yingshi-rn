@@ -4,7 +4,7 @@ import { CApi } from "@utility/apiService";
 import { AD_VIDEO_SECONDS, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
-import { PaggingObject, Vod } from "@models";
+import { PaggingObject, Vod, XVodCategory } from "@models";
 
 export class VodApi {
     static getTopicType = async () => {
@@ -224,6 +224,29 @@ export class VodApi {
                 minDuration: !isNaN(result.data.ads_min_duration ?? NaN) ? result.data.ads_min_duration : AD_VIDEO_SECONDS,
                 redirectType: result.data.ads_redirect_type,
             }
+
+        } catch (e: any) {
+            console.error(`[Error getPlayerAdVideo}]: ${e.toString()}`);
+            throw e;
+        }
+    };
+
+    static getXVodCategories = async (): Promise<XVodCategory[]> => {
+        try {
+            const result = await CApi.get(CEndpoint.vodGetXCategories, {
+                query: {
+                }
+            });
+
+            if (result.success === false) {
+                throw result.message;
+            }
+
+            if (!result.data) {
+                return [];
+            }
+
+            return XVodCategory.fromJsonList(result.data);
 
         } catch (e: any) {
             console.error(`[Error getPlayerAdVideo}]: ${e.toString()}`);

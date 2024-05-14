@@ -62,7 +62,7 @@ export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "GOOGLE_PLAY";
+export const UMENG_CHANNEL = "WEB";
 
 export const APP_VERSION = "1.7.8";
 
@@ -113,7 +113,7 @@ export const AMJ_PRODUCT_IOS = 6;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = 'YINDU';
+export const APP_NAME_CONST = 'DoraTV';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 

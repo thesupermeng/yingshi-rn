@@ -92,7 +92,7 @@ export default () => {
 
   const onAppInit = async () => {
     try {
-      await guestLoginInit();
+      // await guestLoginInit();
       await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
     } catch (err) {
       setTimeout(() => {
