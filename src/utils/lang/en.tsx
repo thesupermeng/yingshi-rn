@@ -99,6 +99,16 @@ export const lang = {
     [CLangKey.refresh]: 'Refresh',
     [CLangKey.searchHistory]: 'Recent Search',
     [CLangKey.searchRecord]: 'Search Record',
+    [CLangKey.watchVideo]: 'Play Video',
+    [CLangKey.watchPlaylist]: 'Play Playlist',
+    [CLangKey.speed]: 'Speed',
+    [CLangKey.videoScale]: 'Video Scale',
+    [CLangKey.selectEpisode]: 'Select Episode',
+    [CLangKey.liveStation]: 'Live Station',
+    [CLangKey.movie]: 'Movie',
+    [CLangKey.xSuggess]: '%x Suggess',
+    [CLangKey.trending]: 'Trending',
+    [CLangKey.trendingRank]: 'Trending',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',

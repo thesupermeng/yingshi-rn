@@ -7,6 +7,7 @@ import {
   clearSearchHistory,
 } from '@redux/actions/searchActions';
 import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 interface Props {
   recommendationList: Vod[];
@@ -24,7 +25,7 @@ export default function RecommendationList({ recommendationList }: Props) {
 
   return (
     <View style={{ gap: spacing.m, marginBottom: 60 }}>
-      <Text style={{ ...textVariants.header }}>热搜总榜</Text>
+      <Text style={{ ...textVariants.header }}>{CLangKey.trendingRank.tr()}</Text>
       {recommendationList.map((item, index) => (
         <View
           key={`suggestion-${index}`}

@@ -99,6 +99,16 @@ export const lang = {
     [CLangKey.refresh]: '刷新',
     [CLangKey.searchHistory]: '历史搜索',
     [CLangKey.searchRecord]: '搜索记录',
+    [CLangKey.watchVideo]: '看正片',
+    [CLangKey.watchPlaylist]: '看播单',
+    [CLangKey.speed]: '倍速',
+    [CLangKey.videoScale]: '视频比例',
+    [CLangKey.selectEpisode]: '选集',
+    [CLangKey.liveStation]: '电视台',
+    [CLangKey.movie]: '电影',
+    [CLangKey.xSuggess]: '%x推荐',
+    [CLangKey.trending]: '热搜',
+    [CLangKey.trendingRank]: '热搜总榜',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',

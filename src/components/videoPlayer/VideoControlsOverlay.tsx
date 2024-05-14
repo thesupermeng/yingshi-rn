@@ -24,6 +24,7 @@ import AdultModeCountdownIndicator from '../adultVideo/adultModeCountdownIndicat
 import { DOWNLOAD_FEATURE_ENABLED, UMENG_CHANNEL } from '@utility/constants';
 import DownloadBtn from '@static/images/download_btn.svg';
 import VodDownloadSelection from '../vod/vodDownloadSelection';
+import { CLangKey } from '@constants';
 
 type Props = {
   videoUrl: string;
@@ -346,32 +347,32 @@ export default forwardRef<RefHandler, Props>(({
                 <View style={{ paddingVertical: 30, paddingHorizontal: 30, flex: 1, zIndex: 99 }}>
                   {
                     showSlider === 'playback' &&
-                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'center' }}>倍速</Text>
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'center' }}>{CLangKey.speed.tr()}</Text>
                   }
                   {
                     showSlider === 'episodes' &&
-                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>选集</Text>
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>{CLangKey.selectEpisode.tr()}</Text>
                   }
                   {
                     showSlider === 'download' &&
-                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>下载</Text>
+                    <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>{CLangKey.download.tr()}</Text>
                   }
                   {
                     showSlider === 'movies' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
-                      电影推荐
+                      {CLangKey.movieSuggessTr()}
                     </Text>
                   }
                   {
                     showSlider === 'streams' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
-                      电视台推荐
+                      {CLangKey.liveStationSuggessTr()}
                     </Text>
                   }
                   {
                     showSlider === 'aspectRatio' &&
                     <Text style={{ ...textVariants.header, marginBottom: 20, textAlign: 'left', marginLeft: spacing.sideOffset + 10 }}>
-                      视频比例
+                      {CLangKey.videoScale.tr()}
                     </Text>
                   }
                   {

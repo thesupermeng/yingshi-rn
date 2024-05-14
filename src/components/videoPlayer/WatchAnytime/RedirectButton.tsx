@@ -1,10 +1,11 @@
-import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import FastImage from '../../common/customFastImage';
 
 import PlayZhengPianIcon from '@static/images/play-zhengpian1.svg';
 import PlayBoDanIcon from '@static/images/play-bodan.svg';
-import {useTheme} from '@react-navigation/native';
-import {memo, useState} from 'react';
+import { useTheme } from '@react-navigation/native';
+import { memo, useState } from 'react';
+import { CLangKey } from '../../../constants/langkey';
 
 interface Props {
   imageUrl: string;
@@ -19,11 +20,11 @@ const RedirectButton = ({
   isBodan,
   redirectVod,
 }: Props): JSX.Element => {
-  const watchText = isBodan ? '看播单' : '看正片';
-  const {colors, textVariants} = useTheme();
+  const watchText = isBodan ? CLangKey.watchPlaylist.tr() : CLangKey.watchVideo.tr();
+  const { colors, textVariants } = useTheme();
 
   return (
-    <View style={{flexWrap: 'wrap'}}>
+    <View style={{ flexWrap: 'wrap' }}>
       {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
 
       <View
@@ -43,7 +44,7 @@ const RedirectButton = ({
               marginRight: 6,
             }}>
             <TouchableOpacity
-              style={{flex: 1, position: 'relative'}}
+              style={{ flex: 1, position: 'relative' }}
               onPress={redirectVod}>
               <FastImage
                 style={{
@@ -94,11 +95,11 @@ const RedirectButton = ({
                     </Text>
                   </View>
                 </View>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  <View style={{flexWrap: 'wrap' , justifyContent:'center' , alignItems:'center'}}>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                  <View style={{ flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
                     {isBodan ? (
-                      <View style={{width:20 , height:20 }}>
-                      <PlayBoDanIcon  style={{flex:1}}/>
+                      <View style={{ width: 20, height: 20 }}>
+                        <PlayBoDanIcon style={{ flex: 1 }} />
                       </View>
                     ) : (
                       <PlayZhengPianIcon width={20} height={20} />
@@ -108,14 +109,14 @@ const RedirectButton = ({
                     style={{
                       paddingLeft: 6,
                       justifyContent: 'center',
-                    
+
                     }}>
                     <Text
                       style={{
                         ...textVariants.subBody,
                         color: colors.text,
                         fontSize: 14,
-                        position:'relative',
+                        position: 'relative',
                         top: isBodan ? 2 : 0
                       }}>
                       {watchText}
