@@ -478,18 +478,48 @@ const RecommendationHome = ({
         <ShowMoreVodButton
           text={item.type_name}
           onPress={() => {
-            if (index === 1) {
-              navigation.navigate("XVodCatalog");
+            navigation.navigate("片库", {
+              type_id: item.type_id,
+            });
+          }}
+        />
+      </View>
+      <VodListVertical vods={item.vod_list} playerMode={'normal'} />
+    </View>
+  );
+
+  const vodMap = ({ item, index, adultMode = false }: {
+    item: any, index: any, adultMode?: boolean,
+  }) => (
+    <View
+      key={`category-${index}`}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        paddingTop: 5,
+      }}
+    >
+      <View
+        style={{
+          paddingBottom: 5,
+        }}
+      >
+        <ShowMoreVodButton
+          text={item.type_name}
+          onPress={() => {
+            if (adultMode) {
+              navigation.navigate("XVodCatalog", {
+                type_id: item.type_id,
+              });
             } else {
               navigation.navigate("片库", {
                 type_id: item.type_id,
               });
             }
-
           }}
         />
       </View>
-      <VodListVertical vods={item.vod_list} playerMode={index === 1 ? 'adult' : 'normal'} />
+      <VodListVertical vods={item.vod_list} playerMode={adultMode ? 'adult' : 'normal'} />
     </View>
   );
 
@@ -747,6 +777,18 @@ const RecommendationHome = ({
                 {/* {data?.categories &&
                   data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).length > 0 &&
                   data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).map(categoriesMap)} */}
+
+                {data?.latest_movies &&
+                  data.latest_movies.length > 0 &&
+                  data.latest_movies.map((item, index) => vodMap({ item, index }))}
+
+                {data?.latest_tv_shows &&
+                  data.latest_tv_shows.length > 0 &&
+                  data.latest_tv_shows.map((item, index) => vodMap({ item, index }))}
+
+                {data?.svod &&
+                  data.svod.length > 0 &&
+                  data.svod.map((item, index) => vodMap({ item, index, adultMode: true }))}
               </View>
             </>
           }
@@ -786,7 +828,7 @@ const RecommendationHome = ({
                     paddingTop: 12,
                   }}
                 >
-                  已经到底了
+                  {CLangKey.noAnyMore.tr()}
                 </Text>
               )}
             </View>

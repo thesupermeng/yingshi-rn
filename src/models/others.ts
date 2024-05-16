@@ -12,6 +12,9 @@ export class HomePageType {
     topic_list: PlayList[];
     yugaopian_list?: VodPlayGroup;
     yingping_list?: VodPlayGroup;
+    latest_movies?: VodPlayGroup[];
+    latest_tv_shows?: VodPlayGroup[];
+    svod?: VodPlayGroup[];
 
     public constructor(data: {
         carousel: any[],
@@ -22,6 +25,9 @@ export class HomePageType {
         topic_list: PlayList[],
         yugaopian_list?: VodPlayGroup,
         yingping_list?: VodPlayGroup,
+        latest_movies?: VodPlayGroup[],
+        latest_tv_shows?: VodPlayGroup[],
+        svod?: VodPlayGroup[],
     }) {
         this.carousel = data.carousel;
         this.yunying = data.yunying;
@@ -31,6 +37,9 @@ export class HomePageType {
         this.topic_list = data.topic_list;
         this.yugaopian_list = data.yugaopian_list;
         this.yingping_list = data.yingping_list;
+        this.latest_movies = data.latest_movies;
+        this.latest_tv_shows = data.latest_tv_shows;
+        this.svod = data.svod;
     }
 
     public static fromJson = (json: any): HomePageType => {
@@ -43,6 +52,9 @@ export class HomePageType {
             topic_list: PlayList.fromJsonList(json.topic_list),
             yugaopian_list: ('yugaopian_list' in json) ? VodPlayGroup.fromJson(json.yugaopian_list) : undefined,
             yingping_list: ('yingping_list' in json) ? VodPlayGroup.fromJson(json.yingping_list) : undefined,
+            latest_movies: VodPlayGroup.fromJsonList(json.latest_movies),
+            latest_tv_shows: VodPlayGroup.fromJsonList(json.latest_tv_shows),
+            svod: VodPlayGroup.fromJsonList(json.svod),
         });
     }
 
@@ -56,6 +68,9 @@ export class HomePageType {
             topic_list: PlayList.fromArrList(json.topic_list),
             yugaopian_list: ('yugaopian_list' in json) ? VodPlayGroup.fromApiArr(json.yugaopian_list) : undefined,
             yingping_list: ('yingping_list' in json) ? VodPlayGroup.fromApiArr(json.yingping_list) : undefined,
+            latest_movies: VodPlayGroup.fromArrList(json.latest_movies),
+            latest_tv_shows: VodPlayGroup.fromArrList(json.latest_tv_shows),
+            svod: VodPlayGroup.fromArrList(json.svod),
             // carousel: Carousel.fromArrList(arr[0]),
             // yunying: arr[0],
             // categories: arr[0],
