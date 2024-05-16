@@ -18,15 +18,15 @@ export class CEndpoint {
 
     static vodGetTopicType = 'yindu/v1/type';
     static vodGetDetail = 'yindu/v1/vod/detail';
-    static vodGetXDetail = 'svod/v2/vod/detail';
+    static vodGetXDetail = 'yindu/v1/svod/detail';
     static vodGetList = 'yindu/v1/vod';
     static vodGetXList = 'yindu/v1/svod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
     static vodGetAdsSlot = 'ads/v1/slot';
     static vodGetXCategories = 'yindu/v1/svod/categories';
 
-    static minivodGetList = 'miniVod/v2/miniVod';
-    static minivodGetXList = 'miniSVod/v1/miniSVod';
+    static minivodGetList = 'yindu/v1/miniVod';
+    static minivodGetXList = 'yindu/v1/miniSVod';
     static minivodGetCollections = (id: number) => `miniVod/v2/collections/${id}`;
 
     static feedbackPost = 'yindu/v1/feedback';

@@ -103,6 +103,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   //     }),
   // });
 
+  useEffect(() => {
+    dispatch(setShowAdultTab(true));
+  }, [])
+
   const fetchData = useCallback(
     (id: number) => AppsApi.getHomePages(id, isVip),
     [isVip]

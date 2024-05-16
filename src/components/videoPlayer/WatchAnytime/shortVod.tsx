@@ -48,6 +48,10 @@ function ShortVod({
         }
     }, [])
 
+    useEffect(() => {
+        if (vod) setVod(vod);
+    }, [vod])
+
     return (
         <>
             {showVod &&
@@ -64,7 +68,7 @@ function ShortVod({
                         updateVideoDuration={updateVideoDuration}
                         isActive={isActive}
                     />
-                    { currentVod.mini_video_heji_id !== 0 &&
+                    {currentVod.mini_video_heji_id !== 0 &&
                         <CollectionBottomSheet
                             isVisible={isShowBottomSheet}
                             handleClose={() => setShowBottomSheet(false)}

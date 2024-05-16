@@ -27,7 +27,7 @@ export class VodApi {
         try {
             const result = await CApi.get(xMode ? CEndpoint.vodGetXDetail : CEndpoint.vodGetDetail, {
                 query: {
-                    id,
+                    [xMode ? 'vod_id' : 'id']: id,
                     // appName: APP_NAME_CONST,
                     // platform: Platform.OS.toUpperCase(),
                     // channelId: UMENG_CHANNEL,
@@ -89,7 +89,9 @@ export class VodApi {
             if (tid) {
                 query['tid'] = tid;
             }
-            if (category) {
+            if (xMode && category) {
+                query['category'] = category;
+            } else if (category) {
                 query['vod_genre'] = category;
             }
             if (area) {

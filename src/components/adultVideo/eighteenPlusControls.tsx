@@ -52,7 +52,7 @@ const eighteenPlusControls = ({ }: Props) => {
     showAdultVipPrivilegeMiniVideo
   } = screenState;
   const dispatch = useAppDispatch();
-  const isVip = User.isVip(userState.user);
+  const isVip = true//User.isVip(userState.user);
 
   // useEffect(() => {
   //   let interval: any;
@@ -141,13 +141,13 @@ const eighteenPlusControls = ({ }: Props) => {
 const styles = StyleSheet.create({
   container: {
     zIndex: 100,
-    width: "100%",
-    position: "absolute",
+    // width: "100%",
+    // position: "absolute",
   },
   switch: {
-    position: "absolute",
-    top: 25,
-    right: 20,
+    // position: "absolute",
+    // top: 25,
+    // right: 20,
   },
 });
 

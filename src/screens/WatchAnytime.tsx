@@ -7,9 +7,8 @@ import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
 import { MiniVideo } from '@type/ajaxTypes';
 import { screenModel } from '@type/screenType';
-import { API_DOMAIN_TEST } from '@utility/constants';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { AppState, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { AppState, StyleSheet, View } from 'react-native';
 import { useMinivodQuery } from '@api';
 import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
 import ScreenContainer from '../components/container/screenContainer';
@@ -20,7 +19,7 @@ import { showLoginAction } from '@redux/actions/screenAction';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { User } from '@models';
 import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
-import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
+import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import { CLangKey } from '@constants';
 import HomeHeader from '../components/header/homeHeader';
 
@@ -61,7 +60,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
   const adultMode = watchAnytimeAdultMode;
 
-  const isVip = User.isVip(userState.user);
+  const isVip = true//User.isVip(userState.user);
 
   const fetchMode = adultMode ? 'adult' : 'normal';
   const isFocusLogin = useRef(false);
@@ -153,13 +152,13 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
       // vip -> filter ads
       // guest -> filter first 10
 
-      if (isVip) {
-        filtered = filtered.filter(x => !x.is_ads)
-      }
+      // if (isVip) {
+      //   filtered = filtered.filter(x => !x.is_ads)
+      // }
 
-      if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
-        filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
-      }
+      // if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
+      //   filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
+      // }
 
       setFlattenedVideos(filtered); // remove null values
       if (filtered.length > 0) {

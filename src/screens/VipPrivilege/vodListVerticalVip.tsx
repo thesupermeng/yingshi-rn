@@ -75,13 +75,10 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
                 if (onPress) {
                     onPress();
                 }
-                dispatch(playVod(vod));
                 navigation.navigate('播放', {
                     vod_id: vod?.vod_id,
                     player_mode: playerMode
                 });
-                // if (playerMode == 'adult') {dispatch(enableAdultMode())}
-                // else {dispatch(disableAdultMode())}
             }}
             index={idx}
         />

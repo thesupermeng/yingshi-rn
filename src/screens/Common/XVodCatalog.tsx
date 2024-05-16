@@ -6,11 +6,15 @@ import { VodApi } from "@api";
 import { useCallback, useState } from "react";
 import HomeNav from "../../components/tabNavigate/homeNav";
 import { CLangKey } from "@constants";
+import VodListVerticalVip from "../VipPrivilege/vodListVerticalVip";
+import { View } from "react-native";
+import CustomFastImage from "../../components/common/customFastImage";
+import EmptyList from "../../components/common/emptyList";
 
 export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
-    const typeId = route.params?.type_id?.toString();
+    const typeId = route.params?.type_id ?? -1;
 
-    const [navId, setNavId] = useState(0);
+    const [navId, setNavId] = useState(typeId);
 
     const { data: vodCategories, isFetching: isCategoryFetching } = useQuery({
         queryKey: ["XVodCatalogCategory"],
@@ -24,107 +28,94 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
     });
 
     const { data: vods, isFetching: isVodFetching } = useQuery({
-        queryKey: ["XVodCatalogVod"],
+        queryKey: ["XVodCatalogVod", navId],
         queryFn: () => VodApi.getList({
             xMode: true,
+            category: navId === -1 ? undefined : vodCategories?.find((category) => category.id === navId)?.name
         }),
     });
 
-    const onTabPress = (target?: string) => {
+    const onTabPress = useCallback((target?: string) => {
         const targetStr = target?.substring(0, target.indexOf("-"));
         const found = vodCategories?.find((e) => e.name === targetStr);
 
-        if (found) {
-            setNavId(found.id);
-        }
-    }
+        if (found) setNavId(found.id);
+    }, [vodCategories]);
 
-    const onTabFocus = (target?: string) => {
+    const onTabFocus = useCallback((target?: string) => {
         const targetStr = target?.substring(0, target.indexOf("-"));
         const found = vodCategories?.find((e) => e.name === targetStr);
 
-        if (found) {
-            setNavId(found.id);
-        }
-
-    }
+        if (found) setNavId(found.id);
+    }, [vodCategories]);
 
     const onTabSwipe = useCallback((index: number, tab: any) => {
         setNavId(tab.id);
     }, []);
 
-    return <ScreenContainer>
+    return <ScreenContainer
+        containerStyle={{
+            alignItems: 'center',
+        }}
+    >
         <TitleWithBackButtonHeader title={'18+'} />
 
-
-        <HomeNav
-            // hideContent={hideContent}
-            navId={navId}
-            onTabPress={onTabPress}
-            onTabFocus={onTabFocus}
-            onTabSwipe={onTabSwipe}
-            tabList={vodCategories?.map((e) => ({
-                id: e.id,
-                title: e.name,
-                name: e.name,
-            })) ?? []}
-            tabItemStyle={{
-                width: 90,
-            }}
-            tabItemTextStyle={{
-                width: 90,
-            }}
-            tabChildren={(tab, i) => (
-                <>
-                    {/* {(!data || isRefreshing) && (
-                        <View
-                            style={{
-                                ...styles.loading,
-                                flex: 1,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                position: "absolute",
-                                left: "50%",
-                                marginLeft: -40, // Half of the element's width
-                            }}
-                        >
-                            {
-                                <FastImage
-                                    style={{ height: 80, width: 80 }}
-                                    source={require("@static/images/loading-spinner.gif")}
-                                    resizeMode={"contain"}
-                                />
-                            }
-                        </View>
-                    )}
-                    {showHomeLoading && !isOffline && (
-                        <View
-                            style={{
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "rgb(20,22,25)",
-                            }}
-                        >
-                            <FastImage
-                                source={require("@static/images/home-loading.gif")}
+        <View>
+            <HomeNav
+                navId={navId}
+                onTabPress={onTabPress}
+                onTabFocus={onTabFocus}
+                onTabSwipe={onTabSwipe}
+                tabList={vodCategories?.map((e) => ({
+                    id: e.id,
+                    title: e.name,
+                    name: e.name,
+                })) ?? []}
+                tabItemStyle={{
+                    width: 110,
+                }}
+                tabItemTextStyle={{
+                    width: 100,
+                }}
+                tabChildren={(tab, i) => (
+                    <>
+                        {(isCategoryFetching || isVodFetching) && (
+                            <View
                                 style={{
-                                    width: 150,
-                                    height: 150,
-                                    position: "relative",
-                                    bottom: 50,
-                                    zIndex: -1,
+                                    // ...styles.loading,
+                                    flex: 1,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    position: "absolute",
+                                    left: "50%",
                                 }}
-                                resizeMode={"contain"}
-                                useFastImage={true}
+                            >
+                                {
+                                    <CustomFastImage
+                                        style={{ height: 80, width: 80 }}
+                                        source={require("@static/images/loading-spinner.gif")}
+                                        resizeMode={"contain"}
+                                    />
+                                }
+                            </View>
+                        )}
+
+                        {(vods?.List.length ?? 0) > 0 &&
+                            <VodListVerticalVip
+                                numOfRows={2}
+                                vods={vods?.List ?? []}
+                                minNumPerRow={2}
+                                heightToWidthRatio={1 / 1.814}
+                                playerMode="adult"
                             />
-                        </View>
-                    )}
-                    {data &&
-                        !isOffline &&
-                        getContent({ item: data[i], index: tab.id })} */}
-                </>
-            )}
-        />
+                        }
+
+                        {!(isCategoryFetching || isVodFetching) && (vods?.List.length ?? 0) === 0 &&
+                            <EmptyList description="qwe" />
+                        }
+                    </>
+                )}
+            />
+        </View>
     </ScreenContainer>
 }

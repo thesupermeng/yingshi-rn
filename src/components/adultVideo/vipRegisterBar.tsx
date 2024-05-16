@@ -25,7 +25,7 @@ const VipRegisterBar = ({
     navigator.navigate('邀请');
   }, [])
   const userState = useSelector<UserStateType>('userReducer');
-  const isVip = User.isVip(userState.user);
+  const isVip = true //User.isVip(userState.user);
   if (!isVip)
     return (
       <LinearGradient

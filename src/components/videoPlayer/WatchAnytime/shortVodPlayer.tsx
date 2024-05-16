@@ -104,7 +104,7 @@ function ShortVideoPlayer({
   const [isVideoReadyIos, setVideoReadyIos] = useState(false);
   const [isVideoReadyAndroid, setVideoReadyAndroid] = useState(false);
   const [onSliding, setOnSliding] = useState(false);
-  const [miniVodUrl, setMiniVodUrl] = useState(currentVod.mini_video_origin_video_url);
+  const [miniVodUrl, setMiniVodUrl] = useState(currentVod.mini_video_play_url);
 
   const windowWidth = Dimensions.get('window').width;
 
@@ -113,6 +113,10 @@ function ShortVideoPlayer({
   const isVip = User.isVip(userState.user);
   const disableSeek =
     !isVip && adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION && adultMode;
+
+  useEffect(() => {
+    if (vod) setVod(vod);
+  }, [vod]);
 
   useEffect(() => {
     if (!isShowVideo && Platform.OS === 'ios') setVideoReadyIos(false);
@@ -290,21 +294,20 @@ function ShortVideoPlayer({
           justifyContent: 'flex-end',
         }}>
         <View style={{ paddingHorizontal: 20 }}>
-          {currentVod != undefined &&
-            currentVod.mini_video_original_img_url != null &&
-            currentVod.mini_video_original_img_url != '' && (
+          {/* {currentVod != undefined &&
+            currentVod.mini_video_image != null &&
+            currentVod.mini_video_image != '' && (
               <View style={{ flexWrap: 'wrap' }}>
-                {/* <View style={{ flex: 10, flexDirection: 'column', justifyContent: 'flex-end', marginRight: 35 }}> */}
                 {!adultMode &&
                   <RedirectButton
-                    imageUrl={currentVod?.mini_video_original_img_url}
+                    imageUrl={currentVod?.mini_video_image}
                     isBodan={isBodanRef.current}
                     vodTitle={vodName}
                     redirectVod={redirectVod}
                   />}
 
               </View>
-            )}
+            )} */}
           <DescriptionBar vodDescription={currentVod.mini_video_title} />
         </View>
 
@@ -339,11 +342,11 @@ function ShortVideoPlayer({
             setMiniVodUrl(`${fileLocation}`);
           } else {
             // console.debug('file exist but is empty, use url')
-            setMiniVodUrl(currentVod.mini_video_origin_video_url)
+            setMiniVodUrl(currentVod.mini_video_play_url)
           }
         } else {
           // console.log('file not exist ');
-          setMiniVodUrl(currentVod.mini_video_origin_video_url)
+          setMiniVodUrl(currentVod.mini_video_play_url)
         }
       }
     };
@@ -354,7 +357,7 @@ function ShortVideoPlayer({
   }, [isBuffering, isPause]);
 
   useEffect(() => {
-    setMiniVodUrl(currentVod.mini_video_origin_video_url);
+    setMiniVodUrl(currentVod.mini_video_play_url);
   }, [currentVod]);
 
   const handleOnReadyForDisplay = useCallback(() => {

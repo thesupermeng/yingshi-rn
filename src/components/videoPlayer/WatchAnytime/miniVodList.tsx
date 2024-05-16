@@ -258,7 +258,7 @@ export default forwardRef<MiniVodRef, Props>(
                   />
                   : <ShortVod
                     vod={item}
-                    thumbnail={item.mini_video_origin_cover}
+                    thumbnail={item.mini_video_image}
                     displayHeight={displayHeight ? displayHeight : 0}
                     isPause={isPause || current !== index}
                     onManualPause={current => {

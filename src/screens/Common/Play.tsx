@@ -279,7 +279,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [distanceToBottom, setDistanceToBottom] = useState<number>(0); // State to hold the distance to bottom
 
   useEffect(() => {
-    if (route.params.player_mode === "adult") {
+    if (adultMode) {
       dispatch(enableAdultMode());
     } else {
       dispatch(disableAdultMode());
@@ -289,7 +289,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const vod = vodReducer.playVod.vod;
 
   const { data: vodDetails, isFetching: isFetchingVodDetails } = useQuery({
-    queryKey: ["vodDetails", route.params.vod_id, isOffline],
+    queryKey: ["vodDetails", route.params.vod_id, adultMode],
     queryFn: () => handleFetchVodDetail(route.params.vod_id.toString()),
   });
 
@@ -312,6 +312,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
     return vodResult;
   };
+
   const fetchVodDetails = useCallback(
     (vodId: string) => VodApi.getDetail(
       vodId.toString() ?? "",
@@ -689,28 +690,25 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   } = useQuery({
     queryKey: ["relatedVods", vod],
     queryFn: () => fetchVod(),
-    enabled: !isOffline,
+    enabled: !adultMode && !isOffline,
   });
 
-  const fetchSVod = () =>
-    VodApi.getList({
-
-      vod_source_name: vod?.vod_source_name,
-      category: vod?.vod_class ? vod?.vod_class : vod?.type_name,
-      tid: vod?.type_id.toString() ?? "",
-      limit: 6,
-      rand: 1,
-      xMode: true,
-    }).then((data) => data.List);
+  const fetchSVod = () => VodApi.getList({
+    // vod_source_name: vod?.vod_source_name,
+    category: vod?.type_name,
+    // tid: vod?.type_id.toString() ?? "",
+    limit: 6,
+    // rand: 1,
+    xMode: true,
+  }).then((data) => data.List);
 
   const {
     data: suggestedSVods,
     isFetching: isFetchingSuggestedSVod,
-    refetchSvod,
   } = useQuery({
-    queryKey: ["relatedSVods", vod],
+    queryKey: ["relatedSVods", vod?.vod_id],
     queryFn: () => fetchSVod(),
-    enabled: !isOffline,
+    enabled: adultMode && !isOffline,
   });
 
   const [deviceName, setDeviceName] = useState("");

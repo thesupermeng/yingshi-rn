@@ -113,6 +113,8 @@ export interface MiniVideo {
     ads_redirect_type: number,
     is_video: boolean,
     is_ads: boolean,
+    mini_video_image: string,
+    mini_video_play_url: string,
 }
 
 export interface FilterOptionsType {
