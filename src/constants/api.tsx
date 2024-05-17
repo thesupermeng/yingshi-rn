@@ -18,9 +18,9 @@ export class CEndpoint {
     static playlistGetTopicIosTmp2 = 'topic/v1/rank/temp_mayi';
 
     static vodGetTopicType = 'type/v2/type';
-    static vodGetDetail = 'vod/v3/vod/detail';
+    static vodGetDetail = 'vod/v5/vod/detail';
     static vodGetXDetail = 'svod/v2/vod/detail';
-    static vodGetList = 'vod/v3/vod';
+    static vodGetList = 'vod/v5/vod';
     static vodGetXList = 'svod/v2/vod';
     static vodGetReviewDetail = 'vod/v1/vod/reviewdetail';
     static vodGetAdsSlot = 'ads/v1/slot';
