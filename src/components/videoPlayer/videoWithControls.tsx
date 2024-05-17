@@ -153,32 +153,28 @@ const VideoWithControls = ({
   };
 
   const [miaoLink, setMiaoLink] = useState("");
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log('update miaoLink')
+    if (vod_url) {
+      setMiaoLink(vod_url);
+    }
     const fetchData = async () => {
-      if (vod_url) {
-        setMiaoLink(vod_url);
-      }
       if (vod_url && vod_url.endsWith(".html")) {
         const apiUrl = `https://decode.otj.cc/api/?key=cJi8vW4nOPftmwYerv&url=${vod_url}`;
         try {
           const response = await fetch(apiUrl);
           const data = await response.json();
-
           console.log("喵 data");
           console.log(data);
-
           if (data.url) {
             setMiaoLink(data.url);
           } else {
             console.log("no url for miao");
             showToast("暂不支持此视频， 请选择其他播放源");
           }
-
           // if (data.msg == "解析失败,请反馈") {
           //   console.log("解析失败,请反馈");
-
           // }
-
           console.log(data); // Log the result
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -187,7 +183,7 @@ const VideoWithControls = ({
     };
 
     fetchData(); // Trigger HTTP call
-  }, []); // Depend on vod_url //
+  }, [vod_url]); // Depend on vod_url //
 
   return (
     <View
