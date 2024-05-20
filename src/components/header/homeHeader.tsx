@@ -53,8 +53,12 @@ function MainHeader({
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () => AppsApi.getHomePages(0, true).then((result) => {
-      return result.categories.filter((category) => category.type_name.toLowerCase().includes('trending')) ?? [];
+    queryFn: () => AppsApi.getHomePages(0, false).then((result) => {
+      if ((result.trending_list?.length ?? 0) > 0) {
+        return result.trending_list![0].vod_list;
+      }
+
+      return [];
     }),
   });
 

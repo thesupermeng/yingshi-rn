@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { ImageStyle } from 'react-native-fast-image';
@@ -14,11 +14,13 @@ interface Props {
     shadowBottom?: boolean
     isDisabled?: boolean
     index?: number
+    vod_pic_list?: string[]
 }
 
-export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1 }: Props) {
+export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list }: Props) {
     const { colors, textVariants, spacing } = useTheme();
-    const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
+    const iconSize = useMemo(() => 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`), [vodStyle])
+
     return (
         <TouchableOpacity
             style={styles.vod}
@@ -32,6 +34,7 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
                     priority: 'normal',
                 }}
                 useFastImage={index >= 0 && index < 3}
+                alternativeImg={vod_pic_list}
             />
             {
                 shadowBottom && <LinearGradient

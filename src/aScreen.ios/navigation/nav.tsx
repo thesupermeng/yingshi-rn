@@ -17,6 +17,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../screens/Home";
 import PlaylistScreen from "../screens/Playlist/Playlist";
+import MoviesScreen from "../screens/Movies";
+import TvShowScreen from "../screens/TvShow";
 import ProfileScreen from "../screens/Profile/Profile";
 import WatchAnytime from "../screens/WatchAnytime";
 import SearchScreen from "../screens/Common/Search";
@@ -50,6 +52,8 @@ import WatchAnytimeActiveTabIcon from "@static/images/video_tab_active.svg";
 import CatalogScreen from "../screens/Common/Catalog";
 import ShortVodCollectionScreen from "../screens/Profile/Collection/shortVodCollection";
 import SportsIcon from "@static/images/sports.svg";
+import MovieIcon from "@static/images/movies.svg";
+import TvShowIcon from "@static/images/tvshows.svg";
 // import MatchesScreen from "../Sports/screens/Sports/Matches";
 // import MatchDetailsScreen from "../Sports/screens/Sports/MatchDetails";
 import { useDispatch } from "react-redux";
@@ -190,6 +194,22 @@ export default () => {
                   : theme.icons.inactiveNavIconColor
                 }
               />
+            } else if (route.name === "电影") {
+              icon = <MovieIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
+            } else if (route.name === "电视节目") {
+              icon = <TvShowIcon
+                width={iconWidth}
+                color={focused
+                  ? theme.icons.activeNavIconColor
+                  : theme.icons.inactiveNavIconColor
+                }
+              />
             }
             return icon;
           },
@@ -206,6 +226,10 @@ export default () => {
               label = CLangKey.playlistTab.tr();
             } else if (label === '我的') {
               label = CLangKey.profileTab.tr();
+            } else if (label === '电影') {
+              label = CLangKey.moviesTab.tr();
+            } else if (label === '电视节目') {
+              label = CLangKey.tvShowsTab.tr();
             }
 
             return <Text style={{ fontSize: 11, color: color, paddingBottom: 5 }}>
@@ -215,11 +239,13 @@ export default () => {
         })}
       >
         <HomeTab.Screen name="首页" component={HomeScreen} />
-        {/* <HomeTab.Screen name="随心看" component={WatchAnytime} /> */}
+        <HomeTab.Screen name="随心看" component={WatchAnytime} />
         {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
               <HomeTab.Screen name="体育" component={MatchesScreen} />
             } */}
-        <HomeTab.Screen name="播单" component={PlaylistScreen} />
+        {/* <HomeTab.Screen name="播单" component={PlaylistScreen} /> */}
+        <HomeTab.Screen name="电影" component={MoviesScreen} />
+        <HomeTab.Screen name="电视节目" component={TvShowScreen} />
         <HomeTab.Screen name="我的" component={ProfileScreen} />
 
 

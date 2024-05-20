@@ -117,6 +117,7 @@ export const lang = {
     [CLangKey.allClass]: '全部类型',
     [CLangKey.allArea]: '全部地区',
     [CLangKey.allTime]: '全部时间',
+    [CLangKey.watchUntil]: '观看至',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',

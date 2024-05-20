@@ -15,6 +15,7 @@ export class HomePageType {
     latest_movies?: VodPlayGroup[];
     latest_tv_shows?: VodPlayGroup[];
     svod?: VodPlayGroup[];
+    trending_list?: VodPlayGroup[];
 
     public constructor(data: {
         carousel: any[],
@@ -28,6 +29,7 @@ export class HomePageType {
         latest_movies?: VodPlayGroup[],
         latest_tv_shows?: VodPlayGroup[],
         svod?: VodPlayGroup[],
+        trending_list?: VodPlayGroup[],
     }) {
         this.carousel = data.carousel;
         this.yunying = data.yunying;
@@ -40,6 +42,7 @@ export class HomePageType {
         this.latest_movies = data.latest_movies;
         this.latest_tv_shows = data.latest_tv_shows;
         this.svod = data.svod;
+        this.trending_list = data.trending_list;
     }
 
     public static fromJson = (json: any): HomePageType => {
@@ -55,6 +58,7 @@ export class HomePageType {
             latest_movies: VodPlayGroup.fromJsonList(json.latest_movies),
             latest_tv_shows: VodPlayGroup.fromJsonList(json.latest_tv_shows),
             svod: VodPlayGroup.fromJsonList(json.svod),
+            trending_list: VodPlayGroup.fromJsonList(json.trending_list),
         });
     }
 
@@ -71,6 +75,7 @@ export class HomePageType {
             latest_movies: VodPlayGroup.fromArrList(json.latest_movies),
             latest_tv_shows: VodPlayGroup.fromArrList(json.latest_tv_shows),
             svod: VodPlayGroup.fromArrList(json.svod),
+            trending_list: VodPlayGroup.fromArrList(json.trending_list),
             // carousel: Carousel.fromArrList(arr[0]),
             // yunying: arr[0],
             // categories: arr[0],

@@ -36,7 +36,7 @@ import ClearHistoryIcon from "@static/images/clear.svg";
 import EmptyList from "../../components/common/emptyList";
 import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
-import { VodApi } from "@api";
+import { AppsApi, VodApi } from "@api";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { Vod } from "@models";
 import { CLangKey } from "@constants";
@@ -68,7 +68,13 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () => VodApi.getListByRecommendations(),
+    queryFn: () => AppsApi.getHomePages(0, false).then((result) => {
+      if ((result.trending_list?.length ?? 0) > 0) {
+        return result.trending_list![0].vod_list;
+      }
+
+      return [];
+    }),
   });
 
   async function fetchData(text: string, userSearch: boolean = false) {

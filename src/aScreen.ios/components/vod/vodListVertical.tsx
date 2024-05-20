@@ -15,10 +15,11 @@ interface Props {
     outerRowPadding?: number,
     minNumPerRow?: number,
     heightToWidthRatio?: number,
-    onPress?: () => any,
+    onPress?: ({ vodId }: { vodId: any }) => any,
+    playerMode?: 'normal' | 'adult'
 }
 
-function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress }: Props) {
+function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRow = 3, heightToWidthRatio = 1.414, onPress, playerMode = 'normal' }: Props) {
     const { textVariants, colors, spacing, icons } = useTheme();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -75,11 +76,12 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                         }}
                         onPress={() => {
                             if (onPress) {
-                                onPress();
+                                onPress({ vodId: vod?.vod_id });
                             }
                             dispatch(playVod(vod));
                             navigation.navigate('播放IOS', {
                                 vod_id: vod?.vod_id,
+                                // player_mode: playerMode
                             });
                         }}
                         index={idx}

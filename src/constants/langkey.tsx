@@ -129,6 +129,7 @@ export class CLangKey {
     static allClass = 'allClass';
     static allArea = 'allArea';
     static allTime = 'allTime';
+    static watchUntil = 'watchUntil';
 
     // ============================== sentence ==============================
     static noX = 'noX';

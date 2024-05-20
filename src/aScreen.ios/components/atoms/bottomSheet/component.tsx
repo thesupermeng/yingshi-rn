@@ -143,7 +143,7 @@ const styleCBottomSheet = ({
         height: contentContainerHeight === 'auto' ? 'auto'
             : '100%',
         paddingHorizontal: 20,
-        marginVertical: 20,
+        marginVertical: 3,
         // prevent to use padding top or bottom
     }
 });

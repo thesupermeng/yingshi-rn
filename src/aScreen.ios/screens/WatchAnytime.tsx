@@ -15,11 +15,14 @@ import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import NoConnection from './../components/common/noConnection';
 import NetInfo from '@react-native-community/netinfo';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
-import { useAppSelector } from '@hooks/hooks';
+import { useAppSelector, useSelector } from '@hooks/hooks';
 import { RootState } from '@redux/store';
 import UmengAnalytics from '../../../Umeng/UmengAnalytics';
-import { MiniVodApi } from '@api';
+import { MiniVodApi, useMinivodQuery } from '@api';
 import { CLangKey } from '@constants';
+import { UserStateType } from '@redux/reducers/userReducer';
+import { screenModel } from '@type/screenType';
+import HomeHeader from '../components/header/homeHeader';
 
 type MiniVideoResponseType = {
     data: {
@@ -45,10 +48,27 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         ({ settingsReducer }: RootState) => settingsReducer
     );
 
+    const screenState: screenModel = useAppSelector(
+        ({ screenReducer }) => screenReducer,
+    );
+
+    const userState = useSelector<UserStateType>('userReducer');
+    // const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
+    const adultModeGlobal = false
+    const watchAnytimeAdultMode = false;
+    const adultMode = watchAnytimeAdultMode;
+
+    const isVip = true//User.isVip(userState.user);
+
+    const fetchMode = adultMode ? 'adult' : 'normal';
+    const isFocusLogin = useRef(false);
+
     // ========== for analytics - start ==========
     useFocusEffect(useCallback(() => {
-        UmengAnalytics.watchAnytimeViewsAnalytics();
-    }, []));
+        UmengAnalytics.watchAnytimeViewsAnalytics({
+            isXmode: adultMode,
+        });
+    }, [adultMode]));
     // ========== for analytics - end ==========
 
     // Add an event listener to the navigation object for the tab press event
@@ -91,25 +111,55 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         limit: LIMIT,
     });
 
-    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
-        useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
-            getNextPageParam: (lastPage, allPages) => {
-                if (lastPage === null) {
-                    return undefined;
-                }
-                const nextPage =
-                    lastPage.length === LIMIT ? allPages.length + 1 : undefined;
-                return nextPage;
-            },
-            onSuccess: (data) => {
-            }
-        });
+    const {
+        data: videos,
+        isSuccess,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+        isFetching,
+        refetch,
+        remove,
+    } = useMinivodQuery(fetchMode, isVip)
+
+    // const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching, refetch } =
+    //     useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
+    //         getNextPageParam: (lastPage, allPages) => {
+    //             if (lastPage === null) {
+    //                 return undefined;
+    //             }
+    //             const nextPage =
+    //                 lastPage.length === LIMIT ? allPages.length + 1 : undefined;
+    //             return nextPage;
+    //         },
+    //         onSuccess: (data) => {
+    //         }
+    //     });
 
     useEffect(() => {
         if (videos != undefined) {
-            setFlattenedVideos(videos?.pages.flat().filter(x => x));
+            let filtered = videos?.pages.flat().filter(x => x)
+
+            // vip -> filter ads
+            // guest -> filter first 10
+
+            // if (isVip) {
+            //   filtered = filtered.filter(x => !x.is_ads)
+            // }
+
+            // if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
+            //   filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
+            // }
+
+            setFlattenedVideos(filtered); // remove null values
+            if (filtered.length > 0) {
+                miniVodListRef.current?.scrollToOffset({
+                    index: 0,
+                    animated: false,
+                });
+            }
         }
-    }, [videos])
+    }, [videos, userState.user]);
 
     const checkConnection = useCallback(async () => {
         const state = await NetInfo.fetch();
@@ -150,8 +200,11 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     return (
         <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 10 }}>
-            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: '#FFF', fontSize: 20 }}>{CLangKey.watchanytimeTab.tr()}</Text>
+            <View style={styles.titleTextContainer}>
+                <HomeHeader
+                    navigator={navigation}
+                    title={CLangKey.watchanytimeTab.tr()}
+                />
             </View>
             {!isOffline &&
                 <MiniVideoList
@@ -175,5 +228,21 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 }
 
 const styles = StyleSheet.create({
-
+    containerStyle: {
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingBottom: 10,
+    },
+    titleTextContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        zIndex: 50,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    titleText: { color: '#FFF', fontSize: 20 },
 })

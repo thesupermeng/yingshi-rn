@@ -50,6 +50,7 @@ import { User } from "@models";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
 import { CLangKey } from "@constants";
+import HomeHeader from "../../components/header/homeHeader";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -172,28 +173,16 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               tintColor="#FAC33D"
             />
           }
+          showsVerticalScrollIndicator={false}
         >
           <View style={{ ...styles.topNav }}>
-            <Text
-              style={{
-                ...textVariants.bigHeader,
-                color: colors.text,
-                fontSize: 22,
-              }}
-            >
-              {CLangKey.profileTab.tr()}
-            </Text>
-            {/* <TouchableOpacity onPress={() => dispatch(toggleTheme(!themeReducer.theme))}>
-                      {
-                          themeReducer.theme
-                              ? <LightMode color={icons.iconColor} height={26} width={26} />
-                              : <DarkMode color={icons.iconColor}  height={26} width={26} />
-
-                      }
-                  </TouchableOpacity> */}
+            <HomeHeader
+              navigator={navigator}
+              title={CLangKey.profileTab.tr()}
+            />
           </View>
-          {/* 游客登录  component*/}
-          <TouchableOpacity
+
+          {/* <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
               if (!User.isLogin(userState.user)) {
@@ -274,16 +263,6 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                         />
                       )}
                     </View>
-
-                    {/* {userState.userMemberExpired == '0' && (
-                      <Text style={{fontSize: 14}}>VIP会员已经到期</Text>
-                    )} */}
-                    {/* {userState.userMemberExpired >=
-                      userState.userCurrentTimestamp && (
-                        <Text style={{ color: colors.yellow, fontSize: 14 }}>
-                          VIP会员有效日期至{displayedDate}
-                        </Text>
-                      )} */}
                   </>
                 )}
               </View>
@@ -306,10 +285,10 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 )}
               </View>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            {Platform.OS === "ios" ||
+            {/* {Platform.OS === "ios" ||
               (SHOW_ZF_CONST && (
                 <View
                   style={{
@@ -410,9 +389,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     </View>
                   </TouchableOpacity>
                 </View>
-              ))}
+              ))} */}
 
-            {Platform.OS === "android" && !SHOW_ZF_CONST && (
+            {/* {Platform.OS === "android" && !SHOW_ZF_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -442,7 +421,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   color={colors.muted}
                 />
               </TouchableOpacity>
-            )}
+            )} */}
 
             <ShowMoreButton
               text={CLangKey.myFavourite.tr()}
@@ -459,22 +438,22 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("反馈")}
             />
-            {isInAppReviewAvailable && <ShowMoreButton
+            {/* {isInAppReviewAvailable && <ShowMoreButton
               text={CLangKey.rateUs.tr()}
               leftIcon={<ReviewIcon style={{ color: colors.button }} />}
               // onPress={() => setShowReview(true)}
               onPress={onReviewPress}
-            />}
+            />} */}
             <ShowMoreButton
               text={CLangKey.setting.tr()}
               leftIcon={<SettingsIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("设置")}
             />
-            <ShowMoreButton
+            {/* <ShowMoreButton
               text={CLangKey.aboutUs.tr()}
               leftIcon={<InfoIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("关于我们")}
-            />
+            /> */}
             {/* <TouchableOpacity
               style={{
                 ...styles.btn,

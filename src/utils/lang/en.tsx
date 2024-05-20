@@ -117,6 +117,7 @@ export const lang = {
     [CLangKey.allClass]: 'All Class',
     [CLangKey.allArea]: 'All Area',
     [CLangKey.allTime]: 'All Year',
+    [CLangKey.watchUntil]: 'Watch until',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',

@@ -219,7 +219,7 @@ function ShortVideoPlayer({
     const { height } = event.nativeEvent.layout;
     setImageContainerHeight(height);
   }
-
+  console.log('vod: ', vod)
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -254,7 +254,7 @@ function ShortVideoPlayer({
               resizeMode="contain"
               // poster={thumbnail}
               source={{
-                uri: currentVod.mini_video_origin_video_url,
+                uri: currentVod.mini_video_play_url,
                 headers: {
                   'User-Agent':
                     'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',

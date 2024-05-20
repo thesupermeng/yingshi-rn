@@ -41,7 +41,7 @@ export default function FavoriteVodCard({
           style={{
             ...styles.description,
             gap: spacing.xs,
-            justifyContent: 'center',
+            // justifyContent: 'center',
           }}>
           {hideFavoriteButton ? (
             <Text
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingTop: 4,
     paddingBottom: 8,
-    flexShrink: 1,
   },
   image: {
     width: 120,

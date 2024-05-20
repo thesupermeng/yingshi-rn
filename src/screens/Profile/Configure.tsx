@@ -161,7 +161,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
           <View>
             <View>
               <ShowMoreButton
-                text={CLangKey.about.tr()}
+                text={CLangKey.aboutUs.tr()}
                 onPress={() => navigation.navigate("关于我们")}
               />
               <ShowMoreButton

@@ -22,6 +22,7 @@ import {
 } from "react-native";
 import FavoriteButton from "../../components/button/favoriteVodButton";
 import FavoriteIcon from "@static/images/favorite.svg";
+import VodDetailIcon from "@static/images/vod_detail.svg";
 import ScreenContainer from "../../components/container/screenContainer";
 import { useTheme, useFocusEffect, useRoute } from "@react-navigation/native";
 import { YSConfig } from "../../../../ysConfig";
@@ -78,6 +79,11 @@ import { VodApi } from "@api";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { User, Vod } from "@models";
 import { CLangKey } from "@constants";
+import { screenModel } from "@type/screenType";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import VodDescriptionBottomSheet from "@iosScreen/components/videoPlayer/vodDescriptionBottomSheet";
+let insetsTop = 0;
+let insetsBottom = 0;
 
 type VideoRef = {
   setPause: (param: boolean) => void;
@@ -202,6 +208,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     ({ settingsReducer }: RootState) => settingsReducer
   );
   const userState = useSelector<UserStateType>('userReducer');
+  const screenState = useSelector<screenModel>('screenReducer');
+
   const vod = vodReducer.playVod.vod;
   // const [vod, setVod] = useState(vodReducer.playVod.vod);
   const [initTime, setInitTime] = useState(0);
@@ -240,7 +248,18 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   const [allComment, setAllComment] = useState<CommentsType[] | undefined>([]);
   const [showLoading, setShowLoading] = useState(true);
 
+  const [isShowDescription, setShowDescription] = useState(false);
   const [isReadyPlay, setReadyPlay] = useState(false);
+
+  const insets = useSafeAreaInsets();
+
+  if (Platform.OS === "android") {
+    insetsTop = insets.top;
+    insetsBottom = insets.bottom;
+  } else {
+    insetsTop = insetsTop == 0 ? insets.top : insetsTop;
+    insetsBottom = insetsBottom == 0 ? insets.bottom : insets.bottom;
+  }
 
   const EPISODE_RANGE_SIZE = 100;
 
@@ -327,25 +346,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       }
     }, [settingsReducer.isOffline])
   );
-
-  useEffect(() => {
-    setIsOffline(settingsReducer.isOffline);
-    const eventName = "watch_video";
-    const eventValues = {
-      vod_name: vod?.vod_name,
-    };
-
-    // appsFlyer.logEvent(
-    //   eventName,
-    //   eventValues,
-    //   res => {
-    //     // console.log(res);
-    //   },
-    //   err => {
-    //     console.error(err);
-    //   },
-    // );
-  }, []);
 
   const fetchVodDetails = () =>
     VodApi.getDetail(vod?.vod_id.toString() ?? "").then((data) => {
@@ -668,389 +668,317 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
   };
 
   return (
-    <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <ScreenContainer
-          containerStyle={{ paddingRight: 0, paddingLeft: 0 }}
-          footer={
-            <>
-              {!isOffline && (
-                <View
-                  style={{
-                    ...styles.commentContainer,
-                    backgroundColor: "#1D2023",
-                  }}
-                >
-                  <TextInput
-                    style={{
-                      ...styles.input,
-                      backgroundColor: "#FFFFFF1A",
-                      ...textVariants.body,
-                    }}
-                    onChangeText={setComment}
-                    placeholder={
-                      User.isLogin(userState.user) ? "请评论" : "请登录才进行评论"
-                    }
-                    editable={User.isLogin(userState.user)}
-                    placeholderTextColor={colors.muted}
-                    value={comment}
-                    maxLength={200}
-                    blurOnSubmit
-                  />
+    <ScreenContainer
+      isPlay={true}
+      containerStyle={{
+        paddingTop: screenState.isPlayerFullScreen ? 0 : insetsTop,
+        paddingBottom: screenState.isPlayerFullScreen ? 0 : insetsBottom,
+        paddingLeft: 0,
+        paddingRight: 0,
+      }}
+    >
+      <BingSearch vod={vod} />
+      {/* if isVodRestricted, show bing search */}
+      {/* {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />} */}
 
-                  {User.isLogin(userState.user) ? (
-                    <>
+      {isOffline && dismountPlayer && (
+        <View
+          style={{
+            width: "100%",
+            aspectRatio: 16 / 9,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+          }}
+        >
+          <FastImage
+            style={{ height: 80, width: 80 }}
+            source={require("@static/images/loading-spinner.gif")}
+            resizeMode={"contain"}
+          />
+        </View>
+      )}
+      {!dismountPlayer && isOffline && (
+        <NoConnection onClickRetry={checkConnection} isPlay={true} />
+      )}
+
+      {!isOffline && (
+        <>
+          <ScrollView
+            nestedScrollEnabled={true}
+            // contentContainerStyle={{ marginTop: spacing.m }}
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            <View style={{ ...styles.descriptionContainer2, gap: spacing.m }} >
+              <View style={styles.videoDescription}>
+                {/* <FastImage
+                  source={{ uri: vod?.vod_pic }}
+                  resizeMode={"cover"}
+                  style={{
+                    ...styles.descriptionImage,
+                    ...styles.imageContainer,
+                  }}
+                /> */}
+                <View style={styles.descriptionContainer}>
+                  {vod && (
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        ...textVariants.header,
+                        color: colors.text,
+                      }}
+                    >
+                      {vod.vod_name}
+                    </Text>
+                  )}
+                  <Text
+                    style={{ ...textVariants.subBody, color: colors.muted }}
+                    numberOfLines={2}
+                  >
+                    {`${definedValue(vod?.vod_year)}`}
+                    {`${definedValue(vod?.vod_area)}`}
+                    {`${definedValue(vod?.vod_class?.split(",").join(" "))}`}
+                  </Text>
+                  <Text
+                    style={{ ...textVariants.subBody, color: colors.muted }}
+                  >
+                    {(() => {
+                      try {
+                        const dateValue =
+                          vod && !!vod?.vod_time_add
+                            ? new Date(vod?.vod_time_add * 1000)
+                              .toISOString()
+                              .slice(0, 10)
+                              .replace(/\//g, "-")
+                            : new Date()
+                              .toISOString()
+                              .slice(0, 10)
+                              .replace(/\//g, "-");
+
+                        return `${CLangKey.update.tr()}：${dateValue}`;
+                      } catch (error) {
+                        console.error(
+                          "Error while formatting date:",
+                          error
+                        );
+                        return `${CLangKey.update.tr()}：N/A`; // or any default value you want to display on error
+                      }
+                    })()}
+                  </Text>
+                  <TouchableOpacity onPress={onShare}>
+                    <View style={{ ...styles.share, gap: 10 }}>
                       <Text
                         style={{
-                          ...textVariants.body,
-                          color:
-                            comment.length === 200
-                              ? colors.primary
-                              : colors.muted,
+                          ...textVariants.subBody,
+                          color: colors.muted,
                         }}
                       >
-                        {comment.length}/200
+                        {CLangKey.share.tr()}：
                       </Text>
-                      <TouchableOpacity
-                        onPress={() => {
-                          setComment("");
-                          storeUserComments();
-                        }}
-                      >
-                        <SubmitBtn
-                          fill={comment.length ? "#FAC33D" : "#3A3A3A"}
-                        />
-                      </TouchableOpacity>
-                    </>
-                  ) : (
-                    <TouchableOpacity
-                      onPress={() => dispatch(showLoginAction())}
-                    >
-                      <Text
-                        style={{ ...textVariants.body, color: colors.primary }}
-                      >
-                        立即登录
-                      </Text>
-                    </TouchableOpacity>
-                  )}
+                      <WeChatIcon />
+                      <PYQIcon />
+                      <SinaIcon />
+                      <QQIcon />
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              )}
-            </>
-          }
-        >
-          <TitleWithBackButtonHeader
-            title={vod?.vod_name}
-            backBtnStyle={{
-              left: 30,
-            }}
-          />
-
-          {/* if isVodRestricted, show bing search */}
-          {/* {isVodRestricted && vod && !isOffline && <BingSearch vod={vod} />} */}
-
-          {isOffline && dismountPlayer && (
-            <View
-              style={{
-                width: "100%",
-                aspectRatio: 16 / 9,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                alignSelf: "center",
-              }}
-            >
-              <FastImage
-                style={{ height: 80, width: 80 }}
-                source={require("@static/images/loading-spinner.gif")}
-                resizeMode={"contain"}
-              />
-            </View>
-          )}
-          {!dismountPlayer && isOffline && (
-            <NoConnection onClickRetry={checkConnection} isPlay={true} />
-          )}
-
-          {!isOffline && (
-            <>
-              <ScrollView
-                nestedScrollEnabled={true}
-                contentContainerStyle={{ marginTop: spacing.m }}
-                contentInsetAdjustmentBehavior="automatic"
-              >
-                <View
-                  style={{ ...styles.descriptionContainer2, gap: spacing.m }}
-                >
-                  <View style={styles.videoDescription}>
-                    <FastImage
-                      source={{ uri: vod?.vod_pic }}
-                      resizeMode={"cover"}
+              </View>
+              <View style={styles.videoDescription}>
+                <FavoriteButton
+                  initialState={isFavorite}
+                  vod={vod}
+                  showName={false}
+                  buttonStyle={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexShrink: 1,
+                  }}
+                  leftIcon={
+                    <View
                       style={{
-                        ...styles.descriptionImage,
-                        ...styles.imageContainer,
+                        display: "flex",
+                        alignItems: "center",
+                        alignContent: "center",
+                        gap: spacing.xxs,
+                      }}
+                    >
+                      <FavoriteIcon
+                        width={24}
+                        height={24}
+                        style={{
+                          color: isFavorite ? colors.primary : colors.muted,
+                        }}
+                      />
+                      {isFavorite ? (
+                        <Text
+                          style={{
+                            ...textVariants.subBody,
+                            color: colors.primary,
+                            paddingBottom: 3,
+                          }}
+                        >
+                          {CLangKey.doneFavourite.tr()}
+                        </Text>
+                      ) : (
+                        <Text
+                          style={{
+                            ...textVariants.subBody,
+                            color: colors.muted,
+                            paddingBottom: 3,
+                          }}
+                        >
+                          {CLangKey.favourite.tr()}
+                        </Text>
+                      )}
+                    </View>
+                  }
+                />
+
+                <TouchableOpacity onPress={() => setShowDescription(true)}>
+                  <View
+                    style={{
+                      display: "flex",
+                      // flexDirection: "row",
+                      alignItems: "center",
+                      alignContent: "center",
+                      gap: spacing.xxs,
+                    }}
+                  >
+                    <VodDetailIcon
+                      width={24}
+                      height={24}
+                      style={{
+                        color: isShowDescription
+                          ? colors.primary
+                          : colors.muted,
                       }}
                     />
-                    <View style={styles.descriptionContainer}>
-                      {vod && (
-                        <FavoriteButton
-                          initialState={isFavorite}
-                          vod={vod}
-                          leftIcon={
-                            <View
-                              style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                gap: spacing.xxs,
-                              }}
-                            >
-                              <FavoriteIcon
-                                width={18}
-                                height={18}
-                                style={{
-                                  color: isFavorite
-                                    ? colors.primary
-                                    : colors.muted,
-                                }}
-                              />
-                              {isFavorite ? (
-                                <Text
-                                  style={{
-                                    ...textVariants.subBody,
-                                    color: colors.primary,
-                                    paddingBottom: 3,
-                                  }}
-                                >
-                                  {CLangKey.doneFavourite.tr()}
-                                </Text>
-                              ) : (
-                                <Text
-                                  style={{
-                                    ...textVariants.subBody,
-                                    color: colors.muted,
-                                    paddingBottom: 3,
-                                  }}
-                                >
-                                  {CLangKey.favourite.tr()}
-                                </Text>
-                              )}
-                            </View>
-                          }
-                        />
-                      )}
-                      <Text
-                        style={{ ...textVariants.subBody, color: colors.muted }}
-                        numberOfLines={2}
-                      >
-                        {`${definedValue(vod?.vod_year)}`}
-                        {`${definedValue(vod?.vod_area)}`}
-                        {`${definedValue(
-                          vod?.vod_class?.split(",").join(" ")
-                        )}`}
-                      </Text>
-                      <Text
-                        style={{ ...textVariants.subBody, color: colors.muted }}
-                      >
-                        {(() => {
-                          try {
-                            const dateValue =
-                              vod && !!vod?.vod_time_add
-                                ? new Date(vod?.vod_time_add * 1000)
-                                  .toISOString()
-                                  .slice(0, 10)
-                                  .replace(/\//g, "-")
-                                : new Date()
-                                  .toISOString()
-                                  .slice(0, 10)
-                                  .replace(/\//g, "-");
-
-                            return `${CLangKey.update.tr()}：${dateValue}`;
-                          } catch (error) {
-                            console.error(
-                              "Error while formatting date:",
-                              error
-                            );
-                            return `${CLangKey.update.tr()}：N/A`; // or any default value you want to display on error
-                          }
-                        })()}
-                      </Text>
-                      <View
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          flexDirection: "row",
-                          gap: 8,
-                        }}
-                      >
-                        {/* <TouchableOpacity
-                        onPress={handleSearchVideo}
-                        style={{
-                          backgroundColor: "#FAC33D",
-                          paddingHorizontal: 16,
-                          paddingVertical: 8,
-                          borderRadius: 6,
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontWeight: "500",
-                            color: "#000",
-                          }}
-                        >
-                          搜索片源
-                        </Text>
-                      </TouchableOpacity>
-                      <Text style={{...textVariants.small, alignSelf: 'flex-end'}}>
-                        *点击跳转bing搜索片源
-                      </Text> */}
-                      </View>
-                    </View>
-                  </View>
-                  <View>
-                    <Text style={styles.descriptionContainer2Text}>
-                      {`${CLangKey.director.tr()}：${definedValue(vod?.vod_director)}${"\n"}` +
-                        `${CLangKey.actor.tr()}：${definedValue(vod?.vod_actor)}${"\n"}`}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setIsCollapsed(!isCollapsed);
+                    <Text
+                      style={{
+                        ...textVariants.subBody,
+                        color: colors.muted,
+                        paddingBottom: 3,
                       }}
                     >
-                      <View style={{ paddingBottom: 18 }}>
-                        <Text
-                          ref={textRef}
-                          onTextLayout={handleTextLayout}
-                          style={styles.descriptionContainer2Text}
-                          numberOfLines={isCollapsed ? 2 : 20}
-                        >
-                          {`${definedValue(vod?.vod_content)}`}
-                        </Text>
-                      </View>
-                      <View style={{ paddingBottom: 0 }}>
-                        {isCollapsed && actualNumberOfLines >= 2 && (
-                          <FastImage
-                            style={{
-                              flex: 1,
-                              height: 12,
-                              width: 14,
-                              alignSelf: "center",
-                            }}
-                            source={require("@static/images/down_arrow.png")}
-                            resizeMode={"contain"}
-                          />
-                        )}
-                        {!isCollapsed && actualNumberOfLines >= 2 && (
-                          <FastImage
-                            style={{
-                              flex: 1,
-                              height: 12,
-                              width: 14,
-                              alignSelf: "center",
-                            }}
-                            source={require("@static/images/up_arrow.png")}
-                            resizeMode={"contain"}
-                          />
-                        )}
-                      </View>
-                    </TouchableOpacity>
+                      {CLangKey.details.tr()}
+                    </Text>
                   </View>
-                  {/* show 选集播放 section when avaiable episode more thn 1 */}
+                </TouchableOpacity>
+              </View>
+              {/* show 选集播放 section when avaiable episode more thn 1 */}
+              <>
+                {isFetchingVodDetails ||
+                  isFetchingComments ||
+                  showLoading ? (
                   <>
-                    {isFetchingVodDetails ||
-                      isFetchingComments ||
-                      showLoading ? (
-                      <>
-                        <View
-                          style={{
-                            width: "100%",
-                            aspectRatio: 16 / 9,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            alignSelf: "center",
-                          }}
-                        >
-                          <FastImage
-                            style={{ height: 80, width: 80 }}
-                            source={require("@static/images/loading-spinner.gif")}
-                            resizeMode={"contain"}
+                    <View
+                      style={{
+                        width: "100%",
+                        aspectRatio: 16 / 9,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        alignSelf: "center",
+                      }}
+                    >
+                      <FastImage
+                        style={{ height: 80, width: 80 }}
+                        source={require("@static/images/loading-spinner.gif")}
+                        resizeMode={"contain"}
+                      />
+                    </View>
+                  </>
+                ) : (
+                  <>
+                    {/* {vod && allComment && !showLoading && (
+                      <VodCommentBox
+                        comments={allComment ?? []}
+                        onCommentTap={() => {
+                          navigation.navigate("全部评论", {
+                            vod_id: vod.vod_id,
+                            vod_name: vod.vod_name,
+                            commentItems: allComment,
+                          });
+                        }}
+                      />
+                    )} */}
+
+                    {vod &&
+                      suggestedVods !== undefined &&
+                      suggestedVods?.length > 0 && (
+                        <View style={{ gap: spacing.l, marginBottom: 60 }}>
+                          <ShowMoreVodButton
+                            isPlayScreen={true}
+                            text={CLangKey.relatedX.tr({ x: vod?.type_name ?? '' })}
+                            onPress={() => {
+                              // videoPlayerRef.current.setPause(true);
+                              setTimeout(() => {
+                                navigation.navigate("片库", {
+                                  type_id: vod.type_id,
+                                });
+                              }, 150);
+                            }}
+                          />
+                          <VodListVertical
+                            vods={suggestedVods}
+                            outerRowPadding={2 * (20 - spacing.sideOffset)}
+                            onPress={({ vodId }) => {
+                              if (vodId !== vod.vod_id) {
+                                videoPlayerRef.current?.setPause(true);
+                              }
+
+                              if (!isCollapsed) {
+                                setIsCollapsed(true);
+                              }
+                            }}
                           />
                         </View>
-                      </>
-                    ) : (
-                      <>
-                        {vod && allComment && !showLoading && (
-                          <VodCommentBox
-                            comments={allComment ?? []}
-                            onCommentTap={() => {
-                              navigation.navigate("全部评论", {
-                                vod_id: vod.vod_id,
-                                vod_name: vod.vod_name,
-                                commentItems: allComment,
-                              });
-                            }}
-                          />
-                        )}
-
-                        {vod &&
-                          suggestedVods !== undefined &&
-                          suggestedVods?.length > 0 && (
-                            <View style={{ gap: spacing.l, marginBottom: 60 }}>
-                              <ShowMoreVodButton
-                                isPlayScreen={true}
-                                text={`相关${vod?.type_name}`}
-                                onPress={() => {
-                                  // videoPlayerRef.current.setPause(true);
-                                  setTimeout(() => {
-                                    navigation.navigate("片库", {
-                                      type_id: vod.type_id,
-                                    });
-                                  }, 150);
-                                }}
-                              />
-                              <VodListVertical
-                                vods={suggestedVods}
-                                outerRowPadding={2 * (20 - spacing.sideOffset)}
-                                onPress={() => {
-                                  if (!isCollapsed) {
-                                    setIsCollapsed(true);
-                                  }
-                                }}
-                              />
-                            </View>
-                          )}
-                      </>
-                    )}
+                      )}
                   </>
-                </View>
-              </ScrollView>
-              {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
-                <VodEpisodeSelectionModal
-                  isVisible={isShowSheet}
-                  handleClose={handleModalClose}
-                  activeEpisode={currentEpisode}
-                  episodes={vod?.vod_play_list}
-                  onCancel={() => {
-                    setShowSheet(false);
-                  }}
-                  // onConfirm={(id: number) => {
-                  //   setCurrentEpisode(id);
-                  //   handleModalClose();
-                  // }}
-                  onConfirm={onConfirmEpisodeSelection}
-                  rangeSize={EPISODE_RANGE_SIZE}
-                />
-              )}
-            </>
+                )}
+              </>
+            </View>
+          </ScrollView>
+          {settingsReducer.appOrientation === "PORTRAIT" && ( // only show if portrait
+            <VodEpisodeSelectionModal
+              isVisible={isShowSheet}
+              handleClose={handleModalClose}
+              activeEpisode={currentEpisode}
+              episodes={vod?.vod_play_list}
+              onCancel={() => {
+                setShowSheet(false);
+              }}
+              // onConfirm={(id: number) => {
+              //   setCurrentEpisode(id);
+              //   handleModalClose();
+              // }}
+              onConfirm={onConfirmEpisodeSelection}
+              rangeSize={EPISODE_RANGE_SIZE}
+            />
           )}
-          {isOffline && (
-            <NoConnection onClickRetry={checkConnection} isPlayBottom={true} />
-          )}
-        </ScreenContainer>
-      </KeyboardAvoidingView>
-    </>
+        </>
+      )}
+      {isOffline && (
+        <NoConnection onClickRetry={checkConnection} isPlayBottom={true} />
+      )}
+
+      <VodDescriptionBottomSheet
+        isVisible={isShowDescription}
+        handleClose={() => setShowDescription(false)}
+        vodTitle={vod?.vod_name}
+        vod_actor={vod?.vod_actor}
+        vod_writer={vod?.vod_author}
+        vod_director={vod?.vod_director}
+        vod_content={vodDetails?.vod_content}
+        vod_year={vod?.vod_year}
+        vod_area={vod?.vod_area}
+        vod_class={vod?.vod_class?.split(",").join(" ")}
+        vod_time_add={vod?.vod_time_add}
+      />
+    </ScreenContainer>
   );
 };
 

@@ -38,7 +38,6 @@ export default function ShowMoreButton({ text, onPress, leftIcon, textColor = ''
 const styles = StyleSheet.create({
     icon: {
         marginRight: 10,
-        paddingTop: 4,
         height: 24,
         width: 24
     },

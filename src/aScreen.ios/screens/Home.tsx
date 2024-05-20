@@ -39,6 +39,8 @@ import { AppsApi } from "@api";
 import DeviceInfo from "react-native-device-info";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { HomePageType, User } from "@models";
+import { screenModel } from "@type/screenType";
+import { CLangKey } from "@constants";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -50,6 +52,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const settingsReducer: SettingsReducerState = useAppSelector(
     ({ settingsReducer }: RootState) => settingsReducer
   );
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer
+  );
+
   const userState = useSelector<UserStateType>('userReducer');
   const isVip = User.isVip(userState.user);
   const bottomTabHeight = useBottomTabBarHeight();
@@ -59,16 +65,24 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     queryFn: () => AppsApi.getHomeNav(),
   });
 
-  const fetchData = useCallback((id: number) => AppsApi.getHomePages(id, isVip), []);
+  const fetchData = useCallback(
+    (id: number) => AppsApi.getHomePages(id, isVip),
+    [isVip]
+  );
 
-  const data = useQueries({
-    queries: navOptions
-      ? navOptions?.map((x: any) => ({
-        queryKey: ["HomePage", x.id],
-        queryFn: () => fetchData(x.id),
-      }))
-      : [],
+  const { data } = useQuery({
+    queryKey: ["HomePage", 0, isVip],
+    queryFn: () => fetchData(0),
   });
+
+  // const data = useQueries({
+  //   queries: navOptions
+  //     ? navOptions?.map((x: any) => ({
+  //       queryKey: ["HomePage", x.id],
+  //       queryFn: () => fetchData(x.id),
+  //     }))
+  //     : [],
+  // });
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
@@ -87,18 +101,23 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     setIsOffline(settingsReducer.isOffline);
   }, []);
 
-  useFocusEffect(useCallback(() => {
-    if (!settingsReducer.isOffline && settingsReducer.isOffline !== isOffline) {
-      setIsOffline(settingsReducer.isOffline);
-      setShowHomeLoading(true);
-      refetch();
-      handleRefresh(navId, true);
-    } else if (settingsReducer.isOffline) {
-      return () => {
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        !settingsReducer.isOffline &&
+        settingsReducer.isOffline !== isOffline
+      ) {
         setIsOffline(settingsReducer.isOffline);
+        setShowHomeLoading(true);
+        // refetch();
+        handleRefresh(navId, true);
+      } else if (settingsReducer.isOffline) {
+        return () => {
+          setIsOffline(settingsReducer.isOffline);
+        }
       }
-    }
-  }, [settingsReducer.isOffline]));
+    }, [settingsReducer.isOffline])
+  );
 
   //refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -141,46 +160,74 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
     return () => unsubscribe();
   }, [navigation, isFocused, navId, handleRefresh]);
 
-  const getContent = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: UseQueryResult<HomePageType>;
-      index: number;
-    }) => {
-      return (
-        <>
-          {item?.data !== undefined &&
-            (index === 0 ? (
-              <RecommendationHome
-                vodCarouselRes={item.data}
-                onRefresh={handleRefresh}
-                onLoad={handleShowLoading}
-                refreshProp={isRefreshing}
-              />
-            ) : (
-              <>
-                <CatagoryHome
-                  vodCarouselRes={item.data}
-                  navId={index}
-                  onRefresh={handleRefresh}
-                  refreshProp={isRefreshing}
-                />
-              </>
-            ))}
-        </>
-      );
-    },
-    []
-  );
+  // const getContent = useCallback(
+  //   ({
+  //     item,
+  //     index,
+  //   }: {
+  //     item: UseQueryResult<HomePageType>;
+  //     index: number;
+  //   }) => {
+  //     return (
+  //       <>
+  //         {item?.data !== undefined &&
+  //           (index === 0 ? (
+  //             <RecommendationHome
+  //               vodCarouselRes={item.data}
+  //               onRefresh={handleRefresh}
+  //               onLoad={handleShowLoading}
+  //               refreshProp={isRefreshing}
+  //             />
+  //           ) : (
+  //             <>
+  //               <CatagoryHome
+  //                 vodCarouselRes={item.data}
+  //                 navId={index}
+  //                 onRefresh={handleRefresh}
+  //                 refreshProp={isRefreshing}
+  //               />
+  //             </>
+  //           ))}
+  //       </>
+  //     );
+  //   },
+  //   []
+  // );
 
 
   const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext);
 
+  const isSamsungDevice = DeviceInfo.getBrand() === "samsung";
   useEffect(() => {
-    setNavbarHeight(bottomTabHeight);
-  }, [bottomTabHeight]);
+    //setNavbarHeight(bottomTabHeight);
+    setTimeout(
+      () => {
+        // add delay to solve galaxy phone banner overlay nav on first start
+        setNavbarHeight(bottomTabHeight);
+      },
+      isSamsungDevice ? 1000 : 500
+    );
+  }, [bottomTabHeight, screenState.interstitialShow]);
+
+  const [deviceName, setDeviceName] = useState("");
+
+  DeviceInfo.getDeviceName().then((d) => {
+    setDeviceName(d.toLowerCase());
+  });
+
+  useEffect(() => {
+    Dimensions.addEventListener("change", (e) => {
+      const includesKeywords = [
+        "flip",
+        "fold",
+        "mate x3",
+        "mate xs",
+      ].some((keyword) => deviceName.includes(keyword));
+      if (DeviceInfo.isTablet() || includesKeywords) {
+        reloadBanner();
+      }
+    });
+  }, []);
 
 
 
@@ -193,45 +240,45 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   // }, []);
 
 
-  // ========== for analytics - start ==========
-  useEffect(() => {
-    if (navOptions !== undefined && navOptions.length > 0) {
-      UmengAnalytics.homeTabViewsAnalytics({
-        tab_id: navOptions[0].id.toString(),
-        tab_name: navOptions[0].name,
-      });
-    }
-  }, [navOptions])
+  // // ========== for analytics - start ==========
+  // useEffect(() => {
+  //   if (navOptions !== undefined && navOptions.length > 0) {
+  //     UmengAnalytics.homeTabViewsAnalytics({
+  //       tab_id: navOptions[0].id.toString(),
+  //       tab_name: navOptions[0].name,
+  //     });
+  //   }
+  // }, [navOptions])
 
-  useEffect(() => {
-    if (navOptions !== undefined && navOptions.length > 0) {
-      UmengAnalytics.homeTabViewsAnalytics({
-        tab_id: navOptions[navId].id.toString(),
-        tab_name: navOptions[navId].name,
-      });
-    }
-  }, [navId])
+  // useEffect(() => {
+  //   if (navOptions !== undefined && navOptions.length > 0) {
+  //     UmengAnalytics.homeTabViewsAnalytics({
+  //       tab_id: navOptions[navId].id.toString(),
+  //       tab_name: navOptions[navId].name,
+  //     });
+  //   }
+  // }, [navId])
   // ========== for analytics - end ==========
 
-  const onTabPress = (target?: string) => {
-    const targetStr = target?.substring(0, target.indexOf('-'));
+  // const onTabPress = (target?: string) => {
+  //   const targetStr = target?.substring(0, target.indexOf('-'));
 
-    if (navOptions !== undefined) {
-      const found = navOptions?.findIndex((e) => e.name === targetStr);
-      setNavId(found);
+  //   if (navOptions !== undefined) {
+  //     const found = navOptions?.findIndex((e) => e.name === targetStr);
+  //     setNavId(found);
 
-      // ========== for analytics - start ==========
-      UmengAnalytics.homeTabClicksAnalytics({
-        tab_id: navOptions[found].id.toString(),
-        tab_name: navOptions[found].name,
-      });
-      // ========== for analytics - end ==========
-    }
-  }
+  //     // ========== for analytics - start ==========
+  //     UmengAnalytics.homeTabClicksAnalytics({
+  //       tab_id: navOptions[found].id.toString(),
+  //       tab_name: navOptions[found].name,
+  //     });
+  //     // ========== for analytics - end ==========
+  //   }
+  // }
 
-  const onTabSwipe = useCallback((index: number, tab: any) => {
-    setNavId(index);
-  }, []);
+  // const onTabSwipe = useCallback((index: number, tab: any) => {
+  //   setNavId(index);
+  // }, []);
 
   // useInterstitialAds();
 
@@ -248,7 +295,13 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
             paddingRight: spacing.sideOffset,
           }}
         >
-          <HomeHeader navigator={navigation} />
+          <HomeHeader
+            navigator={navigation}
+            title={CLangKey.homeTab.tr()}
+            searchIcon={true}
+            navIcon={true}
+            fireIcon={true}
+          />
         </View>
         <>
           {(!data || isRefreshing) && (
@@ -295,7 +348,18 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
               />
             </View>
           )}
-          {data && !isOffline && getContent({ item: data[0], index: 0 })}
+          {data &&
+            <RecommendationHome
+              vodCarouselRes={data}
+              navId={0}
+              tabName={"home"}
+              onRefresh={handleRefresh}
+              onLoad={handleShowLoading}
+              refreshProp={isRefreshing}
+              isTabFocus={true}
+            />
+          }
+          {/* {data && !isOffline && getContent({ item: data[0], index: 0 })} */}
         </>
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}

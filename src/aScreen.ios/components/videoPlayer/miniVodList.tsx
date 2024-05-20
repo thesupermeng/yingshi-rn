@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
-import { View, FlatList, RefreshControl } from 'react-native';
+import { View, FlatList, RefreshControl, NativeSyntheticEvent, NativeScrollEvent, Platform } from 'react-native';
 import { MiniVideo } from '@type/ajaxTypes';
 import ShortVod from '../../components/videoPlayer/shortVod';
 import FastImage from "../common/customFastImage";
-import { useTheme } from '@react-navigation/native';
+import { useIsFocused, useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
@@ -11,6 +11,7 @@ import { MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
 import { showLoginAction } from '@redux/actions/screenAction';
 import ShortAds from './shortAds';
 import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models';
 
 interface Props {
     miniVodListRef: any,
@@ -29,11 +30,15 @@ interface Props {
     currentVodIndex?: number,
     handleRefreshMiniVod?: any,
     isRefreshing: boolean,
+    isPressTabScroll: boolean;
 }
 
 type MiniVodRef = {
     setPause: (pause: boolean) => void;
 };
+
+const homeLoadingGif = require('@static/images/home-loading.gif');
+const loadingSpinnerGif = require('@static/images/loading-spinner.gif');
 
 export default forwardRef<MiniVodRef, Props>(
     (
@@ -51,10 +56,12 @@ export default forwardRef<MiniVodRef, Props>(
             inCollectionView = false,
             setCollectionEpisode,
             isRefreshing = false,
+            isPressTabScroll = false,
         }: Props,
         ref,
     ) => {
         const { spacing } = useTheme();
+        const isFocus = useIsFocused();
 
         const [isInitFetching, setInitFetching] = useState(true);
         const [displayHeight, setDisplayHeight] = useState<number>(0);
@@ -67,10 +74,10 @@ export default forwardRef<MiniVodRef, Props>(
         // for analytics used
         const [curAnalyticsIndex, setCurAnalyticsIndex] = useState(0);
 
-        const swipeCount = useRef(0);
-        const dispatch = useAppDispatch();
-
         const userState = useSelector<UserStateType>('userReducer');
+        const swipeCount = useRef(0);
+        const isVip = User.isVip(userState.user);
+        const dispatch = useAppDispatch();
 
         const handleOnScroll = useCallback((e: any) => {
             const positionY = parseFloat(e.nativeEvent.contentOffset.y.toFixed(5));
@@ -94,7 +101,7 @@ export default forwardRef<MiniVodRef, Props>(
         }, [collectionPartialVideos]);
 
         useEffect(() => {
-            if (current > curAnalyticsIndex) {
+            if (current > curAnalyticsIndex && current < collectionPartialVideos.length) {
                 setCurAnalyticsIndex(current);
 
                 UmengAnalytics.watchAnytimeVideoViewTimesAnalytics({
@@ -131,10 +138,6 @@ export default forwardRef<MiniVodRef, Props>(
 
             // set default 0 for all video duration
             setVideoCurrentDurations(videos.map(() => 0));
-
-            if (inCollectionView == true) {
-            }
-
         }, [videos]);
 
         useEffect(() => {
@@ -157,11 +160,13 @@ export default forwardRef<MiniVodRef, Props>(
 
         const updateVideoDuration = (index: number, newDuration: number) => {
             // use map function for generate new list for update state
-            setVideoCurrentDurations(videoCurrentDurations.map((duration, i) => {
-                if (index === i) return newDuration;
+            setVideoCurrentDurations(
+                videoCurrentDurations.map((duration, i) => {
+                    if (index === i) return newDuration;
 
-                return duration;
-            }));
+                    return duration;
+                })
+            );
         }
 
         const renderItem = useCallback(({ item, index }: { item: MiniVideo, index: number }) => {
@@ -186,10 +191,10 @@ export default forwardRef<MiniVodRef, Props>(
 
             return (
                 <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                    {displayHeight != 0 && (
+                    {displayHeight != 0 && (current >= prevPosition && current < index + 2) && (
                         <ShortVod
                             vod={item}
-                            thumbnail={item.mini_video_origin_cover}
+                            thumbnail={item.mini_video_image}
                             displayHeight={displayHeight ? displayHeight : 0}
                             inCollectionView={inCollectionView}
                             setCollectionEpisode={setCollectionEpisodeToTitle}
@@ -200,47 +205,71 @@ export default forwardRef<MiniVodRef, Props>(
                             isShowVideo={current === index && !isScrolling}
                             currentDuration={videoCurrentDurations[index]}
                             updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
+                            isActive={isActive}
                         />
                     )}
                 </View>
             );
-        }, [current, isPause, isScrolling, inCollectionView, displayHeight, videoCurrentDurations]);
+        }, [current, isActive, isPause, isScrolling, displayHeight, videoCurrentDurations, isPressTabScroll]);
+
+        const onLayoutRender = useCallback((event: any) => {
+            var { height } = event.nativeEvent.layout;
+            const heightStr: string = height.toFixed(5);
+
+            // use substring to prevent rounding
+            setDisplayHeight(
+                parseFloat(heightStr.substring(0, heightStr.length - 1)),
+            );
+        }, []);
+
+        const hanldeOnEndReached = useCallback(() => {
+            if (!isVip) {
+                //   dispatch(showLoginAction());
+            } else if (hasNextPage && !isFetchingNextPage && !isFetching) {
+                fetchNextPage();
+            }
+        }, [hasNextPage, isFetchingNextPage, isFetching]);
+
+        const handleOnScrollBeginDrag = useCallback(
+            (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+                if (!isScrolling) setIsScrolling(true);
+            },
+            [isScrolling],
+        );
+
+        const handleOnMomentumScrollEnd = useCallback(() => {
+            setIsScrolling(false);
+
+            // if (isFocus
+            //     && Platform.OS !== 'ios'
+            //     && User.isGuest(userState.user)
+            //     && !User.isVip(userState.user)
+            //     && swipeCount.current >= MINI_SHOW_LOGIN_NUMBER
+            //     && current >= MINI_SHOW_LOGIN_NUMBER
+            // ) {
+            //     dispatch(showLoginAction());
+            // }
+        }, [userState.user, current, isFocus]);
 
         useEffect(() => {
-            if ((swipeCount.current + 1) < MINI_SHOW_LOGIN_NUMBER) {
+            if (User.isLogin(userState.user) || User.isVip(userState.user)) return;
+
+            if (swipeCount.current < MINI_SHOW_LOGIN_NUMBER) {
                 swipeCount.current++;
             } else {
-                dispatch(showLoginAction());
-                swipeCount.current = 0;
+                // isFocusLogin.current = true;
+                // dispatch(showLoginAction());
+                // swipeCount.current = 0;
             }
-        }, [current]);
+        }, [current, userState.user]);
 
         return (
-            <View style={{ flex: 1 }} onLayout={(event: any) => {
-                var { height } = event.nativeEvent.layout;
-                const heightStr: string = height.toFixed(5);
-
-                // use substring to prevent rounding
-                setDisplayHeight(parseFloat(heightStr.substring(0, heightStr.length - 1)))
-            }}>
+            <View style={{ flex: 1 }} onLayout={onLayoutRender}>
                 {isInitFetching ?
-                    <View
-                        style={{
-                            flex: 1,
-                            width: '100%',
-                            height: '100%',
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
+                    <View style={styles.loadingContainer}>
                         <FastImage
-                            source={require("@static/images/home-loading.gif")}
-                            style={{
-                                width: 150,
-                                height: 150,
-                                bottom: 50,
-                                zIndex: 1,
-                            }}
+                            source={homeLoadingGif}
+                            style={styles.homeLoadingImage}
                             resizeMode={"contain"}
                             useFastImage={true}
                         />
@@ -248,9 +277,9 @@ export default forwardRef<MiniVodRef, Props>(
                     : <FlatList
                         ref={miniVodListRef}
                         data={collectionPartialVideos}
-                        initialNumToRender={10}
-                        maxToRenderPerBatch={5}
-                        windowSize={5}
+                        initialNumToRender={5}
+                        maxToRenderPerBatch={3}
+                        windowSize={3}
                         refreshControl={refreshComponent()}
                         renderItem={renderItem}
                         horizontal={false}
@@ -261,30 +290,23 @@ export default forwardRef<MiniVodRef, Props>(
                         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
-                        onEndReached={() => {
-                            if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                                fetchNextPage();
-                            }
-                        }}
+                        onEndReached={hanldeOnEndReached}
                         onEndReachedThreshold={0.8}
                         ListFooterComponent={
                             <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                                {
-                                    hasNextPage && <FastImage
+                                {hasNextPage &&
+                                    <FastImage
                                         style={{ height: 80, width: 80 }}
-                                        source={require('@static/images/loading-spinner.gif')}
+                                        source={loadingSpinnerGif}
                                         resizeMode={'contain'}
                                     />
                                 }
                             </View>
                         }
                         onScroll={handleOnScroll}
-                        onScrollBeginDrag={(e) => {
-                            if (!isScrolling) setIsScrolling(true);
-                        }}
-                        onMomentumScrollEnd={() => {
-                            setIsScrolling(false);
-                        }}
+                        onScrollBeginDrag={handleOnScrollBeginDrag}
+                        onMomentumScrollEnd={handleOnMomentumScrollEnd}
+                        scrollsToTop={false}
                     />
                 }
             </View>
@@ -297,5 +319,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         flex: 1
-    }
+    },
+    loadingContainer: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    homeLoadingImage: {
+        width: 150,
+        height: 150,
+        bottom: 50,
+        zIndex: 1,
+    },
 })

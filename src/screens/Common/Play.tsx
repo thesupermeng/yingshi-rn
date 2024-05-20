@@ -921,9 +921,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }
 
   if (adultMode) {
-    // console.debug("vod", vod)
-    vodUrl = vod?.vod_play_list?.urls?.find((url) => url.nid === currentEpisode)
-      ?.url;
+    vodUrl = vod?.vod_play_url ?? ''
+    // vodUrl = vod?.vod_play_list?.urls?.find((url) => url.nid === currentEpisode)
+    //   ?.url;
   }
 
   const vodPlayerTitle = screenState.isPlayerFullScreen
@@ -1375,9 +1375,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                         <Text
                           style={{
                             ...textVariants.subBody,
-                            color: isShowDescription
-                              ? colors.primary
-                              : colors.muted,
+                            color: colors.muted,
                             paddingBottom: 3,
                           }}
                         >

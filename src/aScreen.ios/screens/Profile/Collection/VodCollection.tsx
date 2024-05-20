@@ -19,7 +19,7 @@ import { Vod } from '@models';
 import { CLangKey } from '@constants';
 
 type FlatListType = {
-  item: Vod;
+  item: Vod & { playMode?: 'adult' | 'normal' };
 };
 
 export default () => {

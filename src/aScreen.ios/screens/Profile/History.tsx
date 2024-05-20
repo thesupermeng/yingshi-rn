@@ -114,7 +114,7 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
           {customHistoryToday.length > 0 && (
             <>
               <View style={{ marginBottom: 10 }}>
-                <Text style={textStyles}>今日</Text>
+                <Text style={textStyles}>{CLangKey.today.tr()}</Text>
                 {customHistoryToday.map(
                   (item: VodRecordType, index: number) => (
                     <View style={styles.card} key={index}>

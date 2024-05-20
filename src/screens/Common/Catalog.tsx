@@ -305,7 +305,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
   const renderNavItems = useCallback(
     ({ item }: { item: NavType }) => {
-      console.log('item: ', item)
       return (
         <TouchableOpacity
           style={{ ...styles.btn }}

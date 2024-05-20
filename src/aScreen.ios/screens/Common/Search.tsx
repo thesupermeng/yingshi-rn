@@ -37,7 +37,7 @@ import EmptyList from "../../components/common/emptyList";
 import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import UmengAnalytics from "../../../../Umeng/UmengAnalytics";
-import { VodApi } from "@api";
+import { AppsApi, VodApi } from "@api";
 import { Vod } from "@models";
 import { CLangKey } from "@constants";
 
@@ -62,10 +62,18 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [isFetching, setisFetching] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { colors, textVariants, spacing, icons } = useTheme();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const { data: recommendations } = useQuery({
     queryKey: ["recommendationList"],
-    queryFn: () => VodApi.getListByRecommendations(),
+    queryFn: () => AppsApi.getHomePages(0, false).then((result) => {
+      if ((result.trending_list?.length ?? 0) > 0) {
+        return result.trending_list![0].vod_list;
+      }
+
+      return [];
+    }),
   });
 
   async function fetchData(text: string, userSearch: boolean = false) {
@@ -97,8 +105,44 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
       });
   }
 
+  async function fetchNextPage(text: string, userSearch: boolean = false) {
+    if (!hasMore || isFetching) {
+      return; // If no more items to fetch or already fetching, return
+    }
+
+    setisFetching(true);
+
+    const nextPage = page + 1;
+    VodApi.getListByKeyword(text, {
+      page: nextPage,
+    }).then((data) => {
+      setSearchTimer(0);
+
+      if (data.length <= 0) {
+        setHasMore(false); // No more items available
+      } else {
+        // Append the new results to the existing ones
+        setSearchResults([...searchResults, ...data]);
+        setPage(nextPage);
+        // ========== for analytics - start ==========
+        if (userSearch) UmengAnalytics.searchResultViewsAnalytics();
+        // ========== for analytics - end ==========
+      }
+    })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setisFetching(false);
+      });
+  }
+
+  const handleEndReached = () => {
+    fetchNextPage(search, true); // Fetch next page when reaching the end
+  };
+
   useEffect(() => {
-    if (route.params.initial !== "") {
+    if (route.params.initial !== "" && route.params.initial !== undefined) {
       fetchData(route.params.initial);
     }
   }, []);
@@ -220,6 +264,14 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
           keyboardDismissMode="on-drag"
+          onScroll={({ nativeEvent }) => {
+            const offsetY = nativeEvent.contentOffset.y;
+            const contentHeight = nativeEvent.contentSize.height;
+            const height = nativeEvent.layoutMeasurement.height;
+            if (offsetY >= contentHeight - height && !isFetching) {
+              handleEndReached();
+            }
+          }}
         >
           <View style={{ marginLeft: 10 }}>
             {search !== undefined &&

@@ -28,6 +28,8 @@ import { YingPingContainer } from '../container/yingPingContainer';
 import { AppsApi, PlaylistApi } from '@api';
 import { UserStateType } from '@redux/reducers/userReducer';
 import { HomePageType, PlayList, User } from '@models';
+import { CLangKey } from '@constants';
+import VodHistoryList from '../../components/vod/vodHistoryList';
 
 interface NavType {
   id: number;
@@ -38,18 +40,23 @@ interface Props {
   navOptions?: NavType[] | undefined;
   onNavChange?: any;
   navId?: number;
+  tabName?: string;
   setScrollEnabled?: any;
   onRefresh?: any;
   refreshProp?: boolean;
   onLoad?: any;
+  isTabFocus?: boolean;
 }
 
 const RecommendationHome = ({
   vodCarouselRes: data,
   setScrollEnabled,
+  navId,
+  tabName,
   onRefresh,
   refreshProp = false,
   onLoad = () => { },
+  isTabFocus = false,
 }: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const vodReducer: VodReducerState = useAppSelector(
@@ -159,7 +166,7 @@ const RecommendationHome = ({
           onPress={() => {
             dispatch(playVod(item.vod));
             navigation.navigate('播放IOS', {
-              vod_id: item.carousel_content_id,
+              vod_id: item.vod?.vod_id ?? 0,
             });
           }}>
           <FastImage
@@ -193,38 +200,101 @@ const RecommendationHome = ({
     [],
   );
 
-  const renderContent = useCallback(
-    ({ item, index }: { item: PlayList; index: number }) => (
+  // const renderContent = useCallback(
+  //   ({ item, index }: { item: PlayList; index: number }) => (
+  //     <View
+  //       style={{
+  //         paddingLeft: spacing.sideOffset,
+  //         paddingRight: spacing.sideOffset,
+  //       }}>
+  //       {/* previous style={{ gap: spacing.m }} */}
+  //       <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
+  //         <View style={{ paddingBottom: 5 }}>
+  //           <ShowMoreVodButton
+  //             text={item.topic_name}
+  //             onPress={() => {
+  //               dispatch(viewPlaylistDetails(item));
+  //               navigation.navigate('PlaylistDetail', {
+  //                 topic_id: item.topic_id,
+  //               });
+  //             }}
+  //           />
+  //         </View>
+  //         <VodListVertical vods={item.vod_list} />
+  //       </View>
+  //     </View>
+  //   ),
+  //   [],
+  // );
+
+  const categoriesMap = ({ item, index }: {
+    item: any, index: any
+  }) => (
+    <View
+      key={`category-${index}`}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        paddingTop: 5,
+      }}
+    >
       <View
         style={{
-          paddingLeft: spacing.sideOffset,
-          paddingRight: spacing.sideOffset,
-        }}>
-        {/* previous style={{ gap: spacing.m }} */}
-        <View key={`${item.topic_name}-${index}`} style={{ paddingTop: 10 }}>
-          <View style={{ paddingBottom: 5 }}>
-            <ShowMoreVodButton
-              text={item.topic_name}
-              onPress={() => {
-                dispatch(viewPlaylistDetails(item));
-                navigation.navigate('PlaylistDetail', {
-                  topic_id: item.topic_id,
-                });
-              }}
-            />
-          </View>
-          <VodListVertical vods={item.vod_list} />
-        </View>
+          paddingBottom: 5,
+        }}
+      >
+        <ShowMoreVodButton
+          text={item.type_name}
+          onPress={() => {
+            navigation.navigate("片库", {
+              type_id: item.type_id,
+            });
+          }}
+        />
       </View>
-    ),
-    [],
+      <VodListVertical vods={item.vod_list} playerMode={'normal'} />
+    </View>
+  );
+
+  const vodMap = ({ item, index, adultMode = false }: {
+    item: any, index: any, adultMode?: boolean,
+  }) => (
+    <View
+      key={`category-${index}`}
+      style={{
+        paddingLeft: spacing.sideOffset,
+        paddingRight: spacing.sideOffset,
+        paddingTop: 5,
+      }}
+    >
+      <View
+        style={{
+          paddingBottom: 5,
+        }}
+      >
+        <ShowMoreVodButton
+          text={item.type_name}
+          onPress={() => {
+            if (adultMode) {
+              navigation.navigate("XVodCatalog", {
+                type_id: item.type_id,
+              });
+            } else {
+              navigation.navigate("片库", {
+                type_id: item.type_id,
+              });
+            }
+          }}
+        />
+      </View>
+      <VodListVertical vods={item.vod_list} playerMode={adultMode ? 'adult' : 'normal'} />
+    </View>
   );
 
   return (
     <View style={{ width: width }}>
-      {yingPingList ? (
+      {data && (
         <FlatList
-          style={{ paddingBottom: 10 }}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -232,17 +302,19 @@ const RecommendationHome = ({
               tintColor="#FAC33D"
             />
           }
+          removeClippedSubviews={true}
           ListHeaderComponent={
             <>
-              {yingPingList?.carousel[0] && !refreshProp && (
+              {data?.carousel[0] && !refreshProp && (
                 <View
                   style={{
                     flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    justifyContent: "center",
+                    alignItems: "center",
                     borderRadius: 17,
                     zIndex: 9999,
-                  }}>
+                  }}
+                >
                   <Carousel
                     ref={carouselRef}
                     loop
@@ -252,162 +324,257 @@ const RecommendationHome = ({
                       imgRatio
                     }
                     autoPlay={true}
-                    data={yingPingList.carousel}
-                    scrollAnimationDuration={220}
+                    data={data.carousel}
+                    scrollAnimationDuration={120}
                     autoPlayInterval={2300}
-                    onSnapToItem={index => {
+                    onSnapToItem={(index) => {
                       setActiveIndex(index);
                     }}
-                    onScrollEnd={index => {
+                    onScrollEnd={(index) => {
                       setActiveIndex(index);
                     }}
                     renderItem={renderCarousel}
                   />
                   <CarouselPagination
-                    data={yingPingList.carousel}
+                    data={data.carousel}
                     activeIndex={activeIndex}
                   />
                 </View>
               )}
               <View>
-                <View style={{ gap: spacing.m }}></View>
-
-                {/* {yingPingList &&
-                  yingPingList.yingping_list.vod_list.length > 0 && (
+                {data?.carousel[0] && history.length > 0 && (
+                  <View>
                     <View
                       style={{
                         paddingLeft: spacing.sideOffset,
                         paddingRight: spacing.sideOffset,
-                        gap: spacing.xxs,
-                      }}>
-                      <ShowMoreVodButton
-                        text={yingPingList.yingping_list.type_name}
-                      />
-                      {yingPingList.yingping_list.vod_list.map(
-                        (item, index) => (
-                          <YingPingContainer
-                            key={item.vod_id}
-                            vod={item}
-                            width={width}
-                            imgRatio={imgRatio}
-                            isSlide={index % 2 !== 0}
-                          />
-                        ),
-                      )}
-                    </View>
-                  )} */}
-
-                {/* {data?.yunying &&
-                  data.yunying.length > 0 &&
-                  data.yunying.map((item, index) => (
-                    <View
-                      key={item.type_name}
-                      style={{
-                        paddingLeft: spacing.sideOffset,
-                        paddingRight: spacing.sideOffset,
-                        gap: spacing.xxs,
+                        paddingBottom: 5,
                       }}
                     >
-                      <View>
-                        <ShowMoreVodButton
-                          text={item.type_name}
-                          onPress={() => {
-                            navigation.navigate("片库", {
-                              type_id: item.vod_list[0].type_id,
-                            });
-                          }}
-                        />
-                      </View>
-                      <VodListVertical vods={item.vod_list} />
+                      <ShowMoreVodButton
+                        text={CLangKey.continueWatch.tr()}
+                        onPress={() => {
+                          navigation.navigate("播放历史");
+                        }}
+                      />
                     </View>
-                  ))} */}
+                    <View style={{ paddingLeft: spacing.sideOffset }}>
+                      <VodHistoryList
+                        vodStyle={styles.vod_hotlist}
+                        vodList={history.slice(0, 10)}
+                        showInfo="watch_progress"
+                        isRefreshing={isRefreshing}
+                      />
+                    </View>
+                  </View>
+                )}
 
-                {/* {yingPingList?.categories &&
-                  yingPingList.categories.length > 0 &&
-                  yingPingList.categories.map((category, index) => (
+                {/* {bannerAd && distanceToBottom != 0 && (
+                  <Modal visible={vipGuideModal} transparent={true}>
                     <View
-                      key={`category-${index}`}
+                      style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.8)" }}
+                    >
+                      <View
+                        style={{
+                          position: "absolute",
+                          bottom: refPosition.x,
+                          top: refPosition.y,
+                          // width: refPosition.width,
+                          height: refPosition.height,
+                        }}
+                      >
+                        <View
+                          style={{
+                            paddingLeft: spacing.sideOffset,
+                            paddingRight: spacing.sideOffset,
+                          }}
+                        >
+                          {renderBanner(bannerAdList)}
+                        </View>
+                        {distanceToBottom <= 255 ? (
+                          <>
+                            <View
+                              style={{
+                                position: "relative",
+                                bottom: Platform.OS === "ios" ? 0 : 20,
+                              }}
+                            >
+                              <VipGuideModal2
+                                onClose={(value: boolean) => {
+                                  dispatch(setIsHomeGuideShown(true));
+                                  setVipGuideModal(value);
+                                  dispatch(setShowPromotionDialog(true));
+                                }}
+                              />
+                            </View>
+                          </>
+                        ) : (
+                          <VipGuideModal
+                            onClose={(value: boolean) => {
+                              dispatch(setIsHomeGuideShown(true));
+                              setVipGuideModal(value);
+                              dispatch(setShowPromotionDialog(true));
+                            }}
+                          />
+                        )}
+                      </View>
+                    </View>
+                  </Modal>
+                )}
+
+                {bannerAd && (
+                  <View
+                    onLayout={() => getPosition()}
+                    ref={componentRef}
+                    style={{
+                      paddingLeft: spacing.sideOffset,
+                      paddingRight: spacing.sideOffset,
+                      paddingBottom: 5,
+                    }}
+                  >
+                    {renderBanner(bannerAdList)}
+                  </View>
+                )}
+                {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
+                  <View style={{ gap: spacing.m }}>
+                    <View
                       style={{
                         paddingLeft: spacing.sideOffset,
                         paddingRight: spacing.sideOffset,
-                        paddingTop: 5,
-                      }}>
+                      }}
+                    >
+                      {sportList && sportList.length > 0 && (
+                        <ShowMoreVodButton
+                          text="体育推荐"
+                          onPress={() => {
+                            dispatch(setAutoSelectSport(true));
+                            navigation.navigate("Home", { screen: "会员中心" });
+                          }}
+                        />
+                      )}
+                    </View>
+
+                    {sportList && sportList.length > 0 && (
                       <View
                         style={{
+                          paddingLeft: spacing.sideOffset,
                           paddingBottom: 5,
-                        }}>
+                        }}
+                      >
+                        <VodSportsList
+                          sportList={sportList}
+                          isRefreshing={isRefreshing}
+                        />
+                      </View>
+                    )}
+                  </View>
+                }
+                {UMENG_CHANNEL != "SKY001 " && APP_NAME_CONST != '爱美剧' && (
+                  <View style={{ gap: spacing.m }}>
+                    <View
+                      style={{
+                        paddingLeft: spacing.sideOffset,
+                        paddingRight: spacing.sideOffset,
+                      }}
+                    >
+                      {data?.live_station_list &&
+                        data?.live_station_list.length > 0 ? (
                         <ShowMoreVodButton
-                          text={category.type_name}
+                          text="电视台推荐"
                           onPress={() => {
-                            navigation.navigate('片库', {
-                              type_id: category.type_id!,
+                            navigation.navigate("电视台列表", {
+                              liveStationItemList: data?.live_station_list,
                             });
                           }}
                         />
-                      </View>
-                      <VodListVertical vods={category.vod_list} />
+                      ) : (
+                        <View style={styles.banner}>
+                          <Text style={textVariants.header}>电视台推荐</Text>
+                        </View>
+                      )}
                     </View>
-                  ))} */}
+                    {data?.live_station_list &&
+                      data?.live_station_list.length > 0 ? (
+                      <View style={{ paddingLeft: spacing.sideOffset }}>
+                        <VodLiveStationList
+                          vodStyle={styles.vod_live_station}
+                          liveStationList={data?.live_station_list}
+                          onlyShow={10}
+                          isRefreshing={isRefreshing}
+                        />
+                      </View>
+                    ) : (
+                      <View
+                        style={{ paddingLeft: spacing.sideOffset, height: 134 }}
+                      />
+                    )}
+                  </View>
+                )}
+
+                {data?.yunying &&
+                  data.yunying.length > 0 &&
+                  data.yunying.map(yunyingMap)} */}
+
+                {/* {data?.categories &&
+                  data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).length > 0 &&
+                  data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).map(categoriesMap)} */}
+
+                {data?.latest_movies &&
+                  data.latest_movies.length > 0 &&
+                  data.latest_movies.map((item, index) => vodMap({ item, index }))}
+
+                {data?.latest_tv_shows &&
+                  data.latest_tv_shows.length > 0 &&
+                  data.latest_tv_shows.map((item, index) => vodMap({ item, index }))}
+
+                {data?.svod &&
+                  data.svod.length > 0 &&
+                  data.svod.map((item, index) => vodMap({ item, index, adultMode: true }))}
               </View>
             </>
           }
-          data={results}
-          // onEndReached={() => {
-          //   if (hasNextPage && !isFetchingNextPage && !isFetching) {
-          //     fetchNextPage();
-          //   }
-          // }}
+          data={data.categories ?? []}
+          // data={results}
+          onEndReached={() => {
+            // if (hasNextPage && !isFetchingNextPage && !isFetching) {
+            //   fetchNextPage();
+            // }
+          }}
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
-          renderItem={renderContent}
-        // ListFooterComponent={
-        //   <View style={{ ...styles.loading, marginBottom: 60 }}>
-        //     {hasNextPage && (
-        //       <FastImage
-        //         style={{
-        //           height: 80,
-        //           width: 80,
+          // renderItem={renderContent}
+          renderItem={categoriesMap}
+          disableVirtualization={true}
+          ListFooterComponent={
+            <View style={{ ...styles.loading, marginBottom: 60 }}>
+              {/* {hasNextPage && (
+                <FastImage
+                  style={{
+                    height: 80,
+                    width: 80,
 
-        //           flex: 1,
-        //           justifyContent: "center",
-        //           alignItems: "center",
-        //         }}
-        //         source={require("@static/images/loading-spinner.gif")}
-        //         resizeMode={"contain"}
-        //       />
-        //     )}
-        //     {!(isFetchingNextPage || isFetching) && !hasNextPage && (
-        //       <Text
-        //         style={{
-        //           ...textVariants.subBody,
-        //           color: colors.muted,
-        //           paddingTop: 12,
-        //         }}
-        //       >
-        //         已经到底了
-        //       </Text>
-        //     )}
-        //   </View>
-        // }
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  source={require("@static/images/loading-spinner.gif")}
+                  resizeMode={"contain"}
+                />
+              )} */}
+              {true && (//!(isFetchingNextPage || isFetching) && !hasNextPage && (
+                <Text
+                  style={{
+                    ...textVariants.subBody,
+                    color: colors.muted,
+                    paddingTop: 12,
+                  }}
+                >
+                  {CLangKey.noAnyMore.tr()}
+                </Text>
+              )}
+            </View>
+          }
         />
-      ) : (
-        <>
-          <View
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}>
-            <FastImage
-              style={{ height: 80, width: 80 }}
-              source={require('@static/images/loading-spinner.gif')}
-              resizeMode={'contain'}
-            />
-          </View>
-        </>
       )}
     </View>
   );

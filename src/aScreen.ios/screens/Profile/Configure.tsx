@@ -123,7 +123,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
             confirmationColor={IS_OTHER_SKIN ? colors.error : undefined}
           />
 
-          {User.isLogin(userState.user) &&
+          {/* {User.isLogin(userState.user) &&
             <ConfirmationModal
               onConfirm={() => {
                 onRemoveAccount();
@@ -134,7 +134,7 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
               title={CLangKey.confirmCancelAccountX.tr({ x: APP_NAME_CONST })}
               subtitle={CLangKey.accountWillRemoveIfConfirm.tr()}
             />
-          }
+          } */}
 
           <ConfirmationModal
             onConfirm={async () => {
@@ -157,8 +157,23 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
           {/* displayed content */}
           <View>
             <View>
-              <ShowMoreButton text={CLangKey.clearCache.tr()} onPress={toggleClearDialog} />
               <ShowMoreButton
+                text={CLangKey.about.tr()}
+                onPress={() => navigation.navigate("关于我们")}
+              />
+              <ShowMoreButton
+                text={CLangKey.clearCache.tr()}
+                onPress={toggleClearDialog}
+              />
+              <ShowMoreButton
+                text={CLangKey.userAgreement.tr()}
+                onPress={() => navigation.navigate("用户协议")}
+              />
+              <ShowMoreButton
+                text={CLangKey.privacyPolicy.tr()}
+                onPress={() => navigation.navigate("隐私政策")}
+              />
+              {/* <ShowMoreButton
                 text={CLangKey.checkUpdate.tr()}
                 onPress={toggleVersionDialog}
                 rightIcon={
@@ -178,10 +193,10 @@ export default ({ navigation }: RootStackScreenProps<'设置'>) => {
                     />
                   </View>
                 }
-              />
-              {User.isLogin(userState.user) &&
+              /> */}
+              {/* {User.isLogin(userState.user) &&
                 <ShowMoreButton text={CLangKey.cancelAccount.tr()} onPress={toggleRemoveAccountDialog} />
-              }
+              } */}
             </View>
           </View>
         </View>
