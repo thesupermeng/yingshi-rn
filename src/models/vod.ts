@@ -244,20 +244,20 @@ export class VodEpisode {
 
 export class XVodCategory {
     id: number;
-    name: string;
+    category_name: string;
 
     public constructor(data: {
         id: number,
-        name: string,
+        category_name: string,
     }) {
         this.id = data.id;
-        this.name = data.name;
+        this.category_name = data.category_name;
     }
 
     public static fromJson = (json: any): XVodCategory => {
         return new XVodCategory({
             id: json.id,
-            name: json.name,
+            category_name: json.category_name,
         });
     }
 
