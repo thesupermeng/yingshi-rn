@@ -122,6 +122,7 @@ export class CLangKey {
     static trending = 'trending';
     static trendingRank = 'trendingRank';
     static continueWatch = 'continueWatch';
+    static watchUntil = 'watchUntil';
 
 
     // ============================== sentence ==============================

@@ -7,6 +7,7 @@ import { useAppDispatch } from '@hooks/hooks';
 import { playVod } from '@redux/actions/vodActions';
 import { VodRecordType } from '@redux/reducers/vodReducer';
 import { FlatList } from 'react-native-gesture-handler';
+import { CLangKey } from '@constants';
 interface Props {
   params?: any[];
   vodStyle?: ViewStyle;
@@ -66,7 +67,7 @@ export default function VodHistoryList({
             showInfo={
               showInfo === 'none'
                 ? ''
-                : `观看至 ${new Date(1000 * item.timeWatched)
+                : `${CLangKey.watchUntil.tr()} ${new Date(1000 * item.timeWatched)
                   .toISOString()
                   .substr(11, 8)}`
             }

@@ -110,6 +110,7 @@ export const lang = {
     [CLangKey.trending]: '热搜',
     [CLangKey.trendingRank]: '热搜总榜',
     [CLangKey.continueWatch]: '继续看',
+    [CLangKey.watchUntil]: '观看至',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',
