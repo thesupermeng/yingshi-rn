@@ -43,6 +43,7 @@ import { TabItem } from '@rneui/base/dist/Tab/Tab.Item';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { VodApi } from '@api';
 import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 interface NavType {
   id: number;
@@ -561,7 +562,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                   !hasNextPage &&
                   results.length > 0 && (
                     <Text style={{ ...textVariants.body, color: colors.muted }}>
-                      没有更多了
+                      {CLangKey.noAnyMore.tr()}
                     </Text>
                   )}
                 {!(isFetchingNextPage || isFetching) &&

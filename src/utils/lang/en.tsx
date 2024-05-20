@@ -109,6 +109,7 @@ export const lang = {
     [CLangKey.xSuggess]: '%x Suggess',
     [CLangKey.trending]: 'Trending',
     [CLangKey.trendingRank]: 'Trending',
+    [CLangKey.continueWatch]: 'Continue',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',
