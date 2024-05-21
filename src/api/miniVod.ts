@@ -127,7 +127,12 @@ const fetchAdultVods = async (page: number, isVip: boolean) => {
   }).then((data) => {
     if (isVip) {
       // console.debug('api return vip content')
-      return data.List;
+      return data.List.map((data) => ({
+        ...data,
+        mini_video_id: data.vod_id,
+        mini_video_title: data.vod_name,
+        mini_video_play_url: data.vod_play_url,
+      }));
     } else {
       // console.debug('api return non-vip content')
       return data.NonVIPList;
