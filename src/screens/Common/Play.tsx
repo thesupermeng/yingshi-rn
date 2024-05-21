@@ -1111,7 +1111,8 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
               currentEpisodeRef.current = id;
               currentTimeRef.current = 0;
             }}
-            showGuide={settingsReducer.showVodPlayerGuide}
+            // showGuide={settingsReducer.showVodPlayerGuide}
+            showGuide={false}
             rangeSize={EPISODE_RANGE_SIZE}
             autoPlayNext={vod?.type_id !== 2}
             onShare={onShare}
