@@ -48,7 +48,7 @@ export const AdsBannerContext = createContext<{
   currentRoute: "",
 });
 
-const pageWithNavbar = ["首页", "播单", "体育"];
+const pageWithNavbar = ["首页", "播单", "体育", "电影" , "电视节目"];
 const pageNoNavbar = ["播放", "PlaylistDetail", "体育详情", "电视台播放"];
 const deviceBrand = DeviceInfo.getBrand();
 
@@ -202,7 +202,8 @@ export const AdsBannerContextProvider = ({ children }: Props) => {
       } else if (Platform.OS === "ios") {
         return IOS_TOPIC_DETAILS_BANNER_ADS;
       }
-    } else if (routeName == "Home" || routeName == "首页") {
+    } else if (routeName == "Home" || routeName == "首页" || routeName == "电视节目" || routeName == "电影" ) {
+
       //home page
       if (Platform.OS === "android") {
         return ANDROID_HOME_PAGE_BANNER_ADS;
