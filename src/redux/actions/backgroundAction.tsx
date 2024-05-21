@@ -146,7 +146,7 @@ export const onBootApp =
 
         // ========== adjust event ==========
         if (UMENG_CHANNEL == "HYTG001") {
-        Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
+          Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
         }
         if (EVENT_CUSTOM_ON) {
           CustomEventAnalytic.start();
@@ -154,25 +154,26 @@ export const onBootApp =
 
         // ========== firebase notification ==========
 
-        if(INIT_FIREBASE)
-          {
-        _initFirebase().then(() => {
-          // use for on boot
-          messaging().getInitialNotification().then((remoteMessage) => {
-            setTimeout(() => {
-              _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
-            }, 500);
+        if (INIT_FIREBASE) {
+          _initFirebase().then(() => {
+            // use for on boot
+            messaging().getInitialNotification().then((remoteMessage) => {
+              console.log('111: ', remoteMessage);
+              setTimeout(() => {
+                _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
+              }, 500);
 
-          });
+            });
 
-          // use for app in background (no killed)
-          _firebaseNotificationListener = messaging().onNotificationOpenedApp((remoteMessage) => {
-            setTimeout(() => {
-              _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
-            }, 500);
+            // use for app in background (no killed)
+            _firebaseNotificationListener = messaging().onNotificationOpenedApp((remoteMessage) => {
+              console.log('222: ', remoteMessage);
+              setTimeout(() => {
+                _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
+              }, 500);
+            });
           });
-        });
-      }
+        }
       } catch (e) { }
     };
 
@@ -186,8 +187,8 @@ export const onCloseApp =
         CustomEventAnalytic.close();
 
         if (UMENG_CHANNEL == "HYTG001") {
-        // ========== adjust event ==========
-        Adjust.componentWillUnmount();
+          // ========== adjust event ==========
+          Adjust.componentWillUnmount();
         }
 
         // ========== vip promotion modal ==========
@@ -215,7 +216,8 @@ const _initFirebase = async () => {
     await FirebaseNotification.checkPermissionAndGetoken();
 
     if (__DEV__) {
-      FirebaseNotification.subscibeToTopic("insidertest");
+      console.debug('dev')
+      FirebaseNotification.subscibeToTopic("insidertestttt");
     }
 
 
@@ -242,6 +244,7 @@ const _notificationHandle = (data: {
 }: {
   dispatch: any,
 }) => {
+  console.log('333: ', data);
   if (data) {
     const type = data.redirect_type?.toString();
     const url = data.url?.toString();
