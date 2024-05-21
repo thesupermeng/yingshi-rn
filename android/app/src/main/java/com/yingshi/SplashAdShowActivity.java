@@ -5,7 +5,7 @@
  * https://github.com/toponteam/TopOn-Android-SDK/blob/master/LICENSE
  */
 
-package com.yingshitv;
+package com.doratvhd;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,8 +29,8 @@ import com.anythink.core.api.AdError;
 import com.anythink.splashad.api.ATSplashAd;
 import com.anythink.splashad.api.ATSplashAdExtraInfo;
 import com.anythink.splashad.api.ATSplashExListener;
-import com.yingshitv.zoomout.SplashEyeAdHolder;
-import com.yingshitv.zoomout.SplashZoomOutManager;
+import com.doratvhd.zoomout.SplashEyeAdHolder;
+import com.doratvhd.zoomout.SplashZoomOutManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
@@ -54,7 +54,7 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
         // super.onCreate(savedInstanceState); // or super.onCreate(null) with
         // react-native-screens
         super.onCreate(null);
-        ATSDK.init(this, "a65096b9d21e23", "ad83e042ddc3e6904c1f63bcc575a6bd7");
+        ATSDK.init(this, "a664c31d267166", "ab54855f552efc95c7296d22d52f9b4d8");
 
         setContentView(R.layout.splash_ad_show);
 
@@ -110,14 +110,14 @@ public class SplashAdShowActivity extends Activity implements ATSplashExListener
         // defaultConfig =
         // "{\"unit_id\":1333253,\"nw_firm_id\":51,\"adapter_class\":\"com.anythink.network.klevin.KlevinATSplashAdapter\",\"content\":\"{\\\"pos_id\\\":\\\"30029\\\",\\\"app_id\\\":\\\"30008\\\"}\"}";
 
-        splashAd = new ATSplashAd(this, "b650d315a31bc4", this, 10000, defaultConfig);
+        splashAd = new ATSplashAd(this, "b1fkba1nkc7j3p", this, 10000, defaultConfig);
 
         Map<String, Object> localMap = new HashMap<>();
         localMap.put(ATAdConst.KEY.AD_WIDTH, layoutParams.width);
         localMap.put(ATAdConst.KEY.AD_HEIGHT, layoutParams.height);
 
         splashAd.setLocalExtra(localMap);
-        ATSplashAd.entryAdScenario("b650d315a31bc4", "f628c7999265cd");
+        ATSplashAd.entryAdScenario("b1fkba1nkc7j3p", "f628c7999265cd");
 
         splashAd.setAdSourceStatusListener(new ATAdSourceStatusListener() {
             @Override

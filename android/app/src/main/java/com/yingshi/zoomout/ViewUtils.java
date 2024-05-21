@@ -1,4 +1,4 @@
-package com.yingshitv.zoomout;
+package com.doratvhd.zoomout;
 
 import android.view.View;
 import android.view.ViewGroup;

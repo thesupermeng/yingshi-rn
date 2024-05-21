@@ -47,7 +47,7 @@ export const CLEAR_SEARCH_HISTORY = 'clear_search_history';
 export const CLEAR_STORAGE_MEMORY = 'clear_storage_memory';
 
 export const APPSFLYER_DEVKEY = 'wrxTHihLJNWrrusXtgRJZa';
-export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.yingshitv' : '';
+export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.doratvhd' : '';
 
 export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
@@ -66,17 +66,17 @@ export const UMENG_CHANNEL = "WEB";
 
 export const APP_VERSION = "1.8.0";
 
-export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
-export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
+export const TOPON_ANDROID_APP_ID = 'a664c31d267166';
+export const TOPON_ANDROID_APP_KEY = 'ab54855f552efc95c7296d22d52f9b4d8';
 
 export const TOPON_IOS_APP_ID = 'a65093c4e166c3';
 export const TOPON_IOS_APP_KEY = 'ac16f5a19bcbae7438b36f0f7160fbac3';
 
 // topon 横幅广告
-export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
-export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b650d31a42cdd2';
-export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650d31c80eeba';
-export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b650d31d72638b';
+export const ANDROID_HOME_PAGE_BANNER_ADS = 'b1fkba1nkc7mj6';
+export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b1fkba1nkc72a6';
+export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b1fkba1nkc7a2p';
+export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b1fkba1nkc7gch';
 
 export const IOS_HOME_PAGE_BANNER_ADS = 'b650a5ecaebc22';
 export const IOS_PLAY_DETAILS_BANNER_ADS = 'b650a5e611f0ae';
@@ -84,8 +84,8 @@ export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b655aba884a693';
 export const IOS_TOPIC_TAB_BANNER_ADS = 'b650a5e282588c';
 
 // topon 插屏广告
-export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650d314a73226';
-export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b650d31f7a8f63';
+export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b1fkba1nkc7d2t';
+export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b1fkba1nkc7p4l';
 export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b650a5eb890d73';
 export const IOS_HOME_PAGE_POP_UP_ADS = 'b650bf7cddb441';
 

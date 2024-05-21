@@ -1,4 +1,4 @@
-package com.yingshitv;
+package com.doratvhd;
 
 import android.util.Log;
 
