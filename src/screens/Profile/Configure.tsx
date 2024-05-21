@@ -143,7 +143,7 @@ export default ({ navigation }: RootStackScreenProps<"设置">) => {
               await dispatch(removeUserAuthState());
               clearMinivodApiCache();
 
-              await guestLoginInit();
+              // await guestLoginInit();
               setIsBackdropVisible(false); //
               navigator.navigate("Home", {
                 screen: "Profile",

@@ -92,7 +92,6 @@ function VodListVertical({ vods, numOfRows = 2, outerRowPadding = 0, minNumPerRo
                 if (onPress) {
                     onPress({ vodId: vod?.vod_id });
                 }
-                dispatch(playVod(vod));
                 navigation.navigate('播放', {
                     vod_id: vod?.vod_id,
                     player_mode: playerMode

@@ -37,7 +37,6 @@ function VodPlaylist({ playlist, titleStyle }: Props) {
       vodImageStyle={{ width: 120, height: 180 }}
       vod_pic={item.vod_pic}
       onPress={() => {
-        dispatch(playVod(item));
         navigator.navigate('播放', {
           vod_id: item.vod_id,
         });
