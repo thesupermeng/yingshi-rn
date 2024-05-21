@@ -31,6 +31,7 @@ interface Props {
     handleRefreshMiniVod?: any,
     isRefreshing: boolean,
     isPressTabScroll: boolean;
+    videoHeaderReferer?: string,
 }
 
 type MiniVodRef = {
@@ -57,6 +58,7 @@ export default forwardRef<MiniVodRef, Props>(
             setCollectionEpisode,
             isRefreshing = false,
             isPressTabScroll = false,
+            videoHeaderReferer,
         }: Props,
         ref,
     ) => {
@@ -206,6 +208,7 @@ export default forwardRef<MiniVodRef, Props>(
                             currentDuration={videoCurrentDurations[index]}
                             updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                             isActive={isActive}
+                            videoHeaderReferer={videoHeaderReferer}
                         />
                     )}
                 </View>

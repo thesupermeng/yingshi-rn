@@ -103,10 +103,21 @@ const fetchMiniVods = async (page: number, { from = 'local', isVip = false }: { 
       exclude: excluded.join(','),
       isVip,
     });
-    return result.List
+    return result
   } else {
     // console.debug('getting from local')
-    return customShuffleWithAds(await getApiCache())
+    const videos = customShuffleWithAds(await getApiCache());
+    // perform a fake objact, actually only need list
+    const result: MiniVideoListType = {
+      Page: 1,
+      TotalPageCount: 1,
+      Limit: videos.length,
+      Total: videos.length,
+      List: videos,
+      // NonVIPList: videos,
+    }
+
+    return result;
   }
 }
 
@@ -127,15 +138,26 @@ const fetchAdultVods = async (page: number, isVip: boolean) => {
   }).then((data) => {
     if (isVip) {
       // console.debug('api return vip content')
-      return data.List.map((data) => ({
+      data.List = data.List.map((data) => ({
         ...data,
         mini_video_id: data.vod_id,
         mini_video_title: data.vod_name,
         mini_video_play_url: data.vod_play_url,
+        mini_video_image: data.vod_pic,
       }));
+
+      return data;
     } else {
       // console.debug('api return non-vip content')
-      return data.NonVIPList;
+      data.NonVIPList = data.NonVIPList.map((data) => ({
+        ...data,
+        mini_video_id: data.vod_id,
+        mini_video_title: data.vod_name,
+        mini_video_play_url: data.vod_play_url,
+        mini_video_image: data.vod_pic,
+      }));
+
+      return data;
     }
   });
 };

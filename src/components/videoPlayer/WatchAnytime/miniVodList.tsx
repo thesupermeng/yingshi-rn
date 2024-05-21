@@ -40,6 +40,7 @@ interface Props {
   isPressTabScroll: boolean;
   isFocusLogin: React.MutableRefObject<boolean>,
   onPressAds: () => void,
+  videoHeaderReferer?: string,
 }
 
 type MiniVodRef = {
@@ -65,6 +66,7 @@ export default forwardRef<MiniVodRef, Props>(
       isPressTabScroll = false,
       isFocusLogin,
       onPressAds,
+      videoHeaderReferer,
     }: Props,
     ref,
   ) => {
@@ -269,6 +271,7 @@ export default forwardRef<MiniVodRef, Props>(
                     updateVideoDuration(index, duration)
                   }
                   isActive={isActive}
+                  videoHeaderReferer={videoHeaderReferer}
                 />
               }
             </>

@@ -6,6 +6,9 @@ export type PaggingResponseType<T> = {
     Limit: number
     Total: number
     List: T
+    Header?: {
+        Referer: string
+    }
 }
 
 export type PaggingResponseTypeWithNonVip<T> = {

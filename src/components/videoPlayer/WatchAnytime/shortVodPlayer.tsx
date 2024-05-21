@@ -46,6 +46,7 @@ interface Props {
   currentDuration: number;
   updateVideoDuration: (duration: number) => any;
   isActive: boolean;
+  videoHeaderReferer?: string,
 }
 
 const maxLength = 10;
@@ -69,6 +70,7 @@ function ShortVideoPlayer({
   currentDuration,
   updateVideoDuration,
   isActive,
+  videoHeaderReferer,
 }: Props) {
   const [currentVod, setVod] = useState(vod);
   const screenState: screenModel = useAppSelector(
@@ -410,6 +412,8 @@ function ShortVideoPlayer({
                   headers: {
                     'User-Agent':
                       'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+                    origin: videoHeaderReferer,
+                    referer: videoHeaderReferer,
                   },
                 }}
                 onReadyForDisplay={handleOnReadyForDisplay}

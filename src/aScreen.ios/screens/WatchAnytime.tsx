@@ -7,7 +7,7 @@ import {
 import ScreenContainer from '../components/container/screenContainer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { StyleSheet } from 'react-native';
-import { MiniVideo } from '@type/ajaxTypes';
+import { MiniVideo, MiniVideoListType } from '@type/ajaxTypes';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { API_DOMAIN } from '@utility/constants';
 import MiniVideoList from '../components/videoPlayer/miniVodList';
@@ -43,6 +43,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const miniVodRef = useRef() as React.MutableRefObject<MiniVodRef>;
     const miniVodListRef = useRef<any>();
     const [isPressTabScroll, setPressTabScroll] = useState(false);
+    const [videoHeaderReferer, setVideoHeaderReferer] = useState<string | undefined>();
 
     const settingsReducer: SettingsReducerState = useAppSelector(
         ({ settingsReducer }: RootState) => settingsReducer
@@ -138,7 +139,15 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     useEffect(() => {
         if (videos != undefined) {
-            let filtered = videos?.pages.flat().filter(x => x)
+            const videoMeta = videos?.pages.flat() as MiniVideoListType[];
+
+            let filtered = videoMeta[0].List.filter(x => x);
+
+            if (videoMeta[0].Header) {
+                setVideoHeaderReferer(videoMeta[0].Header.Referer);
+            } else {
+                setVideoHeaderReferer(undefined);
+            }
 
             // vip -> filter ads
             // guest -> filter first 10
@@ -220,6 +229,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}
                     isPressTabScroll={isPressTabScroll}
+                    videoHeaderReferer={videoHeaderReferer}
                 />
             }
             {isOffline && <NoConnection onClickRetry={checkConnection} />}
