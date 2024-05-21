@@ -43,7 +43,7 @@ import LoadingIcon from "@static/images/MutedVolume.svg";
 import { Image } from "react-native";
 import { PlaylistApi } from "../../api/playlist";
 import { CApi } from "@utility/apiService";
-import { CEndpoint } from "@constants";
+import { CEndpoint, CLangKey } from "@constants";
 import { YSConfig } from "../../../ysConfig";
 import { BannerContainer } from "./bannerContainer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -580,7 +580,7 @@ const RecommendationHome = ({
                       }}
                     >
                       <ShowMoreVodButton
-                        text="继续看"
+                        text={CLangKey.continueWatch.tr()}
                         onPress={() => {
                           navigation.navigate("播放历史");
                         }}
