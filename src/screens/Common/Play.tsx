@@ -1099,6 +1099,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           <VodPlayer
             key={vodUri} // remount on uri change
             vod_url={vodUri}
+            vod_url_header={vod?.url_header}
             ref={videoPlayerRef}
             currentTimeRef={currentTimeRef}
             initialStartTime={initTime}

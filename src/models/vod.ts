@@ -26,6 +26,10 @@ export class Vod {
     preferred_source_id: number;
     score?: number;
     douban_reviews: CommentsType[];
+    url_header?: {
+        Referer?: string,
+        Origin?: string,
+    };
 
     public constructor(data: {
         vod_id: number,
@@ -53,6 +57,10 @@ export class Vod {
         preferred_source_id: number,
         score?: number,
         douban_reviews: CommentsType[],
+        url_header?: {
+            Referer?: string,
+            Origin?: string,
+        },
     }) {
         this.vod_id = data.vod_id;
         this.vod_name = data.vod_name;
@@ -79,6 +87,7 @@ export class Vod {
         this.preferred_source_id = data.preferred_source_id;
         this.score = data.score;
         this.douban_reviews = data.douban_reviews;
+        this.url_header = data.url_header;
     }
 
     public static fromJson = (json: any): Vod => {
@@ -108,6 +117,7 @@ export class Vod {
             preferred_source_id: json.preferred_source_id,
             score: json.vod_imdb,
             douban_reviews: json.douban_reviews,
+            url_header: json.header,
         });
     }
 
@@ -144,6 +154,7 @@ export class Vod {
             preferred_source_id: arr[0],
             score: arr[0],
             douban_reviews: arr[0],
+            url_header: arr[0],
         });
     }
 

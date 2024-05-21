@@ -52,6 +52,7 @@ interface Props {
     onDownloadVod?: (nid: number) => void,
     setShowAdOverlay: (show: boolean) => void,
     isSeekErrorRef: React.MutableRefObject<boolean>,
+    vod_url_header?: any,
 }
 
 const VideoWithControls = ({
@@ -96,6 +97,7 @@ const VideoWithControls = ({
     onDownloadVod,
     setShowAdOverlay,
     isSeekErrorRef,
+    vod_url_header,
 }: Props) => {
 
     const route = useRoute();
@@ -173,10 +175,11 @@ const VideoWithControls = ({
                             ? vod_source
                             : {
                                 uri: vod_url,
-                                headers: {
-                                    origin: 'https://minoplres.xyz',
-                                    referer: 'https://minoplres.xyz',
-                                },
+                                headers: vod_url_header,
+                                // headers: {
+                                //     origin: 'https://minoplres.xyz',
+                                //     referer: 'https://minoplres.xyz',
+                                // },
                             }
                     }
                     onError={(err) => {

@@ -89,6 +89,7 @@ interface Props {
   setShowAdOverlay: (show: boolean) => void,
   onAdsMount?: () => void,
   vipGuideModalOpen?: boolean,
+  vod_url_header?: any,
 }
 
 type VideoControlsRef = {
@@ -142,6 +143,7 @@ export default forwardRef<VideoRef, Props>(
       setShowAdOverlay,
       onAdsMount,
       vipGuideModalOpen = false,
+      vod_url_header,
     }: Props,
     ref
   ) => {
@@ -754,6 +756,7 @@ export default forwardRef<VideoRef, Props>(
                 isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
                 vod_source={vod_source}
                 vod_url={vod_url}
+                vod_url_header={vod_url_header}
                 currentTimeRef={currentTimeRef}
                 controlsRef={controlsRef}
                 currentTime={currentTime}
