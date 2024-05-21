@@ -25,7 +25,7 @@ export default function PrivacyPolicyOverlay({
   const navigation = useNavigation();
 
   useEffect(() => {
-    setIsVisible(!accepted);
+    // setIsVisible(!accepted);
   }, []);
 
   const handleReject = useCallback(() => {
@@ -41,7 +41,7 @@ export default function PrivacyPolicyOverlay({
   const handleReadTermsPrivacy = useCallback((view: '用户协议' | '隐私政策') => {
     const checkGoBack = ({ data }) => {
       if (data.state.routes[data.state.routes.length - 1].name === 'Home') {
-        setIsVisible(true);
+        // setIsVisible(true);
         navigation.removeListener('state', checkGoBack);
       }
     }
