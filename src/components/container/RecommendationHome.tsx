@@ -217,36 +217,36 @@ const RecommendationHome = ({
       return Object.values(results.List);
     });
 
-  const {
-    data: playlists,
-    isSuccess,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isFetching,
-    refetch,
-  } = useInfiniteQuery(
-    ["vodPlaylist"],
-    ({ pageParam = 1 }) => fetchPlaylist(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage === null) {
-          return undefined;
-        }
-        const nextPage: any = allPages.length + 1;
-        //if reach end
-        if (nextPage > totalPage && totalPage != 0) {
-          return undefined;
-        }
-        return nextPage;
-      },
-      onSuccess: (data) => {
-        if (data && data?.pages) {
-          setResults([...results, ...data.pages[data.pages.length - 1].flat()]);
-        }
-      },
-    }
-  );
+  // const {
+  //   data: playlists,
+  //   isSuccess,
+  //   hasNextPage,
+  //   fetchNextPage,
+  //   isFetchingNextPage,
+  //   isFetching,
+  //   refetch,
+  // } = useInfiniteQuery(
+  //   ["vodPlaylist"],
+  //   ({ pageParam = 1 }) => fetchPlaylist(pageParam),
+  //   {
+  //     getNextPageParam: (lastPage, allPages) => {
+  //       if (lastPage === null) {
+  //         return undefined;
+  //       }
+  //       const nextPage: any = allPages.length + 1;
+  //       //if reach end
+  //       if (nextPage > totalPage && totalPage != 0) {
+  //         return undefined;
+  //       }
+  //       return nextPage;
+  //     },
+  //     onSuccess: (data) => {
+  //       if (data && data?.pages) {
+  //         setResults([...results, ...data.pages[data.pages.length - 1].flat()]);
+  //       }
+  //     },
+  //   }
+  // );
 
   const fetchBannerAd = async () => {
     const bannerRes = await AdsApi.getBannerAd(100);
@@ -795,9 +795,9 @@ const RecommendationHome = ({
           data={data.categories ?? []}
           // data={results}
           onEndReached={() => {
-            if (hasNextPage && !isFetchingNextPage && !isFetching) {
-              fetchNextPage();
-            }
+            // if (hasNextPage && !isFetchingNextPage && !isFetching) {
+            //   fetchNextPage();
+            // }
           }}
           initialNumToRender={0}
           onEndReachedThreshold={0.5}
@@ -806,7 +806,7 @@ const RecommendationHome = ({
           disableVirtualization={true}
           ListFooterComponent={
             <View style={{ ...styles.loading, marginBottom: 60 }}>
-              {hasNextPage && (
+              {/* {hasNextPage && (
                 <FastImage
                   style={{
                     height: 80,
@@ -819,8 +819,8 @@ const RecommendationHome = ({
                   source={require("@static/images/loading-spinner.gif")}
                   resizeMode={"contain"}
                 />
-              )}
-              {!(isFetchingNextPage || isFetching) && !hasNextPage && (
+              )} */}
+              {/* {!(isFetchingNextPage || isFetching) && !hasNextPage && (
                 <Text
                   style={{
                     ...textVariants.subBody,
@@ -830,7 +830,7 @@ const RecommendationHome = ({
                 >
                   {CLangKey.noAnyMore.tr()}
                 </Text>
-              )}
+              )} */}
             </View>
           }
         />
