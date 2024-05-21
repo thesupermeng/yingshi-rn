@@ -200,7 +200,7 @@ export default () => {
     if (DOWNLOAD_WATCH_ANYTIME === true) {
       if (!!data) {
         const firstNVod = data.pages
-          .flat(Infinity)
+          .flat(Infinity)[0].List
           .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
         downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
       }

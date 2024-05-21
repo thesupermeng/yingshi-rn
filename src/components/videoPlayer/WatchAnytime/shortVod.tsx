@@ -12,6 +12,7 @@ interface Props {
     currentDuration: number,
     updateVideoDuration: (duration: number) => any,
     isActive: boolean,
+    videoHeaderReferer?: string,
 }
 
 function ShortVod({
@@ -24,6 +25,7 @@ function ShortVod({
     currentDuration,
     updateVideoDuration,
     isActive,
+    videoHeaderReferer,
 }: Props) {
     const [isShowBottomSheet, setShowBottomSheet] = useState(false);
     const [currentVod, setVod] = useState(vod);
@@ -67,6 +69,7 @@ function ShortVod({
                         currentDuration={currentDuration}
                         updateVideoDuration={updateVideoDuration}
                         isActive={isActive}
+                        videoHeaderReferer={videoHeaderReferer}
                     />
                     {currentVod.mini_video_heji_id !== 0 &&
                         <CollectionBottomSheet

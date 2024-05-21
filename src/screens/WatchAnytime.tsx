@@ -5,7 +5,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { SettingsReducerState } from '@redux/reducers/settingsReducer';
 import { RootState } from '@redux/store';
-import { MiniVideo } from '@type/ajaxTypes';
+import { MiniVideo, MiniVideoListType } from '@type/ajaxTypes';
 import { screenModel } from '@type/screenType';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { AppState, StyleSheet, View } from 'react-native';
@@ -44,6 +44,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   const [isOffline, setIsOffline] = useState(false);
   const [isPressTabScroll, setPressTabScroll] = useState(false);
   const [isShowAdOverlay, setShowAdOverlay] = useState(false);
+  const [videoHeaderReferer, setVideoHeaderReferer] = useState<string | undefined>();
   const miniVodRef = useRef<MiniVodRef>();
   const miniVodListRef = useRef<any>();
   const dispatch = useAppDispatch();
@@ -147,7 +148,15 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
 
   useEffect(() => {
     if (videos != undefined) {
-      let filtered = videos?.pages.flat().filter(x => x)
+      const videoMeta = videos?.pages.flat() as MiniVideoListType[];
+
+      let filtered = videoMeta[0].List.filter(x => x);
+
+      if (videoMeta[0].Header) {
+        setVideoHeaderReferer(videoMeta[0].Header.Referer);
+      } else {
+        setVideoHeaderReferer(undefined);
+      }
 
       // vip -> filter ads
       // guest -> filter first 10
@@ -245,6 +254,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
           key={adultMode.toString()}
           isFocusLogin={isFocusLogin}
           onPressAds={onPressAds}
+          videoHeaderReferer={videoHeaderReferer}
         />
       )}
       {isFocusLogin.current &&
