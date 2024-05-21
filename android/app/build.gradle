@@ -181,7 +181,7 @@ android {
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
         variant.outputs.all {
-            outputFileName = "dotaTV-${variant.versionName}.apk"
+            outputFileName = "doraTV-${variant.versionName}.apk"
         }
     }
 }
