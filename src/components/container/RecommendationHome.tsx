@@ -459,34 +459,40 @@ const RecommendationHome = ({
     </View>
   );
 
-  const categoriesMap = ({ item, index }: {
-    item: any, index: any
-  }) => (
-    <View
-      key={`category-${index}`}
-      style={{
-        paddingLeft: spacing.sideOffset,
-        paddingRight: spacing.sideOffset,
-        paddingTop: 5,
-      }}
-    >
-      <View
-        style={{
-          paddingBottom: 5,
-        }}
-      >
-        <ShowMoreVodButton
-          text={item.type_name}
-          onPress={() => {
-            navigation.navigate("片库", {
-              type_id: item.type_id,
-            });
+  const categoriesMap = ({ item, index }) => {
+    // Check if the condition is met
+    if (item?.vod_list?.length >= 6) {
+      return (
+        <View
+          key={`category-${index}`}
+          style={{
+            paddingLeft: spacing.sideOffset,
+            paddingRight: spacing.sideOffset,
+            paddingTop: 5,
           }}
-        />
-      </View>
-      <VodListVertical vods={item.vod_list} playerMode={'normal'} />
-    </View>
-  );
+        >
+          <View
+            style={{
+              paddingBottom: 5,
+            }}
+          >
+            <ShowMoreVodButton
+              text={item.type_name}
+              onPress={() => {
+                navigation.navigate("片库", {
+                  type_id: item.type_id,
+                });
+              }}
+            />
+          </View>
+          <VodListVertical vods={item.vod_list} playerMode={'normal'} />
+        </View>
+      );
+    }
+    // Return null if the condition is not met to render nothing
+    return null;
+  };
+  
 
   const vodMap = ({ item, index, adultMode = false }: {
     item: any, index: any, adultMode?: boolean,
@@ -805,7 +811,7 @@ const RecommendationHome = ({
           renderItem={categoriesMap}
           disableVirtualization={true}
           ListFooterComponent={
-            <View style={{ ...styles.loading, marginBottom: 60 }}>
+            <View style={{ ...styles.loading, marginBottom: 130 }}>
               {/* {hasNextPage && (
                 <FastImage
                   style={{
