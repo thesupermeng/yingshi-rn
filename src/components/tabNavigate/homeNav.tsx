@@ -61,7 +61,6 @@ export default function HomeNav({
                 fontSize: textVariants.unselected.fontSize,
                 color: colors.muted,
                 fontWeight: textVariants.unselected.fontWeight,
-                paddingTop: 2,
               }}>
               {tab.name}
             </Text>
@@ -134,7 +133,7 @@ export default function HomeNav({
 
 const styles = StyleSheet.create({
   textStyles: {
-    height: 30,
+    // height: 30,
     width: 60,
     textAlign: 'center',
     textAlignVertical: 'center'

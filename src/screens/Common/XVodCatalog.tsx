@@ -21,7 +21,7 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
         queryFn: () => VodApi.getXVodCategories().then((result) => [
             {
                 id: -1,
-                name: CLangKey.all.tr(),
+                category_name: CLangKey.all.tr(),
             },
             ...result,
         ]),
@@ -31,20 +31,20 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
         queryKey: ["XVodCatalogVod", navId],
         queryFn: () => VodApi.getList({
             xMode: true,
-            category: navId === -1 ? undefined : vodCategories?.find((category) => category.id === navId)?.name
+            category: navId === -1 ? undefined : vodCategories?.find((category) => category.id === navId)?.category_name
         }),
     });
 
     const onTabPress = useCallback((target?: string) => {
         const targetStr = target?.substring(0, target.indexOf("-"));
-        const found = vodCategories?.find((e) => e.name === targetStr);
+        const found = vodCategories?.find((e) => e.category_name === targetStr);
 
         if (found) setNavId(found.id);
     }, [vodCategories]);
 
     const onTabFocus = useCallback((target?: string) => {
         const targetStr = target?.substring(0, target.indexOf("-"));
-        const found = vodCategories?.find((e) => e.name === targetStr);
+        const found = vodCategories?.find((e) => e.category_name === targetStr);
 
         if (found) setNavId(found.id);
     }, [vodCategories]);
@@ -68,14 +68,15 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
                 onTabSwipe={onTabSwipe}
                 tabList={vodCategories?.map((e) => ({
                     id: e.id,
-                    title: e.name,
-                    name: e.name,
+                    title: e.category_name,
+                    name: e.category_name,
                 })) ?? []}
                 tabItemStyle={{
-                    width: 110,
+                    width: 140,
                 }}
                 tabItemTextStyle={{
-                    width: 100,
+                    width: 130,
+                    paddingHorizontal: 4,
                 }}
                 tabChildren={(tab, i) => (
                     <>
