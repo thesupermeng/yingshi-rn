@@ -647,7 +647,7 @@ export default forwardRef<VideoRef, Props>(
     //   }
     // }, [screenState.adultModeVipShow])
 
-    const isVip = User.isVip(userState.user);
+    const isVip = true//User.isVip(userState.user);
 
     const pauseSportVideo =
       route.name === "体育详情" &&

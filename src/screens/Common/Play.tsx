@@ -359,7 +359,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   const [dismountPlayer, setDismountPlayer] = useState(false);
 
   const [isShowSheet, setShowSheet] = useState(false);
-  const isVip = User.isVip(userState.user);
+  const isVip = true//User.isVip(userState.user);
 
   const [isReadyPlay, setReadyPlay] = useState(false);
 
@@ -1027,14 +1027,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
   }, [vodUri]);
 
   const onPressCountdown = () => {
-    setShowAdOverlay(true);
-    videoPlayerRef.current?.setPause(true);
+    //   setShowAdOverlay(true);
+    //   videoPlayerRef.current?.setPause(true);
   };
 
-  const onCloseAdOverlay = () => {
-    setShowAdOverlay(false);
-    videoPlayerRef.current?.setPause(false);
-  };
+  // const onCloseAdOverlay = () => {
+  //   setShowAdOverlay(false);
+  //   videoPlayerRef.current?.setPause(false);
+  // };
 
   const isEpisodeDownloaded = adultMode
     ? downloadedVod?.episodes.find((x) => x.vodUrlNid === currentEpisode)
@@ -1772,13 +1772,13 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         vod_time_add={vod?.vod_time_add}
       />
 
-      <BecomeVipOverlay
+      {/* <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowAdOverlay}
         showBecomeVIPOverlay={isShowAdOverlay}
         isJustClose={true}
         selectedTab="common"
         onClose={onCloseAdOverlay}
-      />
+      /> */}
 
       {vipGuideModalDL && (
         <View style={[styles.overlayView]}>

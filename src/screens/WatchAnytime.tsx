@@ -269,13 +269,13 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         />
       }
 
-      <BecomeVipOverlay
+      {/* <BecomeVipOverlay
         setShowBecomeVIPOverlay={setShowAdOverlay}
         showBecomeVIPOverlay={isShowAdOverlay}
         isJustClose={true}
         selectedTab="common"
         onClose={onCloseAdOverlay}
-      />
+      /> */}
 
       {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </ScreenContainer>

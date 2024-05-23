@@ -105,28 +105,28 @@ export default forwardRef<MiniVodRef, Props>(
     const isVip = User.isVip(userState.user);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-      if (
-        adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
-        adultMode &&
-        isVip
-      ) {
-        dispatch(showAdultModeVip());
-        setPause(true);
-      }
-    }, [videoCurrentDurations[current], isPause]);
+    // useEffect(() => {
+    //   if (
+    //     adultVideoWatchTime >= ADULT_MODE_PREVIEW_DURATION &&
+    //     adultMode &&
+    //     isVip
+    //   ) {
+    //     dispatch(showAdultModeVip());
+    //     setPause(true);
+    //   }
+    // }, [videoCurrentDurations[current], isPause]);
 
-    useEffect(() => {
-      if (current > 0 && current % 4 == 0 && !isVip && adultMode) {
-        setShowAdultVIPOverlay(true);
-      }
-    }, [current]);
+    // useEffect(() => {
+    //   if (current > 0 && current % 4 == 0 && !isVip && adultMode) {
+    //     setShowAdultVIPOverlay(true);
+    //   }
+    // }, [current]);
 
-    useEffect(() => {
-      if (adultModeDisclaimerShow || adultModeVipShow) {
-        setPause(true);
-      }
-    }, [adultModeDisclaimerShow, adultModeVipShow]);
+    // useEffect(() => {
+    //   if (adultModeDisclaimerShow || adultModeVipShow) {
+    //     setPause(true);
+    //   }
+    // }, [adultModeDisclaimerShow, adultModeVipShow]);
 
     useEffect(() => {
       setChangingSource(true);
@@ -405,7 +405,7 @@ export default forwardRef<MiniVodRef, Props>(
           }}
         /> */}
 
-        <AdultVipPrivilegeOverlay
+        {/* <AdultVipPrivilegeOverlay
           showCondition={showAdultVIPOverlay}
           addPaddingTop={true}
           showDarkBackdrop={true}
@@ -413,7 +413,7 @@ export default forwardRef<MiniVodRef, Props>(
             // if (onClose) onClose();
             setShowAdultVIPOverlay(false);
           }}
-        />
+        /> */}
       </>
     );
   },
