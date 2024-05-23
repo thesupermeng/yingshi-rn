@@ -156,9 +156,11 @@ export class VodApi {
         try {
             const result = await CApi.get(CEndpoint.vodGetList, {
                 query: {
-                    wd: keyword,
+                    vod_name: keyword,
                     limit: 35,
                     page,
+                    by: 'vod_id',
+                    order: 'desc',
                 }
             });
 
@@ -167,7 +169,8 @@ export class VodApi {
             }
 
             const data = PaggingObject.fromJson<Vod>(result.data, Vod.fromJsonList);
-
+            console.debug('11111')
+            console.debug('data: ', data.List)
             return data.List ?? [];
 
         } catch (e: any) {
