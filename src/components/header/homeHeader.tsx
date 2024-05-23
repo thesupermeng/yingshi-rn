@@ -7,6 +7,7 @@ import {
   ViewStyle,
   Text,
   Linking,
+  Share,
 } from "react-native";
 import Logo from "@static/images/logo.svg";
 import ShareRectIcon from "@static/images/shareRect.svg";
@@ -24,6 +25,7 @@ import { SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import { useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
 import CustomFastImage from "../common/customFastImage";
+import { shareApp } from "@utility/helper";
 
 interface Props {
   logo?: React.ReactNode;
@@ -70,9 +72,25 @@ function MainHeader({
     }
   }, [recommendations]);
 
+  const onShare = async () => {
+    const result = await shareApp();
+
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // shared with activity type of result.activityType
+      } else {
+        // shared
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // dismissed
+    }
+  }
+
   return (
     <View style={{ ...styles.container, ...headerStyle }}>
-      <ShareRectIcon />
+      <TouchableOpacity onPress={onShare}>
+        <ShareRectIcon />
+      </TouchableOpacity>
 
       <Text style={{
         ...textVariants.header,

@@ -38,6 +38,7 @@ import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
 import { screenModel } from "@type/screenType";
 import { User } from "@models";
+import { shareApp } from "@utility/helper";
 interface Props {
   userState: User;
 }
@@ -237,18 +238,8 @@ export default function InviteCard({ userState = {} }: Props) {
       return;
     }
     try {
-      const inviteParam = userState.userReferralCode + userState.userName;
+      const result = await shareApp();
 
-      const Buffer = require("buffer").Buffer;
-      let encodedAuth = new Buffer(inviteParam).toString("base64");
-
-      // let msg = `下载爱美剧，免费领取VIP会员，免费看海量高清影视  ${" \n "} ${INVITE_DOMAIN}${encodedAuth}`;
-
-      let msg = "下载" + APP_NAME_CONST + "，免费领取VIP会员，免费看海量高清影视 " + INVITE_DOMAIN + encodedAuth;
-
-      const result = await Share.share({
-        message: msg,
-      });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           // shared with activity type of result.activityType

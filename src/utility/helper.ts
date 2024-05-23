@@ -1,3 +1,5 @@
+import { Share } from "react-native";
+
 export const getMaxWidth = (text: string, fontSize: number, ratio = 1) => {
     let size = 0;
     let nonNum = 0
@@ -53,4 +55,14 @@ export const logIgnore = (ignore: (string | RegExp)[]) => {
 
         return logRef(e, ...params);
     }
+}
+
+export const shareApp = async () => {
+    const msg = 'Download DoraTV to enjoy a vast library of HD movies and TV shows for free!';
+
+    const result = await Share.share({
+        message: msg,
+    });
+
+    return result;
 }
