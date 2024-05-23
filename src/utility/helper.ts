@@ -66,3 +66,27 @@ export const shareApp = async () => {
 
     return result;
 }
+
+export const toUppercase = (text: string, {
+    onlyFirst = false,
+    onlyFirstOfWord = false,
+}: {
+    onlyFirst?: boolean,
+    onlyFirstOfWord?: boolean,
+} = {}) => {
+    if (onlyFirstOfWord) {
+        let textAry = text.split(' ');
+
+        textAry = textAry.map((result) => toUppercase(result, { onlyFirst: true }));
+
+        return textAry.join(' ');
+
+    } else if (onlyFirst) {
+        const firstChar = text.slice(0, 1);
+        const otherString = text.slice(1, text.length);
+
+        return firstChar.toUpperCase() + otherString;
+    }
+
+    return text.toUpperCase();
+}

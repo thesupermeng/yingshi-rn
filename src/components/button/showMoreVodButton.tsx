@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import MoreArrow from '@static/images/more_arrow.svg';
 import { useTheme } from '@react-navigation/native';
 import { CLangKey } from "@constants";
+import { toUppercase } from "@utility/helper";
 interface Props {
   onPress?: any;
   text: string;
@@ -21,7 +22,7 @@ function ShowMoreVodButton({
   return (
     <View style={{ ...styles.banner, marginBottom: isPlayScreen ? -5 : 5 }}>
       <Text style={isPlayScreen ? textVariants.body : textVariants.header}>
-        {text}
+        {toUppercase(text, { onlyFirst: true })}
       </Text>
 
       {showMoreButton == true &&
