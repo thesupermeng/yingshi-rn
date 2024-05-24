@@ -1,7 +1,7 @@
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {persistor, store} from '@redux/store';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {CheckVersionRequest, MiniVideo} from '@type/ajaxTypes';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { persistor, store } from '@redux/store';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CheckVersionRequest, MiniVideo } from '@type/ajaxTypes';
 import {
   ANDROID_HOME_PAGE_BANNER_ADS,
   API_DOMAIN,
@@ -20,35 +20,35 @@ import {
   UMENG_CHANNEL,
 } from '@utility/constants';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {Platform, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Platform, View } from 'react-native';
 import CodePush from 'react-native-code-push';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import RegengOverlay from './src/components/modal/regengOverlay';
 import MainNav from './src/navigation/mainNav';
-import {YSConfig} from './ysConfig';
+import { YSConfig } from './ysConfig';
 
-import {ATRNSDK} from './AnyThinkAds/ATReactNativeSDK';
+import { ATRNSDK } from './AnyThinkAds/ATReactNativeSDK';
 import RNRestart from 'react-native-restart';
 // remove when merge
-import {TermsAcceptContextProvider} from './src/contexts/TermsAcceptedContext';
-import {TermsAcceptContextProvider as TermsAcceptContextProviderA} from './src/contexts/TermsAcceptedContext';
-import {TermsAcceptContextProvider as TermsAcceptContextProviderIos} from './src/contexts/TermsAcceptedContext';
-import {prefetchAdultMiniVod, prefetchMiniVod} from './src/api/miniVod';
+import { TermsAcceptContextProvider } from './src/contexts/TermsAcceptedContext';
+import { TermsAcceptContextProvider as TermsAcceptContextProviderA } from './src/contexts/TermsAcceptedContext';
+import { TermsAcceptContextProvider as TermsAcceptContextProviderIos } from './src/contexts/TermsAcceptedContext';
+import { prefetchAdultMiniVod, prefetchMiniVod } from './src/api/miniVod';
 import {
   checkExpiredCacheFile,
   deleteCachedVideos,
 } from './src/utils/minivodDownloader';
 import NetInfo from '@react-native-community/netinfo';
-import {AppsApi, PlaylistApi, VodApi} from '@api';
-import {CustomEventAnalytic} from './Umeng/EventAnalytic';
-import {logIgnore, warnIgnore} from '@utility/helper';
+import { AppsApi, PlaylistApi, VodApi } from '@api';
+import { CustomEventAnalytic } from './Umeng/EventAnalytic';
+import { logIgnore, warnIgnore } from '@utility/helper';
 import appsFlyer from 'react-native-appsflyer';
 import AppsFlyerAnalytics from './AppsFlyer/AppsFlyerAnalytic';
 import messaging from '@react-native-firebase/messaging';
-import {FirebaseNotification} from '@utility/firebaseNotification';
+import { FirebaseNotification } from '@utility/firebaseNotification';
 
 const topon_channel = 'WEB';
 
@@ -120,16 +120,15 @@ let App = () => {
   }, [isConnected]);
 
   useEffect(() => {
-    if(INIT_FIREBASE)
-      {
-        const unsubscribe = messaging().onMessage(async remoteMessage => {
-          FirebaseNotification.setupLocalNotification(
-            // JSON.stringify(remoteMessage),
-            remoteMessage,
-          );
-        });
-        return unsubscribe;
-      }
+    if (INIT_FIREBASE) {
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        FirebaseNotification.setupLocalNotification(
+          // JSON.stringify(remoteMessage),
+          remoteMessage,
+        );
+      });
+      return unsubscribe;
+    }
 
   }, []);
 
@@ -151,13 +150,13 @@ let App = () => {
         }),
     });
 
-    queryClient.prefetchQuery({
-      queryKey: ['HomePage', 1000],
-      queryFn: () =>
-        AppsApi.getHomePages(1000).then(data => {
-          return data.yingping_list;
-        }),
-    });
+    // queryClient.prefetchQuery({
+    //   queryKey: ['HomePage', 1000],
+    //   queryFn: () =>
+    //     AppsApi.getHomePages(1000).then(data => {
+    //       return data.yingping_list;
+    //     }),
+    // });
 
     // queryClient.prefetchQuery({
     //   queryKey: ["filterOptions"],
@@ -278,7 +277,7 @@ let App = () => {
     };
     console.log(checkVersionReq);
 
-    const {data: response} = await axios.post(
+    const { data: response } = await axios.post(
       `${API_DOMAIN}version/v1/check`,
       checkVersionReq,
     );
@@ -318,14 +317,14 @@ let App = () => {
   }, []);
 
   return (
-    <View style={{flex: 1, backgroundColor: '#161616'}}>
+    <View style={{ flex: 1, backgroundColor: '#161616' }}>
       <TermsAcceptContextProviderIos>
         <TermsAcceptContextProviderA>
           <TermsAcceptContextProvider>
             <QueryClientProvider client={queryClient}>
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                  <GestureHandlerRootView style={{flex: 1}}>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
                     <BottomSheetModalProvider>
                       <MainNav />
                     </BottomSheetModalProvider>
