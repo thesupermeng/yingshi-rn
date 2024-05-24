@@ -140,6 +140,9 @@ export default () => {
   const userState = useSelector<UserStateType>('userReducer');
 
   const HomeTabScreen = useCallback(() => {
+    const tabConfig: any[] = YSConfig.instance.tabConfig as any;
+    const showShort = tabConfig.find((tab) => tab.id === 2);
+
     return (
       <HomeTab.Navigator
         screenOptions={({ route }) => ({
@@ -239,7 +242,7 @@ export default () => {
         })}
       >
         <HomeTab.Screen name="首页" component={HomeScreen} />
-        <HomeTab.Screen name="随心看" component={WatchAnytime} />
+        {showShort && <HomeTab.Screen name="随心看" component={WatchAnytime} />}
         {/* {YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5 &&
               <HomeTab.Screen name="体育" component={MatchesScreen} />
             } */}
@@ -247,33 +250,6 @@ export default () => {
         <HomeTab.Screen name="电影" component={MoviesScreen} />
         <HomeTab.Screen name="电视节目" component={TvShowScreen} />
         <HomeTab.Screen name="我的" component={ProfileScreen} />
-
-
-        {/* {userState.userToken !== '' &&
-        userState.userMemberExpired >= userState.userCurrentTimestamp ? (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="体育" component={MatchesScreen} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        ) : (
-          <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="随心看" component={WatchAnytime} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
-            <HomeTab.Screen name="我的" component={ProfileScreen} />
-          </>
-        )} */}
-
-        {/* <>
-          <HomeTab.Screen name="首页" component={HomeScreen} />
-          <HomeTab.Screen name="随心看" component={WatchAnytime} />
-          <HomeTab.Screen name="体育" component={MatchesScreen} />
-          <HomeTab.Screen name="播单" component={PlaylistScreen} />
-          <HomeTab.Screen name="我的" component={ProfileScreen} />
-        </> */}
       </HomeTab.Navigator>
     );
   }, []);

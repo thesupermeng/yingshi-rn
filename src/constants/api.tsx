@@ -2,7 +2,7 @@ export class CEndpoint {
     // ============================== apps ==============================
     static appGetLocalIp = 'https://geolocation-db.com/json';
     static appGetBottomNav = 'yindu/v1/bottomtabs';
-    static appPostLocation = 'location/v1/info';
+    static appPostLocation = 'yindu/v1/location';
 
     static userPostSigninup = 'users/v2/signinup';
     static userGetDetails = 'users/v1/me';
