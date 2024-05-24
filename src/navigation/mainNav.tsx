@@ -96,8 +96,9 @@ export default () => {
       await Promise.all([AppsApi.getLocalIpAddress(), AppsApi.getBottomNav()]);
     } catch (err) {
       setTimeout(() => {
-        onAppInit;
+        onAppInit();
       }, 3000);
+      return;
     }
 
     const res = await Api.call(
