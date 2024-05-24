@@ -107,8 +107,8 @@ android {
         applicationId "com.yingshitv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-            // ABB version 73 , 17 May  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
-        versionCode 73
+            // ABB version 74 , 17 May  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
+        versionCode 74
         versionName "1.7.9"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
