@@ -43,7 +43,7 @@ export class Carousel {
         return new Carousel({
             carousel_id: json.carousel_id,
             carousel_name: json.carousel_name,
-            carousel_pic_mobile: json.carousel_pic_mobile,
+            carousel_pic_mobile: json.carousel_pic,
             carousel_content_id: json.carousel_content_id,
             is_ads: json.is_ads,
             ads_id: json.ads_id,
