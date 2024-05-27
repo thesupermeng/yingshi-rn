@@ -28,7 +28,6 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
     const renderItem = useCallback(({ item }: FlatListType) => {
         return (
             <FavoriteVodCard vod={item} onPress={() => {
-                dispatch(playVod(item));
                 navigation.navigate('播放', {
                     vod_id: item.vod_id
                 });

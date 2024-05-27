@@ -12,7 +12,6 @@ import {
 } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import MainCollectionHeader from '../../../components/header/mainCollectionHeader';
-import { playVod } from '@redux/actions/vodActions';
 import { VodType } from '@type/ajaxTypes';
 import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';

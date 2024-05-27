@@ -29,13 +29,14 @@ export const removeVodFromFavorites = (vod: Vod) => (
 //     }
 // )
 
-export const playVod = (vod: Vod, timeWatched?: number, episodeToPlay?: number, vodSourceId?: number) => {
+export const playVod = (vod: Vod, timeWatched?: number, episodeToPlay?: number, vodSourceId?: number, isAdultVideo?: boolean) => {
     return {
         type: PLAY_VOD,
         payload: [vod],
         timeWatched: timeWatched,
         episodeWatched: episodeToPlay,
-        vodSourceId: vodSourceId
+        vodSourceId: vodSourceId,
+        isAdultVideo: isAdultVideo ?? false,
     }
 }
 

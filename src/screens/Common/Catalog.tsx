@@ -14,7 +14,6 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useFocusEffect, useTheme } from '@react-navigation/native';
 
 import { RootStackScreenProps } from '@type/navigationTypes';
-import { playVod } from '@redux/actions/vodActions';
 import { useAppDispatch } from '@hooks/hooks';
 import {
   useInfiniteQuery,
@@ -350,7 +349,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
               height: cardHeight,
             }}
             onPress={() => {
-              dispatch(playVod(item));
               navigation.navigate('播放', {
                 vod_id: item?.vod_id,
               });

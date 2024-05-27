@@ -312,7 +312,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
 
     if (vodResult) {
-      dispatch(playVod(vodResult));
+      dispatch(playVod(vodResult, undefined, undefined, undefined, adultMode));
     }
 
     return vodResult;
@@ -620,7 +620,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod.vod_play_list = vodDetails.vod_play_list;
       vod.vod_play_url = vodDetails.vod_play_url;
       // setVod(vod);
-      dispatch(playVod(vod, undefined, currentEpisode, currentSourceId));
+      dispatch(playVod(vod, undefined, currentEpisode, currentSourceId, adultMode));
     }
 
     const isRestricted = vodDetails?.vod_restricted === 1;
@@ -799,6 +799,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
           saveVodToHistory(vod);
           setInitTime(currentTimeRef.current);
           // setInitTime(currentTimeRef.current=0);
+        } else if (vodSources === undefined || vodSources.length === 0 && vod?.vod_play_url !== undefined) {
+          saveVodToHistory(vod);
+          setInitTime(currentTimeRef.current);
         }
       };
     }, [vod, currentTimeRef, currentEpisode, videoPlayerRef, currentSourceId])

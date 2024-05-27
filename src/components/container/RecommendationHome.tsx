@@ -33,7 +33,6 @@ import VodHistoryList from "../vod/vodHistoryList";
 import VodLiveStationList from "../vod/vodLiveStationList";
 import { API_DOMAIN, API_DOMAIN_TEST, APP_NAME_CONST, UMENG_CHANNEL } from "@utility/constants";
 import VodListVertical from "../vod/vodListVertical";
-import { playVod, viewPlaylistDetails } from "@redux/actions/vodActions";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import LinearGradient from "react-native-linear-gradient";
 import Carousel from "react-native-reanimated-carousel";
@@ -492,7 +491,7 @@ const RecommendationHome = ({
     // Return null if the condition is not met to render nothing
     return null;
   };
-  
+
 
   const vodMap = ({ item, index, adultMode = false }: {
     item: any, index: any, adultMode?: boolean,

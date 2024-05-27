@@ -23,7 +23,7 @@ import HejiIcon from '@static/images/heji.svg';
 import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
 import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { showAdultModeVip } from '@redux/actions/screenAction';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
+import { viewPlaylistDetails } from '@redux/actions/vodActions';
 import { screenModel } from '@type/screenType';
 import { ADULT_MODE_PREVIEW_DURATION, DOWNLOAD_WATCH_ANYTIME } from '@utility/constants';
 import FastImage from '../../common/customFastImage';
@@ -253,7 +253,6 @@ function ShortVideoPlayer({
       UmengAnalytics.watchAnytimePlaylistClicksAnalytics();
       // ========== for analytics - end ==========
     } else {
-      dispatch(playVod(currentVod.mini_video_vod));
       navigation.navigate('播放', {
         vod_id: currentVod.vod?.vod_id,
         player_mode: adultMode ? 'adult' : 'normal',

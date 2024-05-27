@@ -4,7 +4,6 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import VodCard from './vodCard';
 import { useAppDispatch } from '@hooks/hooks';
-import { playVod } from '@redux/actions/vodActions';
 import { VodRecordType } from '@redux/reducers/vodReducer';
 import { FlatList } from 'react-native-gesture-handler';
 import { CLangKey } from '@constants';
@@ -72,7 +71,6 @@ export default function VodHistoryList({
                   .substr(11, 8)}`
             }
             onPress={() => {
-              dispatch(playVod(item));
               navigation.navigate('播放', { vod_id: item.vod_id });
             }}
             index={index}

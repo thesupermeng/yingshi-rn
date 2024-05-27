@@ -8,7 +8,6 @@ import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 import { VodRecordType, VodReducerState } from '@redux/reducers/vodReducer';
-import { removeVodsFromHistory, playVod } from '@redux/actions/vodActions';
 import VodHistoryCard from '../../components/vod/vodHistoryCard';
 import CheckBoxSelected from '@static/images/checkbox_selected.svg';
 import CheckBoxUnselected from '@static/images/checkbox_unselected.svg';
@@ -82,7 +81,6 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
           style={styles.cardItem}
           onPress={() => {
             console.debug('vod pressed', item.vod_name);
-            dispatch(playVod(item));
             navigation.navigate('播放', {
               vod_id: item?.vod_id,
               player_mode: 'adult'

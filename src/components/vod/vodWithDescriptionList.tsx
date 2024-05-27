@@ -5,7 +5,6 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { VodType } from "@type/ajaxTypes";
 import { useAppDispatch } from "@hooks/hooks";
 import FavoriteVodCard from "./favoriteVodCard";
-import { playVod } from "@redux/actions/vodActions";
 import { CLangKey } from "@constants";
 
 interface Props {

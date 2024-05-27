@@ -17,7 +17,6 @@ import FastImage from "../../common/customFastImage";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/hooks";
 import { DOWNLOAD_WATCH_ANYTIME } from "@utility/constants";
-import { playVod } from "@redux/actions/vodActions";
 import RNFetchBlob from "rn-fetch-blob";
 import { addIdToCache } from "../../../utils/minivodDownloader";
 import { screenModel } from "@type/screenType";

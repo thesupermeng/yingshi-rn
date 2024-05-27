@@ -18,7 +18,7 @@ import {
   VodRecordType,
   VodReducerState,
 } from "@redux/reducers/vodReducer";
-import { removeVodsFromHistory, playVod } from "@redux/actions/vodActions";
+import { removeVodsFromHistory } from "@redux/actions/vodActions";
 import VodHistoryCard from "../../components/vod/vodHistoryCard";
 import CheckBoxSelected from "@static/images/checkbox_selected.svg";
 import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
@@ -145,7 +145,6 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                           if (isEditing) {
                             toggleHistory(item);
                           } else {
-                            dispatch(playVod(item));
                             navigation.navigate("播放", {
                               vod_id: item.vod_id,
                             });
@@ -189,7 +188,6 @@ export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
                       if (isEditing) {
                         toggleHistory(item);
                       } else {
-                        dispatch(playVod(item));
                         navigation.navigate("播放", {
                           vod_id: item.vod_id,
                         });

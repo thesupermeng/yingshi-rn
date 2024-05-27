@@ -12,7 +12,6 @@ import { useQuery } from '@tanstack/react-query';
 import { LiveTVStationItem } from '@type/ajaxTypes';
 import VodCard from './vodCard';
 import { useAppDispatch } from '@hooks/hooks';
-import { playVod } from '@redux/actions/vodActions';
 import { VodRecordType } from '@redux/reducers/vodReducer';
 import { FlatList } from 'react-native-gesture-handler';
 interface Props {

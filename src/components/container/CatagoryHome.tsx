@@ -26,7 +26,6 @@ import VodHistoryList from '../vod/vodHistoryList';
 import VodLiveStationList from '../vod/vodLiveStationList';
 import { API_DOMAIN, API_DOMAIN_TEST } from '@utility/constants';
 import VodListVertical from '../vod/vodListVertical';
-import { playVod, viewPlaylistDetails } from '@redux/actions/vodActions';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
@@ -234,7 +233,6 @@ const CatagoryHome = ({
             });
           } else {
             console.debug('pllaying mode', navId)
-            dispatch(playVod(item.vod));
             navigation.navigate('播放', {
               vod_id: item.carousel_content_id,
               player_mode: navId == 99 ? 'adult' : 'normal'

@@ -12,7 +12,6 @@ import {
 } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
-import { playVod } from '@redux/actions/vodActions';
 import { RootStackScreenProps } from '@type/navigationTypes';
 import EmptyList from '../../../components/common/emptyList';
 import { disableAdultMode, enableAdultMode } from '@redux/actions/screenAction';
@@ -57,7 +56,6 @@ export default () => {
                 vod={item}
                 initialFavoriteState={true}
                 onPress={() => {
-                  dispatch(playVod(item));
                   navigation.navigate('播放', {
                     vod_id: item.vod_id,
                     player_mode: item.playMode

@@ -34,12 +34,13 @@ export function vodReducer(state = initialState, action: VodActionType) {
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
         episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched,
-        vodSourceId: action.vodSourceId
+        vodSourceId: action.vodSourceId,
+        isAdultVideo: action.isAdultVideo,
     };
 
     switch (action.type) {
         case PLAY_VOD: {
-            let play = state.history.find(vod => vod.vod_id === firstPayloadItemWithTimestamp.vod_id);
+            let play = state.history.find(vod => vod.vod_id === firstPayloadItemWithTimestamp.vod_id && vod.isAdultVideo === firstPayloadItemWithTimestamp.isAdultVideo);
             if (play === undefined) {
                 play = firstPayloadItemWithTimestamp;
             }

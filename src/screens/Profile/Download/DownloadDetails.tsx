@@ -113,7 +113,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
             ),
           );
         } else if (item.status === DownloadStatus.COMPLETED) {
-          dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId));
+          dispatch(playVod(download.vod, 0, item.vodUrlNid, item.vodSourceId, download.vodIsAdult));
           navigation.navigate('播放', {
             vod_id: download.vod.vod_id,
             player_mode: download.vodIsAdult ? 'adult' : 'normal',

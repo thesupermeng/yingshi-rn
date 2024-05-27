@@ -2,7 +2,6 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { SuggestedVodType } from '@type/ajaxTypes';
 import { useAppDispatch, useAppSelector } from '@hooks/hooks';
-import { playVod } from '@redux/actions/vodActions';
 import {
   addSearchHistory,
   clearSearchHistory,
@@ -45,8 +44,7 @@ export default function RecommendationList({ recommendationList }: Props) {
                 //prevent show the keyword in screen before navigates
                 dispatch(addSearchHistory(item.vod_name));
               }, 400),
-                dispatch(playVod(item));
-              navigation.navigate('播放', { vod_id: item.vod_id });
+                navigation.navigate('播放', { vod_id: item.vod_id });
             }}>
             <Text
               style={{
