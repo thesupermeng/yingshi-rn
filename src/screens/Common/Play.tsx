@@ -47,6 +47,10 @@ import SinaIcon from "@static/images/sina.svg";
 import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
+import FacebookIcon from "@static/images/facebook.svg";
+import InstagramIcon from "@static/images/instagram.svg";
+import WhatsappIcon from "@static/images/whatsapp.svg";
+import XtwitterIcon from "@static/images/xtwitter.svg";
 import MoreArrow from "@static/images/more_arrow.svg";
 import SourceIcon from "@static/images/source_icon.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
@@ -1274,7 +1278,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
                     {!adultMode && (
                       <TouchableOpacity onPress={onShare}>
-                        <View style={{ ...styles.share, gap: 10 }}>
+                        <View style={{ ...styles.share, gap: 10, marginTop: 10 }}>
                           <Text
                             style={{
                               ...textVariants.subBody,
@@ -1283,10 +1287,14 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           >
                             {CLangKey.share.tr()}：
                           </Text>
-                          <WeChatIcon />
+                          <FacebookIcon />
+                          <InstagramIcon />
+                          <WhatsappIcon />
+                          <XtwitterIcon />
+                          {/* <WeChatIcon />
                           <PYQIcon />
                           <SinaIcon />
-                          <QQIcon />
+                          <QQIcon /> */}
                         </View>
                       </TouchableOpacity>
                     )}
