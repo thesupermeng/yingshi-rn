@@ -141,7 +141,7 @@ export default () => {
 
   const HomeTabScreen = useCallback(() => {
     const tabConfig: any[] = YSConfig.instance.tabConfig as any;
-    const showShort = tabConfig.find((tab) => tab.id === 2);
+    const showShort = tabConfig?.find((tab) => tab.id === 2) ?? false;
 
     return (
       <HomeTab.Navigator
