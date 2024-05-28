@@ -924,16 +924,16 @@ export default () => {
       }),
   });
 
-  useEffect(() => {
-    if (DOWNLOAD_WATCH_ANYTIME === true) {
-      if (!!data) {
-        const firstNVod = data.pages
-          .flat(Infinity)
-          .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
-        downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
-      }
-    }
-  }, [data, isVip]);
+//   useEffect(() => {
+//     if (DOWNLOAD_WATCH_ANYTIME === true) {
+//       if (!!data) {
+//         const firstNVod = data.pages
+//           .flat(Infinity)
+//           .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
+//         downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
+//       }
+//     }
+//   }, [data, isVip]);
 
   return (
     <>

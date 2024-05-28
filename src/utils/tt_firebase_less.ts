@@ -735,14 +735,14 @@ export const getExcludedIds = async (): Promise<string[]> => {
   today.setHours(0, 0, 0, 0);
 
   return watchedVids
-    .map(vid => {
+    .map((vid: { split: (arg0: string) => [any, any]; }) => {
       const [id, dateStr] = vid.split('|');
       const date = new Date(dateStr);
       if (date < today) {
         return id.replace(/\x00/g, '');
       }
     })
-    .filter(item => item != undefined);
+    .filter((item: undefined) => item != undefined);
 };
 
 const getCacheFileName = async () => {
