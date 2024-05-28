@@ -28,6 +28,7 @@ import { TouchableOpacity } from "react-native";
 import NoConnection from "../../components/common/noConnection";
 import FastImage from "react-native-fast-image";
 import {
+  APP_EMAIL_CONST,
   APP_NAME_CONST,
   IAP_TYPE,
   IS_ANDROID,
@@ -541,7 +542,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
   };
 
   const openEmailApp = () => {
-    Linking.openURL("mailto:contact.movie9@gmail.com");
+    Linking.openURL(`mailto:${APP_EMAIL_CONST}`);
   };
 
   const getDeepLink = (path = "") => {
@@ -1437,7 +1438,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
                       >
                         {"如遇支付问题，请联系"}
                         <Text style={{ textDecorationLine: "underline" }}>
-                          contact.movie9@gmail.com
+                          {APP_EMAIL_CONST}
                         </Text>
                       </Text>
                     </TouchableOpacity>
