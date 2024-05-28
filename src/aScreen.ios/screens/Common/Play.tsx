@@ -40,6 +40,11 @@ import SinaIcon from "@static/images/sina.svg";
 import WeChatIcon from "@static/images/wechat.svg";
 import QQIcon from "@static/images/qq.svg";
 import PYQIcon from "@static/images/pyq.svg";
+import FacebookIcon from "@static/images/facebook.svg";
+import InstagramIcon from "@static/images/instagram.svg";
+import WhatsappIcon from "@static/images/whatsapp.svg";
+import XtwitterIcon from "@static/images/xtwitter.svg";
+import CopyLinkIcon from "@static/images/copyLink.svg";
 import MoreArrow from "@static/images/more_arrow.svg";
 import VodEpisodeSelectionModal from "../../components/modal/vodEpisodeSelectionModal";
 // import FastImage from "react-native-fast-image";
@@ -767,10 +772,15 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       >
                         {CLangKey.share.tr()}：
                       </Text>
-                      <WeChatIcon />
+                      <FacebookIcon />
+                      <InstagramIcon />
+                      <WhatsappIcon />
+                      <XtwitterIcon />
+                      <CopyLinkIcon />
+                      {/* <WeChatIcon />
                       <PYQIcon />
                       <SinaIcon />
-                      <QQIcon />
+                      <QQIcon /> */}
                     </View>
                   </TouchableOpacity>
                 </View>
