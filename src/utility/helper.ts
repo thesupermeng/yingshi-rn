@@ -58,7 +58,7 @@ export const logIgnore = (ignore: (string | RegExp)[]) => {
 }
 
 export const shareApp = async () => {
-    const msg = 'Download DoraTV to enjoy a vast library of HD movies and TV shows for free!';
+    const msg = 'Download DoraTV to enjoy a vast library of HD movies and TV shows for free! - http://doratvhd.com';
 
     const result = await Share.share({
         message: msg,
