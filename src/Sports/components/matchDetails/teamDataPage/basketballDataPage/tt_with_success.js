@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#1D2023',
         marginTop: 5,
         marginBottom:5
-    },s
+    }
 });
 
 export default styles;
