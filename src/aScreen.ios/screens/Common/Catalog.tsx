@@ -75,7 +75,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
   // Filtering
   const [currentTopicId, setCurrentTopicId] = useState(
-    route.params.type_id === undefined ? 1 : route.params.type_id,
+    route.params.type_id === undefined ? '1' : parseInt(route.params.type_id + ''),
   );
   const [topicClass, setTopicClass] = useState(
     route.params.class === undefined || route.params.class.startsWith('全部')
