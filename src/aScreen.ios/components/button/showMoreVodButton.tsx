@@ -21,7 +21,7 @@ export default function ShowMoreVodButton({
   return (
     <View style={{ ...styles.banner, marginBottom: isPlayScreen ? -5 : 5 }}>
       <Text style={isPlayScreen ? textVariants.body : textVariants.header}>
-        {toUppercase(text)}
+        {toUppercase(text, { onlyFirst: true })}
       </Text>
 
       {showMoreButton == true &&
