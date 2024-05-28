@@ -9,7 +9,7 @@ import { RootStackScreenProps } from "@type/navigationTypes";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 import { useTheme } from "@react-navigation/native";
-import { APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/constants";
+import { APP_EMAIL_CONST, APP_NAME_CONST, APP_NAME_CONST2 } from "@utility/constants";
 import { showLoginAction } from "@redux/actions/screenAction";
 import { useAppDispatch, useSelector } from "@hooks/hooks";
 import { screenModel } from "@type/screenType";
@@ -73,7 +73,7 @@ export default ({ navigation }: RootStackScreenProps<"用户协议">) => {
             `We update our content library regularly for a better streaming experience and reserve the right to modify, suspend, or discontinue the service or any part thereof, at any time without notice. Such modification may impact your ability to use certain part of our services or features and may change the availability of content. Additionally, for various reasons, such as restrictions under the law in force, or otherwise, certain content and functionality may be changed, suspended, or discontinued either temporarily or permanently with respect to any or all users.\n` +
 
             `1.5. Troubleshooting and Grievance Redressal Mechanism:\n` +
-            `In the event you require any assistance or troubleshooting with your account, features or usage of our platform or our services, please write to us at Support@${APP_NAME_CONST}.com.\n` +
+            `In the event you require any assistance or troubleshooting with your account, features or usage of our platform or our services, please write to us at ${APP_EMAIL_CONST}.\n` +
             `For resolving any issues concerning the content on our Platform wherein you find the content to be offensive or to be a reproduction of someone else’s work (copyrighted work).\n` +
 
             `USER ACCOUNT & MEMBERSHIP\n` +
