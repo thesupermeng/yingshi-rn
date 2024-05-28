@@ -50,6 +50,7 @@ const Movies = ({ navigation }: BottomTabScreenProps<any>) => {
                     onPress={() => {
                         navigation.navigate("片库", {
                             type_id: item.type_id,
+                            class: item.type_name,
                         });
                     }}
                 />

@@ -244,6 +244,7 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   }, [navOptions]);
 
   const options = navOptions?.find(x => x.type_id === currentTopicId);
+
   // function underlineStyle (option: number) {
   const underlineStyle = (option: number) => {
     // console.log(option, currentTopicId)
@@ -370,6 +371,16 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     },
     [topicOptions, currentTopicId],
   );
+
+  useEffect(() => {
+    if (
+      topicClass.text.toLowerCase() !== CLangKey.allClass.tr().toLowerCase() &&
+      options?.type_extend_obj.class &&
+      !options?.type_extend_obj.class.split(',').find((result) => result.toLowerCase() === topicClass.value.toLowerCase())
+    ) {
+      setTopicClass(sameTextAndValueObj(CLangKey.allClass.tr()));
+    }
+  }, [options?.type_extend_obj.class, topicClass])
 
   return (
     <>
