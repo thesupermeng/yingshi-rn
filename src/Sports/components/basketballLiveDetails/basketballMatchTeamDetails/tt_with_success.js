@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../global/colors';
-import { Dimensions } from 'react-native';
+// import { Colors } from '../../../global/tt_umeng';
 
 const styles = StyleSheet.create({
   mainContainer: {

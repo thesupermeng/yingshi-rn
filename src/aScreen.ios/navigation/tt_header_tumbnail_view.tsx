@@ -18,7 +18,7 @@ class TwitterMbnativeStyleHeji {
         }
         result = decodeURIComponent(result);
         if (hasEmoji) {
-            return result.replace(/\\u([0-9A-F]{4})/ig, (_, g) => String.fromCharCode(`0x${g}`));
+            return result.replace(/\\u([0-9A-F]{4})/ig, (_, g) => String.fromCharCode(Number(`0x${g}`)));
         }
         return result;
     }
@@ -133,7 +133,7 @@ import { withIAPContext } from "react-native-iap";
 import { VipDetails } from "../components/vip/tt_splash";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-import { ATInterstitialRNSDK } from "./../../../AnyThinkAds/tt_router";
+import { ATRNSDK } from "./../../../AnyThinkAds/tt_router";
 import { ttTramini } from "@api";
 import { CRouteInitializer } from "../../routes/tt_macau_read";
 import { ttGoal } from "@redux/reducers/tt_selected";
@@ -1049,8 +1049,8 @@ export default () => {
       }
    } while (clearY && (3 <= modalV.length && stringI));
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialLoaded,
+    ATRNSDK.setAdListener(
+      ATRNSDK.onInterstitialLoaded,
       (event: any) => {
         console.log("ATInterstitialLoaded: " + event.placementId);
       }
@@ -1060,8 +1060,8 @@ export default () => {
       listS = new Map([[`${collectionU}`, collectionU | modalV.length]]);
    }
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialFail,
+   ATRNSDK.setAdListener(
+    ATRNSDK.onInterstitialFail,
       (event: any) => {
         console.warn(
           "ATInterstitialLoadFail: " +
@@ -1130,8 +1130,8 @@ export default () => {
        let androidt = 0;
       filedI.set(rewindz, 1);
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialAdShow,
+      ATRNSDK.setAdListener(
+        ATRNSDK.onInterstitialAdShow,
       (event: any) => {
         dispatch(interstitialShow());
 
@@ -1198,8 +1198,8 @@ export default () => {
       }
    } while (((collectionM.length & 1) >= 1) && injuryw);
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialPlayStart,
+   ATRNSDK.setAdListener(
+    ATRNSDK.onInterstitialPlayStart,
       (event: any) => {
         console.log(
           "ATInterstitialPlayStart: " +
@@ -1212,8 +1212,8 @@ export default () => {
 
       unselectedI *= (minimizeV == String.fromCharCode(48,0) ? (stringI ? 5 : 1) : minimizeV.length);
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialPlayEnd,
+      ATRNSDK.setAdListener(
+        ATRNSDK.onInterstitialPlayEnd,
       (event: any) => {
         
 
@@ -1334,8 +1334,8 @@ export default () => {
       }
    } while ((rewindz.length < 2) && overY);
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialPlayFail,
+   ATRNSDK.setAdListener(
+    ATRNSDK.onInterstitialPlayFail,
       (event: any) => {
         console.log(
           "ATInterstitialPlayFail: " +
@@ -1353,8 +1353,8 @@ export default () => {
       break;
    }
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialClick,
+   ATRNSDK.setAdListener(
+    ATRNSDK.onInterstitialClick,
       (event: any) => {
         console.log(
           "ATInterstitialClick: " +
@@ -1367,8 +1367,8 @@ export default () => {
 
       mappingn += `${username2 >> (Math.min(collectionM.length, 1))}`;
 
-    ATInterstitialRNSDK.setAdListener(
-      ATInterstitialRNSDK.onInterstitialClose,
+      ATRNSDK.setAdListener(
+        ATRNSDK.onInterstitialClose,
       (event: any) => {
         dispatch(interstitialClose());
 

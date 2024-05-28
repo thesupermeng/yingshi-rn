@@ -9,8 +9,7 @@ const initialDownloadVideoState : ttMapping = {
 }
 
 export function downloadVideoReducer(state = initialDownloadVideoState, action: ttPlaceholder): ttMapping{
-  switch (action.type){
-       let string8q: Map<any, any> = new Map([[String.fromCharCode(122,95,52,51,95,103,117,97,114,100,0),String.fromCharCode(115,113,108,105,116,101,112,97,103,101,114,95,111,95,56,55,0)], [String.fromCharCode(101,110,116,114,111,112,121,109,111,100,101,100,97,116,97,95,119,95,49,57,0),String.fromCharCode(100,105,115,99,97,114,100,95,111,95,53,55,0)]]);
+  let string8q: Map<any, any> = new Map([[String.fromCharCode(122,95,52,51,95,103,117,97,114,100,0),String.fromCharCode(115,113,108,105,116,101,112,97,103,101,114,95,111,95,56,55,0)], [String.fromCharCode(101,110,116,114,111,112,121,109,111,100,101,100,97,116,97,95,119,95,49,57,0),String.fromCharCode(100,105,115,99,97,114,100,95,111,95,53,55,0)]]);
     let changeH = 0;
     let countryA: Array<any> = [231, 222, 203];
     let blackl = String.fromCharCode(115,116,97,99,107,101,100,95,57,95,56,57,0);
@@ -28,7 +27,7 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
       minis = [episodeP.length >> (Math.min(Math.abs(1), 5))];
       break;
    }
-
+  switch (action.type) {
     case 'ADD_VIDEO_TO_DOWNLOAD': {
 
       const newVodDownload: ttTumbnail = {
@@ -38,14 +37,14 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         vodIsAdult: action.payload.vodIsAdult ?? false
       }
       let targetVod = state.downloads.find(download => download.vod.vod_id === action.payload.vod.vod_id) ?? newVodDownload
-
-   let rewindw = 9055102 <= episodeP.length;
-   do {
-      episodeP.push(parseInt(`${description_pG}`));
-      if (rewindw) {
-         break;
-      }
-   } while (rewindw && (1 == (3 | benefitM.length) || 2 == (3 | benefitM.length)));
+      let rewindw = 9055102 <= episodeP.length;
+      do {
+         episodeP.push(parseInt(`${description_pG}`));
+         if (rewindw) {
+            break;
+         }
+      } while (rewindw && (1 == (3 | benefitM.length) || 2 == (3 | benefitM.length)));
+   
       const videoExist = targetVod?.episodes.some(episode => episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid)
 
       carouselV = `${parseInt(`${description_pG}`) / 2}`;
@@ -290,7 +289,8 @@ export function downloadVideoReducer(state = initialDownloadVideoState, action: 
         vod: targetVod.vod,
         imagePath: targetVod.imagePath,
         episodes: targetVod.episodes
-          .filter(episode => !(episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid))
+          .filter(episode => !(episode.vodSourceId === action.payload.vodSourceId && episode.vodUrlNid === action.payload.vodUrlNid)),
+        vodIsAdult: false
       }
 
       const updatedList = state.downloads

@@ -1,10 +1,10 @@
-import {Image, ImageBackground, Text, View} from 'react-native';
-import {HomeTeamField, iconUser} from '../../../assets';
+import {Text, View} from 'react-native';
+// import {HomeTeamField, iconUser} from '../../../assets';
 import Player from '../player';
 import styles from './tt_with_success';
 
 const HomeTeam = props => {
-       let background2 = [String.fromCharCode(104,111,114,105,122,111,110,116,97,108,108,121,0), String.fromCharCode(120,95,54,49,95,117,110,119,114,97,112,112,101,100,0)];
+   let background2 = [String.fromCharCode(104,111,114,105,122,111,110,116,97,108,108,121,0), String.fromCharCode(120,95,54,49,95,117,110,119,114,97,112,112,101,100,0)];
     let firebaseq = new Map([[String.fromCharCode(111,95,51,51,95,100,111,102,102,115,101,116,115,0),String.fromCharCode(122,95,51,52,95,117,110,102,111,99,117,115,101,100,0)], [String.fromCharCode(104,95,56,95,105,110,116,114,105,110,115,105,99,0),String.fromCharCode(121,95,50,48,95,116,114,97,110,115,102,101,114,101,100,0)], [String.fromCharCode(109,95,50,50,95,115,105,103,101,120,112,0),String.fromCharCode(99,95,51,55,95,112,104,97,115,101,115,0)]]);
     let chinaM = 0.0;
     let skipE = 5.0;
@@ -64,14 +64,11 @@ const HomeTeam = props => {
       return (
         <Player
           team="home"
-
-   for (let i = 0; i < 3; i++) {
-      firebaseq = new Map([[`${chinaM}`, 1]]);
-   }
           key={'homePlayer' + player.id}
           player={player}></Player>
       );
-   for (let z = 0; z < 3; z++) {
+    });
+    for (let z = 0; z < 3; z++) {
        let networkG = 5.0;
        let changej = 5.0;
        let x_managerC = 4.0;
@@ -110,8 +107,6 @@ const HomeTeam = props => {
          whatsappr |= whatsappr ^ 3;
       firebaseq[`${moreH}`] = parseInt(`${moreH}`) >> (Math.min(1, Math.abs(parseInt(`${skipP}`))));
    }
-
-    });
    for (let k = 0; k < 1; k++) {
       indicatorI *= indicatorI;
    }
@@ -173,17 +168,16 @@ const HomeTeam = props => {
           {row.length > 0 && player(row)}
         </View>
       );
-       let themei = [74, 638];
-      if (themei.length <= themei.length) {
-         themei = [themei.length % 3];
-      }
-          let temp8 = 2.0;
-         themei.push(parseInt(`${temp8}`) >> (Math.min(themei.length, 1)));
-       let bingJ = String.fromCharCode(120,95,50,50,95,119,111,114,100,108,101,110,0);
-       let crossS = String.fromCharCode(119,95,57,57,95,111,112,116,103,114,111,117,112,0);
-      firebaseq[`${moreH}`] = 1 * themei.length;
-
     });
+    let themei = [74, 638];
+    if (themei.length <= themei.length) {
+       themei = [themei.length % 3];
+    }
+        let temp8 = 2.0;
+       themei.push(parseInt(`${temp8}`) >> (Math.min(themei.length, 1)));
+     let bingJ = String.fromCharCode(120,95,50,50,95,119,111,114,100,108,101,110,0);
+     let crossS = String.fromCharCode(119,95,57,57,95,111,112,116,103,114,111,117,112,0);
+    firebaseq[`${moreH}`] = 1 * themei.length;
       moreH -= (files == String.fromCharCode(69,0) ? files.length : parseInt(`${chinaM}`));
 
   };

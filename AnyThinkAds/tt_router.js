@@ -9,3 +9,5 @@ module.exports = {
   ATInterstitialRNSDK,
   ATBannerRNSDK,
 };
+
+export { ATRNSDK };

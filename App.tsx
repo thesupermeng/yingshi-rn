@@ -10,7 +10,6 @@ import {
   APPSFLYER_DEVKEY,
   APP_NAME_CONST,
   APP_VERSION,
-  EVENT_CUSTOM_START,
   IOS_HOME_PAGE_BANNER_ADS,
   TOPON_ANDROID_APP_ID,
   TOPON_ANDROID_APP_KEY,
@@ -517,57 +516,57 @@ let App = () => {
       queryFn: () =>
         ttSinaPrediction.getHomePages(0).then(data => {
 
-      disconnectedf /= Math.max(parseFloat(`${parseInt(`${private_8ek}`)}`), 4);
-          setCount(99);
+      // disconnectedf /= Math.max(parseFloat(`${parseInt(`${private_8ek}`)}`), 4);
+      //     setCount(99);
 
-   for (let l = 0; l < 2; l++) {
-      disconnectedf -= parseFloat(`${parseInt(`${dangerU}`)}`);
-   }
+   // for (let l = 0; l < 2; l++) {
+   //    disconnectedf -= parseFloat(`${parseInt(`${dangerU}`)}`);
+   // }
           return data;
         }),
     });
 
-       let sharedH: Array<any> = [682, 722];
-      if ((sharedH.length | 1) <= 3) {
-         sharedH.push(3 - sharedH.length);
-      }
-         sharedH = [2 ^ sharedH.length];
-          let arrowT = String.fromCharCode(119,101,105,103,104,116,101,100,0);
-          let unselectedq = String.fromCharCode(97,99,107,117,112,0);
-          let leftj = String.fromCharCode(100,118,98,115,117,98,0);
-         sharedH = [(unselectedq == String.fromCharCode(82,0) ? unselectedq.length : leftj.length)];
-         arrowT += `${(arrowT == String.fromCharCode(84,0) ? arrowT.length : arrowT.length)}`;
-      benefitY += `${crossb.length | 2}`;
+   //     let sharedH: Array<any> = [682, 722];
+   //    if ((sharedH.length | 1) <= 3) {
+   //       sharedH.push(3 - sharedH.length);
+   //    }
+   //       sharedH = [2 ^ sharedH.length];
+   //        let arrowT = String.fromCharCode(119,101,105,103,104,116,101,100,0);
+   //        let unselectedq = String.fromCharCode(97,99,107,117,112,0);
+   //        let leftj = String.fromCharCode(100,118,98,115,117,98,0);
+   //       sharedH = [(unselectedq == String.fromCharCode(82,0) ? unselectedq.length : leftj.length)];
+   //       arrowT += `${(arrowT == String.fromCharCode(84,0) ? arrowT.length : arrowT.length)}`;
+   //    benefitY += `${crossb.length | 2}`;
 
     queryClient.prefetchQuery({
       queryKey: ['HomePage', 1001],
       queryFn: () =>
         ttSinaPrediction.getHomePages(1001).then(data => {
 
-   for (let a = 0; a < 1; a++) {
-      eighteens = `${crossb.length}`;
-   }
-          return data.yingping_list;
+   // for (let a = 0; a < 1; a++) {
+   //    eighteens = `${crossb.length}`;
+   // }
+          return data.yugaopian_list;
         }),
     });
 
-   while (!scheduleO.includes(`${dangerU}`)) {
-      scheduleO = `${(eighteens == String.fromCharCode(72,0) ? eighteens.length : launchw.length)}`;
-      break;
-   }
+   // while (!scheduleO.includes(`${dangerU}`)) {
+   //    scheduleO = `${(eighteens == String.fromCharCode(72,0) ? eighteens.length : launchw.length)}`;
+   //    break;
+   // }
 
  
 
-   for (let r = 0; r < 2; r++) {
-      private_8ek += benefitY.length / 2;
-   }
+   // for (let r = 0; r < 2; r++) {
+   //    private_8ek += benefitY.length / 2;
+   // }
     // queryClient.prefetchQuery({
     //   queryKey: ["filterOptions"],
     //   queryFn: () => ttConfirmationChinasame.getTopicType(),
     //   staleTime: Infinity,
     // });
 
-      overb += `${crossb.length + 1}`;
+      // overb += `${crossb.length + 1}`;
 
     // queryClient.prefetchQuery({
     //   queryKey: ["HomePageNavOptions"],
@@ -579,7 +578,7 @@ let App = () => {
     //   ttMbbannerMore.getTopic(page)
     //     .then((data) => {
 
-      eighteens += `${parseInt(`${disconnectedf}`) & eacti.size}`;
+      // eighteens += `${parseInt(`${disconnectedf}`) & eacti.size}`;
     //       return Object.values(data);
     //     });
 
@@ -587,20 +586,20 @@ let App = () => {
     //   fetchPlaylist(pageParam)
     // );
 
-      private_8ek += 1 + scheduleO.length;
+      // private_8ek += 1 + scheduleO.length;
     type ttAcceptedMbnative = {
       data: {
         List: Array<ttAnimationSource>;
       };
     };
 
-   let shoot5 = String.fromCharCode(107,107,120,52,108,112,97,116,99,0) == mbsplashp;
-   do {
-      mbsplashp = `${eighteens.length ^ 1}`;
-      if (shoot5) {
-         break;
-      }
-   } while ((overb.length < mbsplashp.length) && shoot5);
+   // let shoot5 = String.fromCharCode(107,107,120,52,108,112,97,116,99,0) == mbsplashp;
+   // do {
+   //    mbsplashp = `${eighteens.length ^ 1}`;
+   //    if (shoot5) {
+   //       break;
+   //    }
+   // } while ((overb.length < mbsplashp.length) && shoot5);
 
     // queryClient.prefetchQuery({
     //   queryKey: ["matchesNavOptions"],
@@ -611,29 +610,29 @@ let App = () => {
     //       type: string;
     //     }[] => {
 
-   while (3 == mbsplashp.length) {
-      mbsplashp = `${launchw.length / (Math.max(7, mbsplashp.length))}`;
-      break;
-   }
+   // while (3 == mbsplashp.length) {
+   //    mbsplashp = `${launchw.length / (Math.max(7, mbsplashp.length))}`;
+   //    break;
+   // }
     //       return res?.data;
     //     }),
     //   staleTime: Infinity,
     // });
 
-       let historyz: Map<any, any> = new Map([[String.fromCharCode(117,115,117,98,0),385], [String.fromCharCode(100,101,103,114,101,101,115,0),844], [String.fromCharCode(97,114,109,116,104,0),844]]);
-      while (historyz.get(`${historyz.size}`) != null) {
-         historyz = new Map([[`${historyz.size}`, historyz.size - 3]]);
-         break;
-      }
-         historyz.set(`${historyz.size}`, historyz.size);
-      let gradlewl = 5767983 <= historyz.size;
-      do {
-         historyz.set(`${historyz.size}`, historyz.size >> (Math.min(Math.abs(historyz.size), 4)));
-         if (gradlewl) {
-            break;
-         }
-      } while (((historyz.size * historyz.size) >= 2) && gradlewl);
-      recommendation8 = `${mbsplashp.length}`;
+      //  let historyz: Map<any, any> = new Map([[String.fromCharCode(117,115,117,98,0),385], [String.fromCharCode(100,101,103,114,101,101,115,0),844], [String.fromCharCode(97,114,109,116,104,0),844]]);
+      // while (historyz.get(`${historyz.size}`) != null) {
+      //    historyz = new Map([[`${historyz.size}`, historyz.size - 3]]);
+      //    break;
+      // }
+      //    historyz.set(`${historyz.size}`, historyz.size);
+      // let gradlewl = 5767983 <= historyz.size;
+      // do {
+      //    historyz.set(`${historyz.size}`, historyz.size >> (Math.min(Math.abs(historyz.size), 4)));
+      //    if (gradlewl) {
+      //       break;
+      //    }
+      // } while (((historyz.size * historyz.size) >= 2) && gradlewl);
+      // recommendation8 = `${mbsplashp.length}`;
 
     let appId, appKey, bannerPlacementId;
 
@@ -652,10 +651,10 @@ let App = () => {
     initTopOnSDK(appId, appKey);
   }, []);
 
-  function initTopOnSDK(appId, appKey) {
+  function initTopOnSDK(appId: string | undefined, appKey: string | undefined) {
     ATRNSDK.setLogDebug(true);
 
-    ATRNSDK.getSDKVersionName().then(versionName => {
+    ATRNSDK.getSDKVersionName().then((versionName: string) => {
       console.log('TopOn SDK version name: ' + versionName);
     });
 
@@ -673,11 +672,11 @@ let App = () => {
 
     ATRNSDK.setGDPRLevel(ATRNSDK.PERSONALIZED);
 
-    ATRNSDK.getUserLocation().then(userLocation => {
+    ATRNSDK.getUserLocation().then((userLocation: string) => {
       console.log('userLocation: ' + userLocation);
       if (userLocation == ATRNSDK.kATUserLocationInEU) {
         console.log('userLocation: in EU');
-        ATRNSDK.getGDPRLevel().then(level => {
+        ATRNSDK.getGDPRLevel().then((level: string) => {
           console.log('gdpr level: ' + level);
           if (level == ATRNSDK.UNKNOWN) {
             ATRNSDK.showGDPRAuth();

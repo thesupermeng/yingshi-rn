@@ -119,66 +119,66 @@ const AwayTeam = props => {
       return (
         <Player
           team="away"
-
-       let blackI = 0.0;
-         blackI /= Math.max(3, 1 % (Math.max(7, parseInt(`${blackI}`))));
-         blackI -= parseInt(`${blackI}`);
-      do {
-          let sports6 = 2;
-         blackI -= 1;
-         sports6 ^= sports6;
-         if (717837.0 == blackI) {
-            break;
-         }
-      } while (((blackI - blackI) > 3.22 && 1.25 > (blackI - 3.22)) && (717837.0 == blackI));
-      frame_w1x += parseFloat(`${networkx.length}`);
-   do {
-       let team0 = 0;
-       let leagueR = true;
-       let catalogL = false;
-       let dialogg = String.fromCharCode(107,95,57,54,95,114,101,109,105,120,105,110,103,0);
-         leagueR = (leagueR ? catalogL : leagueR);
-          let with_eF = String.fromCharCode(115,111,110,101,119,99,111,110,110,95,106,95,56,50,0);
-         dialogg += `${3 | with_eF.length}`;
-         dialogg += `${2 % (Math.max(5, team0))}`;
-      if (!catalogL) {
-          let detailsP = String.fromCharCode(111,95,53,55,95,116,111,116,97,108,115,0);
-         catalogL = detailsP.length == 64;
-      }
-      do {
-         catalogL = String.fromCharCode(52,0) == dialogg;
-         if (catalogL ? !catalogL : catalogL) {
-            break;
-         }
-      } while ((!catalogL && !leagueR) && (catalogL ? !catalogL : catalogL));
-      while (5 <= team0) {
-         catalogL = !leagueR && 20 >= team0;
-         break;
-      }
-      while (!catalogL) {
-         catalogL = dialogg.length > 61;
-         break;
-      }
-       let dialogA = String.fromCharCode(113,95,52,53,95,109,111,116,105,111,110,0);
-          let constantsk = [424, 328];
-         dialogA = `${(String.fromCharCode(75,0) == dialogA ? dialogA.length : constantsk.length)}`;
-         team0 -= ((catalogL ? 3 : 1));
-      while (team0 > 2) {
-         catalogL = dialogg == String.fromCharCode(75,0);
-         break;
-      }
-      while (!catalogL && dialogg.length < 1) {
-         catalogL = !dialogg.includes(`${leagueR}`);
-         break;
-      }
-      footballF += `${networkx.length}`;
-      if (footballF.length == 1972117) {
-         break;
-      }
-   } while ((watchM != footballF) && (footballF.length == 1972117));
           key={'awayPlayer' + player.id}
           player={player}></Player>
       );
+
+      let blackI = 0.0;
+      blackI /= Math.max(3, 1 % (Math.max(7, parseInt(`${blackI}`))));
+      blackI -= parseInt(`${blackI}`);
+   do {
+       let sports6 = 2;
+      blackI -= 1;
+      sports6 ^= sports6;
+      if (717837.0 == blackI) {
+         break;
+      }
+   } while (((blackI - blackI) > 3.22 && 1.25 > (blackI - 3.22)) && (717837.0 == blackI));
+   frame_w1x += parseFloat(`${networkx.length}`);
+do {
+    let team0 = 0;
+    let leagueR = true;
+    let catalogL = false;
+    let dialogg = String.fromCharCode(107,95,57,54,95,114,101,109,105,120,105,110,103,0);
+      leagueR = (leagueR ? catalogL : leagueR);
+       let with_eF = String.fromCharCode(115,111,110,101,119,99,111,110,110,95,106,95,56,50,0);
+      dialogg += `${3 | with_eF.length}`;
+      dialogg += `${2 % (Math.max(5, team0))}`;
+   if (!catalogL) {
+       let detailsP = String.fromCharCode(111,95,53,55,95,116,111,116,97,108,115,0);
+      catalogL = detailsP.length == 64;
+   }
+   do {
+      catalogL = String.fromCharCode(52,0) == dialogg;
+      if (catalogL ? !catalogL : catalogL) {
+         break;
+      }
+   } while ((!catalogL && !leagueR) && (catalogL ? !catalogL : catalogL));
+   while (5 <= team0) {
+      catalogL = !leagueR && 20 >= team0;
+      break;
+   }
+   while (!catalogL) {
+      catalogL = dialogg.length > 61;
+      break;
+   }
+    let dialogA = String.fromCharCode(113,95,52,53,95,109,111,116,105,111,110,0);
+       let constantsk = [424, 328];
+      dialogA = `${(String.fromCharCode(75,0) == dialogA ? dialogA.length : constantsk.length)}`;
+      team0 -= ((catalogL ? 3 : 1));
+   while (team0 > 2) {
+      catalogL = dialogg == String.fromCharCode(75,0);
+      break;
+   }
+   while (!catalogL && dialogg.length < 1) {
+      catalogL = !dialogg.includes(`${leagueR}`);
+      break;
+   }
+   footballF += `${networkx.length}`;
+   if (footballF.length == 1972117) {
+      break;
+   }
+} while ((watchM != footballF) && (footballF.length == 1972117));
       networkx = `${2 | layoutR.size}`;
       sigmobK = goalP.length == 33 && 76.7 == windL;
 

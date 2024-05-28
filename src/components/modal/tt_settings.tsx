@@ -429,18 +429,18 @@ const AdultVideoVipModal = () => {
 
   if (adultModeVipShow && !isVip && adultMode)
 
-   let trophyS = 4989409 >= emptyB.size;
-   do {
-      emptyB = new Map([[`${details3}`, parseInt(`${details3}`)]]);
-      if (trophyS) {
-         break;
-      }
-   } while ((4 > (3 % (Math.max(6, emptyB.size)))) && trophyS);
-      team0 *= currentA.length;
-   while (castingg.length <= 5) {
-      castingg.push(mbbannerv.length);
-      break;
-   }
+   // let trophyS = 4989409 >= emptyB.size;
+   // do {
+   //    emptyB = new Map([[`${details3}`, parseInt(`${details3}`)]]);
+   //    if (trophyS) {
+   //       break;
+   //    }
+   // } while ((4 > (3 % (Math.max(6, emptyB.size)))) && trophyS);
+   //    team0 *= currentA.length;
+   // while (castingg.length <= 5) {
+   //    castingg.push(mbbannerv.length);
+   //    break;
+   // }
     return (
       <View
         style={{
