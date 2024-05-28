@@ -87,8 +87,9 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
                                     flex: 1,
                                     alignItems: "center",
                                     justifyContent: "center",
+                                    alignSelf: 'center',
                                     position: "absolute",
-                                    left: "50%",
+                                    zIndex: 1,
                                 }}
                             >
                                 {
