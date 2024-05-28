@@ -62,7 +62,7 @@ const RecommendationHome = ({
   const vodReducer: VodReducerState = useAppSelector(
     ({ vodReducer }: RootState) => vodReducer,
   );
-  const history = vodReducer.history;
+  const history = vodReducer.history.filter((e) => !e.isAdultVideo);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [totalPage, setTotalPage] = useState(0);
@@ -277,7 +277,7 @@ const RecommendationHome = ({
           onPress={() => {
             if (adultMode) {
               navigation.navigate("XVodCatalog", {
-                type_id: item.type_id,
+                type_id: -1//item.type_id,
               });
             } else {
               navigation.navigate("片库", {

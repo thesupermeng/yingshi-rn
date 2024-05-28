@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, FlatList, Image, ScrollView } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { useAppDispatch } from '@hooks/hooks';
@@ -84,12 +84,14 @@ function VodListVerticalVip({ vods, numOfRows = 2, outerRowPadding = 0, minNumPe
     )
 
     return (
-        <View style={styles.vodList}>
-            {
-                vods &&
-                vods.slice(0, numOfRows * cardsPerRow).map(vodMapItem)
-            }
-        </View>
+        <ScrollView>
+            <View style={styles.vodList}>
+                {
+                    vods &&
+                    vods.slice(0, numOfRows * cardsPerRow).map(vodMapItem)
+                }
+            </View>
+        </ScrollView>
     )
 }
 

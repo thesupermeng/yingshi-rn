@@ -103,7 +103,7 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
 
                         {(vods?.List.length ?? 0) > 0 &&
                             <VodListVerticalVip
-                                numOfRows={2}
+                                numOfRows={(vods?.List.length ?? 0) / 2}
                                 vods={vods?.List ?? []}
                                 minNumPerRow={2}
                                 heightToWidthRatio={1 / 1.814}
