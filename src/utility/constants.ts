@@ -166,7 +166,7 @@ export const DOWNLOAD_FEATURE_MAX_QUEUE = 10;
 export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
 
 
-export const INIT_FIREBASE = true;
+export const INIT_FIREBASE = false;
 
 export const ADJUST_APP_KEY = '9cnz9ep9bhmo';
 
