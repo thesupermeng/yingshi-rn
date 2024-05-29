@@ -1,7 +1,7 @@
 import AnalyticsUtil from './AnalyticsUtil';
 import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
-import { CUSTOM_ANALYTICS, INIT_FIREBASE } from '@utility/constants';
+import { ANALYTICS_CUSTOM, ANALYTICS_FIREBASE, ANALYTICS_UMENG } from '@utility/constants';
 
 /**
 catalog
@@ -232,10 +232,10 @@ enum CustomEventKey {
 
 export default class UmengAnalytics {
     static showLog: boolean = false;
-    static disabled: boolean = !INIT_FIREBASE;
-    static disabledUmeng: boolean = true;
-    static disabledFirebase: boolean = !INIT_FIREBASE;
-    static disabledCustom: boolean = !CUSTOM_ANALYTICS;
+    static disabled: boolean = false;
+    static disabledUmeng: boolean = !ANALYTICS_UMENG;
+    static disabledFirebase: boolean = !ANALYTICS_FIREBASE;
+    static disabledCustom: boolean = !ANALYTICS_CUSTOM;
 
     static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {
         if (this.disabled || this.disabledUmeng) return;
