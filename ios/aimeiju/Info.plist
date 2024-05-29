@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
   <key>NSPhotoLibraryUsageDescription</key>
-  <string>“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传</string>
+  <string>“电影天堂”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限</string>
+	<string>为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予电影天堂该权限</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>

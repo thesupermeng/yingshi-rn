@@ -898,12 +898,12 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "蚂蚁影视";
+				INFOPLIST_KEY_CFBundleDisplayName = "电影天堂";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“电影天堂”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予电影天堂该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -946,12 +946,12 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "蚂蚁影视";
+				INFOPLIST_KEY_CFBundleDisplayName = "电影天堂";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“电影天堂”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予电影天堂该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1222,12 +1222,12 @@
 					"$(PROJECT_DIR)/Core",
 				);
 				INFOPLIST_FILE = aimeiju/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "蚂蚁影视";
+				INFOPLIST_KEY_CFBundleDisplayName = "电影天堂";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app does not require access to the microphone.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“蚂蚁影视”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予蚂蚁影视该权限";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "“电影天堂”想访问您的相册，APP需要您的同意，才能访问相册选择照片以上传";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "为了给您个性化推荐内容，我们需要用到您的唯一标识 (idfa)。可在手机设置->隐私->跟踪服务中取消授予电影天堂该权限";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

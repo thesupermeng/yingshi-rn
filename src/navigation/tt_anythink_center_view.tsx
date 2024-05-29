@@ -936,7 +936,9 @@ export default () => {
 //   }, [data, isVip]);
 
   return (
+   
     <>
+   
       {isSuper == true ? (
         <AdsBannerContextProvider>
           <Nav />
@@ -944,27 +946,27 @@ export default () => {
       ) : (
         <>
           {loadedAPI == false && isConnected === true ? (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#161616",
-              }}
-            >
-              <FastImage
-                source={require("@static/images/reminderSans.gif")}
-                style={{
-                  width: 150,
-                  height: 150,
-                  position: "relative",
-                  bottom: 50,
-                  zIndex: -1,
-                }}
-                resizeMode={"contain"}
-                useFastImage={true}
-              />
-            </View>
+             <View
+             style={{
+               flex: 1,
+               justifyContent: "center",
+               alignItems: "center",
+               backgroundColor: "#161616",
+             }}
+           >
+             <FastImage
+               source={require("@static/images/img_launch.gif")}
+               style={{
+                 width: 240,
+                 height: 240,
+                 position: "relative",
+                 bottom: 100,
+                 zIndex: -1,
+               }}
+               resizeMode={"contain"}
+               useFastImage={false}
+             />
+           </View>
           ) : (
             <>
               <>

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "stringsPromotion.png",
+      "filename" : "img_launch.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "playlistBlackSelection@2x.png",
+      "filename" : "img_launch@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "shirtPlusWatch@3x.png",
+      "filename" : "img_launch@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

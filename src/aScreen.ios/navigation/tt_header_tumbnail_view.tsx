@@ -65,6 +65,8 @@ import OtpScreen from "../screens/Auth/tt_signinup";
 import SetUsername from "../screens/Auth/tt_tooltips";
 import HomeTabIcon from "@static/images/modalTopic.svg";
 import HomeActiveTabIcon from "@static/images/descStrings.svg";
+import RankingsActiveTabIcon from "@static/images/imgRankings.svg";
+import RankingsTabIcon from "@static/images/imgRankings.svg";
 import PlaylistTabIcon from "@static/images/typingHuaweiFile.svg";
 import PlaylistActiveTabIcon from "@static/images/yingContextPlaylist.svg";
 import ProfileTabIcon from "@static/images/dataTransferSearchbar.svg";
@@ -366,12 +368,12 @@ export default () => {
               );
             } else if (route.name === "发现") {
               icon = focused ? (
-                <PlaylistActiveTabIcon
+                <RankingsActiveTabIcon
                   width={iconWidth}
                   color={theme.icons.activeNavIconColor}
                 />
               ) : (
-                <PlaylistTabIcon
+                <RankingsTabIcon
                   width={iconWidth}
                   color={theme.icons.inactiveNavIconColor}
                 />
