@@ -3,11 +3,11 @@ import ATRewardedVideoRNSDK from './tt_service';
 import ATInterstitialRNSDK from './tt_trash';``
 import ATBannerRNSDK from './tt_phone';
 
-module.exports = {
-  ATRNSDK,
-  ATRewardedVideoRNSDK,
-  ATInterstitialRNSDK,
-  ATBannerRNSDK,
-};
+// module.exports = {
+//   ATRNSDK,
+//   ATRewardedVideoRNSDK,
+//   ATInterstitialRNSDK,
+//   ATBannerRNSDK,
+// };
 
-export { ATRNSDK };
+export { ATRNSDK, ATInterstitialRNSDK };
