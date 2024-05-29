@@ -105,7 +105,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
         versionCode 73
-        versionName "1.8.0"
+        versionName "1.0.0"
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
@@ -181,7 +181,7 @@ android {
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
         variant.outputs.all {
-            outputFileName = "doraTV-${variant.versionName}.apk"
+            outputFileName = "doraTV-${variant.versionName}-google_play.apk"
         }
     }
 }
