@@ -1,79 +1,26 @@
 {
   "project_info": {
-    "project_number": "699123886701",
-    "project_id": "yingshitv",
-    "storage_bucket": "yingshitv.appspot.com"
+    "project_number": "618691579323",
+    "project_id": "dora-tv-f0c59",
+    "storage_bucket": "dora-tv-f0c59.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:699123886701:android:6d93a5c3b9550a94922d64",
+        "mobilesdk_app_id": "1:618691579323:android:8756d927e8ed77b320889e",
         "android_client_info": {
           "package_name": "com.doratvhd"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBzNgki5Igx2gLlZgOF0MuaNqtab6a5aBY"
+          "current_key": "AIzaSyCU_baxmCisZftH2fR8N0j6-7lr2PTjXSI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "699123886701-nu1d7c3499hq9fmh7rch5rrb4am4lusa.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.zhengquannetwork.app.cn"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:699123886701:android:0049b655cfc5bcd5922d64",
-        "android_client_info": {
-          "package_name": "com.yingshitv"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBzNgki5Igx2gLlZgOF0MuaNqtab6a5aBY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "699123886701-lg76r3gei261u8lip8jp7qjlt49hqkf7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "699123886701-nu1d7c3499hq9fmh7rch5rrb4am4lusa.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.zhengquannetwork.app.cn"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
