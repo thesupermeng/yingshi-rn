@@ -8,6 +8,7 @@ export type ttReferrerExpand = {
   首页: undefined;
   解说: undefined;
   发现: undefined;
+  排行榜: undefined;
   上传: undefined;
   我的: undefined;
   体育: undefined;
@@ -20,6 +21,7 @@ export type ttConfirmationYing = {
   上传: undefined;
   解说: undefined;
   发现: undefined;
+  排行榜: undefined;
 };
 
 export type ttBodan = {
@@ -28,6 +30,7 @@ export type ttBodan = {
   上传: undefined;
   解说: undefined;
   发现: undefined;
+  排行榜: undefined;
 };
 
 export type ttScore = {
@@ -36,6 +39,7 @@ export type ttScore = {
   上传: undefined;
   解说: undefined;
   发现: undefined;
+  排行榜: undefined;
 };
 
 export type ttNewsLogin = {

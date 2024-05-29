@@ -32,24 +32,16 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
                 fontSize: 22,
               }}
             >
-              发现
+              热搜
             </Text>
           }
           navigator={navigation}
         />
-
-        <MainCollectionHeaderPlaylist
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-        />
-        {selectedTab == "专题" && <Topic />}
-
-        {selectedTab == "排行榜" && 
-        <Rank />}
+        <Rank />
       </ScreenContainer>
     </>
   );
-}
+} 
 
 export default memo(Playlist);
 

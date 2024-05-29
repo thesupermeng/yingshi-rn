@@ -140,7 +140,7 @@ import { ttTramini } from "@api";
 import { CRouteInitializer } from "../../routes/tt_macau_read";
 import { ttGoal } from "@redux/reducers/tt_selected";
 import { ttFast } from "@models/tt_stations_right";
-import { toggleDarkTheme, toggleLightTheme } from "@redux/actions/tt_cross";
+import { toggleDarkTheme } from "@redux/actions/tt_cross";
 import { UploadVideo } from "../screens/upload/tt_clear";
 import { UploadVideoPreview } from "../screens/upload/tt_empty_view";
 import { UploadHistory } from "../screens/upload/tt_overlay_result";
@@ -169,7 +169,7 @@ export default () => {
 
   useLayoutEffect(() => {
     
-    dispatch(toggleLightTheme());
+    dispatch(toggleDarkTheme());
   }, []);
 
   const HomeTabScreen = useCallback(() => {
@@ -366,7 +366,7 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
-            } else if (route.name === "发现") {
+            } else if (route.name === "排行榜") {
               icon = focused ? (
                 <RankingsActiveTabIcon
                   width={iconWidth}
@@ -434,10 +434,10 @@ export default () => {
         {ttConfigRecommendation.instance.tabConfig != null && ttConfigRecommendation.instance.len == 5 ? (
           <>
             <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="解说" component={WatchAnytime} />
+            <HomeTab.Screen name="排行榜" component={PlaylistScreen} />
             {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
             <HomeTab.Screen name="上传" component={UploadVideo} />
-            <HomeTab.Screen name="发现" component={PlaylistScreen} />
+            <HomeTab.Screen name="解说" component={WatchAnytime} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         ) : (
@@ -1022,11 +1022,11 @@ export default () => {
     
 
     
-    if (currentRoute.name === 'Home' && currentRoute.state?.index === 1 && !themeReducer.theme) {
-      dispatch(toggleDarkTheme());
-    } else if (!(currentRoute.name === 'Home' && currentRoute.state?.index === 1) && themeReducer.theme) {
-      dispatch(toggleLightTheme());
-    }
+    // if (currentRoute.name === 'Home' && currentRoute.state?.index === 1 && !themeReducer.theme) {
+      // dispatch(toggleDarkTheme());
+    // } else if (!(currentRoute.name === 'Home' && currentRoute.state?.index === 1) && themeReducer.theme) {
+    //   dispatch(toggleLightTheme());
+    // }
   };
 
   const initInterstitialAdListener = () => {
