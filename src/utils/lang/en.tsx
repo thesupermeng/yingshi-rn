@@ -111,7 +111,7 @@ export const lang = {
     [CLangKey.trending]: 'Trending',
     [CLangKey.trendingRank]: 'Trending',
     [CLangKey.filter]: 'Filter',
-    [CLangKey.continueWatch]: 'Continue',
+    [CLangKey.continueWatch]: 'Continue watching',
     [CLangKey.info]: 'Info',
     [CLangKey.all]: 'All',
     [CLangKey.allClass]: 'All Class',
@@ -121,7 +121,7 @@ export const lang = {
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',
-    [CLangKey.noAnyMore]: 'No any more',
+    [CLangKey.noAnyMore]: 'No more',
     [CLangKey.clearXInform]: 'Clear %x',
     [CLangKey.confirmToClearX]: 'Are you sure want to delete &these %x?',
     [CLangKey.viewGreatVideos]: 'View great videos',
