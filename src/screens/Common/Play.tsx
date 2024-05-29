@@ -1666,7 +1666,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                   rangeSize={EPISODE_RANGE_SIZE}
                   vodId={vod?.vod_id}
                   isVip={isVip}
-                  setShowAdOverlay={setShowAdOverlay}
+                  setShowAdOverlay={setShowDlEpisode}
                   source={currentSourceId}
                 />
               </>
