@@ -21,6 +21,7 @@ import { API_DOMAIN_TEST } from '@utility/constants';
 import { enableAdultMode } from '@redux/actions/screenAction';
 import { VodApi } from '@api';
 import { Vod } from '@models';
+import { CLangKey } from '@constants';
 
 type AdultVodReturnType = {
   data: {
@@ -171,7 +172,7 @@ export default ({ navigation, route }: RootStackScreenProps<'午夜场剧情'>) 
                         color: colors.muted,
                         paddingTop: 12,
                       }}>
-                      已经到底了
+                      {CLangKey.noAnyMore.tr()}
                     </Text>
                   )}
                 </View>

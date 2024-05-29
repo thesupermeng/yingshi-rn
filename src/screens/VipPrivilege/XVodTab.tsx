@@ -15,6 +15,7 @@ import FastImage from "../../components/common/customFastImage";
 import { AppsApi } from "@api";
 import { User } from "@models";
 import { UserStateType } from "@redux/reducers/userReducer";
+import { CLangKey } from "@constants";
 interface Props {
   handleRejectEighteenPlus: any;
 }
@@ -232,7 +233,7 @@ export default function XVodTab({
                     color: colors.muted,
                     paddingTop: 12,
                   }}>
-                  已经到底了
+                  {CLangKey.noAnyMore.tr()}
                 </Text>
               )}
             </View>
