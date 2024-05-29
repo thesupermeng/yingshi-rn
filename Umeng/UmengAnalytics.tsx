@@ -1,7 +1,8 @@
 import AnalyticsUtil from './AnalyticsUtil';
 import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
-import { ANALYTICS_CUSTOM, ANALYTICS_FIREBASE, ANALYTICS_UMENG } from '@utility/constants';
+import { Adjust, AdjustEvent } from 'react-native-adjust';
+import { ANALYTICS_FIREBASE, ANALYTICS_UMENG, UMENG_CHANNEL } from '@utility/constants';
 
 /**
 catalog
@@ -162,8 +163,6 @@ enum EventId {
     // Catalog
     Catalog_views = 'Catalog-views',
     Catalog_clicks = 'Catalog-clicks',
-    Catalog_x_views = 'Catalog-X_views',
-    Catalog_x_clicks = 'Catalog-X_clicks',
 
     // Plays
     Plays_views = 'Play-views',
@@ -219,7 +218,6 @@ enum CustomEventKey {
 
     // Catalog
     Catalog = 'catalog',
-    CatalogX = 'catalog_x',
 
     // Plays
     Plays = 'play',
@@ -230,12 +228,22 @@ enum CustomEventKey {
     PlaysX_Plays_Times = 'play_x_plays_times',
 }
 
+enum AdjustEventKey {
+    AppBoot = 'qw69nm',
+    Plays_Plays_Times = 'wgq6ax',
+    PlaysX_Plays_Times = 'duez9q',
+    Search_Keyword = '2tt9zq',
+    UserCenter_Login_Success_Times = 'nqepso',
+    Payment_Success = '1twcjz',
+}
+
 export default class UmengAnalytics {
     static showLog: boolean = false;
     static disabled: boolean = false;
     static disabledUmeng: boolean = !ANALYTICS_UMENG;
     static disabledFirebase: boolean = !ANALYTICS_FIREBASE;
-    static disabledCustom: boolean = !ANALYTICS_CUSTOM;
+    static disabledAdjust: boolean = UMENG_CHANNEL != "HYTG001";
+    static disabledCustom: boolean = false;
 
     static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {
         if (this.disabled || this.disabledUmeng) return;
@@ -267,6 +275,33 @@ export default class UmengAnalytics {
         if (this.showLog) console.log('trigger firebase event id:', type);
     }
 
+    static #triggerAdjustEvent = (eventId: AdjustEventKey, body: any = {}) => {
+        if (this.disabled || this.disabledAdjust) return;
+
+        const adjustEvent = new AdjustEvent(eventId);
+
+        if (eventId === AdjustEventKey.Payment_Success) {
+            if (!('transactionId' in body)) body.transactionId = new Date().toUTCString();
+            if (!('price' in body)) body.price = 0.0;
+            // if (!('currency' in body)) body.currency = 'CNY';
+            body.currency = 'CNY';
+
+            if ('price' in body) {
+                body.price = parseFloat(body.price);
+            }
+
+            adjustEvent.setTransactionId(body.transactionId);
+            adjustEvent.setRevenue(body.price, body.currency);
+        } else {
+            Object.keys(body).forEach((key) => {
+                adjustEvent.addCallbackParameter(key.toString(), body.key?.toString());
+            });
+        }
+
+        Adjust.trackEvent(adjustEvent);
+        if (this.showLog) console.log('trigger adjust event id:', eventId);
+    }
+
     static #triggerCustomEvent = (type: 'view' | 'click' | 'count', eventId: CustomEventKey | string, data: {
         name?: string | undefined;
         ads_slot_id?: number | undefined;
@@ -291,6 +326,7 @@ export default class UmengAnalytics {
         // this.#triggerUmengEvent(EventId.Home_views);
         this.#triggerFirebaseEvent('boot');
         // this.#triggerCustomEvent('view', CustomEventKey.Home);
+        this.#triggerAdjustEvent(AdjustEventKey.AppBoot);
     }
 
     // ============================== Home ==============================
@@ -746,6 +782,7 @@ export default class UmengAnalytics {
         this.#triggerUmengEvent(EventId.UserCenter_login_success_times);
         this.#triggerFirebaseCustomEvent(EventId.UserCenter_login_success_times);
         this.#triggerCustomEvent('view', CustomEventKey.UserCenter_Login_Success_Times);
+        this.#triggerAdjustEvent(AdjustEventKey.UserCenter_Login_Success_Times);
     }
 
     static userCenterVipLoginSuccessTimesAnalytics = () => {
@@ -800,26 +837,23 @@ export default class UmengAnalytics {
                 desc_1: keyword,
             }
         });
+        this.#triggerAdjustEvent(AdjustEventKey.Search_Keyword, {
+            'keyword': keyword,
+        });
     }
 
 
     // ============================== Catalog ==============================
-    static catalogViewsAnalytics = ({ category_id, category_name, isXmode = false }: { category_id: string, category_name: string, isXmode?: boolean }) => {
-        let evendId: EventId = EventId.Catalog_views;
-
-        if (isXmode) {
-            evendId = EventId.Catalog_x_views;
-        }
-
-        this.#triggerUmengEvent(evendId, {
+    static catalogViewsAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
+        this.#triggerUmengEvent(EventId.Catalog_views, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerFirebaseCustomEvent(evendId, {
+        this.#triggerFirebaseCustomEvent(EventId.Catalog_views, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerCustomEvent('view', isXmode ? CustomEventKey.CatalogX : CustomEventKey.Catalog, {
+        this.#triggerCustomEvent('view', CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
                 desc_2: 'category.name:' + category_name,
@@ -827,22 +861,16 @@ export default class UmengAnalytics {
         });
     }
 
-    static catalogClicksAnalytics = ({ category_id, category_name, isXmode = false }: { category_id: string, category_name: string, isXmode?: boolean }) => {
-        let evendId: EventId = EventId.Catalog_clicks;
-
-        if (isXmode) {
-            evendId = EventId.Catalog_x_clicks;
-        }
-
-        this.#triggerUmengEvent(evendId, {
+    static catalogClicksAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
+        this.#triggerUmengEvent(EventId.Catalog_clicks, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerFirebaseCustomEvent(evendId, {
+        this.#triggerFirebaseCustomEvent(EventId.Catalog_clicks, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerCustomEvent('click', isXmode ? CustomEventKey.CatalogX : CustomEventKey.Catalog, {
+        this.#triggerCustomEvent('click', CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
                 desc_2: 'category.name:' + category_name,
@@ -904,6 +932,12 @@ export default class UmengAnalytics {
                 }
             },
         );
+        this.#triggerAdjustEvent(isXmode
+            ? AdjustEventKey.PlaysX_Plays_Times
+            : AdjustEventKey.Plays_Plays_Times, {
+            'vod_id': vod_id,
+            'vod_name': vod_name,
+        });
     }
 
     static playsShareClicksAnalytics = () => {
@@ -1088,6 +1122,23 @@ export default class UmengAnalytics {
             ads_slot_id: ads_slot_id,
             ads_id: ads_id,
             name: ads_name,
+        });
+    }
+
+    // ============================== Payment ==============================
+    static paymentSuccessTimesAnalytics = ({
+        transactionId,
+        price,
+        currency,
+    }: {
+        transactionId: string,
+        price: string,
+        currency: string,
+    }) => {
+        this.#triggerAdjustEvent(AdjustEventKey.Payment_Success, {
+            transactionId,
+            price,
+            currency,
         });
     }
 }

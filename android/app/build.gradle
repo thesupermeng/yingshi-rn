@@ -7,6 +7,10 @@ apply from: 'topon_china.gradle'
 
 import com.android.build.OutputFile
 
+
+def ANALYTICS_FIREBASE = "0";
+def ANALYTICS_UMENG = "0";
+def Umeng_Channel_Label = "DEFAULT";
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -104,8 +108,10 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
-        versionCode 73
-        versionName "1.0.0"
+        versionCode 72
+        versionName "1.7.8"
+        resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
+        resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
@@ -180,8 +186,9 @@ android {
             //     output.outputFile.parent,
             //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
+        
         variant.outputs.all {
-            outputFileName = "doraTV-${variant.versionName}-google_play.apk"
+           outputFileName = "doraTV-${variant.versionName}-${Umeng_Channel_Label}.apk"
         }
     }
 }
@@ -201,15 +208,21 @@ repositories{
 }
 
 dependencies {
+    // adjust
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
     implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation fileTree(include:['*.jar'], dir:'libs')
     // implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
-    implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
-    implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
-    implementation (name:'umeng-common-9.6.8', ext:'aar')
-    implementation (name:'uyumao-1.1.2', ext:'aar')
+    if(ANALYTICS_UMENG == "1"){
+        implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
+        implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
+        implementation (name:'umeng-common-9.6.8', ext:'aar')
+        implementation (name:'uyumao-1.1.2', ext:'aar')
+    }
     implementation (name:'anythink_reactnativejs_bridge', ext:'aar')
     
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")

@@ -2,6 +2,7 @@ import { RootState } from '@redux/store';
 import { CustomEventAnalytic } from '../../../Umeng/EventAnalytic';
 import {
   APP_NAME_CONST,
+  ADJUST_APP_KEY,
   APPSFLYER_APPID,
   APPSFLYER_DEVKEY,
   EVENT_CUSTOM_ON,
@@ -26,6 +27,9 @@ import { VodApi } from '@api';
 import { playVod } from './vodActions';
 
 let _firebaseNotificationListener: any = null;
+
+import { Adjust, AdjustConfig } from 'react-native-adjust';
+
 
 export const onBootApp =
   ({ } = {}) =>
@@ -140,6 +144,10 @@ export const onBootApp =
         // ========== custom event ==========
         CustomEventAnalytic.foundLocalPush();
 
+        // ========== adjust event ==========
+        if (UMENG_CHANNEL == "HYTG001") {
+        Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
+        }
         if (EVENT_CUSTOM_ON) {
           CustomEventAnalytic.start();
         }
@@ -176,6 +184,11 @@ export const onCloseApp =
 
         // ========== custom event ==========
         CustomEventAnalytic.close();
+
+        if (UMENG_CHANNEL == "HYTG001") {
+        // ========== adjust event ==========
+        Adjust.componentWillUnmount();
+        }
 
         // ========== vip promotion modal ==========
         if (backgroundState.vipPromotionIntervel) {

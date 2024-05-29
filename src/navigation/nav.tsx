@@ -296,7 +296,7 @@ export default () => {
     const result = await UserApi.getUserDetails();
 
     if (result == null) {
-      await AsyncStorage.removeItem("showAds");
+      // await AsyncStorage.removeItem("showAds");
       return;
     }
 
