@@ -2,7 +2,7 @@ import AnalyticsUtil from './AnalyticsUtil';
 import analytics from '@react-native-firebase/analytics';
 import { CustomEventAnalytic } from './EventAnalytic';
 import { Adjust, AdjustEvent } from 'react-native-adjust';
-import { ANALYTICS_FIREBASE, ANALYTICS_UMENG, UMENG_CHANNEL } from '@utility/constants';
+import { ANALYTICS_ADJUST, ANALYTICS_CUSTOM, ANALYTICS_FIREBASE, ANALYTICS_UMENG, UMENG_CHANNEL } from '@utility/constants';
 
 /**
 catalog
@@ -163,6 +163,8 @@ enum EventId {
     // Catalog
     Catalog_views = 'Catalog-views',
     Catalog_clicks = 'Catalog-clicks',
+    Catalog_x_views = 'Catalog-X_views',
+    Catalog_x_clicks = 'Catalog-X_clicks',
 
     // Plays
     Plays_views = 'Play-views',
@@ -218,6 +220,7 @@ enum CustomEventKey {
 
     // Catalog
     Catalog = 'catalog',
+    CatalogX = 'catalog_x',
 
     // Plays
     Plays = 'play',
@@ -242,8 +245,8 @@ export default class UmengAnalytics {
     static disabled: boolean = false;
     static disabledUmeng: boolean = !ANALYTICS_UMENG;
     static disabledFirebase: boolean = !ANALYTICS_FIREBASE;
-    static disabledAdjust: boolean = UMENG_CHANNEL != "HYTG001";
-    static disabledCustom: boolean = false;
+    static disabledAdjust: boolean = !ANALYTICS_ADJUST;
+    static disabledCustom: boolean = !ANALYTICS_CUSTOM;
 
     static #triggerUmengEvent = (eventId: EventId, body: any = {}) => {
         if (this.disabled || this.disabledUmeng) return;
@@ -844,16 +847,22 @@ export default class UmengAnalytics {
 
 
     // ============================== Catalog ==============================
-    static catalogViewsAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
-        this.#triggerUmengEvent(EventId.Catalog_views, {
+    static catalogViewsAnalytics = ({ category_id, category_name, isXmode = false }: { category_id: string, category_name: string, isXmode?: boolean }) => {
+        let evendId: EventId = EventId.Catalog_views;
+
+        if (isXmode) {
+            evendId = EventId.Catalog_x_views;
+        }
+
+        this.#triggerUmengEvent(evendId, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerFirebaseCustomEvent(EventId.Catalog_views, {
+        this.#triggerFirebaseCustomEvent(evendId, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerCustomEvent('view', CustomEventKey.Catalog, {
+        this.#triggerCustomEvent('view', isXmode ? CustomEventKey.CatalogX : CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
                 desc_2: 'category.name:' + category_name,
@@ -861,16 +870,22 @@ export default class UmengAnalytics {
         });
     }
 
-    static catalogClicksAnalytics = ({ category_id, category_name }: { category_id: string, category_name: string }) => {
-        this.#triggerUmengEvent(EventId.Catalog_clicks, {
+    static catalogClicksAnalytics = ({ category_id, category_name, isXmode = false }: { category_id: string, category_name: string, isXmode?: boolean }) => {
+        let evendId: EventId = EventId.Catalog_clicks;
+
+        if (isXmode) {
+            evendId = EventId.Catalog_x_clicks;
+        }
+
+        this.#triggerUmengEvent(evendId, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerFirebaseCustomEvent(EventId.Catalog_clicks, {
+        this.#triggerFirebaseCustomEvent(evendId, {
             'category_id': category_id,
             'category_name': category_name,
         });
-        this.#triggerCustomEvent('click', CustomEventKey.Catalog, {
+        this.#triggerCustomEvent('click', isXmode ? CustomEventKey.CatalogX : CustomEventKey.Catalog, {
             params: {
                 desc_1: 'category.id:' + category_id,
                 desc_2: 'category.name:' + category_name,

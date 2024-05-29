@@ -8,7 +8,7 @@ apply from: 'topon_china.gradle'
 import com.android.build.OutputFile
 
 
-def ANALYTICS_FIREBASE = "0";
+def ANALYTICS_FIREBASE = "1";
 def ANALYTICS_UMENG = "0";
 def Umeng_Channel_Label = "DEFAULT";
 /**
@@ -108,8 +108,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // ABB version 10 , 19jan
-        versionCode 72
-        versionName "1.7.8"
+        versionCode 73
+        versionName "1.0.0"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
         resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"

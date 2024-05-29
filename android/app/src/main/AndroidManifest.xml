@@ -89,12 +89,12 @@
             android:resource="@color/black" />
 
         <!-- adjust -->
-        <receiver android:name="com.adjust.sdk.AdjustReferrerReceiver"
+        <!-- <receiver android:name="com.adjust.sdk.AdjustReferrerReceiver"
               android:exported="true">
             <intent-filter>
               <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
-       </receiver>
+       </receiver> -->
 
     </application>
 </manifest>

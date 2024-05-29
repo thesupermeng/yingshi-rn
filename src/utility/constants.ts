@@ -170,7 +170,8 @@ export const INIT_FIREBASE = false;
 
 export const ADJUST_APP_KEY = '9cnz9ep9bhmo';
 
-export const ANALYTICS_FIREBASE = false;
+export const ANALYTICS_FIREBASE = true;
 export const ANALYTICS_UMENG = false;
+export const ANALYTICS_ADJUST = false;
 export const ANALYTICS_CUSTOM = true;
 

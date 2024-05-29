@@ -1,8 +1,8 @@
-package com.yingshitv;
+package com.doratvhd;
 
 import static com.facebook.react.views.textinput.ReactEditText.DEBUG_MODE;
 
-import com.yingshitv.SQLiteDBHelper;
+import com.doratvhd.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -18,9 +18,9 @@ import android.content.Intent;
 import android.database.CursorWindow;
 import android.os.Bundle;
 
-import com.yingshitv.RNUMConfigure;
+import com.doratvhd.RNUMConfigure;
 
-import com.yingshitv.SplashAdShowActivity;
+import com.doratvhd.SplashAdShowActivity;
 import android.content.Context;
 import android.util.Log;
 

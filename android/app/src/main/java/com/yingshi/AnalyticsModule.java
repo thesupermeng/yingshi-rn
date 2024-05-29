@@ -24,7 +24,7 @@ import com.facebook.react.bridge.ReadableType;
 /*/if
 import com.umeng.analytics.MobclickAgent;
 //else*/
-import com.yingshitv.MobclickAgent;
+import com.doratvhd.MobclickAgent;
 //endif
 
 public class AnalyticsModule extends ReactContextBaseJavaModule {
