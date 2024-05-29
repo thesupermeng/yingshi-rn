@@ -3,13 +3,14 @@ import ScreenContainer from "../../components/container/screenContainer";
 import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 import { useQuery } from "@tanstack/react-query";
 import { VodApi } from "@api";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import HomeNav from "../../components/tabNavigate/homeNav";
 import { CLangKey } from "@constants";
 import VodListVerticalVip from "../VipPrivilege/vodListVerticalVip";
 import { View } from "react-native";
 import CustomFastImage from "../../components/common/customFastImage";
 import EmptyList from "../../components/common/emptyList";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 
 export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
     const typeId = route.params?.type_id ?? -1;
@@ -34,6 +35,37 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
             category: navId === -1 ? undefined : vodCategories?.find((category) => category.id === navId)?.category_name
         }),
     });
+
+    // ========== for analytics - start ==========
+    useEffect(() => {
+        if (vodCategories === undefined || vodCategories.length === 0) return;
+
+        const category = vodCategories.find((category) => category.id === navId);
+
+        if (category) {
+            UmengAnalytics.catalogViewsAnalytics({
+                category_id: category.id.toString(),
+                category_name: category.category_name,
+                isXmode: true,
+            });
+        }
+    }, [navId, vodCategories])
+
+
+    const onVodPress = () => {
+        if (vodCategories === undefined || vodCategories.length === 0) return;
+
+        const category = vodCategories.find((category) => category.id === navId);
+
+        if (category) {
+            UmengAnalytics.catalogClicksAnalytics({
+                category_id: category.id.toString(),
+                category_name: category.category_name,
+                isXmode: true,
+            });
+        }
+    }
+    // ========== for analytics - end ==========
 
     const onTabPress = useCallback((target?: string) => {
         const targetStr = target?.substring(0, target.indexOf("-"));
@@ -109,6 +141,7 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
                                 minNumPerRow={2}
                                 heightToWidthRatio={1 / 1.814}
                                 playerMode="adult"
+                                onPress={onVodPress}
                             />
                         }
 
