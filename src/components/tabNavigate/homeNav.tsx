@@ -19,6 +19,7 @@ interface Props {
   navId: number,
   tabItemStyle?: ViewStyle,
   tabItemTextStyle?: TextStyle,
+  swipeEnabled?: boolean,
 }
 
 export default function HomeNav({
@@ -31,6 +32,7 @@ export default function HomeNav({
   navId,
   tabItemStyle,
   tabItemTextStyle,
+  swipeEnabled = true,
 }: Props) {
 
   const { colors, textVariants } = useTheme();
@@ -99,6 +101,7 @@ export default function HomeNav({
         <Tab.Navigator
           keyboardDismissMode="none"
           screenOptions={() => ({
+            swipeEnabled: swipeEnabled,
             tabBarScrollEnabled: true,
             tabBarIndicatorStyle: {
               opacity: 0,

@@ -95,6 +95,7 @@ export default ({ navigation, route }: RootStackScreenProps<'XVodCatalog'>) => {
         <View>
             <HomeNav
                 navId={navId}
+                swipeEnabled={false}
                 onTabPress={onTabPress}
                 onTabFocus={onTabFocus}
                 onTabSwipe={onTabSwipe}
