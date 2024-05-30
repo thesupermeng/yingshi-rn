@@ -73,8 +73,8 @@ function DownloadVodCard({
   const totalFileSizeInMB = download.episodes.reduce((prev, curr) => prev + curr.sizeInBytes, 0) / 1024 / 1024  // size in MiB
 
   let totalNumberOfEpisodes, totalDownloadedEpisodes, totalCompleteEpisodes;
-  if (download.vod.vod_sources) {
-    const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources.shift()
+  if (download.vod.vod_sources && download.vod.vod_sources.length > 0) {
+    const vodSource = download.vod.vod_sources.find(source => source.source_id === download.vod.preferred_source_id) ?? download.vod.vod_sources[0]
     totalNumberOfEpisodes = vodSource ? vodSource.vod_play_list.url_count : 0
     totalDownloadedEpisodes = download.episodes.length
   }
