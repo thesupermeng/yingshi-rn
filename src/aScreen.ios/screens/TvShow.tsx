@@ -76,7 +76,7 @@ const TvShows = ({ navigation }: BottomTabScreenProps<any>) => {
                     tintColor={colors.primary}
                 />
             }
-            data={data?.categories ?? []}
+            data={data?.categories.filter((vod) => vod.vod_list.length > 0) ?? []}
             renderItem={renderItems}
         />
     </ScreenContainer>

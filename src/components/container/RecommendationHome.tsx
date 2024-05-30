@@ -784,20 +784,20 @@ const RecommendationHome = ({
                   data.categories.filter((category) => !category.type_name.toLowerCase().includes('trending')).map(categoriesMap)} */}
 
                 {data?.latest_movies &&
-                  data.latest_movies.length > 0 &&
-                  data.latest_movies.map((item, index) => vodMap({ item, index }))}
+                  data.latest_movies.filter((vod) => vod.vod_list.length > 0).length > 0 &&
+                  data.latest_movies.filter((vod) => vod.vod_list.length > 0).map((item, index) => vodMap({ item, index }))}
 
                 {data?.latest_tv_shows &&
-                  data.latest_tv_shows.length > 0 &&
-                  data.latest_tv_shows.map((item, index) => vodMap({ item, index }))}
+                  data.latest_tv_shows.filter((vod) => vod.vod_list.length > 0).length > 0 &&
+                  data.latest_tv_shows.filter((vod) => vod.vod_list.length > 0).map((item, index) => vodMap({ item, index }))}
 
                 {data?.svod &&
-                  data.svod.length > 0 &&
-                  data.svod.map((item, index) => vodMap({ item, index, adultMode: true }))}
+                  data.svod.filter((vod) => vod.vod_list.length > 0).length > 0 &&
+                  data.svod.filter((vod) => vod.vod_list.length > 0).map((item, index) => vodMap({ item, index, adultMode: true }))}
               </View>
             </>
           }
-          data={data.categories ?? []}
+          data={data.categories.filter((vod) => vod.vod_list.length > 0) ?? []}
           // data={results}
           onEndReached={() => {
             // if (hasNextPage && !isFetchingNextPage && !isFetching) {
