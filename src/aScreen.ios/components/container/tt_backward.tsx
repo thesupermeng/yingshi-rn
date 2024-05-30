@@ -333,7 +333,7 @@ export default function ScreenContainer({
           stickyHeaderIndices={[0]}
           contentContainerStyle={{ paddingBottom: 30 }}
         >
-          <StatusBar backgroundColor="black" barStyle="dark-content" />
+          <StatusBar backgroundColor="black" barStyle="light-content" />
           {header}
           <View
             style={{
@@ -360,7 +360,7 @@ export default function ScreenContainer({
             
           }}
         >
-          <StatusBar backgroundColor="black" barStyle="dark-content" />
+          <StatusBar backgroundColor="black" barStyle="light-content" />
           <View
             style={{
               ...styles.innerContainer,
