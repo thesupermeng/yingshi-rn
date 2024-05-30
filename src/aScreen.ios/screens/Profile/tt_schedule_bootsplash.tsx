@@ -30,6 +30,7 @@ import EditIcn from "@static/images/profile/teamNavigationMinimize.svg";
 import VipIcon from "@static/images/halfAjax.svg";
 import VipArrow from "@static/images/trophyDataActive.svg";
 import AddIcon from "@static/images/vip/interstitialStore.svg";
+import UploadVideo from "@static/images/interstitialStore.svg";
 
 import {
   hideBottomSheetAction,
@@ -1710,7 +1711,11 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )}
-
+            <ShowMoreButton
+              text="上传视频"
+              leftIcon={<UploadVideo style={{ color: colors.button }} />}
+              onPress={() => navigation.navigate("上传")}
+            />
             <ShowMoreButton
               text="我的收藏"
               leftIcon={<CollectionIcon style={{ color: colors.button }} />}
