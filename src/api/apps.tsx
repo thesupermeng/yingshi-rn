@@ -170,14 +170,14 @@ export class AppsApi {
                 },
             });
 
-            if (result.success === false) {
+            if (result.success === false && result.message !== 'no ads found') {
                 throw result.message;
             }
 
             return result.data != null ? Ads.fromJson(result.data) : undefined;
 
         } catch (e: any) {
-            console.error(`[Error getHomePages}]: ${e.toString()}`);
+            console.error(`[Error getHomeHeaderAds}]: ${e.toString()}`);
             throw e;
         }
     };
