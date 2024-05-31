@@ -480,6 +480,7 @@ const RecommendationHome = ({
               onPress={() => {
                 navigation.navigate("片库", {
                   type_id: item.type_id,
+                  class: item.type_name,
                 });
               }}
             />
@@ -514,11 +515,12 @@ const RecommendationHome = ({
           onPress={() => {
             if (adultMode) {
               navigation.navigate("XVodCatalog", {
-                type_id: -1//item.type_id,
+                type_id: -1,//item.type_id,
               });
             } else {
               navigation.navigate("片库", {
                 type_id: item.type_id,
+                class: item.type_name,
               });
             }
           }}

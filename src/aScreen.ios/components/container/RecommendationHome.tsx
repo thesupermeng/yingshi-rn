@@ -248,6 +248,7 @@ const RecommendationHome = ({
           onPress={() => {
             navigation.navigate("片库", {
               type_id: item.type_id,
+              class: item.type_name,
             });
           }}
         />
@@ -282,6 +283,7 @@ const RecommendationHome = ({
             } else {
               navigation.navigate("片库", {
                 type_id: item.type_id,
+                class: item.type_name,
               });
             }
           }}
