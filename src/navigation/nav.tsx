@@ -169,6 +169,8 @@ export default () => {
   const HomeTabScreen = useCallback(() => {
     const tabConfig: any[] = YSConfig.instance.tabConfig as any;
     const showShort = tabConfig?.find((tab) => tab.id === 2) ?? false;
+    const showMovie = tabConfig?.find((tab) => tab.id === 3) ?? false;
+    const showTvshow = tabConfig?.find((tab) => tab.id === 4) ?? false;
 
     return (
       <HomeTab.Navigator
@@ -285,8 +287,8 @@ export default () => {
           <HomeTab.Screen name="会员中心" component={SportAndX} />
         }
         <HomeTab.Screen name="播单" component={PlaylistScreen} /> */}
-        <HomeTab.Screen name="电影" component={MoviesScreen} />
-        <HomeTab.Screen name="电视节目" component={TvShowScreen} />
+        {showMovie && <HomeTab.Screen name="电影" component={MoviesScreen} />}
+        {showTvshow && <HomeTab.Screen name="电视节目" component={TvShowScreen} />}
         <HomeTab.Screen name="我的" component={ProfileScreen} />
       </HomeTab.Navigator>
     );
