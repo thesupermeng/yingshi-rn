@@ -60,16 +60,19 @@ export class CApi {
         query,
         showErrorToast = false,
         isFullUrl = false,
+        timeout,
     }: {
         query?: { [key: string]: any },
         showErrorToast?: boolean,
         isFullUrl?: boolean,
+        timeout?: number,
     } = {}): Promise<ResponseModel> => {
         return this.#sendApiRequest(endpoint, {
             method: 'get',
             query,
             showErrorToast,
             isFullUrl,
+            timeout,
         });
     }
 
@@ -78,11 +81,13 @@ export class CApi {
         query,
         showErrorToast = false,
         isFullUrl = false,
+        timeout,
     }: {
         body?: { [key: string]: any },
         query?: { [key: string]: any },
         showErrorToast?: boolean,
         isFullUrl?: boolean,
+        timeout?: number,
     } = {}): Promise<ResponseModel> => {
         return this.#sendApiRequest(endpoint, {
             method: 'post',
@@ -90,6 +95,7 @@ export class CApi {
             query,
             showErrorToast,
             isFullUrl,
+            timeout,
         });
     }
 
@@ -98,11 +104,13 @@ export class CApi {
         query,
         showErrorToast = false,
         isFullUrl = false,
+        timeout,
     }: {
         body?: { [key: string]: any },
         query?: { [key: string]: any },
         showErrorToast?: boolean,
         isFullUrl?: boolean,
+        timeout?: number,
     } = {}): Promise<ResponseModel> => {
         return this.#sendApiRequest(endpoint, {
             method: 'put',
@@ -110,6 +118,7 @@ export class CApi {
             query,
             showErrorToast,
             isFullUrl,
+            timeout,
         });
     }
 
@@ -118,11 +127,13 @@ export class CApi {
         query,
         showErrorToast = false,
         isFullUrl = false,
+        timeout,
     }: {
         body?: { [key: string]: any },
         query?: { [key: string]: any },
         showErrorToast?: boolean,
         isFullUrl?: boolean,
+        timeout?: number,
     } = {}): Promise<ResponseModel> => {
         return this.#sendApiRequest(endpoint, {
             method: 'patch',
@@ -130,6 +141,7 @@ export class CApi {
             query,
             showErrorToast,
             isFullUrl,
+            timeout,
         });
     }
 
@@ -137,16 +149,19 @@ export class CApi {
         query,
         showErrorToast = false,
         isFullUrl = false,
+        timeout,
     }: {
         query?: { [key: string]: any },
         showErrorToast?: boolean,
         isFullUrl?: boolean,
+        timeout?: number,
     } = {}): Promise<ResponseModel> => {
         return this.#sendApiRequest(endpoint, {
             method: 'delete',
             query,
             showErrorToast,
             isFullUrl,
+            timeout,
         });
     }
 
@@ -156,12 +171,14 @@ export class CApi {
         query,
         showErrorToast = false,
         isFullUrl = false,
+        timeout,
     }: {
         method?: string,
         body?: { [key: string]: any },
         query?: { [key: string]: any },
         showErrorToast?: boolean,
         isFullUrl?: boolean,
+        timeout?: number,
     }): Promise<ResponseModel> => {
         if (this.#apiInstance === null) {
             await this.init();
@@ -176,6 +193,7 @@ export class CApi {
                 {
                     response = await this.#apiInstance!.get(url, {
                         params: query,
+                        timeout: timeout,
                     });
                     break;
                 }
@@ -183,6 +201,7 @@ export class CApi {
                 {
                     response = await this.#apiInstance!.put(url, body, {
                         params: query,
+                        timeout: timeout,
                     });
                     break;
                 }
@@ -190,6 +209,7 @@ export class CApi {
                 {
                     response = await this.#apiInstance!.patch(url, body, {
                         params: query,
+                        timeout: timeout,
                     });
                     break;
                 }
@@ -197,6 +217,7 @@ export class CApi {
                 {
                     response = await this.#apiInstance!.delete(url, {
                         params: query,
+                        timeout: timeout,
                     });
                     break;
                 }
@@ -205,6 +226,7 @@ export class CApi {
                 {
                     response = await this.#apiInstance!.post(url, body, {
                         params: query,
+                        timeout: timeout,
                     });
                 }
         }

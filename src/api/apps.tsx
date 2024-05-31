@@ -15,6 +15,7 @@ export class AppsApi {
         try {
             const result = await CApi.get(CEndpoint.appGetLocalIp, {
                 isFullUrl: true,
+                timeout: 5000,
             });
 
             if (result.success === false) {
