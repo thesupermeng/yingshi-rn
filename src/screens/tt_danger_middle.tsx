@@ -1638,6 +1638,7 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
   };
 
   return (
+   <>
     <ScreenContainer containerStyle={styles.containerStyle}>
       <View style={styles.titleTextContainer}>
         <Text style={styles.titleText}>随心看</Text>
@@ -1680,9 +1681,9 @@ function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
         selectedTab="common"
         onClose={onCloseAdOverlay}
       />
-
-      {isOffline && <NoConnection onClickRetry={checkConnection} />}
     </ScreenContainer>
+    {isOffline && <NoConnection onClickRetry={checkConnection} />}
+    </>
   );
 }
 
