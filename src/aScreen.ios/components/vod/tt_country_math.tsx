@@ -16,6 +16,8 @@ interface ttSmall {
     index?: number
 }
 
+
+
 export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1 }: ttSmall) {
     const { colors, textVariants, spacing } = useTheme();
     const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
@@ -25,14 +27,23 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
             onPress={onPress}
             disabled={isDisabled}
         >
-            <FastImage
-                style={{ ...styles.image, ...vodStyle }}
-                source={{
-                    uri: vod_img,
-                    priority: 'normal',
-                }}
-                useFastImage={index >= 0 && index < 3}
-            />
+            {
+                vod_img.startsWith("@") && <FastImage
+                    style={{ ...styles.image, ...vodStyle }}
+                    source={parseInt(vod_img.slice(1))}
+                    useFastImage={index >= 0 && index < 3}
+                />
+            }
+            {
+                !vod_img.startsWith("@") && <FastImage
+                    style={{ ...styles.image, ...vodStyle }}
+                    source={{
+                        uri: vod_img,
+                        priority: 'normal',
+                    }}
+                    useFastImage={index >= 0 && index < 3}
+                />
+            }
             {
                 shadowBottom && <LinearGradient
                     colors={['transparent', 'black']}

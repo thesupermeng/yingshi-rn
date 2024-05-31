@@ -41,7 +41,7 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import HomeScreen from "../screens/tt_terms";
+import CommScreen from "../screens/Comm/tt_comm";
 import PlaylistScreen from "../screens/Playlist/tt_catagory";
 import ProfileScreen from "../screens/Profile/tt_schedule_bootsplash";
 import WatchAnytime from "../screens/tt_danger_middle";
@@ -156,7 +156,7 @@ export default () => {
   const themeReducer = useAppSelector(
     ({ themeReducer }: ttOrange) => themeReducer
   );
-  const theme = themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
+  const theme = YingshiDarkTheme //themeReducer.theme ? YingshiDarkTheme : YingshiLightTheme;
 
   let hasNotch = DeviceInfo.hasNotch();
 
@@ -378,6 +378,30 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
+            } else if (route.name === "社区") {
+              icon = focused ? (
+                <HomeActiveTabIcon
+                  width={iconWidth}
+                  color={theme.icons.activeNavIconColor}
+                />
+              ) : (
+                <HomeTabIcon
+                  width={iconWidth}
+                  color={theme.icons.inactiveNavIconColor}
+                />
+              );
+            } else if (route.name === "发现") {
+              icon = focused ? (
+                <RankingsActiveTabIcon
+                  width={iconWidth}
+                  color={theme.icons.activeNavIconColor}
+                />
+              ) : (
+                <RankingsTabIcon
+                  width={iconWidth}
+                  color={theme.icons.inactiveNavIconColor}
+                />
+              );
             } else if (route.name === "我的") {
               icon = focused ? (
                 <ProfileActiveTabIcon
@@ -433,8 +457,10 @@ export default () => {
       >
         {ttConfigRecommendation.instance.tabConfig != null && ttConfigRecommendation.instance.len == 5 ? (
           <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
+            {/* <HomeTab.Screen name="首页" component={HomeScreen} /> */}
+            <HomeTab.Screen name="社区" component={CommScreen} />
             <HomeTab.Screen name="排行榜" component={PlaylistScreen} />
+            {/* <HomeTab.Screen name="发现" component={PlaylistScreen} /> */}
             {/* <HomeTab.Screen name="体育" component={MatchesScreen} /> */}
             <HomeTab.Screen name="上传" component={UploadVideo} />
             <HomeTab.Screen name="解说" component={WatchAnytime} />
@@ -442,10 +468,12 @@ export default () => {
           </>
         ) : (
           <>
-            <HomeTab.Screen name="首页" component={HomeScreen} />
-            <HomeTab.Screen name="解说" component={WatchAnytime} />
+            {/* <HomeTab.Screen name="首页" component={HomeScreen} /> */}
+            <HomeTab.Screen name="社区" component={CommScreen} />
+            <HomeTab.Screen name="排行榜" component={PlaylistScreen} />
+            {/* <HomeTab.Screen name="发现" component={PlaylistScreen} /> */}
             <HomeTab.Screen name="上传" component={UploadVideo} />
-            <HomeTab.Screen name="发现" component={PlaylistScreen} />
+            <HomeTab.Screen name="解说" component={WatchAnytime} />
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )}
@@ -1019,11 +1047,10 @@ export default () => {
       const currentTabName = homeState.routeNames[homeState.index];
       setAdsRoute(currentTabName);
     }
-    
 
-    
+    // tt 全部黑色主题
     // if (currentRoute.name === 'Home' && currentRoute.state?.index === 1 && !themeReducer.theme) {
-      // dispatch(toggleDarkTheme());
+    //   dispatch(toggleDarkTheme());
     // } else if (!(currentRoute.name === 'Home' && currentRoute.state?.index === 1) && themeReducer.theme) {
     //   dispatch(toggleLightTheme());
     // }

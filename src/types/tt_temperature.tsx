@@ -5,7 +5,7 @@ import { ttAppsOther, ttSport, ttAcceptedCountItem, ttTempGift, ttAnalytics, ttH
 import { ttFast } from "@models/tt_stations_right";
 
 export type ttReferrerExpand = {
-  首页: undefined;
+  社区: undefined;
   解说: undefined;
   发现: undefined;
   排行榜: undefined;
