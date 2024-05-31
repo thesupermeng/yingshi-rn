@@ -5,6 +5,7 @@ import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { useQuery, useQueries, UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
+  ttDoubanMeta,
   ttSide,
 } from "@type/tt_line_borderless";
 import {
@@ -26,17 +27,19 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { useAppSelector, useAppDispatch, useSelector } from "@hooks/tt_spec_download";
 import { ttOrange } from "@redux/tt_updates_bottom";
 import { ttBaiduNewinterstitial } from "@redux/reducers/tt_center";
-import HomeNav from "../../components/tabNavigate/tt_circle_view";
 
 import { AdsBannerContext } from "../../../contexts/tt_injury_reminder";
 
 import tt_humidity_guide from "../../../../Umeng/tt_humidity_guide";
 import { ttSinaPrediction } from "@api";
-import DeviceInfo from "react-native-device-info";
 import { ttGoal } from "@redux/reducers/tt_selected";
 import { ttFast } from "@models/tt_stations_right";
 import Commentary  from "./tt_commentary";
 import Community  from "./tt_community";
+
+import Jieshuo from  './tt_jieshuo.json';
+import YingPin from  './tt_yingpin.json';
+import { playVod } from "@redux/actions/tt_activity";
 
 function tt_comm({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -51,6 +54,19 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
   const userState = useSelector<ttGoal>('userReducer');
   const isVip = ttFast.isVip(userState.user);
   const bottomTabHeight = useBottomTabBarHeight();
+  const dispatch = useAppDispatch();
+
+  const [jieshuo] = useState({
+    comm_id: 0,
+    comm_name: '解说',
+    vod_list: Jieshuo.vod_list as any
+  })
+
+  const [yingpin, setYingpin] = useState({
+    comm_id: 1,
+    comm_name: '社区',
+    meta_list: YingPin.vod_list as any
+  })
 
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
@@ -153,8 +169,21 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
             ]}
             renderItem={({item, index, separators}) => (
               <>
-                { item.comp === 'commentary' && <Commentary/> }
-                { item.comp === 'community' && <Community/> }
+                { item.comp === 'commentary' && 
+                  <Commentary playlist={jieshuo} onPress={(item) => {
+                    console.log('解说 pressed', item)
+                    navigation.navigate("解说", {
+                      screen: "解说",
+                    });
+                  }}/> 
+                }
+                { item.comp === 'community' && 
+                  <Community playlist = {yingpin} onPress={(item) => {
+                    console.log('社区 pressed', item)
+                    dispatch(playVod(item));
+                    navigation.navigate('播放IOS', {vod_id: item.vod_id});
+                  }}/> 
+                }
               </>
             )}
           />

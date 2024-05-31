@@ -7,22 +7,23 @@ import { CommentCard } from "./tt_sports_actions";
 
 type ttModity = {
     comments: ttTempGift[],
+    total?: number,
     onlyShow?: number,
     onCommentTap: () => void,
 }
 
 export const VodCommentBox = ({
     comments,
+    total = 0,
     onlyShow = 3,
     onCommentTap,
 }: ttModity) => {
     const { colors, textVariants } = useTheme();
-    const navigation = useNavigation();
-
+    const totalComment = total > 0 ? total : comments.length;
     return (
         <View>
             <Text style={{ ...textVariants.body }}>
-                影评 ({comments.length})
+                影评 ({ totalComment })
             </Text>
             { }
             {comments.length === 0 && (
@@ -51,7 +52,7 @@ export const VodCommentBox = ({
                     commentItem={comment} />
             ))}
 
-            {comments.length > onlyShow && (
+            {totalComment > onlyShow && (
                 <TouchableOpacity activeOpacity={0.85}
                     onPress={onCommentTap}
                 >
