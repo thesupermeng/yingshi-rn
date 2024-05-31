@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="textRelatedTitle" width="259.5" height="50"/>
+        <image name="textRelatedTitle" width="260" height="50"/>
     </resources>
 </document>

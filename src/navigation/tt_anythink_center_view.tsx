@@ -5,6 +5,7 @@ import FastImage from "../components/common/tt_connection";
 import Nav from "../../src/navigation/tt_header_tumbnail_view";
 import { EventSpash } from "../../src/navigation/tt_found_mail";
 import NavIos from "@iosScreen/navigation/tt_header_tumbnail_view";
+import LaunchIcon from "../../static/images/img_launch.svg"
 
 import {
   TOTAL_VIDEO_TO_DOWNLOAD,
@@ -954,8 +955,7 @@ export default () => {
                backgroundColor: "#161616",
              }}
            >
-             <FastImage
-               source={require("@static/images/img_launch.gif")}
+             <LaunchIcon
                style={{
                  width: 240,
                  height: 240,
@@ -963,8 +963,6 @@ export default () => {
                  bottom: 100,
                  zIndex: -1,
                }}
-               resizeMode={"contain"}
-               useFastImage={false}
              />
            </View>
           ) : (
