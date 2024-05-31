@@ -1291,11 +1291,11 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
                           >
                             {CLangKey.share.tr()}：
                           </Text>
-                          <FacebookIcon />
-                          <InstagramIcon />
-                          <WhatsappIcon />
-                          <XtwitterIcon />
-                          <CopyLinkIcon />
+                          <FacebookIcon width={35} />
+                          <InstagramIcon width={35} />
+                          <WhatsappIcon width={35} />
+                          <XtwitterIcon width={35} />
+                          <CopyLinkIcon width={35} />
                           {/* <WeChatIcon />
                           <PYQIcon />
                           <SinaIcon />

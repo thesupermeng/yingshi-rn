@@ -763,7 +763,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                     })()}
                   </Text>
                   <TouchableOpacity onPress={onShare}>
-                    <View style={{ ...styles.share, gap: 10 }}>
+                    <View style={{ ...styles.share, gap: 10, marginTop: 10 }}>
                       <Text
                         style={{
                           ...textVariants.subBody,
@@ -772,11 +772,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
                       >
                         {CLangKey.share.tr()}：
                       </Text>
-                      <FacebookIcon />
-                      <InstagramIcon />
-                      <WhatsappIcon />
-                      <XtwitterIcon />
-                      <CopyLinkIcon />
+                      <FacebookIcon width={35} />
+                      <InstagramIcon width={35} />
+                      <WhatsappIcon width={35} />
+                      <XtwitterIcon width={35} />
+                      <CopyLinkIcon width={35} />
                       {/* <WeChatIcon />
                       <PYQIcon />
                       <SinaIcon />
