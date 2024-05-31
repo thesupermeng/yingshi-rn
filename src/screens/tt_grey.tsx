@@ -915,7 +915,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     <>
       <ImageBackground
         source={
-          selectedTab == "lockUntick"
+          selectedTab == "sport"
             ? require("./../../static/images/anytimeTargetFiled.png")
             : screenState.showAdultTab
               ? require("./../../static/images/androidRenewBell.png")
@@ -982,7 +982,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                         style={{
                           ...textVariants.bigHeader,
                           color: colors.text,
-                          fontSize: selectedTab == "lockUntick" ? 20 : 16,
+                          fontSize: selectedTab == "sport" ? 20 : 16,
                           
                           paddingBottom: 3,
                           marginBottom: 0,
@@ -999,7 +999,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                       >
                         <View
                           style={{
-                            borderTopWidth: selectedTab == "lockUntick" ? 2 : 0, 
+                            borderTopWidth: selectedTab == "sport" ? 2 : 0, 
                             borderTopColor: "#ffffff", 
                             maxWidth: 20,
                           }}
@@ -1121,7 +1121,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
             </TouchableOpacity>
           </View>
-          {selectedTab == "lockUntick" &&
+          {selectedTab == "sport" &&
             matchTabs &&
             matchTabs.length > 0 &&
             !isOffline && (
