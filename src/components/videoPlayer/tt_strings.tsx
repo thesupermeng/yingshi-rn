@@ -5383,8 +5383,8 @@ export default forwardRef<ttGreyBorderless, ttSmall>(
               </View>
             ) : (
               <FastImage
-                source={require("@static/images/blacklistTumbnail.gif")}
-                style={{ width: 100, height: 100 }}
+                source={require("@static/images/toponTerms.gif")}
+                style={{ width: 50, height: 50 }}
                 resizeMode={"contain"}
               />
             )}

@@ -2038,7 +2038,7 @@ const MatchScheduleList = ({
         >
           <FastImage
             style={{ height: 150, width: 150 }}
-            source={require("@static/images/reminderSans.gif")}
+            source={require("@static/images/blacklistTumbnail.gif")}
             resizeMode={"contain"}
           />
         </View>

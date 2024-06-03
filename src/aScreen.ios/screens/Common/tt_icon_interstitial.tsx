@@ -12521,7 +12521,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放IOS'>) => {
                           }}>
                           <FastImage
                             style={{height: 80, width: 80}}
-                            source={require('@static/images/toponTerms.gif')}
+                            source={require('@static/images/blacklistTumbnail.gif')}
                             resizeMode={'contain'}
                           />
                         </View>

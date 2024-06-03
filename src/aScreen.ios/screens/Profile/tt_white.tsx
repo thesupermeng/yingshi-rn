@@ -1807,7 +1807,7 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
             }}
           >
             <FastImage
-              source={require("@static/images/reminderSans.gif")}
+              source={require("@static/images/blacklistTumbnail.gif")}
               style={{
                 width: 150,
                 height: 150,

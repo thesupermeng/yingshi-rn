@@ -46,7 +46,7 @@ type ttUnselectedNative = {
   setPause: (pause: boolean) => void;
 };
 
-const homeLoadingGif = require('@static/images/reminderSans.gif');
+const homeLoadingGif = require('@static/images/blacklistTumbnail.gif');
 const loadingSpinnerGif = require('@static/images/toponTerms.gif');
 
 export default forwardRef<ttUnselectedNative, ttSmall>(

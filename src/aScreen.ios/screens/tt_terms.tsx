@@ -1591,7 +1591,7 @@ function tt_terms({ navigation }: BottomTabScreenProps<any>) {
               }}
             >
               <FastImage
-                source={require("@static/images/reminderSans.gif")}
+                source={require("@static/images/blacklistTumbnail.gif")}
                 style={{
                   width: 150,
                   height: 150,

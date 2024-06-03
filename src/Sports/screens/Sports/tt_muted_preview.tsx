@@ -2195,7 +2195,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
         ) : (
           <View style={styles.fetching}>
             <FastImage
-              source={require('@static/images/toponTerms.gif')}
+              source={require('@static/images/blacklistTumbnail.gif')}
               style={{ width: 100, height: 80, marginBottom: -20 }}
               resizeMode="contain"
             />
