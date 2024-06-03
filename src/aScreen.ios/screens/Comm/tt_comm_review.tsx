@@ -5,6 +5,7 @@ import React, { memo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CommenterIcon from "@static/images/commenter.svg";
 import FastImage from '../../components/common/tt_connection';
+import { color } from "react-native-reanimated";
 
 
 interface ttReviewProps {
@@ -72,6 +73,12 @@ function CommunityReview({ meta, display, onPress }: ttReviewProps) {
         resizeMode={'cover'}
         style={styles.largeImage}
       />
+      <Text style={styles.largeTitle} numberOfLines={1}>
+        { meta.vod_name }
+      </Text>
+      <Text style={styles.largeDescription} numberOfLines={1}>
+        { meta.type_name }
+      </Text>
       { meta.douban_reviews.length > 0 &&
         <View style={styles.largeComments}>
           <VodCommentBox
@@ -154,6 +161,12 @@ const styles = StyleSheet.create({
   largeDescription: {
     color: '#9C9C9C',
     fontSize: 14,
+    marginTop: 10
+  },
+  largeTitle: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: 'bold',
     marginTop: 10
   },
   share: {

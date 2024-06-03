@@ -31,7 +31,7 @@ function vodWithDescriptionListRank({
   const renderItem = useCallback(
     ({ item, index }: ttBing) => (
       <View style={{ flexDirection: "row", justifyContent: "center", paddingLeft: 20 }}>
-        <View style={{ width: 40, justifyContent: 'center' }}>
+        <View style={{ width: 50, justifyContent: 'center' }}>
           <Text style={{
             paddingLeft: 10,
             fontSize: 26,
@@ -50,7 +50,7 @@ function vodWithDescriptionListRank({
               dispatch(playVod(item));
               navigation.navigate("播放IOS", { vod_id: item.vod_id });
 
-              if (onClickSearchResult !== undefined) onClickSearchResult();
+              if (onClickSearchiResult !== undefined) onClickSearchResult();
               if (onClickCatalogVideo !== undefined) onClickCatalogVideo();
             }}
             index={index}

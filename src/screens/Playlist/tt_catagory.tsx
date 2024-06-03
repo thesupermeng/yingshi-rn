@@ -1014,8 +1014,8 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
             }}>
             {
               <FastImage
-                style={{ height: 80, width: 80 }}
-                source={require('@static/images/toponTerms.gif')}
+                style={{ height: 100, width: 100 }}
+                source={require('@static/images/blacklistTumbnail.gif')}
                 resizeMode={"contain"}
               />
             }
