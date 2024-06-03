@@ -10,4 +10,4 @@ import ATBannerRNSDK from './tt_phone';
 //   ATBannerRNSDK,
 // };
 
-export { ATRNSDK, ATInterstitialRNSDK };
+export { ATRNSDK, ATBannerRNSDK, ATInterstitialRNSDK, ATRewardedVideoRNSDK };

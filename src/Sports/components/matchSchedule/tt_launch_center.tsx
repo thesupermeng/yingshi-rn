@@ -925,7 +925,7 @@ const MatchScheduleList = ({
          break;
       }
    } while ((4 >= (3 * closeO.length)) && trashY);
-    const banner = bannerRes.ads;
+    const banner = bannerRes?.ads;
 
    while (selectg) {
        let floatingD = String.fromCharCode(108,95,53,53,95,97,114,114,97,121,0);
@@ -978,7 +978,7 @@ const MatchScheduleList = ({
          break;
       }
    } while (sourcel && (2 < (currentY.size / (Math.max(5, 6))) && (green2 + 2.86) < 5.92));
-    const bannerList = bannerRes.ads_list;
+    const bannerList = bannerRes?.ads_list;
 
       green2 -= parseInt(`${heartT}`);
        let clockW: Array<any> = [String.fromCharCode(105,99,119,114,115,105,95,106,95,53,53,0), String.fromCharCode(118,97,108,105,100,97,116,97,98,108,101,95,106,95,50,51,0)];

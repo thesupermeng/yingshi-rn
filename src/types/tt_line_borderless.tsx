@@ -24,7 +24,8 @@ export type ttSide = {
     categories: Array<ttEdit>,
     live_station_list: Array<ttAcceptedCountItem>,
     topic_list:  Array<any>,
-    yugaopian_list : Array<any>
+    yugaopian_list : Array<any>,
+    yingping_list : ttEdit
 
 
 }

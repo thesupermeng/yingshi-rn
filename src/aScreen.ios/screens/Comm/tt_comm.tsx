@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, memo, useContext } from "react";
+import React, { useCallback, useEffect, useState, memo, useContext, useMemo } from "react";
 import { Dimensions, FlatList, Platform, StyleSheet, View } from "react-native";
 import ScreenContainer from "../../components/container/tt_backward";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
@@ -38,16 +38,14 @@ import Commentary  from "./tt_commentary";
 import Community  from "./tt_community";
 
 import Jieshuo from  './tt_jieshuo.json';
-import YingPin from  './tt_yingpin.json';
 import { playVod } from "@redux/actions/tt_activity";
 
 function tt_comm({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
   const { colors, spacing } = useTheme();
-  const [navId, setNavId] = useState(0);
   const queryClient = useQueryClient();
   const [isOffline, setIsOffline] = useState(false);
-  const [showHomeLoading, setShowHomeLoading] = useState(false);
+  const [showHomeLoading, setShowHomeLoading] = useState(true);
   const settingsReducer: ttBaiduNewinterstitial = useAppSelector(
     ({ settingsReducer }: ttOrange) => settingsReducer
   );
@@ -62,39 +60,27 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
     vod_list: Jieshuo.vod_list as any
   })
 
-  const [yingpin, setYingpin] = useState({
-    comm_id: 1,
-    comm_name: '社区',
-    meta_list: YingPin.vod_list as any
-  })
-
-  const { data: navOptions, refetch } = useQuery({
-    queryKey: ["HomePageNavOptions"],
-    queryFn: () => ttSinaPrediction.getHomeNav(),
+  const {data: homeDatas, isFetching, refetch} = useQuery({
+    queryKey: ["HomePage", 1000],
+    queryFn: () => ttSinaPrediction.getHomePages(1000, isVip),
   });
 
-  const fetchData = useCallback((id: number) => ttSinaPrediction.getHomePages(id, isVip), []);
-
-  const data = useQueries({
-    queries: navOptions
-      ? navOptions.map((x: any) => ({
-        queryKey: ["HomePage", x.id === 0 ? 1001 : x.id],
-        queryFn: () => fetchData(x.id),
-      }))
-      : [],
-  });
+  const yingpinData = useMemo(() => {
+    setShowHomeLoading(isFetching);
+    return {
+      comm_id: 1,
+      comm_name: '社区',
+      meta_list: homeDatas?.yingping_list.vod_list ?? [] as any
+    };
+  }, [homeDatas, isFetching]);
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
     const offline = !(state.isConnected && ((state.isInternetReachable === true || state.isInternetReachable === null) ? true : false));
     setIsOffline(offline);
     if (!offline) {
-      handleRefresh(navId);
+      handleRefresh();
     }
-  };
-
-  const handleShowLoading = async () => {
-    setShowHomeLoading(false);
   };
 
   useEffect(() => {
@@ -106,7 +92,7 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
       setIsOffline(settingsReducer.isOffline);
       setShowHomeLoading(true);
       refetch();
-      handleRefresh(navId, true);
+      handleRefresh(true);
     } else if (settingsReducer.isOffline) {
       return () => {
         setIsOffline(settingsReducer.isOffline);
@@ -116,19 +102,19 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const handleRefresh = async (id: number, showloading: boolean = false) => {
+  const handleRefresh = async (showloading: boolean = false) => {
     if (showloading) {
       setIsRefreshing(true);
     }
     try {
-      await queryClient.resetQueries(["HomePage", id]);
+      await queryClient.resetQueries(["HomePage", 1000]);
       setIsRefreshing(false);
-      setNavId(id);
       setShowHomeLoading(false);
       return;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+    setShowHomeLoading(false);
   };
 
   useEffect(() => {
@@ -142,7 +128,7 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
           }
         });
 
-        await handleRefresh(navId, true);
+        await handleRefresh(true);
         setIsRefreshing(false);
       }
     };
@@ -150,48 +136,37 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
     const unsubscribe = navigation.addListener("tabPress", handleTabPress);
 
     return () => unsubscribe();
-  }, [navigation, isFocused, navId, handleRefresh]);
+  }, [navigation, isFocused, handleRefresh]);
 
-  const getContent = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: UseQueryResult<ttSide>;
-      index: number;
-    }) => {
-      return (
-        <>
-          <FlatList
-            data={[
-              {comp: 'commentary', key: '1'},
-              {comp: 'community', key: '2'},
-            ]}
-            renderItem={({item, index, separators}) => (
-              <>
-                { item.comp === 'commentary' && 
-                  <Commentary playlist={jieshuo} onPress={(item) => {
-                    console.log('解说 pressed', item)
-                    navigation.navigate("解说", {
-                      screen: "解说",
-                    });
-                  }}/> 
-                }
-                { item.comp === 'community' && 
-                  <Community playlist = {yingpin} onPress={(item) => {
-                    console.log('社区 pressed', item)
-                    dispatch(playVod(item));
-                    navigation.navigate('播放IOS', {vod_id: item.vod_id});
-                  }}/> 
-                }
-              </>
-            )}
-          />
-        </>
-      );
-    },
-    []
-  );
+  const getContent = useCallback(() => {
+    return (
+      <FlatList
+        data={[
+          {comp: 'commentary', key: '1'},
+          {comp: 'community', key: '2'},
+        ]}
+        renderItem={({item, index, separators}) => (
+          <>
+            { item.comp === 'commentary' && 
+              <Commentary playlist={jieshuo} onPress={(item) => {
+                console.log('解说 pressed', item)
+                navigation.navigate("解说", {
+                  screen: "解说",
+                });
+              }}/> 
+            }
+            { item.comp === 'community' && 
+              <Community playlist = {yingpinData} onPress={(item) => {
+                console.log('社区 pressed', item)
+                dispatch(playVod(item));
+                navigation.navigate('播放IOS', {vod_id: item.vod_id});
+              }}/> 
+            }
+          </>
+        )}
+      />
+    );
+  }, [yingpinData] );
 
   const { setNavbarHeight, reloadBanner } = useContext(AdsBannerContext);
 
@@ -199,50 +174,11 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
     setNavbarHeight(bottomTabHeight);
   }, [bottomTabHeight]);
 
-  useEffect(() => {
-    if (navOptions !== undefined && navOptions.length > 0) {
-      tt_humidity_guide.homeTabViewsAnalytics({
-        tab_id: navOptions[0].id.toString(),
-        tab_name: navOptions[0].name,
-      });
-    }
-  }, [navOptions])
-
-  useEffect(() => {
-    if (navOptions !== undefined && navOptions.length > 0) {
-      tt_humidity_guide.homeTabViewsAnalytics({
-        tab_id: navOptions[navId].id.toString(),
-        tab_name: navOptions[navId].name,
-      });
-    }
-  }, [navId])
-
-
-  const onTabPress = (target?: string) => {
-    const targetStr = target?.substring(0, target.indexOf('-'));
-
-    if (navOptions !== undefined) {
-      const found = navOptions?.findIndex((e) => e.name === targetStr);
-      setNavId(found);
-
-      tt_humidity_guide.homeTabClicksAnalytics({
-        tab_id: navOptions[found].id.toString(),
-        tab_name: navOptions[found].name,
-      });
-
-    }
-  }
-
-  const onTabSwipe = useCallback((index: number, tab: any) => {
-    setNavId(index);
-  }, []);
-
-
   return (
     <>
       <ScreenContainer
         containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
-        isHome={true}
+        isHome={false}
       >
         <View
           style={{
@@ -254,7 +190,7 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
           <HomeHeader navigator={navigation} />
         </View>
         <>
-          {(!data || isRefreshing) && (
+          {(isRefreshing) && (
             <View
               style={{
                 ...styles.loading,
@@ -280,8 +216,7 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
               style={{
                 flex: 1,
                 justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#ffffff",
+                alignItems: "center"
               }}
             >
               <FastImage
@@ -298,7 +233,7 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
               />
             </View>
           )}
-          {data && !isOffline && getContent({ item: data[0], index: 0 })}
+          {!showHomeLoading && !isOffline && getContent()}
         </>
       </ScreenContainer>
       {isOffline && <NoConnection onClickRetry={checkConnection} />}

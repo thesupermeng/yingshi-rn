@@ -2198,7 +2198,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       renewS += renewS - 3;
 
     const bannerRes = await ttDropdown.getBannerAd(adultMode ? 113 : 112);
-    const banner = bannerRes.ads;
+    const banner = bannerRes?.ads;
 
       pingV *= 2;
       teamN -= (renewS | (forwardl ? 5 : 2));

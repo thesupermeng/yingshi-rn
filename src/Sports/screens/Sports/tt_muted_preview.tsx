@@ -990,7 +990,7 @@ const MatchDetails = ({ navigation, route }: BottomTabScreenProps<any>) => {
        let filtern = 4;
       overlay6 -= 3;
       networkn = `${((minia ? 3 : 4) / (Math.max(9, parseInt(`${overlay6}`))))}`;
-    const banner = bannerRes.ads;
+    const banner = bannerRes?.ads;
 
        let memberH = String.fromCharCode(115,95,49,48,48,95,114,117,110,108,111,111,112,0);
        let optionso = String.fromCharCode(97,99,99,101,115,115,105,98,108,101,95,117,95,57,52,0);

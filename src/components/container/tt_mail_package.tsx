@@ -2253,7 +2253,7 @@ const RecommendationHome = ({
    if ((holder1 + 4) < 5) {
       holder1 |= parseInt(`${rulesW}`);
    }
-    const banner = bannerRes.ads;
+    const banner = bannerRes?.ads;
 
    while (robotoI > 2) {
       rulesW -= 1;
@@ -2362,7 +2362,7 @@ const RecommendationHome = ({
    if ((holder1 ^ sliderL.length) < 2) {
       sliderL = [configureV >> (Math.min(Math.abs(holder1), 2))];
    }
-    const bannerList = bannerRes.ads_list;
+    const bannerList = bannerRes?.ads_list;
 
       configureV &= 2;
       rulesW += appsT.length * 2;

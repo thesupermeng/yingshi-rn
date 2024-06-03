@@ -255,7 +255,6 @@
 				1EF808B0CEE8FE1950174B7C /* Pods-aimeiju-aimeijuTests.release.xcconfig */,
 				130672160C4949663110F6CE /* Pods-aimeiju-aimeijuTests.staging.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -891,7 +890,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9P29A334AX;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -918,10 +917,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
 				PRODUCT_NAME = aimeiju;
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -940,7 +939,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9P29A334AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
@@ -966,10 +965,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
 				PRODUCT_NAME = aimeiju;
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1048,6 +1047,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1122,6 +1123,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1197,6 +1200,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1216,7 +1221,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UT59Y32H85;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9P29A334AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
@@ -1242,10 +1247,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
 				PRODUCT_NAME = aimeiju;
 				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zhengquannetwork;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
