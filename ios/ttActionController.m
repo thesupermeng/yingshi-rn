@@ -41,7 +41,7 @@ self.layoutView = [[ttIndicatorTypingView alloc] init];
 
   self.title = @"Main";
       turnu[0] -= (int)mode1 ^ 1;
-  self.view.backgroundColor = [UIColor colorWithRed:172 / 255.0 green:37 / 255.0 blue:102 / 255.0 alpha:1];
+  self.view.backgroundColor = [UIColor blackColor];
 
   [self setupUI];
    if ((mode1 - 5) > 2 || 5 > (mode1 - turnu[0])) {
@@ -258,7 +258,7 @@ self.layoutView = [[ttIndicatorTypingView alloc] init];
   self.mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    self.mainView.backgroundColor = [UIColor colorWithRed:172 / 255.0 green:37 / 255.0 blue:102 / 255.0 alpha:1];
+    self.mainView.backgroundColor = [UIColor clearColor];
   });
 }
 
