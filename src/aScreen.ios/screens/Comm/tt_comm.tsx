@@ -60,6 +60,8 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
     vod_list: Jieshuo.vod_list as any
   })
 
+  
+
   const {data: homeDatas, isFetching, refetch} = useQuery({
     queryKey: ["HomePage", 1000],
     queryFn: () => ttSinaPrediction.getHomePages(1000, isVip),
