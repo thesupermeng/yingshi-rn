@@ -974,7 +974,7 @@ export default () => {
                     <Nav />
                   </AdsBannerContextProvider>
                 ) : (
-                  <Nav />
+                  <NavIos />
                 )}
               </>
             </>

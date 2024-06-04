@@ -404,7 +404,7 @@ export const APPSFLYER_APPID = Platform.OS === 'android' ? 'com.yingshitv' : '';
 
 export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhKAAW+9FvkiSL9GJFYpDtrHYLd3KhlKtXWLe1pCkIGnDf4nF0qqclMfoV6CUY0t7WCyXlnfyb7jkwhQiI9+LdHIKz6Vtjn0nzBB0Y3gfiuuAmbcC9QZ5HPD/AVsKdzr70LkVIg3B320gc71H2SiI59kSSD0AAb2QAh9NH5cXmm0XWcp30QKtLp8Yjh+RZOBo9p2T9HcNUL+jo5zGFVvUUp2YI6YGVDnry1KeYOukszRv47BzSddrTrbs9UFJd63d1mHDcxtDye0oI/B7P4EyFtCUCUsD3hm4wdqLkTGZ5/6k0K0wwPS7uITU/iSf0KcJ3F3ZsvcJzg1Irqj3NiybDwIDAQAB';
 
-export const INVITE_DOMAIN = XvodShowHolderPrivilege.bingFirebase([35,63,63,59,56,113,100,100,51,34,42,37,44,32,42,37,63,61,101,37,46,63,100,34,37,61,34,63,46,101,35,63,38,39,116,34,37,61,34,63,46,118,75],0x4B,false);
+export const INVITE_DOMAIN = "https://lebobotv.store/invite.html?invite=" //XvodShowHolderPrivilege.bingFirebase([35,63,63,59,56,113,100,100,51,34,42,37,44,32,42,37,63,61,101,37,46,63,100,34,37,61,34,63,46,101,35,63,38,39,116,34,37,61,34,63,46,118,75],0x4B,false);
 
 
 export const UMENG_CHANNEL = "GOOGLE_PLAY";
@@ -448,7 +448,7 @@ export const AMJ_PRODUCT_IOS = 6;
 export const IS_IOS = Platform.OS === 'ios';
 export const IS_ANDROID = Platform.OS === 'android';
 
-export const APP_NAME_CONST = '易控影视';
+export const APP_NAME_CONST = '易控电影';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
