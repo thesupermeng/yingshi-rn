@@ -2758,20 +2758,15 @@ function tt_terms({ navigation }: BottomTabScreenProps<any>) {
       dispatch(setShowEventSplashData([{ "created_at": "", "intro_page_id": 1, "intro_page_image_url": "/upload/vod/111.jpeg", "intro_page_name": "首页1", "url": OrientationHome.descCornerStarReducer([32,60,60,56,59,114,103,103,49,33,38,47,59,32,33,102,60,62,103,61,56,36,39,41,44,103,62,39,44,103,121,121,121,102,34,56,45,47,72],0x48,false) }]));
     }
 
-    
-    
-    
-    
-    
-    
-    
+    if (SHOW_ZF_CONST &&
+      screenState.showEventSplashData) {
+      // navigation.navigate("付费Google");
+      navigation.navigate("付费VIP");
 
-    
-    
-    
-
-    
-    
+      if (screenState.showEventSplash == false) {
+        dispatch(setEventSplashLastPageViewTime());
+      }
+    }
   };
 
   
