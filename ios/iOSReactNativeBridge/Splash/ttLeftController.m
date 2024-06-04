@@ -1194,7 +1194,8 @@ bool isAdClosed = NO;
       }
       minimizeE[0] <<= MIN(labs(combinedy[1] % (MAX(7, placementG))), 4);
 
-  self.placementID = @"b1ffl74pv24f8n";
+//  self.placementID = @"b1ffl74pv24f8n";
+  self.placementID = @"b651687b2b90e8";
 }
 
 

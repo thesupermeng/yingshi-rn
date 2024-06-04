@@ -414,23 +414,23 @@ export const APP_VERSION = "1.7.8";
 export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
 export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
 
-export const TOPON_IOS_APP_ID = 'a65fb9d78d5788';
-export const TOPON_IOS_APP_KEY = 'ab95bfed15089f583fc52043a7404ea3e';
+export const TOPON_IOS_APP_ID = 'a665e91d56490d';
+export const TOPON_IOS_APP_KEY = 'a1aa16d1255e2188a2f4f1f7ed0fd08f6';
 
 export const ANDROID_HOME_PAGE_BANNER_ADS = 'b650d3170ea90f';
 export const ANDROID_PLAY_DETAILS_BANNER_ADS = 'b650d31a42cdd2';
 export const ANDROID_TOPIC_DETAILS_BANNER_ADS = 'b650d31c80eeba';
 export const ANDROID_TOPIC_TAB_BANNER_ADS = 'b650d31d72638b';
 
-export const IOS_HOME_PAGE_BANNER_ADS = 'b1ffl74pv24a8v';
-export const IOS_PLAY_DETAILS_BANNER_ADS = 'b1ffl74pv24505';
-export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b1ffl74pv23q5g';
-export const IOS_TOPIC_TAB_BANNER_ADS = 'b1ffl74pv2418o';
+export const IOS_HOME_PAGE_BANNER_ADS = 'b1fldneskkdpur';
+export const IOS_PLAY_DETAILS_BANNER_ADS = 'b1fldneskkdhok';
+export const IOS_TOPIC_DETAILS_BANNER_ADS = 'b1fldneskke4b0';
+export const IOS_TOPIC_TAB_BANNER_ADS = 'b1fldneskkda8l';
 
 export const ANDROID_HOME_PAGE_POP_UP_ADS = 'b650d314a73226';
 export const ANDROID_PLAY_DETAILS_POP_UP_ADS = 'b650d31f7a8f63';
-export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b1ffl74pv247hk';
-export const IOS_HOME_PAGE_POP_UP_ADS = 'b1ffl74pv24d8q';
+export const IOS_PLAY_DETAILS_POP_UP_ADS = 'b1fldneskkdmdf';
+export const IOS_HOME_PAGE_POP_UP_ADS = 'b1fldneskkdtck';
 
 export const ANDROID_HOME_REWARD_ADS = 'b651e77ae56eda';
 
@@ -452,7 +452,7 @@ export const APP_NAME_CONST = '易控影视';
 export const APP_NAME_CONST2 = '该APP';
 export const APP_EMAIL_CONST = 'contact.movie9@gmail.com';
 
-export const IS_OTHER_SKIN = APP_NAME_CONST !== '爱美剧';
+export const IS_OTHER_SKIN = true; //APP_NAME_CONST !== '爱美剧';
 
 export const NON_VIP_STREAM_TIME_SECONDS = 300;
 

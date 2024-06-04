@@ -832,6 +832,8 @@
 			baseConfigurationReference = D793180175D3BAE40D99E903 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -848,8 +850,9 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn.test;
 				PRODUCT_NAME = aimeiju;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
 			name = Debug;
@@ -859,7 +862,9 @@
 			baseConfigurationReference = 1EF808B0CEE8FE1950174B7C /* Pods-aimeiju-aimeijuTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = yingshiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -872,8 +877,9 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn.test;
 				PRODUCT_NAME = aimeiju;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
 			name = Release;
@@ -886,10 +892,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C";
-				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Guangxi Yikong Network Technology Co., Ltd. (9P29A334AX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9P29A334AX;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9P29A334AX;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -919,7 +925,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
 				PRODUCT_NAME = aimeiju;
-				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
+				PROVISIONING_PROFILE_SPECIFIER = profile;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -935,10 +941,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C";
-				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Guangxi Yikong Network Technology Co., Ltd. (9P29A334AX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9P29A334AX;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9P29A334AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -967,7 +973,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
 				PRODUCT_NAME = aimeiju;
-				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
+				PROVISIONING_PROFILE_SPECIFIER = profile;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1217,10 +1223,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C";
-				CODE_SIGN_IDENTITY = "Apple Distribution: Nanning Zhengquan Network Technology Co., Ltd. (UT59Y32H85)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Guangxi Yikong Network Technology Co., Ltd. (9P29A334AX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9P29A334AX;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9P29A334AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1249,7 +1255,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
 				PRODUCT_NAME = aimeiju;
-				PROVISIONING_PROFILE_SPECIFIER = zhengquannetwork;
+				PROVISIONING_PROFILE_SPECIFIER = profile;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1261,7 +1267,9 @@
 			baseConfigurationReference = 130672160C4949663110F6CE /* Pods-aimeiju-aimeijuTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = yingshiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1274,8 +1282,9 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayiyingshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn.test;
 				PRODUCT_NAME = aimeiju;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
 			};
 			name = Staging;
