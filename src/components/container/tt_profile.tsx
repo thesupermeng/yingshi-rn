@@ -627,7 +627,7 @@ const CatagoryHome = ({
    }
 
     const bannerRes = await ttDropdown.getBannerAd(navId >= 3 ? 101 + navId : 100 + navId);
-    const banner = bannerRes.ads;
+    const banner = bannerRes?.ads;
 
    for (let u = 0; u < 2; u++) {
        let b_positionq = String.fromCharCode(101,99,107,101,121,95,117,95,51,0);

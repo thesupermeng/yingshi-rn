@@ -406,7 +406,7 @@ export default function NoConnection({
             <View
               style={{
                 ...styles.refreshBtn,
-                backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
+                backgroundColor: IS_OTHER_SKIN ? colors.primary : colors.title,
               }}>
               <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
                 <RefreshIcon />
@@ -414,7 +414,7 @@ export default function NoConnection({
               <Text
                 style={{
                   ...styles.head,
-                  color: IS_OTHER_SKIN ? colors.text : colors.background,
+                  color: IS_OTHER_SKIN ? '#000000' : colors.background,
                 }}>
                 点击重试
               </Text>

@@ -79,7 +79,7 @@ function CommunityReview({ meta, display, onPress }: ttReviewProps) {
       <Text style={styles.largeDescription} numberOfLines={1}>
         { meta.type_name }
       </Text>
-      { meta.douban_reviews.length > 0 &&
+      { meta.douban_reviews && meta.douban_reviews.length > 0 &&
         <View style={styles.largeComments}>
           <VodCommentBox
             comments={meta.douban_reviews}
