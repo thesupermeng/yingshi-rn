@@ -282,7 +282,7 @@ export default () => {
         })}
       >
         <HomeTab.Screen name="首页" component={HomeScreen} />
-        {/* {showShort && <HomeTab.Screen name="随心看" component={WatchAnytime} />} */}
+        {showShort && <HomeTab.Screen name="随心看" component={WatchAnytime} />}
         {/* {(YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5) &&
           <HomeTab.Screen name="会员中心" component={SportAndX} />
         }
