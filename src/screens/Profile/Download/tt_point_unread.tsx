@@ -23,7 +23,7 @@ import FastImage from '../../../components/common/tt_connection'
 import NetInfo from "@react-native-community/netinfo";
 import { IS_OTHER_SKIN } from "@utility/tt_trophy_cross";
 
-const LoadingGif = require('@static/images/toponTerms.gif')
+const LoadingGif = require('@static/images/blacklistTumbnail.gif')
 
 const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详情">) => {
   const { colors, textVariants, icons, spacing } = useTheme();
