@@ -178,13 +178,13 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
       }
    } while ((appleb.length > gesturesE.length) && dataF);
 
-    setSelectedTab("lockUntick");
+    setSelectedTab("sport");
   };
 
   useEffect(() => {
     if (screenState.autoSelectSport == true) {
       dispatch(setAutoSelectSport(false));
-      setSelectedTab("lockUntick");
+      setSelectedTab("sport");
     } 
   }, [screenState.autoSelectSport])
 
@@ -952,7 +952,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
               {showSport &&
                 <TouchableOpacity
                   onPress={() => {
-                    setSelectedTab("lockUntick");
+                    setSelectedTab("sport");
                     dispatch(disableAdultMode());
                   }}
                 >
