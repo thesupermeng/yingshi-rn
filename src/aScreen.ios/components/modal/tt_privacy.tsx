@@ -26,7 +26,7 @@ export const UploadProgressOverlay = ({
             backgroundColor: backgroundColor,
         }}>
             <View style={{
-                backgroundColor: '#222222C8',
+                backgroundColor: '#222222fa',
                 padding: 20,
                 borderRadius: 20,
                 width: '80%',
@@ -37,6 +37,7 @@ export const UploadProgressOverlay = ({
                     marginBottom: 20,
                     ...textVariants.body,
                     color: 'white',
+                    paddingBottom:20,
                 }}>
                     正在上传视频...
                 </Text>

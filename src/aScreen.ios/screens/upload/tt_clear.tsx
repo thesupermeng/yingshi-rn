@@ -1699,7 +1699,7 @@ export const UploadVideo = ({ navigation }: BottomTabScreenProps<any>) => {
             {uploadProgress !== undefined &&
                 <UploadProgressOverlay
                     value={uploadProgress}
-                    backgroundColor={'#ffffffaa'}
+                  //   backgroundColor={'#ffffffaa'}
                 />
             }
 
