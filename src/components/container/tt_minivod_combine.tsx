@@ -83,7 +83,7 @@ const createStyles = ({ colors }: any) => StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     position: 'relative',
-    bottom: Platform.OS === 'ios' ? 35 : 12,
+    bottom: 12,
     borderRadius: 10,
   },
   paginationDot: {
