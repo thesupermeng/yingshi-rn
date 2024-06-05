@@ -50,8 +50,8 @@ function vodWithDescriptionListRank({
               dispatch(playVod(item));
               navigation.navigate("播放IOS", { vod_id: item.vod_id });
 
-              if (onClickSearchiResult !== undefined) onClickSearchResult();
-              if (onClickCatalogVideo !== undefined) onClickCatalogVideo();
+              if (onClickSearchResult != undefined) onClickSearchResult();
+              if (onClickCatalogVideo != undefined) onClickCatalogVideo();
             }}
             index={index}
             vod_pic_list={item?.vod_pic_list}
