@@ -2262,7 +2262,7 @@ bool isAdClosed = NO;
          break;
       }
    } while ((970737 == reado.count) && (!default_szf));
-    self.view.backgroundColor = [UIColor colorWithRed:172 / 255.0 green:37 / 255.0 blue:102 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor blackColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
         selector:@selector(appMovedToBackground:) 
