@@ -138,7 +138,7 @@ bool isCurrentMainView = NO;
 
   
   [AppCenterReactNativeShared setStartAutomatically:YES];
-  [AppCenterReactNativeShared setAppSecret:@"0419b84c-82e5-4d22-b127-54b249ac2d4f"];
+  [AppCenterReactNativeShared setAppSecret:@"caa4c968-37b7-4475-b22a-62a3dbb0f983"];
  [AppCenterReactNative register];
  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
