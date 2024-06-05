@@ -30,9 +30,10 @@ type ttUnselectedNative = {
     setPause: (pause: boolean) => void;
 };
 
-export default ({ navigation }: BottomTabScreenProps<any>) => {
+export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const { colors, textVariants } = useTheme();
 
+    const args = route.params as any;
     const isFocused = useIsFocused();
     
     const [isInBackground, setIsInBackground] = useState(false);
@@ -40,18 +41,32 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<ttUnselectedNative>;
     const miniVodListRef = useRef<any>();
+    const [miniVodIndex, setMiniVodIndex] = useState(-1);
     const [isPressTabScroll, setPressTabScroll] = useState(false);
 
     const settingsReducer: ttBaiduNewinterstitial = useAppSelector(
         ({ settingsReducer }: ttOrange) => settingsReducer
     );
 
-    
     useFocusEffect(useCallback(() => {
         tt_humidity_guide.watchAnytimeViewsAnalytics();
     }, []));
     
 
+    useEffect(() => {
+      const playId = args?.play_vod_id ?? '';
+      console.log('解说参数', playId);
+      const index = flattenedVideos.findIndex((e) => {
+         return e.mini_video_id === playId;
+      })
+      console.log('解说位置', index);
+      if (index >= 0) {
+         miniVodListRef.current?.scrollToIndex({
+            index: index,
+            animated: false,
+        });
+      }
+    }, [args]);
     
     useEffect(() => {
         const handleTabPress = () => {
@@ -860,9 +875,27 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
 
     useEffect(() => {
         if (videos != undefined) {
-            setFlattenedVideos(videos?.pages.flat().filter(x => x));
+            const results = videos?.pages.flat().filter(x => x) ?? []
+            setFlattenedVideos(results);
+            const playId = args?.play_vod_id;
+            const index = results.findIndex((e) => {
+               return e.mini_video_id === playId;
+            })
+            console.log('解说位置', index, playId);
+            if (index >= 0) {
+               setTimeout(() => {
+                  miniVodListRef.current?.scrollToIndex({
+                     index: index,
+                     animated: false,
+                  });
+                  setMiniVodIndex(index);
+               }, 10)
+            } else  {
+               setMiniVodIndex(0);
+            }
         }
     }, [videos])
+
 
     const checkConnection = useCallback(async () => {
        let goal_ = String.fromCharCode(110,95,55,51,95,100,101,98,108,111,99,107,105,110,103,0);
@@ -1333,6 +1366,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                     isFetching={isFetching}
                     isFetchingNextPage={isFetchingNextPage}
                     isActive={isFocused && !isInBackground}
+                    isHidden={miniVodIndex < 0}
                     setCollectionEpisode={(index: number) => { }}
                     handleRefreshMiniVod={handleRefresh}
                     isRefreshing={isRefreshing}

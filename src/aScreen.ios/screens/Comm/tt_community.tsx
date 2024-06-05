@@ -13,9 +13,10 @@ interface ttCommunityProps {
   playlist?: ttCommunityData;
   titleStyle?: TextStyle;
   onPress?: (item: ttDoubanMeta) => void,
+  onPressComment?: (meta: ttDoubanMeta) => void,
 }
 
-function Community({playlist, titleStyle, onPress }: ttCommunityProps) {
+function Community({playlist, titleStyle, onPress, onPressComment }: ttCommunityProps) {
   
   const { textVariants, spacing } = useTheme();
   
@@ -42,6 +43,11 @@ function Community({playlist, titleStyle, onPress }: ttCommunityProps) {
             onPress={() => {
               if (onPress) {
                 onPress(item)
+              }
+            }}
+            onPressComment={(meta: ttDoubanMeta) => {
+              if (onPressComment) {
+                onPressComment(meta)
               }
             }}
           />

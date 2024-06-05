@@ -31,7 +31,7 @@ import { ttBaiduNewinterstitial } from "@redux/reducers/tt_center";
 import { AdsBannerContext } from "../../../contexts/tt_injury_reminder";
 
 import tt_humidity_guide from "../../../../Umeng/tt_humidity_guide";
-import { ttSinaPrediction } from "@api";
+import { ttConfirmationChinasame, ttSinaPrediction } from "@api";
 import { ttGoal } from "@redux/reducers/tt_selected";
 import { ttFast } from "@models/tt_stations_right";
 import Commentary  from "./tt_commentary";
@@ -63,8 +63,8 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
   
 
   const {data: homeDatas, isFetching, refetch} = useQuery({
-    queryKey: ["HomePage", 1000],
-    queryFn: () => ttSinaPrediction.getHomePages(1000, isVip),
+    queryKey: ["HomePage", 1001],
+    queryFn: () => ttSinaPrediction.getHomePages(1001, isVip),
   });
 
   const yingpinData = useMemo(() => {
@@ -154,6 +154,7 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
                 console.log('解说 pressed', item)
                 navigation.navigate("解说", {
                   screen: "解说",
+                  play_vod_id: item.vod_id
                 });
               }}/> 
             }
@@ -162,6 +163,16 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
                 console.log('社区 pressed', item)
                 dispatch(playVod(item));
                 navigation.navigate('播放IOS', {vod_id: item.vod_id});
+              }} onPressComment={(meta) => {
+                ttConfirmationChinasame
+                  .getReviewDetails(meta?.vod_douban_id.toString() ?? '')
+                  .then((data: { douban_reviews: any; }) => {
+                    navigation.navigate('全部评论', {
+                      vod_id: meta.vod_id,
+                      vod_name: meta.vod_name,
+                      commentItems: data.douban_reviews,
+                    });
+                  });
               }}/> 
             }
           </>

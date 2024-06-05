@@ -20,6 +20,7 @@ interface ttSmall {
     isFetchingNextPage: any,
     isFetching: boolean,
     isActive: boolean,
+    isHidden: boolean,
     inCollectionView?: boolean,
     setParentCurrent?: any,
     initialIndex?: number,
@@ -48,9 +49,10 @@ export default forwardRef<ttUnselectedNative, ttSmall>(
             isFetchingNextPage,
             isFetching,
             isActive,
+            isHidden,
             inCollectionView = false,
             setCollectionEpisode,
-            isRefreshing = false,
+            isRefreshing = false
         }: ttSmall,
         ref,
     ) => {
@@ -213,7 +215,7 @@ export default forwardRef<ttUnselectedNative, ttSmall>(
 
             return (
                 <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                    {displayHeight != 0 && (
+                    {displayHeight != 0 && !isHidden && (
                         <ShortVod
                             vod={item}
                             thumbnail={item.mini_video_origin_cover}
@@ -274,6 +276,9 @@ export default forwardRef<ttUnselectedNative, ttSmall>(
                         />
                     </View>
                     : <FlatList
+                        getItemLayout={(data, index) => (
+                            {length: displayHeight, offset: displayHeight * index, index}
+                        )}
                         ref={miniVodListRef}
                         data={collectionPartialVideos}
                         initialNumToRender={10}
