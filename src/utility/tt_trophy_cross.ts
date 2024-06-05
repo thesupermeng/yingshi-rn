@@ -409,7 +409,7 @@ export const INVITE_DOMAIN = "https://lebobotv.store/invite.html?invite=" //Xvod
 
 export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
-export const APP_VERSION = "1.7.8";
+export const APP_VERSION = "1.0.0";
 
 export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
 export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
