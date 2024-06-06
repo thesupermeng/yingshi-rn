@@ -16,7 +16,10 @@ const Movies = ({ navigation }: BottomTabScreenProps<any>) => {
     const isVip = true;
 
     const fetchData = useCallback(
-        (id: number) => AppsApi.getHomePages(id, isVip),
+        (id: number) => AppsApi.getHomePages(id, isVip).then((result) => {
+            result.categories = result.categories.filter((vod) => vod.vod_list.length >= 6).sort(() => Math.random() - Math.random())
+            return result
+        }),
         [isVip]
     );
 
@@ -76,7 +79,7 @@ const Movies = ({ navigation }: BottomTabScreenProps<any>) => {
                     tintColor={colors.primary}
                 />
             }
-            data={data?.categories.filter((vod) => vod.vod_list.length >= 6) ?? []}
+            data={data?.categories ?? []}
             renderItem={renderItems}
         />
     </ScreenContainer>

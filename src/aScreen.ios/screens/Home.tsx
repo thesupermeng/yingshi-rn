@@ -66,7 +66,10 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   });
 
   const fetchData = useCallback(
-    (id: number) => AppsApi.getHomePages(id, isVip),
+    (id: number) => AppsApi.getHomePages(id, isVip).then((result) => {
+      result.categories = result?.categories?.filter((vod) => vod.vod_list.length >= 6)?.sort(() => Math.random() - Math.random()) ?? []
+      return result
+    }),
     [isVip]
   );
 
