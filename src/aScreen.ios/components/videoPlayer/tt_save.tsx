@@ -436,7 +436,7 @@ function ShortVod({
                 isPause={isPause}
                 onManualPause={onManualPause}
                 isShowVideo={isShowVideo}
-                currentDuration={currentDuration}
+                currentDuration={currentDuration || 0}
                 updateVideoDuration={updateVideoDuration}
             />
             <CollectionBottomSheet

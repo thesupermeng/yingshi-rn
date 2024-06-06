@@ -312,35 +312,35 @@ export const onBootApp =
         type: NLine.NReportLarge,
       });
 
-      
-      appsFlyer.initSdk(
-        {
-          devKey: APPSFLYER_DEVKEY,
-          isDebug: false,
-          appId: APPSFLYER_APPID,
-          onInstallConversionDataListener: true,
-          onDeepLinkListener: true,
-          timeToWaitForATTUserAuthorization: 10,
-        },
-        result => {
-          console.log('Apps Flyer init success');
+      //  Supermeng 这只是是为了某个渠道要记录支付记录 ， 可以把整个 appsflyer 模块拿走
+      // appsFlyer.initSdk(
+      //   {
+      //     devKey: APPSFLYER_DEVKEY,
+      //     isDebug: false,
+      //     appId: APPSFLYER_APPID,
+      //     onInstallConversionDataListener: true,
+      //     onDeepLinkListener: true,
+      //     timeToWaitForATTUserAuthorization: 10,
+      //   },
+      //   result => {
+      //     console.log('Apps Flyer init success');
 
           
-          setTimeout(() => {
-            if (backgroundState.firstBoot) {
-              dispatch({
-                type: NLine.NTheme,
-              });
-              ttDownTick.install();
-            }
+      //     setTimeout(() => {
+      //       if (backgroundState.firstBoot) {
+      //         dispatch({
+      //           type: NLine.NTheme,
+      //         });
+      //         ttDownTick.install();
+      //       }
 
-            ttDownTick.appBoot();
-          }, 2000);
-        },
-        error => {
-          console.error(error);
-        },
-      );
+      //       ttDownTick.appBoot();
+      //     }, 2000);
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   },
+      // );
 
       
       ttEditCollection.foundLocalPush();

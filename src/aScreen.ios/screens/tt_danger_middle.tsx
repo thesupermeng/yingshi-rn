@@ -41,6 +41,7 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
     const [isOffline, setIsOffline] = useState(false);
     const miniVodRef = useRef() as React.MutableRefObject<ttUnselectedNative>;
     const miniVodListRef = useRef<any>();
+    const [miniVodId, setMiniVodId] = useState(-1);
     const [miniVodIndex, setMiniVodIndex] = useState(-1);
     const [isPressTabScroll, setPressTabScroll] = useState(false);
 
@@ -55,16 +56,16 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
 
     useEffect(() => {
       const playId = args?.play_vod_id ?? '';
-      console.log('解说参数', playId);
       const index = flattenedVideos.findIndex((e) => {
          return e.mini_video_id === playId;
       })
-      console.log('解说位置', index);
       if (index >= 0) {
          miniVodListRef.current?.scrollToIndex({
             index: index,
             animated: false,
         });
+      } else {
+         setMiniVodId(playId);
       }
     }, [args]);
     
@@ -877,11 +878,9 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
         if (videos != undefined) {
             const results = videos?.pages.flat().filter(x => x) ?? []
             setFlattenedVideos(results);
-            const playId = args?.play_vod_id;
             const index = results.findIndex((e) => {
-               return e.mini_video_id === playId;
+               return e.mini_video_id === miniVodId;
             })
-            console.log('解说位置', index, playId);
             if (index >= 0) {
                setTimeout(() => {
                   miniVodListRef.current?.scrollToIndex({
@@ -889,9 +888,11 @@ export default ({ navigation, route }: BottomTabScreenProps<any>) => {
                      animated: false,
                   });
                   setMiniVodIndex(index);
+                  setMiniVodId(-1);
                }, 10)
             } else  {
                setMiniVodIndex(0);
+               setMiniVodId(-1);
             }
         }
     }, [videos])

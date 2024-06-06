@@ -227,7 +227,7 @@ export default forwardRef<ttUnselectedNative, ttSmall>(
                                 setPause(!current);
                             }}
                             isShowVideo={current === index && !isScrolling}
-                            currentDuration={videoCurrentDurations[index]}
+                            currentDuration={index < videoCurrentDurations.length ? videoCurrentDurations[index] : 0}
                             updateVideoDuration={(duration) => updateVideoDuration(index, duration)}
                         />
                     )}

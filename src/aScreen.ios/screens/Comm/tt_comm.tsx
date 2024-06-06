@@ -151,7 +151,6 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
           <>
             { item.comp === 'commentary' && 
               <Commentary playlist={jieshuo} onPress={(item) => {
-                console.log('解说 pressed', item)
                 navigation.navigate("解说", {
                   screen: "解说",
                   play_vod_id: item.vod_id
@@ -160,7 +159,6 @@ function tt_comm({ navigation }: BottomTabScreenProps<any>) {
             }
             { item.comp === 'community' && 
               <Community playlist = {yingpinData} onPress={(item) => {
-                console.log('社区 pressed', item)
                 dispatch(playVod(item));
                 navigation.navigate('播放IOS', {vod_id: item.vod_id});
               }} onPressComment={(meta) => {
