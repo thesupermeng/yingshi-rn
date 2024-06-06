@@ -44,6 +44,7 @@ import UmengAnalytics from '../../../../Umeng/UmengAnalytics';
 import { VodApi } from '@api';
 import { Vod } from '@models';
 import { CLangKey } from '@constants';
+import { YSConfig } from '../../../../ysConfig';
 
 interface NavType {
   id: number;
@@ -70,7 +71,21 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
 
   const { data: navOptions } = useQuery({
     queryKey: ['filterOptions'],
-    queryFn: () => VodApi.getTopicType(),
+    queryFn: () => VodApi.getTopicType().then((result) => {
+      const tabConfig: any[] = YSConfig.instance.tabConfig as any;
+      const showMovie = tabConfig?.find((tab) => tab.id === 3) ?? false;
+      const showTvshow = tabConfig?.find((tab) => tab.id === 4) ?? false;
+
+      if (!showMovie) {
+        result = result.filter((tab) => tab.type_id !== 1)
+      }
+
+      if (!showTvshow) {
+        result = result.filter((tab) => tab.type_id !== 2)
+      }
+
+      return result
+    }),
   });
 
   // Filtering
