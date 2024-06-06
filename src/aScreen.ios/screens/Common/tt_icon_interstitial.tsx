@@ -12419,7 +12419,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放IOS'>) => {
                           flexDirection: 'row',
                           gap: 8,
                         }}>
-                        <TouchableOpacity activeOpacity={0.85}
+                        {/* <TouchableOpacity activeOpacity={0.85}
                         onPress={handleSearchVideo}
                         style={{
                           backgroundColor: "#FAC33D",
@@ -12439,7 +12439,7 @@ export default ({navigation, route}: RootStackScreenProps<'播放IOS'>) => {
                       </TouchableOpacity>
                       <Text style={{...textVariants.small, alignSelf: 'flex-end'}}>
                         *点击跳转bing搜索片源
-                      </Text>
+                      </Text> */}
                       </View>
                     </View>
                   </View>
