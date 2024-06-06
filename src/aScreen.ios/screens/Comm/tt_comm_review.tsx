@@ -12,6 +12,7 @@ interface ttReviewProps {
   meta: ttDoubanMeta;
   display: 'sample' | 'large';
   onPress?: () => void,
+  onPressComment?: (meta: ttDoubanMeta) => void,
 }
 
 const definedValue = (val: any) => {
@@ -21,7 +22,7 @@ const definedValue = (val: any) => {
   return val + ' ';
 };
 
-function CommunityReview({ meta, display, onPress }: ttReviewProps) {
+function CommunityReview({ meta, display, onPress, onPressComment }: ttReviewProps) {
   
   const { textVariants, colors, spacing } = useTheme();
 
@@ -86,7 +87,9 @@ function CommunityReview({ meta, display, onPress }: ttReviewProps) {
             total={meta.total_douban_review}
             onlyShow={2}
             onCommentTap={() => {
-              
+              if (onPressComment) {
+                onPressComment(meta);
+              }
             }}
           />
         </View>

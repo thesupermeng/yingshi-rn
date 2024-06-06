@@ -891,7 +891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODEPUSH_KEY = "tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C";
+				CODEPUSH_KEY = "n-v0l1sfQ9wfr62o4c6xdXZWYFnrJFhFXC8dr";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Guangxi Yikong Network Technology Co., Ltd. (9P29A334AX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -940,7 +940,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODEPUSH_KEY = "tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C";
+				CODEPUSH_KEY = "n-v0l1sfQ9wfr62o4c6xdXZWYFnrJFhFXC8dr";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Guangxi Yikong Network Technology Co., Ltd. (9P29A334AX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1053,8 +1053,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
-					"-Wl",
-					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1129,8 +1127,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
-					"-Wl",
-					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1206,8 +1202,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
-					"-Wl",
-					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1222,7 +1216,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODEPUSH_KEY = "tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C";
+				CODEPUSH_KEY = "n-v0l1sfQ9wfr62o4c6xdXZWYFnrJFhFXC8dr";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Guangxi Yikong Network Technology Co., Ltd. (9P29A334AX)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

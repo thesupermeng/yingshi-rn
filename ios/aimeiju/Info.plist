@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CodePushDeploymentKey</key>
-	<string>tMa-Z-B7QQHqwRNsomiajWGwoNtohfkZS3J6C</string>
+	<string>n-v0l1sfQ9wfr62o4c6xdXZWYFnrJFhFXC8dr</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-6143222543441738~2058110445</string>
 	<key>GADIsAdManagerApp</key>
@@ -1034,5 +1034,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
 </dict>
 </plist>
