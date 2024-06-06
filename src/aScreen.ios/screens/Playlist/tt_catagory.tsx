@@ -32,7 +32,7 @@ function Playlist({ navigation }: BottomTabScreenProps<any>) {
                 fontSize: 22,
               }}
             >
-              热搜
+              排行榜
             </Text>
           }
           navigator={navigation}
