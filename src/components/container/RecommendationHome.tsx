@@ -799,7 +799,7 @@ const RecommendationHome = ({
               </View>
             </>
           }
-          data={data.categories.filter((vod) => vod.vod_list.length > 0) ?? []}
+          data={data.categories.filter((vod) => vod.vod_list.length >= 6) ?? []}
           // data={results}
           onEndReached={() => {
             // if (hasNextPage && !isFetchingNextPage && !isFetching) {

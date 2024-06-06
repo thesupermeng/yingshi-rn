@@ -123,7 +123,7 @@ const Movies = ({ navigation }: BottomTabScreenProps<any>) => {
             tintColor={colors.primary}
           />
         }
-        data={data?.categories.filter((vod) => vod.vod_list.length > 0) ?? []}
+        data={data?.categories.filter((vod) => vod.vod_list.length >= 6) ?? []}
         renderItem={renderItems}
         ListFooterComponent={<View style={{ marginBottom: 60 }}></View>}
       />
