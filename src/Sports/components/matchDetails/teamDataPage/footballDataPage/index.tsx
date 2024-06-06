@@ -1,6 +1,6 @@
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import ttZoomVolume from '../../../goalDistribution';
+import TtZoomVolume from '../../../goalDistribution';
 import MatchHistory from '../../../matchHistory';
 import SubsComponent from '../../../substituteComponent';
 import styles from './tt_with_success';
@@ -46,7 +46,7 @@ const FootballDataPage = ({liveRoomMatchDetails} : ttSmall) => {
           liveRoomMatchDetails?.football_match_analysis?.goal_distribution
             ?.away_scored?.length > 0 && (
             <View>
-              <ttZoomVolume
+              <TtZoomVolume
                 homeTeam={liveRoomMatchDetails?.home}
                 awayTeam={liveRoomMatchDetails?.away}
                 data={

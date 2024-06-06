@@ -39,13 +39,13 @@ export interface ttHeart {
     football_match_analysis: ttRecommendation
     basketball_match_analysis: ttVietnamBenefit
   }
-  export interface ttZoomVolume {
+  export interface TtZoomVolume {
     home_scored: number[][]
     away_scored: number[][]
   }
   export interface ttRecommendation {
     history: tt_skip_gmail
-    goal_distribution: ttZoomVolume
+    goal_distribution: TtZoomVolume
   }
   export interface ttVietnamBenefit {
     history: tt_skip_gmail

@@ -1409,7 +1409,7 @@ Interface: Away2 <---替换为---> ttSinaActions
 Interface: Incident2 <---替换为---> ttDebug
 Interface: MatchDetailsResponseType <---替换为---> ttHeart
 Interface: MatchDetailWithRankingData <---替换为---> ttVideoSuccess
-Interface: GoalDistribution <---替换为---> ttZoomVolume
+Interface: GoalDistribution <---替换为---> TtZoomVolume
 Interface: FootballMatchAnalysis <---替换为---> ttRecommendation
 Interface: BasketballMatchAnalysis <---替换为---> ttVietnamBenefit
 Interface: FootballMatch <---替换为---> ttConst
