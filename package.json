@@ -1,6 +1,6 @@
 {
-  "name": "aimeiju",
-  "version": "1.7.8",
+  "name": "yikongdianying",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

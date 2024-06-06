@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* aimeijuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* aimeijuTests.m */; };
+		09D156657C25A2224E79E54C /* libPods-yikongdianying-yikongdianyingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C673010AB7785448E4C40BD /* libPods-yikongdianying-yikongdianyingTests.a */; };
 		0E468246AAB34070B20364F4 /* 045-SSYiFeiTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3896D1842B0C48F70082748B /* ttResultAuto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3896D1812B0C48F70082748B /* ttResultAuto.m */; };
 		3896D1852B0C48F70082748B /* ttCompleteBasketball.m in Sources */ = {isa = PBXBuildFile; fileRef = 3896D1822B0C48F70082748B /* ttCompleteBasketball.m */; };
 		3896D1882B0D85D90082748B /* ttActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3896D1872B0D85D90082748B /* ttActionController.m */; };
@@ -23,7 +21,6 @@
 		38EB5E0C2ACDB24500F913BB /* ttTrashAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E022ACDB24500F913BB /* ttTrashAction.m */; };
 		38EB5E0D2ACDB24500F913BB /* ttPhilippines.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E062ACDB24500F913BB /* ttPhilippines.m */; };
 		5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */; };
-		68D418A93432479CAB3A770A /* libPods-aimeiju.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EB66B45C384DDF868C2647 /* libPods-aimeiju.a */; };
 		7E1412512C0599CC00A70429 /* ttLoadingResendView.m in Sources */ = {isa = PBXBuildFile; fileRef = KZ5J57306Z05VMPBN2513YW8 /* ttLoadingResendView.m */; };
 		7E1412522C0599CC00A70429 /* ttIndicatorTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = WVW903K8OMS27I09W04O4133 /* ttIndicatorTypingView.m */; };
 		7E1412532C0599CC00A70429 /* ttRelatedExpandView.m in Sources */ = {isa = PBXBuildFile; fileRef = FTT2639893YD7232LR346937 /* ttRelatedExpandView.m */; };
@@ -45,9 +42,11 @@
 		7E1412632C0599CC00A70429 /* ttKlevinController.m in Sources */ = {isa = PBXBuildFile; fileRef = ZQ6T49691839W1AAO13UX28L /* ttKlevinController.m */; };
 		7E1412642C0599CC00A70429 /* ttSingaporeEditObject.m in Sources */ = {isa = PBXBuildFile; fileRef = YDFJ9AU9T8725J57240XR221 /* ttSingaporeEditObject.m */; };
 		7E1412652C0599CC00A70429 /* ttTailObject.m in Sources */ = {isa = PBXBuildFile; fileRef = YAT580X61205300O605J933Z /* ttTailObject.m */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8771425FD4D41BE8C44942BA /* libPods-aimeiju-aimeijuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9348CCF0EBC8F929A290B5CE /* libPods-aimeiju-aimeijuTests.a */; };
 		8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */; };
+		958F26A42C11FB2200503568 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 958F26A32C11FB2100503568 /* main.m */; };
+		958F26AB2C11FBA300503568 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 958F26A62C11FBA300503568 /* AppDelegate.mm */; };
+		958F26AC2C11FBA300503568 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958F26A72C11FBA300503568 /* LaunchScreen.storyboard */; };
+		958F26AD2C11FBA300503568 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958F26A92C11FBA300503568 /* Images.xcassets */; };
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
 		BAS61D8TYQ613E728P3E82A0 /* ttUtilsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = MV0E5JA77V85Y6131YR7N1WU /* ttUtilsObject.m */; };
@@ -56,6 +55,7 @@
 		CX96O0D9O59271C32256M7C5 /* ttMimoView.m in Sources */ = {isa = PBXBuildFile; fileRef = KDI09Y5G96F0S1390Q11TZ65 /* ttMimoView.m */; };
 		DV57M0Y94958S3Y8H0Y2588X /* ttFrameStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = IB82M1IHG43O25Q2V037405R /* ttFrameStatsController.m */; };
 		DX1Y70W826GLX42LC8D573P4 /* ttCrownView.m in Sources */ = {isa = PBXBuildFile; fileRef = RQ5FC09280485Y0638894J15 /* ttCrownView.m */; };
+		FF15C42D24C5AF6B0E4D1F34 /* libPods-yikongdianying.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B57923A63D00E94C943B9AB3 /* libPods-yikongdianying.a */; };
 		FP6S0154RA554RY2X5D97141 /* ttSellAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ZZD4044T7I9O572V470KM5G9 /* ttSellAnimationView.m */; };
 		ID48XD24I4DF39138H4R159I /* ttLoadingResendView.m in Sources */ = {isa = PBXBuildFile; fileRef = KZ5J57306Z05VMPBN2513YW8 /* ttLoadingResendView.m */; };
 		IM0EMQU4140YU2489V80HXT1 /* ttTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = XS9PL38H3X6RAZ5W2403EF1I /* ttTopicView.m */; };
@@ -99,17 +99,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* aimeiju.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aimeiju.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* yikongdianying.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yikongdianying.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* aimeijuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aimeijuTests.m; sourceTree = "<group>"; };
-		130672160C4949663110F6CE /* Pods-aimeiju-aimeijuTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.staging.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* aimeiju.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aimeiju.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = aimeiju/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = aimeiju/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = aimeiju/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = aimeiju/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = aimeiju/main.m; sourceTree = "<group>"; };
-		1EF808B0CEE8FE1950174B7C /* Pods-aimeiju-aimeijuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.release.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* yikongdianying.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yikongdianying.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C673010AB7785448E4C40BD /* libPods-yikongdianying-yikongdianyingTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yikongdianying-yikongdianyingTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3896D1802B0C48F70082748B /* ttCompleteBasketball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttCompleteBasketball.h; sourceTree = "<group>"; };
 		3896D1812B0C48F70082748B /* ttResultAuto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttResultAuto.m; sourceTree = "<group>"; };
 		3896D1822B0C48F70082748B /* ttCompleteBasketball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttCompleteBasketball.m; sourceTree = "<group>"; };
@@ -131,30 +125,36 @@
 		38EB5E052ACDB24500F913BB /* ttPhilippines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttPhilippines.h; sourceTree = "<group>"; };
 		38EB5E062ACDB24500F913BB /* ttPhilippines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttPhilippines.m; sourceTree = "<group>"; };
 		5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "045-SSYiFeiTi.ttf"; path = "../assets/fonts/045-SSYiFeiTi.ttf"; sourceTree = "<group>"; };
-		697E43581720F600B076D375 /* Pods-aimeiju.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.release.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = aimeiju/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87699E3E24CF14B7ADD0FEF3 /* Pods-yikongdianying-yikongdianyingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yikongdianying-yikongdianyingTests.release.xcconfig"; path = "Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests.release.xcconfig"; sourceTree = "<group>"; };
 		8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNExitApp.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9348CCF0EBC8F929A290B5CE /* libPods-aimeiju-aimeijuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju-aimeijuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93EB66B45C384DDF868C2647 /* libPods-aimeiju.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		941E7AD3A37CFA418E115022 /* Pods-yikongdianying.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yikongdianying.debug.xcconfig"; path = "Target Support Files/Pods-yikongdianying/Pods-yikongdianying.debug.xcconfig"; sourceTree = "<group>"; };
+		958F26A32C11FB2100503568 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = yikongdianying/main.m; sourceTree = "<group>"; };
+		958F26A52C11FBA300503568 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = yikongdianying/Info.plist; sourceTree = "<group>"; };
+		958F26A62C11FBA300503568 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = yikongdianying/AppDelegate.mm; sourceTree = "<group>"; };
+		958F26A72C11FBA300503568 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = yikongdianying/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		958F26A82C11FBA300503568 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = yikongdianying/AppDelegate.h; sourceTree = "<group>"; };
+		958F26A92C11FBA300503568 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = yikongdianying/Images.xcassets; sourceTree = "<group>"; };
 		9A218EB62AC413D600F6B98C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		9A218F882AC42D1400F6B98C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Anton-Regular.ttf"; path = "../assets/fonts/Anton-Regular.ttf"; sourceTree = "<group>"; };
 		AG227V3FJ2MS9P969514X1G5 /* ttPlayercommonSinaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttPlayercommonSinaController.h; sourceTree = "<group>"; };
 		AXZ49L20PK42228784100O06 /* ttEpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttEpisodeController.h; sourceTree = "<group>"; };
+		B57923A63D00E94C943B9AB3 /* libPods-yikongdianying.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yikongdianying.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6DBCC11DEF0AF31577B3FA0 /* Pods-yikongdianying-yikongdianyingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yikongdianying-yikongdianyingTests.debug.xcconfig"; path = "Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDB520207UATW47L9Q0U9E34 /* ttCrownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttCrownView.h; sourceTree = "<group>"; };
+		CF473D66090940D32321CEC4 /* Pods-yikongdianying.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yikongdianying.release.xcconfig"; path = "Target Support Files/Pods-yikongdianying/Pods-yikongdianying.release.xcconfig"; sourceTree = "<group>"; };
 		CN2Q20W578T4H624AE89ML36 /* ttTailObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttTailObject.h; sourceTree = "<group>"; };
 		CZQ7VNZ37FH085A099Q62V57 /* ttSingaporeEditObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttSingaporeEditObject.h; sourceTree = "<group>"; };
-		D793180175D3BAE40D99E903 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DS70P04K7E31W68943510L93 /* ttKlevinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttKlevinController.h; sourceTree = "<group>"; };
 		DVC03V001285FC56555BPICP /* ttSellAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttSellAnimationView.h; sourceTree = "<group>"; };
+		E0DCE42F915AABC61340CED8 /* Pods-yikongdianying-yikongdianyingTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yikongdianying-yikongdianyingTests.staging.xcconfig"; path = "Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests.staging.xcconfig"; sourceTree = "<group>"; };
 		E9BB9899CA0D4BF2816AF949 /* Archivo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Regular.ttf"; path = "../assets/fonts/Archivo-Regular.ttf"; sourceTree = "<group>"; };
-		EC0C014B6EFEA77445DDF335 /* Pods-aimeiju.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EEABAEDD6015486405888284 /* Pods-aimeiju.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.staging.xcconfig"; sourceTree = "<group>"; };
 		EH72UN99611355245F11S97B /* ttUpgradeLoadingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttUpgradeLoadingController.h; sourceTree = "<group>"; };
 		EMB0820C304I553TDB94H115 /* ttUntickResendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttUntickResendView.m; sourceTree = "<group>"; };
 		EMK499IK0455U8635048005Y /* ttTickShowObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttTickShowObject.m; sourceTree = "<group>"; };
+		F4FB2F785FB6536BA9CF77F4 /* Pods-yikongdianying.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yikongdianying.staging.xcconfig"; path = "Target Support Files/Pods-yikongdianying/Pods-yikongdianying.staging.xcconfig"; sourceTree = "<group>"; };
 		FC43E8V89094T48UQ44I4348 /* ttFrameStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttFrameStatsController.h; sourceTree = "<group>"; };
 		FI572BR882UX47Z35CZTQ440 /* ttUntickResendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttUntickResendView.h; sourceTree = "<group>"; };
 		FTT2639893YD7232LR346937 /* ttRelatedExpandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ttRelatedExpandView.m; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8771425FD4D41BE8C44942BA /* libPods-aimeiju-aimeijuTests.a in Frameworks */,
+				09D156657C25A2224E79E54C /* libPods-yikongdianying-yikongdianyingTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,20 +204,20 @@
 			files = (
 				9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */,
 				8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */,
-				68D418A93432479CAB3A770A /* libPods-aimeiju.a in Frameworks */,
+				FF15C42D24C5AF6B0E4D1F34 /* libPods-yikongdianying.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* aimeijuTests */ = {
+		00E356EF1AD99517003FC87E /* yikongdianyingTests */ = {
 			isa = PBXGroup;
 			children = (
 				00E356F21AD99517003FC87E /* aimeijuTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = aimeijuTests;
+			path = yikongdianyingTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -228,32 +228,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* aimeiju */ = {
+		13B07FAE1A68108700A75B9A /* yikongdianying */ = {
 			isa = PBXGroup;
 			children = (
-				3896D17F2B0C48F70082748B /* UMReactBridge */,
-				38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				13B07FB71A68108700A75B9A /* main.m */,
+				958F26A82C11FBA300503568 /* AppDelegate.h */,
+				958F26A62C11FBA300503568 /* AppDelegate.mm */,
+				958F26A92C11FBA300503568 /* Images.xcassets */,
+				958F26A52C11FBA300503568 /* Info.plist */,
+				958F26A72C11FBA300503568 /* LaunchScreen.storyboard */,
 				3896D1872B0D85D90082748B /* ttActionController.m */,
 				3896D18A2B0D85FB0082748B /* ttActionController.h */,
+				958F26A32C11FB2100503568 /* main.m */,
+				3896D17F2B0C48F70082748B /* UMReactBridge */,
+				38EB5DED2ACDB1D700F913BB /* iOSReactNativeBridge */,
 			);
-			name = aimeiju;
+			name = yikongdianying;
 			sourceTree = "<group>";
 		};
 		2599D15A64CF57E48FD2DFAE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EC0C014B6EFEA77445DDF335 /* Pods-aimeiju.debug.xcconfig */,
-				697E43581720F600B076D375 /* Pods-aimeiju.release.xcconfig */,
-				EEABAEDD6015486405888284 /* Pods-aimeiju.staging.xcconfig */,
-				D793180175D3BAE40D99E903 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */,
-				1EF808B0CEE8FE1950174B7C /* Pods-aimeiju-aimeijuTests.release.xcconfig */,
-				130672160C4949663110F6CE /* Pods-aimeiju-aimeijuTests.staging.xcconfig */,
+				941E7AD3A37CFA418E115022 /* Pods-yikongdianying.debug.xcconfig */,
+				CF473D66090940D32321CEC4 /* Pods-yikongdianying.release.xcconfig */,
+				F4FB2F785FB6536BA9CF77F4 /* Pods-yikongdianying.staging.xcconfig */,
+				C6DBCC11DEF0AF31577B3FA0 /* Pods-yikongdianying-yikongdianyingTests.debug.xcconfig */,
+				87699E3E24CF14B7ADD0FEF3 /* Pods-yikongdianying-yikongdianyingTests.release.xcconfig */,
+				E0DCE42F915AABC61340CED8 /* Pods-yikongdianying-yikongdianyingTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -264,8 +264,8 @@
 				9A218EB62AC413D600F6B98C /* libz.tbd */,
 				8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				93EB66B45C384DDF868C2647 /* libPods-aimeiju.a */,
-				9348CCF0EBC8F929A290B5CE /* libPods-aimeiju-aimeijuTests.a */,
+				B57923A63D00E94C943B9AB3 /* libPods-yikongdianying.a */,
+				1C673010AB7785448E4C40BD /* libPods-yikongdianying-yikongdianyingTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -362,9 +362,9 @@
 			isa = PBXGroup;
 			children = (
 				9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */,
-				13B07FAE1A68108700A75B9A /* aimeiju */,
+				13B07FAE1A68108700A75B9A /* yikongdianying */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* aimeijuTests */,
+				00E356EF1AD99517003FC87E /* yikongdianyingTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				A75915B4685A40AB85AA7C02 /* Resources */,
@@ -379,8 +379,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* aimeiju.app */,
-				00E356EE1AD99517003FC87E /* aimeiju.xctest */,
+				13B07F961A680F5B00A75B9A /* yikongdianying.app */,
+				00E356EE1AD99517003FC87E /* yikongdianying.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -456,9 +456,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* aimeijuTests */ = {
+		00E356ED1AD99517003FC87E /* yikongdianyingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "aimeijuTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "yikongdianyingTests" */;
 			buildPhases = (
 				D9DFA6B94D1A9E88C7627961 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -472,14 +472,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = aimeijuTests;
+			name = yikongdianyingTests;
 			productName = yingshiTests;
-			productReference = 00E356EE1AD99517003FC87E /* aimeiju.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* yikongdianying.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* aimeiju */ = {
+		13B07F861A680F5B00A75B9A /* yikongdianying */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "aimeiju" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "yikongdianying" */;
 			buildPhases = (
 				6FB6C1DE9EBADAF1061DFEDA /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -495,9 +495,9 @@
 			);
 			dependencies = (
 			);
-			name = aimeiju;
+			name = yikongdianying;
 			productName = yingshi;
-			productReference = 13B07F961A680F5B00A75B9A /* aimeiju.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* yikongdianying.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -517,7 +517,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "aimeiju" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "yikongdianying" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -536,8 +536,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* aimeiju */,
-				00E356ED1AD99517003FC87E /* aimeijuTests */,
+				13B07F861A680F5B00A75B9A /* yikongdianying */,
+				00E356ED1AD99517003FC87E /* yikongdianyingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -571,11 +571,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0E468246AAB34070B20364F4 /* 045-SSYiFeiTi.ttf in Resources */,
+				958F26AD2C11FBA300503568 /* Images.xcassets in Resources */,
 				5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */,
+				958F26AC2C11FBA300503568 /* LaunchScreen.storyboard in Resources */,
 				C6624F59138B4D30A2743B04 /* Archivo-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,15 +605,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying/Pods-yikongdianying-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying/Pods-yikongdianying-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yikongdianying/Pods-yikongdianying-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		164CB4B732C18C188C3F7127 /* [CP] Copy Pods Resources */ = {
@@ -622,15 +622,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying/Pods-yikongdianying-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying/Pods-yikongdianying-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yikongdianying/Pods-yikongdianying-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6FB6C1DE9EBADAF1061DFEDA /* [CP] Check Pods Manifest.lock */ = {
@@ -648,7 +648,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-aimeiju-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-yikongdianying-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -661,15 +661,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9613FC6EB9DD7301B1F4747E /* [CP] Embed Pods Frameworks */ = {
@@ -678,15 +678,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yikongdianying-yikongdianyingTests/Pods-yikongdianying-yikongdianyingTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CFCEB435C0994229A8DC1463 /* Upload Debug Symbols to Sentry */ = {
@@ -718,7 +718,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-aimeiju-aimeijuTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-yikongdianying-yikongdianyingTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -786,12 +786,11 @@
 				3896D1852B0C48F70082748B /* ttCompleteBasketball.m in Sources */,
 				38EB5E0C2ACDB24500F913BB /* ttTrashAction.m in Sources */,
 				38EB5E0A2ACDB24500F913BB /* ttEwarded.m in Sources */,
-				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				38EB5E082ACDB24500F913BB /* ttAjaxDownloader.m in Sources */,
+				958F26AB2C11FBA300503568 /* AppDelegate.mm in Sources */,
 				3896D1882B0D85D90082748B /* ttActionController.m in Sources */,
 				38EB5E072ACDB24500F913BB /* ttLeftController.m in Sources */,
 				38EB5E0B2ACDB24500F913BB /* ttLockOrange.m in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				ID48XD24I4DF39138H4R159I /* ttLoadingResendView.m in Sources */,
 				MT3169D51N11489GM9509W35 /* ttIndicatorTypingView.m in Sources */,
 				CQ3S3JUUZR6YG80336FC4P5W /* ttRelatedExpandView.m in Sources */,
@@ -812,6 +811,7 @@
 				LK371N7P58Y924717TU1J3X0 /* ttNotificationMacauObject.m in Sources */,
 				KL81PX119595461WI5329640 /* ttKlevinController.m in Sources */,
 				KCJ2Z7G0Q92N4766LGFY52F0 /* ttSingaporeEditObject.m in Sources */,
+				958F26A42C11FB2200503568 /* main.m in Sources */,
 				PD69N8Y17TWUQ149259GDZ40 /* ttTailObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -821,7 +821,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* aimeiju */;
+			target = 13B07F861A680F5B00A75B9A /* yikongdianying */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -829,7 +829,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D793180175D3BAE40D99E903 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */;
+			baseConfigurationReference = C6DBCC11DEF0AF31577B3FA0 /* Pods-yikongdianying-yikongdianyingTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -851,15 +851,15 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn.test;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = yikongdianying;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yikongdianying.app/yikongdianying";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EF808B0CEE8FE1950174B7C /* Pods-aimeiju-aimeijuTests.release.xcconfig */;
+			baseConfigurationReference = 87699E3E24CF14B7ADD0FEF3 /* Pods-yikongdianying-yikongdianyingTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -878,15 +878,15 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn.test;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = yikongdianying;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yikongdianying.app/yikongdianying";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC0C014B6EFEA77445DDF335 /* Pods-aimeiju.debug.xcconfig */;
+			baseConfigurationReference = 941E7AD3A37CFA418E115022 /* Pods-yikongdianying.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -902,7 +902,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
 				);
-				INFOPLIST_FILE = aimeiju/Info.plist;
+				INFOPLIST_FILE = yikongdianying/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "易控电影";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
@@ -924,7 +924,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = yikongdianying;
 				PROVISIONING_PROFILE_SPECIFIER = profile;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -935,7 +935,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 697E43581720F600B076D375 /* Pods-aimeiju.release.xcconfig */;
+			baseConfigurationReference = CF473D66090940D32321CEC4 /* Pods-yikongdianying.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -950,7 +950,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
 				);
-				INFOPLIST_FILE = aimeiju/Info.plist;
+				INFOPLIST_FILE = yikongdianying/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "易控电影";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
@@ -972,7 +972,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = yikongdianying;
 				PROVISIONING_PROFILE_SPECIFIER = profile;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_VERSION = 5.0;
@@ -1053,6 +1053,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1127,6 +1129,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1202,6 +1206,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-Wl",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1211,7 +1217,7 @@
 		};
 		9A152EA62AD3F0AC00ECBD56 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEABAEDD6015486405888284 /* Pods-aimeiju.staging.xcconfig */;
+			baseConfigurationReference = F4FB2F785FB6536BA9CF77F4 /* Pods-yikongdianying.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -1226,7 +1232,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Core",
 				);
-				INFOPLIST_FILE = aimeiju/Info.plist;
+				INFOPLIST_FILE = yikongdianying/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "易控电影";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地区，为你推荐身边的更多优惠信息";
@@ -1248,7 +1254,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = yikongdianying;
 				PROVISIONING_PROFILE_SPECIFIER = profile;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = profile;
 				SWIFT_VERSION = 5.0;
@@ -1258,7 +1264,7 @@
 		};
 		9A152EA72AD3F0AC00ECBD56 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 130672160C4949663110F6CE /* Pods-aimeiju-aimeijuTests.staging.xcconfig */;
+			baseConfigurationReference = E0DCE42F915AABC61340CED8 /* Pods-yikongdianying-yikongdianyingTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -1277,16 +1283,16 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.guangxiyikong.app.cn.test;
-				PRODUCT_NAME = aimeiju;
+				PRODUCT_NAME = yikongdianying;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aimeiju.app/aimeiju";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yikongdianying.app/yikongdianying";
 			};
 			name = Staging;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "aimeijuTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "yikongdianyingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1296,7 +1302,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "aimeiju" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "yikongdianying" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1306,7 +1312,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "aimeiju" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "yikongdianying" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
