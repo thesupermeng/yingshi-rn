@@ -2,8 +2,8 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 apply plugin: "com.google.gms.google-services"
 
-apply from: 'topon_china.gradle'
-// apply from: 'topon_non_china.gradle'
+// apply from: 'topon_china.gradle'
+apply from: 'topon_non_china.gradle'
 
 import com.android.build.OutputFile
 
@@ -107,8 +107,8 @@ android {
         applicationId "com.doratvhd"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 1 , 6 jun
-        versionCode 1
+        // ABB version 2 , 7 jun
+        versionCode 2
         versionName "1.0.0"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
