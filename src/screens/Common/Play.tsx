@@ -661,7 +661,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
 
   const fetchVod = () => {
     return VodApi.getList({
-      category: vod?.vod_class?.split(",").shift(),
+      category: vod?.vod_class?.split(",").map((data) => data.trim()).join(','),
       tid: vod?.type_id.toString() ?? "",
       limit: 6,
     }).then((data) => {

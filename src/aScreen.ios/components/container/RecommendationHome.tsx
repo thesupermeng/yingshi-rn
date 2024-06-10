@@ -176,7 +176,7 @@ const RecommendationHome = ({
               uri: item.carousel_pic_mobile,
               priority: 'normal',
             }}
-            resizeMode={'cover'}
+            resizeMode={'contain'}
             useFastImage={true}
           />
           <LinearGradient
