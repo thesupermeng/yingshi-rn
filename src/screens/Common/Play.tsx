@@ -621,7 +621,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       vod.vod_play_list = vodDetails.vod_play_list;
       vod.vod_play_url = vodDetails.vod_play_url;
       // setVod(vod);
-      dispatch(playVod(vod, undefined, currentEpisode, currentSourceId, adultMode));
+      dispatch(playVod(vodDetails, undefined, currentEpisode, currentSourceId, adultMode));
     }
 
     const isRestricted = vodDetails?.vod_restricted === 1;
@@ -1061,6 +1061,17 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
       });
     }
   };
+
+  console.log('vod: ', {
+    id: vod?.vod_id,
+    name: vod?.vod_name,
+    type: vod?.type_id,
+  })
+  console.log('vodDetails: ', {
+    id: vodDetails?.vod_id,
+    name: vodDetails?.vod_name,
+    type: vodDetails?.type_id,
+  })
 
   return (
     <>
