@@ -1062,17 +1062,6 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   };
 
-  console.log('vod: ', {
-    id: vod?.vod_id,
-    name: vod?.vod_name,
-    type: vod?.type_id,
-  })
-  console.log('vodDetails: ', {
-    id: vodDetails?.vod_id,
-    name: vodDetails?.vod_name,
-    type: vodDetails?.type_id,
-  })
-
   return (
     <>
       <ScreenContainer
