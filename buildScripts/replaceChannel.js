@@ -15,7 +15,7 @@ let umengKey = '';
 // codePushDeploymentKey = "TJMfhAG-GnqKD6ygv0iOCXPvwwraf7MT-89Tm"
 // yingshi Production Key
 codePushDeploymentKey = 'yKccuj7iqcdUJBfjKi4dYg0Q4apstPlWZ2RxX';
-umengKey = '650938dcb2f6fa00ba556645';
+umengKey = '6666aff9cac2a664de45cea2';
 
 // fs.readFile(constantsFilePath, 'utf8', (err, data) => {
 //     if (err) {
@@ -76,7 +76,7 @@ const replaceToChannelAndroid = {
 const replaceToUmengAppKey = {
   files: ['../android/app/build.gradle'],
   from: /resValue "string", "UMENG_APPKEY", "([^"]+)"/g,
-  to: 'resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"',
+  to: 'resValue "string", "UMENG_APPKEY", "6666aff9cac2a664de45cea2"',
 };
 
 const replaceAppToponConf = {
@@ -97,8 +97,8 @@ replaceToChannelAndroid.to =
   'resValue "string", "UMENG_CHANNEL", "' + channel + '"';
 replaceToUmengAppKey.to =
   'resValue "string", "UMENG_APPKEY", "' + umengKey + '"';
-  replaceApkUmengLabel.to =
-  `def Umeng_Channel_Label = "` + channel +`"`;
+replaceApkUmengLabel.to =
+  `def Umeng_Channel_Label = "` + channel + `"`;
 
 replaceAppToponConf.to = 'const topon_channel = "' + channel + '"';
 console.log(replaceToChannelRN.to);

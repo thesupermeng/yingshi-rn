@@ -112,7 +112,7 @@ android {
         versionName "1.0.0"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
-        resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
+        resValue "string", "UMENG_APPKEY", "6666aff9cac2a664de45cea2"
         resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
