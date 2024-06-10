@@ -283,7 +283,10 @@ function startVideoDownloadThunk(
       handleUpdate,
       handleComplete,
       handleError,
-      handleSessionCreated
+      handleSessionCreated,
+      (vod?.url_header !== undefined
+        ? vod.url_header as any
+        : undefined)
     )
 
   }

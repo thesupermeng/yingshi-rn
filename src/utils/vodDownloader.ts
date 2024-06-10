@@ -70,11 +70,26 @@ async function ffmpegDownload(outputPath: string, ffmpegCommand: string, url: st
   onSessionCreated({ session })
 }
 
-export async function downloadVod(id: string, url: string, onProgress: (progress: { percentage?: number, bytes?: number }) => void, onComplete: any, onError: any, onSessionCreated: ({ session }: { session: FFmpegSession }) => void) {
+export async function downloadVod(
+  id: string,
+  url: string,
+  onProgress: (progress: { percentage?: number, bytes?: number }) => void,
+  onComplete: any,
+  onError: any,
+  onSessionCreated: ({ session }: { session: FFmpegSession }) => void,
+  urlHeader?: {
+    Origin: string,
+    Referer: string,
+  },
+) {
   await RNFetchBlob.fs.mkdir(RNFetchBlob.fs.dirs.DocumentDir + '/SavedVideos').catch((err) => { })
 
   const outputFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/SavedVideos/${id}.mp4`
-  const ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
+  let ffmpegScript = `-i ${url} -acodec copy -bsf:a aac_adtstoasc -vcodec copy ${outputFilePath}`
+
+  if (urlHeader && urlHeader.Origin && urlHeader.Referer) {
+    ffmpegScript = `-headers $'Origin: ${urlHeader.Origin}\r\nReferer: ${urlHeader.Referer}\r\n' `.concat(ffmpegScript)
+  }
 
   const handleOnComplete = async (args) => {
     try {
