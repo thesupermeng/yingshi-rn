@@ -48,8 +48,8 @@
     "android-apk-xiaomi-yuzhuang-release": "export APK_CHANNEL=XIAOMI_YUZHUANG&& npm run build-release",
     "devtools": "react-devtools",
     "use-umeng-firebase": "export ANALYTICS_UMENG=1 && export ANALYTICS_FIREBASE=1 && cd buildScripts && node replaceAnalytics.js",
-    "use-umeng": "export ANALYTICS_UMENG=1 && cd buildScripts && node replaceAnalytics.js",
-    "use-firebase": "export ANALYTICS_FIREBASE=1 && cd buildScripts && node replaceAnalytics.js"
+    "use-umeng": "export ANALYTICS_UMENG=1 && ANALYTICS_FIREBASE=0 && cd buildScripts && node replaceAnalytics.js",
+    "use-firebase": "export ANALYTICS_FIREBASE=1 && ANALYTICS_UMENG=0 && cd buildScripts && node replaceAnalytics.js"
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
