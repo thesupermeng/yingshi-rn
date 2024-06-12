@@ -1,5 +1,5 @@
 import { View, Text, Image, ImageBackground } from 'react-native';
-import { AwayIcon, HomeIcon } from '../../assets';
+import { AwayIcon, HomeIcon } from '../../../../static/sports';
 import styles from './tt_with_success';
 import { ttShared, tt_terms } from '../../types/tt_sound';
 

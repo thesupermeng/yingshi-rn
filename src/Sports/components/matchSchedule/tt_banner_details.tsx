@@ -1117,7 +1117,7 @@ const MatchScheduleList = ({
           handleRefresh(); 
         }}>
         <FastImage
-          source={require('../../assets/images/configureBecomeMiddle.png')}
+          source={require('@static/sports/images/configureBecomeMiddle.png')}
           style={{ width: 35, height: 35 }}
           resizeMode={"contain"}
         />

@@ -1,5 +1,5 @@
 import {ImageBackground, Text, View} from 'react-native';
-import {FootBallField, FootBallFieldLayout} from '../../assets';
+import {FootBallField, FootBallFieldLayout} from '../../../../static/sports';
 import AwayTeam from './awayTeam';
 import Bottom from './bottom';
 import Header from './header';

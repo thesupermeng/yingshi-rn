@@ -5,7 +5,7 @@ import {
   BasketballAwayTeam,
   BasketballIcon,
   SubBasketballPlayer
-} from '../../../../../assets';
+} from '../../../../../../../static/sports';
 import styles from './tt_with_success';
 import PlayerStats from '../../../../../components/playerStats';
 import {useState} from 'react';

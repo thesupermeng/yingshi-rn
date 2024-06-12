@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, Text} from 'react-native';
-import {AwayIcon, HomeIcon} from '../../assets';
+import {AwayIcon, HomeIcon} from '../../../../static/sports';
 
 const DefaultTeamIcon = ({isHome, iconSize = 16, textSize = 10, text = ''}) => {
   const subString = text.length > 1 ? text.substring(0, 1) : text;

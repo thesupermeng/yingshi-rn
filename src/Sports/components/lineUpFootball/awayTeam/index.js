@@ -1,6 +1,6 @@
 import {ImageBackground, Text, View} from 'react-native';
 import styles from './tt_with_success';
-import {AwayTeamField} from '../../../assets';
+import {AwayTeamField} from '../../../../../static/sports';
 import Player from '../player';
 
 const AwayTeam = props => {

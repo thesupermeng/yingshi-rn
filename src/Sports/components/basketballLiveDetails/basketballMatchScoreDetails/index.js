@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImageBackground, View, Text} from 'react-native';
 
-import {YellowScoreBall, RedScoreBall} from '../../../assets';
+import {YellowScoreBall, RedScoreBall} from '../../../../../static/sports';
 import styles from './tt_with_success';
 
 const BasketballMatchScoreDetails = props => {

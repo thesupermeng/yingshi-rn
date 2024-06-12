@@ -9,7 +9,7 @@ import {useTheme} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {ttAway} from '../../Sports/types/tt_zhubo';
 import {calculateScore, getMatchStatus} from '../../Sports/utility/utils';
-import {AwayIcon, HomeIcon} from '../../Sports/assets';
+import {AwayIcon, HomeIcon} from '../../../static/sports';
 
 interface ttSmall {
   match_details: ttAway;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ScrollView, Image } from 'react-native';
 import { ColorSpace } from 'react-native-reanimated';
-import { GoalLogo } from '../../../assets';
+import { GoalLogo } from '../../../../../static/sports';
 
 import StorylineTap from '../storylineTab';
 import StorylineTabListItem from '../storylineTabListItem';

@@ -1,6 +1,6 @@
 import {View, Text, Image} from 'react-native';
 import styles from './tt_with_success';
-import {BasketballPlayerPlaceholder} from '../../../../../assets';
+import {BasketballPlayerPlaceholder} from '../../../../../../../static/sports';
 
 const TopPlayerStatistic = ({data}) => {
   let calHomeStat = (homeStat, awayStat) => {

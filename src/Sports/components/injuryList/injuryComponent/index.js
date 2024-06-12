@@ -4,7 +4,7 @@ import {
   BasketballHomeTeam,
   BasketballAwayTeam,
   InjuryIcon
-} from '../../../assets';
+} from '../../../../../static/sports';
 import vars from '../../../utility/tt_mbjscommon_source';
 
 const InjuryComponent = ({data, isHome = true}) => {

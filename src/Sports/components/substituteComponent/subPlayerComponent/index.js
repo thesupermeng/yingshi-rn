@@ -14,7 +14,7 @@ import {
   InjuryIcon,
   HomePlayer,
   AwayPlayer,
-} from '../../../assets';
+} from '../../../../../static/sports';
 import vars from '../../../utility/tt_mbjscommon_source';
 
 const SubPlayerComponent = ({isInjury = false, data, isHome = true}) => {

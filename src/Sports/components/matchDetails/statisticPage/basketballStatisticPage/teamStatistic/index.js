@@ -5,7 +5,7 @@ import {
   ShowLess,
   BasketballAwayTeam,
   BasketballIcon,
-} from '../../../../../assets';
+} from '../../../../../../../static/sports';
 import styles from './tt_with_success';
 import {useState} from 'react';
 

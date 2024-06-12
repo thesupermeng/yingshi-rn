@@ -1,6 +1,6 @@
 import {View, Text, Image, ImageBackground} from 'react-native';
 import styles from './tt_with_success';
-import { HomeIcon, AwayIcon } from '../../../../../assets';
+import { HomeIcon, AwayIcon } from '../../../../../../../static/sports';
 
 const TeamStat = ({data}) => {
   return (

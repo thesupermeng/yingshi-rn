@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, ImageBackground, View} from 'react-native';
-import {DefaultBasketballBg, DefaultFootballBg} from '../../assets';
+import {DefaultBasketballBg, DefaultFootballBg} from '../../../../static/sports';
 import DefaultTeamIcon from '../defaultTeamIcon';
 
 const DefaultRoomImage = ({

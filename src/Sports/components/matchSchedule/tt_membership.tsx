@@ -3,9 +3,9 @@ import { View, Text, ImageBackground } from "react-native";
 import FastImage from "../../../components/common/tt_connection";
 import { useTheme } from "@react-navigation/native";
 import styles from "./tt_with_success";
-import { IconViewerGif } from "../../assets";
+import { IconViewerGif } from "../../../../static/sports";
 import { TouchableOpacity } from "react-native";
-import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from "../../assets";
+import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from "../../../../static/sports";
 import {
   calculateScore,
   getMatchStatus,

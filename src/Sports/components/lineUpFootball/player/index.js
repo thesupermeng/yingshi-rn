@@ -13,7 +13,7 @@ import {
   HomePlayer,
   AwayPlayer,
   PlayerShirt,
-} from '../../../assets';
+} from '../../../../../static/sports';
 import {Colors} from '../../../global/tt_umeng';
 import {round} from '../../../utility/utils';
 import styles from './tt_with_success';

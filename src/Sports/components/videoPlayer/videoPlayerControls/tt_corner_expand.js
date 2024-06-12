@@ -30,7 +30,7 @@ import {
   IconTV0,
   RefreshBorderless,
   ShareWhite,
-} from '../../../assets';
+} from '../../../../../static/sports';
 import {
   showControlAction,
   toggleLockScreen,

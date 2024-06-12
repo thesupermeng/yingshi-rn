@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageBackground, Text } from 'react-native';
-import { AwayIcon, HomeIcon } from '../assets';
+import { AwayIcon, HomeIcon } from '../../../static/sports';
 
 interface ttSmall {
     isHome: boolean

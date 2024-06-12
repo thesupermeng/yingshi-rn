@@ -15,7 +15,7 @@ import {
     VideoVAR,
     ShootYesGoal,
     ShootNoGoal,
-} from '../../assets';
+} from '../../../../static/sports';
 
 
 interface ttSmall {

@@ -6,8 +6,8 @@ import {
   LargeBrightness,
   MiddleBrightness,
   SmallBrightness,
-} from '../../../../../assets';
-import {LargeSound, MiddleSound, SmallSound} from '../../../../../assets';
+} from '../../../../../../../static/sports';
+import {LargeSound, MiddleSound, SmallSound} from '../../../../../../../static/sports';
 import {useRef} from 'react';
 
 export const SliderControlType = {

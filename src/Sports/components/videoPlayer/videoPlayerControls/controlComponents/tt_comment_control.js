@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useRef} from 'react';
 import {RecommendPanel} from './recommend/tt_current_alert';
 import {SwitchSourcePanel} from './tt_benefit_casting';
-import {IconCloseBorderLess} from '../../../../assets';
+import {IconCloseBorderLess} from '../../../../../../static/sports';
 import {PanelType, ShowControlType} from '../../config';
 import {Cast} from '../../../cast/Cast';
 import {Colors} from '../../../../global/tt_umeng';

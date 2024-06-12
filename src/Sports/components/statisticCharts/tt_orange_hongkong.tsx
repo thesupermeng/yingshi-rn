@@ -13,7 +13,7 @@ import TopStats from './tt_switch';
 import SideStats from './tt_middle';
 import MiddleStats from './tt_recommendation_about';
 import styles from './tt_with_success';
-import { RedCard, YellowCard, CornerKick } from '../../assets';
+import { RedCard, YellowCard, CornerKick } from '../../../../static/sports';
 
 const ttDice = createMaterialTopTabNavigator();
 

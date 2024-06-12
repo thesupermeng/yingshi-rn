@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableHighlight, Image} from 'react-native';
-import {IconNoInternet} from '../../../../../assets';
+import {IconNoInternet} from '../../../../../../../static/sports';
 import {Colors} from '../../../../../global/tt_umeng';
 
 export const NoRecommend = ({onRefresh}) => {

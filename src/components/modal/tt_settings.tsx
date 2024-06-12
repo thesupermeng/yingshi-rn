@@ -3,7 +3,7 @@ import { hideAdultModeVip } from '@redux/actions/tt_copy_heji';
 import VipModal from './tt_expired_upgrade';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
-import { IconClose } from '../../Sports/assets';
+import { IconClose } from '../../../static/sports';
 import { useCallback } from 'react';
 import CrossIcon from '@static/images/matchesStringUpdate_ex.svg'
 import CloseIcon from '@static/images/basketballTraminiLeft.svg'

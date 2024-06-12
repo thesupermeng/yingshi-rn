@@ -3,7 +3,7 @@ import {
   BasketballAwayTeam,
   SubBasketballPlayer,
   BasketballIcon,
-} from '../../assets';
+} from '../../../../static/sports';
 import styles from './tt_with_success';
 
 const Menu = [

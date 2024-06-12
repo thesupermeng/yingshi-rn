@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 
 import SteamingCover from '../../../components/steamingCover';
-import {GreyArrowUp} from '../../../assets';
+import {GreyArrowUp} from '../../../../../static/sports';
 
 import styles from './tt_with_success';
 

@@ -14,7 +14,7 @@ import {
   VideoVAR,
   ShootYesGoal,
   ShootNoGoal,
-} from '../../assets';
+} from '../../../../static/sports';
 import styles from './tt_with_success';
 
 const FootballIconComponent = ({showLessIcon = false}) => {

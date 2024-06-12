@@ -1,6 +1,6 @@
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
 import styles from './tt_with_success';
-import { HomeIcon, AwayIcon } from '../../assets';
+import { HomeIcon, AwayIcon } from '../../../../static/sports';
 import { calculateScore } from '../../utility/utils';
 import { ttShared, V } from '../../types/tt_sound';
 import { ttAway } from '../../types/tt_zhubo';

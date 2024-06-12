@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {ColorSpace} from 'react-native-reanimated';
-import {GoalLogo, PenaltyMatchIcon} from '../../../assets';
+import {GoalLogo, PenaltyMatchIcon} from '../../../../../static/sports';
 
 import StorylineTap from '../storylineTab';
 import {getMatchStorylineStatus} from '../../../utility/utils';

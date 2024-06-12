@@ -3,10 +3,10 @@ import { View, Text, ImageBackground } from 'react-native';
 import FastImage from '../../../components/common/tt_connection';
 import { Link, useTheme } from '@react-navigation/native';
 import styles from './tt_with_success';
-import { IsSub, Sub, Views, IconViewerGif, Live, VideoLiveWhite, AnimationLiveWhite } from '../../assets';
+import { IsSub, Sub, Views, IconViewerGif, Live, VideoLiveWhite, AnimationLiveWhite } from '../../../../static/sports';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import vars from '../../utility/tt_mbjscommon_source';
-import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from '../../assets';
+import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from '../../../../static/sports';
 import {
   calculateScore,
   getMatchStatus,

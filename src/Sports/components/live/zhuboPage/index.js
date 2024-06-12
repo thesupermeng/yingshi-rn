@@ -10,7 +10,7 @@ import {
 } from '../../../components/containers';
 import Drawer from '../drawer';
 
-import {Zhubo, SmallOrangeMan} from '../../../assets';
+import {Zhubo, SmallOrangeMan} from '../../../../../static/sports';
 
 import styles from './tt_with_success';
 import {useNavigation} from '@react-navigation/native';

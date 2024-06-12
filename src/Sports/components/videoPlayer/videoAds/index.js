@@ -14,7 +14,7 @@ import {
   BaiduAds,
   IconCloseBorderLess,
   IconDefaultThumbnail,
-} from '../../../assets';
+} from '../../../../../static/sports';
 import styles from './tt_with_success';
 import {Back} from '../videoPlayerControls/tt_corner_expand';
 import AppSettingsAction from '@redux/actions/appSettingsAction';

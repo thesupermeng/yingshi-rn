@@ -11,7 +11,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import ScreenContainer from '../../../components/container/tt_backward';
 import Chart from '../statisticCharts/tt_orange_hongkong';
 import EmptyDataPage from '../tt_line';
-import { Goal, RedCard, YellowCard, YellowToRedCard, CornerKick, PenaltyGoal } from '../../assets';
+import { Goal, RedCard, YellowCard, YellowToRedCard, CornerKick, PenaltyGoal } from '../../../../static/sports';
 import DefaultTeamIcon from '../tt_report';
 import CanvasIncident from './tt_ping_roboto';
 

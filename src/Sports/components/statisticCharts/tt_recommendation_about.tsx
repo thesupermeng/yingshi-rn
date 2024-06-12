@@ -4,7 +4,7 @@ import { useTheme, useFocusEffect } from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import styles from './tt_with_success';
 import {ProgressChart} from 'react-native-chart-kit';
-import { InOutTargetYellow, InOutTargetRed } from '../../assets';
+import { InOutTargetYellow, InOutTargetRed } from '../../../../static/sports';
 
 const ttDice = createMaterialTopTabNavigator();
 

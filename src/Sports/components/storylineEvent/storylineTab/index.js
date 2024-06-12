@@ -16,7 +16,7 @@ import {
   VideoVAR,
   CornerShoot,
   Goal,
-} from '../../../assets';
+} from '../../../../../static/sports';
 
 import vars from '../../../utility/tt_mbjscommon_source';
 

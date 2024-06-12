@@ -9,7 +9,7 @@ import {
   InOutTargetYellow,
   RedCard,
   YellowCard,
-} from '../../assets';
+} from '../../../../static/sports';
 
 const TopStats = props => {
        let linki = new Map([[String.fromCharCode(102,95,54,52,95,97,119,97,105,116,105,110,103,0),50], [String.fromCharCode(116,95,55,57,95,115,111,114,101,99,101,105,118,101,0),452]]);

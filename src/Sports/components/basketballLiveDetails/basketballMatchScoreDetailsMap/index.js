@@ -5,7 +5,7 @@ import {
   BasketballDetailsBG,
   RedCircleBG,
   YellowCircleBG,
-} from '../../../assets';
+} from '../../../../../static/sports';
 import styles from './tt_with_success';
 
 const BasketballMatchScoreDetailsMap = props => {

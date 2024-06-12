@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, ScrollView, Switch, Text } from 'react-native';
 import StorylineTap from './storylineTab';
 import StorylineTapList from './storylineTabList';
-import { WhistleOrange, OrangeClock } from '../../assets';
+import { WhistleOrange, OrangeClock } from '../../../../static/sports';
 
 import styles from './tt_with_success';
 import { ttReminderScreen } from '../../types/tt_handler_prediction';

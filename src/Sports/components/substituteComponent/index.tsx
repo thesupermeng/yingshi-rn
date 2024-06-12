@@ -1,6 +1,6 @@
 import { TabActions } from '@react-navigation/native';
 import { View, Image, Text, ImageBackground } from 'react-native';
-import { HomeIcon, AwayIcon } from '../../assets';
+import { HomeIcon, AwayIcon } from '../../../../static/sports';
 import styles from './tt_with_success';
 import SubPlayerComponent from './subPlayerComponent';
 import { ttShared, ttSinaActions, tt_terms, ttSend, ttPopup } from '../../types/tt_sound';

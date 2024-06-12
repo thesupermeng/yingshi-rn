@@ -9,7 +9,7 @@ import {
   RedCard,
   YellowCard,
   YellowToRedCard,
-} from '../../assets';
+} from '../../../../static/sports';
 import {Colors} from '../../global/tt_umeng';
 import {CanvasIncident} from './tt_ping_roboto';
 

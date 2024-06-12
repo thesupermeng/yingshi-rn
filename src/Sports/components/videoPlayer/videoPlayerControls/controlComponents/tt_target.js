@@ -9,7 +9,7 @@ import {
   RedCard,
   YellowCard,
   YellowToRedCard,
-} from '../../../../assets';
+} from '../../../../../../static/sports';
 import {useState} from 'react';
 import NoDataIcon from '../../images/icons/reactnativejsRecommendation.png';
 

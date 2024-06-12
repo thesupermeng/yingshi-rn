@@ -1,5 +1,5 @@
 import {Image, Text, View} from 'react-native';
-import {logoUser} from '../../../assets';
+import {logoUser} from '../../../../../static/sports';
 import styles from './tt_with_success';
 
 const Bottom = props => {

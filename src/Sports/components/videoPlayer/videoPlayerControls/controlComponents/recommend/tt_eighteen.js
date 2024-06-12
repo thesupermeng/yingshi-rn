@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet, View, Text, Image} from 'react-native';
-import {IconViewerGif} from '../../../../../assets';
+import {IconViewerGif} from '../../../../../../../static/sports';
 import {
   matchOnTime,
   matchRunningStatusBasketball,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, ImageBackground, Text, View} from 'react-native';
-import {IconPlay, IconViewerGif} from '../../assets';
+import {IconPlay, IconViewerGif} from '../../../../static/sports';
 import {formatViewerCount} from '../../utility/utils';
 import DefaultRoomImage from '../defaultRoomImage';
 import DefaultThumbnail from '../defaultThumbnail';

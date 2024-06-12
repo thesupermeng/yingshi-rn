@@ -9,7 +9,7 @@ import {Colors} from '../../../../global/tt_umeng';
 import {useLiveVideoSources} from '@hooks/useLiveVideoSources';
 import {useAnimationVideoSources} from '@hooks/useAnimationVideoSources';
 import {VideoLiveType} from '../../../../global/tt_libcrashsdk_spinner';
-import {VideoLive, AnimationLive} from '../../../../assets';
+import {VideoLive, AnimationLive} from '../../../../../../static/sports';
 
 export const SwitchSourcePanel = ({isBottom}) => {
   const styles = createStyles(isBottom);

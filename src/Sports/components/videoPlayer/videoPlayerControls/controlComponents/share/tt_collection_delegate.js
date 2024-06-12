@@ -1,5 +1,5 @@
 import {Image, Share} from 'react-native';
-import {IconNewsShare} from '../../../../../assets';
+import {IconNewsShare} from '../../../../../../../static/sports';
 import {createShareLink} from '../../../../../utility/utils';
 import {RenderControl, style} from '../../tt_corner_expand';
 import {setPredictionShareTimeStamp} from '../../../../../global/asyncStorage';

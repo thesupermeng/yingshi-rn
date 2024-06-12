@@ -10,7 +10,7 @@ import {
   VideoLive,
   AnimationLive,
   OtherMatchDetailBG,
-} from '../../assets';
+} from '../../../../static/sports';
 import { TouchableOpacity } from 'react-native';
 import {
   dateFormat,

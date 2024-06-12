@@ -5,7 +5,7 @@ import {
   Temperature,
   weatherIndicatorImage,
   Wind,
-} from './image/index';
+} from '../../../../static/weather/image/index';
 import styles from './tt_side';
 
 const Weather = props => {
