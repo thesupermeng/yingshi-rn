@@ -1,0 +1,36 @@
+开始自动混淆项目代码扫描文件中。。。。。。
+
+
+混淆项目路径：/Users/tongduan/Repo/git/redfin/YingshiRN/static
+文件 : LottieRedBlink.json
+文件 : index.js
+文件 : LottieGoalBg.json
+文件 : package.json
+文件 : index.js
+文件 : GIFT.json
+文件 : macauGmailMbbanner.wav
+
+
+自动为您开启7个线程进行混淆。。。。。。。
+开始自动解析源代码中的注释。。。。。。
+
+
+开始提取所有源文件中的类名并生成新类名。。。。。。
+
+
+开始多语言文件的key名称。。。。。。
+
+
+开始自动检测类继承关系。。。。。。
+
+
+开始自动检测统计所有文件中属性信息。。。。。。
+
+
+开始自动修改sks资源名称。。。。。。。
+
+sks资源修改结束
+
+
+开始生成新混淆源文件。。。。。。。
+100%👌
