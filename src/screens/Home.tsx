@@ -20,6 +20,7 @@ import {
   API_DOMAIN,
   API_DOMAIN_TEST,
   EVENT_SPLASH_SHOW_DURATION,
+  INIT_FIREBASE,
   IOS_HOME_PAGE_POP_UP_ADS,
   SHOW_ZF_CONST,
   UMENG_CHANNEL,
@@ -62,6 +63,7 @@ import DeviceInfo from "react-native-device-info";
 import { EventSpash } from "../navigation/eventSplash";
 import { UserStateType } from "@redux/reducers/userReducer";
 import { HomePageType, User } from "@models";
+import { requestNotifications, RESULTS } from "react-native-permissions";
 
 function Home({ navigation }: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -406,6 +408,22 @@ function Home({ navigation }: BottomTabScreenProps<any>) {
   const onTabSwipe = useCallback((index: number, tab: any) => {
     setNavId(tab.id);
   }, []);
+
+  useFocusEffect(() => {
+    if (INIT_FIREBASE) {
+      requestNotifications().then(({ status, settings }) => {
+        if (status == RESULTS.GRANTED) {
+          console.log('Notification Granted!');
+          // do something related to tracking
+        } else {
+          console.log('Notification Denied!');
+        }
+      })
+        .catch(error => {
+          console.log('error in request notification permissions: ', error);
+        });
+    }
+  })
 
   useInterstitialAds();
 

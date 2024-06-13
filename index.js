@@ -52,19 +52,19 @@ AppRegistry.registerRunnable(appName, async initialProps => {
         });
     }
 
-    if (INIT_FIREBASE) {
-      requestNotifications().then(({ status, settings }) => {
-        if (status == RESULTS.GRANTED) {
-          console.log('Notification Granted!');
-          // do something related to tracking
-        } else {
-          console.log('Notification Denied!');
-        }
-      })
-        .catch(error => {
-          console.log('error in request tracking permissions: ', error);
-        });
-    }
+    // if (INIT_FIREBASE) {
+    //   requestNotifications().then(({ status, settings }) => {
+    //     if (status == RESULTS.GRANTED) {
+    //       console.log('Notification Granted!');
+    //       // do something related to tracking
+    //     } else {
+    //       console.log('Notification Denied!');
+    //     }
+    //   })
+    //     .catch(error => {
+    //       console.log('error in request tracking permissions: ', error);
+    //     });
+    // }
 
     AppRegistry.registerComponent(appName, () => () => <App />);
     AppRegistry.runApplication(appName, initialProps);

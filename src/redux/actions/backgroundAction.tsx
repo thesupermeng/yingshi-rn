@@ -146,7 +146,7 @@ export const onBootApp =
 
         // ========== adjust event ==========
         if (UMENG_CHANNEL == "HYTG001") {
-        Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
+          Adjust.create(new AdjustConfig(ADJUST_APP_KEY, AdjustConfig.EnvironmentProduction));
         }
         if (EVENT_CUSTOM_ON) {
           CustomEventAnalytic.start();
@@ -154,25 +154,24 @@ export const onBootApp =
 
         // ========== firebase notification ==========
 
-        if(INIT_FIREBASE)
-          {
-        _initFirebase().then(() => {
-          // use for on boot
-          messaging().getInitialNotification().then((remoteMessage) => {
-            setTimeout(() => {
-              _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
-            }, 500);
+        if (INIT_FIREBASE) {
+          _initFirebase().then(() => {
+            // use for on boot
+            messaging().getInitialNotification().then((remoteMessage) => {
+              setTimeout(() => {
+                _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
+              }, 500);
 
-          });
+            });
 
-          // use for app in background (no killed)
-          _firebaseNotificationListener = messaging().onNotificationOpenedApp((remoteMessage) => {
-            setTimeout(() => {
-              _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
-            }, 500);
+            // use for app in background (no killed)
+            _firebaseNotificationListener = messaging().onNotificationOpenedApp((remoteMessage) => {
+              setTimeout(() => {
+                _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
+              }, 500);
+            });
           });
-        });
-      }
+        }
       } catch (e) { }
     };
 
@@ -186,8 +185,8 @@ export const onCloseApp =
         CustomEventAnalytic.close();
 
         if (UMENG_CHANNEL == "HYTG001") {
-        // ========== adjust event ==========
-        Adjust.componentWillUnmount();
+          // ========== adjust event ==========
+          Adjust.componentWillUnmount();
         }
 
         // ========== vip promotion modal ==========
@@ -215,21 +214,20 @@ const _initFirebase = async () => {
     await FirebaseNotification.checkPermissionAndGetoken();
 
     if (__DEV__) {
+      console.debug('dev')
       FirebaseNotification.subscibeToTopic("insidertest");
     }
 
 
     const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
 
-    const stagingTopic = `STAGING_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
-    const productionTopic = `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${encodedSearchTerm}_general`;
+    const topic = `STAGING_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
+    // const topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
 
-    FirebaseNotification.subscibeToTopic(stagingTopic);
-    FirebaseNotification.subscibeToTopic(productionTopic);
+    FirebaseNotification.subscibeToTopic(topic);
 
     console.log("订阅 firebase messaging");
-    console.log(stagingTopic);
-    console.log(productionTopic);
+    console.log(topic);
   } catch (err) {
     console.log("Firebase init failed", err);
   }
@@ -242,6 +240,7 @@ const _notificationHandle = (data: {
 }: {
   dispatch: any,
 }) => {
+  console.log('[debug]: ', data);
   if (data) {
     const type = data.redirect_type?.toString();
     const url = data.url?.toString();
