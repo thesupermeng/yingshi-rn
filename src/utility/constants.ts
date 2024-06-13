@@ -62,7 +62,7 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "HUANGSHAYU";
+export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
 export const APP_VERSION = "1.7.9";
 

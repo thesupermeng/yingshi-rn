@@ -50,7 +50,7 @@ import messaging from "@react-native-firebase/messaging";
 import { FirebaseNotification } from "@utility/firebaseNotification";
 import { INIT_FIREBASE } from "./src/utility/constants";
 
-const topon_channel = "WEB";
+const topon_channel = "GOOGLE_PLAY";
 
 // import * as Sentry from "@sentry/react-native";
 
