@@ -123,10 +123,10 @@ let App = () => {
     if(INIT_FIREBASE)
       {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      FirebaseNotification.setupLocalNotification(
-        // JSON.stringify(remoteMessage),
-        remoteMessage
-      );
+      // FirebaseNotification.setupLocalNotification(
+      //   // JSON.stringify(remoteMessage),
+      //   remoteMessage
+      // );
     });
     return unsubscribe;
   }
