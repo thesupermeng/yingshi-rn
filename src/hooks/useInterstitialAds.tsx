@@ -113,7 +113,7 @@ const useInterstitialAds = () => {
 
   const showInterstitial = async (interstitialPlacementId: PlacementId) => {
     // not vip
-    if (!User.isVip(userState.user) && retryCount < 3) {
+    if (!User.isVip(userState.user) && retryCount < 6) {
       retryCount += 1;
       // console.log("=======  not vip ======");
       loadInterstitial(interstitialPlacementId);
@@ -121,7 +121,7 @@ const useInterstitialAds = () => {
         isInterstitialReady(interstitialPlacementId);
       }, 500);
     } else {
-      if (retryCount >= 3) {
+      if (retryCount >= 6) {
         //  console.log("exceed retry limit");
       } else {
         console.log("VIP no ads");
