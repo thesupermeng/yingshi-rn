@@ -60,7 +60,7 @@ export const lang = {
     [CLangKey.downloading]: 'Downloading',
     [CLangKey.pause]: 'Pause',
     [CLangKey.paused]: 'Paused',
-    [CLangKey.doned]: 'Doned',
+    [CLangKey.doned]: 'Done',
     [CLangKey.downloadFailed]: 'Download Failed',
     [CLangKey.downloadMore]: 'Download More',
     [CLangKey.problemFeedback]: 'Problem Feedback',
