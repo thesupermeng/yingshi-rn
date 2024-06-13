@@ -31,7 +31,7 @@ export default ({ init, callback, options = [] }: Props) => {
         if (isInitScroll && itemsLayout.filter((layout) => layout !== 0).length === itemsLayout.length) {
             let index = options.findIndex((option) => option.value === initRef.current.value)
 
-            if (index !== -1) {
+            if (index === -1) {
                 index = 0
             }
 
