@@ -145,9 +145,8 @@ public class AppActivity extends ReactActivity {
 
       SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
       SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-      sharedPreferenceEdit.remove("isPause");
-      sharedPreferenceEdit.apply();
-  }    
+      sharedPreferenceEdit.remove("isPause").commit();
+  }
 
   @Override    
   protected void onPause() {
@@ -159,8 +158,16 @@ public class AppActivity extends ReactActivity {
 
       SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
       SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-      sharedPreferenceEdit.putBoolean("isPause", true);
-      sharedPreferenceEdit.apply();
+      sharedPreferenceEdit.putBoolean("isPause", true).commit();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+
+    SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
+    SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
+    sharedPreferenceEdit.remove("isPause").commit();
   }
 
   /**
