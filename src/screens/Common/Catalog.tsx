@@ -1,5 +1,5 @@
 // import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as React from 'react';
 import {
   View,
@@ -66,9 +66,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
   const queryClient = useQueryClient();
   const SCROLL_THRESHOLD = 50;
   const dispatch = useAppDispatch();
-
-  const scrollRef = useRef<FlatList>();
-  const [isMountSetClass, setIsMountSetClass] = useState(true);
 
   const { data: navOptions } = useQuery({
     queryKey: ['filterOptions'],
@@ -400,18 +397,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
     }
   }, [options?.type_extend_obj.class, topicClass])
 
-  useEffect(() => {
-    if (options && topicClass && isMountSetClass) {
-      const classOptions = options.type_extend_obj.class.split(',')
-      const index = classOptions.findIndex(option => option === topicClass.value) + 1
-
-      if (index === -1) return
-
-      scrollRef?.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0 })
-      setIsMountSetClass(false)
-    }
-  }, [options, topicClass, isMountSetClass])
-
   return (
     <>
       <ScreenContainer>
@@ -436,7 +421,6 @@ export default ({ navigation, route }: RootStackScreenProps<'片库'>) => {
                 options={ORDER_BY_OPTIONS}
               /> */}
               <VodTopicFilter
-                scrollRef={scrollRef}
                 callback={setTopicClass}
                 init={topicClass}
                 options={[

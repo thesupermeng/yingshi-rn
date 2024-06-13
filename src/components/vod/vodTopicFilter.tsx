@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image, LayoutChangeEvent } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 interface FlatListType {
-    item: Option
+    item: Option,
+    index: number,
 }
 
 interface Option {
@@ -15,26 +16,51 @@ interface Props {
     init: Option
     callback?: any,
     options?: Array<Option>
-    scrollRef?: React.MutableRefObject<FlatList | undefined>,
 }
 
 
-export default ({ init, callback, options = [], scrollRef }: Props) => {
+export default ({ init, callback, options = [] }: Props) => {
     const { textVariants, colors, spacing } = useTheme();
+    const [itemsLayout, setItemsLayout] = useState<number[]>(options.map(() => 0));
+
+    const scrollRef = useRef<FlatList>();
+    const initRef = useRef(init);
+    const [isInitScroll, setIsInitScroll] = useState(true)
+
+    useEffect(() => {
+        if (isInitScroll && itemsLayout.filter((layout) => layout !== 0).length === itemsLayout.length) {
+            const index = options.findIndex((option) => option.value === initRef.current.value)
+            scrollRef?.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0 })
+            setIsInitScroll(false)
+        }
+    }, [itemsLayout]);
+
+    const onLayoutChange = (e: LayoutChangeEvent, index: number) => {
+        if (itemsLayout[index] === 0) {
+            setItemsLayout(itemsLayout.map((layout, i) => {
+                if (index === i) {
+                    return e.nativeEvent.layout.width;
+                }
+
+                return layout
+            }))
+        }
+    }
 
     const getItemLayout = (_data: any, index: number) => {
         let offset = 0
 
         for (let i = 0; i < index; i++) {
-            offset += _data[i].value.length * 10
+            offset += itemsLayout[i]
         }
 
         return ({
-            length: _data[index].value.length * 10, // Specify the item's height here
+            length: itemsLayout[index], // Specify the item's height here
             offset: offset + (index * spacing.m),
             index,
         })
     };
+
     return (
         <>
             {options.length > 2 ?
@@ -44,19 +70,20 @@ export default ({ init, callback, options = [], scrollRef }: Props) => {
                             ref={scrollRef}
                             data={options}
                             horizontal
+                            initialNumToRender={options.length}
                             showsHorizontalScrollIndicator={false}
                             ItemSeparatorComponent={
                                 <View style={{ width: spacing.m, }} />
                             }
                             renderItem={({ item, index }: FlatListType) => {
-                                return <TouchableOpacity style={{ justifyContent: 'center', width: item.value.length * 10 }}
+                                return <TouchableOpacity style={{ justifyContent: 'center' }}
                                     // onPress={() => callback(item)}>
                                     onPress={() => { callback && callback(item) }}>
                                     <Text style={{
                                         textAlign: 'center',
                                         fontSize: textVariants.subBody.fontSize,
                                         color: init.value === item.value ? colors.primary : colors.muted
-                                    }}>{item.text}</Text>
+                                    }} onLayout={(e) => onLayoutChange(e, index)}>{item.text}</Text>
                                 </TouchableOpacity>
                             }}
                             getItemLayout={getItemLayout}
