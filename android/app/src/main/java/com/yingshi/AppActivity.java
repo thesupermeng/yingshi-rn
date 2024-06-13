@@ -20,7 +20,7 @@ import android.os.Bundle;
 
 import com.yingshitv.RNUMConfigure;
 
-import com.yingshitv.SplashAdShowActivity;
+// import com.yingshitv.SplashAdShowActivity;
 import android.content.Context;
 import android.util.Log;
 
