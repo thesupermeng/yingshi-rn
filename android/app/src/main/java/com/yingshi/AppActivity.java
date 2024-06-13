@@ -2,6 +2,7 @@ package com.yingshitv;
 
 import static com.facebook.react.views.textinput.ReactEditText.DEBUG_MODE;
 
+import com.anythink.core.api.ATSDK;
 import com.yingshitv.SQLiteDBHelper;
 
 import com.facebook.react.ReactActivity;
@@ -49,6 +50,7 @@ public class AppActivity extends ReactActivity {
   protected void onCreate(Bundle savedInstanceState) {
     // super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
     super.onCreate(null);
+    ATSDK.init(this, "a65096b9d21e23", "ad83e042ddc3e6904c1f63bcc575a6bd7");
 
     // Create a ConsentRequestParameters object.
     ConsentRequestParameters params = new ConsentRequestParameters
