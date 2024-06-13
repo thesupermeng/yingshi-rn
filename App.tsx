@@ -65,23 +65,23 @@ const topon_channel = "GOOGLE_PLAY";
 //   },
 // });
 
-warnIgnore([
-  "Trying to load empty source.",
-  "`new NativeEventEmitter()` was called with a non-null argument without the required",
-  `ReactImageView: Image source "null" doesn't exist`,
-  "StatusBar._updatePropsStack",
-  "ATBanner",
-  "ATInterstitial",
-  "source.uri should not be an empty string",
-  "[notifee]",
-]);
+// warnIgnore([
+//   "Trying to load empty source.",
+//   "`new NativeEventEmitter()` was called with a non-null argument without the required",
+//   `ReactImageView: Image source "null" doesn't exist`,
+//   "StatusBar._updatePropsStack",
+//   "ATBanner",
+//   "ATInterstitial",
+//   "source.uri should not be an empty string",
+//   "[notifee]",
+// ]);
 
-logIgnore([
-  /Opening .* for reading/,
-  /\[.*\] pts has no value/,
-  /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/,
-  "ATBanner",
-]);
+// logIgnore([
+//   /Opening .* for reading/,
+//   /\[.*\] pts has no value/,
+//   /frame=.*fps=.*q=.*size=.*time=.*bitrate=.*speed=.*/,
+//   "ATBanner",
+// ]);
 
 let App = () => {
   CodePush.notifyAppReady();
@@ -120,16 +120,15 @@ let App = () => {
   }, [isConnected]);
 
   useEffect(() => {
-    if(INIT_FIREBASE)
-      {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      // FirebaseNotification.setupLocalNotification(
-      //   // JSON.stringify(remoteMessage),
-      //   remoteMessage
-      // );
-    });
-    return unsubscribe;
-  }
+    if (INIT_FIREBASE) {
+      const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+        // FirebaseNotification.setupLocalNotification(
+        //   // JSON.stringify(remoteMessage),
+        //   remoteMessage
+        // );
+      });
+      return unsubscribe;
+    }
   }, []);
 
   const downloadWatchAnytimeSequence = async () => {

@@ -48,9 +48,7 @@ public class AppActivity extends ReactActivity {
   // }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
-    super.onCreate(null);
-    ATSDK.init(this, "a65002a2db3a7f", "aad683307ed540dfc11b094206e8a15b1");
+    super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
 
     // Create a ConsentRequestParameters object.
     ConsentRequestParameters params = new ConsentRequestParameters
