@@ -17,7 +17,17 @@ const TvShows = ({ navigation }: BottomTabScreenProps<any>) => {
 
     const fetchData = useCallback(
         (id: number) => AppsApi.getHomePages(id, isVip).then((result) => {
-            result.categories = result.categories.filter((vod) => vod.vod_list.length >= 6).sort(() => Math.random() - Math.random())
+            result.categories = result.categories.filter((vod) => vod.vod_list.length >= 6)
+
+            if (result.categories.length > 0) {
+                const firstCategory = result.categories.slice(0, 1)[0]
+                const otherCategory = result.categories.slice(1).sort(() => Math.random() - Math.random())
+                result.categories = [
+                    firstCategory,
+                    ...otherCategory
+                ]
+            }
+
             return result
         }),
         [isVip]
