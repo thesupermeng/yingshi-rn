@@ -60,8 +60,7 @@ public class MainActivity extends Activity implements ATSplashExListener {
 
         if(isPause){
             SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-            sharedPreferenceEdit.remove("isPause");
-            sharedPreferenceEdit.apply();
+            sharedPreferenceEdit.remove("isPause").commit();
             jumpToMainActivity();
             return;
         }
