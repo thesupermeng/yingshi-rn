@@ -57,6 +57,8 @@ const useInterstitialAds = () => {
   const isInterstitialReady = async (interstitialPlacementId: PlacementId) => {
     const ready = await ATInterstitialRNSDK.hasAdReady(interstitialPlacementId);
     setAdsReadyFlag(ready);
+    console.log('ready')
+    console.log(ready)
     if (ready) {
       let adsID: PlacementId;
       adsID = null;
@@ -94,8 +96,7 @@ const useInterstitialAds = () => {
         } else {
           homePageShown = true;
           if (
-            screenState.interstitialShow != true &&
-            screenState.isHomeGuideShown == true
+            screenState.interstitialShow != true 
           ) {
             ATInterstitialRNSDK.showAd(adsID);
           }
