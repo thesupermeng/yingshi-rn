@@ -29,7 +29,12 @@ export default ({ init, callback, options = [] }: Props) => {
 
     useEffect(() => {
         if (isInitScroll && itemsLayout.filter((layout) => layout !== 0).length === itemsLayout.length) {
-            const index = options.findIndex((option) => option.value === initRef.current.value)
+            let index = options.findIndex((option) => option.value === initRef.current.value)
+
+            if (index === -1) {
+                index = 0
+            }
+
             scrollRef?.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0 })
             setIsInitScroll(false)
         }
