@@ -10,6 +10,7 @@ package com.yingshitv;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -53,6 +54,18 @@ public class MainActivity extends Activity implements ATSplashExListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); // or super.onCreate(null) with
         setContentView(R.layout.splash_ad_show);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
+        boolean isPause = sharedPreferences.getBoolean("isPause", false);
+
+        if(isPause){
+            SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
+            sharedPreferenceEdit.remove("isPause");
+            sharedPreferenceEdit.apply();
+            jumpToMainActivity();
+            return;
+        }
+
         // react-native-screens
 //        super.onCreate(null);
         ATSDK.init(this, "a65002a2db3a7f", "aad683307ed540dfc11b094206e8a15b1");

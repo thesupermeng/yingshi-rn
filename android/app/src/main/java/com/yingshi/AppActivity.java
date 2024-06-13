@@ -15,7 +15,10 @@ import com.google.android.ump.UserMessagingPlatform;
 import com.google.android.ump.FormError;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.CursorWindow;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.yingshitv.RNUMConfigure;
@@ -133,12 +136,17 @@ public class AppActivity extends ReactActivity {
   }
 
   @Override    
-  public void onResume() {   
+  public void onResume() {
     // 友盟统计初始化        
     super.onResume();
       if(getResources().getString(R.string.ANALYTICS_UMENG).equals("1")) {
         RNUMConfigure.onResume(this);
       }
+
+      SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
+      SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
+      sharedPreferenceEdit.remove("isPause");
+      sharedPreferenceEdit.apply();
   }    
 
   @Override    
@@ -148,6 +156,11 @@ public class AppActivity extends ReactActivity {
       if(getResources().getString(R.string.ANALYTICS_UMENG).equals("1")) {
         RNUMConfigure.onPause(this);
       }
+
+      SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
+      SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
+      sharedPreferenceEdit.putBoolean("isPause", true);
+      sharedPreferenceEdit.apply();
   }
 
   /**
