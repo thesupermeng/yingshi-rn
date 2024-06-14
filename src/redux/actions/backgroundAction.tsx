@@ -184,38 +184,38 @@ export const onBootApp =
               }, 500);
             });
 
-            notifee.getInitialNotification().then((initData) => {
-              // console.log('[debug]: 444', initData);
-              const data = initData?.notification?.data
+            // notifee.getInitialNotification().then((initData) => {
+            //   // console.log('[debug]: 444', initData);
+            //   const data = initData?.notification?.data
 
-              if (data && 'redirect_type' in data) {
-                setTimeout(() => {
-                  _notificationHandle(data ?? undefined, { dispatch });
-                }, 500);
-              }
-            })
+            //   if (data && 'redirect_type' in data) {
+            //     setTimeout(() => {
+            //       _notificationHandle(data ?? undefined, { dispatch });
+            //     }, 500);
+            //   }
+            // })
 
-            notifee.onForegroundEvent(({ type, detail }) => {
-              switch (type) {
-                case EventType.PRESS: {
-                  // console.log('[debug]: 555', detail);
-                  setTimeout(() => {
-                    _notificationHandle(detail.notification?.data ?? undefined, { dispatch });
-                  }, 500);
-                }
-              }
-            })
+            // notifee.onForegroundEvent(({ type, detail }) => {
+            //   switch (type) {
+            //     case EventType.PRESS: {
+            //       // console.log('[debug]: 555', detail);
+            //       setTimeout(() => {
+            //         _notificationHandle(detail.notification?.data ?? undefined, { dispatch });
+            //       }, 500);
+            //     }
+            //   }
+            // })
 
-            notifee.onBackgroundEvent(async ({ type, detail }) => {
-              switch (type) {
-                case EventType.PRESS: {
-                  // console.log('[debug]: 666', detail);
-                  setTimeout(() => {
-                    _notificationHandle(detail.notification?.data ?? undefined, { dispatch });
-                  }, 500);
-                }
-              }
-            })
+            // notifee.onBackgroundEvent(async ({ type, detail }) => {
+            //   switch (type) {
+            //     case EventType.PRESS: {
+            //       // console.log('[debug]: 666', detail);
+            //       setTimeout(() => {
+            //         _notificationHandle(detail.notification?.data ?? undefined, { dispatch });
+            //       }, 500);
+            //     }
+            //   }
+            // })
           });
         }
       } catch (e) { }
