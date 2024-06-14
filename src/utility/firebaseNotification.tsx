@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import {
   PERMISSIONS,
   request,
@@ -30,7 +30,7 @@ export class FirebaseNotification {
   }
 
   static async checkPermissionAndGetoken() {
-    const {authorizationStatus} = await notifee.getNotificationSettings();
+    const { authorizationStatus } = await notifee.getNotificationSettings();
 
     if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
       await this.getFcmToken();
@@ -72,15 +72,21 @@ export class FirebaseNotification {
   }
 
   static setupLocalNotification(data: any) {
-    console.log('onForeground', data.notification);
+    console.log('onForeground', data);
     const {
-      notification: {title, body},
+      notification: { title, body },
+      data: custom_data,
     } = data;
     notifee.displayNotification({
       title: title,
       body: body,
+      data: custom_data,
       android: {
         channelId: 'yingshi.tv',
+        pressAction: {
+          id: 'default',
+          launchActivity: 'com.yingshitv.MainActivity',
+        }
       },
     });
   }

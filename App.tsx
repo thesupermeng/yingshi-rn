@@ -119,18 +119,6 @@ let App = () => {
     }
   }, [isConnected]);
 
-  useEffect(() => {
-    if (INIT_FIREBASE) {
-      const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-        // FirebaseNotification.setupLocalNotification(
-        //   // JSON.stringify(remoteMessage),
-        //   remoteMessage
-        // );
-      });
-      return unsubscribe;
-    }
-  }, []);
-
   const downloadWatchAnytimeSequence = async () => {
     await deleteCachedVideos();
     await checkExpiredCacheFile(3);
