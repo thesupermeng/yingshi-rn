@@ -271,17 +271,17 @@ const _initFirebase = async () => {
 
     const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
 
-   // const stagingTopic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
-    const stagingTopic2 = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest2`;
-    //const productionTopic = `PRODUCTION_${UMENG_CHANNEL}-${Platform.OS.toUpperCase()}_${encodedSearchTerm}_general`;
+    const stagingTopic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
+    //const stagingTopic2 = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest2`;
+   
 
-   // FirebaseNotification.subscibeToTopic(stagingTopic);
-    FirebaseNotification.subscibeToTopic(stagingTopic2);
-    // FirebaseNotification.subscibeToTopic(productionTopic);
+    FirebaseNotification.subscibeToTopic(stagingTopic);
+   // FirebaseNotification.subscibeToTopic(stagingTopic2);
+
 
     console.log("订阅 firebase messaging");
-   // console.log(stagingTopic);
-    console.log(stagingTopic2);
+    console.log(stagingTopic);
+  //  console.log(stagingTopic2);
     //  console.log(productionTopic);
   } catch (err) {
     console.log("Firebase init failed", err);
