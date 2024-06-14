@@ -13,6 +13,7 @@ import {
   VIP_PROMOTION_PURCHASE_MAX,
   VIP_PROMOTION_PURCHASE_MIN,
   VIP_PROMOTION_PURCHASE_RANDOM,
+  ENV_MODE,
 } from '@utility/constants';
 import { BackgroundActionEventType } from '@redux/reducers/backgroundReducer';
 import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
@@ -218,16 +219,26 @@ const _initFirebase = async () => {
       FirebaseNotification.subscibeToTopic("insidertest");
     }
 
-
     const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
+    let topic = '';
 
-    const topic = `STAGING_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
-    // const topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
+    // if (ENV_MODE === 'DEV') {
+    //   topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest999`;
+    // }
 
-    FirebaseNotification.subscibeToTopic(topic);
+    if (ENV_MODE === 'STAGING') {
+      topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest2`;
+    }
 
-    console.log("订阅 firebase messaging");
-    console.log(topic);
+    if (ENV_MODE === 'PROD') {
+      topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
+    }
+
+    if (topic && topic !== '') {
+      FirebaseNotification.subscibeToTopic(topic);
+      console.log("[debug]: 订阅 firebase messaging");
+      console.log(`[debug]: ${topic}`);
+    }
   } catch (err) {
     console.log("Firebase init failed", err);
   }
