@@ -2,15 +2,11 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/045-SSYiFeiTi.ttf",
+      "path": "assets/fonts/SSYiFeiTi.ttf",
       "sha1": "36a964f5b6593b3689b06f755b48c986d36c8c5e"
     },
     {
-      "path": "assets/fonts/Anton-Regular.ttf",
-      "sha1": "49243712633711db3b673d0b03536e0180cd7ddb"
-    },
-    {
-      "path": "assets/fonts/Archivo-Regular.ttf",
+      "path": "assets/fonts/Archivo.ttf",
       "sha1": "c14f15d27da595dcfe84fde32fdb75fc1e970e46"
     }
   ]

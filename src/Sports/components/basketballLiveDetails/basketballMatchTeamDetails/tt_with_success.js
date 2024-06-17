@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     color: color || 'white',
     fontSize: 13,
-    fontFamily: '045-SSYiFeiTi',
+    fontFamily: 'SSYiFeiTi',
   }),
   teamsView: {
     

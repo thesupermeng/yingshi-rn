@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     marginBottom: 5,
     textAlign: "center",
-    fontFamily: "045-SSYiFeiTi",
+    fontFamily: "SSYiFeiTi",
   },
   content: {
     display: "flex",

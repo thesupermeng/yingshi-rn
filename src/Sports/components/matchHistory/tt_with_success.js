@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         color: 'white',
         fontSize: 18,
-        fontFamily: '045-SSYiFeiTi',
+        fontFamily: 'SSYiFeiTi',
     },
     teamLogoText: {
         marginLeft: 'auto',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         color: 'white',
         fontSize: 30,
-        fontFamily: '045-SSYiFeiTi',
+        fontFamily: 'SSYiFeiTi',
     },
     goalConcededTotal: {
         flexDirection: 'row',

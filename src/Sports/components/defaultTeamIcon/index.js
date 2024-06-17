@@ -20,7 +20,7 @@ const DefaultTeamIcon = ({isHome, iconSize = 16, textSize = 10, text = ''}) => {
           fontSize: textSize,
           fontWeight: '400',
           color: 'white',
-          fontFamily: '045-SSYiFeiTi',
+          fontFamily: 'SSYiFeiTi',
         }}>
         {subString}
       </Text>

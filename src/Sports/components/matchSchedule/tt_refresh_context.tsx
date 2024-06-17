@@ -589,8 +589,8 @@ const MatchScheduleLive = ({ matchSche, onPress, isMatchPage = true, matchType }
                             matchSche?.away_score,
                             matchSche?.sports_type,
                           )
-                          ? { ...styles.highScoreFont, color: colors.primary, fontFamily: '045-SSYiFeiTi' }
-                          : { ...styles.scoreFont, fontFamily: '045-SSYiFeiTi' }
+                          ? { ...styles.highScoreFont, color: colors.primary, fontFamily: 'SSYiFeiTi' }
+                          : { ...styles.scoreFont, fontFamily: 'SSYiFeiTi' }
                       }>
                       {calculateScore(
                         matchSche?.home_score,
@@ -607,8 +607,8 @@ const MatchScheduleLive = ({ matchSche, onPress, isMatchPage = true, matchType }
                             matchSche?.home_score,
                             matchSche?.sports_type,
                           )
-                          ? { ...styles.highScoreFont, color: colors.primary, fontFamily: '045-SSYiFeiTi' }
-                          : { ...styles.scoreFont, fontFamily: '045-SSYiFeiTi' }
+                          ? { ...styles.highScoreFont, color: colors.primary, fontFamily: 'SSYiFeiTi' }
+                          : { ...styles.scoreFont, fontFamily: 'SSYiFeiTi' }
                       }>
                       {calculateScore(
                         matchSche?.away_score,

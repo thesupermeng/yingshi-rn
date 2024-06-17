@@ -642,7 +642,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     color: '#FFF',
     fontSize: 14,
-    fontFamily: 'Archivo-Regular',
+    fontFamily: 'Archivo',
     fontWeight: '800',
     lineHeight: 15,
   },

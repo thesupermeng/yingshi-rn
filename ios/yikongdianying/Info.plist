@@ -1028,9 +1028,8 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>045-SSYiFeiTi.ttf</string>
-		<string>Anton-Regular.ttf</string>
-		<string>Archivo-Regular.ttf</string>
+		<string>SSYiFeiTi.ttf</string>
+		<string>Archivo.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

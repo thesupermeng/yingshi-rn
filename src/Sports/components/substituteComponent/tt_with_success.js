@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         color: 'white',
         fontSize: 20,
-        fontFamily: '045-SSYiFeiTi',
+        fontFamily: 'SSYiFeiTi',
     },
 });
 

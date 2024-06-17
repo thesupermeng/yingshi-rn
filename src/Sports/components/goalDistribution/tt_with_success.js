@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         color: 'white',
         fontSize: 13,
-        fontFamily: '045-SSYiFeiTi',
+        fontFamily: 'SSYiFeiTi',
     },
     teamNameText: {
         fontFamily: 'PingFang SC',
