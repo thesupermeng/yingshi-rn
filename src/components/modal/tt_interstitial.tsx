@@ -616,11 +616,11 @@ export default function VipGuideModal2({
 
       {isLeft ? (
         <View style={{ alignSelf: "flex-start", paddingLeft: 30 }}>
-          <Image source={require(`@static/images/vip_guide_arrow1.png`)}></Image>
+          <Image source={require(`@static/images/vga1.png`)}></Image>
         </View>
       ) : (
         <View style={{ alignSelf: "flex-end", paddingRight: 30 }}>
-          <Image source={require(`@static/images/vip_guide_arrow1.png`)}></Image>
+          <Image source={require(`@static/images/vga1.png`)}></Image>
         </View>
       )}
     </View>

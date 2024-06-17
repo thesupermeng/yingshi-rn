@@ -2140,7 +2140,7 @@ export const EventSpash = ({ splashList }: ttSmall) => {
           <>
             <SplashCard
               index={index}
-              source={require(`@static/images/eventSplash${index + 1}.png`)}
+              source={require(`@static/images/es${index + 1}.png`)}
               isLast={index === splashList.length - 1}
             />
           </>

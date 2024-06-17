@@ -4825,7 +4825,7 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
                   loop
                 /> */}
                 <Video
-                  source={require("@static/images/splash/bg.mp4")}
+                  source={require("@static/images/splash/animation.mp4")}
                   style={styles.video}
                   resizeMode="cover"
                   repeat={true}
@@ -5233,10 +5233,10 @@ export default ({ navigation }: RootStackScreenProps<"付费Google">) => {
             <SplashCard
               index={index}
               source={index === 0
-                ? require(`@static/images/eventSplash1.png`)
+                ? require(`@static/images/es1.png`)
                 : index === 1
-                  ? require(`@static/images/eventSplash2.png`)
-                  : require(`@static/images/eventSplash3.png`)
+                  ? require(`@static/images/es2.png`)
+                  : require(`@static/images/es3.png`)
               }
               isLast={index === screenState.showEventSplashData.length - 1}
             />
