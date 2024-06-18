@@ -18,6 +18,7 @@
     "build-staging-google": "npm run mode-staging && cd buildScripts && node replaceChannel.js && cd .. && npm run use-firebase && npm run android-apk-release",
     "build-release-google": "npm run mode-prod && cd buildScripts && node replaceChannel.js && cd .. && npm run use-firebase && npm run android-apk-release",
     "replace-constants-codepush": "export APK_CHANNEL=0&& npm run build-release",
+    "android-apk-web-staging": "export APK_CHANNEL=WEB&& npm run build-staging",
     "android-apk-web-release": "export APK_CHANNEL=WEB&& npm run build-release",
     "android-apk-pc6-release": "export APK_CHANNEL=PC6&& npm run build-release",
     "android-apk-sky001-release": "export APK_CHANNEL=SKY001&& npm run build-release",
@@ -57,7 +58,6 @@
     "mode-dev": "export MODE=DEV && cd buildScripts && node replaceEnv.js",
     "mode-staging": "export MODE=STAGING && cd buildScripts && node replaceEnv.js",
     "mode-prod": "export MODE=PROD && cd buildScripts && node replaceEnv.js"
-
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
