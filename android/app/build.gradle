@@ -2,15 +2,16 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 apply plugin: "com.google.gms.google-services"
 
-// apply from: 'topon_china.gradle'
-apply from: 'topon_non_china.gradle'
+apply from: 'topon_china.gradle'
+// apply from: 'topon_non_china.gradle'
 
 import com.android.build.OutputFile
 
 
 def ANALYTICS_FIREBASE = "0";
 def ANALYTICS_UMENG = "0";
-def Umeng_Channel_Label = "GOOGLE_PLAY";
+def Umeng_Channel_Label = "DEFAULT";
+def ENV_MODE = "PROD";
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -107,13 +108,13 @@ android {
         applicationId "com.yingshitv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-            // ABB version 79 , 13 jun  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
-        versionCode 79
-        versionName "1.8.0"
+        // ABB version 10 , 19jan
+        versionCode 72
+        versionName "1.7.8"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
-        resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
-        resValue "string", "UMENG_CHANNEL", "GOOGLE_PLAY"
+        resValue "string", "UMENG_APPKEY", "650938dcb2f6fa00ba556645"
+        resValue "string", "UMENG_CHANNEL", "WEB"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
@@ -188,7 +189,7 @@ android {
         }
         
         variant.outputs.all {
-           outputFileName = "yingshi-${variant.versionName}-${Umeng_Channel_Label}.apk"
+           outputFileName = "yingshi-${variant.versionName}-${Umeng_Channel_Label}-${ENV_MODE}.apk"
         }
     }
 }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, FlatList, Image, LayoutChangeEvent } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 interface FlatListType {
-    item: Option
+    item: Option,
+    index: number,
 }
 
 interface Option {
@@ -20,51 +21,74 @@ interface Props {
 
 export default ({ init, callback, options = [] }: Props) => {
     const { textVariants, colors, spacing } = useTheme();
-        // const flatListRef = useRef<FlatListType | null>(null);
-        const flatListRef = useRef<FlatListType>();
-        // const flatListRef = useRef<FlatList>();
-        const [selectedItem, setSelectedItem] = useState<Option>();
-    
-        useEffect(() => {
-            if (selectedItem !== null && flatListRef.current) {
-            const index = options.findIndex(option => option.text === init.text)
-            if (index !== -1) {
-                const itemHeight = options.length /* Calculate the length of options */;
-                const offset = index * itemHeight;
-            if (index >= 10) {
-            flatListRef.current.scrollToItem({ animated: false, item: options[index], viewPosition: -0.5 })
-            } else {
-            flatListRef.current.scrollToOffset({ animated: false, offset });
+    const [itemsLayout, setItemsLayout] = useState<number[]>(options.map(() => 0));
+
+    const scrollRef = useRef<FlatList>();
+    const initRef = useRef(init);
+    const [isInitScroll, setIsInitScroll] = useState(true)
+
+    useEffect(() => {
+        if (isInitScroll && itemsLayout.filter((layout) => layout !== 0).length === itemsLayout.length) {
+            let index = options.findIndex((option) => option.value === initRef.current.value)
+
+            if (index === -1) {
+                index = 0
             }
-              }
-            }
-          }, [selectedItem, options]);
-    
-          const getItemLayout = (_data: any, index: number) => ({
-            length: spacing.m, // Specify the item's height here
-            offset: spacing.m * index,
+
+            scrollRef?.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0 })
+            setIsInitScroll(false)
+        }
+    }, [itemsLayout]);
+
+    const onLayoutChange = (e: LayoutChangeEvent, index: number) => {
+        if (itemsLayout[index] === 0) {
+            setItemsLayout(itemsLayout.map((layout, i) => {
+                if (index === i) {
+                    return e.nativeEvent.layout.width;
+                }
+
+                return layout
+            }))
+        }
+    }
+
+    const getItemLayout = (_data: any, index: number) => {
+        let offset = 0
+
+        for (let i = 0; i < index; i++) {
+            offset += itemsLayout[i]
+        }
+
+        return ({
+            length: itemsLayout[index], // Specify the item's height here
+            offset: offset + (index * spacing.m),
             index,
-          });
-    
+        })
+    }
+
     return (
-        <View style={{marginTop: spacing.m}}>
+        <View style={{ marginTop: spacing.m }}>
             <FlatList
-                ref = {flatListRef}
+                ref={scrollRef}
                 data={options}
                 horizontal
+                initialNumToRender={options.length}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }: FlatListType) => {
-                    return <TouchableOpacity style={{ marginRight: spacing.m, justifyContent: 'center', display: 'flex' }} 
-                    // onPress={() => callback(item)}>
-                    onPress={() => {setSelectedItem(item); callback && callback(item)}}>
+                ItemSeparatorComponent={
+                    <View style={{ width: spacing.m, }} />
+                }
+                renderItem={({ item, index }: FlatListType) => {
+                    return <TouchableOpacity style={{ justifyContent: 'center' }}
+                        // onPress={() => callback(item)}>
+                        onPress={() => { callback && callback(item) }}>
                         <Text style={{
                             textAlign: 'center',
                             fontSize: textVariants.subBody.fontSize,
                             color: init.value === item.value ? colors.primary : colors.muted
-                        }}>{item.text}</Text>
+                        }} onLayout={(e) => onLayoutChange(e, index)}>{item.text}</Text>
                     </TouchableOpacity>
                 }}
-            getItemLayout = {getItemLayout}
+                getItemLayout={getItemLayout}
 
             />
         </View>

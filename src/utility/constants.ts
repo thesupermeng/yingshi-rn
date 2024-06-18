@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 
+export const ENV_MODE: 'DEV' | 'STAGING' | 'PROD' = 'PROD';
 export const ENABLE_APPSFLYER = true;
 
 export const DARK_THEME = 'DARK_THEME';

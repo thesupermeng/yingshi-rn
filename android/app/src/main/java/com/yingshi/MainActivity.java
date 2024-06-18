@@ -66,8 +66,10 @@ public class MainActivity extends Activity implements ATSplashExListener {
         }
 
         // react-native-screens
+
 //        super.onCreate(null);
         ATSDK.init(this, "a65002a2db3a7f", "aad683307ed540dfc11b094206e8a15b1");
+
 
         // String placementId = getIntent().getStringExtra("placementId");
         container = findViewById(R.id.splash_ad_container);
@@ -121,6 +123,7 @@ public class MainActivity extends Activity implements ATSplashExListener {
         // defaultConfig =
         // "{\"unit_id\":1333253,\"nw_firm_id\":51,\"adapter_class\":\"com.anythink.network.klevin.KlevinATSplashAdapter\",\"content\":\"{\\\"pos_id\\\":\\\"30029\\\",\\\"app_id\\\":\\\"30008\\\"}\"}";
 
+
         splashAd = new ATSplashAd(this, "b65002d6fd72be", this, 10000, defaultConfig);
 
         Map<String, Object> localMap = new HashMap<>();
@@ -128,6 +131,7 @@ public class MainActivity extends Activity implements ATSplashExListener {
         localMap.put(ATAdConst.KEY.AD_HEIGHT, layoutParams.height);
 
         splashAd.setLocalExtra(localMap);
+
         ATSplashAd.entryAdScenario("b65002d6fd72be", "f628c7999265cd");
 
         splashAd.setAdSourceStatusListener(new ATAdSourceStatusListener() {
@@ -344,7 +348,9 @@ public class MainActivity extends Activity implements ATSplashExListener {
 
                 overridePendingTransition(0, 0);
             }
+
             // // Toast.makeText(this, "start your MainActivity.",
+
             // Toast.LENGTH_SHORT).show();
             Bundle extra = getIntent().getExtras();
 

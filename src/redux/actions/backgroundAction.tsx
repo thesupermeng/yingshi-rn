@@ -13,6 +13,7 @@ import {
   VIP_PROMOTION_PURCHASE_MAX,
   VIP_PROMOTION_PURCHASE_MIN,
   VIP_PROMOTION_PURCHASE_RANDOM,
+  ENV_MODE,
 } from '@utility/constants';
 import { BackgroundActionEventType } from '@redux/reducers/backgroundReducer';
 import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
@@ -25,10 +26,8 @@ import { FirebaseNotification } from '@utility/firebaseNotification';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { VodApi } from '@api';
 import { playVod } from './vodActions';
-import notifee, { EventType } from '@notifee/react-native';
 
-let _firebaseNotificationForegroundListener: any = null;
-let _firebaseNotificationBackgroundListener: any = null;
+let _firebaseNotificationListener: any = null;
 
 import { Adjust, AdjustConfig } from 'react-native-adjust';
 
@@ -160,62 +159,18 @@ export const onBootApp =
           _initFirebase().then(() => {
             // use for on boot
             messaging().getInitialNotification().then((remoteMessage) => {
-              // console.log('[debug]: 111', remoteMessage);
               setTimeout(() => {
                 _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
               }, 500);
 
-            });
-
-            // use for app in foreground
-            _firebaseNotificationForegroundListener = messaging().onMessage((remoteMessage) => {
-              // console.log('[debug]: 222', remoteMessage);
-              // custom generate notification & put data inside
-              // FirebaseNotification.setupLocalNotification(
-              //   remoteMessage
-              // );
             });
 
             // use for app in background (no killed)
-            _firebaseNotificationBackgroundListener = messaging().onNotificationOpenedApp((remoteMessage) => {
-              // console.log('[debug]: 333', remoteMessage);
+            _firebaseNotificationListener = messaging().onNotificationOpenedApp((remoteMessage) => {
               setTimeout(() => {
                 _notificationHandle(remoteMessage?.data ?? undefined, { dispatch });
               }, 500);
             });
-
-            // notifee.getInitialNotification().then((initData) => {
-            //   // console.log('[debug]: 444', initData);
-            //   const data = initData?.notification?.data
-
-            //   if (data && 'redirect_type' in data) {
-            //     setTimeout(() => {
-            //       _notificationHandle(data ?? undefined, { dispatch });
-            //     }, 500);
-            //   }
-            // })
-
-            // notifee.onForegroundEvent(({ type, detail }) => {
-            //   switch (type) {
-            //     case EventType.PRESS: {
-            //       // console.log('[debug]: 555', detail);
-            //       setTimeout(() => {
-            //         _notificationHandle(detail.notification?.data ?? undefined, { dispatch });
-            //       }, 500);
-            //     }
-            //   }
-            // })
-
-            // notifee.onBackgroundEvent(async ({ type, detail }) => {
-            //   switch (type) {
-            //     case EventType.PRESS: {
-            //       // console.log('[debug]: 666', detail);
-            //       setTimeout(() => {
-            //         _notificationHandle(detail.notification?.data ?? undefined, { dispatch });
-            //       }, 500);
-            //     }
-            //   }
-            // })
           });
         }
       } catch (e) { }
@@ -241,12 +196,8 @@ export const onCloseApp =
         }
 
         // ========== firebase notification ==========
-        if (_firebaseNotificationForegroundListener) {
-          _firebaseNotificationForegroundListener();
-        }
-
-        if (_firebaseNotificationBackgroundListener) {
-          _firebaseNotificationBackgroundListener();
+        if (_firebaseNotificationListener) {
+          _firebaseNotificationListener();
         }
       } catch (e) { }
     };
@@ -265,37 +216,42 @@ const _initFirebase = async () => {
 
     if (__DEV__) {
       console.debug('dev')
-      FirebaseNotification.subscibeToTopic("insidertestttt");
+      FirebaseNotification.subscibeToTopic("insidertest");
     }
 
-
     const encodedSearchTerm = encodeURIComponent(APP_NAME_CONST);
+    let topic = '';
 
-    const stagingTopic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
-    //const stagingTopic2 = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest2`;
-   
+    // if (ENV_MODE === 'DEV') {
+    //   topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest999`;
+    // }
 
-    FirebaseNotification.subscibeToTopic(stagingTopic);
-   // FirebaseNotification.subscibeToTopic(stagingTopic2);
+    if (ENV_MODE === 'STAGING') {
+      topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_insidertest2`;
+    }
 
+    if (ENV_MODE === 'PROD') {
+      topic = `PRODUCTION_${encodedSearchTerm}-${Platform.OS.toUpperCase()}_${UMENG_CHANNEL}_general`;
+    }
 
-    console.log("订阅 firebase messaging");
-    console.log(stagingTopic);
-  //  console.log(stagingTopic2);
-    //  console.log(productionTopic);
+    if (topic && topic !== '') {
+      FirebaseNotification.subscibeToTopic(topic);
+      console.log("[debug]: 订阅 firebase messaging");
+      console.log(`[debug]: ${topic}`);
+    }
   } catch (err) {
     console.log("Firebase init failed", err);
   }
 };
 
 const _notificationHandle = (data: {
-  [key: string]: string | number | object;
+  [key: string]: string | object;
 } | undefined, {
   dispatch
 }: {
   dispatch: any,
 }) => {
-  console.log('333: ', data);
+  console.log('[debug]: ', data);
   if (data) {
     const type = data.redirect_type?.toString();
     const url = data.url?.toString();
