@@ -16,7 +16,6 @@ import com.google.android.ump.UserMessagingPlatform;
 import com.google.android.ump.FormError;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.CursorWindow;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,7 +31,7 @@ import java.lang.reflect.Field;
 
 public class AppActivity extends ReactActivity {
    private ConsentInformation consentInformation;
-
+  public static boolean isRunning = false;
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
@@ -49,6 +48,7 @@ public class AppActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
+    isRunning = true;
 
     // Create a ConsentRequestParameters object.
     ConsentRequestParameters params = new ConsentRequestParameters
@@ -142,10 +142,6 @@ public class AppActivity extends ReactActivity {
       if(getResources().getString(R.string.ANALYTICS_UMENG).equals("1")) {
         RNUMConfigure.onResume(this);
       }
-
-      SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
-      SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-      sharedPreferenceEdit.remove("isPause").commit();
   }
 
   @Override    
@@ -155,19 +151,6 @@ public class AppActivity extends ReactActivity {
       if(getResources().getString(R.string.ANALYTICS_UMENG).equals("1")) {
         RNUMConfigure.onPause(this);
       }
-
-      SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
-      SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-      sharedPreferenceEdit.putBoolean("isPause", true).commit();
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-
-    SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
-    SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-    sharedPreferenceEdit.remove("isPause").commit();
   }
 
   /**
