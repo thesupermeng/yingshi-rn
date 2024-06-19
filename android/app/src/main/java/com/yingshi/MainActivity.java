@@ -10,7 +10,6 @@ package com.yingshitv;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import com.anythink.core.api.AdError;
 import com.anythink.splashad.api.ATSplashAd;
 import com.anythink.splashad.api.ATSplashAdExtraInfo;
 import com.anythink.splashad.api.ATSplashExListener;
+import com.yingshitv.AppActivity;
 import com.yingshitv.zoomout.SplashEyeAdHolder;
 import com.yingshitv.zoomout.SplashZoomOutManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -55,12 +55,9 @@ public class MainActivity extends Activity implements ATSplashExListener {
         super.onCreate(savedInstanceState); // or super.onCreate(null) with
         setContentView(R.layout.splash_ad_show);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("LocalStorage", MODE_PRIVATE);
-        boolean isPause = sharedPreferences.getBoolean("isPause", false);
+        boolean isRestart = AppActivity.isRunning;
 
-        if(isPause){
-            SharedPreferences.Editor sharedPreferenceEdit = sharedPreferences.edit();
-            sharedPreferenceEdit.remove("isPause").commit();
+        if(isRestart){
             jumpToMainActivity();
             return;
         }
