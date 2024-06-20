@@ -309,7 +309,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
           </TouchableOpacity>
 
           <View style={{ marginBottom: -30, flex: 3, paddingBottom: 120 }}>
-            {Platform.OS === "ios" ||
+            {/* {Platform.OS === "ios" ||
               (SHOW_ZF_CONST && (
                 <View
                   style={{
@@ -410,9 +410,9 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                     </View>
                   </TouchableOpacity>
                 </View>
-              ))}
+              ))} */}
 
-            {Platform.OS === "android" && !SHOW_ZF_CONST && (
+            {/* {Platform.OS === "android" && !SHOW_ZF_CONST && (
               <TouchableOpacity
                 style={{
                   ...styles.btn,
@@ -442,7 +442,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                   color={colors.muted}
                 />
               </TouchableOpacity>
-            )}
+            )} */}
 
             <ShowMoreButton
               text={CLangKey.myFavourite.tr()}
