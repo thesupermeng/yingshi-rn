@@ -21,11 +21,11 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.ReadableType;
 
-/*/if
+//if
 import com.umeng.analytics.MobclickAgent;
-//else*/
+/*/else
 import com.yingshitv.MobclickAgent;
-//endif
+//endif*/
 
 public class AnalyticsModule extends ReactContextBaseJavaModule {
     private ReactApplicationContext context;

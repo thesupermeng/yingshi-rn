@@ -8,13 +8,13 @@ import android.content.Context;
 import android.os.Build.VERSION_CODES;
 import android.util.Log;
 
-/*/if
+//if
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.analytics.MobclickAgent;
-//else*/
+/*/else
 import com.yingshitv.UMConfigure;
 import com.yingshitv.MobclickAgent;
-//endif
+//endif*/
 
 public class RNUMConfigure {
     public static int DEVICE_TYPE_PHONE = UMConfigure.DEVICE_TYPE_PHONE;
