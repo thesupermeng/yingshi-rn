@@ -15,10 +15,10 @@ repositories {
         url "https://fan-adn.github.io/nendSDK-Android-lib/library"
     }
 
-    //Appnext
-    maven {
-        url "https://dl.appnext.com"
-    }
+    // //Appnext
+    // maven {
+    //     url "https://dl.appnext.com"
+    // }
 
     //Vungle
     maven {
@@ -30,10 +30,10 @@ repositories {
         url "https://android-sdk.is.com/"
     }
 
-    //Tapjoy
-    maven {
-        url "https://sdk.tapjoy.com/"
-    }
+    // // Tapjoy
+    // maven {
+    //     url "https://sdk.tapjoy.com/"
+    // }
 
     //Pubnative
     maven {
@@ -98,12 +98,12 @@ dependencies {
     api "com.google.android.gms:play-services-ads-identifier:18.0.1"
     api "androidx.preference:preference:1.1.1"
 
-    //Appnext
-    api "com.anythink.sdk:adapter-appnext:6.3.30"
-    api "com.appnext.sdk:ads:2.7.1.473"
-    api "com.appnext.sdk:banners:2.7.1.473"
-    api "com.appnext.sdk:native-ads:2.7.1.473"
-    api "com.appnext.sdk:actions:2.4.6.472"
+    // //Appnext
+    // api "com.anythink.sdk:adapter-appnext:6.3.30"
+    // api "com.appnext.sdk:ads:2.7.1.473"
+    // api "com.appnext.sdk:banners:2.7.1.473"
+    // api "com.appnext.sdk:native-ads:2.7.1.473"
+    // api "com.appnext.sdk:actions:2.4.6.472"
 
     //Vungle
     api "com.anythink.sdk:adapter-vungle:6.3.30"
@@ -122,10 +122,10 @@ dependencies {
     api "com.google.android.gms:play-services-ads-identifier:18.0.1"
     api "com.google.android.gms:play-services-basement:18.1.0"
 
-    //Tapjoy
-    api "com.anythink.sdk:adapter-tapjoy:6.3.30"
-    api "com.tapjoy:tapjoy-android-sdk:12.10.0@aar"
-    api "com.google.android.gms:play-services-ads-identifier:18.0.1"
+    // //Tapjoy
+    // api "com.anythink.sdk:adapter-tapjoy:6.3.30"
+    // api "com.tapjoy:tapjoy-android-sdk:12.10.0@aar"
+    // api "com.google.android.gms:play-services-ads-identifier:18.0.1"
 
     //Bigo
     api "com.anythink.sdk:adapter-bigo:6.3.30"
