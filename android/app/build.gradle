@@ -107,8 +107,8 @@ android {
         applicationId "com.doratvhd"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        // ABB version 2 , 7 jun
-        versionCode 2
+        // ABB version 3 , 21 jun
+        versionCode 3
         versionName "1.0.0"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
