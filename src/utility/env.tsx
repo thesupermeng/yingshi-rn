@@ -1,9 +1,9 @@
 enum CEnvType { production, staging, development }
 
 export class CEnv {
-    static #localeURL = 'https://api.gxhongdeli168.com';
-    static #serverURL = 'https://api.gxhongdeli168.com';
-    static #productionURL = 'https://api.gxhongdeli168.com' ;
+    static #localeURL = 'https://api.yingshi.tv';
+    static #serverURL = 'https://api.yingshi.tv';
+    static #productionURL = 'https://api.yingshi.tv' ;
     
     // static #localeURL  = 'https://testapi.yingshi.tv';
     // static #serverURL  = 'https://testapi.yingshi.tv';
