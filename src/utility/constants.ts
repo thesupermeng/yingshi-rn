@@ -64,7 +64,7 @@ export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 
 export const UMENG_CHANNEL = "WEB";
 
-export const APP_VERSION = "1.0.0";
+export const APP_VERSION = "1.1.0";
 
 export const TOPON_ANDROID_APP_ID = 'a664c31d267166';
 export const TOPON_ANDROID_APP_KEY = 'ab54855f552efc95c7296d22d52f9b4d8';
