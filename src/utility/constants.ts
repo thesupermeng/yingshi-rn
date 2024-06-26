@@ -62,7 +62,7 @@ export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 //     'MI_GETAPPS': 'MI_GETAPPS',
 // }
 
-export const UMENG_CHANNEL = "WEB";
+export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
 export const APP_VERSION = "1.1.0";
 
