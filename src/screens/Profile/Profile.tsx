@@ -44,7 +44,7 @@ import NotificationModal from "../../components/modal/notificationModal";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/userAction";
 import ExpiredOverlay from "../../components/modal/expiredOverlay";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { DOWNLOAD_FEATURE_ENABLED, INVITE_FRIEND, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
+import { AHA_ENABLE, DOWNLOAD_FEATURE_ENABLED, INVITE_FRIEND, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/constants";
 import FastImage from "../../components/common/customFastImage";
 import { UserApi } from "@api";
 import { AppConfig } from "../../Sports/global/appConfig";
@@ -64,6 +64,8 @@ import { User } from "@models";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
 import { CLangKey } from "../../constants/langkey";
+import AhaWallet from "../Aha/ahaWallet";
+import PinIcon from "@static/images/pincode.svg";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   const navigator = useNavigation();
@@ -635,6 +637,15 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
+            {AHA_ENABLE && <View style={styles.wallet}>
+              <AhaWallet loadingSize={70}  pageOpen={(url, navBack) => {
+                if (User.isLogin(userState.user)) {
+                  navigation.navigate("AhaWebScreen", {url, navBack})
+                } else {
+                  dispatch(showLoginAction());
+                }
+              }}/>
+            </View>}
             {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
               text={CLangKey.myDownload.tr()}
               leftIcon={<DownloadIcon style={{ color: colors.button }} />}
@@ -650,6 +661,17 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             />
+            {AHA_ENABLE && <ShowMoreButton
+              text={CLangKey.pinCode.tr()}
+              leftIcon={<PinIcon style={{ color: colors.button }} />}
+              onPress={() => {
+                if (User.isLogin(userState.user)) {
+                  navigation.navigate("AhaPinCodeScreen", {verify: false})
+                } else {
+                  dispatch(showLoginAction());
+                }
+              }}
+            />}
             <ShowMoreButton
               text={CLangKey.iWantFeedback.tr()}
               leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
@@ -774,4 +796,11 @@ const styles = StyleSheet.create({
     width: 22,
     marginLeft: 5,
   },
+  wallet: {
+    height: 75,
+    width: '100%',
+    backgroundColor: "#1A1E21",
+    borderRadius: 10,
+    marginTop: 20,
+  }
 });

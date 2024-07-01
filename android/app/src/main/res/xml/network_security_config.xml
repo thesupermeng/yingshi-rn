@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
     <domain-config>
         <!-- Localhost config is NEEDED from react-native for the bundling to work  -->
         <domain-config cleartextTrafficPermitted="true">

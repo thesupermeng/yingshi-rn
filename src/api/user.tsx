@@ -90,6 +90,7 @@ export class UserApi {
 
             if (result.data && result.data.access_token) {
                 await AsyncStorage.setItem("bearerToken", result.data.access_token);
+                await AsyncStorage.setItem("ahaToken", result.data.aha_token);
                 CApi.regetToken();
             }
 

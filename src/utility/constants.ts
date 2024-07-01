@@ -67,6 +67,7 @@ export const INVITE_DOMAIN = 'https://xiangkantv.net/invite.html?invite=';
 export const UMENG_CHANNEL = "GOOGLE_PLAY";
 
 export const APP_VERSION = "1.7.8";
+export const APP_BUILD_VERSION = "101";
 
 export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
 export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';
@@ -173,3 +174,6 @@ export const ADJUST_APP_KEY = '9cnz9ep9bhmo';
 
 export const ANALYTICS_FIREBASE = false;
 export const ANALYTICS_UMENG = false;
+
+export const AHA_ENABLE = UMENG_CHANNEL.startsWith("WEB");
+

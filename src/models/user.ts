@@ -16,6 +16,8 @@ export class User {
     userCurrentTimestamp: string;
     userAccumulateVipRewardDay: number;
     userPaidVipList: any;
+    userCountryId: string;
+    userAhaWithDrawalPin: number;
 
     public constructor(data: {
         userToken: string,
@@ -35,6 +37,8 @@ export class User {
         userCurrentTimestamp: string;
         userAccumulateVipRewardDay: number;
         userPaidVipList: any;
+        userCountryId: string;
+        userAhaWithDrawalPin: number;
     }) {
         this.userToken = data.userToken;
         this.userId = data.userId;
@@ -53,6 +57,8 @@ export class User {
         this.userCurrentTimestamp = data.userCurrentTimestamp;
         this.userAccumulateVipRewardDay = data.userAccumulateVipRewardDay;
         this.userPaidVipList = data.userPaidVipList;
+        this.userCountryId = data.userCountryId;
+        this.userAhaWithDrawalPin = data.userAhaWithDrawalPin;
     }
 
     public static fromJson = (json: any): User => {
@@ -62,7 +68,7 @@ export class User {
             userName: json.user?.user_name ?? '',
             userReferralCode: json.user?.user_referral_code ?? '',
             userEmail: json.user?.user_email ?? '',
-            userPhoneNumber: json.user?.user_phone !== undefined && json.user?.user_phone !== 0 ? json.user?.user_phone : '',
+            userPhoneNumber: json.user?.user_phone !== undefined && json.user?.user_phone !== 0 ? `${json.user?.user_phone}` : '',
             userMemberExpired: json.user?.vip_end_time ?? '',
             userReferrerName: json.user?.referrer_name ?? '',
             userEndDaysCount: json.user?.user_vip_time_duration_days ?? 0,
@@ -74,6 +80,8 @@ export class User {
             userUpline: json.user?.upline_user ?? {},
             userAccumulateVipRewardDay: json.user?.accumulated_paid_vip_reward_days ?? 0,
             userPaidVipList: json.user?.paid_vip_response ?? {},
+            userCountryId: `{json.user?.country_id ?? 0}`,
+            userAhaWithDrawalPin: json.user?.aha_withdrawal_pin ?? 0,
         });
     }
 

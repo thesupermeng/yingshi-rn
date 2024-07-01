@@ -33,6 +33,7 @@ export const lang = {
     [CLangKey.moviesTab]: '电影',
     [CLangKey.tvShowsTab]: '电视节目',
     [CLangKey.profileTab]: '我的',
+    [CLangKey.gamesTab]: '娱乐',
 
     // ============================== common ==============================
     [CLangKey.myFavourite]: '我的收藏',
@@ -111,6 +112,7 @@ export const lang = {
     [CLangKey.trendingRank]: '热搜总榜',
     [CLangKey.continueWatch]: '继续看',
     [CLangKey.watchUntil]: '观看至',
+    [CLangKey.pinCode]: '安全PIN码',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: '暂无%x',
