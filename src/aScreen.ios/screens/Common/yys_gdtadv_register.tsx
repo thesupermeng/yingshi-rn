@@ -239,7 +239,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     ({ settingsReducer }: yys_MintegralLibavdevice) => settingsReducer
   );
   const userState = useSelector<yys_HejiCricket>("userReducer");
-  const vod = vodReducer.playVod.vod;
+  // const vod = vodReducer.playVod.vod;
+  const [vod, setVod] = useState(vodReducer.playVod.vod);
 
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -505,7 +506,6 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
         componentc += `${traminiG.size}`;
         break;
       }
-
       let msg = `《${vod?.vod_name
         }》高清播放${"\n"}https://yingshi.tv/vod/play/id/${vod?.vod_id
         }/sid/${vod?.type_id}/nid/${currentEpisode + 1
@@ -1921,7 +1921,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       } else {
         setVodRestricted(isRestricted);
       }
-
+      setVod(data);
       return data;
     });
 

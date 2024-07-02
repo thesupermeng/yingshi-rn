@@ -309,8 +309,9 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     }
   }, []);
 
-  const vod = vodReducer.playVod.vod;
+//   const vod = vodReducer.playVod.vod;
 
+  const [vod, setVod] = useState(vodReducer.playVod.vod);
   
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -1614,7 +1615,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         } else {
           setVodRestricted(isRestricted);
         }
-
+        setVod(data);
         return data;
       }),
     [vod]
