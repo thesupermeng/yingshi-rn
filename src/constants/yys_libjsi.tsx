@@ -57,7 +57,7 @@ export class yys_FavoriteCustom {
     static feedbackPost = 'feedback/v2/submit';
 
     static productGetList = 'products/v1/products';
-    static nativeProductGetList = 'products/v2/nativeProducts';
+    static nativeProductGetList = 'products/v3/nativeProducts';
     static productPostAndroidSubscription = 'android/v1/subscription';
     static productPostAndroidIAP = 'android/v1/onetime';
     static productPostValidateReceiptIos = 'validate/v1/iosreceipt';
