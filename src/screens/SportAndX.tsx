@@ -319,7 +319,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                             marginBottom: 0,
                           }}
                         >
-                          夜来香
+                          午夜场
                         </Text>
 
                         <View

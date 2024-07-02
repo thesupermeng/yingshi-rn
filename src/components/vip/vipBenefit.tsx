@@ -67,7 +67,7 @@ export const VipBenefit = () => {
  
           
         <View>
-          <Text style={{...textVariants.small}}>夜来香</Text>
+          <Text style={{...textVariants.small}}>午夜场</Text>
         </View>
        
       </View>
