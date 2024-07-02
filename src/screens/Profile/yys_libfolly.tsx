@@ -7021,9 +7021,9 @@ export default ({ navigation }: RootStackScreenProps<"付费VIP">) => {
 
 
 
-                                 if (screenState.isHomeGuideShown == true) {
-                                    dispatch(setShowPromotionDialog(true));
-                                 }
+                                 // if (screenState.isHomeGuideShown == true) {
+                                 //    dispatch(setShowPromotionDialog(true));
+                                 // }
                                  navigation.goBack();
 
                               }}
