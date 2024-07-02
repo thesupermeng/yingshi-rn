@@ -2496,7 +2496,7 @@ function ShortVideoPlayer({
                            }}>
                            <TouchableOpacity>
                               <Text style={{ ...textVariants.body, color: colors.text, paddingBottom: 8 }}>
-                                 @{currentVod.mini_video_author}
+                                 @{currentVod.mini_video_original_video_name}
                               </Text>
                            </TouchableOpacity>
 
