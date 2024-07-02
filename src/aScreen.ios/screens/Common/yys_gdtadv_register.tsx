@@ -507,9 +507,13 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       }
 
       let msg = `《${vod?.vod_name
-        }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
-        }/sid/1/nid/${currentEpisode + 1
-        }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
+        }》高清播放${"\n"}https://yingshi.tv/vod/play/id/${vod?.vod_id
+        }/sid/${vod?.type_id}/nid/${currentEpisode + 1
+        }${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
+      // let msg = `《${vod?.vod_name
+      //   }》高清播放${"\n"}https://yingshi.tv/index.php/vod/play/id/${vod?.vod_id
+      //   }/sid/1/nid/${currentEpisode + 1
+      //   }.html${"\n"}${APP_NAME_CONST}-海量高清视频在线观看`;
 
       let cancelj = String.fromCharCode(
         110,
