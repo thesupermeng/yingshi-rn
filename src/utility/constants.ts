@@ -65,7 +65,7 @@ export const INVITE_DOMAIN = 'https://yingshi.tv/invite/pro/?invite=';
 
 export const UMENG_CHANNEL = "WEB";
 
-export const APP_VERSION = "1.8.1";
+export const APP_VERSION = "1.8.2";
 
 export const TOPON_ANDROID_APP_ID = 'a65002a2db3a7f';
 export const TOPON_ANDROID_APP_KEY = 'aad683307ed540dfc11b094206e8a15b1';
@@ -171,4 +171,7 @@ export const INIT_FIREBASE = true;
 export const ADJUST_APP_KEY = '9cnz9ep9bhmo';
 
 export const ANALYTICS_FIREBASE = false;
-export const ANALYTICS_UMENG = true;
+export const ANALYTICS_UMENG = false;
+
+export const AHA_ENABLE = UMENG_CHANNEL.startsWith("WEB");
+

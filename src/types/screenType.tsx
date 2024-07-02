@@ -5,6 +5,7 @@ export interface screenModel {
   screenAction: string;
   screenShow: boolean;
   loginShow: boolean;
+  loginExpired: boolean;
   resetBottomSheet: boolean;
   resetInputForm: boolean;
   navigateToProfile: boolean;

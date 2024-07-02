@@ -43,6 +43,7 @@ export class CLangKey {
     static moviesTab = 'moviesTab';
     static tvShowsTab = 'tvShowsTab';
     static profileTab = 'profileTab';
+    static gamesTab = 'gamesTab';
 
     // ============================== common ==============================
     static myFavourite = 'myFavourite';
@@ -123,6 +124,7 @@ export class CLangKey {
     static trendingRank = 'trendingRank';
     static continueWatch = 'continueWatch';
     static watchUntil = 'watchUntil';
+    static pinCode = 'pinCode';
 
 
     // ============================== sentence ==============================

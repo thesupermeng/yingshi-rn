@@ -15,19 +15,26 @@ import ScreenContainer from '../../components/container/screenContainer';
 import { useDispatch } from 'react-redux';
 import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
 
-import { ResendCountDown } from './resendCountDown';
+import { ResendCountDown } from '../Auth/resendCountDown';
 import { addUserAuthState } from '@redux/actions/userAction';
 
 import { changeScreenAction } from '@redux/actions/screenAction';
-import UmengAnalytics from '../../../Umeng/UmengAnalytics';
-import { UserApi } from '@api';
 import { useSelector } from '@hooks/hooks';
-import { User } from '@models';
 import { UserStateType } from '@redux/reducers/userReducer';
-import AppsFlyerAnalytics from '../../../AppsFlyer/AppsFlyerAnalytic';
+import FastImage from 'react-native-fast-image';
+import { CApi } from '@utility/apiService';
+import { CEndpoint } from '../../constants/api';
+import { CPopup } from '@utility/popup';
 
 
 export default (props: any) => {
+  
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    console.log()
+  }, []);
+
   return (
     <ScreenContainer>
       <View
@@ -37,34 +44,44 @@ export default (props: any) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <>
             <TitleWithBackButtonHeader title="" />
-
             <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: '20%' }}>
               <OtpInputs
-                email={props.route.params.email}
-                phone={props.route.params.phone}
-                referralCode={props.route.params.referralCode}
-                countryId={props.route.params.countryId}
+                code={props.route.params.pin ?? ""}
+                showLoading = {setShowLoading}
               />
             </View>
           </>
         </TouchableWithoutFeedback>
       </View>
+      {showLoading && <View 
+        style={{
+          width: '100%', 
+          height: '100%', 
+          position: 'absolute', 
+          zIndex: 1000, 
+          backgroundColor: 'rgba(20,22,25,0)',
+          justifyContent: 'center', 
+          alignItems: 'center'
+        }}
+      >
+        <FastImage
+          style={{ height: 150, width: 150 }}
+          source={require("@static/images/videoBufferLoading.gif")}
+          resizeMode={"contain"}
+        />
+      </View>}
     </ScreenContainer>
   );
 };
 
 type OtpInputsProps = {
-  email?: string,
-  phone?: string,
-  referralCode?: string,
-  countryId?: string,
+  code: string,
+  showLoading: (loading: boolean) => void,
 }
 
 const OtpInputs = ({
-  email,
-  phone,
-  referralCode,
-  countryId,
+  code,
+  showLoading
 }: OtpInputsProps) => {
   const { colors } = useTheme();
 
@@ -97,7 +114,7 @@ const OtpInputs = ({
     otpTextInput[0].focus();
   }, []);
 
-  const formatPhoneNumber = (phoneNumber) => {
+  const formatPhoneNumber = (phoneNumber:any) => {
     // Remove all non-numeric characters from the phone number
     const numericPhoneNumber = phoneNumber.replace(/\D/g, '');
 
@@ -113,21 +130,31 @@ const OtpInputs = ({
   };
 
   // to make sure countdown reset before restart the countdown
-  const resendOTP = () => {
+  const resendOTP = async () => {
     setResend(false);
 
-    UserApi.signinupUser({
-      loginType: email !== undefined ? 'EMAIL' : 'SMS',
-      email: email,
-      phone: phone,
-      countryId: countryId,
-      referralCode: referralCode,
-      userId: userState.user?.userId ?? '',
-    }).then(() => {
-      setOtpTextInput([]);
-      setOtp('      ');
-      setValid(0);
-    });
+    try {
+      showLoading(true);
+      const result = await CApi.post(CEndpoint.setPinCode, {
+        body: {
+          pin: code,
+          otp: ""
+        },
+      });
+      if (result.success === false) {
+        throw result;
+      }
+    } catch (err: any) {
+      if (!err?.message.includes('验证码已发送')) {
+        showLoading(false);
+        CPopup.showToast(err.message);
+        return;
+      }
+    }
+    showLoading(false);
+    setOtpTextInput([]);
+    setOtp('      ');
+    setValid(0);
   };
 
   const focusPrevious = async (key: string, index: number) => {
@@ -165,69 +192,42 @@ const OtpInputs = ({
   const onSubmit = async (new_otp: string) => {
     let result: any;
 
+    showLoading(true);
     try {
-      result = await UserApi.signinupUser({
-        loginType: email !== undefined ? 'EMAIL' : 'SMS',
-        email: email,
-        phone: phone,
-        countryId: countryId,
-        referralCode: referralCode,
-        otp: new_otp,
-        userId: userState.user?.userId ?? '',
-      })
+      result = await CApi.post(CEndpoint.setPinCode, {
+        body: {
+          pin: code,
+          otp: new_otp
+        },
+      });
+      if (result.success === false) {
+        throw result;
+      }
     } catch (err: any) {
+      showLoading(false);
       setValid(1);
       result = { state: '' };
       result.state = err;
       return;
     }
 
-    const resultData = result.data;
-
-    const user = User.fromJson(resultData);
-
-    await dispatch(addUserAuthState(user));
-
-    const resultMsg = result.message;
-
-    if (resultMsg.includes("注册成功")) {
-      navigation.navigate('SetUsername');
-
-      // ========== for analytics - start ==========
-      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
-      AppsFlyerAnalytics.userCenterLoginSuccessTimesAnalytics();
-
-      if (user.isVip()) {
-        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
-      }
-      // ========== for analytics - end ==========
-
-    } else if (resultMsg.includes("登录成功")) {
-
-      if (user.isVip()) {
-        await AsyncStorage.setItem("showAds", "false");
-      } else {
-        await AsyncStorage.setItem("showAds", "true");
-      }
-
-      await dispatch(changeScreenAction('登录成功'));
-      navigation.goBack();
-
-      // ========== for analytics - start ==========
-      UmengAnalytics.userCenterLoginSuccessTimesAnalytics();
-      AppsFlyerAnalytics.userCenterLoginSuccessTimesAnalytics();
-
-      if (user.isVip()) {
-        UmengAnalytics.userCenterVipLoginSuccessTimesAnalytics();
-      }
-      // ========== for analytics - end ==========
+    const user = userState.user;
+    const resultModify = user?.userAhaWithDrawalPin === 1
+    const resultMsg = resultModify ? '安全PIN码修改成功' : '安全PIN码设置成功';
+    if (user) {
+      user.userAhaWithDrawalPin = 1;
+      await dispatch(addUserAuthState(user));
     }
+
+    showLoading(false);
+    await dispatch(changeScreenAction(resultMsg));
+    navigation.goBack();
   }
 
   return (
     <View>
       {/* <Text style={styles.title}>输入邮箱验证码</Text> */}
-      <Text style={styles.title}>{email ? '输入邮箱验证码' : '输入OTP验证码'}</Text>
+      <Text style={styles.title}>{userState.user?.userEmail ? '输入邮箱验证码' : '输入OTP验证码'}</Text>
 
       <Text style={styles.description}>
         验证码已发送至{' '}
@@ -235,11 +235,11 @@ const OtpInputs = ({
           {email ?? phone}
         </Text>{' '} */}
         <Text style={styles.hyperlink}>
-          {email ? email : formatPhoneNumber(phone)}
+          {userState.user?.userEmail ? userState.user?.userEmail : formatPhoneNumber(userState.user?.userPhoneNumber)}
         </Text>{' '}
       </Text>
 
-      {email && <Text style={styles.description}>如果没有收到邮件，请检查垃圾邮箱</Text>}
+      {userState.user?.userEmail && <Text style={styles.description}>如果没有收到邮件，请检查垃圾邮箱</Text>}
 
       <View style={styles.containerStyle}>
         {[0, 0, 0, 0, 0, 0].map((_, i) => {
@@ -284,7 +284,7 @@ const OtpInputs = ({
 
       {resend && (
         <TouchableWithoutFeedback
-          onPress={resendOTP}
+          onPress={() => {resendOTP()}}
           style={{ marginTop: 35 }}
         >
           <Text

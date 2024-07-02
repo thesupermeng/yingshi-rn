@@ -31,10 +31,10 @@ export function userReducer(state = initialState, action: UserActionType): UserS
       });
 
       newUserDetails.userToken = state.user?.userToken ?? '';
-      newUserDetails.userPhoneNumber = action.payload.user.user_phone !== 0
-        ? `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`
-        : '';
-
+      // user_phone contain contry code
+      // newUserDetails.userPhoneNumber = action.payload.user.user_phone !== 0
+      //   ? `${action.payload.user.country?.country_phonecode ?? ''}${action.payload.user.user_phone}`
+      //   : '';
 
       return {
         ...state,

@@ -33,6 +33,7 @@ export const lang = {
     [CLangKey.moviesTab]: 'Movies',
     [CLangKey.tvShowsTab]: 'TV Shows',
     [CLangKey.profileTab]: 'Profile',
+    [CLangKey.gamesTab]: 'Aha',
 
     // ============================== common ==============================
     [CLangKey.myFavourite]: 'Favourite',
@@ -111,6 +112,7 @@ export const lang = {
     [CLangKey.trendingRank]: 'Trending',
     [CLangKey.continueWatch]: 'Continue',
     [CLangKey.watchUntil]: 'Watch until',
+    [CLangKey.pinCode]: 'PIN Code',
 
     // ============================== sentence ==============================
     [CLangKey.noX]: 'No %x',
