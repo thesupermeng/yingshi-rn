@@ -373,7 +373,7 @@ export default function InviteCard({ userState = {} }: Props) {
               </View>
 
               <View>
-                <Text style={styles.featureTitle}>夜来香</Text>
+                <Text style={styles.featureTitle}>午夜场</Text>
               </View>
 
             </View>

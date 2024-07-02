@@ -152,7 +152,7 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
 
   const handlePin = (verify:boolean) => {
     if (pageRoute) {
-      pageRoute('ahaWebView', {verify})
+      pageRoute('AhaPinCodeScreen', {verify})
     }
   }
 
@@ -203,12 +203,12 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
       //   setHideFooter(true);
       // }
       if (message === 'iframe') {
+        console.log(`==> 【iframe】【${type}】`, event.nativeEvent);
         if (type === 'login') {
           dispatch(showLoginAction());
         } else if (type === 'share') {
           handleOpen(url);
         } else if (type === 'invalidToken') {
-          console.log(`==> 【iframe】【${type}】`, event.nativeEvent);
           handleSessionExpired();
         } else if (type === 'gameLobby') {
           handleOpen(url, 1);
@@ -265,8 +265,23 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
   const handleStateChange = (navState:any) => {
     // Keep track of going back navigation within component
     // this.canGoBack = navState.canGoBack;
-    console.log(`==webViewNavigationStateChange:${navState.url}`, navState);
+    // console.log(`==webViewNavigationStateChange:${navState.url}`, navState);
     setCanGoBack(navState.canGoBack);
+    // const url = navState.url ?? "";
+    // if (url.includes('www.sss999888.com')) {
+    //   console.log('== sss999888', webView, webView?.stopLoading, webView?.goBack);
+    //   if (webView && webView.stopLoading) {
+    //     webView.stopLoading()
+    //   }
+    //   if (webView && webView.goBack) {
+    //     webView.goBack()
+    //   } 
+    //   if (setLoading) {
+    //     setLoading(false)
+    //   }
+    //   return
+    // }
+    
     if (setWebTitle) {
       setWebTitle(navState.title);
     }
@@ -282,7 +297,11 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
   }
 
   const handleRequest = (event:any) => {
-    // console.log('==webViewShouldStartLoadWithRequest', event);
+    // console.log('========》 webViewShouldStartLoadWithRequest', event);
+    const url = event?.url ?? "";
+    if (url.includes('www.sss999888.com')) {
+      return false
+    }
     return true
   }
 

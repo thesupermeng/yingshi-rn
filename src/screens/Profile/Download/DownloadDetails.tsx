@@ -68,7 +68,7 @@ const DownloadDetails = ({ navigation, route }: RootStackScreenProps<"下载详�
 
   const getSourceName = useCallback((sourceId: number, vodIsAdult: boolean) => {
     if (vodIsAdult) {
-      return '夜来香'
+      return '午夜场'
     } else {
       return download.vod.vod_sources.find(source => source.source_id === sourceId)?.source_name
     }
