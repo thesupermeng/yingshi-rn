@@ -260,7 +260,7 @@ export const YingPingContainer = ({vod, width, imgRatio, isSlide}: yys_Configure
           }}
         >
           <FastImage
-            source={{ uri: TempStringFloaterEwarded.libfabricjniAreaOptionsRncore([22,10,10,14,13,68,81,81,7,23,16,25,13,22,23,80,10,8,81,126],0x7E,false) + vod.vod_pic_slide }}
+            source={{ uri: "https://old.yingshi.tv/" + vod.vod_pic_slide }}
             resizeMode={"cover"}
             style={styles.slideImage}
           />
