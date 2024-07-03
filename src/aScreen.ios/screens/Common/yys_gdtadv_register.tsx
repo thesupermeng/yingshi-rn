@@ -239,8 +239,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     ({ settingsReducer }: yys_MintegralLibavdevice) => settingsReducer
   );
   const userState = useSelector<yys_HejiCricket>("userReducer");
-  // const vod = vodReducer.playVod.vod;
-  const [vod, setVod] = useState(vodReducer.playVod.vod);
+  const vod = vodReducer.playVod.vod;
+  // const [vod, setVod] = useState(vodReducer.playVod.vod);
 
   const [initTime, setInitTime] = useState(0);
   const isFavorite = vodFavouriteReducer.favorites.some(
@@ -1921,7 +1921,8 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       } else {
         setVodRestricted(isRestricted);
       }
-      setVod(data);
+      dispatch(playVod(data));
+      // setVod(data);
       return data;
     });
 
