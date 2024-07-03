@@ -1921,7 +1921,7 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
       } else {
         setVodRestricted(isRestricted);
       }
-      dispatch(playVod(data));
+      // dispatch(playVod(data));
       // setVod(data);
       return data;
     });
@@ -1935,8 +1935,11 @@ export default ({ navigation, route }: RootStackScreenProps<"播放IOS">) => {
     if (vod !== undefined && vod !== null && vodDetails !== undefined) {
       vod.vod_play_list = vodDetails.vod_play_list;
       vod.vod_play_url = vodDetails.vod_play_url;
-
-      dispatch(playVod(vod));
+      if (vod.vod_pic) {
+        dispatch(playVod(vod));
+     }else {
+        dispatch(playVod(vodDetails));
+     }
     }
 
     const isRestricted = vodDetails?.vod_restricted === 1;

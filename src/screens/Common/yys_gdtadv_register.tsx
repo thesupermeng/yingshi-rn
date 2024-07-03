@@ -1615,7 +1615,7 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
         } else {
           setVodRestricted(isRestricted);
         }
-        dispatch(playVod(data));
+      //   dispatch(playVod(data));
         return data;
       }),
     [vod]
@@ -2673,10 +2673,12 @@ const Play = ({ navigation, route }: RootStackScreenProps<"播放">) => {
     ) {
       vod.vod_play_list = vodDetails.vod_play_list;
       vod.vod_play_url = vodDetails.vod_play_url;
-      
-      dispatch(playVod(vod, undefined, currentEpisode, currentSourceId));
+      if (vod.vod_pic) {
+         dispatch(playVod(vod, undefined, currentEpisode, currentSourceId));
+      }else {
+         dispatch(playVod(vodDetails));
+      }
     }
-
     const isRestricted = vodDetails?.vod_restricted === 1;
 
     if (isRestricted) {
