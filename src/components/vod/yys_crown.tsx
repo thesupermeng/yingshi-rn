@@ -262,6 +262,7 @@ export default function VodHistoryList({
               navigation.navigate('播放', {vod_id: item.vod_id});
             }}
             index={index}
+            vod_pic_list={item.vod_pic_list}
           />
         );
       }}

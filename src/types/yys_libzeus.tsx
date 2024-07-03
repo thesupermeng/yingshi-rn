@@ -49,6 +49,7 @@ export interface yys_Bing {
     vod_tag: string,
     vod_class: string,
     vod_pic: string,
+    vod_pic_list: string[],
     vod_pic_thumb: string,
     vod_pic_slide: string,
     vod_pic_screenshot: string,
