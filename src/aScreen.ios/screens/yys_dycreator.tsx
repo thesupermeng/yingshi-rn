@@ -40,6 +40,7 @@ import { yys_Context } from "@api";
 import DeviceInfo from "react-native-device-info";
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import YysLoadingIndex from "../../components/common/yys_loading_index";
 
 function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
   const isFocused = useIsFocused();
@@ -54,13 +55,22 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
   const userState = useSelector<yys_HejiCricket>('userReducer');
   const isVip = yys_RelatedTooltips.isVip(userState.user);
   const bottomTabHeight = useBottomTabBarHeight();
+  const [loadingError, setLoadingError] = useState('');
 
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
     queryFn: () => yys_Context.getHomeNav(),
   });
 
-  const fetchData = useCallback((id: number) => yys_Context.getHomePages(id, isVip), []);
+  const fetchData = useCallback( async (id: number) =>  {
+   try {
+      console.debug('id  ==================<<<<<<<<<<<<<<', id);
+      return await yys_Context.getHomePages(id, isVip);
+   } catch (error: any) {
+      setLoadingError('网络请求错误-' + (error?.message ?? '未知错误'));
+      return undefined;
+   }
+  }, []);
 
   const data = useQueries({
     queries: navOptions
@@ -907,6 +917,7 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
          countdowni = `${(update__g == String.fromCharCode(99,0) ? update__g.length : matchM)}`;
       base3 += `${((redirects ? 4 : 1) >> (Math.min(livek.length, 2)))}`;
    }
+   console.debug("=================>>>>>>>>>>>>>>>>>");
       await queryClient.resetQueries(["HomePage", id]);
 
       emojis = new Map([[`${targetn.size}`, dragx.length]]);
@@ -1141,8 +1152,8 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
       livek.push(manifestC.size >> (Math.min(Math.abs(2), 2)));
 
       return;
-    } catch (error) {
-
+    } catch (error: any) {
+      
       librrcc = emojis.size == 4;
    let mimoM = screenj ? !screenj : screenj;
    do {
@@ -1153,6 +1164,7 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
    } while ((screenj || (targetn.size ^ 1) <= 5) && mimoM);
       base3 += "2";
       console.error("Error fetching data:", error);
+      setLoadingError('网络请求错误-' + error?.message ?? '未知错误');
     }
   };
 
@@ -1670,71 +1682,46 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
   
 
   return (
-    <>
-      <ScreenContainer
-        containerStyle={{ paddingLeft: 0, paddingRight: 0 }}
-        isHome={false} 
-      >
-        <View
-          style={{
-            backgroundColor: colors.background,
-            paddingLeft: spacing.sideOffset,
-            paddingRight: spacing.sideOffset,
-          }}
-        >
-          <HomeHeader navigator={navigation} />
-        </View>
-        <>
-          {(!data || isRefreshing) && (
-            <View
-              style={{
-                ...styles.loading,
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                position: "absolute",
-                left: "50%",
-                marginLeft: -40, 
-              }}
-            >
-              {
-                <FastImage
-                  style={{ height: 80, width: 80 }}
-                  source={require("@static/images/cancelSigmobLibzeus.gif")}
-                  resizeMode={"contain"}
-                />
-              }
-            </View>
-          )}
-          {showHomeLoading && !isOffline && (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "rgb(20,22,25)",
-              }}
-            >
-              <FastImage
-                source={require("@static/images/indexTyping.gif")}
-                style={{
-                  width: 150,
-                  height: 150,
-                  position: "relative",
-                  bottom: 50,
-                  zIndex: -1,
-                }}
-                resizeMode={"contain"}
-                useFastImage={true}
-              />
-            </View>
-          )}
-          {data && !isOffline && getContent({ item: data[0], index: 0 })}
-        </>
-      </ScreenContainer>
-      {isOffline && <NoConnection onClickRetry={checkConnection} />}
-    </>
-  );
+   <>
+     <ScreenContainer
+       containerStyle={{paddingLeft: 0, paddingRight: 0}}
+       isHome={false}>
+       <View
+         style={{
+           backgroundColor: colors.background,
+           paddingLeft: spacing.sideOffset,
+           paddingRight: spacing.sideOffset,
+         }}>
+         <HomeHeader navigator={navigation} />
+       </View>
+       <>
+         {(!data || isRefreshing) && (
+           <View
+             style={{
+               ...styles.loading,
+               flex: 1,
+               alignItems: 'center',
+               justifyContent: 'center',
+               position: 'absolute',
+               left: '50%',
+               marginLeft: -40,
+             }}>
+             {
+               <FastImage
+                 style={{height: 80, width: 80}}
+                 source={require('@static/images/cancelSigmobLibzeus.gif')}
+                 resizeMode={'contain'}
+               />
+             }
+           </View>
+         )}
+         {showHomeLoading && !isOffline && <YysLoadingIndex errorMessage={loadingError}/>}
+         {data && !isOffline && getContent({item: data[0], index: 0})}
+       </>
+     </ScreenContainer>
+     {isOffline && <NoConnection onClickRetry={checkConnection} />}
+   </>
+ );
 }
 
 export default memo(yys_dycreator);
