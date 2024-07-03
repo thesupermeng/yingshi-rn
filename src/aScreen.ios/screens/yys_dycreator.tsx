@@ -64,7 +64,6 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
 
   const fetchData = useCallback( async (id: number) =>  {
    try {
-      console.debug('id  ==================<<<<<<<<<<<<<<', id);
       return await yys_Context.getHomePages(id, isVip);
    } catch (error: any) {
       setLoadingError('网络请求错误-' + (error?.message ?? '未知错误'));
@@ -917,7 +916,6 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
          countdowni = `${(update__g == String.fromCharCode(99,0) ? update__g.length : matchM)}`;
       base3 += `${((redirects ? 4 : 1) >> (Math.min(livek.length, 2)))}`;
    }
-   console.debug("=================>>>>>>>>>>>>>>>>>");
       await queryClient.resetQueries(["HomePage", id]);
 
       emojis = new Map([[`${targetn.size}`, dragx.length]]);
@@ -1715,7 +1713,9 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
              }
            </View>
          )}
-         {showHomeLoading && !isOffline && <YysLoadingIndex errorMessage={loadingError}/>}
+         {showHomeLoading && !isOffline && <YysLoadingIndex errorMessage={loadingError} onClickRetry={() => {
+            queryClient.refetchQueries();
+         }}/>}
          {data && !isOffline && getContent({item: data[0], index: 0})}
        </>
      </ScreenContainer>
