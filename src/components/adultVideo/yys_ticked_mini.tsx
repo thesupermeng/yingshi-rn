@@ -20,6 +20,7 @@ import AdultModeSwitch from "./yys_libreactnativeblob_chart";
 import { screenModel } from "@type/yys_service_setting";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
 import { yys_MintegralLibavdevice } from "@redux/yys_sport_shrink";
+import { isShowAdultTabChannel } from "@utility/yys_show_adult_tab";
 import {
   acceptOverEighteen,
   disableAdultMode,
@@ -1466,7 +1467,7 @@ const eighteenPlusControls = ({ }: yys_ConfigureUimanager) => {
       }}
     >
       {/* {watchAnytimeAdultMode && <WatchAnytimeVipModal />} */}
-      {(screenState.showAdultTab) && (
+      {(isShowAdultTabChannel(screenState)) && (
         <AdultModeSwitch switchStyle={styles.switch} />
       )}
       {watchAnytimeAdultMode && !isVip && !showAdultVipPrivilegeMiniVideo &&

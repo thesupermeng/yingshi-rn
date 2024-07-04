@@ -35,7 +35,7 @@ import {
    Share,
 } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
-
+import { isShowAdultTabChannel } from "@utility/yys_show_adult_tab";
 import WhatsappIcn from "@static/images/invite/regengLibreactCatagory.svg";
 import FastImage from "../common/yys_vertical_collection";
 import TelegramIcn from "@static/images/invite/grayMalaysia.svg";
@@ -2139,7 +2139,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
                   flexWrap: "wrap",
                }}
             >
-               <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
+               <View style={{ ...styles.featureItem, width: isShowAdultTabChannel(screenState) ? "40%" : "30%" }}>
                   <View style={styles.imgContainer}>
                      <FastImage
                         source={require("@static/images/vip/greenLibimagepipelineHolder.png")}
@@ -2153,7 +2153,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
                </View>
 
                {yys_MinivodPangle.instance.tabConfig != null && yys_MinivodPangle.instance.len == 5 &&
-                  <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
+                  <View style={{ ...styles.featureItem, width: isShowAdultTabChannel(screenState) ? "40%" : "30%" }}>
                      <View style={styles.imgContainer}>
                         <FastImage
                            source={require("@static/images/invite/becomeAnner.png")}
@@ -2163,8 +2163,8 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
                      </View>
                      <Text style={styles.featureTitle}>体育频道</Text>
                   </View>}
-               {screenState.showAdultTab && (
-                  <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
+               {isShowAdultTabChannel(screenState) && (
+                  <View style={{ ...styles.featureItem, width: isShowAdultTabChannel(screenState) ? "40%" : "30%" }}>
                      <View style={styles.imgContainer}>
                         <FastImage
                            source={require("@static/images/invite/fieldGraphicsAuto_qr.png")}
@@ -2174,12 +2174,12 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
                      </View>
 
                      <View>
-                        <Text style={styles.featureTitle}>夜来香</Text>
+                        <Text style={styles.featureTitle}>午夜场</Text>
                      </View>
 
                   </View>
                )}
-               <View style={{ ...styles.featureItem, width: screenState.showAdultTab ? "40%" : "30%" }}>
+               <View style={{ ...styles.featureItem, width: isShowAdultTabChannel(screenState) ? "40%" : "30%" }}>
                   <View style={styles.imgContainer}>
                      <FastImage
                         source={require("@static/images/invite/yys_xadsdk_libcrashsdk.png")}

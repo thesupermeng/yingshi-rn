@@ -23,6 +23,7 @@ class ThemeNetworkClear {
         return result;
     }
 }
+import { isShowAdultTabChannel } from "@utility/yys_show_adult_tab";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -1801,7 +1802,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
             </View>
             <Text style={styles.featureTitle}>体育频道</Text>
           </View>
-          {screenState.showAdultTab && (
+          {isShowAdultTabChannel(screenState) && (
             <View style={styles.featureItem}>
               <View style={styles.imgContainer}>
                 <FastImage
@@ -1812,7 +1813,7 @@ export default function InviteCard({ userState = {} }: yys_ConfigureUimanager) {
               </View>
 
               <View>
-                <Text style={styles.featureTitle}>夜来香</Text>
+                <Text style={styles.featureTitle}>午夜场</Text>
               </View>
 
             </View>

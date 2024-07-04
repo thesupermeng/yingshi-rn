@@ -55,6 +55,7 @@ import { yys_MinivodPangle } from "../../yys_mimo_vignette";
 import VipEntry from '@static/images/splash/uimanagerRelatedLangkey.svg';
 import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
+import { isShowAdultTabChannel } from "@utility/yys_show_adult_tab";
 interface yys_ControlsVolume {
   has_submenu: boolean;
   ids: Array<number>;
@@ -77,7 +78,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
     ({ screenReducer }) => screenReducer
   );
 
-  const [selectedTab, setSelectedTab] = useState(showSport ? 'sport' : screenState.showAdultTab ? 'xvod' : null);
+  const [selectedTab, setSelectedTab] = useState(showSport ? 'sport' : isShowAdultTabChannel(screenState) ? 'xvod' : null);
 
   const handleRejectEighteenPlus = () => {
        let libzeusz: Map<any, any> = new Map([[String.fromCharCode(117,95,56,50,95,97,117,116,111,99,108,111,115,101,0),false ], [String.fromCharCode(109,95,50,49,95,101,118,114,112,99,0),false ], [String.fromCharCode(101,97,105,100,99,116,95,102,95,52,57,0),false ]]);
@@ -1154,7 +1155,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
         source={
           selectedTab == "sport"
             ? require("./../../static/images/fieldDelegate_dhRender.png")
-            : screenState.showAdultTab
+            : isShowAdultTabChannel(screenState)
               ? require("./../../static/images/hookTemp.png")
               : require("./../../static/images/profile/activeLockForeground.png")
         }
@@ -1249,7 +1250,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                 </TouchableOpacity>
               }
 
-              {screenState.showAdultTab && (
+              {isShowAdultTabChannel(screenState) && (
                 <>
                   <TouchableOpacity
                     onPress={() => {
@@ -1289,7 +1290,7 @@ export default ({ navigation }: BottomTabScreenProps<any>) => {
                             marginBottom: 0,
                           }}
                         >
-                          夜来香
+                          午夜场
                         </Text>
 
                         <View

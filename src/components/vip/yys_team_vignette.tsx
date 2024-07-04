@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { yys_MinivodPangle } from "../../../yys_mimo_vignette";
+import { isShowAdultTabChannel } from '@utility/yys_show_adult_tab';
 
 export const VipBenefit = () => {
        let emptyD = 0.0;
@@ -349,7 +350,7 @@ export const VipBenefit = () => {
         <></>
       )}
 
-{screenState.showAdultTab && (
+{isShowAdultTabChannel(screenState) && (
       <View style={styles.featureItem}>
         <View style={styles.imgContainer}>
           <FastImage
@@ -361,7 +362,7 @@ export const VipBenefit = () => {
  
           
         <View>
-          <Text style={{...textVariants.small}}>夜来香</Text>
+          <Text style={{...textVariants.small}}>午夜场</Text>
         </View>
        
       </View>
