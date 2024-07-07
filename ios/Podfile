@@ -89,7 +89,7 @@ target 'aimeiju' do
   
   pod 'AnyThinkiOS','6.2.82'
   pod 'AnyThinkiOS/AnyThinkMaioAdapter','6.2.82'
-  pod 'AnyThinkiOS/AnyThinkStartAppAdapter','6.2.82'
+  # pod 'AnyThinkiOS/AnyThinkStartAppAdapter','6.2.82'
   pod 'AnyThinkiOS/AnyThinkBaiduAdapter','6.2.82'
   pod 'AnyThinkiOS/AnyThinkNendAdapter','6.2.82'
   pod 'AnyThinkiOS/AnyThinkKuaiShouAdapter','6.2.82'

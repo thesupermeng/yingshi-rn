@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
   s.dependency 'Masonry'
   s.dependency 'AnyThinkiOS','6.1.71'
   s.dependency 'AnyThinkiOS/AnyThinkMaioAdapter','6.1.71'
-  s.dependency 'AnyThinkiOS/AnyThinkStartAppAdapter','6.1.71'
+  # s.dependency 'AnyThinkiOS/AnyThinkStartAppAdapter','6.1.71'
   # s.dependency 'AnyThinkiOS/AnyThinkBaiduAdapter','6.1.71'
   # #Baidu--4.80 SDK,podfile文件顶部增加 source 'https://github.com/CocoaPods/Specs.git'
   s.dependency 'AnyThinkiOS/AnyThinkNendAdapter','6.1.71'
