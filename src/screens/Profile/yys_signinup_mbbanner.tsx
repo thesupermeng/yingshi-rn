@@ -1315,7 +1315,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
 
    useEffect(() => {
       if (countChannelid == 20) {
-         yys_StatsForm.showToast(UMENG_CHANNEL);
+         yys_StatsForm.showToast(UMENG_CHANNEL + '--' + APP_VERSION_BUILD);
       }
    }, [countChannelid])
 
@@ -1344,7 +1344,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
                   spamToggleVersion
              }>
                <Text style={{ textAlign: "center", ...textVariants.body }}>
-                  {APP_VERSION + '.' + APP_VERSION_BUILD}
+                  {APP_VERSION}
                </Text>
             </TouchableOpacity>
             <NotificationModal

@@ -341,7 +341,7 @@ export const INVITE_DOMAIN = SecurityLibzeusIconBecome.inactiveLeague([-124, -10
 
 export const UMENG_CHANNEL = "WEB_IOS"; // SHAYU_APPLE_STORE , APPLE_STORE , HUANGSHAYU
 
-export const APP_VERSION = "1.9.2";
+export const APP_VERSION = "1.9.3";
 export const APP_VERSION_BUILD= "19";
 
 export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
