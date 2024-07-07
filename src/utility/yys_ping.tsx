@@ -742,6 +742,29 @@ export class yys_StringsVignette {
             yys_StatsForm.showToast(result.message);
         }
 
+        try {
+            const queryString = query ? JSON.stringify(query) : '';
+            const bodyString = body ? JSON.stringify(body) : '';
+            const resultData:any = {};
+            const resultOrig:any = result as any;
+            for (const key in result) {
+                if (typeof resultOrig[key] === 'string') {
+                    resultData[key] = resultOrig[key];
+                } if (typeof resultOrig[key] === 'number') {
+                    resultData[key] = resultOrig[key];
+                } else if (typeof resultOrig[key] === 'object') {
+                    resultData[key] = `object`;
+                }
+            }
+            const resultString = JSON.stringify(resultData);
+            
+            console.debug(`==>【${method.toUpperCase()}】${endpoint} ${queryString} ${bodyString}`);
+            
+            console.debug(`==> ${resultString}`);
+        } catch (error) {
+            console.debug(`==>【${method.toUpperCase()}】${endpoint} ${query ?? ''} ${body ?? ''}`);
+        }
+
         return result;
     }
 
