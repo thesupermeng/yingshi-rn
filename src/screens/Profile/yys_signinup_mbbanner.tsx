@@ -16,9 +16,12 @@ import { Button } from "@rneui/themed";
 import ShowMoreButton from "../../components/button/yys_sound_button";
 import Logo2 from "@static/images/materialSingaporeHistory.svg";
 import NotificationModal from "../../components/modal/yys_graph";
+import { yys_StatsForm } from "@utility/yys_context_muted";
 import {
    APP_EMAIL_CONST,
    APP_VERSION,
+   APP_VERSION_BUILD,
+   UMENG_CHANNEL,
 } from "@utility/yys_ajax_switch";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
@@ -27,6 +30,7 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
    const { colors, textVariants, icons, spacing } = useTheme();
    const [isDialogOpen, setIsDialogOpen] = useState(false);
    const [countToggleB, setCountToggleB] = useState(0);
+   const [countChannelid, setCountChannelid] = useState(0);
 
    const toggleOverlay = () => {
       let unewinterstitialZ = String.fromCharCode(101, 95, 55, 52, 95, 100, 99, 116, 99, 111, 101, 102, 0);
@@ -663,7 +667,6 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
          usernameu /= Math.max(parseFloat(`${2}`), 1);
          break;
       }
-
       setCountToggleB(countToggleB + 1);
    }
 
@@ -1293,11 +1296,28 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
       RNRestart.Restart();
    }
 
+   const spamToggleVersion = async () =>  {
+      if (UMENG_CHANNEL !== "WEB_IOS") {
+         spamToggleB();
+      }
+   }
+
+   const spamcountChannel = async () => {
+      
+      setCountChannelid(countChannelid + 1)
+   }
+
    useEffect(() => {
       if (countToggleB == 8) {
          switchToggle();
       }
    }, [countToggleB])
+
+   useEffect(() => {
+      if (countChannelid == 20) {
+         yys_StatsForm.showToast(UMENG_CHANNEL);
+      }
+   }, [countChannelid])
 
    return (
 
@@ -1313,12 +1333,18 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
       <ScreenContainer>
          <View style={{ gap: spacing.m }}>
             <TitleWithBackButtonHeader title="关于我们" />
+            <TouchableOpacity onPress={
+               spamcountChannel
+            }>
             <View style={styles.logo}>
                <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
             </View>
-            <TouchableOpacity onPress={spamToggleB}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={ 
+                  spamToggleVersion
+             }>
                <Text style={{ textAlign: "center", ...textVariants.body }}>
-                  {APP_VERSION}
+                  {APP_VERSION + '.' + APP_VERSION_BUILD}
                </Text>
             </TouchableOpacity>
             <NotificationModal

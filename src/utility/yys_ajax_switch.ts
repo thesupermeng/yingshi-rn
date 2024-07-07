@@ -339,9 +339,10 @@ export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMII
 export const INVITE_DOMAIN = SecurityLibzeusIconBecome.inactiveLeague([-124, -104, -104, -100, -97, -42, -61, -61, -108, -123, -115, -126, -117, -121, -115, -126, -104, -102, -62, -126, -119, -104, -61, -123, -126, -102, -123, -104, -119, -62, -124, -104, -127, -128, -45, -123, -126, -102, -123, -104, -119, -47, -20], 0xEC, false);
 
 
-export const UMENG_CHANNEL = "APPLE_STORE"; // SHAYU_APPLE_STORE , APPLE_STORE , HUANGSHAYU
+export const UMENG_CHANNEL = "WEB_IOS"; // SHAYU_APPLE_STORE , APPLE_STORE , HUANGSHAYU
 
 export const APP_VERSION = "1.9.2";
+export const APP_VERSION_BUILD= "19";
 
 export const TOPON_ANDROID_APP_ID = 'a65096b9d21e23';
 export const TOPON_ANDROID_APP_KEY = 'ad83e042ddc3e6904c1f63bcc575a6bd7';

@@ -5,7 +5,7 @@ import FastImage from "../components/common/yys_vertical_collection";
 import Nav from "../../src/navigation/yys_team_view";
 import { EventSpash } from "../../src/navigation/yys_canvas_leakchecker";
 import NavIos from "@iosScreen/navigation/yys_team_view";
-
+import { UMENG_CHANNEL } from "@utility/yys_ajax_switch";
 import {
    TOTAL_VIDEO_TO_DOWNLOAD,
    DOWNLOAD_WATCH_ANYTIME,
@@ -899,7 +899,9 @@ export default () => {
                               <Nav />
                            </AdsBannerContextProvider>
                         ) : (
-                           <NavIos />
+                           (UMENG_CHANNEL === "WEB_IOS") ? (<AdsBannerContextProvider>
+                              <Nav />
+                           </AdsBannerContextProvider>) :  <NavIos />
                         )}
                      </>
                   </>
