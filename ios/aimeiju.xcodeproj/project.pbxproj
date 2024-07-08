@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* aimeijuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* aimeijuTests.m */; };
 		0E468246AAB34070B20364F4 /* 045-SSYiFeiTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */; };
+		10BB84B1B1DD407083DF75F2 /* libPods-aimeiju-aimeijuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA728FDF7CF6367C767232E4 /* libPods-aimeiju-aimeijuTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -24,11 +25,10 @@
 		38EB5E0D2ACDB24500F913BB /* yys_Analytic.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EB5E062ACDB24500F913BB /* yys_Analytic.m */; };
 		5423A35AA4F64DF5B8BD11D8 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8391B0F9486545B311C7A046 /* libPods-aimeiju.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAC42A0F476691487063728 /* libPods-aimeiju.a */; };
 		8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */; };
-		94F8AD8DA3C2F552A55A4D3A /* libPods-aimeiju-aimeijuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAE7D45C0DA7BB9AB25BD51 /* libPods-aimeiju-aimeijuTests.a */; };
 		9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A218EB62AC413D600F6B98C /* libz.tbd */; };
 		9A218EB92AC414D600F6B98C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */; };
+		BF2812E68FC55B4406DF0302 /* libPods-aimeiju.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 140281B99923FA3FA9A1D73A /* libPods-aimeiju.a */; };
 		C6624F59138B4D30A2743B04 /* Archivo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9BB9899CA0D4BF2816AF949 /* Archivo-Regular.ttf */; };
 		C8874F6A2B95E34000B7A14E /* yys_ActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = KB87E4GW9WZV209311R48B2H /* yys_ActivityView.m */; };
 		C8874F6B2B95E34000B7A14E /* yys_RuntimeschedulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = SH226N0503T8938L257300R0 /* yys_RuntimeschedulerView.m */; };
@@ -102,6 +102,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = aimeiju/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = aimeiju/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = aimeiju/main.m; sourceTree = "<group>"; };
+		140281B99923FA3FA9A1D73A /* libPods-aimeiju.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DB8B657D8498EB81D3C6C75 /* Pods-aimeiju.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.staging.xcconfig"; sourceTree = "<group>"; };
 		3896D1802B0C48F70082748B /* yys_ReadInvite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_ReadInvite.h; sourceTree = "<group>"; };
 		3896D1812B0C48F70082748B /* yys_LibruntimeexecutorLibreactnativeblob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_LibruntimeexecutorLibreactnativeblob.m; sourceTree = "<group>"; };
 		3896D1822B0C48F70082748B /* yys_ReadInvite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_ReadInvite.m; sourceTree = "<group>"; };
@@ -122,27 +124,25 @@
 		38EB5E032ACDB24500F913BB /* yys_LongVideojs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_LongVideojs.h; sourceTree = "<group>"; };
 		38EB5E052ACDB24500F913BB /* yys_Analytic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_Analytic.h; sourceTree = "<group>"; };
 		38EB5E062ACDB24500F913BB /* yys_Analytic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_Analytic.m; sourceTree = "<group>"; };
-		427A727E4F3BEDAE51DD6CCF /* Pods-aimeiju-aimeijuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.release.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.release.xcconfig"; sourceTree = "<group>"; };
-		5B78D900504AE08CC24C9EFC /* Pods-aimeiju-aimeijuTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.staging.xcconfig"; sourceTree = "<group>"; };
 		5CFC8C66716C43BEB9E996D0 /* 045-SSYiFeiTi.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "045-SSYiFeiTi.ttf"; path = "../assets/fonts/045-SSYiFeiTi.ttf"; sourceTree = "<group>"; };
-		714584C839845AD0E653AB13 /* Pods-aimeiju.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.staging.xcconfig"; sourceTree = "<group>"; };
+		5DAE04D9AC31E9CF4CBF25B5 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = aimeiju/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		856A5D44C816CAAA69127A9F /* Pods-aimeiju.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNExitApp.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E71E6401A67F66CFC34E36A /* Pods-aimeiju.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.release.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.release.xcconfig"; sourceTree = "<group>"; };
+		934BE73663077CE997A6EACD /* Pods-aimeiju-aimeijuTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.staging.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.staging.xcconfig"; sourceTree = "<group>"; };
 		9A218EB62AC413D600F6B98C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9A218EB82AC414D600F6B98C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		9A218F882AC42D1400F6B98C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		AA7444110469477DA8DC3CD7 /* Anton-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Anton-Regular.ttf"; path = "../assets/fonts/Anton-Regular.ttf"; sourceTree = "<group>"; };
-		ABAC42A0F476691487063728 /* libPods-aimeiju.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ADAE7D45C0DA7BB9AB25BD51 /* libPods-aimeiju-aimeijuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju-aimeijuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B47449CFB1743E01703E964C /* Pods-aimeiju.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.release.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.release.xcconfig"; sourceTree = "<group>"; };
+		BA728FDF7CF6367C767232E4 /* libPods-aimeiju-aimeijuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aimeiju-aimeijuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBL5QS6BKFOI1679971SHEVQ /* yys_TemperatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_TemperatureView.m; sourceTree = "<group>"; };
 		BW61K6101TQ48048362EZV47 /* yys_SigmobCoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_SigmobCoreView.m; sourceTree = "<group>"; };
 		C854A5E32BAC54F00069ED3C /* static */ = {isa = PBXFileReference; lastKnownFileType = folder; name = static; path = ../static; sourceTree = "<group>"; };
 		C8D93BB12BBA88B700D2FE52 /* aimeiju.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = aimeiju.entitlements; path = aimeiju/aimeiju.entitlements; sourceTree = "<group>"; };
-		CB049A07576557EE1A754F1F /* Pods-aimeiju-aimeijuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CQV9X8I7092L5783U5A537U3 /* yys_CancelInfoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yys_CancelInfoObject.m; sourceTree = "<group>"; };
 		CV9DTM49Y83107A533T6P016 /* yys_ReferrerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_ReferrerController.h; sourceTree = "<group>"; };
-		E8C4686BCA464AAABCB1DB36 /* Pods-aimeiju.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju.debug.xcconfig"; path = "Target Support Files/Pods-aimeiju/Pods-aimeiju.debug.xcconfig"; sourceTree = "<group>"; };
+		E3ACD980E82458D009330CE5 /* Pods-aimeiju-aimeijuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aimeiju-aimeijuTests.release.xcconfig"; path = "Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests.release.xcconfig"; sourceTree = "<group>"; };
 		E9BB9899CA0D4BF2816AF949 /* Archivo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Regular.ttf"; path = "../assets/fonts/Archivo-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EG6O717S424U34G27C96K698 /* yys_ChartBallObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yys_ChartBallObject.h; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94F8AD8DA3C2F552A55A4D3A /* libPods-aimeiju-aimeijuTests.a in Frameworks */,
+				10BB84B1B1DD407083DF75F2 /* libPods-aimeiju-aimeijuTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,7 @@
 			files = (
 				9A218EB72AC413D600F6B98C /* libz.tbd in Frameworks */,
 				8E1A5A292AC2B31000EBA460 /* libRNExitApp.a in Frameworks */,
-				8391B0F9486545B311C7A046 /* libPods-aimeiju.a in Frameworks */,
+				BF2812E68FC55B4406DF0302 /* libPods-aimeiju.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,8 +242,8 @@
 				9A218EB62AC413D600F6B98C /* libz.tbd */,
 				8E1A5A282AC2B31000EBA460 /* libRNExitApp.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				ABAC42A0F476691487063728 /* libPods-aimeiju.a */,
-				ADAE7D45C0DA7BB9AB25BD51 /* libPods-aimeiju-aimeijuTests.a */,
+				140281B99923FA3FA9A1D73A /* libPods-aimeiju.a */,
+				BA728FDF7CF6367C767232E4 /* libPods-aimeiju-aimeijuTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -386,12 +386,12 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E8C4686BCA464AAABCB1DB36 /* Pods-aimeiju.debug.xcconfig */,
-				8E71E6401A67F66CFC34E36A /* Pods-aimeiju.release.xcconfig */,
-				714584C839845AD0E653AB13 /* Pods-aimeiju.staging.xcconfig */,
-				CB049A07576557EE1A754F1F /* Pods-aimeiju-aimeijuTests.debug.xcconfig */,
-				427A727E4F3BEDAE51DD6CCF /* Pods-aimeiju-aimeijuTests.release.xcconfig */,
-				5B78D900504AE08CC24C9EFC /* Pods-aimeiju-aimeijuTests.staging.xcconfig */,
+				856A5D44C816CAAA69127A9F /* Pods-aimeiju.debug.xcconfig */,
+				B47449CFB1743E01703E964C /* Pods-aimeiju.release.xcconfig */,
+				1DB8B657D8498EB81D3C6C75 /* Pods-aimeiju.staging.xcconfig */,
+				5DAE04D9AC31E9CF4CBF25B5 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */,
+				E3ACD980E82458D009330CE5 /* Pods-aimeiju-aimeijuTests.release.xcconfig */,
+				934BE73663077CE997A6EACD /* Pods-aimeiju-aimeijuTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -446,12 +446,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "aimeijuTests" */;
 			buildPhases = (
-				7CD5E46795B5BBB01D2150AD /* [CP] Check Pods Manifest.lock */,
+				B106B9BA9A2FA7915DA800F5 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C1C577C1884F54A27BF3CCFD /* [CP] Embed Pods Frameworks */,
-				D5265E0A24E5323FDE7F6C8E /* [CP] Copy Pods Resources */,
+				BE03601A19B3C06E33F568CE /* [CP] Embed Pods Frameworks */,
+				6231E2C47C4845E9DB0BD37F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -467,15 +467,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "aimeiju" */;
 			buildPhases = (
-				E742DDD2E65F5D966B102E77 /* [CP] Check Pods Manifest.lock */,
+				46ECF9FC9EF91CDF2367D68F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				CFCEB435C0994229A8DC1463 /* Upload Debug Symbols to Sentry */,
-				9CD74A2BD1DD3517DB61CB81 /* [CP] Embed Pods Frameworks */,
-				07A40C23CF6CBDB5D5FECE3E /* [CP] Copy Pods Resources */,
+				9DEA2BD82A244FF063B10C9C /* [CP] Embed Pods Frameworks */,
+				1577CEDD1E2D804336B9F022 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -585,7 +585,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nset -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT \\\"../node_modules/@sentry/cli/bin/sentry-cli react-native xcode $REACT_NATIVE_XCODE\\\"\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT ../node_modules/@sentry/react-native/scripts/collect-modules.sh\"\n";
 		};
-		07A40C23CF6CBDB5D5FECE3E /* [CP] Copy Pods Resources */ = {
+		1577CEDD1E2D804336B9F022 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -602,7 +602,63 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7CD5E46795B5BBB01D2150AD /* [CP] Check Pods Manifest.lock */ = {
+		46ECF9FC9EF91CDF2367D68F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-aimeiju-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6231E2C47C4845E9DB0BD37F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DEA2BD82A244FF063B10C9C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B106B9BA9A2FA7915DA800F5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -624,24 +680,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9CD74A2BD1DD3517DB61CB81 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju/Pods-aimeiju-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C1C577C1884F54A27BF3CCFD /* [CP] Embed Pods Frameworks */ = {
+		BE03601A19B3C06E33F568CE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -671,45 +710,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nif [ -f \"$WITH_ENVIRONMENT\" ]; then\n  . \"$WITH_ENVIRONMENT\"\nfi\nexport SENTRY_PROPERTIES=sentry.properties\n[ \"$SENTRY_INCLUDE_NATIVE_SOURCES\" = \"true\" ] && INCLUDE_SOURCES_FLAG=\"--include-sources\" || INCLUDE_SOURCES_FLAG=\"\"\n../node_modules/@sentry/cli/bin/sentry-cli debug-files upload \"$INCLUDE_SOURCES_FLAG\" \"$DWARF_DSYM_FOLDER_PATH\"\n";
-		};
-		D5265E0A24E5323FDE7F6C8E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-aimeiju-aimeijuTests/Pods-aimeiju-aimeijuTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E742DDD2E65F5D966B102E77 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-aimeiju-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -809,7 +809,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB049A07576557EE1A754F1F /* Pods-aimeiju-aimeijuTests.debug.xcconfig */;
+			baseConfigurationReference = 5DAE04D9AC31E9CF4CBF25B5 /* Pods-aimeiju-aimeijuTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -836,7 +836,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 427A727E4F3BEDAE51DD6CCF /* Pods-aimeiju-aimeijuTests.release.xcconfig */;
+			baseConfigurationReference = E3ACD980E82458D009330CE5 /* Pods-aimeiju-aimeijuTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -860,7 +860,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8C4686BCA464AAABCB1DB36 /* Pods-aimeiju.debug.xcconfig */;
+			baseConfigurationReference = 856A5D44C816CAAA69127A9F /* Pods-aimeiju.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -910,7 +910,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E71E6401A67F66CFC34E36A /* Pods-aimeiju.release.xcconfig */;
+			baseConfigurationReference = B47449CFB1743E01703E964C /* Pods-aimeiju.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -1187,7 +1187,7 @@
 		};
 		9A152EA62AD3F0AC00ECBD56 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 714584C839845AD0E653AB13 /* Pods-aimeiju.staging.xcconfig */;
+			baseConfigurationReference = 1DB8B657D8498EB81D3C6C75 /* Pods-aimeiju.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -1235,7 +1235,7 @@
 		};
 		9A152EA72AD3F0AC00ECBD56 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B78D900504AE08CC24C9EFC /* Pods-aimeiju-aimeijuTests.staging.xcconfig */;
+			baseConfigurationReference = 934BE73663077CE997A6EACD /* Pods-aimeiju-aimeijuTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

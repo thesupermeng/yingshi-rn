@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FastImage from "../components/common/yys_vertical_collection";
@@ -38,6 +38,7 @@ import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import { yys_StatsForm } from "@utility/yys_context_muted";
 import CodePush from "react-native-code-push";
+import YYSLaunchIndex from "../components/common/yys_launch_index";
 
 export default () => {
    const appDispatch = useAppDispatch();
@@ -53,9 +54,10 @@ export default () => {
 
    const [isConnected, setIsConnected] = useState(true);
 
-   const screenState: screenModel = useAppSelector(
-      ({ screenReducer }: yys_MintegralLibavdevice) => screenReducer
-   );
+   const isLaunching = useRef(false);
+   const launchRetry = useRef(0);
+   const launchError = useRef(false);
+   const [launchMessage, setLaunchMessage] = useState<string>();
 
    useEffect(() => {
       const unsubscribe = NetInfo.addEventListener((state: any) => {
@@ -283,6 +285,38 @@ export default () => {
       }
    };
 
+   const onAppInitState = (start:boolean, error:boolean, message?: string) => {
+      if (start) {
+         console.debug('==> init begin', launchRetry.current);
+         isLaunching.current = true;
+         if (!launchMessage || launchMessage.length <= 0) {
+            setLaunchMessage(message ?? '加载启动数据...');
+         }
+         launchError.current = false;
+      } else {
+         isLaunching.current = false;
+         console.debug('==> init finish')
+         if (error) {
+            launchRetry.current += 1;
+            if (launchRetry.current <= 1) {
+               setLaunchMessage('加载数据错误，重试中...\n' + (message ?? '未知错误'));
+               setTimeout(() => {
+                  onAppInit();
+               }, 1000);
+            } else {
+               setLaunchMessage('加载数据错误，请稍后重试\n' + (message ?? '未知错误'));
+               launchError.current = true;
+            }
+            setLoadedAPI(false);
+         } else {
+            if (!launchMessage || launchMessage.length <= 0) {
+               setLaunchMessage(message ?? '加载数据完成...');
+            }
+            setLoadedAPI(true);
+         }
+      }
+   }
+
    const onAppInit = async () => {
       let sellV = true;
       let moreR = false;
@@ -302,18 +336,49 @@ export default () => {
       let stare = 2.0;
       storeJ /= Math.max(1, 5);
 
-      try {
-         await guestLoginInit();
-         await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
-      } catch (e: any) {
-         //   yys_StatsForm.showToast(e.toString());
-         setErr(e.toString());
-         setTimeout(() => {
-            onAppInit();
-         }
-            , 3000);
+      if (isLaunching.current) {
          return;
       }
+      onAppInitState(true, false);
+      
+      try {
+         setLaunchMessage("加载用户数据...");
+         await guestLoginInit();
+      } catch(e:any) {
+         onAppInitState(false, true, "1 - " + e.toString());
+         return;
+      }
+
+      try {
+         setLaunchMessage("加载位置数据...");
+         await yys_Context.getLocalIpAddress();
+      } catch(e:any) {
+         onAppInitState(false, true, "2 - " + e.toString());
+         return;
+      }
+
+      try {
+         setLaunchMessage("加载引导数据...");
+         await yys_Context.getBottomNav();
+      } catch(e:any) {
+         onAppInitState(false, true, "3 - " + e.toString());
+         return;
+      }
+
+      
+
+      // try {
+      //    await guestLoginInit();
+      //    await Promise.all([yys_Context.getLocalIpAddress(), yys_Context.getBottomNav()]);
+      // } catch (e: any) {
+      //    //   yys_StatsForm.showToast(e.toString());
+      //    setErr(e.toString());
+      //    setTimeout(() => {
+      //       onAppInit();
+      //    }
+      //       , 3000);
+      //    return;
+      // }
 
 
       package_h3C += `${parseInt(`${usernameh}`) / (Math.max(2, parseInt(`${stylesH}`)))}`;
@@ -530,7 +595,8 @@ export default () => {
                   stylesH -= 3;
                   break;
                }
-               setLoadedAPI(true);
+               onAppInitState(false, false);
+               //setLoadedAPI(true);
             } else {
 
                gpayZ.set(`${usernameh}`, parseInt(`${usernameh}`));
@@ -543,7 +609,8 @@ export default () => {
                AsyncStorage.setItem("isScreenA", (!locationResp.status).toString());
 
                stylesH *= 2;
-               setLoadedAPI(true);
+               onAppInitState(false, false);
+               //setLoadedAPI(true);
             }
 
 
@@ -589,7 +656,8 @@ export default () => {
                   break;
                }
             } while ((bannerO.includes(`${telegramG.length}`)) && libsgcoreN);
-            setLoadedAPI(true);
+            onAppInitState(false, false);
+            // setLoadedAPI(true);
          }
       } catch (e) {
 
@@ -622,14 +690,15 @@ export default () => {
             }
             storeJ += attributedstringO.length >> (Math.min(Math.abs(2), 3));
          }
-         setLoadedAPI(true);
+         
+         onAppInitState(false, true);
+         //setLoadedAPI(true);
+         return;
       }
 
       appDispatch(onBootApp());
 
       selectedf += `${1 ^ parseInt(`${downloads}`)}`;
-
-
 
       storeJ /= Math.max(telegramG.length >> (Math.min(package_h3C.length, 3)), 2);
       const access = await AsyncStorage.getItem("access");
@@ -814,10 +883,9 @@ export default () => {
    };
 
    useEffect(() => {
-
       // dispatch(setIsPlayGuideShown(false));
       // dispatch(setIsPlayGuideShown2(false));
-      console.log("onAppInit");
+      console.debug("==> onAppInit First", loadedAPI, isConnected);
       onAppInit();
 
       GoogleSignin.configure({
@@ -829,34 +897,31 @@ export default () => {
       dispatch(hideLoginAction());
    }, []);
 
-   const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
-      queryFn: ({ pageParam = 1 }) =>
-         fetchMiniVods(pageParam, {
-            from: "api",
-            isVip,
-         }),
-   });
-
-   useEffect(() => {
-      if (DOWNLOAD_WATCH_ANYTIME === true) {
-         if (!!data) {
-            const firstNVod = data.pages
-               .flat(Infinity)
-               .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
-            downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
-         }
-      }
-   }, [data, isVip]);
-
    useEffect(() => {
       if (loadedAPI === false && isConnected === true) {
+         console.debug("==> onAppInit State Change", loadedAPI, isConnected);
          onAppInit();
-         setIsRun(true);
       }
    }, [loadedAPI, isConnected]);
 
-   const [isRun, setIsRun] = useState(false);
-   const [err, setErr] = useState('');
+   // const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
+   //    queryFn: ({ pageParam = 1 }) =>
+   //       fetchMiniVods(pageParam, {
+   //          from: "api",
+   //          isVip,
+   //       }),
+   // });
+
+   // useEffect(() => {
+   //    if (DOWNLOAD_WATCH_ANYTIME === true) {
+   //       if (!!data) {
+   //          const firstNVod = data.pages
+   //             .flat(Infinity)
+   //             .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
+   //          downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
+   //       }
+   //    }
+   // }, [data, isVip]);
 
    return (
       <>
@@ -867,43 +932,20 @@ export default () => {
          ) : (
             <>
                {loadedAPI == false && isConnected === true ? (
-                  <View
-                     style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "#161616",
-                     }}
-                  >
-                     {/* <Text style={{ color: 'white' }}>{isRun.toString()}</Text>
-                     <Text style={{ color: 'white' }}>{err}</Text> */}
-                     <FastImage
-                        source={require("@static/images/indexTyping.gif")}
-                        style={{
-                           width: 150,
-                           height: 150,
-                           position: "relative",
-                           bottom: 50,
-                           zIndex: -1,
-                        }}
-                        resizeMode={"contain"}
-                        useFastImage={true}
-                     />
-                  </View>
+                  <YYSLaunchIndex message={launchMessage} retry={launchError.current} onRetry={() => {
+                     launchError.current = false
+                     setLaunchMessage("");
+                     onAppInit();
+                  }}/>
                ) : (
                   <>
-                     <>
-                        {areaNavConfig == true ? (
-
-                           <AdsBannerContextProvider>
-                              <Nav />
-                           </AdsBannerContextProvider>
-                        ) : (
-                           (UMENG_CHANNEL === "WEB_IOS") ? (<AdsBannerContextProvider>
-                              <Nav />
-                           </AdsBannerContextProvider>) :  <NavIos />
-                        )}
-                     </>
+                     {(UMENG_CHANNEL === "WEB_IOS" || areaNavConfig == true) ? (
+                        <AdsBannerContextProvider>
+                           <Nav />
+                        </AdsBannerContextProvider>
+                     ) : (
+                        <NavIos />
+                     )}
                   </>
                )}
             </>

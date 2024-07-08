@@ -38,6 +38,7 @@ export class yys_MbbannerComment {
     static http502 = 'badGateway';
     static http503 = 'serviceUnavailableError';
     static http505 = StepGesturesRoomFloating.holderDetailsInfo([39,59,59,63,25,42,61,60,38,32,33,1,32,59,28,58,63,63,32,61,59,42,43,79],0x4F,false);
+    static timeoutError = 'timeoutError';
     static unknownError = 'unknownError';
     static noInternetAccess = 'noInternetAccess';
     static downloadFailed = 'downloadFailed';

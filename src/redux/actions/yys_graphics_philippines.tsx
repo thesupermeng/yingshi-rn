@@ -84,8 +84,6 @@ export const onBootApp = ({ } = {}) => async (
             roundZ.set(`${interstitialX}`, parseInt(`${interstitialX}`) ^ 2);
          }
 
-         console.log("COUNT INTERVAL");
-
          if (const_mC <= qaagF) {
             const_mC -= f_managerq / 2;
          }

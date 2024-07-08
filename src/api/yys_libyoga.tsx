@@ -600,6 +600,7 @@ export class yys_Context {
 
             },
          });
+         console.debug("==> app post location ", result);
 
          let placement6 = String.fromCharCode(118, 95, 49, 57, 95, 97, 109, 101, 120, 0);
          let singleR = 0.0;

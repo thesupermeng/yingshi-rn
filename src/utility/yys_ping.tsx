@@ -577,8 +577,10 @@ export class yys_StringsVignette {
                 }
                 castingC += `${1 >> (Math.min(1, Math.abs(imagemanagerI.size)))}`;
                 config.headers['App-Version'] = APP_VERSION;
+                config.timeout = 10000;
+                config.timeoutErrorMessage = '访问超时';
             }
-
+            
             return config;
         });
     }
@@ -697,74 +699,94 @@ export class yys_StringsVignette {
         const url = isFullUrl ? endpoint : `${this.#env.apiUrl}/${endpoint}`;
 
         let response: AxiosResponse;
+        let retry = 0
+        let result: yys_PopupXvod = new yys_PopupXvod({
+            statusCode: 400,
+            success: false,
+            errors: [],
+            message: yys_Progress.get(yys_MbbannerComment.http400),
+        });
 
-        switch (method.toLowerCase()) {
-            case 'get':
-                {
-                    response = await this.#apiInstance!.get(url, {
-                        params: query,
-                    });
-                    break;
+        while(retry < 3) {
+            retry += 1
+            try {
+                switch (method.toLowerCase()) {
+                    case 'get':
+                        {
+                            response = await this.#apiInstance!.get(url, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'put':
+                        {
+                            response = await this.#apiInstance!.put(url, body, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'patch':
+                        {
+                            response = await this.#apiInstance!.patch(url, body, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'delete':
+                        {
+                            response = await this.#apiInstance!.delete(url, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'post':
+                    default:
+                        {
+                            response = await this.#apiInstance!.post(url, body, {
+                                params: query,
+                            });
+                        }
                 }
-            case 'put':
-                {
-                    response = await this.#apiInstance!.put(url, body, {
-                        params: query,
-                    });
-                    break;
-                }
-            case 'patch':
-                {
-                    response = await this.#apiInstance!.patch(url, body, {
-                        params: query,
-                    });
-                    break;
-                }
-            case 'delete':
-                {
-                    response = await this.#apiInstance!.delete(url, {
-                        params: query,
-                    });
-                    break;
-                }
-            case 'post':
-            default:
-                {
-                    response = await this.#apiInstance!.post(url, body, {
-                        params: query,
-                    });
-                }
+                result = await this.#responseHandle(response, { isFullUrl });
+            } catch(error: any) {
+                result = new yys_PopupXvod({
+                    statusCode: 500,
+                    success: false,
+                    errors: error,
+                    message: yys_Progress.get(yys_MbbannerComment.timeoutError),
+                });
+            }
+
+            if (400 <= result.statusCode && result.statusCode <= 599) {
+                console.debug(`==>【${result.statusCode}】${url}`);
+            } else {
+                break;
+            }
         }
-
-        const result: yys_PopupXvod = await this.#responseHandle(response, { isFullUrl });
-
+        
         if (result.success == false && showErrorToast == true) {
             yys_StatsForm.showToast(result.message);
         }
-
-        // try {
-        //     const queryString = query ? JSON.stringify(query) : '';
-        //     const bodyString = body ? JSON.stringify(body) : '';
-        //     const resultData:any = {};
-        //     const resultOrig:any = result as any;
-        //     for (const key in result) {
-        //         if (typeof resultOrig[key] === 'string') {
-        //             resultData[key] = resultOrig[key];
-        //         } if (typeof resultOrig[key] === 'number') {
-        //             resultData[key] = resultOrig[key];
-        //         } else if (typeof resultOrig[key] === 'object') {
-        //             resultData[key] = `object`;
-        //         }
-        //     }
-        //     const resultString = JSON.stringify(resultData);
-            
-        //     console.debug(`==>【${method.toUpperCase()}】${endpoint} ${queryString} ${bodyString}`);
-            
-        //     console.debug(`==> ${resultString}`);
-        // } catch (error) {
-        //     console.debug(`==>【${method.toUpperCase()}】${endpoint} ${query ?? ''} ${body ?? ''}`);
-        // }
-
+        try {
+            const queryString = query ? JSON.stringify(query) : '';
+            const bodyString = body ? JSON.stringify(body) : '';
+            const resultData:any = {};
+            const resultOrig:any = result as any;
+            for (const key in result) {
+                if (typeof resultOrig[key] === 'string') {
+                    resultData[key] = resultOrig[key];
+                } if (typeof resultOrig[key] === 'number') {
+                    resultData[key] = resultOrig[key];
+                } else if (typeof resultOrig[key] === 'object') {
+                    resultData[key] = `object`;
+                }
+            }
+            const resultString = JSON.stringify(resultData);
+            console.debug(`==>【${method.toUpperCase()}】${endpoint} ${queryString} ${bodyString}`);
+            console.debug(`==> ${resultString}`);
+        } catch (error) {
+            console.debug(`==>【${method.toUpperCase()}】${endpoint} ${query ?? ''} ${body ?? ''}`);
+        }
         return result;
     }
 
