@@ -1,0 +1,26 @@
+#! /usr/bin/bash
+
+script_file=$(readlink -f "$0")
+script_dir=$(dirname "$script_file")
+channel=$(awk '/ UMENG_CHANNEL /{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
+if [ "$channel" = "" ]; then
+  channel=$(awk '/ UMENG_CHANNEL=/{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
+fi
+version=$(awk '/ APP_VERSION /{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
+if [ "$version" = "" ]; then
+  version=$(awk '/ APP_VERSION=/{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
+fi
+build=$(awk '/ APP_VERSION_BUILD /{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
+if [ "$build" = "" ]; then
+  build=$(awk '/ APP_VERSION_BUILD=/{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
+fi
+
+channel=$(echo $channel | awk -F"\"" '{print $2}')
+version=$(echo $version | awk -F"\"" '{print $2}')
+build=$(echo $build | awk -F"\"" '{print $2}') 
+
+echo CHANNEL=$channel
+echo VERSION=$version
+echo BUILD=$build
+
+exit 0
