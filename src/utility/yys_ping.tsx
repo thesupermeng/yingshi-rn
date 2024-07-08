@@ -6,7 +6,7 @@ import { yys_Progress } from './yys_less_field';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { yys_MbbannerComment } from '../constants';
 import { yys_MinivodPangle } from '../../yys_mimo_vignette';
-import { APP_NAME_FOR_API, APP_VERSION, UMENG_CHANNEL } from './yys_ajax_switch';
+import { API_RETRY_MAX, API_TIME_OUT, APP_NAME_FOR_API, APP_VERSION, UMENG_CHANNEL } from './yys_ajax_switch';
 import { Platform } from 'react-native';
 
 export class yys_StringsVignette {
@@ -577,8 +577,8 @@ export class yys_StringsVignette {
                 }
                 castingC += `${1 >> (Math.min(1, Math.abs(imagemanagerI.size)))}`;
                 config.headers['App-Version'] = APP_VERSION;
-                config.timeout = 10000;
-                config.timeoutErrorMessage = '访问超时';
+                config.timeout = API_TIME_OUT;
+                config.timeoutErrorMessage = '网络访问超时';
             }
             
             return config;
@@ -707,7 +707,7 @@ export class yys_StringsVignette {
             message: yys_Progress.get(yys_MbbannerComment.http400),
         });
 
-        while(retry < 3) {
+        while(retry < API_RETRY_MAX) {
             retry += 1
             try {
                 switch (method.toLowerCase()) {

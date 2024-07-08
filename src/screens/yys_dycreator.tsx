@@ -82,6 +82,7 @@ import DeviceInfo from 'react-native-device-info';
 import {EventSpash} from '../navigation/yys_canvas_leakchecker';
 import {yys_HejiCricket} from '@redux/reducers/yys_privacy_round';
 import {yys_RelatedTooltips} from '@models/yys_project_pagination';
+import Yys_loading_index from '../components/common/yys_loading_index';
 
 function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
   const dispatch = useAppDispatch();
@@ -101,6 +102,7 @@ function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
   const userState = useSelector<yys_HejiCricket>('userReducer');
   const isVip = yys_RelatedTooltips.isVip(userState.user);
   const bottomTabHeight = useBottomTabBarHeight();
+  const [loadingError, setLoadingError] = useState('');
 
   let channel = UMENG_CHANNEL;
 
@@ -122,10 +124,19 @@ function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
       }),
   });
 
-  const fetchData = useCallback(
-    (id: number) => yys_Context.getHomePages(id, isVip),
-    [isVip],
-  );
+  // const fetchData = useCallback(
+  //   (id: number) => yys_Context.getHomePages(id, isVip),
+  //   [isVip],
+  // );
+
+  const fetchData = useCallback( async (id: number) =>  {
+    try {
+       return await yys_Context.getHomePages(id, isVip);
+    } catch (error: any) {
+       setLoadingError('网络请求错误-' + (error?.message ?? '未知错误'));
+       return undefined;
+    }
+   }, []);
 
   const data = useQueries({
     queries: navOptions
@@ -2365,7 +2376,7 @@ function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
       }
 
       return;
-    } catch (error) {
+    } catch (error:any) {
       stationsZ /= Math.max(
         parseFloat(`${3 << Math.min(4, Math.abs(sliderD.size))}`),
         5,
@@ -2373,6 +2384,7 @@ function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
       stationsZ += parseFloat(`${dplusY.length}`);
       nterstitialt = `${parseInt(`${telemetry4}`)}`;
       console.error('Error fetching data:', error);
+      setLoadingError('网络请求错误-' + error?.message ?? '未知错误');
     }
   };
 
@@ -6141,7 +6153,7 @@ function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
                   }
                 </View>
               )}
-              {showHomeLoading && !isOffline && (
+              {/* {showHomeLoading && !isOffline && (
                 <View
                   style={{
                     flex: 1,
@@ -6162,7 +6174,10 @@ function yys_dycreator({navigation}: BottomTabScreenProps<any>) {
                     useFastImage={true}
                   />
                 </View>
-              )}
+              )} */}
+              {showHomeLoading && !isOffline && <Yys_loading_index errorMessage={loadingError} onClickRetry={() => {
+                  queryClient.refetchQueries();
+              }}/>}
               {data && !isOffline && getContent({item: data[i], index: tab.id})}
             </>
           )}

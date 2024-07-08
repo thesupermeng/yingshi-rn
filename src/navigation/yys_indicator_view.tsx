@@ -26,7 +26,7 @@ import { fetchMiniVods } from "../api/yys_over_login";
 import { yys_Context, yys_Sans, yys_GesturesConst } from "@api";
 import { hideLoginAction, setIsPlayGuideShown, setIsPlayGuideShown2 } from "@redux/actions/yys_runtimescheduler";
 import { useDispatch } from "react-redux";
-import NetInfo from "@react-native-community/netinfo";
+import NetInfo, { NetInfoSubscription } from "@react-native-community/netinfo";
 import { useAppDispatch, useAppSelector, useSelector } from "@hooks/yys_frame";
 import { yys_MintegralLibavdevice } from "@redux/yys_sport_shrink";
 import { screenModel } from "@type/yys_service_setting";
@@ -52,31 +52,60 @@ export default () => {
 
    const isVip = yys_RelatedTooltips.isVip(userState.user);
 
-   const [isConnected, setIsConnected] = useState(true);
+   const [isConnected, setIsConnected] = useState(false);
 
    const isLaunching = useRef(false);
    const launchRetry = useRef(0);
-   const launchError = useRef(false);
+   const [launchError, setLaunchError] = useState(false);
    const [launchMessage, setLaunchMessage] = useState<string>();
+
+   const netListener = useRef<NetInfoSubscription>();
 
    useEffect(() => {
       const unsubscribe = NetInfo.addEventListener((state: any) => {
-         setIsConnected(state.isConnected);
-         if (state.isConnected === false) setAreaNavConfig(true);
+         if (!isConnected && state.isConnected) {
+            setIsConnected(state.isConnected);
+            if (netListener.current) {
+               netListener.current();
+               netListener.current = undefined;
+            }
+         }
+         // if (state.isConnected === false) setAreaNavConfig(true);
       });
-
-
+      netListener.current = unsubscribe;
 
       if (userState.user !== null && userState.user !== undefined) {
          dispatch(addUserAuthState(new yys_RelatedTooltips(userState.user)));
       }
 
-      return () => {
+      // dispatch(setIsPlayGuideShown(false));
+      // dispatch(setIsPlayGuideShown2(false));
+      // console.debug("==> onAppInit First", loadedAPI, isConnected);
+      // onAppInit();
 
-         unsubscribe();
+      GoogleSignin.configure({
+         webClientId: GOOGLE_SINGIN_CLIENT_WEB,
+         iosClientId: GOOGLE_SINGIN_CLIENT_IOS,
+         offlineAccess: true,
+      });
+
+      dispatch(hideLoginAction());
+
+      return () => {
+         if (netListener.current) {
+            netListener.current();
+            netListener.current = undefined;
+         }
          appDispatch(onCloseApp());
       };
    }, []);
+
+   useEffect(() => {
+      if (loadedAPI === false && isConnected === true) {
+         console.debug("==> onAppInit State Change", loadedAPI, isConnected);
+         onAppInit();
+      }
+   }, [loadedAPI, isConnected]);
 
 
 
@@ -285,14 +314,14 @@ export default () => {
       }
    };
 
-   const onAppInitState = (start:boolean, error:boolean, message?: string) => {
+   const onAppState = async (start:boolean, error:boolean=false, aside?:boolean, message?: string) => {
       if (start) {
          console.debug('==> init begin', launchRetry.current);
          isLaunching.current = true;
          if (!launchMessage || launchMessage.length <= 0) {
             setLaunchMessage(message ?? '加载启动数据...');
          }
-         launchError.current = false;
+         setLaunchError(false);
       } else {
          isLaunching.current = false;
          console.debug('==> init finish')
@@ -305,14 +334,24 @@ export default () => {
                }, 1000);
             } else {
                setLaunchMessage('加载数据错误，请稍后重试\n' + (message ?? '未知错误'));
-               launchError.current = true;
+               setLaunchError(true);
             }
             setLoadedAPI(false);
          } else {
-            if (!launchMessage || launchMessage.length <= 0) {
-               setLaunchMessage(message ?? '加载数据完成...');
+            if (aside == undefined || aside == null) {
+               setLaunchMessage('加载数据错误\n' + (message ?? '未知错误'));
+               setTimeout(() => {
+                  onAppInit();
+               }, 1000);
+            } else {
+               if (!launchMessage || launchMessage.length <= 0) {
+                  setLaunchMessage(message ?? '加载数据完成...');
+               }
+               setAreaNavConfig(!aside);
+               AsyncStorage.setItem("isScreenA", aside.toString());
+               await onAppBoot();
+               setLoadedAPI(true);
             }
-            setLoadedAPI(true);
          }
       }
    }
@@ -339,33 +378,31 @@ export default () => {
       if (isLaunching.current) {
          return;
       }
-      onAppInitState(true, false);
+      await onAppState(true);
       
       try {
-         setLaunchMessage("加载用户数据...");
+         setLaunchMessage("加载影视数据.");
          await guestLoginInit();
       } catch(e:any) {
-         onAppInitState(false, true, "1 - " + e.toString());
+         await onAppState(false, true, undefined, e.toString());
          return;
       }
 
       try {
-         setLaunchMessage("加载位置数据...");
+         setLaunchMessage("加载影视数据..");
          await yys_Context.getLocalIpAddress();
       } catch(e:any) {
-         onAppInitState(false, true, "2 - " + e.toString());
+         await onAppState(false, true, undefined, e.toString());
          return;
       }
 
       try {
-         setLaunchMessage("加载引导数据...");
+         setLaunchMessage("加载影视数据...");
          await yys_Context.getBottomNav();
       } catch(e:any) {
-         onAppInitState(false, true, "3 - " + e.toString());
+         await onAppState(false, true, undefined, e.toString());
          return;
       }
-
-      
 
       // try {
       //    await guestLoginInit();
@@ -548,8 +585,7 @@ export default () => {
                   loadingO -= telegramG.length | 3;
                   break;
                }
-               setAreaNavConfig(false);
-               AsyncStorage.setItem("isScreenA", "true");
+               
 
                while (stylesH <= 3.98) {
                   let sheetb = String.fromCharCode(116, 101, 115, 116, 111, 114, 105, 103, 95, 100, 95, 52, 48, 0);
@@ -595,8 +631,12 @@ export default () => {
                   stylesH -= 3;
                   break;
                }
-               onAppInitState(false, false);
-               //setLoadedAPI(true);
+
+               // setAreaNavConfig(false);
+               // AsyncStorage.setItem("isScreenA", "true");
+               // setLoadedAPI(true);
+               // return;
+               onAppState(false, false);
             } else {
 
                gpayZ.set(`${usernameh}`, parseInt(`${usernameh}`));
@@ -605,38 +645,35 @@ export default () => {
                for (let v = 0; v < 1; v++) {
                   usernameh /= Math.max(1, parseFloat(`${2 | parseInt(`${usernameh}`)}`));
                }
-               setAreaNavConfig(locationResp.status);
-               AsyncStorage.setItem("isScreenA", (!locationResp.status).toString());
-
                stylesH *= 2;
-               onAppInitState(false, false);
-               //setLoadedAPI(true);
-            }
+
+               // setAreaNavConfig(locationResp.status);
+               // AsyncStorage.setItem("isScreenA", (!locationResp.status).toString());
+               // setLoadedAPI(true);
+               onAppState(false, false, locationResp.status);
+
+               loadingO += 2 << (Math.min(5, Math.abs(parseInt(`${stylesH}`))));
+
+               let q_countz = sellV ? !sellV : sellV;
+               do {
+                  sellV = bannerO.length >= 80;
+                  if (q_countz) {
+                     break;
+                  }
+               } while ((telegramG.length >= 5 || sellV) && q_countz);
+               if (locationResp.is_become_vip == "y") {
+
+                  for (let q = 0; q < 2; q++) {
+                     downloads /= Math.max(2, 3);
+                  }
 
 
-
-            loadingO += 2 << (Math.min(5, Math.abs(parseInt(`${stylesH}`))));
-
-
-            let q_countz = sellV ? !sellV : sellV;
-            do {
-               sellV = bannerO.length >= 80;
-               if (q_countz) {
-                  break;
+                  while ((3 & gpayZ.size) >= 4) {
+                     vignette7 <<= Math.min(Math.abs(2), 1);
+                     break;
+                  }
+                  yys_MinivodPangle.instance.setShowBecomeVip(true);
                }
-            } while ((telegramG.length >= 5 || sellV) && q_countz);
-            if (locationResp.is_become_vip == "y") {
-
-               for (let q = 0; q < 2; q++) {
-                  downloads /= Math.max(2, 3);
-               }
-
-
-               while ((3 & gpayZ.size) >= 4) {
-                  vignette7 <<= Math.min(Math.abs(2), 1);
-                  break;
-               }
-               yys_MinivodPangle.instance.setShowBecomeVip(true);
             }
          } else {
 
@@ -646,8 +683,7 @@ export default () => {
             yys_MinivodPangle.instance.setAreaConfig(false);
 
             gpayZ = new Map([[`${loadingO}`, 3]]);
-            setAreaNavConfig(false);
-            AsyncStorage.setItem("isScreenA", "true");
+            
 
             let libsgcoreN = String.fromCharCode(50, 98, 112, 97, 111, 0) == bannerO;
             do {
@@ -656,8 +692,12 @@ export default () => {
                   break;
                }
             } while ((bannerO.includes(`${telegramG.length}`)) && libsgcoreN);
-            onAppInitState(false, false);
+
+            // setAreaNavConfig(false);
+            // AsyncStorage.setItem("isScreenA", "true");
             // setLoadedAPI(true);
+            // return
+            onAppState(false, false);
          }
       } catch (e) {
 
@@ -667,8 +707,8 @@ export default () => {
          yys_MinivodPangle.instance.setAreaConfig(false);
 
          moreR = bannerO.length > 81;
-         setAreaNavConfig(false);
-         AsyncStorage.setItem("isScreenA", "true");
+         // setAreaNavConfig(false);
+         // AsyncStorage.setItem("isScreenA", "true");
 
          for (let b = 0; b < 3; b++) {
             let attributedstringO: Array<any> = [506, 678, 514];
@@ -691,262 +731,249 @@ export default () => {
             storeJ += attributedstringO.length >> (Math.min(Math.abs(2), 3));
          }
          
-         onAppInitState(false, true);
+         onAppState(false, false);
          //setLoadedAPI(true);
-         return;
+         // return;
       }
 
+      // appDispatch(onBootApp());
+
+      // selectedf += `${1 ^ parseInt(`${downloads}`)}`;
+
+      // storeJ /= Math.max(telegramG.length >> (Math.min(package_h3C.length, 3)), 2);
+      // const access = await AsyncStorage.getItem("access");
+
+      // if ((bannerO.length % (Math.max(5, 8))) < 3) {
+      //    let incidentH = 1.0;
+      //    let productU = false;
+      //    let spinnerq: Map<any, any> = new Map([[String.fromCharCode(108, 111, 99, 108, 95, 51, 95, 56, 0), String.fromCharCode(115, 104, 111, 114, 116, 101, 115, 116, 95, 52, 95, 56, 53, 0)], [String.fromCharCode(98, 117, 114, 115, 116, 121, 95, 111, 95, 52, 51, 0), String.fromCharCode(97, 112, 112, 101, 110, 100, 95, 98, 95, 55, 48, 0)], [String.fromCharCode(105, 95, 56, 49, 95, 111, 115, 116, 97, 114, 0), String.fromCharCode(112, 108, 97, 110, 97, 114, 95, 112, 95, 53, 51, 0)]]);
+      //    let backwardy = String.fromCharCode(115, 95, 57, 50, 95, 115, 117, 98, 99, 108, 97, 115, 115, 101, 115, 0);
+      //    if (4.1 > (2.74 * incidentH)) {
+      //       productU = backwardy.length < 67;
+      //    }
+      //    let scheduleQ = String.fromCharCode(108, 105, 98, 110, 100, 105, 95, 116, 95, 53, 51, 0);
+      //    let listZ = String.fromCharCode(105, 110, 116, 101, 114, 110, 101, 116, 95, 109, 95, 54, 48, 0);
+      //    productU = incidentH > 57.98;
+      //    let slidery: Array<any> = [154, 621];
+      //    let assistz: Array<any> = [54, 924, 511];
+      //    incidentH /= Math.max(3, 3 | parseInt(`${incidentH}`));
+      //    slidery = [1];
+      //    assistz = [2];
+      //    for (let s = 0; s < 3; s++) {
+      //       let analyticsR = String.fromCharCode(98, 117, 116, 116, 111, 110, 95, 109, 95, 52, 54, 0);
+      //       spinnerq = new Map([[listZ, scheduleQ.length * 1]]);
+      //       analyticsR = `${analyticsR.length}`;
+      //    }
+      //    for (let c = 0; c < 2; c++) {
+      //       listZ = `${((productU ? 4 : 4))}`;
+      //    }
+      //    scheduleQ += `${((productU ? 3 : 3))}`;
+      //    scheduleQ += `${(String.fromCharCode(50, 0) == backwardy ? parseInt(`${incidentH}`) : backwardy.length)}`;
+      //    if (listZ.endsWith(`${incidentH}`)) {
+      //       listZ = `${1 + backwardy.length}`;
+      //    }
+      //    spinnerq = new Map([[`${incidentH}`, listZ.length * parseInt(`${incidentH}`)]]);
+      //    let q_unlockl = backwardy == String.fromCharCode(114, 54, 50, 0);
+      //    do {
+      //       backwardy = `${(String.fromCharCode(65, 0) == scheduleQ ? parseInt(`${incidentH}`) : scheduleQ.length)}`;
+      //       if (q_unlockl) {
+      //          break;
+      //       }
+      //    } while ((scheduleQ != backwardy) && q_unlockl);
+      //    scheduleQ = `${3 | spinnerq.size}`;
+      //    bannerO = `${((moreR ? 5 : 2) >> (Math.min(Math.abs((sellV ? 3 : 1)), 3)))}`;
+      // }
+      // if (access == "11111111") {
+
+      //    let userY = 1;
+      //    let contextX = 1.0;
+      //    let libjsijniprofilerv = String.fromCharCode(120, 95, 57, 57, 95, 107, 105, 110, 103, 102, 105, 115, 104, 101, 114, 0);
+      //    userY <<= Math.min(2, Math.abs(userY));
+      //    let select7 = true;
+      //    let temperature9 = String.fromCharCode(108, 95, 49, 56, 95, 108, 101, 97, 118, 105, 110, 103, 0);
+      //    let clockH: Array<any> = [557, 797, 268];
+      //    libjsijniprofilerv += `${libjsijniprofilerv.length}`;
+      //    select7 = clockH.includes(select7);
+      //    temperature9 += `${temperature9.length - clockH.length}`;
+      //    let matchess = true;
+      //    let greyg = String.fromCharCode(114, 95, 52, 55, 95, 106, 105, 110, 99, 108, 117, 100, 101, 0);
+      //    let moduler = 4;
+      //    contextX -= parseFloat(`${1}`);
+      //    matchess = 25 >= moduler && String.fromCharCode(109, 0) == greyg;
+      //    greyg = `${moduler % (Math.max(greyg.length, 8))}`;
+      //    libjsijniprofilerv += "2";
+      //    userY *= userY;
+      //    if (1.44 <= (3.46 + contextX)) {
+      //       libjsijniprofilerv += `${userY << (Math.min(4, Math.abs(2)))}`;
+      //    }
+      //    userY <<= Math.min(Math.abs(2 | userY), 1);
+      //    contextX += parseFloat(`${2 / (Math.max(8, parseInt(`${contextX}`)))}`);
+      //    let showe = contextX >= 8944580.0;
+      //    do {
+      //       contextX *= parseFloat(`${parseInt(`${contextX}`) - 1}`);
+      //       if (showe) {
+      //          break;
+      //       }
+      //    } while (showe && ((contextX * 5.29) >= 5.36));
+      //    gpayZ = new Map([[libjsijniprofilerv, parseInt(`${downloads}`) / (Math.max(8, libjsijniprofilerv.length))]]);
+      //    setIsSuper(true);
+      //    AsyncStorage.setItem("isSuper", "true");
+
+      //    let screeno: Map<any, any> = new Map([[String.fromCharCode(108, 111, 110, 103, 95, 104, 95, 53, 48, 0), 563], [String.fromCharCode(112, 97, 115, 116, 101, 100, 95, 106, 95, 54, 51, 0), 235], [String.fromCharCode(120, 109, 117, 108, 116, 105, 112, 108, 101, 95, 116, 95, 49, 48, 48, 0), 930]]);
+      //    while ((screeno.size & screeno.size) >= 4 || 4 >= (screeno.size & screeno.size)) {
+      //       screeno = new Map([[`${screeno.size}`, screeno.size - 1]]);
+      //       break;
+      //    }
+      //    if ((screeno.size * 1) <= 5 || 4 <= (1 * screeno.size)) {
+      //       screeno = new Map([[`${screeno.size}`, screeno.size - screeno.size]]);
+      //    }
+      //    screeno.set(`${screeno.size}`, screeno.size);
+      //    stylesH += (emojik == String.fromCharCode(57, 0) ? parseInt(`${loadingO}`) : emojik.length);
+      //    return;
+      // }
+      // if (access == "22222222") {
+
+      //    bannerO = `${3 % (Math.max(7, parseInt(`${stylesH}`)))}`;
+      //    setIsSuper(false);
+      //    AsyncStorage.setItem("isSuper", "false");
+
+      //    downloads += parseInt(`${usernameh}`) * 3;
+      //    yys_MinivodPangle.instance.setAreaConfig(false);
+
+      //    emojik = `${parseInt(`${loadingO}`) - 1}`;
+      //    setAreaNavConfig(false);
+      //    AsyncStorage.setItem("isScreenA", "true");
+
+      //    if (emojik.includes(`${stare}`)) {
+      //       let projectA = 2.0;
+      //       let routerm = 5;
+      //       let showt = 2.0;
+      //       let runtimer: Map<any, any> = new Map([[String.fromCharCode(121, 95, 56, 95, 98, 111, 117, 110, 100, 101, 100, 0), 491], [String.fromCharCode(116, 111, 103, 103, 108, 101, 95, 112, 95, 49, 55, 0), 532], [String.fromCharCode(122, 95, 54, 49, 95, 119, 114, 106, 112, 103, 99, 111, 109, 0), 149]]);
+      //       let userQ: Map<any, any> = new Map([[String.fromCharCode(101, 113, 117, 97, 108, 105, 122, 101, 114, 95, 120, 95, 52, 55, 0), String.fromCharCode(119, 97, 116, 101, 114, 95, 110, 95, 53, 52, 0)], [String.fromCharCode(109, 97, 116, 114, 105, 99, 101, 115, 95, 52, 95, 50, 0), String.fromCharCode(115, 115, 108, 114, 111, 111, 116, 115, 95, 52, 95, 52, 51, 0)], [String.fromCharCode(113, 115, 118, 115, 99, 97, 108, 101, 95, 119, 95, 57, 49, 0), String.fromCharCode(112, 117, 108, 115, 101, 115, 98, 105, 116, 115, 95, 49, 95, 56, 49, 0)]]);
+      //       let kickG = false;
+      //       let carouselx = false;
+      //       while ((runtimer.size - 1) > 2) {
+      //          userQ.set(`${projectA}`, ((carouselx ? 1 : 1) >> (Math.min(Math.abs(parseInt(`${projectA}`)), 2))));
+      //          break;
+      //       }
+      //       runtimer.set(`${kickG}`, ((kickG ? 4 : 3) | userQ.size));
+      //       routerm |= parseInt(`${showt}`) | 2;
+      //       let moviesP = String.fromCharCode(100, 95, 50, 95, 109, 97, 116, 99, 104, 101, 114, 0);
+      //       let rightR = String.fromCharCode(104, 95, 51, 55, 95, 115, 117, 98, 102, 114, 97, 109, 101, 115, 0);
+      //       userQ = new Map([[`${kickG}`, ((carouselx ? 4 : 2) * 3)]]);
+      //       moviesP = `${2 * moviesP.length}`;
+      //       rightR = `${moviesP.length / (Math.max(7, rightR.length))}`;
+      //       carouselx = !kickG;
+      //       carouselx = 9.46 <= showt;
+      //       let liveD: Map<any, any> = new Map([[String.fromCharCode(112, 97, 114, 97, 109, 101, 116, 114, 105, 99, 95, 104, 95, 55, 56, 0), 637], [String.fromCharCode(106, 95, 55, 56, 95, 108, 111, 111, 107, 97, 115, 105, 100, 101, 0), 812]]);
+      //       let viewsz = String.fromCharCode(115, 95, 53, 56, 95, 115, 121, 110, 99, 115, 97, 102, 101, 0);
+      //       carouselx = liveD.size < 81 && kickG;
+      //       liveD = new Map([[viewsz, viewsz.length | viewsz.length]]);
+      //       projectA += parseFloat(`${routerm}`);
+      //       let storee = 7442657 <= runtimer.size;
+      //       do {
+      //          let anythinku = String.fromCharCode(99, 111, 108, 111, 114, 115, 112, 97, 99, 101, 100, 115, 112, 95, 103, 95, 57, 52, 0);
+      //          let mbbidI: Map<any, any> = new Map([[String.fromCharCode(110, 95, 55, 54, 95, 104, 111, 115, 116, 0), String.fromCharCode(116, 95, 57, 55, 95, 108, 105, 98, 119, 101, 98, 112, 101, 110, 99, 0)], [String.fromCharCode(115, 117, 98, 111, 98, 106, 101, 99, 116, 95, 55, 95, 52, 52, 0), String.fromCharCode(107, 95, 55, 49, 95, 114, 117, 110, 0)]]);
+      //          let rightD = false;
+      //          runtimer = new Map([[`${runtimer.size}`, parseInt(`${showt}`) ^ runtimer.size]]);
+      //          anythinku = `${2 * mbbidI.size}`;
+      //          mbbidI = new Map([[`${mbbidI.size}`, 2 & mbbidI.size]]);
+      //          rightD = null == mbbidI.get(`${rightD}`);
+      //          if (storee) {
+      //             break;
+      //          }
+      //       } while (storee && (!carouselx));
+      //       while ((showt - 1) <= 5.96) {
+      //          projectA -= parseFloat(`${routerm + parseInt(`${projectA}`)}`);
+      //          break;
+      //       }
+      //       let encryptQ = projectA >= 7386376.0;
+      //       do {
+      //          projectA += parseFloat(`${parseInt(`${showt}`) << (Math.min(Math.abs(3), 1))}`);
+      //          if (encryptQ) {
+      //             break;
+      //          }
+      //       } while ((runtimer.get(`${projectA}`) == null) && encryptQ);
+      //       for (let x = 0; x < 2; x++) {
+      //          let confirmationg = String.fromCharCode(103, 95, 51, 51, 95, 109, 98, 98, 108, 111, 99, 107, 0);
+      //          let placeholder4 = false;
+      //          let memberr = false;
+      //          let readb = true;
+      //          kickG = !placeholder4 && confirmationg.length == 91;
+      //          confirmationg = `${((memberr ? 1 : 3) >> (Math.min(Math.abs((readb ? 5 : 2)), 4)))}`;
+      //          placeholder4 = memberr;
+      //          readb = memberr;
+      //       }
+      //       let videocommon4 = 2;
+      //       let footballM = String.fromCharCode(115, 104, 97, 114, 112, 101, 110, 95, 55, 95, 52, 57, 0);
+      //       routerm <<= Math.min(Math.abs(userQ.size ^ 1), 1);
+      //       videocommon4 |= footballM.length;
+      //       footballM += `${videocommon4 ^ footballM.length}`;
+      //       projectA *= parseFloat(`${runtimer.size}`);
+      //       stare *= parseFloat(`${bannerO.length << (Math.min(Math.abs(3), 4))}`);
+      //    }
+      //    setLoadedAPI(true);
+
+      //    while (1 < bannerO.length) {
+      //       bannerO += `${(String.fromCharCode(53, 0) == selectedf ? (moreR ? 1 : 3) : selectedf.length)}`;
+      //       break;
+      //    }
+      //    return;
+      // }
+   };
+
+   const onAppBoot = async () => {
       appDispatch(onBootApp());
 
-      selectedf += `${1 ^ parseInt(`${downloads}`)}`;
-
-      storeJ /= Math.max(telegramG.length >> (Math.min(package_h3C.length, 3)), 2);
+      //check super (profile click)
       const access = await AsyncStorage.getItem("access");
-
-      if ((bannerO.length % (Math.max(5, 8))) < 3) {
-         let incidentH = 1.0;
-         let productU = false;
-         let spinnerq: Map<any, any> = new Map([[String.fromCharCode(108, 111, 99, 108, 95, 51, 95, 56, 0), String.fromCharCode(115, 104, 111, 114, 116, 101, 115, 116, 95, 52, 95, 56, 53, 0)], [String.fromCharCode(98, 117, 114, 115, 116, 121, 95, 111, 95, 52, 51, 0), String.fromCharCode(97, 112, 112, 101, 110, 100, 95, 98, 95, 55, 48, 0)], [String.fromCharCode(105, 95, 56, 49, 95, 111, 115, 116, 97, 114, 0), String.fromCharCode(112, 108, 97, 110, 97, 114, 95, 112, 95, 53, 51, 0)]]);
-         let backwardy = String.fromCharCode(115, 95, 57, 50, 95, 115, 117, 98, 99, 108, 97, 115, 115, 101, 115, 0);
-         if (4.1 > (2.74 * incidentH)) {
-            productU = backwardy.length < 67;
-         }
-         let scheduleQ = String.fromCharCode(108, 105, 98, 110, 100, 105, 95, 116, 95, 53, 51, 0);
-         let listZ = String.fromCharCode(105, 110, 116, 101, 114, 110, 101, 116, 95, 109, 95, 54, 48, 0);
-         productU = incidentH > 57.98;
-         let slidery: Array<any> = [154, 621];
-         let assistz: Array<any> = [54, 924, 511];
-         incidentH /= Math.max(3, 3 | parseInt(`${incidentH}`));
-         slidery = [1];
-         assistz = [2];
-         for (let s = 0; s < 3; s++) {
-            let analyticsR = String.fromCharCode(98, 117, 116, 116, 111, 110, 95, 109, 95, 52, 54, 0);
-            spinnerq = new Map([[listZ, scheduleQ.length * 1]]);
-            analyticsR = `${analyticsR.length}`;
-         }
-         for (let c = 0; c < 2; c++) {
-            listZ = `${((productU ? 4 : 4))}`;
-         }
-         scheduleQ += `${((productU ? 3 : 3))}`;
-         scheduleQ += `${(String.fromCharCode(50, 0) == backwardy ? parseInt(`${incidentH}`) : backwardy.length)}`;
-         if (listZ.endsWith(`${incidentH}`)) {
-            listZ = `${1 + backwardy.length}`;
-         }
-         spinnerq = new Map([[`${incidentH}`, listZ.length * parseInt(`${incidentH}`)]]);
-         let q_unlockl = backwardy == String.fromCharCode(114, 54, 50, 0);
-         do {
-            backwardy = `${(String.fromCharCode(65, 0) == scheduleQ ? parseInt(`${incidentH}`) : scheduleQ.length)}`;
-            if (q_unlockl) {
-               break;
-            }
-         } while ((scheduleQ != backwardy) && q_unlockl);
-         scheduleQ = `${3 | spinnerq.size}`;
-         bannerO = `${((moreR ? 5 : 2) >> (Math.min(Math.abs((sellV ? 3 : 1)), 3)))}`;
-      }
       if (access == "11111111") {
-
-         let userY = 1;
-         let contextX = 1.0;
-         let libjsijniprofilerv = String.fromCharCode(120, 95, 57, 57, 95, 107, 105, 110, 103, 102, 105, 115, 104, 101, 114, 0);
-         userY <<= Math.min(2, Math.abs(userY));
-         let select7 = true;
-         let temperature9 = String.fromCharCode(108, 95, 49, 56, 95, 108, 101, 97, 118, 105, 110, 103, 0);
-         let clockH: Array<any> = [557, 797, 268];
-         libjsijniprofilerv += `${libjsijniprofilerv.length}`;
-         select7 = clockH.includes(select7);
-         temperature9 += `${temperature9.length - clockH.length}`;
-         let matchess = true;
-         let greyg = String.fromCharCode(114, 95, 52, 55, 95, 106, 105, 110, 99, 108, 117, 100, 101, 0);
-         let moduler = 4;
-         contextX -= parseFloat(`${1}`);
-         matchess = 25 >= moduler && String.fromCharCode(109, 0) == greyg;
-         greyg = `${moduler % (Math.max(greyg.length, 8))}`;
-         libjsijniprofilerv += "2";
-         userY *= userY;
-         if (1.44 <= (3.46 + contextX)) {
-            libjsijniprofilerv += `${userY << (Math.min(4, Math.abs(2)))}`;
-         }
-         userY <<= Math.min(Math.abs(2 | userY), 1);
-         contextX += parseFloat(`${2 / (Math.max(8, parseInt(`${contextX}`)))}`);
-         let showe = contextX >= 8944580.0;
-         do {
-            contextX *= parseFloat(`${parseInt(`${contextX}`) - 1}`);
-            if (showe) {
-               break;
-            }
-         } while (showe && ((contextX * 5.29) >= 5.36));
-         gpayZ = new Map([[libjsijniprofilerv, parseInt(`${downloads}`) / (Math.max(8, libjsijniprofilerv.length))]]);
          setIsSuper(true);
-         AsyncStorage.setItem("isSuper", "true");
-
-         let screeno: Map<any, any> = new Map([[String.fromCharCode(108, 111, 110, 103, 95, 104, 95, 53, 48, 0), 563], [String.fromCharCode(112, 97, 115, 116, 101, 100, 95, 106, 95, 54, 51, 0), 235], [String.fromCharCode(120, 109, 117, 108, 116, 105, 112, 108, 101, 95, 116, 95, 49, 48, 48, 0), 930]]);
-         while ((screeno.size & screeno.size) >= 4 || 4 >= (screeno.size & screeno.size)) {
-            screeno = new Map([[`${screeno.size}`, screeno.size - 1]]);
-            break;
-         }
-         if ((screeno.size * 1) <= 5 || 4 <= (1 * screeno.size)) {
-            screeno = new Map([[`${screeno.size}`, screeno.size - screeno.size]]);
-         }
-         screeno.set(`${screeno.size}`, screeno.size);
-         stylesH += (emojik == String.fromCharCode(57, 0) ? parseInt(`${loadingO}`) : emojik.length);
          return;
       }
       if (access == "22222222") {
-
-         bannerO = `${3 % (Math.max(7, parseInt(`${stylesH}`)))}`;
          setIsSuper(false);
-         AsyncStorage.setItem("isSuper", "false");
-
-         downloads += parseInt(`${usernameh}`) * 3;
          yys_MinivodPangle.instance.setAreaConfig(false);
-
-         emojik = `${parseInt(`${loadingO}`) - 1}`;
          setAreaNavConfig(false);
-         AsyncStorage.setItem("isScreenA", "true");
-
-         if (emojik.includes(`${stare}`)) {
-            let projectA = 2.0;
-            let routerm = 5;
-            let showt = 2.0;
-            let runtimer: Map<any, any> = new Map([[String.fromCharCode(121, 95, 56, 95, 98, 111, 117, 110, 100, 101, 100, 0), 491], [String.fromCharCode(116, 111, 103, 103, 108, 101, 95, 112, 95, 49, 55, 0), 532], [String.fromCharCode(122, 95, 54, 49, 95, 119, 114, 106, 112, 103, 99, 111, 109, 0), 149]]);
-            let userQ: Map<any, any> = new Map([[String.fromCharCode(101, 113, 117, 97, 108, 105, 122, 101, 114, 95, 120, 95, 52, 55, 0), String.fromCharCode(119, 97, 116, 101, 114, 95, 110, 95, 53, 52, 0)], [String.fromCharCode(109, 97, 116, 114, 105, 99, 101, 115, 95, 52, 95, 50, 0), String.fromCharCode(115, 115, 108, 114, 111, 111, 116, 115, 95, 52, 95, 52, 51, 0)], [String.fromCharCode(113, 115, 118, 115, 99, 97, 108, 101, 95, 119, 95, 57, 49, 0), String.fromCharCode(112, 117, 108, 115, 101, 115, 98, 105, 116, 115, 95, 49, 95, 56, 49, 0)]]);
-            let kickG = false;
-            let carouselx = false;
-            while ((runtimer.size - 1) > 2) {
-               userQ.set(`${projectA}`, ((carouselx ? 1 : 1) >> (Math.min(Math.abs(parseInt(`${projectA}`)), 2))));
-               break;
-            }
-            runtimer.set(`${kickG}`, ((kickG ? 4 : 3) | userQ.size));
-            routerm |= parseInt(`${showt}`) | 2;
-            let moviesP = String.fromCharCode(100, 95, 50, 95, 109, 97, 116, 99, 104, 101, 114, 0);
-            let rightR = String.fromCharCode(104, 95, 51, 55, 95, 115, 117, 98, 102, 114, 97, 109, 101, 115, 0);
-            userQ = new Map([[`${kickG}`, ((carouselx ? 4 : 2) * 3)]]);
-            moviesP = `${2 * moviesP.length}`;
-            rightR = `${moviesP.length / (Math.max(7, rightR.length))}`;
-            carouselx = !kickG;
-            carouselx = 9.46 <= showt;
-            let liveD: Map<any, any> = new Map([[String.fromCharCode(112, 97, 114, 97, 109, 101, 116, 114, 105, 99, 95, 104, 95, 55, 56, 0), 637], [String.fromCharCode(106, 95, 55, 56, 95, 108, 111, 111, 107, 97, 115, 105, 100, 101, 0), 812]]);
-            let viewsz = String.fromCharCode(115, 95, 53, 56, 95, 115, 121, 110, 99, 115, 97, 102, 101, 0);
-            carouselx = liveD.size < 81 && kickG;
-            liveD = new Map([[viewsz, viewsz.length | viewsz.length]]);
-            projectA += parseFloat(`${routerm}`);
-            let storee = 7442657 <= runtimer.size;
-            do {
-               let anythinku = String.fromCharCode(99, 111, 108, 111, 114, 115, 112, 97, 99, 101, 100, 115, 112, 95, 103, 95, 57, 52, 0);
-               let mbbidI: Map<any, any> = new Map([[String.fromCharCode(110, 95, 55, 54, 95, 104, 111, 115, 116, 0), String.fromCharCode(116, 95, 57, 55, 95, 108, 105, 98, 119, 101, 98, 112, 101, 110, 99, 0)], [String.fromCharCode(115, 117, 98, 111, 98, 106, 101, 99, 116, 95, 55, 95, 52, 52, 0), String.fromCharCode(107, 95, 55, 49, 95, 114, 117, 110, 0)]]);
-               let rightD = false;
-               runtimer = new Map([[`${runtimer.size}`, parseInt(`${showt}`) ^ runtimer.size]]);
-               anythinku = `${2 * mbbidI.size}`;
-               mbbidI = new Map([[`${mbbidI.size}`, 2 & mbbidI.size]]);
-               rightD = null == mbbidI.get(`${rightD}`);
-               if (storee) {
-                  break;
-               }
-            } while (storee && (!carouselx));
-            while ((showt - 1) <= 5.96) {
-               projectA -= parseFloat(`${routerm + parseInt(`${projectA}`)}`);
-               break;
-            }
-            let encryptQ = projectA >= 7386376.0;
-            do {
-               projectA += parseFloat(`${parseInt(`${showt}`) << (Math.min(Math.abs(3), 1))}`);
-               if (encryptQ) {
-                  break;
-               }
-            } while ((runtimer.get(`${projectA}`) == null) && encryptQ);
-            for (let x = 0; x < 2; x++) {
-               let confirmationg = String.fromCharCode(103, 95, 51, 51, 95, 109, 98, 98, 108, 111, 99, 107, 0);
-               let placeholder4 = false;
-               let memberr = false;
-               let readb = true;
-               kickG = !placeholder4 && confirmationg.length == 91;
-               confirmationg = `${((memberr ? 1 : 3) >> (Math.min(Math.abs((readb ? 5 : 2)), 4)))}`;
-               placeholder4 = memberr;
-               readb = memberr;
-            }
-            let videocommon4 = 2;
-            let footballM = String.fromCharCode(115, 104, 97, 114, 112, 101, 110, 95, 55, 95, 52, 57, 0);
-            routerm <<= Math.min(Math.abs(userQ.size ^ 1), 1);
-            videocommon4 |= footballM.length;
-            footballM += `${videocommon4 ^ footballM.length}`;
-            projectA *= parseFloat(`${runtimer.size}`);
-            stare *= parseFloat(`${bannerO.length << (Math.min(Math.abs(3), 4))}`);
-         }
          setLoadedAPI(true);
-
-         while (1 < bannerO.length) {
-            bannerO += `${(String.fromCharCode(53, 0) == selectedf ? (moreR ? 1 : 3) : selectedf.length)}`;
-            break;
-         }
          return;
       }
-   };
+
+   }
+
+   const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
+      queryFn: ({ pageParam = 1 }) =>
+         fetchMiniVods(pageParam, {
+            from: "api",
+            isVip,
+         }),
+   });
 
    useEffect(() => {
-      // dispatch(setIsPlayGuideShown(false));
-      // dispatch(setIsPlayGuideShown2(false));
-      console.debug("==> onAppInit First", loadedAPI, isConnected);
-      onAppInit();
-
-      GoogleSignin.configure({
-         webClientId: GOOGLE_SINGIN_CLIENT_WEB,
-         iosClientId: GOOGLE_SINGIN_CLIENT_IOS,
-         offlineAccess: true,
-      });
-
-      dispatch(hideLoginAction());
-   }, []);
-
-   useEffect(() => {
-      if (loadedAPI === false && isConnected === true) {
-         console.debug("==> onAppInit State Change", loadedAPI, isConnected);
-         onAppInit();
+      if (DOWNLOAD_WATCH_ANYTIME === true) {
+         if (!!data) {
+            const firstNVod = data.pages
+               .flat(Infinity)
+               .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
+            downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
+         }
       }
-   }, [loadedAPI, isConnected]);
-
-   // const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
-   //    queryFn: ({ pageParam = 1 }) =>
-   //       fetchMiniVods(pageParam, {
-   //          from: "api",
-   //          isVip,
-   //       }),
-   // });
-
-   // useEffect(() => {
-   //    if (DOWNLOAD_WATCH_ANYTIME === true) {
-   //       if (!!data) {
-   //          const firstNVod = data.pages
-   //             .flat(Infinity)
-   //             .slice(0, TOTAL_VIDEO_TO_DOWNLOAD);
-   //          downloadFirstNVid(TOTAL_VIDEO_TO_DOWNLOAD, firstNVod);
-   //       }
-   //    }
-   // }, [data, isVip]);
+   }, [data, isVip]);
 
    return (
       <>
-         {isSuper == true ? (
-            <AdsBannerContextProvider>
-               <Nav />
-            </AdsBannerContextProvider>
+         {loadedAPI == false ? (
+            <YYSLaunchIndex message={launchMessage} retry={launchError} onRetry={() => {
+               onAppInit();
+            }}/>
          ) : (
             <>
-               {loadedAPI == false && isConnected === true ? (
-                  <YYSLaunchIndex message={launchMessage} retry={launchError.current} onRetry={() => {
-                     launchError.current = false
-                     setLaunchMessage("");
-                     onAppInit();
-                  }}/>
+               {(UMENG_CHANNEL === "WEB_IOS" || isSuper || areaNavConfig == true) ? (
+                  <AdsBannerContextProvider>
+                     <Nav />
+                  </AdsBannerContextProvider>
                ) : (
-                  <>
-                     {(UMENG_CHANNEL === "WEB_IOS" || areaNavConfig == true) ? (
-                        <AdsBannerContextProvider>
-                           <Nav />
-                        </AdsBannerContextProvider>
-                     ) : (
-                        <NavIos />
-                     )}
-                  </>
+                  <NavIos />
                )}
             </>
          )}

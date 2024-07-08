@@ -434,3 +434,6 @@ export const EVENT_SPLASH_SHOW_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
 
 export const VIDEO_UPLOAD_DEFAULT_SIZE = 1000000; // 1 mb
 export const VIDEO_UPLOAD_SPEED = 900000; // 900 kb
+
+export const API_TIME_OUT = 10000   // 10 seconds
+export const API_RETRY_MAX = 3      // retry count
