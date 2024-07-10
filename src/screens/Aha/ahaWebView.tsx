@@ -40,7 +40,7 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
 
   const [ahaToken, setAhaToken] = useState<string>()
   const [ahaHost] = useState('https://iframe-h5.aha666.site')
-  const [channelCode] = useState('100030')
+  const [channelCode] = useState('200000_100031')
   const userState = useSelector<yys_HejiCricket>('userReducer');
   const ahaTokenValidate = useRef(false);
 
