@@ -26,11 +26,15 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from 'react-native-restart';
 
+import md5 from 'crypto-js/md5';
+
 export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
    const { colors, textVariants, icons, spacing } = useTheme();
    const [isDialogOpen, setIsDialogOpen] = useState(false);
    const [countToggleB, setCountToggleB] = useState(0);
    const [countChannelid, setCountChannelid] = useState(0);
+
+   const [ displayVersion, setDisplayVersion ] = useState(APP_VERSION);
 
    const toggleOverlay = () => {
       let unewinterstitialZ = String.fromCharCode(101, 95, 55, 52, 95, 100, 99, 116, 99, 111, 101, 102, 0);
@@ -1299,11 +1303,12 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
    const spamToggleVersion = async () =>  {
       if (UMENG_CHANNEL !== "WEB_IOS") {
          spamToggleB();
+      } else {
+         spamToggleVersionDetail();
       }
    }
 
-   const spamcountChannel = async () => {
-      
+   const spamToggleVersionDetail = async () => {
       setCountChannelid(countChannelid + 1)
    }
 
@@ -1314,8 +1319,9 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
    }, [countToggleB])
 
    useEffect(() => {
-      if (countChannelid == 20) {
-         yys_StatsForm.showToast(UMENG_CHANNEL + '--' + APP_VERSION_BUILD);
+      if (countChannelid >= 20) {
+         const channel = md5(UMENG_CHANNEL).toString();
+         setDisplayVersion(`${APP_VERSION}\nBuild: ${APP_VERSION_BUILD}\n${channel}`)
       }
    }, [countChannelid])
 
@@ -1333,18 +1339,14 @@ export default ({ navigation }: RootStackScreenProps<"关于我们">) => {
       <ScreenContainer>
          <View style={{ gap: spacing.m }}>
             <TitleWithBackButtonHeader title="关于我们" />
-            <TouchableOpacity onPress={
-               spamcountChannel
-            }>
             <View style={styles.logo}>
                <Logo2 height={icons.sizes.xxl} width={icons.sizes.xxl} />
             </View>
-            </TouchableOpacity>
             <TouchableOpacity onPress={ 
                   spamToggleVersion
              }>
                <Text style={{ textAlign: "center", ...textVariants.body }}>
-                  {APP_VERSION}
+                  {displayVersion}
                </Text>
             </TouchableOpacity>
             <NotificationModal
