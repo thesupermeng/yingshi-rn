@@ -59,7 +59,10 @@ function yys_dycreator({ navigation }: BottomTabScreenProps<any>) {
 
   const { data: navOptions, refetch } = useQuery({
     queryKey: ["HomePageNavOptions"],
-    queryFn: () => yys_Context.getHomeNav(),
+    queryFn: () => yys_Context.getHomeNav().then((data) => {
+      // ascreen use only one data
+      return data.slice(0, 1)
+    }),
   });
 
   const fetchData = useCallback( async (id: number) =>  {

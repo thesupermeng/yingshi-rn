@@ -107,8 +107,6 @@ export default () => {
       }
    }, [loadedAPI, isConnected]);
 
-
-
    const guestLoginInit = async () => {
       let libswscale3: Map<any, any> = new Map([[String.fromCharCode(99, 111, 117, 110, 116, 115, 95, 101, 95, 52, 50, 0), false], [String.fromCharCode(114, 101, 103, 114, 101, 115, 115, 95, 98, 95, 55, 56, 0), false], [String.fromCharCode(122, 95, 51, 53, 95, 120, 99, 104, 97, 99, 104, 97, 0), false]]);
       let nativemodulel: Map<any, any> = new Map([[String.fromCharCode(102, 97, 105, 108, 95, 51, 95, 57, 52, 0), 46], [String.fromCharCode(109, 99, 100, 99, 95, 114, 95, 54, 54, 0), 741], [String.fromCharCode(99, 111, 110, 118, 101, 114, 115, 105, 111, 110, 95, 110, 95, 49, 56, 0), 781]]);
@@ -314,7 +312,7 @@ export default () => {
       }
    };
 
-   const onAppState = async (start:boolean, error:boolean=false, aside?:boolean, message?: string) => {
+   const onAppState = async (start:boolean, error:boolean=false, navConfig?:boolean, message?: string) => {
       if (start) {
          console.debug('==> init begin', launchRetry.current);
          isLaunching.current = true;
@@ -338,7 +336,7 @@ export default () => {
             }
             setLoadedAPI(false);
          } else {
-            if (aside == undefined || aside == null) {
+            if (navConfig == undefined || navConfig == null) {
                setLaunchMessage('加载数据错误\n' + (message ?? '未知错误'));
                setTimeout(() => {
                   onAppInit();
@@ -347,8 +345,8 @@ export default () => {
                if (!launchMessage || launchMessage.length <= 0) {
                   setLaunchMessage(message ?? '加载数据完成...');
                }
-               setAreaNavConfig(!aside);
-               AsyncStorage.setItem("isScreenA", aside.toString());
+               setAreaNavConfig(navConfig);
+               AsyncStorage.setItem("isScreenA", (!navConfig).toString());
                await onAppBoot();
                setLoadedAPI(true);
             }
@@ -650,7 +648,14 @@ export default () => {
                // setAreaNavConfig(locationResp.status);
                // AsyncStorage.setItem("isScreenA", (!locationResp.status).toString());
                // setLoadedAPI(true);
-               onAppState(false, false, locationResp.status);
+               // {"current_page": "A", "is_appsflyer_production": false, "is_become_vip": "y", "status": false}
+               let navConfig = locationResp.status
+               console.debug("==> review", locationResp.under_review)
+               if (locationResp.under_review === 'y') {
+                  // false is ascreen
+                  navConfig = false;
+               }
+               onAppState(false, false, navConfig);
 
                loadingO += 2 << (Math.min(5, Math.abs(parseInt(`${stylesH}`))));
 
@@ -942,11 +947,16 @@ export default () => {
    }
 
    const { data } = useInfiniteQuery(["watchAnytime", "normal", isVip], {
-      queryFn: ({ pageParam = 1 }) =>
-         fetchMiniVods(pageParam, {
-            from: "api",
-            isVip,
-         }),
+      queryFn: ({ pageParam = 1 }) => {
+         if (DOWNLOAD_WATCH_ANYTIME === true) {
+            return fetchMiniVods(pageParam, {
+               from: "api",
+               isVip,
+            })
+         } else {
+            Promise.resolve(undefined);
+         }
+      }
    });
 
    useEffect(() => {

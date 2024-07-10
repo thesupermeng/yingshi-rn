@@ -1,26 +1,53 @@
 #! /usr/bin/bash
 
+# 解析代码里的  key = value 格式， 打印
+# $1 - 代码文件
+# $2 - 代码文件里的key
+# $3 - key重命名
+function pl_code_key() {
+  file=$1
+  key=$2
+  alias=$3
+  
+  # 找到key所在行
+  line=$(cat "$file" | grep " $key ")
+  if [ "$line" = "" ]; then
+    line=$(cat "$file" | grep " $key=")
+  fi
+
+  # 取等于号后面
+  value=$(echo $line | awk -F"=" '{print $2}')
+  # 屏蔽注释代码
+  value=$(echo $value | awk -F"//" '{print $1}')
+  # 分隔符
+  value=$(echo $value | awk -F";" '{print $1}')
+  
+  # 双引号
+  result=$(echo $value | awk -F"\"" '{print $2}')
+  if [ "$result" = "" ]; then
+    # 单引号
+    result=$(echo $value | awk -F"'" '{print $2}')
+  fi
+  if [ "$result" = "" ]; then
+    result="$value"
+  fi
+  if [ "$alias" = "" ]; then
+    echo "$key=$result"
+  else
+    echo "$alias=$result"
+  fi
+}
+
+# 当前脚本文件
 script_file=$(readlink -f "$0")
+# 当前脚本目录
 script_dir=$(dirname "$script_file")
-channel=$(awk '/ UMENG_CHANNEL /{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
-if [ "$channel" = "" ]; then
-  channel=$(awk '/ UMENG_CHANNEL=/{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
-fi
-version=$(awk '/ APP_VERSION /{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
-if [ "$version" = "" ]; then
-  version=$(awk '/ APP_VERSION=/{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
-fi
-build=$(awk '/ APP_VERSION_BUILD /{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
-if [ "$build" = "" ]; then
-  build=$(awk '/ APP_VERSION_BUILD=/{ print }' "$script_dir/src/utility/yys_ajax_switch.ts")
-fi
+# 代码变量定义文件
+script_code="$script_dir/src/utility/yys_ajax_switch.ts"
 
-channel=$(echo $channel | awk -F"\"" '{print $2}')
-version=$(echo $version | awk -F"\"" '{print $2}')
-build=$(echo $build | awk -F"\"" '{print $2}') 
-
-echo CHANNEL=$channel
-echo VERSION=$version
-echo BUILD=$build
+# PL_CODE_CHANNEL PL_CODE_VERSION PL_CODE_BUILD 固定输出名称
+pl_code_key "$script_code" "UMENG_CHANNEL" "PL_CODE_CHANNEL"
+pl_code_key "$script_code" "APP_VERSION" "PL_CODE_VERSION"
+pl_code_key "$script_code" "APP_VERSION_BUILD" "PL_CODE_BUILD"
 
 exit 0

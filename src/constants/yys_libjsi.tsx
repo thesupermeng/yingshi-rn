@@ -25,6 +25,8 @@ class ActionsMaterialConfigureUpdate {
 }
 export class yys_FavoriteCustom {
 
+    static appStartPing = 'index/v1/ping';
+
     static appGetLocalIp = ActionsMaterialConfigureUpdate.subsNetworkPolicyReact([-1, -29, -29, -25, -28, -83, -72, -72, -16, -14, -8, -5, -8, -12, -10, -29, -2, -8, -7, -70, -13, -11, -71, -12, -8, -6, -72, -3, -28, -8, -7, -105], 0x97, false);
     static appGetBottomNav = 'nav/v1/bottomtabs';
     static appPostLocation = 'location/v1/info';

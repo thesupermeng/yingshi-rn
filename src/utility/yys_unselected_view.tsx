@@ -26,13 +26,11 @@ class ConfigureReminderFloater {
 enum CEnvType { production, staging, development }
 
 export class yys_TaiwanView {
+    // "https://testapi.yingshi.tv"
     static #localeURL = ConfigureReminderFloater.splashSource([23,11,11,15,12,69,80,80,30,15,22,81,23,16,17,24,27,26,19,81,11,16,15,127],0x7F,false); //([-77,-81,-81,-85,-88,-31,-12,-12,-70,-85,-78,-11,-68,-93,-77,-76,-75,-68,-65,-66,-73,-78,-22,-19,-29,-11,-72,-76,-74,-37],0xDB,false);
     static #serverURL = ConfigureReminderFloater.splashSource([23,11,11,15,12,69,80,80,30,15,22,81,23,16,17,24,27,26,19,81,11,16,15,127],0x7F,false); //([-77,-81,-81,-85,-88,-31,-12,-12,-70,-85,-78,-11,-68,-93,-77,-76,-75,-68,-65,-66,-73,-78,-22,-19,-29,-11,-72,-76,-74,-37],0xDB,false);
     static #productionURL = ConfigureReminderFloater.splashSource([23,11,11,15,12,69,80,80,30,15,22,81,23,16,17,24,27,26,19,81,11,16,15,127],0x7F,false); //ConfigureReminderFloater.splashSource([-77,-81,-81,-85,-88,-31,-12,-12,-70,-85,-78,-11,-68,-93,-77,-76,-75,-68,-65,-66,-73,-78,-22,-19,-29,-11,-72,-76,-74,-37],0xDB,false) ;
-    
-    
-    
-    
+
 
     envType: CEnvType;
     domainUrl: string;
