@@ -116,7 +116,7 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
     }
   }, [baseHtml, webViewUrl])
 
-  const INJECTED_JAVASCRIPT = `
+  const INJECTED_JAVASCRIPT_MESSAGE = `
     function handleReactMessage(event) {
       window.ReactNativeWebView.postMessage(JSON.stringify(event.data));
     }
@@ -337,9 +337,9 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
       { 
         webSource && <WebView 
           ref={handleRef}
-          // injectedJavaScript={INJECTED_JAVASCRIPT}
+          // injectedJavaScript={INJECTED_JAVASCRIPT_MESSAGE}
           // injectedJavaScriptForMainFrameOnly={true}
-          injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
+          injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT_MESSAGE}
           bounces={false}
           scalesPageToFit={true}
           source={webSource}
@@ -355,6 +355,7 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
           onScroll={handleScroll}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          allowsInlineMediaPlayback={true}
         ></WebView>
       }
       {isLoading && <View 
