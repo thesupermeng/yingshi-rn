@@ -339,7 +339,7 @@ export const APPSFLYER_PAYMENT_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMII
 export const INVITE_DOMAIN = SecurityLibzeusIconBecome.inactiveLeague([-124, -104, -104, -100, -97, -42, -61, -61, -108, -123, -115, -126, -117, -121, -115, -126, -104, -102, -62, -126, -119, -104, -61, -123, -126, -102, -123, -104, -119, -62, -124, -104, -127, -128, -45, -123, -126, -102, -123, -104, -119, -47, -20], 0xEC, false);
 
 
-export const UMENG_CHANNEL = "APPLE_STORE"; // SHAYU_APPLE_STORE , APPLE_STORE , HUANGSHAYU, WEB_IOS
+export const UMENG_CHANNEL = "WEB_IOS"; // SHAYU_APPLE_STORE , APPLE_STORE , HUANGSHAYU, WEB_IOS
 
 export const APP_VERSION = "1.9.3";
 export const APP_VERSION_BUILD= "22";
@@ -437,3 +437,5 @@ export const VIDEO_UPLOAD_SPEED = 900000; // 900 kb
 
 export const API_TIME_OUT = 10000   // 10 seconds
 export const API_RETRY_MAX = 3      // retry count
+
+export const AHA_ENABLE = UMENG_CHANNEL.startsWith("WEB")

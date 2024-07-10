@@ -16,6 +16,7 @@ export class yys_RelatedTooltips {
     userCurrentTimestamp: string;
     userAccumulateVipRewardDay: number;
     userPaidVipList: any;
+    userAhaWithDrawalPin: number;
 
     public constructor(data: {
         userToken: string,
@@ -35,6 +36,7 @@ export class yys_RelatedTooltips {
         userCurrentTimestamp: string;
         userAccumulateVipRewardDay: number;
         userPaidVipList: any;
+        userAhaWithDrawalPin: number;
     }) {
         this.userToken = data.userToken;
         this.userId = data.userId;
@@ -53,6 +55,7 @@ export class yys_RelatedTooltips {
         this.userCurrentTimestamp = data.userCurrentTimestamp;
         this.userAccumulateVipRewardDay = data.userAccumulateVipRewardDay;
         this.userPaidVipList = data.userPaidVipList;
+        this.userAhaWithDrawalPin = data.userAhaWithDrawalPin;
     }
 
     public static fromJson = (json: any): yys_RelatedTooltips => {
@@ -74,6 +77,7 @@ export class yys_RelatedTooltips {
             userUpline: json.user?.upline_user ?? {},
             userAccumulateVipRewardDay: json.user?.accumulated_paid_vip_reward_days ?? 0,
             userPaidVipList: json.user?.paid_vip_response ?? {},
+            userAhaWithDrawalPin: json.user?.aha_withdrawal_pin ?? 0,
         });
     }
 

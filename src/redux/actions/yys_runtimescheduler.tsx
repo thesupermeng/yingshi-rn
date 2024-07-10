@@ -18,6 +18,14 @@ export const hideLoginAction = () => ({
   type: "hide_login_action",
 });
 
+export const showLoginExpired = () => ({
+  type: "show_login_expired",
+});
+
+export const hideLoginExpired = () => ({
+  type: "hide_login_expired",
+});
+
 export const hideBottomSheetAction = () => ({
   type: "hide_bottom_sheet_action",
 });

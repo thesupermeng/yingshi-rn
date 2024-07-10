@@ -33,6 +33,7 @@ import VipIcon from "@static/images/feedbackComment.svg";
 import VipArrow from "@static/images/gmailActivity.svg";
 import AddIcon from "@static/images/vip/langMovies.svg";
 import { yys_MinivodPangle } from "../../../yys_mimo_vignette";
+import PinIcon from "@static/images/pincode.svg";
 
 import {
    hideBottomSheetAction,
@@ -44,7 +45,7 @@ import NotificationModal from "../../components/modal/yys_graph";
 import { updateUserAuth, updateUserReferral } from "@redux/actions/yys_gesture";
 import ExpiredOverlay from "../../components/modal/yys_proxy_singapore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/yys_ajax_switch";
+import { AHA_ENABLE, DOWNLOAD_FEATURE_ENABLED, SHOW_ZF_CONST, UMENG_CHANNEL } from "@utility/yys_ajax_switch";
 import FastImage from "../../components/common/yys_vertical_collection";
 import { yys_GesturesConst } from "@api";
 import { yys_Build } from "../../Sports/global/yys_chart";
@@ -63,6 +64,7 @@ import { yys_HejiCricket } from "@redux/reducers/yys_privacy_round";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 import ReviewModal from "../../components/modal/reviewModal.tsx";
 import InAppReview from 'react-native-in-app-review';
+import AhaWallet from "../Aha/ahaWallet";
 
 function Profile({ navigation, route }: BottomTabScreenProps<any>) {
    const navigator = useNavigation();
@@ -3257,6 +3259,15 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
+                  {AHA_ENABLE && <View style={styles.wallet}>
+                     <AhaWallet loadingSize={70} pageOpen={(url, navBack) => {
+                        if (yys_RelatedTooltips.isLogin(userState.user)) {
+                           navigation.navigate("AhaWebScreen", {url, navBack})
+                        } else {
+                           dispatch(showLoginAction());
+                        }
+                     }}/>
+                  </View>}
                   {DOWNLOAD_FEATURE_ENABLED && <ShowMoreButton
                      text="我的下载"
                      leftIcon={<DownloadIcon style={{ color: colors.button }} />}
@@ -3277,6 +3288,17 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                      leftIcon={<HistoryIcon style={{ color: colors.button }} />}
                      onPress={() => navigation.navigate("播放历史")}
                   />
+                  {AHA_ENABLE && <ShowMoreButton
+                     text="安全PIN码"
+                     leftIcon={<PinIcon style={{ color: colors.button }} />}
+                     onPress={() => {
+                        if (yys_RelatedTooltips.isLogin(userState.user)) {
+                           navigation.navigate("AhaPinCodeScreen", {verify: false})
+                        } else {
+                           dispatch(showLoginAction());
+                        }
+                     }}
+                  />}
                   <ShowMoreButton
                      text="我要反馈"
                      leftIcon={<FeedbackIcon style={{ color: colors.button }} />}
@@ -3401,4 +3423,12 @@ const styles = StyleSheet.create({
       width: 22,
       marginLeft: 5,
    },
+   wallet: {
+      height: 75,
+      width: '100%',
+      backgroundColor: "#1A1E21",
+      borderRadius: 10,
+      marginTop: 20,
+      overflow: "hidden"
+   }
 });

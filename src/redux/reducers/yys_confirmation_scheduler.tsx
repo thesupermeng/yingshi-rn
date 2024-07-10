@@ -12,6 +12,7 @@ const initialState: screenModel = {
   screenAction: "",
   screenShow: false,
   loginShow: false,
+  loginExpired: false,
   resetBottomSheet: false,
   resetInputForm: false,
   navigateToProfile: false,
@@ -35,8 +36,8 @@ const initialState: screenModel = {
   isPlayGuideShown : false, 
   isPlayGuideShown2 :  false, 
   isSportGuideShown : false, 
-  yuGaoState:null
-  
+  yuGaoState : null,
+  autoSelectSport: false
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -61,6 +62,16 @@ export function screenReducer(state = initialState, action: screenActionType) {
       return {
         ...state,
         loginShow: false,
+      };
+    case "show_login_expired":
+      return {
+        ...state,
+        loginExpired: true,
+      };
+    case "hide_login_expired":
+      return {
+        ...state,
+        loginExpired: false,
       };
     case "hide_bottom_sheet_action":
       return {

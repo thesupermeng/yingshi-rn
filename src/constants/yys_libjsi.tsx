@@ -81,4 +81,6 @@ export class yys_FavoriteCustom {
 
     static paymentCallbackRedirectDev = 'https://test.yingshi.tv/payment/yingshiapp';
     static paymentCallbackRedirectProd = 'https://yingshi.tv/payment/yingshiapp';
+
+    static setPinCode = 'users/v2/aha/setpin';
 }

@@ -11,6 +11,7 @@ export type yys_BaiduLight = {
   我的: undefined;
   体育: undefined;
   会员中心: undefined;
+  娱乐: {url: string};
 };
 
 export type yys_Product = {
@@ -123,6 +124,20 @@ export type yys_ServiceBridge = {
   uploadVideo: undefined,
   uploadVideoPreview: UploadVideoPreviewParams,
   uploadHistory: undefined,
+  AhaWebScreen: {
+    url?: string,
+    navBack?: number
+  },
+  AhaLinkScreen: {
+    url?: string,
+    navBack?: number
+  },
+  AhaPinCodeScreen: {
+    verify?: boolean,
+  },
+  AhaPinOtpScreen: {
+    pin?: string,
+  }
 };
 
 export type RootStackScreenProps<

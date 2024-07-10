@@ -41,6 +41,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../screens/yys_dycreator";
+import AhaWebScreen from "../screens/Aha/ahaWebScreen";
+import AhaPinCodeScreen from "../screens/Aha/ahaPinCodeScreen";
+import AhaPinOtpScreen from "../screens/Aha/ahaPinOtpScreen";
 import PlaylistScreen from "../screens/Playlist/yys_suggestion";
 import ProfileScreen from "../screens/Profile/yys_condensed_topic";
 import WatchAnytime from "../screens/yys_mapbuffer";
@@ -76,6 +79,9 @@ import SportsIcon from "@static/images/orientationModeSearchbar.svg";
 import VipActionIcon from "@static/images/feedbackComment.svg";
 import VipIcon from "@static/images/componentOver.svg";
 
+import GameActionIcon from "@static/images/games.svg";
+import GameIcon from "@static/images/games.svg";
+
 import SportAndX from "./../../src/screens/yys_quest_wind";
 
 import MatchDetailsScreen from "../Sports/screens/Sports/yys_manifest";
@@ -98,7 +104,7 @@ import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native
 import DeviceInfo from "react-native-device-info";
 import { useAppSelector, useAppDispatch, useSelector } from "@hooks/yys_frame";
 import { QueryClient, useQuery } from "@tanstack/react-query";
-import { API_DOMAIN, UMENG_CHANNEL } from "@utility/yys_ajax_switch";
+import { AHA_ENABLE, API_DOMAIN, UMENG_CHANNEL } from "@utility/yys_ajax_switch";
 import { yys_MinivodPangle } from "../../yys_mimo_vignette";
 import {
   disableAdultMode,
@@ -106,6 +112,7 @@ import {
   hideAdultModeDisclaimer,
   hideAdultModeVip,
   hideLoginAction,
+  hideLoginExpired,
   interstitialClose,
   interstitialShow,
   removeScreenAction,
@@ -449,6 +456,18 @@ export default () => {
                   color={theme.icons.inactiveNavIconColor}
                 />
               );
+            } else if (route.name === "娱乐") {
+              icon = focused ? (
+                <GameActionIcon
+                  width={iconWidth}
+                  color={theme.icons.activeNavIconColor}
+                />
+              ) : (
+                <GameIcon
+                  width={iconWidth}
+                  color={theme.icons.inactiveNavIconColor}
+                />
+              );
             }
             return icon;
           },
@@ -459,7 +478,8 @@ export default () => {
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
             <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            {AHA_ENABLE && <HomeTab.Screen name="娱乐" component={AhaWebScreen} initialParams={{url: '/games?hasGame=true'}} />}
+            {!AHA_ENABLE && <HomeTab.Screen name="播单" component={PlaylistScreen} />}
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         ) : (
@@ -467,7 +487,8 @@ export default () => {
             <HomeTab.Screen name="首页" component={HomeScreen} />
             <HomeTab.Screen name="随心看" component={WatchAnytime} />
             <HomeTab.Screen name="会员中心" component={SportAndX} />
-            <HomeTab.Screen name="播单" component={PlaylistScreen} />
+            {AHA_ENABLE && <HomeTab.Screen name="娱乐" component={AhaWebScreen} initialParams={{url: '/games?hasGame=true'}} />}
+            {!AHA_ENABLE && <HomeTab.Screen name="播单" component={PlaylistScreen} />}
             <HomeTab.Screen name="我的" component={ProfileScreen} />
           </>
         )}
@@ -1122,6 +1143,7 @@ export default () => {
 
   const dispatch = useAppDispatch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
   const screenState: screenModel = useAppSelector(
     ({ screenReducer }: yys_MintegralLibavdevice) => screenReducer
   );
@@ -1137,6 +1159,11 @@ export default () => {
       setTimeout(() => {
         setIsDialogOpen(false);
       }, 3000);
+    }
+
+    if (screenState.loginExpired == true) {
+      dispatch(hideLoginExpired());
+      setIsSessionExpired(true);
     }
 
     if (screenState.resetBottomSheet == true) {
@@ -1800,6 +1827,22 @@ export default () => {
             component={CWebview}
             options={{ orientation: "portrait" }}
           />
+          <Stack.Screen
+            name="AhaWebScreen"
+            component={AhaWebScreen}
+          />
+          <Stack.Screen
+            name="AhaLinkScreen"
+            component={AhaWebScreen}
+          />
+          <Stack.Screen
+            name="AhaPinCodeScreen"
+            component={AhaPinCodeScreen}
+          />
+          <Stack.Screen
+            name="AhaPinOtpScreen"
+            component={AhaPinOtpScreen}
+          />
         </Stack.Navigator>
         {settingsReducer.appOrientation === "PORTRAIT" && (
           <>
@@ -1825,6 +1868,36 @@ export default () => {
 
         <CRouteInitializer />
       </NavigationContainer>
+
+      <Dialog
+        isVisible={isSessionExpired}
+        overlayStyle={{
+          backgroundColor: "rgba(34, 34, 34, 1)",
+          ...styles.overlay,
+        }}
+        backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+      >
+        <Text
+          style={{
+            color: "#fff",
+            fontFamily: "PingFang SC",
+            fontSize: 16,
+            fontWeight: "600",
+          }}
+        >
+          登录状态已失效，请重新登录
+        </Text>
+        <TouchableOpacity
+          style={styles.expiredButton}
+          onPress={() => { setIsSessionExpired(false) }}
+        >
+          <Text style={styles.expiredButtonText}>
+            确定
+          </Text>
+        </TouchableOpacity>
+      </Dialog>
+
+
       <Dialog
         isVisible={isDialogOpen}
         overlayStyle={{
@@ -2056,6 +2129,21 @@ const styles = StyleSheet.create({
     color: "#1D2023",
     fontSize: 14,
     fontWeight: "700",
+    lineHeight: 25,
+    fontFamily: "PingFang SC",
+  },
+  expiredButton: {
+    borderRadius: 8,
+    paddingVertical: 6,
+    alignItems: 'center',
+    backgroundColor: '#D1AC7D',
+    paddingHorizontal: 30,
+    marginTop: 16
+  },
+  expiredButtonText: {
+    color: '#1D2023',
+    fontSize: 14,
+    fontWeight: '700',
     lineHeight: 25,
     fontFamily: "PingFang SC",
   },
