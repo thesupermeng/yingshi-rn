@@ -18,6 +18,7 @@ import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 interface AhaWebProps {
   url?: string,
   html?: string,
+  blacklist?: string,
   loadingSize?: number,
   setWebTitle?: (title:string) => void,
   setLoading?: (loading:boolean) => void,
@@ -26,7 +27,7 @@ interface AhaWebProps {
   pageRoute?: (name:string, params:any) => void,
 }
 
-function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen, pageClose, pageRoute}: AhaWebProps) {
+function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading, pageOpen, pageClose, pageRoute}: AhaWebProps) {
 
   const dispatch = useAppDispatch();
   const [uniqueToken, setUniqueToken] = useState(`${Date.now()}`)
@@ -302,6 +303,9 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
     // console.log('========》 webViewShouldStartLoadWithRequest', event);
     const url = event?.url ?? "";
     if (url.includes('www.sss999888.com')) {
+      return false
+    }
+    if (blacklist === "*") {
       return false
     }
     return true
