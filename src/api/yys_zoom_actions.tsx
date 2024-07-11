@@ -563,7 +563,7 @@ export class yys_Downloader {
 
    static getListByKeyword = async (keyword: string, { page = 1 }: { page?: number } = {}) => {
       try {
-         const result = await yys_StringsVignette.get(yys_FavoriteCustom.vodGetList, {
+         const result = await yys_StringsVignette.get(yys_FavoriteCustom.vodGetSearch, {
             query: {
                wd: keyword,
                limit: 35,

@@ -38,6 +38,7 @@ import appsFlyer from "react-native-appsflyer";
 import ConfirmationModal from "../../components/modal/yys_shrink_reactnativejs";
 import yys_event_common from "../../../../Umeng/yys_event_common";
 import { yys_Downloader } from "@api";
+import { yys_StatsForm } from "@utility/yys_context_muted";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [search, setSearch] = useState("");
@@ -504,6 +505,11 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
       } while ((rulesr && rulesr) && debugc);
       configureb = [parseInt(`${selectedJ}`) * i_lockP.length];
       break;
+   }
+
+   if (searchKeyword.trim().length <= 0) {
+      yys_StatsForm.showToast('请输入搜索内容！');
+      return;
    }
 
     fetchData(searchKeyword, true);
