@@ -75,11 +75,11 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
 
   useEffect(() => {
     // https://iframe-h5.aha666.site/games
-    console.log('====> aha token', ahaToken);
     ahaTokenValidate.current = false;
     if (ahaToken == undefined) return;
     if (baseUrl == undefined) return;
 
+    console.debug(`==>【${name}】【TOKEN】`, ahaToken);
     let res = baseUrl || '/games?hasGame=true';
     if (!res.startsWith('http://') && !res.startsWith('https://')) {
       res = `${ahaHost}${res}`
@@ -111,7 +111,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
   }, [baseUrl, ahaToken, uniqueToken, channelCode])
 
   const webSource = useMemo(() => {
-    console.log('====> webSource', baseHtml, webViewUrl);
+    // console.log('====> webSource', baseHtml, webViewUrl);
     if (baseHtml && baseHtml.length > 0) {
       return { html: baseHtml }
     } else if (webViewUrl && webViewUrl.length > 0) {
@@ -185,13 +185,13 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
   const handleMessage = (event:any) => {
     try {
       const json = JSON.parse(event.nativeEvent.data);
-      const {message, type, url, newUrl, data} = json;
+      const {message, type, url, data} = json;
       if (type === 'urlChange') {
-        console.log(`==> 【iframe】【${type}】`, newUrl);
-        if (!newUrl || newUrl.includes('undefined')) {
-          handleSessionExpired();
-          return;
-        }
+        // console.log(`==> 【${name}】【iframe】【${type}】`, newUrl);
+        // if (!newUrl || newUrl.includes('undefined')) {
+        //   handleSessionExpired();
+        //   return;
+        // }
         // setHideFooter(newUrl.endsWith('/sports/sport'));
       }
       // if (event.data.type === 'openBottomSheet' &&
@@ -210,7 +210,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
       //   setHideFooter(true);
       // }
       if (message === 'iframe') {
-        console.log(`==> 【${name}】【iframe】【${type}】`, event.nativeEvent);
+        console.debug(`==>【${name}】【iframe】【${type}】`, event.nativeEvent);
         if (type === 'login') {
           dispatch(showLoginAction());
         } else if (type === 'share') {
@@ -239,14 +239,10 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
         } else if (type === 'forgotSecurityPin') {
           handlePin(false)
         } else if (type === 'return') {
-          // if (url === '/myprofile') {
           handleClose()
-          // }
         } else {
-          console.log(`==> 【iframe】[${type}]`, url);
-          if (!url || url.includes('undefined')) {
-            handleSessionExpired();
-          } else {
+          console.log(`==>【iframe】[${type}]`, url);
+          if (url && !url.includes('undefined')) {
             handleOpen(url)
           }
         }
@@ -312,7 +308,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
     if (setWebTitle) {
       setWebTitle(navState.title);
     }
-    console.log(`==> 【${name}】【STATE】:${navState.url}`, navState.loading);
+    console.debug(`==>【${name}】【STATE】:${navState.url}`, navState.loading);
   }
 
   const handleRequest = (event:any) => {
@@ -324,7 +320,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
     if (whiteList != undefined && whitelist != null) {
       for (const item of whiteList) {
         if (item === '*') {
-          console.debug(`==> 【${name}】【WHITELIST】`, url);
+          console.debug(`==>【${name}】【WHITELIST】`, url);
           return true
         }
         let res = item;
@@ -332,7 +328,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
           res = `${ahaHost}${res}`
         }
         if (url.startsWith(res)) {
-          console.debug(`==> 【${name}】【WHITELIST】`, url, res);
+          console.debug(`==>【${name}】【WHITELIST】`, url, res);
           return true
         }
       }
@@ -340,7 +336,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
     if (blackList != undefined && blackList != null) {
       for (const item of blackList) {
         if (item === '*') {
-          console.debug(`==> 【${name}】【BLACKLIST】`, url);
+          console.debug(`==>【${name}】【BLACKLIST】`, url);
           return false
         }
         let res = item;
@@ -348,7 +344,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
           res = `${ahaHost}${res}`
         }
         if (url.startsWith(res)) {
-          console.debug(`==> 【${name}】【BLACKLIST】`, url, res);
+          console.debug(`==>【${name}】【BLACKLIST】`, url, res);
           return false
         }
       }
