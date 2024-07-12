@@ -16,6 +16,7 @@ function AhaWebScreen({ navigation, route }: BottomTabScreenProps<any>) {
   const routeWebHtml = route.params?.html;
   const navBack = `${route.params?.navBack}` === '1';
   const [webTitle, setWebTitle] = useState('');
+  const webName = route.name;
 
   const checkConnection = async () => {
     const state = await NetInfo.fetch();
@@ -60,6 +61,7 @@ function AhaWebScreen({ navigation, route }: BottomTabScreenProps<any>) {
       >
         {navBack && <TitleWithBackButtonHeader title={webTitle} />}
         <AhaWebView 
+          name={webName}
           url={routeWebUrl} 
           html={routeWebHtml}
           setWebTitle={setWebTitle}

@@ -16,8 +16,10 @@ import { yys_RelatedTooltips } from "@models/yys_project_pagination";
 
 
 interface AhaWebProps {
+  name?: string,
   url?: string,
   html?: string,
+  whitelist?: string,
   blacklist?: string,
   loadingSize?: number,
   setWebTitle?: (title:string) => void,
@@ -27,7 +29,7 @@ interface AhaWebProps {
   pageRoute?: (name:string, params:any) => void,
 }
 
-function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading, pageOpen, pageClose, pageRoute}: AhaWebProps) {
+function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebTitle, setLoading, pageOpen, pageClose, pageRoute}: AhaWebProps) {
 
   const dispatch = useAppDispatch();
   const [uniqueToken, setUniqueToken] = useState(`${Date.now()}`)
@@ -38,6 +40,8 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
   const [canGoBack, setCanGoBack] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const isClosed = useRef(false);
+  const [whiteList] = useState(whitelist?.split(';'));
+  const [blackList] = useState(blacklist?.split(';'));
 
   const [ahaToken, setAhaToken] = useState<string>()
   const [ahaHost] = useState('https://iframe-h5.aha666.site')
@@ -206,7 +210,7 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
       //   setHideFooter(true);
       // }
       if (message === 'iframe') {
-        console.log(`==> 【iframe】【${type}】`, event.nativeEvent);
+        console.log(`==> 【${name}】【iframe】【${type}】`, event.nativeEvent);
         if (type === 'login') {
           dispatch(showLoginAction());
         } else if (type === 'share') {
@@ -235,9 +239,9 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
         } else if (type === 'forgotSecurityPin') {
           handlePin(false)
         } else if (type === 'return') {
-          if (url === '/myprofile') {
-            handleClose()
-          }
+          // if (url === '/myprofile') {
+          handleClose()
+          // }
         } else {
           console.log(`==> 【iframe】[${type}]`, url);
           if (!url || url.includes('undefined')) {
@@ -259,6 +263,26 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
 
   const handleLoad = () => {
     // console.log(`==webViewLoad:`, webView);
+  }
+
+  const handleLoadEnd = () => {
+    // console.log(`==webViewLoad:`, webView);
+    if (setLoading) {
+      new Promise(() => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 200)
+      })
+    } else {
+      // for first loading
+      if (isLoading) {
+        new Promise(() => {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 200)
+        })
+      }
+    }
   }
 
   const handleError = (event:any) => {
@@ -288,15 +312,7 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
     if (setWebTitle) {
       setWebTitle(navState.title);
     }
-    const loading = navState.loading ?? false;
-    if (setLoading) {
-      setLoading(loading)
-    } else {
-      // for first loading
-      if (isLoading && !loading) {
-        setIsLoading(false);
-      }
-    }
+    console.log(`==> 【${name}】【STATE】:${navState.url}`, navState.loading);
   }
 
   const handleRequest = (event:any) => {
@@ -305,8 +321,37 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
     if (url.includes('www.sss999888.com')) {
       return false
     }
-    if (blacklist === "*") {
-      return false
+    if (whiteList != undefined && whitelist != null) {
+      for (const item of whiteList) {
+        if (item === '*') {
+          console.debug(`==> 【${name}】【WHITELIST】`, url);
+          return true
+        }
+        let res = item;
+        if (!res.startsWith('http://') && !res.startsWith('https://')) {
+          res = `${ahaHost}${res}`
+        }
+        if (url.startsWith(res)) {
+          console.debug(`==> 【${name}】【WHITELIST】`, url, res);
+          return true
+        }
+      }
+    }
+    if (blackList != undefined && blackList != null) {
+      for (const item of blackList) {
+        if (item === '*') {
+          console.debug(`==> 【${name}】【BLACKLIST】`, url);
+          return false
+        }
+        let res = item;
+        if (!res.startsWith('http://') && !res.startsWith('https://')) {
+          res = `${ahaHost}${res}`
+        }
+        if (url.startsWith(res)) {
+          console.debug(`==> 【${name}】【BLACKLIST】`, url, res);
+          return false
+        }
+      }
     }
     return true
   }
@@ -347,9 +392,16 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
           bounces={false}
           scalesPageToFit={true}
           source={webSource}
-          style={{width:'100%', height:'100%', backgroundColor: "#1A1E21"}}
+          style={{
+            flex:1, 
+            width:'100%', 
+            height:'100%', 
+            backgroundColor: 
+            "#1A1E21"
+          }}
           useWebKit={false}
           onLoad={handleLoad}
+          onLoadEnd={handleLoadEnd}
           onError={handleError}
           onMessage={handleMessage}
           onNavigationStateChange={handleStateChange}
@@ -360,6 +412,8 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           allowsInlineMediaPlayback={true}
+          backgroundColor="#1A1E21"
+          defaultBackgroundColor="#1A1E21"
         ></WebView>
       }
       {isLoading && <View 
@@ -367,8 +421,8 @@ function AhaWebView({ url, html, blacklist, loadingSize, setWebTitle, setLoading
           width: '100%', 
           height: '100%', 
           position: 'absolute', 
-          zIndex: 1000, 
-          backgroundColor: 'rgba(20,22,25,0)',
+          zIndex: 10, 
+          backgroundColor: '#1A1E21',
           justifyContent: 'center', 
           alignItems: 'center'
         }}
