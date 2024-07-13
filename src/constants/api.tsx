@@ -1,6 +1,7 @@
 export class CEndpoint {
     // ============================== apps ==============================
     static appGetLocalIp = 'https://geolocation-db.com/json';
+    static appGetLocalIpInfo = 'https://ipinfo.io/json';
     static appGetBottomNav = 'nav/v1/bottomtabs';
     static appPostLocation = 'location/v1/info';
 

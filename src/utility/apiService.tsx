@@ -169,52 +169,98 @@ export class CApi {
 
         const url = isFullUrl ? endpoint : `${this.env.apiUrl}/${endpoint}`;
 
+        const retryMax = 3;
+        let retry = 0
         let response: AxiosResponse;
+        let result: ResponseModel = new ResponseModel({
+            statusCode: 400,
+            success: false,
+            errors: [],
+            message: "",
+        });
 
-        switch (method.toLowerCase()) {
-            case 'get':
-                {
-                    response = await this.#apiInstance!.get(url, {
-                        params: query,
-                    });
-                    break;
+        while(retry < retryMax) {
+            retry += 1
+            try {
+                switch (method.toLowerCase()) {
+                    case 'get':
+                        {
+                            response = await this.#apiInstance!.get(url, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'put':
+                        {
+                            response = await this.#apiInstance!.put(url, body, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'patch':
+                        {
+                            response = await this.#apiInstance!.patch(url, body, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'delete':
+                        {
+                            response = await this.#apiInstance!.delete(url, {
+                                params: query,
+                            });
+                            break;
+                        }
+                    case 'post':
+                    default:
+                        {
+                            response = await this.#apiInstance!.post(url, body, {
+                                params: query,
+                            });
+                        }
                 }
-            case 'put':
-                {
-                    response = await this.#apiInstance!.put(url, body, {
-                        params: query,
-                    });
-                    break;
-                }
-            case 'patch':
-                {
-                    response = await this.#apiInstance!.patch(url, body, {
-                        params: query,
-                    });
-                    break;
-                }
-            case 'delete':
-                {
-                    response = await this.#apiInstance!.delete(url, {
-                        params: query,
-                    });
-                    break;
-                }
-            case 'post':
-            default:
-                {
-                    response = await this.#apiInstance!.post(url, body, {
-                        params: query,
-                    });
-                }
+            } catch(error: any) {
+                result = new ResponseModel({
+                    statusCode: 500,
+                    success: false,
+                    errors: error,
+                    message: CLangKey.http500.tr(),
+                });
+            }
+
+            if (400 <= result.statusCode && result.statusCode <= 599) {
+                console.debug(`==>【${result.statusCode}】${url}`);
+            } else {
+                break;
+            }
         }
-
-        const result: ResponseModel = await this.#responseHandle(response, { isFullUrl });
 
         if (result.success == false && showErrorToast == true) {
             CPopup.showToast(result.message);
         }
 
+        if (process.env.NODE_ENV !== 'production') {
+            try {
+                const queryString = query ? JSON.stringify(query) : '';
+                const bodyString = body ? JSON.stringify(body) : '';
+                const resultData:any = {};
+                const resultOrig:any = result as any;
+                for (const key in result) {
+                    if (typeof resultOrig[key] === 'string') {
+                        resultData[key] = resultOrig[key];
+                    } if (typeof resultOrig[key] === 'number') {
+                        resultData[key] = resultOrig[key];
+                    } else if (typeof resultOrig[key] === 'object') {
+                        resultData[key] = `object`;
+                    }
+                }
+                const resultString = JSON.stringify(resultData);
+                console.debug(`==>【${method.toUpperCase()}】${endpoint} ${queryString} ${bodyString}`);
+                console.debug(`==> ${resultString}`);
+            } catch (error) {
+                console.debug(`==>【${method.toUpperCase()}】${endpoint} ${query ?? ''} ${body ?? ''}`);
+            }
+        }
         return result;
     }
 

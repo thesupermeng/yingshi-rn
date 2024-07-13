@@ -6,6 +6,7 @@ export class YSConfig {
 
   areaConfig = true;
   ip = '';
+  countryCode = '';
   updateAction = null;
   updateDesc = '';
   updateUrl = '';
@@ -16,6 +17,8 @@ export class YSConfig {
   // y == 成为VIP 
   // n == 付费购买VIP
   showBecomeVip = false;
+
+  enableAhaYule = false;
 
   setIsAppsflyerProduction(config) {
     console.log('set')
@@ -34,6 +37,14 @@ export class YSConfig {
 
   setNetworkIp(ip) {
     this.ip = ip;
+  }
+
+  setLocationCountry(code) {
+    this.countryCode = code;
+  }
+
+  setAhaYuleEnable(enable) {
+    this.enableAhaYule = enable;
   }
 
   setShowBecomeVip(showBecomeVip) {
