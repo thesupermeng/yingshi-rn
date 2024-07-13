@@ -100,6 +100,7 @@ export const lang = {
     [CLangKey.refresh]: '刷新',
     [CLangKey.searchHistory]: '历史搜索',
     [CLangKey.searchRecord]: '搜索记录',
+    [CLangKey.searchInputEmpty]: '请输入搜索内容',
     [CLangKey.watchVideo]: '看正片',
     [CLangKey.watchPlaylist]: '看播单',
     [CLangKey.speed]: '倍速',

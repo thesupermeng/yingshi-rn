@@ -100,6 +100,7 @@ export const lang = {
     [CLangKey.refresh]: 'Refresh',
     [CLangKey.searchHistory]: 'Recent Search',
     [CLangKey.searchRecord]: 'Search Record',
+    [CLangKey.searchInputEmpty]: 'Search Input Empty',
     [CLangKey.watchVideo]: 'Play Video',
     [CLangKey.watchPlaylist]: 'Play Playlist',
     [CLangKey.speed]: 'Speed',

@@ -40,6 +40,7 @@ import { VodApi } from "@api";
 import UmengAnalytics from "../../../Umeng/UmengAnalytics";
 import { Vod } from "@models";
 import { CLangKey } from "@constants";
+import { CPopup } from "@utility/popup";
 
 export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
   const [search, setSearch] = useState("");
@@ -177,6 +178,12 @@ export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
     //     console.error(err);
     //   }
     // );
+
+    if (searchKeyword.trim().length <= 0) {
+      CPopup.showToast( CLangKey.searchInputEmpty.tr());
+      return;
+    }
+
 
     fetchData(searchKeyword, true);
     dispatch(addSearchHistory(searchKeyword));
