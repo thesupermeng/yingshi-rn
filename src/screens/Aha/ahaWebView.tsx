@@ -6,14 +6,16 @@ import { yys_HejiCricket } from '@redux/reducers/yys_privacy_round';
 import WebView from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction, showLoginExpired } from "@redux/actions/yys_runtimescheduler";
-import { BackHandler, View } from "react-native";
+import { BackHandler, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { addUserAuthState, removeUserAuthState } from "@redux/actions/yys_gesture";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { yys_GesturesConst } from "../../api/yys_project_pagination";
 import { clearMinivodApiCache } from "../../utils/yys_found_manifest";
 import { yys_RelatedTooltips } from "@models/yys_project_pagination";
-
-
+import { useTheme } from '@react-navigation/native';
+import RefreshIcon from '@static/images/videojsHumidityGraph.svg';
+import { IS_OTHER_SKIN } from "@utility/yys_ajax_switch";
+import NoWifi from '@static/images/libglogTypesSkip.svg';
 
 interface AhaWebProps {
   name?: string,
@@ -22,6 +24,8 @@ interface AhaWebProps {
   whitelist?: string,
   blacklist?: string,
   loadingSize?: number,
+  errorType?: 'page' | 'banner',
+  backgroundColor?: string,
   setWebTitle?: (title:string) => void,
   setLoading?: (loading:boolean) => void,
   pageOpen?: (url:string, navBack?:number) => void,
@@ -29,16 +33,22 @@ interface AhaWebProps {
   pageRoute?: (name:string, params:any) => void,
 }
 
-function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebTitle, setLoading, pageOpen, pageClose, pageRoute}: AhaWebProps) {
+function AhaWebView({
+  name, url, html, whitelist, 
+  blacklist, loadingSize, errorType, 
+  backgroundColor, 
+  setWebTitle, setLoading, 
+  pageOpen, pageClose, pageRoute
+}: AhaWebProps) {
 
   const dispatch = useAppDispatch();
   const [uniqueToken, setUniqueToken] = useState(`${Date.now()}`)
   const [baseUrl] = useState(url);
   const [baseHtml] = useState(html)
   const [webViewUrl, setWebViewUrl] = useState('');
-  const [webViewRef, setWebViewRef] = useState<any>();
   const [canGoBack, setCanGoBack] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const isClosed = useRef(false);
   const [whiteList] = useState(whitelist?.split(';'));
   const [blackList] = useState(blacklist?.split(';'));
@@ -48,8 +58,7 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
   const [channelCode] = useState('200000_100031')
   const userState = useSelector<yys_HejiCricket>('userReducer');
   const ahaTokenValidate = useRef(false);
-
-  let webView:any = undefined;
+  const webViewRef = useRef<any>(null);
   
   useEffect(() => {
     const email = userState.user?.userEmail ?? ''
@@ -111,7 +120,6 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
   }, [baseUrl, ahaToken, uniqueToken, channelCode])
 
   const webSource = useMemo(() => {
-    // console.log('====> webSource', baseHtml, webViewUrl);
     if (baseHtml && baseHtml.length > 0) {
       return { html: baseHtml }
     } else if (webViewUrl && webViewUrl.length > 0) {
@@ -252,17 +260,13 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
     }
   }
 
-  const handleRef = (view:any) => {
-    // console.log(`==webViewRef:${view}`);
-    webView = view
-  }
-
   const handleLoad = () => {
     // console.log(`==webViewLoad:`, webView);
   }
 
   const handleLoadEnd = () => {
     // console.log(`==webViewLoad:`, webView);
+    setIsRefreshing(false);
     if (setLoading) {
       new Promise(() => {
         setTimeout(() => {
@@ -312,7 +316,6 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
   }
 
   const handleRequest = (event:any) => {
-    // console.log('========》 webViewShouldStartLoadWithRequest', event);
     const url = event?.url ?? "";
     if (url.includes('www.sss999888.com')) {
       return false
@@ -353,48 +356,95 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
   }
 
   const handleScroll = (event:any) => {
-    //console.log('==webViewScroll', event);
+    
   }
 
-  const onBackButtonPressAndroid = (): boolean => {
-      if (canGoBack) {
-        webViewRef?.goBack();
-        return false
-      } else {
-        if (pageClose) {
-          pageClose()
-        }
-        return true
-      }
-  };
+  // const onBackButtonPressAndroid = (): boolean => {
+  //     if (canGoBack) {
+  //       webViewRef.current?.goBack();
+  //       return false
+  //     } else {
+  //       if (pageClose) {
+  //         pageClose()
+  //       }
+  //       return true
+  //     }
+  // };
 
-  const componentDidMount = () => {
-    BackHandler.addEventListener('hardwareBackPress', onBackButtonPressAndroid);
+  // const componentDidMount = () => {
+  //   BackHandler.addEventListener('hardwareBackPress', onBackButtonPressAndroid);
+  // }
+
+  // const componentWillUnmount = () => {
+  //   BackHandler.removeEventListener('hardwareBackPress', onBackButtonPressAndroid);
+  // }
+
+  const renderLoading = () => (
+    <View style={styles.loading}>
+      <FastImage
+        style={{ height: loadingSize ?? 150, width: loadingSize ?? 150 }}
+        source={require("@static/images/sinaHover.gif")}
+        resizeMode={"contain"}
+      />
+    </View>
+  )
+
+  const renderError = (errorDomain: string | undefined, errorCode: number, errorDesc: string) => {
+    const {colors} = useTheme();
+    return (<View style={ 
+      {...(errorType === 'banner' ? styles.errorBanner : styles.errorPage), 
+      backgroundColor: backgroundColor ?? "rgb(22, 22, 22)"
+    } }>
+      <View style={ errorType === 'banner' ? styles.errorBannerIcon : styles.errorPageIcon}>
+        <NoWifi width={errorType === 'banner' ? 25 : 100} />
+      </View>
+      <View style={ errorType === 'banner' ? styles.errorBannerMsg : styles.errorPageMsg}>
+        <Text style={{color: '#F1C557', fontSize: 16}}>
+          数据加载失败
+        </Text>
+      </View>
+      <TouchableOpacity activeOpacity={0.7} onPress={onRefresh}>
+        <View style={{
+          ...(errorType === 'banner' ? styles.refreshBannerBtn : styles.refreshBtn),
+          backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
+        }}>
+          <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
+            <RefreshIcon />
+          </View>
+          <Text
+            style={{
+              ...styles.refreshText,
+              color: colors.background,
+            }}>
+            刷新
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>)
   }
+  
 
-  const componentWillUnmount = () => {
-    BackHandler.removeEventListener('hardwareBackPress', onBackButtonPressAndroid);
-  }
-
+  const onRefresh = React.useCallback(() => {
+    setIsRefreshing(true);
+    if (webViewRef.current && webViewRef.current.reload) {
+      setIsRefreshing(true);
+      webViewRef.current.reload();
+    }
+  }, []);
 
   return (
     <>
       { 
-        webSource && <WebView 
-          ref={handleRef}
+        webSource && 
+        <WebView 
+          ref={webViewRef}
           // injectedJavaScript={INJECTED_JAVASCRIPT_MESSAGE}
           // injectedJavaScriptForMainFrameOnly={true}
           injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT_MESSAGE}
-          bounces={false}
+          bounces={true}
           scalesPageToFit={true}
           source={webSource}
-          style={{
-            flex:1, 
-            width:'100%', 
-            height:'100%', 
-            backgroundColor: 
-            "#1A1E21"
-          }}
+          style={styles.web}
           useWebKit={false}
           onLoad={handleLoad}
           onLoadEnd={handleLoadEnd}
@@ -410,9 +460,22 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
           allowsInlineMediaPlayback={true}
           backgroundColor="#1A1E21"
           defaultBackgroundColor="#1A1E21"
+          startInLoadingState={true}
+          pullToRefreshEnabled
+          setSupportMultipleWindows={false}
+          renderLoading={renderLoading}
+          renderError={renderError}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
+              colors={['blue', 'green', 'red']}
+              progressBackgroundColor="white"
+            />
+          }
         ></WebView>
       }
-      {isLoading && <View 
+      {/* {isLoading && <View 
         style={{
           width: '100%', 
           height: '100%', 
@@ -428,10 +491,92 @@ function AhaWebView({name, url, html, whitelist, blacklist, loadingSize, setWebT
           source={require("@static/images/sinaHover.gif")}
           resizeMode={"contain"}
         />
-      </View>}
+      </View>} */}
     </>
-    
   );
 }
 
 export default memo(AhaWebView);
+
+const styles = StyleSheet.create({
+  web: {
+    flex:1, 
+    width:'100%', 
+    height:'100%', 
+    backgroundColor: "#1A1E21"
+  },
+  loading: {
+    width: '100%', 
+    height: '100%', 
+    backgroundColor: '#1A1E21',
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  errorPage: {
+    width:'100%', 
+    height:'100%', 
+    backgroundColor: "#1A1E21",
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorBanner: {
+    width:'100%', 
+    height:'100%', 
+    paddingLeft: 16,
+    paddingRight: 16,
+    backgroundColor: "#1A1E21",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  errorPageIcon: {
+    width: 100, 
+    height: 100, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorBannerIcon: {
+    width: 20, 
+    height: 20, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorPageMsg: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorBannerMsg: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  indicator: {
+    width: 150,
+    height: 150,
+  },
+  refreshBtn: {
+    marginTop: 20,
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+  refreshBannerBtn: {
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+  refreshText: {
+    color: 'white',
+    textAlign: 'center',
+  }
+});

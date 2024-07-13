@@ -22,6 +22,8 @@ function AhaWalletView({ loadingSize, pageOpen, pageClose }: AhaWalletProps) {
         loadingSize={loadingSize}
         whitelist="/user/wallet"
         blacklist="*"
+        errorType="banner"
+        backgroundColor="#1A1E21"
         pageOpen={pageOpen} 
         pageClose={pageClose}
       />
