@@ -219,6 +219,7 @@ export class CApi {
                             });
                         }
                 }
+                result = await this.#responseHandle(response, { isFullUrl });
             } catch(error: any) {
                 result = new ResponseModel({
                     statusCode: 500,
