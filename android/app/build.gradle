@@ -109,8 +109,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
             // ABB version 79 , 13 jun  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
-        versionCode 80
-        versionName "1.8.2"
+        versionCode 81
+        versionName "1.8.3"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"

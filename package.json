@@ -1,6 +1,6 @@
 {
   "name": "yingshi",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "private": true,
   "scripts": {
     "android": "source ~/.bash_profile && react-native run-android",
