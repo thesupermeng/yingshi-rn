@@ -11,27 +11,42 @@ export class AppsApi {
     static getLocalIpAddress = async () => {
         // default ip
         let ipAddress = '219.75.27.16';
+        let countryCode = 'CN';
 
         try {
-            const result = await CApi.get(CEndpoint.appGetLocalIp, {
+            let result = await CApi.get(CEndpoint.appGetLocalIp, {
                 isFullUrl: true,
             });
 
             if (result.success === false) {
-                throw result.message;
+                result = await CApi.get(CEndpoint.appGetLocalIpInfo, {
+                    isFullUrl: true,
+                });
+                if (result.success === false) {
+                    throw result.message;
+                }
             }
 
             if (result.data && result.data.IPv4) {
                 ipAddress = result.data.IPv4;
+            } else if (result.data && result.data.ip) {
+                ipAddress = result.data.ip;
             }
+            if (result.data && result.data.country_code) {
+                countryCode = result.data.country_code;
+            } else if (result.data && result.data.country) {
+                countryCode = result.data.country;
+            }
+
             return result.data;
 
         } catch (e: any) {
             console.error(`[Error getLocalIpAddress]: ${e.toString()}`);
             YSConfig.instance.setNetworkIp(ipAddress);
-        }
-        finally {
+            YSConfig.instance.setLocationCountry(countryCode);
+        } finally {
             YSConfig.instance.setNetworkIp(ipAddress);
+            YSConfig.instance.setLocationCountry(countryCode);
         }
     };
 
@@ -63,6 +78,7 @@ export class AppsApi {
             const result = await CApi.post(CEndpoint.appPostLocation, {
                 body: {
                     ip_address: YSConfig.instance.ip,
+                    country_code: YSConfig.instance.countryCode,
                     channel_id: UMENG_CHANNEL,
                     version_number: APP_VERSION,
                     mobile_os: Platform.OS,

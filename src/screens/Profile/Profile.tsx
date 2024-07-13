@@ -80,6 +80,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
   // console.log("Profile")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [bannerAd, setBannerAd] = useState<BannerAdType[]>();
+  const ahaEnable = AHA_ENABLE && YSConfig.instance.enableAhaYule;
 
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
@@ -637,7 +638,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
                 />
               </TouchableOpacity>
             )} */}
-            {AHA_ENABLE && <View style={styles.wallet}>
+            {ahaEnable && <View style={styles.wallet}>
               <AhaWallet loadingSize={70}  pageOpen={(url, navBack) => {
                 if (User.isLogin(userState.user)) {
                   navigation.navigate("AhaWebScreen", {url, navBack})
@@ -661,7 +662,7 @@ function Profile({ navigation, route }: BottomTabScreenProps<any>) {
               leftIcon={<HistoryIcon style={{ color: colors.button }} />}
               onPress={() => navigation.navigate("播放历史")}
             />
-            {AHA_ENABLE && <ShowMoreButton
+            {ahaEnable && <ShowMoreButton
               text={CLangKey.pinCode.tr()}
               leftIcon={<PinIcon style={{ color: colors.button }} />}
               onPress={() => {

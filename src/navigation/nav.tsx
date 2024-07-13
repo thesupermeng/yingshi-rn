@@ -165,6 +165,8 @@ export default () => {
   const screenState = useSelector<screenModel>('screenReducer');
   const appState = useSelector<BackgroundType>('backgroundReducer');
 
+  const ahaEnable = AHA_ENABLE && YSConfig.instance.enableAhaYule;
+
   const HomeTabScreen = useCallback(() => {
     return (
       <HomeTab.Navigator
@@ -269,8 +271,8 @@ export default () => {
         {(YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5) &&
           <HomeTab.Screen name="会员中心" component={SportAndX} />
         }
-        {AHA_ENABLE && <HomeTab.Screen name="娱乐" component={AhaWebScreen} initialParams={{url: '/games?hasGame=true'}}/>}
-        {!AHA_ENABLE && <HomeTab.Screen name="播单" component={PlaylistScreen} />}
+        {ahaEnable && <HomeTab.Screen name="娱乐" component={AhaWebScreen} initialParams={{url: '/games?hasGame=true'}}/>}
+        {!ahaEnable && <HomeTab.Screen name="播单" component={PlaylistScreen} />}
         <HomeTab.Screen name="我的" component={ProfileScreen} />
       </HomeTab.Navigator>
     );

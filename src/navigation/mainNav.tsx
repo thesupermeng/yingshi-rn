@@ -129,7 +129,9 @@ export default () => {
           setAreaNavConfig(false);
           setLoadedAPI(true);
         } else {
+          console.debug(locationResp);
           YSConfig.instance.setAreaConfig(locationResp.status);
+          YSConfig.instance.setAhaYuleEnable(locationResp.enable_aha_yule === 'y')
           setAreaNavConfig(locationResp.status);
           setLoadedAPI(true);
         }
