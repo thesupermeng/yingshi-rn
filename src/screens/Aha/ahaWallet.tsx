@@ -16,7 +16,17 @@ function AhaWalletView({ loadingSize, pageOpen, pageClose }: AhaWalletProps) {
 
   return (
     <View style={{ width: '100%', height: '100%' }}>
-      <AhaWebView url={webUrl} loadingSize={loadingSize} pageOpen={pageOpen} pageClose={pageClose}/>
+      <AhaWebView 
+        name="Wallet"
+        url={webUrl} 
+        loadingSize={loadingSize}
+        whitelist="/user/wallet"
+        blacklist="*"
+        errorType="banner"
+        backgroundColor="#1A1E21"
+        pageOpen={pageOpen} 
+        pageClose={pageClose}
+      />
     </View>
   );
 }

@@ -110,6 +110,7 @@ export class CLangKey {
     static refresh = 'refresh';
     static searchHistory = 'searchHistory';
     static searchRecord = 'searchRecord';
+    static searchInputEmpty = 'searchInputEmpty';
     static watchVideo = 'watchVideo';
     static watchPlaylist = 'watchPlaylist';
     static speed = 'speed';

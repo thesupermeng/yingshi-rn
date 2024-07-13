@@ -5,18 +5,28 @@ import { memo } from "react";
 import WebView from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showLoginAction, showLoginExpired } from "@redux/actions/screenAction";
-import { BackHandler, View } from "react-native";
+import { BackHandler, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { addUserAuthState, removeUserAuthState } from "@redux/actions/userAction";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { UserApi } from "../../api/user";
 import { clearMinivodApiCache } from "../../utils/minivodDownloader";
 import { User } from "../../models/user";
 import FastImage from "react-native-fast-image";
+import { useTheme } from "@react-navigation/native";
+import { IS_OTHER_SKIN } from "@utility/constants";
+import RefreshIcon from '@static/images/refresh.svg';
+import NoWifi from '@static/images/no-wifi.svg';
+
 
 interface AhaWebProps {
+  name?: string,
   url?: string,
   html?: string,
+  whitelist?: string,
+  blacklist?: string,
   loadingSize?: number,
+  errorType?: 'page' | 'banner',
+  backgroundColor?: string,
   setWebTitle?: (title:string) => void,
   setLoading?: (loading:boolean) => void,
   pageOpen?: (url:string, navBack?:number) => void,
@@ -24,25 +34,32 @@ interface AhaWebProps {
   pageRoute?: (name:string, params:any) => void,
 }
 
-function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen, pageClose, pageRoute}: AhaWebProps) {
+function AhaWebView({
+  name, url, html, whitelist, 
+  blacklist, loadingSize, errorType, 
+  backgroundColor, 
+  setWebTitle, setLoading, 
+  pageOpen, pageClose, pageRoute
+}: AhaWebProps) {
 
   const dispatch = useAppDispatch();
   const [uniqueToken, setUniqueToken] = useState(`${Date.now()}`)
   const [baseUrl] = useState(url);
   const [baseHtml] = useState(html)
   const [webViewUrl, setWebViewUrl] = useState('');
-  const [webViewRef, setWebViewRef] = useState<any>();
-  const [canGoBack, setCanGoBack] = useState(false);
+  // const [canGoBack, setCanGoBack] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const isClosed = useRef(false);
+  const [whiteList] = useState(whitelist?.split(';'));
+  const [blackList] = useState(blacklist?.split(';'));
 
   const [ahaToken, setAhaToken] = useState<string>()
   const [ahaHost] = useState('https://iframe-h5.aha666.site')
   const [channelCode] = useState('100030')
   const userState = useSelector<UserStateType>('userReducer');
   const ahaTokenValidate = useRef(false);
-
-  let webView:any = undefined;
+  const webViewRef = useRef<any>(null);
   
   useEffect(() => {
     const email = userState.user?.userEmail ?? ''
@@ -68,11 +85,11 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
 
   useEffect(() => {
     // https://iframe-h5.aha666.site/games
-    console.log('====> aha token', ahaToken);
     ahaTokenValidate.current = false;
     if (ahaToken == undefined) return;
     if (baseUrl == undefined) return;
 
+    console.debug(`==>【${name}】【TOKEN】`, ahaToken);
     let res = baseUrl || '/games?hasGame=true';
     if (!res.startsWith('http://') && !res.startsWith('https://')) {
       res = `${ahaHost}${res}`
@@ -93,28 +110,38 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
       res = res + sep + `_u=${uniqueToken}`
       sep = '&'
     }
-    // history page must include hasGame=true
-    if (res.startsWith(`${ahaHost}/user/history`)) {
+    if (res.startsWith(`${ahaHost}/wallet`) && !res.includes("hasGame")) {
       res = res + sep + 'hasGame=true'
       sep = '&'
     }
+    if (res.startsWith(`${ahaHost}/user/history`) && !res.includes("hasGame")) {
+      res = res + sep + 'hasGame=true'
+      sep = '&'
+    }
+    if (!res.includes("bgColor")) {
+      const color = backgroundColor?.slice(1, 6) ?? "161616"
+      res = res + sep + `bgColor=${color}`
+      sep = '&'
+    }
+    
     if (res !== webViewUrl) {
       setWebViewUrl(res)
     }
   }, [baseUrl, ahaToken, uniqueToken, channelCode])
 
   const webSource = useMemo(() => {
-    console.log('====> webSource', baseHtml, webViewUrl);
     if (baseHtml && baseHtml.length > 0) {
+      console.debug(`==>【${name}】`, baseHtml);
       return { html: baseHtml }
     } else if (webViewUrl && webViewUrl.length > 0) {
+      console.debug(`==>【${name}】`, webViewUrl);
       return { uri: webViewUrl, method: 'GET'}
     } else {
       return undefined
     }
   }, [baseHtml, webViewUrl])
 
-  const INJECTED_JAVASCRIPT = `
+  const INJECTED_JAVASCRIPT_MESSAGE = `
     function handleReactMessage(event) {
       window.ReactNativeWebView.postMessage(JSON.stringify(event.data));
     }
@@ -178,13 +205,13 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
   const handleMessage = (event:any) => {
     try {
       const json = JSON.parse(event.nativeEvent.data);
-      const {message, type, url, newUrl, data} = json;
+      const {message, type, url, data} = json;
       if (type === 'urlChange') {
-        console.log(`==> 【iframe】【${type}】`, newUrl);
-        if (!newUrl || newUrl.includes('undefined')) {
-          handleSessionExpired();
-          return;
-        }
+        // console.log(`==> 【${name}】【iframe】【${type}】`, newUrl);
+        // if (!newUrl || newUrl.includes('undefined')) {
+        //   handleSessionExpired();
+        //   return;
+        // }
         // setHideFooter(newUrl.endsWith('/sports/sport'));
       }
       // if (event.data.type === 'openBottomSheet' &&
@@ -203,7 +230,7 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
       //   setHideFooter(true);
       // }
       if (message === 'iframe') {
-        console.log(`==> 【iframe】【${type}】`, event.nativeEvent);
+        console.debug(`==>【${name}】【iframe】【${type}】`, event.nativeEvent);
         if (type === 'login') {
           dispatch(showLoginAction());
         } else if (type === 'share') {
@@ -232,14 +259,10 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
         } else if (type === 'forgotSecurityPin') {
           handlePin(false)
         } else if (type === 'return') {
-          if (url === '/myprofile') {
-            handleClose()
-          }
+          handleClose()
         } else {
-          console.log(`==> 【iframe】[${type}]`, url);
-          if (!url || url.includes('undefined')) {
-            handleSessionExpired();
-          } else {
+          console.log(`==>【iframe】[${type}]`, url);
+          if (url && !url.includes('undefined')) {
             handleOpen(url)
           }
         }
@@ -249,13 +272,29 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
     }
   }
 
-  const handleRef = (view:any) => {
-    // console.log(`==webViewRef:${view}`);
-    webView = view
-  }
-
   const handleLoad = () => {
     // console.log(`==webViewLoad:`, webView);
+  }
+
+  const handleLoadEnd = () => {
+    // console.log(`==webViewLoad:`, webView);
+    setIsRefreshing(false);
+    if (setLoading) {
+      new Promise(() => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 200)
+      })
+    } else {
+      // for first loading
+      if (isLoading) {
+        new Promise(() => {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 200)
+        })
+      }
+    }
   }
 
   const handleError = (event:any) => {
@@ -266,7 +305,7 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
     // Keep track of going back navigation within component
     // this.canGoBack = navState.canGoBack;
     // console.log(`==webViewNavigationStateChange:${navState.url}`, navState);
-    setCanGoBack(navState.canGoBack);
+    // setCanGoBack(navState.canGoBack);
     // const url = navState.url ?? "";
     // if (url.includes('www.sss999888.com')) {
     //   console.log('== sss999888', webView, webView?.stopLoading, webView?.goBack);
@@ -285,65 +324,125 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
     if (setWebTitle) {
       setWebTitle(navState.title);
     }
-    const loading = navState.loading ?? false;
-    if (setLoading) {
-      setLoading(loading)
-    } else {
-      // for first loading
-      if (isLoading && !loading) {
-        setIsLoading(false);
-      }
-    }
+    console.debug(`==>【${name}】【STATE】:${navState.url}`, navState.loading);
   }
 
   const handleRequest = (event:any) => {
-    // console.log('========》 webViewShouldStartLoadWithRequest', event);
     const url = event?.url ?? "";
     if (url.includes('www.sss999888.com')) {
       return false
+    }
+    if (whiteList != undefined && whitelist != null) {
+      for (const item of whiteList) {
+        if (item === '*') {
+          console.debug(`==>【${name}】【WHITELIST】`, url);
+          return true
+        }
+        let res = item;
+        if (!res.startsWith('http://') && !res.startsWith('https://')) {
+          res = `${ahaHost}${res}`
+        }
+        if (url.startsWith(res)) {
+          console.debug(`==>【${name}】【WHITELIST】`, url, res);
+          return true
+        }
+      }
+    }
+    if (blackList != undefined && blackList != null) {
+      for (const item of blackList) {
+        if (item === '*') {
+          console.debug(`==>【${name}】【BLACKLIST】`, url);
+          return false
+        }
+        let res = item;
+        if (!res.startsWith('http://') && !res.startsWith('https://')) {
+          res = `${ahaHost}${res}`
+        }
+        if (url.startsWith(res)) {
+          console.debug(`==>【${name}】【BLACKLIST】`, url, res);
+          return false
+        }
+      }
     }
     return true
   }
 
   const handleScroll = (event:any) => {
-    //console.log('==webViewScroll', event);
+    
   }
 
-  const onBackButtonPressAndroid = (): boolean => {
-      if (canGoBack) {
-        webViewRef?.goBack();
-        return false
-      } else {
-        if (pageClose) {
-          pageClose()
-        }
-        return true
-      }
-  };
+  const renderLoading = () => (
+    <View style={{
+      ...styles.loading, 
+      backgroundColor: backgroundColor ?? "rgb(22, 22, 22)"
+    }}>
+      <FastImage
+        style={{ height: loadingSize ?? 150, width: loadingSize ?? 150 }}
+        source={require("@static/images/videoBufferLoading.gif")}
+        resizeMode={"contain"}
+      />
+    </View>
+  )
 
-  const componentDidMount = () => {
-    BackHandler.addEventListener('hardwareBackPress', onBackButtonPressAndroid);
+  const renderError = (errorDomain: string | undefined, errorCode: number, errorDesc: string) => {
+    const {colors} = useTheme();
+    return (<View style={{
+      ...(errorType === 'banner' ? styles.errorBanner : styles.errorPage), 
+      backgroundColor: backgroundColor ?? "rgb(22, 22, 22)"
+    }}>
+      <View style={ errorType === 'banner' ? styles.errorBannerIcon : styles.errorPageIcon}>
+        <NoWifi width={errorType === 'banner' ? 25 : 100} />
+      </View>
+      <View style={ errorType === 'banner' ? styles.errorBannerMsg : styles.errorPageMsg}>
+        <Text style={{color: '#F1C557', fontSize: 16}}>
+          数据加载失败
+        </Text>
+      </View>
+      <TouchableOpacity activeOpacity={0.7} onPress={onRefresh}>
+        <View style={{
+          ...(errorType === 'banner' ? styles.refreshBannerBtn : styles.refreshBtn),
+          backgroundColor: IS_OTHER_SKIN ? 'white' : colors.title,
+        }}>
+          <View style={{ position: 'relative', top: 2, paddingRight: 3 }}>
+            <RefreshIcon />
+          </View>
+          <Text
+            style={{
+              ...styles.refreshText,
+              color: colors.background,
+            }}>
+            刷新
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>)
   }
+  
 
-  const componentWillUnmount = () => {
-    BackHandler.removeEventListener('hardwareBackPress', onBackButtonPressAndroid);
-  }
-
+  const onRefresh = React.useCallback(() => {
+    setIsRefreshing(true);
+    if (webViewRef.current && webViewRef.current.reload) {
+      setIsRefreshing(true);
+      webViewRef.current.reload();
+    }
+  }, []);
 
   return (
     <>
       { 
-        webSource && <WebView 
-          ref={handleRef}
-          // injectedJavaScript={INJECTED_JAVASCRIPT}
+        webSource && 
+        <WebView 
+          ref={webViewRef}
+          // injectedJavaScript={INJECTED_JAVASCRIPT_MESSAGE}
           // injectedJavaScriptForMainFrameOnly={true}
-          injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
-          bounces={false}
+          injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT_MESSAGE}
+          bounces={true}
           scalesPageToFit={true}
           source={webSource}
-          style={{width:'100%', height:'100%', backgroundColor: "#1A1E21"}}
+          style={styles.web}
           useWebKit={false}
           onLoad={handleLoad}
+          onLoadEnd={handleLoadEnd}
           onError={handleError}
           onMessage={handleMessage}
           onNavigationStateChange={handleStateChange}
@@ -353,28 +452,109 @@ function AhaWebView({ url, html, loadingSize, setWebTitle, setLoading, pageOpen,
           onScroll={handleScroll}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          allowsInlineMediaPlayback={true}
+          backgroundColor="#1A1E21"
+          defaultBackgroundColor="#1A1E21"
+          startInLoadingState={true}
+          pullToRefreshEnabled
+          setSupportMultipleWindows={false}
+          renderLoading={renderLoading}
+          renderError={renderError}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
+              colors={['blue', 'green', 'red']}
+              progressBackgroundColor="white"
+            />
+          }
         ></WebView>
       }
-      {isLoading && <View 
-        style={{
-          width: '100%', 
-          height: '100%', 
-          position: 'absolute', 
-          zIndex: 1000, 
-          backgroundColor: 'rgba(20,22,25,0)',
-          justifyContent: 'center', 
-          alignItems: 'center'
-        }}
-      >
-        <FastImage
-          style={{ height: loadingSize ?? 150, width: loadingSize ?? 150 }}
-          source={require("@static/images/videoBufferLoading.gif")}
-          resizeMode={"contain"}
-        />
-      </View>}
     </>
-    
   );
 }
 
 export default memo(AhaWebView);
+
+const styles = StyleSheet.create({
+  web: {
+    flex:1, 
+    width:'100%', 
+    height:'100%', 
+    backgroundColor: "#1A1E21"
+  },
+  loading: {
+    width: '100%', 
+    height: '100%', 
+    backgroundColor: '#1A1E21',
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  errorPage: {
+    width:'100%', 
+    height:'100%', 
+    backgroundColor: "#1A1E21",
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorBanner: {
+    width:'100%', 
+    height:'100%', 
+    paddingLeft: 16,
+    paddingRight: 16,
+    backgroundColor: "#1A1E21",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  errorPageIcon: {
+    width: 100, 
+    height: 100, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorBannerIcon: {
+    width: 20, 
+    height: 20, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorPageMsg: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorBannerMsg: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  indicator: {
+    width: 150,
+    height: 150,
+  },
+  refreshBtn: {
+    marginTop: 20,
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+  refreshBannerBtn: {
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+  refreshText: {
+    color: 'white',
+    textAlign: 'center',
+  }
+});
