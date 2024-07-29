@@ -10,7 +10,7 @@ import com.android.build.OutputFile
 
 def ANALYTICS_FIREBASE = "0";
 def ANALYTICS_UMENG = "1";
-def Umeng_Channel_Label = "WEB";
+def Umeng_Channel_Label = "SAMSUNG";
 def ENV_MODE = "PROD";
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -109,12 +109,12 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
             // ABB version 79 , 13 jun  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
-        versionCode 81
-        versionName "1.8.3"
+        versionCode 93
+        versionName "1.9.1"
         resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
         resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
         resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
-        resValue "string", "UMENG_CHANNEL", "WEB"
+        resValue "string", "UMENG_CHANNEL", "SAMSUNG"
         resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
         resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
         resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"

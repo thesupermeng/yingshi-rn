@@ -34,6 +34,8 @@ export const lang = {
     [CLangKey.tvShowsTab]: 'TV Shows',
     [CLangKey.profileTab]: 'Profile',
     [CLangKey.gamesTab]: 'Aha',
+    [CLangKey.svodTab]: 'Shorts',
+    [CLangKey.discoveryTab]: 'Discovery',
 
     // ============================== common ==============================
     [CLangKey.myFavourite]: 'Favourite',

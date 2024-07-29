@@ -50,6 +50,11 @@ export class CApi {
                 config.headers['App-Name'] = encodeURIComponent(APP_NAME_CONST) + '-' + Platform.OS.toUpperCase();
                 config.headers['IP-Address'] = this.#getIpAddress();
                 config.headers['App-Version'] = APP_VERSION;
+                config.timeout = 10000
+                config.timeoutErrorMessage = "网络访问超时"
+            } else {
+                config.timeout = 3000
+                config.timeoutErrorMessage = "网络访问超时"
             }
 
             return config;
@@ -230,7 +235,7 @@ export class CApi {
             }
 
             if (400 <= result.statusCode && result.statusCode <= 599) {
-                console.debug(`==>【${result.statusCode}】${url}`);
+                console.debug(`==>【${result.statusCode}】【RETRY${retry}】${url}`);
             } else {
                 break;
             }

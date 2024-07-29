@@ -803,5 +803,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#1A1E21",
     borderRadius: 10,
     marginTop: 20,
+    overflow: "hidden"
   }
 });

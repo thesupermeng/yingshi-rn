@@ -34,6 +34,8 @@ export const lang = {
     [CLangKey.tvShowsTab]: '电视节目',
     [CLangKey.profileTab]: '我的',
     [CLangKey.gamesTab]: '娱乐',
+    [CLangKey.svodTab]: '随刻视频',
+    [CLangKey.discoveryTab]: '发现',
 
     // ============================== common ==============================
     [CLangKey.myFavourite]: '我的收藏',

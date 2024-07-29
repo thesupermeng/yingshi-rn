@@ -1,6 +1,6 @@
 import { CEndpoint } from "@constants";
 import { CApi } from "@utility/apiService";
-import { APP_NAME_CONST, APP_VERSION, UMENG_CHANNEL } from "@utility/constants";
+import { APP_NAME_CONST, APP_VERSION, IP_GEO_ENABLE, IP_INFO_ENABLE, UMENG_CHANNEL } from "@utility/constants";
 import { Platform } from "react-native";
 import { YSConfig } from "../../ysConfig";
 import { NavOptionsType, XVodData } from "@type/ajaxTypes";
@@ -11,43 +11,66 @@ export class AppsApi {
     static getLocalIpAddress = async () => {
         // default ip
         let ipAddress = '219.75.27.16';
-        let countryCode = 'CN';
+        let countryCode = 'SG';
+        let result:any = {};
 
         try {
-            let result = await CApi.get(CEndpoint.appGetLocalIp, {
-                isFullUrl: true,
-            });
-
-            if (result.success === false) {
-                result = await CApi.get(CEndpoint.appGetLocalIpInfo, {
+            if (IP_GEO_ENABLE) {
+                const res = await CApi.get(CEndpoint.appGetLocalIp, {
                     isFullUrl: true,
                 });
-                if (result.success === false) {
-                    throw result.message;
+                console.debug("==>【IPGEO】", res)
+                if (res.success === true && res.data) {
+                    result = {...result, ...res.data}
+                }
+            }
+            if (IP_INFO_ENABLE) {
+                const res = await CApi.get(CEndpoint.appGetLocalIpInfo, {
+                    isFullUrl: true,
+                });
+                console.debug("==>【IPINFO】", res)
+                if (res.success === true && res.data) {
+                    result = {...result, ...res.data}
                 }
             }
 
-            if (result.data && result.data.IPv4) {
-                ipAddress = result.data.IPv4;
-            } else if (result.data && result.data.ip) {
-                ipAddress = result.data.ip;
+            const res = await CApi.get(CEndpoint.appGetLocalIpData, {
+                isFullUrl: true,
+            });
+            console.debug("==>【IPDATA】", res)
+            if (res.success === true && res.data) {
+                result = {...result, ...res.data}
             }
-            if (result.data && result.data.country_code) {
-                countryCode = result.data.country_code;
-            } else if (result.data && result.data.country) {
-                countryCode = result.data.country;
+              
+            if (result.ip) {
+                ipAddress = result.ip;
             }
-
-            return result.data;
+            if (result.IPv4) {
+                ipAddress = result.IPv4;
+            }
+            if (result.ip_address) {
+                ipAddress = result.ip_address;
+            }
+             
+            if (result.country) {
+                countryCode = result.country;
+            }
+            if (result.country_code) {
+                countryCode = result.country_code;
+            }
 
         } catch (e: any) {
-            console.error(`[Error getLocalIpAddress]: ${e.toString()}`);
-            YSConfig.instance.setNetworkIp(ipAddress);
-            YSConfig.instance.setLocationCountry(countryCode);
+            console.error(`[Error getLocalIpAddress]`, e);
+            // YSConfig.instance.setNetworkIp(ipAddress);
+            // YSConfig.instance.setLocationCountry(countryCode);
         } finally {
-            YSConfig.instance.setNetworkIp(ipAddress);
-            YSConfig.instance.setLocationCountry(countryCode);
+            // YSConfig.instance.setNetworkIp(ipAddress);
+            // YSConfig.instance.setLocationCountry(countryCode);
         }
+
+        YSConfig.instance.setNetworkIp(ipAddress);
+        YSConfig.instance.setLocationCountry(countryCode);
+        return result;
     };
 
     static getBottomNav = async () => {

@@ -2,6 +2,7 @@ export class CEndpoint {
     // ============================== apps ==============================
     static appGetLocalIp = 'https://geolocation-db.com/json';
     static appGetLocalIpInfo = 'https://ipinfo.io/json';
+    static appGetLocalIpData = 'https://api.3qi.live/v1/geolocation';
     static appGetBottomNav = 'nav/v1/bottomtabs';
     static appPostLocation = 'location/v1/info';
 

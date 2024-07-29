@@ -44,6 +44,8 @@ export class CLangKey {
     static tvShowsTab = 'tvShowsTab';
     static profileTab = 'profileTab';
     static gamesTab = 'gamesTab';
+    static svodTab = 'svodTab';
+    static discoveryTab = 'discoveryTab';
 
     // ============================== common ==============================
     static myFavourite = 'myFavourite';

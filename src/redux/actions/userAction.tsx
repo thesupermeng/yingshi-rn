@@ -23,3 +23,7 @@ export const updateUserAuth = (updatedState: any) => ({
   type: 'update_user_auth',
   payload: updatedState,
 });
+
+export const updateAhaUnique = () => ({
+  type: 'update_aha_unique'
+});

@@ -11,7 +11,7 @@ export type HomeTabParamList = {
   我的: undefined;
   体育: undefined;
   会员中心: undefined;
-  娱乐: {url: string};
+  娱乐: undefined;
 };
 
 export type ProfileTabParamList = {
@@ -125,6 +125,7 @@ export type RootStackParamList = {
     source: string,
     isPayment?: boolean,
   };
+  AhaGamesScreen: undefined;
   AhaWebScreen: {
     url?: string,
     navBack?: number

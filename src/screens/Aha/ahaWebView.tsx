@@ -22,6 +22,7 @@ interface AhaWebProps {
   name?: string,
   url?: string,
   html?: string,
+  uniqueToken?: string,
   whitelist?: string,
   blacklist?: string,
   loadingSize?: number,
@@ -35,7 +36,7 @@ interface AhaWebProps {
 }
 
 function AhaWebView({
-  name, url, html, whitelist, 
+  name, url, html, uniqueToken, whitelist, 
   blacklist, loadingSize, errorType, 
   backgroundColor, 
   setWebTitle, setLoading, 
@@ -43,7 +44,6 @@ function AhaWebView({
 }: AhaWebProps) {
 
   const dispatch = useAppDispatch();
-  const [uniqueToken, setUniqueToken] = useState(`${Date.now()}`)
   const [baseUrl] = useState(url);
   const [baseHtml] = useState(html)
   const [webViewUrl, setWebViewUrl] = useState('');
@@ -107,23 +107,24 @@ function AhaWebView({
       }
       res = res + sep + 'isApp=true'
       sep = '&'
-      res = res + sep + `_u=${uniqueToken}`
-      sep = '&'
+      if (uniqueToken) {
+        res = res + sep + `_u=${uniqueToken}`
+        sep = '&'
+      }
+      if (!res.includes("bgColor") && !res.includes("bgColor=")) {
+        const color = backgroundColor?.slice(1, 6) ?? "161616"
+        res = res + sep + `bgColor=${color}`
+        sep = '&'
+      }
+      if (res.startsWith(`${ahaHost}/wallet`) && !res.includes("hasGame=")) {
+        res = res + sep + 'hasGame=true'
+        sep = '&'
+      }
+      if (res.startsWith(`${ahaHost}/user/history`) && !res.includes("hasGame=")) {
+        res = res + sep + 'hasGame=true'
+        sep = '&'
+      }
     }
-    if (res.startsWith(`${ahaHost}/wallet`) && !res.includes("hasGame")) {
-      res = res + sep + 'hasGame=true'
-      sep = '&'
-    }
-    if (res.startsWith(`${ahaHost}/user/history`) && !res.includes("hasGame")) {
-      res = res + sep + 'hasGame=true'
-      sep = '&'
-    }
-    if (!res.includes("bgColor")) {
-      const color = backgroundColor?.slice(1, 6) ?? "161616"
-      res = res + sep + `bgColor=${color}`
-      sep = '&'
-    }
-    
     if (res !== webViewUrl) {
       setWebViewUrl(res)
     }
@@ -239,7 +240,6 @@ function AhaWebView({
           handleSessionExpired();
         } else if (type === 'gameLobby') {
           handleOpen(url, 1);
-          setUniqueToken(`${Date.now()}`)
         } else if (type === 'betcart') {
           handleOpen(url)
         } else if (type === 'sportLobby') {
@@ -302,25 +302,6 @@ function AhaWebView({
   }
 
   const handleStateChange = (navState:any) => {
-    // Keep track of going back navigation within component
-    // this.canGoBack = navState.canGoBack;
-    // console.log(`==webViewNavigationStateChange:${navState.url}`, navState);
-    // setCanGoBack(navState.canGoBack);
-    // const url = navState.url ?? "";
-    // if (url.includes('www.sss999888.com')) {
-    //   console.log('== sss999888', webView, webView?.stopLoading, webView?.goBack);
-    //   if (webView && webView.stopLoading) {
-    //     webView.stopLoading()
-    //   }
-    //   if (webView && webView.goBack) {
-    //     webView.goBack()
-    //   } 
-    //   if (setLoading) {
-    //     setLoading(false)
-    //   }
-    //   return
-    // }
-    
     if (setWebTitle) {
       setWebTitle(navState.title);
     }

@@ -10,7 +10,7 @@ import { useTheme } from "@react-navigation/native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Dimensions } from "react-native";
 import Orientation from "react-native-orientation-locker";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { screenModel } from "@type/screenType";
 import { RootState } from "@redux/store";
 import { useAppSelector } from "@hooks/hooks";
@@ -23,6 +23,8 @@ interface Props {
   isHome?: boolean;
   isPlay?: boolean;
   isBgHide?: boolean;
+  isTranslucent?: boolean;
+  isLightContent?: boolean;
 }
 export default function ScreenContainer({
   children,
@@ -32,7 +34,10 @@ export default function ScreenContainer({
   header,
   isHome = false,
   isPlay = false,
-  isBgHide =false
+  isBgHide =false,
+  isTranslucent = false,
+  isLightContent = true
+
 }: Props) {
   const windowHeight = Dimensions.get("window").height;
   let bottomTabHeight = 0;
@@ -53,6 +58,38 @@ export default function ScreenContainer({
   //   ({ screenReducer }: RootState) => screenReducer
   // );
 
+  // useEffect(() => {
+  //   if (isTranslucent) {
+  //     if (isLightContent) {
+  //       StatusBar.setBackgroundColor('transparent');
+  //       StatusBar.setBarStyle('light-content');
+  //     } else {
+  //       StatusBar.setBackgroundColor('transparent');
+  //       StatusBar.setBarStyle('dark-content');
+  //     }
+  //   } else {
+  //     if (isLightContent) {
+  //       StatusBar.setBackgroundColor('#000');
+  //       StatusBar.setBarStyle('light-content');
+  //     } else {
+  //       StatusBar.setBackgroundColor('#fff');
+  //       StatusBar.setBarStyle('dark-content');
+  //     }
+  //   }
+  // }, [])
+
+  const statusBarBackgroundColor = useMemo(() => {
+    if (isTranslucent) {
+      return 'transparent'
+    }
+    if (isBgHide) {
+      return 'inherit'
+    } else {
+      return 'black'
+    }
+  }, [isTranslucent, isBgHide])
+
+
   return (
     <>
       {scrollView ? (
@@ -67,7 +104,11 @@ export default function ScreenContainer({
           stickyHeaderIndices={[0]}
           contentContainerStyle={{ paddingBottom: 30 }}
         >
-          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black'}  barStyle="light-content" />
+          <StatusBar 
+            translucent={isTranslucent}
+            backgroundColor={statusBarBackgroundColor}
+            barStyle={isLightContent ? "light-content" : "dark-content"}  
+          />
           {header}
           <View
             style={{
@@ -94,7 +135,11 @@ export default function ScreenContainer({
             // height: displayHeight,
           }}
         >
-          <StatusBar backgroundColor={isBgHide ? 'inherit' : 'black' } barStyle="light-content" />
+          <StatusBar 
+            translucent={isTranslucent}
+            backgroundColor={statusBarBackgroundColor}
+            barStyle={isLightContent ? "light-content" : "dark-content"} 
+          />
           <View
             style={{
               ...styles.innerContainer,

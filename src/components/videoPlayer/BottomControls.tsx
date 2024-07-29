@@ -175,14 +175,14 @@ export default ({
               </RectButton>
             </View>
             <View style={{ ...styles.row, gap: 20 }}>
-              {/* {
+              {
                 hasVideoRatioControl &&
                 <RectButton
                   disallowInterruption={true}
                   onPress={onVideoAspetRatioPress}>
                   <Text style={{ color: colors.text }}>比例</Text>
                 </RectButton>
-              } */}
+              }
               {
                 onNextEpisode !== undefined &&
                 <RectButton

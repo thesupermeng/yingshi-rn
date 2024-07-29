@@ -37,6 +37,7 @@ const initialState: screenModel = {
   isPlayGuideShown2 :  false, //4
   isSportGuideShown : false, //5
   autoSelectSport : false, //6
+  ahaUniqueToken : `${Date.now()}`
 };
 
 export function screenReducer(state = initialState, action: screenActionType) {
@@ -286,6 +287,12 @@ export function screenReducer(state = initialState, action: screenActionType) {
             ...state,
             autoSelectSport: action.payload,
           };
+        case "update_aha_unique":
+          return {
+            ...state,
+            ahaUniqueToken: `${Date.now()}`
+          }
+      
     default:
       return state;
   }

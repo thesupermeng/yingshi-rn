@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../screens/Home";
+import AhaGamesScreen from "../screens/Aha/ahaGames";
 import AhaWebScreen from "../screens/Aha/ahaWebScreen";
 import PlaylistScreen from "../screens/Playlist/Playlist";
 import ProfileScreen from "../screens/Profile/Profile";
@@ -141,6 +142,7 @@ import { CLangKey } from "@constants";
 import { Webview } from "../screens/Common/Webview";
 import AhaPinCodeScreen from "../screens/Aha/ahaPinCodeScreen";
 import AhaPinOtpScreen from "../screens/Aha/ahaPinOtpScreen";
+import { toggleTheme } from "@redux/actions/themeAction";
 
 export default () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -166,6 +168,10 @@ export default () => {
   const appState = useSelector<BackgroundType>('backgroundReducer');
 
   const ahaEnable = AHA_ENABLE && YSConfig.instance.enableAhaYule;
+
+  useEffect(() => {
+    dispatch(toggleTheme(true))
+  }, [])
 
   const HomeTabScreen = useCallback(() => {
     return (
@@ -271,7 +277,7 @@ export default () => {
         {(YSConfig.instance.tabConfig != null && YSConfig.instance.len == 5) &&
           <HomeTab.Screen name="会员中心" component={SportAndX} />
         }
-        {ahaEnable && <HomeTab.Screen name="娱乐" component={AhaWebScreen} initialParams={{url: '/games?hasGame=true'}}/>}
+        {ahaEnable && <HomeTab.Screen name="娱乐" component={AhaGamesScreen} />}
         {!ahaEnable && <HomeTab.Screen name="播单" component={PlaylistScreen} />}
         <HomeTab.Screen name="我的" component={ProfileScreen} />
       </HomeTab.Navigator>
@@ -743,6 +749,10 @@ export default () => {
             name="Webview"
             component={Webview}
             options={{ orientation: "portrait" }}
+          />
+          <Stack.Screen 
+            name="AhaGamesScreen" 
+            component={AhaGamesScreen} 
           />
           <Stack.Screen 
             name="AhaWebScreen" 

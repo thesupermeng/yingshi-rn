@@ -5,10 +5,10 @@ import {
 import ScreenContainer from "../../components/container/screenContainer";
 import { memo, useEffect, useState } from "react";
 import React from "react";
-import NoConnection from "../../components/common/noConnection";
-import NetInfo from "@react-native-community/netinfo";
 import AhaWebView from "./ahaWebView";
-import TitleWithBackButtonHeader from "@iosScreen/components/header/titleWithBackButtonHeader";
+import { updateAhaUnique } from "@redux/actions/userAction";
+import { useDispatch } from "react-redux";
+import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
 
 function AhaWebScreen({ navigation, route }: BottomTabScreenProps<any>) {
 
@@ -17,6 +17,14 @@ function AhaWebScreen({ navigation, route }: BottomTabScreenProps<any>) {
   const navBack = `${route.params?.navBack}` === '1';
   const [webTitle, setWebTitle] = useState('');
   const webName = route.name;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      dispatch(updateAhaUnique());
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <>
