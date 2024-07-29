@@ -1,20 +1,60 @@
-import React, {useEffect, useState, useMemo, useCallback, useRef} from 'react';
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import {
   View,
-  TouchableWithoutFeedback,
   StyleSheet,
   StatusBar,
-} from 'react-native';
-import Video from 'react-native-video';
-import {useTheme, useNavigation} from '@react-navigation/native';
-import {useOrientation} from '../../hooks/useOrientation';
-import PlayFullScreenGesture from '../gestures/vod/PlayFullScreenGesture';
-import {debounce} from 'lodash';
+  AppState,
+  Text,
+  BackHandler,
+  Platform,
+  LogBox,
+  Linking,
+} from "react-native";
 
-import {Dimensions} from 'react-native';
-import VideoControlsOverlay from './VideoControlsOverlay';
-import Orientation from 'react-native-orientation-locker';
-import WebView from 'react-native-webview';
+import Video from "react-native-video";
+import { useTheme, useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
+import { debounce } from "lodash";
+
+import { Dimensions } from "react-native";
+import VideoControlsOverlay from "./VideoControlsOverlay";
+import WebView from "react-native-webview";
+
+
+import FastImage from "../../components/common/customFastImage";
+
+import FastForwardProgressIcon from "@static/images/fastforwardProgress.svg";
+import RewindProgressIcon from "@static/images/rewindProgress.svg";
+
+import { incrementSportWatchTime, setFullscreenState, showAdultModeVip } from "@redux/actions/screenAction";
+
+import {
+  LiveTVStationItem,
+} from "@type/ajaxTypes";
+import VideoWithControls from "./videoWithControls";
+import { useDispatch } from "react-redux";
+import { useAppSelector, useSelector } from "@hooks/hooks";
+import { screenModel } from "@type/screenType";
+import { ADULT_MODE_PREVIEW_DURATION, AD_VIDEO_SECONDS, NON_VIP_STREAM_TIME_SECONDS } from "@utility/constants";
+import { AdVideoImage } from "./AdVideoImage";
+import { VodReducerState } from "@redux/reducers/vodReducer";
+import { VodApi } from "@api";
+import { useQuery } from "@tanstack/react-query";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import InAppBrowser from "react-native-inappbrowser-reborn";
+import ImmersiveMode from "react-native-immersive-mode"
+import { RootState } from "@redux/store";
+import { UserStateType } from "@redux/reducers/userReducer";
+import { User, Vod } from "@models";
+
+LogBox.ignoreLogs([`Trying to load empty source.`]);
+
 
 interface Props {
   vod_url?: string;
@@ -25,291 +65,843 @@ interface Props {
   vod_source?: any;
   onBack?: () => any;
   useWebview?: boolean;
+  onEpisodeChange?: any;
+  episodes?: VodEpisodeGroup;
+  activeEpisode?: number;
+  rangeSize?: number;
+  autoPlayNext?: boolean;
+  onShare?: () => any;
+  movieList?: Vod[];
+  showGuide?: boolean;
+  showMoreType?: "episodes" | "streams" | "movies" | "none";
+  streams?: LiveTVStationItem[];
+  isFetchingRecommendedMovies?: boolean;
+  appOrientation: string;
+  devicesOrientation: string;
+  lockOrientation: (orientation: string) => void;
+  handleSaveVod?: any;
+  onReadyForDisplay?: () => void;
+  showAds?: boolean,
+  onPressCountdown?: () => void,
+  vodID?: number,
+  sourceID?: number,
+  onDownloadVod?: (nid: number) => void,
+  setShowAdOverlay: (show: boolean) => void,
+  onAdsMount?: () => void,
+  vipGuideModalOpen?: boolean,
 }
 
-const height = Dimensions.get('window').width;
-const width = Dimensions.get('window').height;
-
-export default ({
-  vod_url,
-  currentTimeRef = 0,
-  initialStartTime = 0,
-  vodTitle = '',
-  videoType = 'vod',
-  vod_source,
-  onBack,
-  useWebview = false,
-}: Props) => {
-  // console.log('vod_url is', vod_url)
-  const videoPlayerRef = React.useRef<Video | null>();
-  const {colors, spacing, textVariants, icons} = useTheme();
-  const isPotrait = useOrientation();
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
-  const [isPaused, setIsPaused] = useState(false);
-  const [isShowControls, setIsShowControls] = useState(false);
-  const [disableFullScreenGesture, setDisableFullScreenGesture] =
-    useState(false);
-
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(initialStartTime);
-
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    if (!isPotrait) {
-      setIsFullScreen(true);
-    } else {
-      setIsFullScreen(false);
-    }
-  }, [isPotrait]);
-
-  useEffect(() => {
-    let intervalId = 0;
-    setCurrentTime(currentTimeRef.current);
-    if (isShowControls) {
-      intervalId = setInterval(() => {
-        setCurrentTime(currentTimeRef.current);
-      }, 500);
-    }
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [isShowControls, currentTimeRef]);
-
-  useEffect(() => {
-    Orientation.addOrientationListener(handleOrientation);
-    return () => {
-      Orientation.removeOrientationListener(handleOrientation);
-    };
-  }, []);
-
-  const handleOrientation = (orientation: any) => {
-    if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
-      StatusBar.setHidden(true);
-      // Orientation.lockToLandscape();
-      setIsFullScreen(true);
-    } else {
-      StatusBar.setHidden(false);
-      //Orientation.lockToPortrait();
-      setIsFullScreen(false);
-    }
-  };
-
-  const onToggleFullScreen = useCallback(() => {
-    if (isFullScreen) {
-      Orientation.lockToPortrait();
-      // Orientation.unlockAllOrientations();
-      StatusBar.setHidden(false);
-      setIsFullScreen(false);
-    } else {
-      Orientation.lockToLandscape();
-      // Orientation.unlockAllOrientations();
-      StatusBar.setHidden(true);
-      setIsFullScreen(true);
-    }
-  }, [isFullScreen, Orientation]);
-
-  const toggleControls = () => {
-    setIsShowControls(prev => !prev);
-    setDisableFullScreenGesture(prev => !prev);
-    debouncedFn();
-  };
-
-  const onVideoLoaded = (data: any) => {
-    setDuration(data.duration);
-    if (currentTimeRef) {
-      currentTimeRef.current = data.currentTime;
-    }
-    if (videoPlayerRef.current) {
-      videoPlayerRef.current.seek(initialStartTime);
-    }
-  };
-
-  const onSeek = (time: number) => {
-    if (videoPlayerRef.current) {
-      videoPlayerRef.current.seek(time);
-    }
-  };
-
-  const onVideoProgessing = (data: any) => {
-    currentTimeRef.current = data.currentTime;
-  };
-
-  const onSkip = (time: any) => {
-    if (videoPlayerRef?.current) {
-      let currentTime = currentTimeRef.current + time;
-      currentTime = Math.max(0, currentTime); // Ensure currentTime is not negative
-      currentTimeRef.current = currentTime;
-      videoPlayerRef.current.seek(currentTime);
-    }
-    // setCurrentTime(currentTime + time);
-    // if (currentTimeRef) {
-    //   console.log('pass 2nd  111111');
-    //   currentTimeRef.current += time;
-    //   currentTimeRef.current < 0
-    //     ? (currentTimeRef.current = 0)
-    //     : currentTimeRef.current;
-    // }
-    debouncedFn();
-  };
-
-  const onTogglePlayPause = () => {
-    setIsPaused(prev => !prev);
-    debouncedFn();
-  };
-
-  const onTouchScreen = useCallback(() => {
-    setDisableFullScreenGesture(prev => !prev);
-    setIsShowControls(prev => !prev);
-    debouncedFn();
-  }, []);
-
-  const changeControlsState = () => {
-    setIsShowControls(prev => false);
-    setDisableFullScreenGesture(prev => false);
-
-    return;
-  };
-
-  const debouncedFn = useCallback(debounce(changeControlsState, 4000), []);
-
-  const onGoBack = () => {
-    if (onBack !== undefined) {
-      onBack();
-    } else {
-      if (isFullScreen) {
-        Orientation.lockToPortrait();
-
-        StatusBar.setHidden(false);
-        setIsFullScreen(false);
-      } else {
-        setIsPaused(true);
-
-        setTimeout(() => {
-          navigation.goBack();
-        });
-
-        // navigation.goBack();
-      }
-    }
-  };
-
-  return (
-    <>
-      {isFullScreen && (
-        <PlayFullScreenGesture
-          onScreenTouched={onTouchScreen}
-          disableFullScreenGesture={disableFullScreenGesture}
-        />
-      )}
-      <TouchableWithoutFeedback onPress={toggleControls}>
-        <View style={styles.bofangBox}>
-          {(vod_url !== undefined || vod_source !== undefined) &&
-            (useWebview ? (
-              <WebView
-                resizeMode="contain"
-                source={vod_url === undefined ? vod_source : {uri: vod_url}}
-                // style={[
-                //   { backgroundColor: 'black' },
-                //   isFullScreen
-                //     ? {
-                //       // aspectRatio: 803 / 464,
-                //       alignSelf: 'center',
-                //     }
-                //     : {},
-                // ]}
-                style={
-                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-                }
-                onLoad={onVideoLoaded}
-                // onLoadEnd={onEnd}
-                // renderError={onError}
-                // renderLoading={<Loader />}
-              />
-            ) : (
-              <Video
-                ignoreSilentSwitch={'ignore'}
-                ref={ref => (videoPlayerRef.current = ref)}
-                fullscreen={isFullScreen}
-                paused={isPaused}
-                resizeMode="contain"
-                source={
-                  vod_source !== undefined
-                    ? vod_source
-                    : {
-                        uri: vod_url,
-                        headers: {
-                          origin: 'https://v.kylintv.com',
-                          referer: 'https://v.kylintv.com',
-                        },
-                      }
-                }
-                // source={{
-                //   uri: 'https://h5cdn2.kylintv.tv/live/ctshd_iphone.m3u8',
-                //   headers: {
-                //     origin: 'https://v.kylintv.com',
-                //     referer: 'https://v.kylintv.com/'
-                //   }}}
-                onLoad={onVideoLoaded}
-                progressUpdateInterval={1000}
-                onProgress={onVideoProgessing}
-                onSeek={data => {
-                  if (currentTimeRef) {
-                    currentTimeRef.current = data.currentTime;
-                  }
-                }}
-                style={
-                  !isFullScreen ? styles.videoPotrait : styles.videoLandscape
-                }
-              />
-            ))}
-          {(vod_url !== undefined || vod_source !== undefined) &&
-            isShowControls && (
-              <VideoControlsOverlay
-                onVideoSeek={onSeek}
-                currentTime={currentTime}
-                duration={duration}
-                onFastForward={onSkip}
-                paused={isPaused}
-                isFullScreen={isFullScreen}
-                onTogglePlayPause={onTogglePlayPause}
-                headerTitle={vodTitle}
-                onHandleFullScreen={onToggleFullScreen}
-                onHandleGoBack={onGoBack}
-                videoType={videoType}
-              />
-            )}
-        </View>
-      </TouchableWithoutFeedback>
-    </>
-  );
+type VideoControlsRef = {
+  showControls: () => void;
+  hideControls: () => void;
+  toggleControls: () => void;
+  isVisible: boolean;
+  hideSlider: () => void;
+  isLocked: boolean;
+  toggleLock: () => void;
 };
 
+export type VideoRef = {
+  setPause: (param: boolean) => void;
+  isPaused: boolean;
+  setCurrentTime: (time: number) => void;
+};
+
+export default forwardRef<VideoRef, Props>(
+  (
+    {
+      vod_url,
+      currentTimeRef = 0,
+      initialStartTime = 0,
+      vodTitle = "",
+      videoType = "vod",
+      vod_source,
+      onBack,
+      useWebview = false,
+      activeEpisode,
+      onEpisodeChange,
+      rangeSize,
+      episodes,
+      autoPlayNext = true,
+      onShare = () => { },
+      movieList = [],
+      showGuide = false,
+      streams = [],
+      showMoreType = "none",
+      isFetchingRecommendedMovies = false,
+      appOrientation,
+      devicesOrientation,
+      lockOrientation,
+      handleSaveVod = () => { },
+      onReadyForDisplay,
+      showAds = false,
+      onPressCountdown,
+      vodID,
+      sourceID,
+      onDownloadVod,
+      setShowAdOverlay,
+      onAdsMount,
+      vipGuideModalOpen = false,
+    }: Props,
+    ref
+  ) => {
+    const screenState = useSelector<screenModel>('screenReducer');
+
+    const videoPlayerRef = React.useRef<Video | null>();
+    const { colors, textVariants } = useTheme();
+    const [isFullScreen, setIsFullScreen] = useState(screenState.isPlayerFullScreen);
+    const [isPaused, setIsPaused] = useState(false);
+    const [duration, setDuration] = useState(0);
+    const [currentTime, setCurrentTime] = useState(initialStartTime);
+    const [isBuffering, setIsBuffering] = useState(false);
+    const [seekDirection, setSeekDirection] = useState<
+      "backward" | "none" | "forward"
+    >("none");
+    const [playbackRate, setPlaybackRate] = useState<number>(1);
+    const controlsRef = useRef() as React.MutableRefObject<VideoControlsRef>;
+    const accumulatedSkip = useRef(0);
+    const [isLastForward, setIsLastForward] = useState(true);
+
+    const navigation = useNavigation();
+    const route = useRoute();
+    const dispatch = useDispatch();
+    const isFocus = useIsFocused();
+
+    const userState = useSelector<UserStateType>('userReducer');
+    const bufferRef = useRef(true);
+    const onBuffer = (bufferObj: any) => {
+      if (!bufferObj.isBuffering) {
+        accumulatedSkip.current = 0;
+      }
+      setIsBuffering(bufferObj.isBuffering);
+      bufferRef.current = bufferObj.isBuffering;
+    };
+
+    const disableSeek = useRef(false)
+
+    const adVideoRef = useRef<Video | null>();
+    const adCountdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+    const [showAd, setShowAd] = useState(false);
+    const [adCountdownTime, setAdCountdownTime] = useState(AD_VIDEO_SECONDS);
+
+    const isOffline = useAppSelector(({ settingsReducer }: RootState) => settingsReducer.isOffline)
+
+    const isSeekErrorRef = useRef(false);
+
+    const { data: playerVodAds, isFetching: isFetchAds } = useQuery({
+      queryKey: ["playerAdsVideo"],
+      queryFn: () => VodApi.getPlayerAdVideo(),
+      enabled: !isOffline
+    });
+
+    useEffect(() => {
+      if (vod_url === '') return;
+
+      if (showAds &&
+        playerVodAds &&
+        (!User.isVip(userState.user))
+      ) {
+        setShowAd(true);
+        setAdCountdownTime(playerVodAds.minDuration);
+        adVideoRef.current?.seek(0);
+
+        // ========== for analytics - start ==========
+        UmengAnalytics.playsAdsViewAnalytics({
+          ads_slot_id: playerVodAds.slotId ?? undefined,
+          ads_id: playerVodAds.id ?? undefined,
+          ads_title: playerVodAds.eventTitle ?? '',
+          ads_name: playerVodAds.name ?? undefined,
+        });
+        // ========== for analytics - end ==========
+      }
+    }, [playerVodAds, vod_url]);
+
+    useEffect(() => {
+      if (adCountdownTime <= 0) {
+        setShowAd(false);
+        return;
+      }
+      if (adCountdownIntervalRef.current === null) {
+        adCountdownIntervalRef.current = setInterval(() => {
+          setAdCountdownTime(prev => prev - 1);
+        }, 1000)
+      }
+
+      return () => {
+        if (adCountdownIntervalRef.current) {
+          clearInterval(adCountdownIntervalRef.current);
+          adCountdownIntervalRef.current = null;
+        }
+      }
+    }, [adCountdownTime]);
+
+    useImperativeHandle(ref, () => ({
+      setPause: (pauseVideo: boolean) => {
+        setIsPaused(pauseVideo);
+        videoPlayerRef.current?.setNativeProps({ paused: pauseVideo });
+        adVideoRef.current?.setNativeProps({ paused: pauseVideo });
+
+        if (pauseVideo === true && adCountdownIntervalRef.current) {
+          clearInterval(adCountdownIntervalRef.current);
+          adCountdownIntervalRef.current = null;
+        } else if (pauseVideo === false && showAd) {
+          adCountdownIntervalRef.current = setInterval(() => {
+            setAdCountdownTime(prev => prev - 1);
+          }, 1000)
+        }
+      },
+      isPaused: isPaused,
+      setCurrentTime: (time) => setCurrentTime(time),
+    }));
+
+    const onGoBack = () => {
+      if (onBack !== undefined) {
+        onBack();
+        lockOrientation("PORTRAIT");
+        setIsFullScreen(false);
+      } else {
+        // just direct go back (go back the event will handle by beforeRemove)
+        navigation.goBack();
+      }
+    };
+
+    useEffect(() => {
+      // set orientation: "portrait" because if set all android will auto rotate
+      if (Platform.OS === "android" && !isFullScreen) {
+        navigation.setOptions({ orientation: "portrait" });
+      }
+
+      // ... (rest of the useEffect hook remains unchanged)
+      const subscription = AppState.addEventListener(
+        "change",
+        handleAppStateChange
+      );
+
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    useEffect(() => {
+      // for auto rotate video player
+      const isNeedAutoRotate = false;
+      const isLocked = controlsRef?.current?.isLocked ?? false;
+
+      if (isNeedAutoRotate && !isLocked) {
+        deviceOrientationHandle();
+      }
+    }, [devicesOrientation]);
+
+    useEffect(() => {
+      const removeBackPressListener = BackHandler.addEventListener(
+        "hardwareBackPress",
+        () => {
+          // just direct go back (go back the event will handle by beforeRemove)
+          navigation.goBack();
+          return true;
+        }
+      );
+
+      // handle go back event (except IOS swipe back)
+      const onBeforeRemoveListener = navigation.addListener(
+        "beforeRemove",
+        (e: any) => {
+          if (
+            !(
+              Platform.OS === "ios" &&
+              e.data.action.type.toLocaleLowerCase() === "pop"
+            )
+          ) {
+            // preventDefault cannot working in IOS swipe back and will have error
+            // use "gestureEnabled: false" to handle ios swipe back function
+            e.preventDefault();
+          }
+
+          if (isFullScreen) {
+            lockOrientation("PORTRAIT");
+            StatusBar.setHidden(false);
+            setIsFullScreen(false);
+
+            if (Platform.OS === "android") {
+              navigation.setOptions({ orientation: "portrait" });
+            }
+          } else {
+            adVideoRef.current?.setNativeProps({ paused: true })
+            videoPlayerRef.current?.setNativeProps({ paused: true })
+
+            setIsPaused(true);
+            // use setTimeout to prevent video non pause before pop the screen
+            setTimeout(() => {
+              navigation.dispatch(e.data.action);
+            }, 100);
+          }
+        }
+      );
+
+      return () => {
+        removeBackPressListener.remove();
+        onBeforeRemoveListener();
+      };
+    }, [isFullScreen, isPaused, videoPlayerRef.current, adVideoRef.current]);
+
+    useEffect(() => {
+      dispatch(setFullscreenState(isFullScreen));
+      // if full screen disable ios swipe back function
+      if (isFullScreen) {
+        navigation.setOptions({ gestureEnabled: false });
+      } else {
+        navigation.setOptions({ gestureEnabled: true });
+      }
+    }, [isFullScreen]);
+
+    useEffect(() => {
+      // when url change will reset play time (for 相关电视剧)
+      setCurrentTime(0);
+    }, [vod_url]);
+
+    // Handle app's background/foreground status
+    const handleAppStateChange = (nextAppState: any) => {
+      // setIsInBackground(nextAppState !== "active");
+      // if (nextAppState === "active") {
+      //   // setIsPaused(false); // Resume video when app becomes active (foreground)
+      // } else {
+      //   handleSaveVod();
+      // }
+
+      try {
+        if (currentTimeRef.current != 0 && nextAppState !== "active") {
+          console.log("save vod");
+          if (handleSaveVod) handleSaveVod();
+        }
+      } catch (err) {
+        console.log("err save vod!");
+        console.log(err);
+      }
+    };
+
+    const deviceOrientationHandle = () => {
+      // no handle for PORTRAIT-UPSIDEDOWN
+      if (
+        devicesOrientation === "LANDSCAPE-LEFT" ||
+        devicesOrientation === "LANDSCAPE-RIGHT"
+      ) {
+        setIsFullScreen(true);
+        // ImmersiveMode.fullLayout(false);
+        StatusBar.setHidden(true);
+
+        lockOrientation(devicesOrientation);
+      } else if (devicesOrientation === "PORTRAIT") {
+        setIsFullScreen(false);
+        // ImmersiveMode.fullLayout(true);
+        StatusBar.setHidden(false);
+
+        lockOrientation(devicesOrientation);
+      }
+    };
+
+    const onToggleFullScreen = useCallback(() => {
+      if (
+        appOrientation === "LANDSCAPE-LEFT" ||
+        appOrientation === "LANDSCAPE-RIGHT"
+      ) {
+        lockOrientation("PORTRAIT");
+        setIsFullScreen(false);
+        // ImmersiveMode.fullLayout(true);
+        StatusBar.setHidden(false);
+
+        if (Platform.OS === "android") {
+          navigation.setOptions({ orientation: "portrait" });
+        }
+      } else {
+        lockOrientation("LANDSCAPE");
+        setIsFullScreen(true);
+        // ImmersiveMode.fullLayout(false);
+        StatusBar.setHidden(true);
+
+        if (Platform.OS === "android") {
+          navigation.setOptions({ orientation: "landscape" });
+        }
+      }
+    }, [isFullScreen, appOrientation]);
+
+    const onVideoLoaded = (data: any) => {
+      setDuration(data.duration);
+      if (currentTimeRef) {
+        currentTimeRef.current = data.currentTime;
+      }
+      if (videoPlayerRef.current) {
+        videoPlayerRef.current.seek(initialStartTime);
+      }
+    };
+
+    const onSeek = (time: number) => {
+      if (disableSeek.current === true) return
+      hideSeekProgress();
+      time = Math.min(Math.max(time, 0), duration);
+      try {
+        if (videoPlayerRef.current && !isNaN(time)) {
+          videoPlayerRef.current.seek(time);
+          setCurrentTime(time);
+        }
+      } catch (err) {
+        console.log("Error!", err, time);
+      }
+    };
+
+    // const smoothSeekTo = (targetTime: number) => {
+    //   const FPS = 60; // Frames per second for smoother seek
+    //   const duration = 0.5; // Duration in seconds for the seek operation
+    //   const steps = duration * FPS;
+    //   const timeDiff = targetTime - currentTime;
+    //   const timeIncrement = timeDiff / steps;
+
+    //   for (let i = 0; i < steps; i++) {
+    //     setTimeout(() => {
+    //       const newTime = currentTime + timeIncrement;
+    //       setCurrentTime(newTime);
+    //       if (videoPlayerRef.current && !isNaN(newTime)) {
+    //         videoPlayerRef.current.seek(newTime);
+    //       }
+    //     }, (i + 1) * (100 / FPS));
+    //   }
+    // };
+
+    const onSeekGesture = (time: number) => {
+      if (disableSeek.current === true) return
+
+      if (isSeekErrorRef.current === true) {
+        return;
+      }
+
+      if (currentTime < time) {
+        setSeekDirection("forward");
+      } else {
+        setSeekDirection("backward");
+      }
+      // onSeek(time);
+      directSeekTo(time)
+    };
+
+
+    const directSeekTo = (targetTime: number) => {
+      if (disableSeek.current === true) return
+      hideSeekProgress()
+      // Calculate the direction of seeking based on the current and target times
+      // const direction = targetTime > currentTime ? 'forward' : 'backward';
+
+      //   // Calculate the seek amount based on the difference between target and current time
+      // const seekAmount = Math.abs(targetTime - currentTime);
+
+      // // Optionally, you can adjust the seek amount based on the direction to fine-tune seeking
+      // // For example, seek a shorter duration when seeking backward
+      // const adjustedSeekAmount = direction === 'backward' ? seekAmount * 0.8 : seekAmount;
+
+      // // Determine the new seek time based on the direction and adjusted seek amount
+      // const newTime = direction === 'forward' ? currentTime + adjustedSeekAmount : currentTime - adjustedSeekAmount;
+
+      // // Ensure the seek time stays within video duration boundaries
+      // const boundedTime = Math.min(Math.max(newTime, 0), duration);
+
+      // // Update the current time and seek in the video player
+      // setCurrentTime(boundedTime);
+      // if (videoPlayerRef.current && !isNaN(boundedTime)) {
+      //   videoPlayerRef.current.seek(boundedTime);
+      // }
+      const newTime = Math.min(Math.max(targetTime, 0), duration); // Ensure the seek time stays within video duration boundaries
+      setCurrentTime(newTime);
+      if (videoPlayerRef.current && !isNaN(newTime)) {
+        videoPlayerRef.current.seek(newTime);
+      }
+    };
+
+    const onVideoProgessing = (data: any) => {
+      setCurrentTime(data.currentTime);
+
+      try {
+        if (isSeekErrorRef.current === true) {
+          isSeekErrorRef.current = false;
+        } else {
+          currentTimeRef.current = data.currentTime;
+        }
+
+      } catch (err) {
+        console.error("crash here");
+      }
+
+      bufferRef.current = false;
+    };
+
+    const onSkip = (time: any) => {
+      if (disableSeek.current === true) return
+
+      if (isSeekErrorRef.current === true) {
+        return;
+      }
+
+      if (videoPlayerRef?.current) {
+        if (time > 0 && isLastForward == false) {
+          setIsLastForward(true);
+          accumulatedSkip.current = 0;
+        }
+
+        if (time < 0 && isLastForward == true) {
+          setIsLastForward(false);
+          accumulatedSkip.current = 0;
+        }
+
+        accumulatedSkip.current += time;
+        let currentTime = currentTimeRef.current + time;
+        currentTime = Math.max(0, currentTime);
+        currentTimeRef.current = currentTime;
+        videoPlayerRef.current.seek(currentTime);
+        setCurrentTime(currentTime);
+      }
+    };
+
+    const onTogglePlayPause = () => {
+      setIsPaused(!isPaused);
+    };
+
+    const hideSeekProgress = useCallback(
+      debounce(() => setSeekDirection("none"), 300),
+      []
+    );
+
+    const changeEpisodeAndPlay = (ep: any) => {
+      setIsPaused(true);
+      onEpisodeChange(ep);
+
+      setTimeout(() => {
+        setIsPaused(false);
+      }, 1000);
+    };
+
+    const getNextEpisode = () => {
+      if (
+        autoPlayNext &&
+        activeEpisode !== undefined &&
+        episodes &&
+        activeEpisode < episodes?.url_count - 1
+      ) {
+        return () => changeEpisodeAndPlay(episodes.urls[activeEpisode + 1].nid);
+      }
+      return undefined;
+    };
+
+    // useEffect(() => {
+    //   // if is sports stream, if watch time > 300s, pause vid
+    //   if (
+    //     route.name === "体育详情" &&
+    //     screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS
+    //   ) {
+    //     if (videoPlayerRef.current){
+    //       videoPlayerRef.current.pause();
+    //     }
+    //   }
+    // }, [screenState.sportWatchTime]);
+    // useEffect(() => {
+    //   if (
+    //     screenState.interstitialShow == true &&
+    //     route.name != "体育详情" &&
+    //     route.name != "电视台播放"
+    //   ) {
+    //     setIsPaused(true);
+    //   } else {
+    //     setIsPaused(false);
+    //   }
+    // }, [screenState.interstitialShow]);
+
+    useEffect(() => {
+      if (!isFocus) return;
+
+      if ((screenState.interstitialShow == true || vipGuideModalOpen === true) && Platform.OS === "ios") {
+        setIsPaused(true);
+      } else {
+        setIsPaused(false);
+      }
+    }, [screenState.interstitialShow, vipGuideModalOpen]);
+
+    useEffect(() => {
+      if (screenState.interstitialShow === true || vipGuideModalOpen === true) {
+        adVideoRef.current?.setNativeProps({ paused: true })
+      } else {
+        adVideoRef.current?.setNativeProps({ paused: false })
+      }
+    }, [screenState.interstitialShow, vipGuideModalOpen]);
+
+    useEffect(() => {
+      if (route.name == '体育详情') {
+        const unsub = setInterval(() => {
+          dispatch(incrementSportWatchTime());
+        }, 1000);
+
+        return () => clearInterval(unsub);
+      }
+    }, [route.name])
+
+    // useEffect(() => { // ! might have a conflict with the previous use effect ^^^^^^^
+    //   if (!isPaused){
+    //     setIsPaused(true)
+    //   }
+    // }, [screenState.adultModeVipShow])
+
+    const isVip = User.isVip(userState.user);
+
+    const pauseSportVideo =
+      route.name === "体育详情" &&
+      screenState.sportWatchTime > NON_VIP_STREAM_TIME_SECONDS && !User.isVip(userState.user)
+
+    useEffect(() => {
+      if (screenState.adultVideoWatchTime > ADULT_MODE_PREVIEW_DURATION && screenState.adultMode && !isVip) {
+        dispatch(showAdultModeVip())
+        setIsPaused(true)
+        disableSeek.current = true
+      } else {
+        disableSeek.current = false
+      }
+    }, [currentTime, isPaused])
+
+    const onPressAd = async () => {
+      if (!playerVodAds?.actionUrl) {
+        // ========== for analytics - start ==========
+        UmengAnalytics.playsAdsClickAnalytics();
+        // ========== for analytics - end ==========
+
+        if (onPressCountdown) onPressCountdown();
+        return;
+      }
+
+      const url = playerVodAds?.actionUrl.includes('http') ? playerVodAds?.actionUrl : 'https://' + playerVodAds?.actionUrl
+
+      // if (playerVodAds?.redirectType === 1) { // use web veiw
+      //   navigation.navigate('活动页', { bannerAd: bannerAd })
+
+      // } else if (playerVodAds?.redirectType === 2 && await InAppBrowser.isAvailable()) { // use in app browser
+      //   try {
+      //     await InAppBrowser.open(url);
+      //   } catch (e) {
+      //     Linking.openURL(url);
+      //   }
+      // } else { // use external browser
+      Linking.openURL(url);
+      // }
+
+      // ========== for analytics - start ==========
+      UmengAnalytics.playsAdsClickAnalytics({
+        url,
+        ads_slot_id: playerVodAds.slotId ?? undefined,
+        ads_id: playerVodAds.id ?? undefined,
+        ads_title: playerVodAds.eventTitle ?? '',
+        ads_name: playerVodAds.name ?? undefined,
+      });
+
+      // ========== for analytics - end ==========
+    }
+
+    useEffect(() => {
+      if (isFullScreen) {
+        lockOrientation('LANDSCAPE-LEFT')
+        ImmersiveMode.setBarMode('Full')
+        ImmersiveMode.fullLayout(true)
+      }
+      else {
+        lockOrientation('PORTRAIT')
+        ImmersiveMode.setBarMode('Normal')
+        ImmersiveMode.fullLayout(false)
+      }
+
+    }, [isFullScreen])
+
+    return (
+      <View style={styles.container}>
+        {isFetchAds &&
+          <View style={styles.bofangBox} />
+        }
+        {showAd && playerVodAds &&
+          <View style={{ ...styles.bofangBox }}>
+            <AdVideoImage
+              videoPlayerRef={adVideoRef}
+              type={playerVodAds.isVideo ? 'video' : 'image'}
+              url={playerVodAds.url!}
+              countdownTime={adCountdownTime}
+              isFullScreen={isFullScreen}
+              isShowShare={false}
+              onPressAd={onPressAd}
+              onPressCountdown={onPressCountdown}
+              onGoBack={onGoBack}
+              onShare={onShare}
+              onPressFullScreenBtn={onToggleFullScreen}
+              onMount={onAdsMount}
+            />
+          </View>
+        }
+
+        {!isFetchAds && !showAd &&
+          <View style={isFullScreen ? styles.bofangBoxFullscreen : styles.bofangBox}>
+            {!(vod_url !== undefined || vod_source !== undefined) ? (
+              <View style={styles.video} />
+            ) : useWebview ? (
+              <WebView
+                resizeMode="contain"
+                source={vod_url === undefined ? vod_source : { uri: vod_url }}
+                style={styles.video}
+                onLoad={onVideoLoaded}
+              />
+            ) : (
+              <VideoWithControls
+                playbackRate={playbackRate}
+                videoPlayerRef={videoPlayerRef}
+                isPaused={isPaused || pauseSportVideo} // Pause video  when sport timer is up
+                vod_source={vod_source}
+                vod_url={vod_url}
+                currentTimeRef={currentTimeRef}
+                controlsRef={controlsRef}
+                currentTime={currentTime}
+                duration={duration}
+                isFullScreen={isFullScreen}
+                vodTitle={vodTitle}
+                videoType={videoType}
+                activeEpisode={activeEpisode}
+                episodes={episodes}
+                rangeSize={rangeSize}
+                accumulatedSkip={accumulatedSkip.current}
+                movieList={movieList}
+                showGuide={showGuide}
+                showMoreType={showMoreType}
+                streams={streams}
+                isFetchingRecommendedMovies={isFetchingRecommendedMovies}
+                onBuffer={onBuffer}
+                getNextEpisode={getNextEpisode}
+                onVideoLoaded={onVideoLoaded}
+                onVideoProgessing={onVideoProgessing}
+                onSeek={onSeek}
+                onSeekGesture={onSeekGesture}
+                onSkip={onSkip}
+                onTogglePlayPause={onTogglePlayPause}
+                onToggleFullScreen={onToggleFullScreen}
+                onGoBack={onGoBack}
+                setPlaybackRate={setPlaybackRate}
+                changeEpisodeAndPlay={changeEpisodeAndPlay}
+                onShare={onShare}
+                onReadyForDisplay={onReadyForDisplay}
+                isVip={isVip}
+                vodID={vodID}
+                sourceID={sourceID}
+                onDownloadVod={onDownloadVod}
+                setShowAdOverlay={setShowAdOverlay}
+                isSeekErrorRef={isSeekErrorRef}
+              />
+            )}
+          </View>
+        }
+
+
+        {(bufferRef.current || seekDirection !== "none" || isFetchAds) && !showAd && (
+          <View style={styles.buffering}>
+            {seekDirection !== "none" ? (
+              <View
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "rgba(0,0,0,0.4)",
+                  padding: 8,
+                  borderRadius: 8,
+                }}
+              >
+                {seekDirection === "forward" ? (
+                  <FastForwardProgressIcon height={50} width={50} />
+                ) : (
+                  <RewindProgressIcon height={50} width={50} />
+                )}
+                {duration > 3600 ? (
+                  <Text
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Text
+                      style={{ ...textVariants.header, color: colors.primary }}
+                    >
+                      {new Date(currentTime * 1000)
+                        .toISOString()
+                        .substring(11, 19)}
+                    </Text>
+                    <Text style={{ ...textVariants.header }}>
+                      {` / ${new Date(duration * 1000)
+                        .toISOString()
+                        .substring(11, 19)}`}
+                    </Text>
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <Text
+                      style={{ ...textVariants.header, color: colors.primary }}
+                    >
+                      {new Date(currentTime * 1000)
+                        .toISOString()
+                        .substring(14, 19)}
+                    </Text>
+                    <Text style={{ ...textVariants.header }}>
+                      {` / ${new Date(duration * 1000)
+                        .toISOString()
+                        .substring(14, 19)}`}
+                    </Text>
+                  </Text>
+                )}
+              </View>
+            ) : (
+              <FastImage
+                source={require("@static/images/videoBufferLoading.gif")}
+                style={{ width: 100, height: 100 }}
+                resizeMode={"contain"}
+              />
+            )}
+          </View>
+        )}
+      </View>
+    );
+  }
+);
+
 const styles = StyleSheet.create({
-  videoPotrait: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#000',
-  },
-  videoLandscape: {
-    flex: 1,
-    maxHeight: height,
-    width: '100%',
+  video: {
+    width: "100%",
+    aspectRatio: 16 / 9,
     backgroundColor: 'black',
   },
   bofangBox: {
-    aspectRatio: 428 / 242,
-    width: '100%',
+    aspectRatio: 16 / 9,
+    maxHeight: "100%",
+    width: "100%",
+    maxWidth: "100%",
   },
-  videoHeader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    display: 'flex',
-    flexDirection: 'row',
+  bofangBoxFullscreen: {
+    maxHeight: "100%",
+    width: "100%",
+    height: '100%',
+    maxWidth: "100%",
+    justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 50,
+    backgroundColor: 'black',
+  },
+  buffering: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "yellow",
+    position: "absolute",
+    height: "auto",
+    width: "auto",
+  },
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    backgroundColor: "black",
   },
 });

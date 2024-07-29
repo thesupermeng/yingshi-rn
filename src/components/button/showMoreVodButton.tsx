@@ -1,33 +1,50 @@
-import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
-import MoreArrow from '../../../static/images/more_arrow.svg';
-import {useTheme} from '@react-navigation/native';
+import React, { memo } from "react";
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import MoreArrow from '@static/images/more_arrow.svg';
+import { useTheme } from '@react-navigation/native';
+import { CLangKey } from "@constants";
 interface Props {
   onPress?: any;
   text: string;
   params?: any[];
+  isPlayScreen?: boolean;
+  showMoreButton?: boolean;
 }
-export default function ShowMoreVodButton({text, onPress, ...params}: Props) {
-  const {colors, textVariants, icons} = useTheme();
+function ShowMoreVodButton({
+  text,
+  onPress,
+  isPlayScreen = false,
+  showMoreButton = true,
+  ...params
+}: Props) {
+  const { colors, textVariants, icons } = useTheme();
   return (
-    <View style={styles.banner}>
-      <Text style={textVariants.header}>{text}</Text>
-      <TouchableOpacity onPress={onPress} style={styles.banner}>
-        <Text
-          style={{
-            color: colors.muted,
-            fontSize: textVariants.small.fontSize,
-          }}>
-          更多
-        </Text>
-        <MoreArrow
-          style={{color: colors.muted}}
-          height={icons.sizes.m}
-          width={icons.sizes.m}
-        />
-      </TouchableOpacity>
+    <View style={{ ...styles.banner, marginBottom: isPlayScreen ? -5 : 5 }}>
+      <Text style={isPlayScreen ? textVariants.body : textVariants.header}>
+        {text}
+      </Text>
+
+      {showMoreButton == true &&
+        <TouchableOpacity onPress={onPress} style={{ ...styles.banner }}>
+          <Text
+            style={{
+              color: colors.muted,
+              fontSize: isPlayScreen ? 15 : textVariants.small.fontSize,
+            }}>
+            {CLangKey.more.tr()}
+          </Text>
+          <MoreArrow
+            style={{ color: colors.muted }}
+            height={icons.sizes.m}
+            width={icons.sizes.m}
+          />
+        </TouchableOpacity>
+      }
     </View>
   );
 }
+
+export default memo(ShowMoreVodButton);
 
 const styles = StyleSheet.create({
   banner: {
@@ -36,7 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 4,
-    marginBottom: 5,
   },
   btn: {
     display: 'flex',

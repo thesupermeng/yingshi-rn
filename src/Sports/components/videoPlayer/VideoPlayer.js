@@ -16,7 +16,7 @@ import LiveRoomAction, {
 } from '../../screens/Sports/MatchDetails/action';
 import {useDispatch, useSelector} from 'react-redux';
 import {VideoLiveType} from '../../global/const';
-import WebView from 'react-native-webview';
+// import WebView from 'react-native-webview';
 import {Error} from './videoPlayerControls/Controls';
 
 import {CastingStatus, ShowControlType} from './config';
@@ -28,7 +28,7 @@ import {
 } from './util/util';
 import VideoPlayerControls from './videoPlayerControls';
 import {showToast} from '../../utility/toast';
-// import {useAds} from '../../hooks/useAds';
+// import {useAds} from '@hooks/useAds';
 import {parseVideoURL} from '../../utility/urlEncryp';
 
 export const VideoPlayer = React.forwardRef((props, playerRef) => {
@@ -194,7 +194,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
           style={[VideoPlayerstyles.player.container, props.containerStyle]}>
           {videoPlayerControl.videoType === VideoLiveType.ANIMATION ? (
             <View style={[VideoPlayerstyles.player.video, props.videoStyle]}>
-              <WebView
+              {/* <WebView
                 resizeMode={'contain' || videoPlayerControl.resizeMode}
                 source={props.source}
                 style={[
@@ -210,7 +210,7 @@ export const VideoPlayer = React.forwardRef((props, playerRef) => {
                 onLoadEnd={onEnd}
                 renderError={onError}
                 renderLoading={<Loader />}
-              />
+              /> */}
             </View>
           ) : (
             <Video

@@ -1,82 +1,99 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Text,
   ScrollView,
-} from 'react-native';
-import {SearchBar} from '@rneui/base';
-import {useTheme} from '@react-navigation/native';
-import OrderedSearchResultsList from '../../components/search/RecommendationList';
-import SearchResultList from '../../components/search/SearchResultList';
-import ScreenContainer from '../../components/container/screenContainer';
-import BackButton from '../../components/button/backButton';
-import SearchIcon from '../../../static/images/search.svg';
-import ClearIcon from '../../../static/images/cross.svg';
-import {useQuery} from '@tanstack/react-query';
+} from "react-native";
+import { SearchBar } from "@rneui/base";
+import { useTheme } from "@react-navigation/native";
+import OrderedSearchResultsList from "../../components/search/RecommendationList";
+import SearchResultList from "../../components/search/SearchResultList";
+import ScreenContainer from "../../components/container/screenContainer";
+import BackButton from "../../components/button/backButton";
+import SearchIcon from "@static/images/search.svg";
+import ClearIcon from "@static/images/cross.svg";
+import { useQuery } from "@tanstack/react-query";
 
-import {SuggestResponseType, SuggestedVodType} from '../../types/ajaxTypes';
-import {RootStackScreenProps} from '../../types/navigationTypes';
-import {API_DOMAIN} from '../../utility/constants';
-import VodWithDescriptionList from '../../components/vod/vodWithDescriptionList';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
-import FastImage from 'react-native-fast-image';
+import { RootStackScreenProps } from "@type/navigationTypes";
+import { API_DOMAIN } from "@utility/constants";
+import VodWithDescriptionList from "../../components/vod/vodWithDescriptionList";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
+// import FastImage from 'react-native-fast-image';
+import FastImage from "../../components/common/customFastImage";
 import {
   addSearchHistory,
   clearSearchHistory,
-} from '../../redux/actions/searchActions';
+} from "@redux/actions/searchActions";
 import Animated, {
   FadeInUp,
   FadeOutUp,
   useAnimatedStyle,
-} from 'react-native-reanimated';
-import ClearHistoryIcon from '../../../static/images/clear.svg';
-import EmptyList from '../../components/common/emptyList';
-import appsFlyer from 'react-native-appsflyer';
+} from "react-native-reanimated";
+import ClearHistoryIcon from "@static/images/clear.svg";
+import EmptyList from "../../components/common/emptyList";
+import appsFlyer from "react-native-appsflyer";
+import ConfirmationModal from "../../components/modal/confirmationModal";
+import { VodApi } from "@api";
+import UmengAnalytics from "../../../Umeng/UmengAnalytics";
+import { Vod } from "@models";
+import { CLangKey } from "@constants";
+import { CPopup } from "@utility/popup";
 
-export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
-  const [search, setSearch] = useState(route.params.initial);
+export default ({ navigation, route }: RootStackScreenProps<"搜索">) => {
+  const [search, setSearch] = useState("");
+  const [placeholderSearch, setPlaceHolderSearch] = useState(
+    route.params.initial
+  );
+
   const [searchTimer, setSearchTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
-  const [searchResults, setSearchResults] = useState<Array<SuggestedVodType>>(
-    [],
+  const [searchResults, setSearchResults] = useState<Vod[]>(
+    []
   );
   const [showResults, setShowResults] = useState(false);
+  const [searchLimit, setSearchLimit] = useState(0)
 
   const dispatch = useAppDispatch();
   const searchHistory = useAppSelector(
-    ({searchHistoryReducer}: RootState) => searchHistoryReducer,
+    ({ searchHistoryReducer }: RootState) => searchHistoryReducer
   );
   const [isFetching, setisFetching] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { colors, textVariants, spacing, icons } = useTheme();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const {colors, textVariants, spacing, icons} = useTheme();
-  const {data: recommendations} = useQuery({
-    queryKey: ['recommendationList'],
-    queryFn: () =>
-      fetch(`${API_DOMAIN}vod/v1/vod?by=hits_day`)
-        .then(response => response.json())
-        .then((json: SuggestResponseType) => {
-          return json.data.List;
-        }),
+  const { data: recommendations } = useQuery({
+    queryKey: ["recommendationList"],
+    queryFn: () => VodApi.getListByRecommendations(),
   });
 
-  async function fetchData(text: string) {
+  async function fetchData(text: string, userSearch: boolean = false) {
     setisFetching(true);
-    fetch(`${API_DOMAIN}vod/v1/vod?wd=${text}`)
-      .then(response => response.json())
-      .then((json: SuggestResponseType) => {
+
+    // ========== for analytics - start ==========
+    if (userSearch && text.length > 0) UmengAnalytics.searchKeywordAnalytics(text);
+    // ========== for analytics - end ==========
+
+    VodApi.getListByKeyword(text)
+      .then((data) => {
         setSearchTimer(0);
 
-        if (json.data.List === null) {
+        if (data.length <= 0) {
           setSearchResults([]);
         } else {
-          setSearchResults(json.data.List);
+          setSearchResults(data);
+
+          // ========== for analytics - start ==========
+          if (userSearch) UmengAnalytics.searchResultViewsAnalytics();
+          // ========== for analytics - end ==========
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       })
       .finally(() => {
@@ -84,8 +101,44 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
       });
   }
 
+  async function fetchNextPage(text: string, userSearch: boolean = false) {
+    if (!hasMore || isFetching) {
+      return; // If no more items to fetch or already fetching, return
+    }
+
+    setisFetching(true);
+
+    const nextPage = page + 1;
+    VodApi.getListByKeyword(text, {
+      page: nextPage,
+    }).then((data) => {
+      setSearchTimer(0);
+
+      if (data.length <= 0) {
+        setHasMore(false); // No more items available
+      } else {
+        // Append the new results to the existing ones
+        setSearchResults([...searchResults, ...data]);
+        setPage(nextPage);
+        // ========== for analytics - start ==========
+        if (userSearch) UmengAnalytics.searchResultViewsAnalytics();
+        // ========== for analytics - end ==========
+      }
+    })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setisFetching(false);
+      });
+  }
+
+  const handleEndReached = () => {
+    fetchNextPage(search, true); // Fetch next page when reaching the end
+  };
+
   useEffect(() => {
-    if (route.params.initial !== '') {
+    if (route.params.initial !== "" && route.params.initial !== undefined) {
       fetchData(route.params.initial);
     }
   }, []);
@@ -98,29 +151,42 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     }
     setSearchTimer(
       setTimeout(() => {
-        fetchData(input);
-      }, 250),
+        fetchData(input, true);
+      }, 500)
     );
   };
 
   const onSubmit = () => {
-    const eventName = 'search_keyword';
-    const eventValues = {
-      keyword: search,
-    };
+    let searchKeyword = placeholderSearch;
 
-    appsFlyer.logEvent(
-      eventName,
-      eventValues,
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.error(err);
-      },
-    );
+    if (search != "") {
+      searchKeyword = search;
+    }
 
-    dispatch(addSearchHistory(search));
+    // const eventName = "search_keyword";
+    // const eventValues = {
+    //   keyword: searchKeyword,
+    // };
+
+    // appsFlyer.logEvent(
+    //   eventName,
+    //   eventValues,
+    //   (res) => {
+    //     console.log(res);
+    //   },
+    //   (err) => {
+    //     console.error(err);
+    //   }
+    // );
+
+    if (searchKeyword.trim().length <= 0) {
+      CPopup.showToast( CLangKey.searchInputEmpty.tr());
+      return;
+    }
+
+
+    fetchData(searchKeyword, true);
+    dispatch(addSearchHistory(searchKeyword));
     setShowResults(!showResults);
   };
 
@@ -128,10 +194,18 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
     dispatch(clearSearchHistory());
   }, []);
 
+  // ========== for analytics - start ==========
+  const onClickSearchResult = useCallback(() => {
+    UmengAnalytics.searchResultClicksAnalytics();
+  }, []);
+  // ========== for analytics - end ==========
+
   return (
     <ScreenContainer>
       <View style={styles.nav}>
-        <BackButton onPress={() => navigation.goBack()} />
+        <View style={styles.backContainer}>
+          <BackButton onPress={() => navigation.goBack()} />
+        </View>
         <SearchBar
           platform="default"
           containerStyle={styles.containerStyle}
@@ -141,13 +215,19 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }}
           leftIconContainerStyle={{}}
           rightIconContainerStyle={{}}
-          inputStyle={textVariants.small}
+          inputStyle={{
+            ...textVariants.small,
+            position: "relative",
+            right: 10,
+            top: 1,
+          }}
           loadingProps={{}}
           onChangeText={(newVal: string) => {
             setShowResults(false);
             updateSearch(newVal);
           }}
-          placeholder="输入搜索关键词"
+          // placeholder="输入搜索关键词"
+          placeholder={placeholderSearch}
           placeholderTextColor={colors.muted}
           round
           onSubmitEditing={onSubmit}
@@ -160,9 +240,10 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
               <TouchableOpacity
                 onPress={() => {
                   setSearchResults([]);
-                  setSearch('');
+                  setSearch("");
                   setShowResults(false);
-                }}>
+                }}
+              >
                 <ClearIcon height={12} width={12} />
               </TouchableOpacity>
             ) : (
@@ -171,34 +252,53 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
           }
         />
       </View>
-      <ScrollView
-        style={styles.searchResult}
-        contentContainerStyle={{flexGrow: 1}}
-        showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
-      >
-        {showResults ? (
-          <VodWithDescriptionList vodList={searchResults} />
-        ) : (
-          <View style={{marginLeft: 10}}>
+
+      {showResults ? (
+        <View style={styles.searchResult}>
+          <VodWithDescriptionList
+            vodList={searchResults}
+            onClickSearchResult={onClickSearchResult}
+          />
+        </View>
+      ) : (
+        <ScrollView
+          style={styles.searchResult}
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false} // Hide the vertical scroll bar
+          keyboardDismissMode="on-drag"
+          onScroll={({ nativeEvent }) => {
+            const offsetY = nativeEvent.contentOffset.y;
+            const contentHeight = nativeEvent.contentSize.height;
+            const height = nativeEvent.layoutMeasurement.height;
+            if (offsetY >= contentHeight - height && !isFetching) {
+              handleEndReached();
+            }
+          }}
+        >
+          <View style={{ marginLeft: 10 }}>
             {search !== undefined &&
-            search !== null &&
-            search.length === 0 &&
-            recommendations ? (
-              <View style={{gap: spacing.m}}>
+              search !== null &&
+              search.length === 0 &&
+              (recommendations?.length ?? 0) > 0 ? (
+              <View style={{ gap: spacing.m }}>
                 {searchHistory.history.length > 0 && (
-                  <Animated.View style={{gap: spacing.m}} entering={FadeInUp}>
+                  <View style={{ gap: spacing.m }}>
                     <View style={styles.rowApart}>
-                      <Text style={{...textVariants.header}}>历史搜索</Text>
+                      <Text style={{ ...textVariants.header }}>{CLangKey.searchHistory.tr()}</Text>
                       <TouchableOpacity
                         style={styles.rowApart}
-                        onPress={clearHistory}>
+                        onPress={() => {
+                          setIsDialogOpen(true);
+                        }}
+                      >
                         <Text
                           style={{
                             ...textVariants.small,
                             marginRight: 5,
                             color: colors.muted,
-                          }}>
-                          清除
+                          }}
+                        >
+                          {CLangKey.clear.tr()}
                         </Text>
                         <ClearHistoryIcon
                           height={textVariants.small.fontSize}
@@ -208,7 +308,7 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                     </View>
                     <View style={styles.searchContainer}>
                       {searchHistory.history.map((hst, idx) => {
-                        if (hst.trim().length === 0) {
+                        if (hst === null || hst.trim().length === 0) {
                           return null; // Skip rendering for empty strings
                         }
                         return (
@@ -219,29 +319,35 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
                               ...styles.hst,
                             }}
                             onPress={() => {
+                              dispatch(addSearchHistory(hst));
+                              setisFetching(true);
                               updateSearch(hst);
-                            }}>
+                              setShowResults(true);
+                            }}
+                          >
                             <Text
                               style={{
                                 ...textVariants.body,
                                 color: colors.muted,
-                              }}>
+                              }}
+                            >
                               {hst}
                             </Text>
                           </TouchableOpacity>
                         );
                       })}
                     </View>
-                  </Animated.View>
+                  </View>
                 )}
                 <OrderedSearchResultsList
                   recommendationList={recommendations}
-                  style={{flex: 1, maxHeight: '100%'}} // Adjust the styles here to make it scrollable
+                  style={{ flex: 1, maxHeight: "100%" }} // Adjust the styles here to make it scrollable
                 />
               </View>
             ) : (
               <SearchResultList
                 searchResultList={searchResults}
+                keyword={search}
                 onItemSelect={(vod: string) => {
                   setisFetching(true);
                   updateSearch(vod);
@@ -250,39 +356,50 @@ export default ({navigation, route}: RootStackScreenProps<'搜索'>) => {
               />
             )}
           </View>
-        )}
-        {showResults && searchResults.length === 0 && !isFetching && (
-          <EmptyList
-            description={`抱歉没有找到“${search}”的相关视频为你推荐更多精彩内容`}
-          />
-        )}
+        </ScrollView>
+      )}
+      {showResults && searchResults.length === 0 && !isFetching && (
+        <EmptyList description={CLangKey.noRelatedVideoFoundForX.tr({ x: search })} />
+      )}
 
-        {showResults && searchResults.length === 0 && isFetching && (
-          <View style={styles.buffering}>
-            <FastImage
-              source={require('../../../static/images/videoBufferLoading.gif')}
-              style={{width: 100, height: 100}}
-              resizeMode="contain"
-            />
-          </View>
-        )}
-      </ScrollView>
+      {showResults && searchResults.length === 0 && isFetching && (
+        <View style={styles.buffering}>
+          <FastImage
+            source={require("@static/images/videoBufferLoading.gif")}
+            style={{ width: 100, height: 100 }}
+            resizeMode="contain"
+          />
+        </View>
+      )}
+
+      <ConfirmationModal
+        onConfirm={() => {
+          clearHistory();
+          setIsDialogOpen(false);
+        }}
+        onCancel={() => {
+          setIsDialogOpen(false);
+        }}
+        isVisible={isDialogOpen}
+        title={CLangKey.clearXInform.tr({ x: CLangKey.searchRecord.tr() })}
+        subtitle={CLangKey.confirmToClearX.tr({ x: CLangKey.searchRecord.tr() })}
+      />
     </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
   nav: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
     marginTop: 5,
   },
   containerStyle: {
     paddingLeft: 10,
-    backgroundColor: 'transparent',
-    textAlign: 'left',
+    backgroundColor: "transparent",
+    textAlign: "left",
     flexGrow: 1,
     borderRadius: 100,
     borderTopWidth: 0,
@@ -298,26 +415,26 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   rowApart: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   searchContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
   },
   buffering: {
     paddingHorizontal: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     flex: 3,
-    color: 'yellow',
-    position: 'absolute',
-    top: '40%',
-    left: '36%',
+    color: "yellow",
+    position: "absolute",
+    top: "40%",
+    left: "36%",
     zIndex: 100,
   },
   hst: {
@@ -328,5 +445,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 4,
     marginRight: 10,
+  },
+  backContainer: {
+    width: 30,
+    height: 30,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 15,
   },
 });

@@ -1,7 +1,9 @@
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import React, { useMemo, memo } from 'react';
+import { StyleSheet, TouchableOpacity, Text, View, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import FastImage, { ImageStyle } from 'react-native-fast-image';
-import PlayIcon from '../../../static/images/play.svg';
+import { ImageStyle } from 'react-native-fast-image';
+import FastImage from '../common/customFastImage';
+import PlayIcon from '@static/images/play.svg';
 import LinearGradient from 'react-native-linear-gradient'
 interface Props {
     vod_img: string,
@@ -11,11 +13,13 @@ interface Props {
     showPlayIcon?: boolean
     shadowBottom?: boolean
     isDisabled?: boolean
+    index?: number
+    vod_pic_list?: string[]
 }
 
-export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled }: Props) {
+function VodImageCard({ vod_img, vodStyle, onPress, showInfo = '', showPlayIcon = false, shadowBottom = false, isDisabled, index = -1, vod_pic_list}: Props) {
     const { colors, textVariants, spacing } = useTheme();
-    const iconSize = 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`)
+    const iconSize = useMemo(() => 0.3 * parseInt(vodStyle?.height === undefined ? '180' : `${vodStyle.height}`), [vodStyle])
     return (
         <TouchableOpacity
             style={styles.vod}
@@ -23,11 +27,13 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
             disabled={isDisabled}
         >
             <FastImage
-                style={{ ...styles.image, ...vodStyle }}
+                style={[styles.image, vodStyle]}
                 source={{
                     uri: vod_img,
-                    priority: FastImage.priority.normal,
+                    priority: 'normal',
                 }}
+                useFastImage={(index >= 0 && index < 3) || Platform.OS === 'android'}
+                alternativeImg={vod_pic_list}
             />
             {
                 shadowBottom && <LinearGradient
@@ -53,6 +59,8 @@ export default function VodImageCard({ vod_img, vodStyle, onPress, showInfo = ''
         </TouchableOpacity>
     );
 }
+
+export default memo(VodImageCard);
 
 const styles = StyleSheet.create({
     image: {

@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   },
   statView: {
     flexDirection: 'row',
+    gap: 10
   },
   averageContainer: {
     flex: 1,

@@ -1,46 +1,62 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
-import { View, Text, Image, ImageBackground, FlatList, Dimensions, StyleSheet } from 'react-native';
-import { Link, useTheme } from '@react-navigation/native';
-import styles from './style';
-import { IsSub, Sub, Views, IconViewerGif } from '../../assets';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import vars from '../../utility/vars';
-import { HomeIcon, AwayIcon, AnimationLive, VideoLive } from '../../assets';
+import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
 import {
-  calculateScore,
-  formatMatchDate,
-  getMatchStatus,
-  liveRoomName,
-} from '../../utility/utils';
-import store from '../../../redux/store';
-// import FollowMatchAction from '../../redux/actions/followMatchAction';
-import { useNavigation } from '@react-navigation/native';
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+} from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import styles from './style';
+import { TouchableOpacity } from 'react-native';
+import { formatMatchDate } from '../../utility/utils';
+import { RootState } from '@redux/store';
+// import FollowMatchAction from '@redux/actions/followMatchAction';
 import { MatchDetailsType } from '../../types/matchTypes';
 // import {showToast} from '../../utility/toast';
-import FixedTouchableHighlight from '../fixedTouchableHighlight';
 import { Url } from '../../middleware/url';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import Api from '../../middleware/api';
 import MatchSchedule from './MatchSchedule';
-import ScreenContainer from '../../../components/container/screenContainer';
-import EmptyList from '../../../components/common/emptyList';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import FastImage from '../../../components/common/customFastImage';
+import { TOPON_BANNER_HEIGHT } from '@utility/constants';
 
 interface Props {
-  matchTypeID: number,
-  status?: number
+  matchTypeID: number;
+  status?: number;
+  setShowBecomeVIPOverlay: any;
+  bgDark?:boolean
 }
 
-type FlatListType = {
-  item: MatchDetailsType,
-  index: number
-}
+type MatchType = {
+  date: string | undefined;
+  data: MatchDetailsType | undefined;
+};
 
-const MatchScheduleList = ({ matchTypeID, status }: Props) => {
+type Matches = {
+  headers: number[];
+  data: MatchType[];
+};
 
+const MatchScheduleList = ({
+  matchTypeID,
+  status = -1,
+  setShowBecomeVIPOverlay,
+  bgDark = false
+}: Props) => {
   const { colors, textVariants, spacing } = useTheme();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
+  const latestListDate = useRef<Date | undefined>();
+  let flatlistRef = useRef();
+
+  const [isFetchNext, setFetchNext] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+
+  const [matches, setMatches] = useState<Matches>({
+    headers: [],
+    data: [],
+  });
 
   const getUrl = () => {
     let url = '';
@@ -55,77 +71,163 @@ const MatchScheduleList = ({ matchTypeID, status }: Props) => {
     } else {
       url += `&is_live=${true}`;
     }
+    // if (latestListDate.current !== undefined) {
+    //   try {
+    //     url += `&date=${latestListDate.current.toISOString().split('T')[0]}`;
+    //   } catch (e) {
+    //     console.log('ERRORRR!!', e, latestListDate.current.toISOString());
+    //   }
+    // }
     return Url.matches11 + url;
-  }
+  };
 
-  const { data: matches, isFetching, refetch, isRefetching } = useQuery({
-    queryKey: ["matches", matchTypeID, `status=${status}`],
-    queryFn: () => Api.call(getUrl(), {}, 'GET').then(res => {
-      const data = res?.data;
-      if (data != undefined) {
-        const dates = Object.keys(res.data);
-        const matches: { date: string, data: MatchDetailsType[] }[] = dates.map(date => ({ date: formatMatchDate(date), data: res.data[date] }))
-        return matches;
+  const url = getUrl(); 
+
+  const fetchData = useCallback(async () => {
+    const data = (await Api.call(url, {}, 'GET')).data
+    
+    if (data !== undefined) {
+      const dates = Object.keys(data);
+      let lst: MatchType[] = isFetchNext ? matches.data : [];
+      let headers = isFetchNext ? matches.headers : [];
+      let count = lst.length;
+      if (latestListDate.current === undefined) {
+        latestListDate.current = new Date(dates[dates.length - 1]);
       }
+      if (status <= 2) {
+        latestListDate.current = new Date(
+          latestListDate.current.getTime() + 86400000,
+        );
+      } else {
+        latestListDate.current = new Date(
+          latestListDate.current.getTime() - 86400000,
+        );
+      }
+      for (const date of dates) {
+        const dateDate = new Date(date)
+        const now = new Date()
+        const sevenDaysBefore = new Date(now.valueOf() - 7 * 24 * 60 * 60 * 1000)
+        const sevenDaysAfter = new Date(now.valueOf() + 7 * 24 * 60 * 60 * 1000)
+
+        if (dateDate < sevenDaysBefore || dateDate > sevenDaysAfter) continue
+
+        lst.push({ date: formatMatchDate(date), data: undefined });
+        headers.push(count);
+        count += 1;
+        data[date].forEach((element: MatchDetailsType) => {
+          lst.push({ date: undefined, data: element });
+          count += 1;
+        });
+      }
+      setMatches({
+        headers: headers,
+        data: lst,
+      });
     }
-    ),
-  });
-  const Content = useCallback(() => {
-    return <View style={{ width: width }}>
-      {
-        matches?.map((match, idx) =>
-          <View key={`${match.date}-${idx}`}>
-            <View style={{ backgroundColor: colors.card2, padding: spacing.sideOffset }}>
-              <Text style={textVariants.header}>{match.date}</Text>
-            </View>
-            <View>
-              {match.data.map((item, index) =>  <MatchSchedule key={index} matchSche={item} />)}
-              {/* <FlatList data={match.data} renderItem={({ item }: FlatListType) => <MatchSchedule matchSche={item} />} /> */}
-            </View>
+
+  }, [])
+
+  useEffect(() => {
+    fetchData().then()
+  }, [])
+
+  const Content = useCallback(({
+    item,
+    index,
+  }: {
+    item: { date: string | undefined; data: MatchDetailsType | undefined };
+    index: number;
+  }) => {
+    return (
+      <View style={{ width: width }}>
+        {item?.date !== undefined ? (
+          <View
+            style={{
+              backgroundColor: bgDark ? '#0c0c0c' : colors.card2,
+              padding: spacing.xs,
+              paddingLeft: spacing.sideOffset,
+            }}>
+            <Text style={textVariants.header}>{item?.date}</Text>
           </View>
-        )
-      }
-    </View>
-  }, [matches])
+        ) : (
+          item?.data !== undefined && (
+            <>
+      
+            <MatchSchedule
+          bgDark={true}
+              setShowBecomeVIPOverlay={setShowBecomeVIPOverlay}
+              key={index}
+              matchSche={item?.data}
+            />
+            </>
+          )
+        )}
+      </View>
+    );
+  }, []);
+
+  const handleRefresh = () => {
+    setShowLoading(true)
+    flatlistRef?.current?.scrollToOffset({animated:false, offset:0})
+    setTimeout(() => {
+      setShowLoading(false)
+    }, 1000)
+  }
 
   return (
     <View style={{ flex: 1 }}>
-      {
-        matches && matches.length > 0
-          ? <FlatList
-            data={matches}
-            windowSize={3}
-            maxToRenderPerBatch={2}
-            initialNumToRender={1}
-            renderItem={Content}
-          />
-          : <View style={{ height: height }}>
-            {
-              (isFetching || isRefetching)
-                ? <View style={styles.buffering}>
-                  <FastImage
-                    source={require('../../../../static/images/loading-spinner.gif')}
-                    style={{ width: 100, height: 100 }}
-                    resizeMode="contain"
-                  />
-                </View>
-                : <EmptyList description='暂无比赛' />
+      {matches?.data !== undefined && matches.data.length > 0 ? (
+        <FlatList
+          ref={flatlistRef}
+          data={matches.data}
+          windowSize={3}
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          renderItem={Content}
+          // onEndReached={() => {
+          //   if (hasNextPage) {
+          //     setFetchNext(true);
+          //     fetchNextPage();
+          //   }
+          // }}
+          onEndReachedThreshold={0.9}
+          stickyHeaderIndices={matches.headers}
+          ListFooterComponent={<View style={{paddingTop: TOPON_BANNER_HEIGHT + 20}}/>}
+        />
+      ) : (
+        <View style={{ height: height }}>
+          <View style={styles.buffering} />
+        </View>
+      )}
 
-            }
+      {showLoading && <View style={{
+        position: 'absolute', 
+        backgroundColor: colors.background, 
+        zIndex: 1, 
+        width: '100%', 
+        height: '100%', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+      }}>
+        <FastImage
+          source={require('@static/images/loading-spinner.gif')}
+          style={{ width: 100, height: 100 }}
+          resizeMode="contain"
+        />
+      </View>}
 
-          </View>
-      }
-      {
-        !isFetching && !isRefetching &&
-        <TouchableOpacity style={styles.refresh} onPress={() => { refetch() }}>
-          <FastImage
-            source={require('../../assets/images/IconRefresh.png')}
-            style={{ width: 25, height: 25 }}
-            resizeMode="contain"
-          />
-          <Text style={styles.refreshFont}>刷新</Text>
-        </TouchableOpacity>
-      }
+      <TouchableOpacity
+        style={styles.refresh}
+        onPress={() => {
+          fetchData();
+          handleRefresh(); 
+        }}>
+        <FastImage
+          source={require('../../assets/images/IconRefresh.png')}
+          style={{ width: 35, height: 35 }}
+          resizeMode={"contain"}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

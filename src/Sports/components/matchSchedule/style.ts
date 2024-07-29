@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: 'PingFang SC',
   },
   liveStatus: {
-    color: 'red',
+    color: '#F6423A',
     marginRight: 5,
     fontStyle: 'normal',
     fontSize: 12,
@@ -142,16 +142,17 @@ const styles = StyleSheet.create({
   },
   teamContentA: {
     flexDirection: 'row',
-    width: '25%',
+    width: '35%',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   teamContentB: {
+    display: 'flex',
     flexDirection: 'row',
-    width: '25%',
+    width: '35%',
     justifyContent: 'flex-start',
     flexShrink: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   teamImage: {
     height: 30,
@@ -187,8 +188,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   liveTypeImage: {
-    width: 23,
-    height: 15,
+    width: 25,
+    height: 18,
     marginRight: 5,
     right: 0,
   },
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '600',
     fontFamily: 'PingFang SC',
-    color: '#FFFFFF',
+    color: 'black',
   },
   penaltyScore: {
     color: '#808080',
@@ -235,16 +236,14 @@ const styles = StyleSheet.create({
   refresh: {
     backgroundColor: '#FAC33D',
     position: 'absolute',
-    bottom: 50,
-    right: 20,
+    bottom: 75,
+    // right: 30,
+    right: 15,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 22,
-    paddingLeft: 6,
-    paddingRight: 11,
-    paddingTop: 3,
-    paddingBottom: 3,
+    borderRadius: 25,
+    padding: 6,
     zIndex: 1
   },
   refreshFont: {
@@ -254,7 +253,51 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 4
-  }
+  },
+  live: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 16,
+    backgroundColor: '#1D2023',
+    borderRadius: 12,
+    flex: 1,
+  },
+  verticalBar: {
+    height: '60%',
+    top: '20%',
+    position: 'absolute',
+    left: 0,
+    width: 4,
+    backgroundColor: '#FAC33D',
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20
+  },
+  liveContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: '100%',
+    gap: 16
+  },
+  pill: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    backgroundColor: 'rgba(250, 195, 61, 0.1)',
+    padding: 2,
+    borderRadius: 40,
+    width: 60
+  },
+  schedule: {
+    width: 60,
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  loading: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex: 1
+},
 });
 
 export default styles;

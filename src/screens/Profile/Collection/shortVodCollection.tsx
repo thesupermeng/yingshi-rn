@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ScreenContainer from '../../../components/container/screenContainer';
 import { useTheme } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { RootState } from '../../../redux/store';
+import { useAppDispatch, useAppSelector } from '@hooks/hooks';
+import { RootState } from '@redux/store';
 
 import TitleWithBackButtonHeader from '../../../components/header/titleWithBackButtonHeader';
-import { FavoriteVodReducerState, VodReducerState } from '../../../redux/reducers/vodReducer';
+import { FavoriteVodReducerState, VodReducerState } from '@redux/reducers/vodReducer';
 import FavoriteVodCard from '../../../components/vod/favoriteVodCard';
 import CollectionHeader from '../../../components/header/myCollectionHeader';
-import { playVod } from '../../../redux/actions/vodActions';
-import { VodType } from '../../../types/ajaxTypes';
-import { RootStackScreenProps } from '../../../types/navigationTypes';
-import EmptyIcon from '../../../../static/images/empty.svg';
+import { playVod } from '@redux/actions/vodActions';
+import { RootStackScreenProps } from '@type/navigationTypes';
+import EmptyIcon from '@static/images/empty.svg';
 import EmptyList from '../../../components/common/emptyList';
+import { Vod } from '@models';
 
 type FlatListType = {
-    item: VodType
+    item: Vod
 }
 
 export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
@@ -24,6 +24,18 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
     const dispatch = useAppDispatch();
     const favs: FavoriteVodReducerState = useAppSelector(({ vodFavouritesReducer }: RootState) => vodFavouritesReducer);
     const favorites = favs.favorites;
+
+    const renderItem = useCallback(({ item }: FlatListType) => {
+        return (
+            <FavoriteVodCard vod={item} onPress={() => {
+                dispatch(playVod(item));
+                navigation.navigate('播放', {
+                    vod_id: item.vod_id
+                });
+            }} />
+        )
+    }, [])
+
     return (
         <ScreenContainer>
             <TitleWithBackButtonHeader title='我的收藏' />
@@ -35,18 +47,13 @@ export default ({ navigation }: RootStackScreenProps<'合集收藏'>) => {
                         data={favorites}
                         contentContainerStyle={{ paddingBottom: 120 }}
                         ListFooterComponent={<Text style={{ ...textVariants.body, color: colors.muted, ...styles.noMore }}>没有更多了</Text>}
-                        renderItem={({ item }: FlatListType) => <FavoriteVodCard vod={item} onPress={() => {
-                            dispatch(playVod(item));
-                            navigation.navigate('播放', {
-                                vod_id: item.vod_id
-                            });
-                        }} />}
+                        renderItem={renderItem}
                     />
                 }
             </View>
             {
                 favorites && favorites.length === 0 &&
-                <EmptyList description='暂无合集收藏'/>
+                <EmptyList description='暂无合集收藏' />
             }
         </ScreenContainer >
     )

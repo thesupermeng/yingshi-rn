@@ -1,0 +1,30 @@
+android {
+    sourceSets {
+        main {
+            res.srcDirs += 'topon_res'
+        }
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar','*.aar'], dir: 'topon_libs')
+    
+    //Anythink (Necessary)
+    api "com.android.support:appcompat-v7:28.0.0"
+    // api 'com.android.support:localbroadcastmanager:28.0.0'
+
+    // // 米盟（5.2.1+)
+    // api 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //Kuaishou
+    api "com.android.support:design:28.0.0"
+
+    //Mimo
+    api "com.github.bumptech.glide:glide:4.9.0"
+
+    // //TapTap
+    // api "io.reactivex.rxjava2:rxjava:2.0.1"
+    // api "io.reactivex.rxjava2:rxandroid:2.0.1"
+    // api "com.squareup.okhttp3:okhttp:3.12.1"
+    // api "com.github.bumptech.glide:glide:4.9.0"
+}

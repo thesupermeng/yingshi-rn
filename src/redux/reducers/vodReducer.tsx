@@ -1,33 +1,31 @@
 import {
     ADD_VOD_TO_FAVORITES, REMOVE_VOD_FROM_FAVORITES, PLAY_VOD, TOGGLE_VOD_FAVORITES,
-    TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY
-} from "../../utility/constants"
-import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "../../types/actionTypes"
-import { VodTopicType, VodType } from "../../types/ajaxTypes"
+    TOGGLE_PLAYLIST_FAVORITES, VIEW_PLAYLIST, ADD_VOD_TO_HISTORY, CLEAR_HISTORY, REMOVE_VOD_HISTORY, SELECT_MINI_VOD_COLLECTION_ITEM
+} from "@utility/constants"
+import { FavoriteVodActionType, VodActionType, VodPlaylistActionType } from "@type/actionTypes"
+import { PlayList, Vod } from "@models"
 
-export interface VodRecordType extends VodType {
+export interface VodRecordType extends Vod {
     timeWatched: number,
     recordedAt: Date,
     episodeWatched: number,
+    isAdultVideo?: boolean,
+    vodSourceId: number | undefined
 }
 interface PlayVodType {
     vod: VodRecordType | null,
-    isFavorite: boolean
 }
 
 export interface VodReducerState {
-    favorites: Array<VodRecordType>,
     history: Array<VodRecordType>,
     playVod: PlayVodType,
 }
 
 const initialState: VodReducerState = {
-    favorites: [],
     history: [],
     playVod: {
         vod: null,
-        isFavorite: true
-    }
+    },
 }
 
 export function vodReducer(state = initialState, action: VodActionType) {
@@ -35,19 +33,27 @@ export function vodReducer(state = initialState, action: VodActionType) {
         ...action.payload?.[0],
         recordedAt: new Date(),
         timeWatched: action.timeWatched === undefined ? 0 : action.timeWatched,
-        episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched
+        episodeWatched: action.episodeWatched === undefined ? 0 : action.episodeWatched,
+        vodSourceId: action.vodSourceId
     };
+
     switch (action.type) {
         case PLAY_VOD: {
             let play = state.history.find(vod => vod.vod_id === firstPayloadItemWithTimestamp.vod_id);
             if (play === undefined) {
                 play = firstPayloadItemWithTimestamp;
             }
+
+            delete play.isAdultVideo;
             return {
                 ...state,
                 playVod: {
-                    vod: play,
-                    isFavorite: state.favorites.some(x => x.vod_id === firstPayloadItemWithTimestamp.vod_id)
+                    vod: {
+                        ...play,
+                        episodeWatched: action.episodeWatched ?? play.episodeWatched,
+                        vodSourceId: action.vodSourceId ?? play.vodSourceId,
+                        timeWatched: action.timeWatched ?? play.timeWatched
+                    }
                 }
             };
         }
@@ -57,6 +63,8 @@ export function vodReducer(state = initialState, action: VodActionType) {
                 history: []
             };
         case ADD_VOD_TO_HISTORY: {
+            firstPayloadItemWithTimestamp.isAdultVideo = action.isAdultVideo === undefined ? false : action.isAdultVideo;
+
             const hst = state.history.filter(vod => vod.vod_id !== firstPayloadItemWithTimestamp.vod_id);
             hst.unshift(firstPayloadItemWithTimestamp);
             return {
@@ -74,8 +82,12 @@ export function vodReducer(state = initialState, action: VodActionType) {
     }
 }
 
+type FavouriteVodType = {
+    playMode?: 'adult' | 'normal'
+} & Vod
+
 export interface FavoriteVodReducerState {
-    favorites: Array<VodType>,
+    favorites: Array<FavouriteVodType>,
 }
 
 const initialFavoriteState: FavoriteVodReducerState = {
@@ -99,11 +111,11 @@ export function vodFavouritesReducer(state = initialFavoriteState, action: Favor
     }
 }
 
-
+// ============================== playlist ==============================
 export interface VodPlaylistReducerState {
-    playlistFavorites: Array<VodTopicType>,
+    playlistFavorites: Array<PlayList>,
     playlistDetails: {
-        playlist: VodTopicType | null,
+        playlist: PlayList | null,
         isFavorite: boolean
     }
 }

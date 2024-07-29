@@ -184,7 +184,7 @@ const AreaChart = props => {
                   bottom: '50%',
                   left: 0,
                   right: 0,
-                  backgroundColor: 'rgba(255, 161, 0, 0.18)',
+                  backgroundColor: 'rgb(38, 39, 42)',
                 }}></View>
               <View
                 style={{
@@ -193,7 +193,7 @@ const AreaChart = props => {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  backgroundColor: 'rgba(7, 193, 96, 0.18)',
+                  backgroundColor: 'rgb(38, 39, 42)',
                 }}></View>
             </View>
             {/* 时间指标 */}

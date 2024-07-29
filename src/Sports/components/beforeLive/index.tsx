@@ -33,7 +33,7 @@ import { matchOnTime, matchRunningStatusBasketball } from '../../utility/date';
 import { MatchDetailWithRankingData } from '../../types/liveMatchTypes';
 import { MatchDetailsType, Stream } from '../../types/matchTypes';
 import { MatchUpdatesType } from '../../types/matchUpdatesType';
-import DefaultTeamIcon from '../defaultTeamIcon';
+import DefaultTeamIcon from '../DefaultTeamIcon';
 
 interface Props {
   listLiveDetails?: MatchDetailWithRankingData,
@@ -56,7 +56,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
   const matchState = listLiveMatchDetailsUpdates?.state;
   const matchStatus = listLiveMatchDetailsUpdates?.status;
   const matchSportType = listLiveMatchDetailsUpdates?.sports_type;
-  
+
   // const matchSportType = props?.sportType;
   const matchStartTime = listLiveMatchDetailsUpdates?.start_time;
 
@@ -81,9 +81,9 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
   const competitionDate = liveDataState?.match_time;
   // console.log('matchSportType', matchSportType);
   const homeFootballPosition =
-    listLiveDetails?.football_home_ranking?.position.toString();
+    listLiveDetails?.football_home_ranking?.position_str;
   const awayFootballPosition =
-    listLiveDetails?.football_away_ranking?.position.toString();
+    listLiveDetails?.football_away_ranking?.position_str;
 
   const getMatchStatusData = getMatchStatus(
     matchState,
@@ -134,9 +134,9 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
   const basketballFourQuoteHalfTime = `半场 ${homeArrayScore[0] + homeArrayScore[1]
     }-${awayArrayScore[0] + awayArrayScore[1]}`;
   const homeBasketballPosition =
-    listLiveDetails?.basketball_home_ranking?.position.toString();
+    listLiveDetails?.basketball_home_ranking?.position_str;
   const awayBasketballPosition =
-    listLiveDetails?.basketball_away_ranking?.position.toString();
+    listLiveDetails?.basketball_away_ranking?.position_str;
 
   const matchStarted = () => {
     switch (getMatchStatusData) {
@@ -447,7 +447,7 @@ const BeforeLive = ({ liveDataState, listLiveDetails, setVideoSource, listLiveMa
           </View>
         </TouchableOpacity> */}
         <View style={styles.bottomButtonContainer}>
-          {dataLive !== undefined && dataLive.length > 0 && (
+          {dataLive !== undefined && dataLive.length > 0 && dataLive.some(streamer => streamer.status == 3) && (
             <TouchableOpacity onPress={liveVideo} style={styles.liveButton}>
               <Image
                 resizeMode="contain"

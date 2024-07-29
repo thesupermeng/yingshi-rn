@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {VodType} from '../../types/ajaxTypes';
+import {VodType} from '@type/ajaxTypes';
 import VodImageCard from './vodImageCard';
 import FavoriteButton from '../button/favoriteVodButton';
 import VodDescription from './vodDescription';
@@ -11,14 +12,20 @@ interface Props {
   params?: any[];
   btnStyle?: typeof StyleSheet;
   hideFavoriteButton?: boolean;
-  initialFavoriteState: boolean;
+  initialFavoriteState?: boolean;
+  index: number;
+  imgOrientation?: 'horizontal' | 'vertical'; 
+  vod_pic_list: string[]
 }
-export default function FavoriteVodCard({
+function FavoriteVodCard({
   vod,
   onPress,
   btnStyle,
   hideFavoriteButton = false,
   initialFavoriteState = false,
+  index, 
+  imgOrientation,
+  vod_pic_list, 
   ...params
 }: Props) {
   const {colors, spacing, textVariants} = useTheme();
@@ -26,13 +33,22 @@ export default function FavoriteVodCard({
     <View style={{...styles.card, gap: spacing.s}}>
       <VodImageCard
         vod_img={vod.vod_pic}
-        vodStyle={styles.image}
+        vodStyle={ imgOrientation === 'horizontal' ? styles.imageHorizontal : styles.image}
         onPress={onPress}
+        showInfo={vod.vod_remarks}
+        index={index}
+        vod_pic_list={vod.vod_pic_list}
       />
       <TouchableOpacity
+        activeOpacity={1}
         style={{...styles.description, gap: spacing.xs}}
         onPress={onPress}>
-        <View style={{...styles.description, gap: spacing.xs}}>
+        <View
+          style={{
+            ...styles.description,
+            gap: spacing.xs,
+            justifyContent: 'center',
+          }}>
           {hideFavoriteButton ? (
             <Text
               numberOfLines={1}
@@ -41,6 +57,8 @@ export default function FavoriteVodCard({
                 color: colors.text,
                 // flex: 1,
                 flexShrink: 1,
+                marginBottom: 10,
+                fontWeight: '600',
               }}>
               {vod.vod_name}
             </Text>
@@ -53,6 +71,8 @@ export default function FavoriteVodCard({
     </View>
   );
 }
+
+export default memo(FavoriteVodCard);
 
 const styles = StyleSheet.create({
   card: {
@@ -68,7 +88,11 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   image: {
-    width: 120,
-    height: 180,
+   width: 120, 
+   height: 180,
   },
+  imageHorizontal: {
+    width: 154,
+    height: 87,
+  }
 });

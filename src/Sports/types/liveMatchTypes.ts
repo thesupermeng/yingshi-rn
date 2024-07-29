@@ -235,6 +235,7 @@ export interface MatchDetailsResponseType {
     away_goals_against: number
     away_goal_diff: number
     season_id: number
+    position_str: string
   }
   
   export interface BasketballMatch {

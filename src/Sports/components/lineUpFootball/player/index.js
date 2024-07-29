@@ -1,4 +1,4 @@
-import {Image, ImageBackground, Text, View} from 'react-native';
+import {Image, ImageBackground, Text, View, Platform} from 'react-native';
 import {
   Assist,
   Goal,
@@ -12,6 +12,7 @@ import {
   YellowToRedCard,
   HomePlayer,
   AwayPlayer,
+  PlayerShirt,
 } from '../../../assets';
 import {Colors} from '../../../global/colors';
 import {round} from '../../../utility/utils';
@@ -29,6 +30,14 @@ const Player = props => {
       : {backgroundColor: '#8C8C8C'};
   };
   const {incidents} = player;
+  const imgSource =
+    Platform.OS === 'android'
+      ? team === 'home'
+        ? PlayerShirt
+        : AwayPlayer
+      : team === 'home'
+      ? HomePlayer
+      : AwayPlayer;
 
   // 换人事件
   const subComponent = (incidents, playerId) => {
@@ -80,9 +89,20 @@ const Player = props => {
     let totalPenatlyGoal = incidents.filter(incident => {
       if (incident.type === 8) return true;
     }).length;
-    let totalGoal = incidents.filter(incident => {
+
+    let totalGoal;
+    try {
+      totalGoal = incidents.filter(incident => {
+        if (incident.type === 1 && incident.player.id === playerId) return true;
+      }).length;
+    } catch (error) {
+      totalGoal = 0;
+    }
+
+    incidents.filter(incident => {
       if (incident.type === 1 && incident.player.id === playerId) return true;
     }).length;
+
     // 17 - 乌龙球
     if (totalOwnGoal > 0 && type === 17) {
       return (
@@ -217,7 +237,8 @@ const Player = props => {
               styles.imagePlayer,
               {justifyContent: 'center', alignContent: 'center'},
             ]}
-            source={team === 'home' ? HomePlayer : AwayPlayer}
+            // source={team === 'home' ? HomePlayer : AwayPlayer}
+            source={imgSource}
             resizeMode="center">
             <Text
               style={{

@@ -25,6 +25,7 @@ ios/.xcode.env.local
 # Android/IntelliJ
 #
 build/
+all-apk-versions/
 .idea
 .gradle
 local.properties
@@ -41,7 +42,9 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-*/app/src/main/*
+*/app/src/main/res
+!/app/src/main/res/layout/splash_ad_show.xml
+!/app/src/main/res/drawable/splash_bg_custom_skip_view.xml
 
 # fastlane
 #
@@ -61,8 +64,15 @@ yarn-error.log
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+/ios/assets/src
+/ios/assets/srcIOs
+/ios/assets/srcA
+/ios/assets/static
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
 app.json
 android/app/src/main/res/values/strings.xml
+
+package-lock.json
+Podfile.lock

@@ -1,51 +1,56 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   View,
   TouchableOpacity,
   Text,
   StyleSheet,
   ScrollView,
-} from 'react-native';
-import ScreenContainer from '../../components/container/screenContainer';
-import {RootStackScreenProps} from '../../types/navigationTypes';
-import {useTheme} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {RootState} from '../../redux/store';
+} from "react-native";
+import ScreenContainer from "../../components/container/screenContainer";
+import { RootStackScreenProps } from "@type/navigationTypes";
+import { useTheme } from "@react-navigation/native";
+import { useAppDispatch, useAppSelector } from "@hooks/hooks";
+import { RootState } from "@redux/store";
 
-import TitleWithBackButtonHeader from '../../components/header/titleWithBackButtonHeader';
-import {VodRecordType, VodReducerState} from '../../redux/reducers/vodReducer';
-import {removeVodsFromHistory, playVod} from '../../redux/actions/vodActions';
-import VodHistoryCard from '../../components/vod/vodHistoryCard';
-import CheckBoxSelected from '../../../static/images/checkbox_selected.svg';
-import CheckBoxUnselected from '../../../static/images/checkbox_unselected.svg';
-import {VodType} from '../../types/ajaxTypes';
-import {Button} from '@rneui/themed';
-import ConfirmationModal from '../../components/modal/confirmationModal';
-import EmptyList from '../../components/common/emptyList';
+import TitleWithBackButtonHeader from "../../components/header/titleWithBackButtonHeader";
+import {
+  VodRecordType,
+  VodReducerState,
+} from "@redux/reducers/vodReducer";
+import { removeVodsFromHistory, playVod } from "@redux/actions/vodActions";
+import VodHistoryCard from "../../components/vod/vodHistoryCard";
+import CheckBoxSelected from "@static/images/checkbox_selected.svg";
+import CheckBoxUnselected from "@static/images/checkbox_unselected.svg";
+import { Button } from "@rneui/themed";
+import ConfirmationModal from "../../components/modal/confirmationModal";
+import EmptyList from "../../components/common/emptyList";
+import { disableAdultMode, enableAdultMode } from "@redux/actions/screenAction";
+import { Vod } from "@models";
+import { CLangKey } from "@constants";
 
 type FlatListType = {
   item: VodRecordType;
 };
 
-export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
-  const {colors, textVariants, icons, spacing} = useTheme();
+export default ({ navigation }: RootStackScreenProps<"播放历史">) => {
+  const { colors, textVariants, icons, spacing } = useTheme();
   const dispatch = useAppDispatch();
   const vodReducer: VodReducerState = useAppSelector(
-    ({vodReducer}: RootState) => vodReducer,
+    ({ vodReducer }: RootState) => vodReducer
   );
   const history = vodReducer.history;
   const [isEditing, setIsEditing] = useState(false);
-  const [removeHistory, setRemoveHistory] = useState<Array<VodType>>([]);
+  const [removeHistory, setRemoveHistory] = useState<Vod[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const textStyles = isEditing
-    ? [styles.text, textVariants.body, {marginLeft: 30}]
+    ? [styles.text, textVariants.body, { marginLeft: 30 }]
     : [styles.text, textVariants.body];
   const toggleOverlay = () => {
     setIsDialogOpen(!isDialogOpen);
   };
 
-  const toggleHistory = (vod: VodType) => {
-    const filtered = removeHistory.filter(x => x.vod_id !== vod.vod_id);
+  const toggleHistory = (vod: Vod) => {
+    const filtered = removeHistory.filter((x) => x.vod_id !== vod.vod_id);
     if (filtered.length === removeHistory.length) {
       setRemoveHistory([vod, ...removeHistory]);
     } else {
@@ -59,11 +64,11 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
   let customHistoryToday: any = [];
   let customHistoryEarly: any = [];
 
-  data.forEach(item => {
+  data.forEach((item) => {
     const recordedAt = new Date(item.recordedAt);
     if (
-      recordedAt.toISOString().split('T')[0] ===
-      today.toISOString().split('T')[0]
+      recordedAt.toISOString().split("T")[0] ===
+      today.toISOString().split("T")[0]
     ) {
       customHistoryToday.push(item);
     } else {
@@ -71,42 +76,56 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
     }
   });
 
-  console.log('customHistoryToday');
-  console.log(customHistoryToday);
+  // console.log("customHistoryToday");
+  // console.log(customHistoryToday);
 
-  console.log('customHistoryEarly');
-  console.log(customHistoryEarly);
+  // console.log("customHistoryEarly");
+  // console.log(customHistoryEarly);
   return (
     <ScreenContainer>
       <TitleWithBackButtonHeader
-        title="播放历史"
+        title={CLangKey.playHistory.tr()}
         right={
           <TouchableOpacity
             onPress={() => {
               setIsEditing(!isEditing);
               setRemoveHistory([]);
-            }}>
-            <Text style={{...textVariants.body, padding: 8}}>
-              {isEditing ? '取消' : '编辑'}
+            }}
+          >
+            <Text
+              style={{
+                ...textVariants.body,
+                // padding: 8,
+                opacity: history && history.length > 0 ? 100 : 0,
+              }}
+            >
+              {isEditing ? CLangKey.cancel.tr() : CLangKey.edit.tr()}
             </Text>
           </TouchableOpacity>
         }
-        headerStyle={{marginBottom: spacing.m}}
+      // headerStyle={{ marginBottom: spacing.m }}
       />
       {history && history.length > 0 ? (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        >
           {customHistoryToday.length > 0 && (
             <>
-              <View style={{marginBottom: 10}}>
-                <Text style={textStyles}>今日</Text>
+              <View style={{ marginBottom: 10 }}>
+                <Text style={textStyles}>{CLangKey.today.tr()}</Text>
                 {customHistoryToday.map(
                   (item: VodRecordType, index: number) => (
                     <View style={styles.card} key={index}>
                       {isEditing && (
                         <TouchableOpacity
                           style={styles.checkbox}
-                          onPress={() => toggleHistory(item)}>
-                          {removeHistory.some(x => x.vod_id === item.vod_id) ? (
+                          onPress={() => toggleHistory(item)}
+                        >
+                          {removeHistory.some(
+                            (x) => x.vod_id === item.vod_id
+                          ) ? (
                             <CheckBoxSelected
                               height={icons.sizes.m}
                               width={icons.sizes.m}
@@ -120,14 +139,32 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                         </TouchableOpacity>
                       )}
                       <VodHistoryCard
+                        activeOpacity={isEditing ? 1 : 0.2}
                         vod={item}
                         onPress={() => {
-                          dispatch(playVod(item));
-                          navigation.navigate('播放', {vod_id: item.vod_id});
+                          if (isEditing) {
+                            toggleHistory(item);
+                          } else {
+                            if (item.isAdultVideo) {
+                              dispatch(playVod(item));
+                              navigation.navigate("播放", {
+                                vod_id: item.vod_id,
+                                player_mode: 'adult'
+                              });
+                              dispatch(enableAdultMode())
+                            }
+                            else {
+                              dispatch(playVod(item));
+                              navigation.navigate("播放", {
+                                vod_id: item.vod_id,
+                              });
+                              dispatch(disableAdultMode())
+                            }
+                          }
                         }}
                       />
                     </View>
-                  ),
+                  )
                 )}
               </View>
             </>
@@ -135,14 +172,15 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
 
           {customHistoryEarly.length > 0 && (
             <>
-              <Text style={textStyles}>更早</Text>
+              <Text style={textStyles}>{CLangKey.earlier.tr()}</Text>
               {customHistoryEarly.map((item: VodRecordType, index: number) => (
                 <View style={styles.card} key={index}>
                   {isEditing && (
                     <TouchableOpacity
                       style={styles.checkbox}
-                      onPress={() => toggleHistory(item)}>
-                      {removeHistory.some(x => x.vod_id === item.vod_id) ? (
+                      onPress={() => toggleHistory(item)}
+                    >
+                      {removeHistory.some((x) => x.vod_id === item.vod_id) ? (
                         <CheckBoxSelected
                           height={icons.sizes.m}
                           width={icons.sizes.m}
@@ -156,10 +194,28 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
                     </TouchableOpacity>
                   )}
                   <VodHistoryCard
+                    activeOpacity={isEditing ? 1 : 0.2}
                     vod={item}
                     onPress={() => {
-                      dispatch(playVod(item));
-                      navigation.navigate('播放', {vod_id: item.vod_id});
+                      if (isEditing) {
+                        toggleHistory(item);
+                      } else {
+                        if (item.isAdultVideo) {
+                          dispatch(playVod(item));
+                          navigation.navigate("播放", {
+                            vod_id: item.vod_id,
+                            player_mode: 'adult'
+                          });
+                          dispatch(enableAdultMode())
+                        }
+                        else {
+                          dispatch(playVod(item));
+                          navigation.navigate("播放", {
+                            vod_id: item.vod_id,
+                          });
+                          dispatch(disableAdultMode())
+                        }
+                      }
                     }}
                   />
                 </View>
@@ -168,7 +224,7 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
           )}
         </ScrollView>
       ) : (
-        <EmptyList description="暂无播放历史" />
+        <EmptyList description={CLangKey.noX.tr({ x: CLangKey.playHistory.tr() })} />
       )}
       <ConfirmationModal
         onConfirm={() => {
@@ -179,8 +235,8 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
         }}
         onCancel={toggleOverlay}
         isVisible={isDialogOpen}
-        title="清除提示"
-        subtitle="您是否确定清除播放历史吗？"
+        title={CLangKey.clearXInform.tr({ x: CLangKey.playHistory.tr() })}
+        subtitle={CLangKey.confirmToClearX.tr({ x: CLangKey.playHistory.tr() })}
       />
       {isEditing && (
         <View style={styles.deleteConfirmationModal}>
@@ -197,11 +253,12 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
             }}
             containerStyle={styles.confirmationBtn}
             color={colors.card2}
-            titleStyle={{...textVariants.body, color: colors.muted}}>
+            titleStyle={{ ...textVariants.body, color: colors.muted }}
+          >
             {removeHistory.length === 0 ||
-            removeHistory.length !== history.length
-              ? '全选'
-              : '取消全选'}
+              removeHistory.length !== history.length
+              ? CLangKey.selectAll.tr()
+              : CLangKey.unselectAll.tr()}
           </Button>
           <Button
             onPress={() => {
@@ -215,8 +272,9 @@ export default ({navigation}: RootStackScreenProps<'播放历史'>) => {
               ...textVariants.body,
               color:
                 removeHistory.length === 0 ? colors.muted : colors.background,
-            }}>
-            删除
+            }}
+          >
+            {CLangKey.delete.tr()}
           </Button>
         </View>
       )}
@@ -229,18 +287,18 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   card: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   checkbox: {
     padding: 5,
   },
   deleteConfirmationModal: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 8,
   },
   confirmationBtn: {

@@ -1,15 +1,30 @@
-import {ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useTheme} from '@react-navigation/native';
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import {Dimensions} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  ViewStyle,
+  StatusBar,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTheme } from "@react-navigation/native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { Dimensions } from "react-native";
+import Orientation from "react-native-orientation-locker";
+import { useEffect, useMemo, useState } from "react";
+import { screenModel } from "@type/screenType";
+import { RootState } from "@redux/store";
+import { useAppSelector } from "@hooks/hooks";
 interface Props {
   children?: React.ReactNode;
   scrollView?: boolean;
   footer?: React.ReactNode;
   containerStyle?: ViewStyle;
   header?: React.ReactNode;
-  isVideoLandscape?: boolean;
+  isHome?: boolean;
+  isPlay?: boolean;
+  isBgHide?: boolean;
+  isTranslucent?: boolean;
+  isLightContent?: boolean;
 }
 export default function ScreenContainer({
   children,
@@ -17,9 +32,14 @@ export default function ScreenContainer({
   footer,
   containerStyle,
   header,
-  isVideoLandscape = false,
+  isHome = false,
+  isPlay = false,
+  isBgHide =false,
+  isTranslucent = false,
+  isLightContent = true
+
 }: Props) {
-  const windowHeight = Dimensions.get('window').height;
+  const windowHeight = Dimensions.get("window").height;
   let bottomTabHeight = 0;
 
   try {
@@ -32,29 +52,72 @@ export default function ScreenContainer({
   const displayHeight = windowHeight - bottomTabHeight;
 
   const insets = useSafeAreaInsets();
-  const {spacing, colors} = useTheme();
+  const { spacing, colors } = useTheme();
+
+  // const screenState: screenModel = useAppSelector(
+  //   ({ screenReducer }: RootState) => screenReducer
+  // );
+
+  // useEffect(() => {
+  //   if (isTranslucent) {
+  //     if (isLightContent) {
+  //       StatusBar.setBackgroundColor('transparent');
+  //       StatusBar.setBarStyle('light-content');
+  //     } else {
+  //       StatusBar.setBackgroundColor('transparent');
+  //       StatusBar.setBarStyle('dark-content');
+  //     }
+  //   } else {
+  //     if (isLightContent) {
+  //       StatusBar.setBackgroundColor('#000');
+  //       StatusBar.setBarStyle('light-content');
+  //     } else {
+  //       StatusBar.setBackgroundColor('#fff');
+  //       StatusBar.setBarStyle('dark-content');
+  //     }
+  //   }
+  // }, [])
+
+  const statusBarBackgroundColor = useMemo(() => {
+    if (isTranslucent) {
+      return 'transparent'
+    }
+    if (isBgHide) {
+      return 'inherit'
+    } else {
+      return 'black'
+    }
+  }, [isTranslucent, isBgHide])
+
+
   return (
     <>
       {scrollView ? (
         <ScrollView
           style={{
-            backgroundColor: colors.background,
-
+            backgroundColor: isBgHide ? 'inherit' : colors.background,
             paddingTop: insets.top,
             paddingBottom: insets.bottom,
             paddingLeft: insets.left,
             paddingRight: insets.right,
           }}
           stickyHeaderIndices={[0]}
-          contentContainerStyle={{paddingBottom: 30}}>
-          <>{header}</>
+          contentContainerStyle={{ paddingBottom: 30 }}
+        >
+          <StatusBar 
+            translucent={isTranslucent}
+            backgroundColor={statusBarBackgroundColor}
+            barStyle={isLightContent ? "light-content" : "dark-content"}  
+          />
+          {header}
           <View
             style={{
               ...styles.innerContainer,
               paddingLeft: spacing.sideOffset,
               paddingRight: spacing.sideOffset,
               ...containerStyle,
-            }}>
+            }}
+          >
             {children}
           </View>
           {footer}
@@ -62,22 +125,29 @@ export default function ScreenContainer({
       ) : (
         <View
           style={{
-            backgroundColor: colors.background,
+            backgroundColor: isBgHide ? 'inherit' : colors.background,
             ...styles.viewContainer,
-            paddingTop: insets.top,
-            // paddingBottom: insets.bottom,
-            // video fullscreen here
-            paddingLeft: isVideoLandscape ? 0 : insets.left,
-            paddingRight: isVideoLandscape ? 0 : insets.right,
-            height: displayHeight,
-          }}>
+            paddingTop: isPlay ? 0 : insets.top,
+            paddingBottom: !isHome || isPlay ? 0 : insets.bottom,
+            // // video fullscreen here
+            paddingLeft: isPlay ? 0 : insets.left,
+            paddingRight: isPlay ? 0 : insets.right,
+            // height: displayHeight,
+          }}
+        >
+          <StatusBar 
+            translucent={isTranslucent}
+            backgroundColor={statusBarBackgroundColor}
+            barStyle={isLightContent ? "light-content" : "dark-content"} 
+          />
           <View
             style={{
               ...styles.innerContainer,
               paddingLeft: spacing.sideOffset,
               paddingRight: spacing.sideOffset,
               ...containerStyle,
-            }}>
+            }}
+          >
             {children}
           </View>
           {footer}
@@ -89,8 +159,6 @@ export default function ScreenContainer({
 
 const styles = StyleSheet.create({
   viewContainer: {
-    paddingTop: 4,
-    flexGrow: 1,
     flex: 1,
   },
   innerContainer: {

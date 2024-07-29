@@ -15,7 +15,7 @@ import iconArrowRight from './images/iconArrowRight.png';
 import iconArrowLeft from './images/iconArrowLeft.png';
 import iconLogout from './images/iconLogout.png';
 import IconViewer from './images/iconViewer.png';
-import IconViewerGif from './images/iconViewerGif.gif';
+import IconViewerGif from './images/iconViewerGif1.gif';
 import IconBell from './images/iconBell.png';
 import IconBellActive from './images/iconBellActive.png';
 import Sub from './images/sub.png';
@@ -60,14 +60,16 @@ import DefaultFootballBg from './images/defaultFootballBg.png';
 import DefaultBasketballBg from './images/defaultBasketballBg.png';
 import LiveEndModalLogo from './images/liveEndModalLogo.png';
 import GoalLogo from './images/goalLogo.png';
-import WhistleOrange from './images/whistleOrange.png';
-import OrangeClock from './images/orangeClock.png';
+import WhistleOrange from './images/whistleOrange2.png';
+import OrangeClock from './images/orangeClock2.png';
 import FootBallField from './images/footballField.png';
 import FootBallFieldLayout from './images/footballFiledLayout.png';
 import HomeTeamField from './images/homeTeamField.png';
 import AwayTeamField from './images/awayTeamField.png';
 import VideoLive from './images/yellowVideoLive.png';
 import AnimationLive from './images/yellow-animation-live.png';
+import VideoLiveWhite from './images/whiteVideoLive.png';
+import AnimationLiveWhite from './images/whiteAnimationLive.png';
 import SubIn from './images/subIn.png';
 import SubOut from './images/subOut.png';
 import Goal from './images/goal.png';
@@ -83,13 +85,13 @@ import AwayPlayer from './images/awayPlayer.png';
 import GreenArrowUp from './images/greenArrowUp.png';
 import RedDownArrow from './images/redDownArrow.png';
 import RedGoal from './images/redGoal.png';
-import AssistGoal from './images/assistGoal.png';
-import ShootNoGoal from './images/shootNoGoal.png';
-import ShootYesGoal from './images/shootYesGoal.png';
+import AssistGoal from './images/assist.png';
+import ShootNoGoal from './images/shootNoGoal1.png';
+import ShootYesGoal from './images/shootYesGoal1.png';
 import PenaltyShoot from './images/penaltyShoot.png';
 import PenaltyShootNoGoal from './images/penaltyShootNoGoal.png';
 import YellowRedCard from './images/yellowRedCard.png';
-import VideoVAR from './images/videoVAR.png';
+import VideoVAR from './images/videoVAR1.png';
 import CornerShoot from './images/cornerShoot.png';
 import CornerKick from './images/cornerKick.png';
 import InOutTargetRed from './images/InOutTargetRed.png';
@@ -111,7 +113,7 @@ import IconArrowDown from './images/ArrowDown.png';
 import IconArrowRight from './images/ArrowRight.png';
 import PenaltyMatchIcon from './images/penaltyMatchIcon.png';
 import RedCircleBG from './images/redCircleBG.png';
-import YellowCircleBG from './images/yellowCircleBG.png';
+import YellowCircleBG from './images/yellowCircleBG1.png';
 import YellowScoreBall from './images/yellowScoreBall.png';
 import RedScoreBall from './images/redScoreBall.png';
 import BasketballHomeTeam from './images/basketballHomeTeam.png';
@@ -236,6 +238,8 @@ import ChatBotPhoto from './images/chatBotPhoto.png';
 import TypingLoading from './images/typingLoading.gif';
 import GiftLottie from './images/GIFT.json';
 import LottieRedBlink from './images/LottieRedBlink.json';
+
+import Live from './images/live.png';
 import {Image} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
@@ -484,4 +488,7 @@ export {
   TypingLoading,
   GiftLottie,
   LottieRedBlink,
+  Live,
+  VideoLiveWhite,
+  AnimationLiveWhite
 };

@@ -1,18 +1,24 @@
+import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import VodImageCard from './vodImageCard';
-import LoadingImage from '../../../static/images/loading_img.svg';
+import LoadingImage from '@static/images/loading_img.svg';
+import { memo } from 'react';
+import { ImageStyle } from 'react-native-fast-image';
 interface Props {
     vod_name?: string,
     vod_pic?: string,
-    vodImageStyle?: ViewStyle,
+    vodImageStyle?: ImageStyle,
+    vodCardContainerStyle?: ViewStyle,
     onPress?: any,
     showPlayIcon?: boolean
     showInfo?: string
     shadowBottom?: boolean
+    index? : number
+    vod_pic_list?: string[]
 }
 
-export default function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false }: Props) {
+function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress, showInfo, showPlayIcon = false, shadowBottom = false, vodCardContainerStyle={}, index, vod_pic_list }: Props) {
     const { colors, textVariants, spacing } = useTheme();
     return (
         <View style={{ marginRight: vodImageStyle?.marginRight !== undefined ? vodImageStyle.marginRight : spacing.m }}>
@@ -22,19 +28,22 @@ export default function VodCard({ vod_name, vod_pic, vodImageStyle = {}, onPress
                         <LoadingImage />
                     </View>
                     : <View style={{
-                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width,
+                        width: vodImageStyle?.width !== undefined ? vodImageStyle.width : styles.card.width, 
+                        marginBottom : 14, 
+                        ...vodCardContainerStyle
                     }}>
-                        <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} />
+                        <VodImageCard vod_img={vod_pic} shadowBottom={shadowBottom} vodStyle={{ ...styles.card, ...vodImageStyle }} onPress={onPress} showPlayIcon={showPlayIcon} showInfo={showInfo} index={index} vod_pic_list={vod_pic_list} />
                         <Text style={{
                             ...styles.text,
                             ...textVariants.small,
-                            height: (textVariants?.body?.fontSize === undefined ? 14 : textVariants?.body?.fontSize) * 2.5
                         }} numberOfLines={2}>{vod_name}</Text>
                     </View>
             }
         </View>
     );
 }
+
+export default memo(VodCard);
 
 const styles = StyleSheet.create({
     card: {
@@ -50,7 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     text: {
-        flex: 1,
+        flexShrink: 1,
         flexWrap: 'wrap',
         textAlign: 'center',
         paddingLeft: 10,

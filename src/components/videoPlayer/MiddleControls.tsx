@@ -1,66 +1,78 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { View, PanResponder, StyleSheet, TouchableOpacity } from 'react-native';
-import Play from '../../../static/images/blackPlay.svg';
-import Pause from '../../../static/images/pause.svg';
-import Rewind from '../../../static/images/rewind.svg';
-import Fastforward from '../../../static/images/fastforward.svg';
+import React, { useRef, memo } from 'react';
+import { View, StyleSheet } from 'react-native';
+import Play from '@static/images/blackPlay.svg';
+import Pause from '@static/images/pause.svg';
+import Rewind from '@static/images/rewind.svg';
+import Fastforward from '@static/images/fastforward.svg';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useTheme } from '@react-navigation/native';
 
 type Props = {
-    fastForward: (params: any) => any,
-    togglePlayPause: () => any,
-    paused: boolean
-    videoType?: string
-}
+  fastForward: (params: any) => any;
+  togglePlayPause: () => any;
+  paused: boolean;
+  videoType?: string;
+};
 
-export default ({ fastForward, togglePlayPause, paused, videoType }: Props) => {
+const MiddleControls = ({
+  fastForward,
+  togglePlayPause,
+  paused,
+  videoType,
+}: Props) => {
+  const onSkip = (seconds: number) => {
+    fastForward(seconds);
+  };
 
-    useEffect(() => {
-
-    }, [])
-
-    const onSkip = (seconds: number) => {
-        fastForward(seconds);
-    }
-
-    const onTogglePlayPause = () => {
-        togglePlayPause();
-    }
-
-    return (
-        <View style={styles.middleControls}>
-            {
-                videoType !== 'live' &&
-                <TouchableOpacity style={styles.sideButtons} onPress={() => onSkip(-10)}>
-                    <Rewind width={60} height={60} />
-                </TouchableOpacity>
-            }
-            <TouchableOpacity onPress={() => onTogglePlayPause()}>
-                {paused ?
-                    <Play width={55} height={55} />
-                    :
-                    <Pause width={55} height={55} />
-                }
-            </TouchableOpacity>
-            {
-                videoType !== 'live' &&
-                <TouchableOpacity style={styles.sideButtons} onPress={() => onSkip(10)}>
-                    <Fastforward width={60} height={60} />
-                </TouchableOpacity>
-            }
+  const onTogglePlayPause = () => {
+    togglePlayPause();
+  };
+  return (
+    <View style={styles.middleControls}>
+      {videoType !== 'live' && (
+        <View style={styles.leftButton}>
+          <TouchableOpacity
+            onPress={() => onSkip(-10)}>
+            <Rewind width={55} height={55} />
+          </TouchableOpacity>
         </View>
-    )
-}
+      )}
+      <TouchableOpacity
+        onPress={() => onTogglePlayPause()}>
+        {paused ? (
+          <Play width={55} height={55} />
+        ) : (
+          <Pause width={55} height={55} />
+        )}
+      </TouchableOpacity>
+      {videoType !== 'live' && (
+        <View style={styles.rightButton}>
+          <TouchableOpacity
+            onPress={() => onSkip(10)}>
+            <Fastforward width={55} height={55} />
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
+  );
+};
+
+export default memo(MiddleControls);
 
 const styles = StyleSheet.create({
-    middleControls: {
-        paddingHorizontal: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 3,
-    },
-    sideButtons: {
-        paddingLeft: 20,
-        paddingRight: 20,
-    }
+  middleControls: {
+    flexDirection: 'row',
+  },
+  sideButtons: {
+    paddingLeft: 46,
+    paddingRight: 46,
+  },
+  leftButton: {
+    alignItems: 'flex-end',
+    paddingRight: 23,
+  },
+  rightButton: {
+    alignItems: 'flex-start',
+    paddingLeft: 23,
+  },
 });

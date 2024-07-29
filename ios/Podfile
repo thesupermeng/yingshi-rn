@@ -1,5 +1,6 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native-permissions/scripts/setup'
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -19,9 +20,13 @@ linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
+  $RNFirebaseAsStaticFramework = true
 end
 
-target 'yingshi' do
+target 'aimeiju' do
+  # FFMpeg dependency 
+  pod 'ffmpeg-kit-react-native', :subspecs => ['full-gpl-lts'], :podspec => '../node_modules/ffmpeg-kit-react-native/ffmpeg-kit-react-native.podspec'
+
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -32,21 +37,101 @@ target 'yingshi' do
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
     # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => flags[:hermes_enabled],
+    :hermes_enabled => true,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    :flipper_configuration => FlipperConfiguration.disabled,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  
+  setup_permissions([
+     'AppTrackingTransparency',
+    # 'BluetoothPeripheral',
+    # 'Calendars',
+    # 'Camera',
+    # 'Contacts',
+    # 'FaceID',
+    # 'LocationAccuracy',
+    # 'LocationAlways',
+    # 'LocationWhenInUse',
+    # 'MediaLibrary',
+    # 'Microphone',
+    # 'Motion',
+    # 'Notifications',
+    # 'PhotoLibrary',
+    # 'PhotoLibraryAddOnly',
+    # 'Reminders',
+    # 'Siri',
+    # 'SpeechRecognition',
+    # 'StoreKit',
+  ])
 
-  target 'yingshiTests' do
+  target 'aimeijuTests' do
     inherit! :complete
     # Pods for testing
   end
+
+  # # UMPlusDemo为工程target名
+  pod 'UMCommon'   
+  pod 'UMDevice'
+
+  # # pod <友盟+SDK名> 按需复制相应SDK名称代码
+
+  # # 依赖库
+
+  pod 'UMCCommonLog'
+  # # 必选，APM组件，原错误分析升级为独立产品U-APM
+  pod 'UMAPM' 	
+  pod 'AppCenter'
+
+
+  pod 'AnyThinkiOS','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkMaioAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkStartAppAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkBaiduAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkNendAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkKuaiShouAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkSigmobAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkVungleAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkUnityAdsAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkIronSourceAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkTapjoyAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkTTAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkAdColonyAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkKlevinAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkKidozAdapter','6.2.82'
+  pod 'AnyThinkAdmobSDKAdapter','6.2.82.3'
+  pod 'AnyThinkiOS/AnyThinkInmobiAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkApplovinAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkMintegralAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkGDTAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkChartboostAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkMyTargetAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkFyberAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkOguryAdapter','6.2.82'
+
+  
+  # ========== not support in china (start) ==========
+  pod 'AnyThinkiOS/AnyThinkBigoAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkPubNativeAdapter','6.2.82'
+  pod 'AnyThinkPangleSDKAdapter','6.2.82.3'
+  pod 'AnyThinkiOS/AnyThinkFacebookAdapter','6.2.82'
+  pod 'AnyThinkiOS/AnyThinkYandexAdapter','6.2.82'
+  # ========== not support in china (end) ==========
+  
+
+  pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
+#  pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
+#  pod 'RNGoogleSignin', :path => "../node_modules/@react-native-google-signin/google-signin"
+
+# CodePush plugin dependency
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
 
   post_install do |installer|
     react_native_post_install(
@@ -55,6 +140,9 @@ target 'yingshi' do
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
     )
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end

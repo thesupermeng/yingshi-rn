@@ -17,7 +17,7 @@ import {
 } from '../../../assets';
 import styles from './style';
 import {Back} from '../videoPlayerControls/Controls';
-import AppSettingsAction from '../../../redux/actions/appSettingsAction';
+import AppSettingsAction from '@redux/actions/appSettingsAction';
 
 const VideoAdsComp = ({item, callBack}) => {
   const [time, setTime] = useState(10);

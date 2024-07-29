@@ -3,12 +3,13 @@ import {Colors} from '../../global/colors';
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
+    // display: 'flex',
+    // flexDirection: 'column',
     // borderBottomColor: Colors.colorDivider,
     // borderBottomWidth: 1,
     // paddingHorizontal: 16,
     backgroundColor: 'black',
+    // flex: 1
   },
   videoDiv: {
     width: '100%',

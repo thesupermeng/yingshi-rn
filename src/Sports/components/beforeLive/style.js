@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     
   },
   subIcon: {
-    height: 14,
+    height: 18,
     width: 22,
     // alignSelf: 'center',
     marginHorizontal: 5,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '25%',
+    height: '35%',
   },
   bookingButton: {
     backgroundColor: Colors.colorPrimary,

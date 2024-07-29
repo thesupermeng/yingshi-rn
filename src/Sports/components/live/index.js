@@ -1,8 +1,7 @@
 import React, {useEffect, useState, useMemo} from 'react';
 
-import {StatusBar, View} from 'react-native';
+import {View} from 'react-native';
 import styles from './style';
-import EmptyDataPage from '../../components/emptyDataPage';
 import Basic from '../../components/basicApp';
 import ZhuboPage from './zhuboPage';
 
@@ -66,7 +65,7 @@ const Live = props => {
   useEffect(() => {
     // Orientation.unlockAllOrientations();
     // return () => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     // };
   }, []);
 
@@ -114,7 +113,7 @@ const FullscreenPlayer = props => {
   useEffect(() => {
     // Orientation.unlockAllOrientations();
     // return () => {
-    Orientation.lockToLandscape();
+    // Orientation.lockToLandscape();
     // };
   }, []);
 
@@ -146,7 +145,7 @@ export default LivePage = ({route, navigation}) => {
 
   const handleNavigate = () => {
     clearInterval(interval);
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait();
     navigation.popToTop();
     navigation.navigate('All');
   };

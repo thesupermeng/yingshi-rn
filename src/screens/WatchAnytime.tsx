@@ -1,203 +1,287 @@
-import React, { useEffect, useState, useCallback, useMemo, memo } from 'react';
-import {
-    View,
-    Image,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    FlatList,
-    ViewToken,
-    StatusBar,
-    Dimensions,
-    SafeAreaView,
-    Text
-} from 'react-native';
-import ScreenContainer from '../components/container/screenContainer';
-import { useTheme, useFocusEffect } from '@react-navigation/native';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import Video from 'react-native-video';
-import { StyleSheet } from 'react-native';
-import { MiniVideo } from '../types/ajaxTypes';
+import { useAppDispatch, useAppSelector, useSelector } from '@hooks/hooks';
+import UmengAnalytics from '../../Umeng/UmengAnalytics';
+import NetInfo from '@react-native-community/netinfo';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import Wechat from '../../static/images/wechat.svg';
-import PYQ from '../../static/images/pyq.svg';
-import Weibo from '../../static/images/weibo.svg';
-import QQ from '../../static/images/qq.svg';
-import Search from '../../static/images/search.svg';
-import Play from '../../static/images/blackPlay.svg';
-import FastImage from 'react-native-fast-image';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import Orientation from 'react-native-orientation-locker';
-import { API_DOMAIN } from '../utility/constants';
-import { memoize } from 'lodash';
-import ShortVideoPlayer from '../components/videoPlayer/shortVodPlayer';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { SettingsReducerState } from '@redux/reducers/settingsReducer';
+import { RootState } from '@redux/store';
+import { MiniVideo } from '@type/ajaxTypes';
+import { screenModel } from '@type/screenType';
+import { API_DOMAIN_TEST } from '@utility/constants';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { AppState, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { useMinivodQuery } from '@api';
+import EighteenPlusControls from '../components/adultVideo/eighteenPlusControls';
+import ScreenContainer from '../components/container/screenContainer';
+import MiniVideoList from '../components/videoPlayer/WatchAnytime/miniVodList';
+import NoConnection from './../components/common/noConnection';
+import { CPressable } from '../components/atoms';
+import { showLoginAction } from '@redux/actions/screenAction';
+import { UserStateType } from '@redux/reducers/userReducer';
+import { User } from '@models';
+import BecomeVipOverlay from '../components/modal/becomeVipOverlay';
+import { ADULT_MODE_PREVIEW_DURATION, MINI_SHOW_LOGIN_NUMBER } from '@utility/constants';
+import { CLangKey } from '@constants';
 
 type MiniVideoResponseType = {
-    data: {
-        List: Array<MiniVideo>
+  data: {
+    List: Array<MiniVideo>;
+  };
+};
+
+type MiniVodRef = {
+  setPause: (pause: boolean) => void;
+};
+
+const LIMIT = 300;
+
+function WatchAnytime({ navigation }: BottomTabScreenProps<any>) {
+  const isFocused = useIsFocused();
+  // New state to keep track of app's background/foreground status
+  const [isInBackground, setIsInBackground] = useState(false);
+  const [flattenedVideos, setFlattenedVideos] = useState(Array<MiniVideo>);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
+  const [isPressTabScroll, setPressTabScroll] = useState(false);
+  const [isShowAdOverlay, setShowAdOverlay] = useState(false);
+  const miniVodRef = useRef<MiniVodRef>();
+  const miniVodListRef = useRef<any>();
+  const dispatch = useAppDispatch();
+
+  const settingsReducer: SettingsReducerState = useAppSelector(
+    ({ settingsReducer }: RootState) => settingsReducer,
+  );
+
+  const screenState: screenModel = useAppSelector(
+    ({ screenReducer }) => screenReducer,
+  );
+
+  const userState = useSelector<UserStateType>('userReducer');
+  const { adultMode: adultModeGlobal, watchAnytimeAdultMode } = screenState;
+  const adultMode = watchAnytimeAdultMode;
+
+  const isVip = User.isVip(userState.user);
+
+  const fetchMode = adultMode ? 'adult' : 'normal';
+  const isFocusLogin = useRef(false);
+
+  // ========== for analytics - start ==========
+  // Handle app's background/foreground status
+  const handleAppStateChange = (nextAppState: any) => {
+    setIsInBackground(nextAppState !== 'active');
+  };
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    // await queryClient.resetQueries(['watchAnytime']); // Pass the query key as an array of strings
+    await refetch();
+    setIsRefreshing(false);
+    return;
+  }, []);
+
+  const {
+    data: videos,
+    isSuccess,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isFetching,
+    refetch,
+    remove,
+  } = useMinivodQuery(fetchMode, isVip)
+
+  const checkConnection = useCallback(async () => {
+    const state = await NetInfo.fetch();
+    const offline = !(state.isConnected && state.isInternetReachable);
+    setIsOffline(offline);
+    if (!offline) {
+      handleRefresh();
     }
-}
+  }, []);
 
-export default ({ navigation }: BottomTabScreenProps<any>) => {
+  // ========== for analytics - start ==========
+  useFocusEffect(useCallback(() => {
+    UmengAnalytics.watchAnytimeViewsAnalytics({
+      isXmode: adultMode,
+    });
+  }, [adultMode]));
+  // ========== for analytics - end ==========
 
-    const { spacing } = useTheme();
+  // Add an event listener to the navigation object for the tab press event
+  // useEffect(() => {
+  //   const handleTabPress = () => {
+  //     if (isFocused && !isRefreshing) {
+  //       setPressTabScroll(true);
 
-    const [displayHeight, setDisplayHeight] = useState<number | null>(0);
-    const [current, setCurrent] = useState<number | null>(0);
-    const [isPaused, setIsPaused] = useState(false);
-    const LIMIT = 100;
-    const fetchVods = (page: number) => fetch(
-        `${API_DOMAIN}miniVod/v1/miniVod?page=${page}&limit=${LIMIT}`,
-    )
-        .then(response => response.json())
-        .then((json: MiniVideoResponseType) => {
-            return json.data.List
-        })
+  //       miniVodListRef.current?.scrollToIndex({
+  //         index: 0,
+  //         animated: true,
+  //       });
 
-    const { data: videos, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } =
-        useInfiniteQuery(['watchAnytime'], ({ pageParam = 1 }) => fetchVods(pageParam), {
-            getNextPageParam: (lastPage, allPages) => {
-                if (lastPage === null) {
-                    return undefined;
-                }
-                const nextPage =
-                    lastPage.length === LIMIT ? allPages.length + 1 : undefined;
-                return nextPage;
-            },
-            onSuccess: (data) => {
-            }
+  //       // 0.5 second for scroll animation, hide all video
+  //       setTimeout(() => {
+  //         setPressTabScroll(false);
+  //         handleRefresh();
+  //       }, 500);
+  //     }
+  //   };
+  //   const unsubscribe = navigation.addListener('tabPress', handleTabPress);
+  //   // Clean up the event listener when the component unmounts
+  //   return () => unsubscribe();
+  // }, [isFocused, isRefreshing]);
+
+  useEffect(() => {
+    setPressTabScroll(true);
+
+    // miniVodListRef.current?.scrollToIndex({
+    //   index: 0,
+    //   animated: false,
+    // });
+
+    // 0.5 second for scroll animation, hide all video
+    setTimeout(() => {
+      setPressTabScroll(false);
+      // handleRefresh();
+    }, 500);
+  }, [adultMode]);
+
+  useEffect(() => {
+    if (videos != undefined) {
+      let filtered = videos?.pages.flat().filter(x => x)
+
+      // vip -> filter ads
+      // guest -> filter first 10
+
+      if (isVip) {
+        filtered = filtered.filter(x => !x.is_ads)
+      }
+
+      if (User.isGuest(userState.user) && !adultMode && !User.isVip(userState.user)) {
+        filtered = filtered.slice(0, MINI_SHOW_LOGIN_NUMBER + 1);
+      }
+
+      setFlattenedVideos(filtered); // remove null values
+      if (filtered.length > 0) {
+        miniVodListRef.current?.scrollToOffset({
+          index: 0,
+          animated: false,
         });
+      }
+    }
+  }, [videos, userState.user]);
 
-    const navBarHeight = useBottomTabBarHeight();
-
-    useFocusEffect(
-        useCallback(() => {
-            setIsPaused(false);
-            Orientation.lockToPortrait();
-            return () => {
-                setIsPaused(true);
-                Orientation.unlockAllOrientations();
-            };
-        }, [])
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
     );
 
-    // const windowHeight = Dimensions.get('window').height;
-    // console.log("Has Notch : ", hasNotch)
-    // console.log("Full Screen Height : ", windowHeight)
-    // console.log("Bottom Nav Height : ", navBarHeight)
-    // console.log("Full Screen - Bottom Nav Height : ", windowHeight - navBarHeight)
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
-    const handleViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any }) => {
-        if (viewableItems.length == 1 && typeof viewableItems[0] != 'undefined') {
-            const curr = viewableItems[0].index;
-            setCurrent(curr);
-        }
-    }, []);
-    return (
-        <ScreenContainer containerStyle={{ paddingLeft: 0, paddingRight: 0 }}>
-            <View style={{ position: 'absolute', top: 0, left: 0, padding: 20, zIndex: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: '#FFF', fontSize: 20 }}>随心看</Text>
-            </View>
-            <View style={{ flex: 1 }} onLayout={(event: any) => {
-                var { x, y, width, height } = event.nativeEvent.layout;
-                setDisplayHeight(height)
-            }}>
-                <FlatList
-                    data={videos?.pages.flat()}
-                    initialNumToRender={1}
-                    maxToRenderPerBatch={3}
-                    windowSize={5}
-                    renderItem={({ item, index }: { item: MiniVideo, index: number }) => {
-                        return <View style={{ height: displayHeight ? displayHeight : 0 }}>
-                            {
-                                current !== null && Math.abs(current - index) <= 2 && <ShortVideoPlayer
-                                    vod_url={item.mini_video_origin_video_url}
-                                    isActive={current === index && !isPaused}
-                                    thumbnail={item.mini_video_origin_cover}
-                                    videoTitle={item.mini_video_title}
-                                    displayHeight={displayHeight ? displayHeight : 0}
-                                />
-                            }
-                        </View>
-                    }}
-                    horizontal={false}
-                    pagingEnabled={true}
-                    keyExtractor={(item: any, index: any) => item.mini_video_id.toString()}
-                    viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
-                    showsHorizontalScrollIndicator={false}
-                    onViewableItemsChanged={handleViewableItemsChanged}
-                    onEndReached={() => {
-                        if (hasNextPage && !isFetchingNextPage && !isFetching) {
-                            console.log('Fetching next page')
-                            fetchNextPage();
-                        }
-                    }}
-                    onEndReachedThreshold={0.8}
-                    ListFooterComponent={
-                        <View style={{ ...styles.loading, marginBottom: spacing.xl }}>
-                            {
-                                hasNextPage && <FastImage
-                                    style={{ height: 80, width: 80 }}
-                                    source={require('../../static/images/loading-spinner.gif')}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            }
-                        </View>
-                    }
-                />
-                {/* <Text style={{ position: 'absolute', bottom: 0, right: 0 }}>aaaa</Text> */}
-            </View>
-        </ScreenContainer>
-    )
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        !settingsReducer.isOffline &&
+        settingsReducer.isOffline !== isOffline
+      ) {
+        setIsOffline(settingsReducer.isOffline);
+        handleRefresh();
+      } else if (settingsReducer.isOffline) {
+        return () => {
+          miniVodRef.current?.setPause(true);
+          setIsOffline(settingsReducer.isOffline);
+        };
+      }
+    }, [settingsReducer.isOffline]),
+  );
+
+  useEffect(() => {
+    if (User.isLogin(userState.user) && isFocusLogin.current) {
+      isFocusLogin.current = false;
+    }
+  }, [userState.user?.userToken]);
+
+  const onFocusLoginOverlayPress = () => {
+    dispatch(showLoginAction());
+  }
+
+  const onPressAds = () => {
+    setShowAdOverlay(true);
+  };
+
+  const onCloseAdOverlay = () => {
+    setShowAdOverlay(false);
+  };
+
+  return (
+    <ScreenContainer containerStyle={styles.containerStyle}>
+      <View style={styles.titleTextContainer}>
+        <Text style={styles.titleText}>{CLangKey.watchanytimeTab.tr()}</Text>
+      </View>
+      <EighteenPlusControls />
+      {!isOffline && (
+        <MiniVideoList
+          ref={miniVodRef}
+          miniVodListRef={miniVodListRef}
+          videos={flattenedVideos}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetching={isFetching}
+          isFetchingNextPage={isFetchingNextPage}
+          isActive={isFocused && !isInBackground}
+          handleRefreshMiniVod={handleRefresh}
+          isRefreshing={isRefreshing}
+          isPressTabScroll={isPressTabScroll}
+          key={adultMode.toString()}
+          isFocusLogin={isFocusLogin}
+          onPressAds={onPressAds}
+        />
+      )}
+      {isFocusLogin.current &&
+        <CPressable
+          onPress={onFocusLoginOverlayPress}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            zIndex: 999,
+          }}
+        />
+      }
+
+      <BecomeVipOverlay
+        setShowBecomeVIPOverlay={setShowAdOverlay}
+        showBecomeVIPOverlay={isShowAdOverlay}
+        isJustClose={true}
+        selectedTab="common"
+        onClose={onCloseAdOverlay}
+      />
+
+      {isOffline && <NoConnection onClickRetry={checkConnection} />}
+    </ScreenContainer>
+  );
 }
 
+export default memo(WatchAnytime);
+
 const styles = StyleSheet.create({
-    video: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: '#000',
-        // border: '1px solid red'
-    },
-    bottomRightText: {
-        fontSize: 12,
-        color: '#FFFFFF',
-    },
-    bottomRightBn: {
-        width: 50,
-        height: 40,
-        marginTop: 20,
-        marginLeft: 20,
-        marginRight: 35,
-        alignItems: 'center',
-        textAlign: 'center'
-    },
-    pauseOverlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        paddingHorizontal: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: '#00000010',
-        zIndex: 10,
-        // backgroundColor: 'yellow',
-    },
-    buffering: {
-        paddingHorizontal: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 3,
-        color: 'yellow',
-        position: 'absolute',
-        top: '40%',
-        left: '36%',
-        zIndex: 100
-    },
-    loading: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        flex: 1
-    }
-})
+  containerStyle: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingBottom: 10,
+  },
+  titleTextContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: 20,
+    zIndex: 50,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleText: { color: '#FFF', fontSize: 20 },
+});

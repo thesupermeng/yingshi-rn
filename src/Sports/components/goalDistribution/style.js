@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
         width: '30%',
         flexDirection: "row",
         marginRight: 5,
-        backgroundColor: '#FFBC4A'
+        backgroundColor: '#FFB90D'
     },
     goalDistributionAwayView: {
         width: '30%',
         flexDirection: "row",
         marginRight: 5,
-        backgroundColor: '#2BD57D'
+        backgroundColor: '#FF6835'
     },
     goalDistributionTime:{
         fontFamily: 'PingFang SC',
@@ -82,22 +82,22 @@ const styles = StyleSheet.create({
     goalDistributionHome: {
         height: 22,
         width: "33%",
-        backgroundColor: "#FFBC4A"
+        backgroundColor: "#FFB90D"
     },
     goalDistributionHomeHighest: {
         height: 22,
         width: "33%",
-        backgroundColor: "#FAC33D"
+        backgroundColor: "#FFCB4E"
     },
     goalDistributionAway: {
         height: 22,
         width: "33%",
-        backgroundColor: "#2BD57D"
+        backgroundColor: "#FF6835"
     },
     goalDistributionAwayHighest: {
         height: 22,
         width: "33%",
-        backgroundColor: "#FF6835",
+        backgroundColor: "#FF7E53",
     },
     goalDistributionText: {
         fontFamily: 'PingFang SC',

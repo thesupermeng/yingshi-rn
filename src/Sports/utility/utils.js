@@ -1,6 +1,6 @@
 import vars from './vars';
 import Api from '../middleware/api';
-import { Url } from '../middleware/url';
+import {Url} from '../middleware/url';
 // import { Alert, Linking, Platform } from 'react-native';
 // import ReactNativeBlobUtil from 'react-native-blob-util';
 // import {
@@ -10,7 +10,7 @@ import { Url } from '../middleware/url';
 //   openSettings,
 // } from 'react-native-permissions';
 import RNFS from 'react-native-fs';
-// import AppSettingsAction from '../redux/actions/appSettingsAction';
+// import AppSettingsAction from '@redux/actions/appSettingsAction';
 // import Config from '../global/env';
 // import { AppConfig } from '../global/appConfig';
 // import { getPredictionShareTimeStamp } from '../global/asyncStorage';
@@ -335,7 +335,7 @@ export const deepCopyArray = array => {
 };
 
 export const liveRoomName = async matchId => {
-  const params = { id: matchId };
+  const params = {id: matchId};
   const res = await Api.call(Url.liveRoomDetail, params, 'GET');
   if (res.success) {
     if (res.data.id === 0) {
@@ -357,10 +357,10 @@ type scoreObjType = {
   homeScore: number,
   awayScore: number,
   state: number,
-}
+};
 
 export const getMatchScore = (scores, sportType) => {
-  let scoreObj : scoreObjType|null = null;
+  let scoreObj: scoreObjType | null = null;
   if (sportType == 1) {
     scoreObj = {
       homeScore: scores[2],
@@ -567,10 +567,10 @@ export const mergeDeep = (target, ...sources) => {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
+        if (!target[key]) Object.assign(target, {[key]: {}});
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        Object.assign(target, {[key]: source[key]});
       }
     }
   }
@@ -618,7 +618,7 @@ export const convertSeasonList = list => {
         }
         return item;
       });
-      return { id: e?.id, year: formatList.join('-') };
+      return {id: e?.id, year: formatList.join('-')};
     }
     return e;
   });
@@ -636,6 +636,7 @@ export const getRandomColor = () => {
 export const getRandomDeepColor = () => {
   const min = 20;
   const balance = 170;
-  return `rgb(${Math.floor(Math.random() * balance) + min},${Math.floor(Math.random() * balance) + min
-    },${Math.floor(Math.random() * balance) + min})`;
+  return `rgb(${Math.floor(Math.random() * balance) + min},${
+    Math.floor(Math.random() * balance) + min
+  },${Math.floor(Math.random() * balance) + min})`;
 };

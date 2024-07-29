@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#1D2023',
     // flex: 1,
     // marginHorizontal: 10,
     display: 'flex',
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   verticalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#1D2023',
     // flex: 1,
     // marginHorizontal: 10,
     display: 'flex',

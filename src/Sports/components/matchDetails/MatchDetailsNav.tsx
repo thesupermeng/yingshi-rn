@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
-import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Image, SafeAreaView } from 'react-native';
+import { View, TouchableOpacity, Share, Text, StyleSheet, Alert, ScrollView, Image, SafeAreaView, Keyboard, Platform } from 'react-native';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
-import { DetailTab } from '../../../types/ajaxTypes';
+import { DetailTab } from '@type/ajaxTypes';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
@@ -9,18 +9,22 @@ const Tab = createMaterialTopTabNavigator();
 interface Props {
     streamId: number;
     tabList: Array<DetailTab> | undefined;
+    defaultTabName: string;
+    isKeyboardShow?: boolean;
 }
 
-export default function MatchDetailsNav({ tabList, streamId }: Props) {
+export default function MatchDetailsNav({ tabList, streamId, defaultTabName, isKeyboardShow = false }: Props) {
     const { colors } = useTheme();
     // console.log('MATCH DETAILSS');
 
     return (
+        // <SafeAreaView style={{ flex: 1, marginBottom: isKeyboardShow ? 0 : 50, }}>
         <SafeAreaView style={{ flex: 1 }}>
             <Tab.Navigator
-                initialRouteName={"Live"}
+                initialRouteName={defaultTabName}
                 keyboardDismissMode="none"
                 screenOptions={{
+                    animationEnabled: Platform.OS === 'ios',
                     tabBarScrollEnabled: false,
                     tabBarIndicatorStyle: {
                         // width: '10%',
@@ -46,7 +50,7 @@ export default function MatchDetailsNav({ tabList, streamId }: Props) {
                     },
                 }}
                 // tabBar={tabBarArrow}
-                sceneContainerStyle={{ backgroundColor: 'white' }}>
+                sceneContainerStyle={{ backgroundColor: '#14161A' }}>
                 {tabList != undefined && tabList.map((tab, index) => {
                     return (
                         <Tab.Screen

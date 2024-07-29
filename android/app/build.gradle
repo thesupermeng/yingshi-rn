@@ -1,8 +1,17 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
+
+// apply from: 'topon_china.gradle'
+apply from: 'topon_non_china.gradle'
 
 import com.android.build.OutputFile
 
+
+def ANALYTICS_FIREBASE = "0";
+def ANALYTICS_UMENG = "1";
+def Umeng_Channel_Label = "SAMSUNG";
+def ENV_MODE = "PROD";
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -88,21 +97,38 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+// apply from: new File(["node", "--print", "require.resolve('@sentry/react-native/package.json')"].execute().text.trim(), "../sentry.gradle")
 android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.yingshi"
+    namespace "com.yingshitv"
     defaultConfig {
-        applicationId "com.yingshi"
+        applicationId "com.yingshitv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.1.0"
-        resValue "string", "UMENG_APPKEY", '648ec50987568a379b587f39'
-        resValue "string", "UMENG_CHANNEL", '10001'
-        resValue "string", "UMENG_CHANNEL_APPNEXT", '10002'
+            // ABB version 79 , 13 jun  from yingshitv, remember set ENABLE_APPSFLYER in const & change key store for yingshipin 
+        versionCode 93
+        versionName "1.9.1"
+        resValue "string", "ANALYTICS_FIREBASE", ANALYTICS_FIREBASE
+        resValue "string", "ANALYTICS_UMENG", ANALYTICS_UMENG
+        resValue "string", "UMENG_APPKEY", "648ec50987568a379b587f39"
+        resValue "string", "UMENG_CHANNEL", "SAMSUNG"
+        resValue "string", "UMENG_CHANNEL_GENERAL", "DEFAULT"
+        resValue "string", "UMENG_CHANNEL_YINGSHI_WEB", "WEB"
+        resValue "string", "UMENG_CHANNEL_GOOGLE_PLAY", "GOOGLE_PLAY"
+        resValue "string", "UMENG_CHANNEL_HUAWEI_APP_GALLERY_OVERSEAS", "HUAWEI_APP_GALLERY_OVERSEAS"
+        resValue "string", "UMENG_CHANNEL_OPPO_APP_MARKET", "OPPO_APP_MARKET"
+        resValue "string", "UMENG_CHANNEL_VIVO_APP_STORE", "VIVO_APP_STORE"
+        resValue "string", "UMENG_CHANNEL_MI_GETAPPS", "MI_GETAPPS"
+        resValue "string", "UMENG_CHANNEL_SAMSUNG_GALAXY_STORE", "SAMSUNG_GALAXY_STORE"
+        resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+        resValue "string", "ADMOB_APP_ID", "ca-app-pub-6143222543441738~9468533238"
+        ndk {
+           abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
+        }
+        missingDimensionStrategy "store", "play"
     }
 
     splits {
@@ -132,8 +158,6 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -157,24 +181,51 @@ android {
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
+            // def umengChannel = android.defaultConfig.resValue.UMENG_CHANNEL
+
+            // output.outputFile = new File(
+            //     output.outputFile.parent,
+            //     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+        }
+        
+        variant.outputs.all {
+           outputFileName = "yingshi-${variant.versionName}-${Umeng_Channel_Label}-${ENV_MODE}.apk"
         }
     }
+}
+
+task moveApk(type: Copy) {
+    from 'build/outputs/apk/debug/'
+    into 'all-apk-versions/'
+    include '**/*.apk'
 }
 
 repositories{
     flatDir{
         dirs 'libs'
     }
+
+
 }
 
 dependencies {
+    // adjust
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+    implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation fileTree(include:['*.jar'], dir:'libs')
-    implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
-    implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
-    implementation (name:'umeng-common-9.6.1', ext:'aar')
-
+    // implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    if(ANALYTICS_UMENG == "1"){
+        implementation (name:'umeng-asms-armeabi-v1.8.0', ext:'aar')
+        implementation (name:'umeng-abtest-v1.0.1', ext:'aar')
+        implementation (name:'umeng-common-9.6.8', ext:'aar')
+        implementation (name:'uyumao-1.1.2', ext:'aar')
+    }
+    implementation (name:'anythink_reactnativejs_bridge', ext:'aar')
+    
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("androidx.core:core-splashscreen:1.0.0")
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
@@ -188,6 +239,15 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation project(':react-native-immersive-mode')
+
+    implementation ("com.facebook.react:react-native:+"){  // From node_modules
+        exclude group:'com.squareup.okio', module:'okio'
+    }
+
+    implementation("com.android.billingclient:billing:6.0.1")
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
